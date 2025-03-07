@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg04;
+package it.polimi.ingsw.cg04.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,5 +57,5 @@ public class Bank {
     private void addBoxes(boxType type, int num){
         boxes.put(type, boxes.get(type) + num);
     }
-    
+
 }

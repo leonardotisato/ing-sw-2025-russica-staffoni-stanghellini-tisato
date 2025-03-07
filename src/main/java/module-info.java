@@ -3,7 +3,10 @@ module it.polimi.ingsw.cg04 {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires java.desktop;
 
     opens it.polimi.ingsw.cg04 to javafx.fxml;
     exports it.polimi.ingsw.cg04;
+    exports it.polimi.ingsw.cg04.model;
+    opens it.polimi.ingsw.cg04.model to javafx.fxml;
 }
