@@ -8,5 +8,6 @@ module it.polimi.ingsw.cg04 {
     opens it.polimi.ingsw.cg04 to javafx.fxml;
     exports it.polimi.ingsw.cg04;
     exports it.polimi.ingsw.cg04.model;
+    exports it.polimi.ingsw.cg04.model.enumerations;
     opens it.polimi.ingsw.cg04.model to javafx.fxml;
 }
