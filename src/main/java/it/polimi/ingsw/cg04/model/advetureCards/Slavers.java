@@ -6,6 +6,13 @@ public class Slavers extends AdventureCard{
     private int membersLost;
     private int creditsEarned;
 
+    public Slavers(int cardLevel, int daysLost, int firePower, int membersLost, int creditsEarned){
+        super(cardLevel, daysLost);
+        this.firePower = firePower;
+        this.membersLost = membersLost;
+        this.creditsEarned = creditsEarned;
+    }
+
     public void solveEffect(){
         // add effect
     }
