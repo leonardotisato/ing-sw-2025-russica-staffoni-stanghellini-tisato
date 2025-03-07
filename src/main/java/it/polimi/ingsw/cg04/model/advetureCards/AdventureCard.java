@@ -5,6 +5,11 @@ abstract class AdventureCard {
     private int cardLevel;
     private int daysLost;
 
+    public AdventureCard(int cardLevel, int daysLost){
+        this.cardLevel = cardLevel;
+        this.daysLost = daysLost;
+    }
+
     public abstract void solveEffect();
 
     public int getCardLevel() {
