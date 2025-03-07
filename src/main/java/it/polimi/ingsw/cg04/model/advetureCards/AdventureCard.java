@@ -5,7 +5,7 @@ abstract class AdventureCard {
     private int cardLevel;
     private int daysLost;
 
-    abstract void solveEffect();
+    public abstract void solveEffect();
 
     public int getCardLevel() {
         return cardLevel;
