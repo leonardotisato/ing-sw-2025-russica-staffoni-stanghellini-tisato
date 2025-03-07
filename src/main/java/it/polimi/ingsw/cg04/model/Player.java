@@ -86,7 +86,7 @@ public class Player {
 
     public boolean placeComponent(int x, int y){
         // todo
-        return false;
+    return false;
     }
 
 

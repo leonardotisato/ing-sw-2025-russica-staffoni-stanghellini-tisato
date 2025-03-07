@@ -1,8 +1,6 @@
 package it.polimi.ingsw.cg04.model;
-import it.polimi.ingsw.cg04.model.FlightBoard;
-import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ public class Game{
     private int numPlayers;
     private List<Player> players;
     private FlightBoard board;
-    private State state;
+    private GameState gameState;
     private Bank bank;
 
     private Game(){
@@ -21,7 +19,7 @@ public class Game{
         this.numPlayers = 0;
         this.players = new ArrayList<Player>();
         this.board = new FlightBoard();
-        this.state = State.START;
+        this.gameState = GameState.START;
     }
 
     public void setNumPlayers(int num){
@@ -81,11 +79,11 @@ public class Game{
     }
 
     public void startBuildPhase(){
-        this.state = State.BUILDING;
+        this.gameState = GameState.BUILDING;
     }
 
     public void startFLIGHT(){
-        this.state = State.FLIGHT;
+        this.gameState = GameState.FLIGHT;
     }
 
     public void checkShips(){

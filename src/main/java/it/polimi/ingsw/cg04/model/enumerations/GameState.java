@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg04.model.enumerations;
 
-public enum State {
+public enum GameState {
     START,
     BUILDING,
     FLIGHT,
