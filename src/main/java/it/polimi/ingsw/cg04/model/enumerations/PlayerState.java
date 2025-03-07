@@ -1,11 +1,12 @@
 package it.polimi.ingsw.cg04.model.enumerations;
 
-public enum Ranking {
+public enum PlayerState {
     FIRST,
     SECOND,
     THIRD,
     FOURTH,
     RETIRED,
     LOST,
-    BUILDING
+    BUILDING,
+    IN_LOBBY
 }
