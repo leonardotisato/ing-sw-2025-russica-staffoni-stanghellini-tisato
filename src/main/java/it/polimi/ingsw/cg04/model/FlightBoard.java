@@ -1,7 +1,10 @@
 package it.polimi.ingsw.cg04.model;
 
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
 import java.util.Random;
+import java.util.List;
+import java.util.Map;
 
 public abstract class FlightBoard {
     private Player[] path;

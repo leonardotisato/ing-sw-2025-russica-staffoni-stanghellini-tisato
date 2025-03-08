@@ -2,15 +2,17 @@ package it.polimi.ingsw.cg04.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+
 
 public class Bank {
     public int numCredits;
     public int numBatteries;
-    public Map<boxType, Integer> boxes;
+    public Map<BoxType, Integer> boxes;
     public int numHumans;
     public int numAliens;
 
-    private Bank(int numCredits, int numBatteries, int numHumans, int numAliens, Map<boxType, Integer> boxes) {
+    private Bank(int numCredits, int numBatteries, int numHumans, int numAliens, Map<BoxType, Integer> boxes) {
         this.numCredits = numCredits;
         this.numBatteries = numBatteries;
         this.numHumans = numHumans;
@@ -50,11 +52,11 @@ public class Bank {
         return this.numAliens;
     }
 
-    private Map<boxType,Integer> getBoxes(){
+    private Map<BoxType,Integer> getBoxes(){
         return this.boxes;
     }
 
-    private void addBoxes(boxType type, int num){
+    private void addBoxes(BoxType type, int num){
         boxes.put(type, boxes.get(type) + num);
     }
 

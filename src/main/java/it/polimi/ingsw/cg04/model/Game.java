@@ -18,7 +18,7 @@ public class Game{
         this.maxPlayers = 0;
         this.numPlayers = 0;
         this.players = new ArrayList<Player>();
-        this.board = new FlightBoard();
+        //this.board = new FlightBoard();
         this.gameState = GameState.START;
     }
 
