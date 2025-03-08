@@ -4,6 +4,7 @@ module it.polimi.ingsw.cg04 {
 
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires java.sql;
 
     opens it.polimi.ingsw.cg04 to javafx.fxml;
     exports it.polimi.ingsw.cg04;
