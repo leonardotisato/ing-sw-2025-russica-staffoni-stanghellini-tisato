@@ -2,10 +2,12 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.FlightBoard;
+import it.polimi.ingsw.cg04.model.ships.Ship;
+import it.polimi.ingsw.cg04.model.components.Component;
 
 public class Player {
 
-    private String name;
+    private final String name;
     private final PlayerColor color;
     private PlayerState state;
     private int loops = 0;
