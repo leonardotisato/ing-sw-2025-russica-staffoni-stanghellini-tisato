@@ -2,8 +2,8 @@ package it.polimi.ingsw.cg04.model.advetureCards;
 
 abstract class AdventureCard {
 
-    private int cardLevel;
-    private int daysLost;
+    private final int cardLevel;
+    private final int daysLost;
 
     public AdventureCard(int cardLevel, int daysLost){
         this.cardLevel = cardLevel;
