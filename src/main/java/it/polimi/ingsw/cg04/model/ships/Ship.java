@@ -2,13 +2,20 @@ package it.polimi.ingsw.cg04.model.ships;
 import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.enumerations.Shot;
+import it.polimi.ingsw.cg04.model.enumerations.Meteor;
+
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
 
-public abstract class Ship {
+public class Ship {
+
+    private final int level;
+    private final int shipHeight;
+    private final int shipWidth;
 
     private int numHumans = 0;
     private int numAliens = 0;
@@ -22,6 +29,22 @@ public abstract class Ship {
     private int baseFirePower = 0;
     private int basePropulsionPower = 0;
     private Tile[][] tilesMatrix;
+
+    public Ship(int lev) {
+        this.level = lev;
+
+        assert (this.level == 1 || this.level == 2);
+        if (this.level == 1) {
+            this.shipWidth = 5;
+            this.shipHeight = 5;
+        }
+        else {
+            this.shipWidth = 7;
+            this.shipHeight = 5;
+        }
+
+        this.tilesMatrix = new Tile[this.shipWidth][this.shipHeight];
+    }
 
     public int getNumBrokenTiles() {
         return numBrokenTiles;
@@ -104,6 +127,7 @@ public abstract class Ship {
     }
 
     // this method remove 'lostBoxes' boxes, prioritizing high value boxes, then removes battery. As stated in the game rules
+    // todo: this method only updates the new boxes map, does not remove box from a storageTile!!
     public void removeBoxes(int lostBoxes) {
         int yetToRemove = lostBoxes;
         List<BoxType> sortedTypes = this.boxes.keySet().stream().sorted(Comparator.comparing(BoxType::getPriority).reversed()).toList();
@@ -120,6 +144,7 @@ public abstract class Ship {
     }
 
     // returns the number of boxes that were removed
+    // todo: add storageTile location from the matrix to remove boxes from the tile as well?
     public int removeBoxes(BoxType type, int lostBoxes) {
         Integer currentCount = this.boxes.get(type);
 
@@ -152,9 +177,15 @@ public abstract class Ship {
         return false;
     }
 
-    // todo: change Meteor and Shot enums into Attacks enum which includes both...
     // the method should return true if component was broken, so state of the ship can be updated
-    public boolean handleAttack(Direction dir, AttackType attack){
+    // k is height/width of the attack depending on dir
+    public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
+        return  true;
+    }
+
+    // the method should return true if component was broken, so state of the ship can be updated
+    // k is height/width of the attack depending on dir
+    public boolean handleShot(Direction dir, Shot shot, int k) {
         return true;
     }
 }
