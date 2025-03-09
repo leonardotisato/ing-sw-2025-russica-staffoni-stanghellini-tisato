@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
-import it.polimi.ingsw.cg04.model.FlightBoard;
+import it.polimi.ingsw.cg04.model.Game;
 
 public abstract class AdventureCard {
 
@@ -12,7 +12,7 @@ public abstract class AdventureCard {
         this.daysLost = daysLost;
     }
 
-    public abstract void solveEffect(FlightBoard flightBoard);
+    public abstract void solveEffect(Game game);
 
     public int getCardLevel() {
         return cardLevel;
