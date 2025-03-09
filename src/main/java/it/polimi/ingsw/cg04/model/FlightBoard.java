@@ -1,41 +1,47 @@
 package it.polimi.ingsw.cg04.model;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
+
 import it.polimi.ingsw.cg04.model.advetureCards.AdventureCard;
+import java.awt.*;
+import java.awt.event.AdjustmentEvent;
 import java.util.Random;
 import java.util.List;
 import java.util.Map;
 
 public abstract class FlightBoard {
-    private Player[] path;
-    private int pathSize;
-    private Map<Integer, Integer> startingPosition;
-    private Bank bank;
-    private List<Tile> faceDownTiles;
-    private List<Tile> faceUpTiles;
-    private AdventureCard[][] preFlightPiles;
-    private List<AdventureCard> AdventureCardsDeck;
-    private int dices;
-    private Map<Integer,Integer> endGameCredits;
+    protected Player[] path;
+    protected int pathSize;
+    protected Map<Integer, Integer> startingPosition;
+    protected Bank bank;
+    protected List<Component> faceDownComponents;
+    protected List<Component> faceUpComponents;
+    protected AdventureCard[][] preFlightPiles;
+    protected List<AdventureCard> adventureCardsDeck;
+    protected Map<Integer,Integer> endGameCredits;
+    protected int mostBeautifulShipCredits;
 
 
-    private FlightBoard(){
+    public FlightBoard(){
         path = null;
         pathSize = 0;
         startingPosition = null;
         bank = null;
-        faceDownTiles = null;
-        faceUpTiles = null;
+        faceDownComponents = null;
+        faceUpComponents = null;
         preFlightPiles = null;
-        AdventureCardsDeck = null;
-        dices = 0;
+        adventureCardsDeck = null;
         endGameCredits = null;
+        mostBeautifulShipCredits = 0;
     }
-    public List<Tile> getFaceDownTiles(){
-        return faceDownTiles;
+    public List<Component> getFaceDownComponents(){
+        return faceDownComponents;
     }
 
-    public List<Tile> getFaceUpTiles(){
-        return faceUpTiles;
+    public List<Component> getFaceUpComponents(){
+        return faceUpComponents;
+    }
+
+    public int getMostBeautifulShipCredits(){
+        return mostBeautifulShipCredits;
     }
 
     public AdventureCard[] getPreFlightsPiles(int num){
@@ -43,15 +49,8 @@ public abstract class FlightBoard {
     }
 
     public AdventureCard getAdventureCard(){
-        if (this.AdventureCardsDeck.isEmpty()) return null;
-        return AdventureCardsDeck.remove(this.AdventureCardsDeck.size() - 1);
-    }
-
-    public int rollDices(){
-        Random rand = new Random();
-        int dice1 = rand.nextInt(1, 7);
-        int dice2 = rand.nextInt(1, 7);
-        return dice1 + dice2;
+        if (this.adventureCardsDeck.isEmpty()) return null;
+        return adventureCardsDeck.remove(this.adventureCardsDeck.size() - 1);
     }
 
     private void createPreFlightPiles(){
@@ -59,8 +58,5 @@ public abstract class FlightBoard {
 
     private void createAdventureCardsDeck(){
     }
-
-
-
 
 }

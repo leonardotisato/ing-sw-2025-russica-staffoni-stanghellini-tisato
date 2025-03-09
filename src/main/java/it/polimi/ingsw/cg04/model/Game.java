@@ -4,6 +4,8 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class Game{
@@ -13,13 +15,16 @@ public class Game{
     private FlightBoard board;
     private GameState gameState;
     private Bank bank;
+    private int dice;
 
-    private Game(){
+    public Game(int level){
         this.maxPlayers = 0;
         this.numPlayers = 0;
         this.players = new ArrayList<Player>();
-        //this.board = new FlightBoard();
+        if(level == 1) this.board = new FlightBoardLev1();
+        else if (level == 2) this.board = new FlightBoardLev2();
         this.gameState = GameState.START;
+        this.dice = 0;
     }
 
     public void setNumPlayers(int num){
@@ -41,11 +46,7 @@ public class Game{
     }
 
     public void removePlayer(String name){
-        for (Player p : this.players){
-            if(p.getName().equals(name)){
-                this.players.remove(p);
-            }
-        }
+        this.players.removeIf(p -> p.getName().equals(name));
     }
 
     public void setBoard(FlightBoard board){
@@ -78,6 +79,13 @@ public class Game{
         return null;
     }
 
+    public int rollDices(){
+        Random rand = new Random();
+        int dice1 = rand.nextInt(1, 7);
+        int dice2 = rand.nextInt(1, 7);
+        return dice1 + dice2;
+    }
+
     public void startBuildPhase(){
         this.gameState = GameState.BUILDING;
     }
@@ -91,11 +99,29 @@ public class Game{
     }
 
     public void calculateBestShip(){
+        int minConnectors = players.stream()
+                .mapToInt(p -> p.getShip().getNumExposedConnectors())
+                .min()
+                .orElse(0);
 
+        List<Player> minPlayers = players.stream()
+                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors)
+                .collect(Collectors.toList());
+
+        for(Player p : minPlayers){
+            p.addCredits(this.board.getMostBeautifulShipCredits());
+        }
+    }
+
+    public void giveEndCredits(){
+        for (Player p : this.players){
+            p.addCredits(this.board.endGameCredits.get(p.getPosition()));
+        }
     }
 
     public void handleEndGame(){
-
+        this.giveEndCredits();
+        this.calculateBestShip();
     }
 
 
