@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
@@ -37,5 +38,5 @@ public class Pirates extends AdventureCard {
 
     public Shot getShot(int i) { return shots.get(i); }
 
-    public void solveEffect() {    }
+    public void solveEffect(Game game) {    }
 }

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
+import it.polimi.ingsw.cg04.model.FlightBoard;
+import it.polimi.ingsw.cg04.model.Game;
+
 public class AbandonedShip extends AdventureCard {
     private final int lostMembers;
     private final int earnedCredits;
@@ -14,5 +17,5 @@ public class AbandonedShip extends AdventureCard {
 
     public int getEarnedCredits() { return earnedCredits; }
 
-    public void solveEffect() {    }
+    public void solveEffect(Game game) {    }
 }

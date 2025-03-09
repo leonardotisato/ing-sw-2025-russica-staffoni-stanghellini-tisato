@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Meteor;
 
@@ -29,5 +30,5 @@ public class MeteorsRain extends AdventureCard {
 
     public Meteor getMeteor(int i) { return meteors.get(i); }
 
-    public void solveEffect() { }
+    public void solveEffect(Game game) { }
 }
