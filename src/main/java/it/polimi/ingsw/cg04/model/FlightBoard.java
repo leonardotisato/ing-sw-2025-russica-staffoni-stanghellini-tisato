@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.advetureCards.AdventureCard;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.util.Random;
@@ -13,8 +14,8 @@ public abstract class FlightBoard {
     private Bank bank;
     private List<Component> faceDownComponents;
     private List<Component> faceUpComponents;
-    private EventCard[][] preFlightPiles;
-    private List<EventCard> eventsDeck;
+    private AdventureCard[][] preFlightPiles;
+    private List<AdventureCard> AdventureCardsDeck;
     private int dices;
     private Map<Integer,Integer> endGameCredits;
 
@@ -27,7 +28,7 @@ public abstract class FlightBoard {
         faceDownComponents = null;
         faceUpComponents = null;
         preFlightPiles = null;
-        eventsDeck = null;
+        AdventureCardsDeck = null;
         dices = 0;
         endGameCredits = null;
     }
@@ -39,13 +40,13 @@ public abstract class FlightBoard {
         return faceUpComponents;
     }
 
-    public EventCard[] getPreFlightsPiles(int num){
+    public AdventureCard[] getPreFlightsPiles(int num){
         return preFlightPiles[num];
     }
 
-    public EventCard getEvent(){
-        if (this.eventsDeck.isEmpty()) return null;
-        return eventsDeck.remove(this.eventsDeck.size() - 1);
+    public AdventureCard getAdventureCard(){
+        if (this.AdventureCardsDeck.isEmpty()) return null;
+        return AdventureCardsDeck.remove(this.AdventureCardsDeck.size() - 1);
     }
 
     public int rollDices(){
@@ -58,7 +59,7 @@ public abstract class FlightBoard {
     private void createPreFlightPiles(){
     }
 
-    private void createEventsDeck(){
+    private void createAdventureCardsDeck(){
     }
 
 
