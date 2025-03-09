@@ -13,8 +13,8 @@ public class OpenSpace extends AdventureCard {
         int totalPropulsionPower;
 
         for (Player player : game.getPlayers()) {
-            // totalPropulsionPower = player.getShip().calcTotalPropulsionPower( /* dunnow come viene passata */);
-            // player.move(totalPropulsionPower);
+            totalPropulsionPower = player.getShip().calcTotalPropulsionPower(player.getShip().askNumBatteriesToUse());
+            player.move(totalPropulsionPower);
         }
     }
 }

@@ -165,6 +165,8 @@ public class Ship {
         return false;
     }
 
+    public int askNumBatteriesToUse() { return -1; }
+
     public int calcTotalPropulsionPower(int usedBatteries) {
         return -1;
     }
