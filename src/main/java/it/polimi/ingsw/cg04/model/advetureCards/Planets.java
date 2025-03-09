@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.Game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Planets extends AdventureCard {
         return planetReward.get(i).get(boxType);
     }
 
-    public void solveEffect() {
+    public void solveEffect(Game game) {
         // add effect
     }
 }

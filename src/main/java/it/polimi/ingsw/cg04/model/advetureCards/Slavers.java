@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model.advetureCards;
 
+import it.polimi.ingsw.cg04.model.Game;
+
 public class Slavers extends AdventureCard{
 
     private final int firePower;
@@ -25,7 +27,7 @@ public class Slavers extends AdventureCard{
         return creditsEarned;
     }
 
-    public void solveEffect(){
+    public void solveEffect(Game game){
         // add effect
     }
 }

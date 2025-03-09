@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.advetureCards;
 
 import java.util.HashMap;
 import java.util.Map;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
 public class AbandonedStation extends AdventureCard {
@@ -27,7 +28,7 @@ public class AbandonedStation extends AdventureCard {
         return obtainedResources.get(boxType);
     }
 
-    public void solveEffect() {
+    public void solveEffect(Game game) {
         // add effect
     }
 }
