@@ -1,9 +1,8 @@
 package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
-import it.polimi.ingsw.cg04.model.FlightBoard;
 import it.polimi.ingsw.cg04.model.ships.Ship;
-import it.polimi.ingsw.cg04.model.components.Component;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class Player {
 
@@ -67,26 +66,26 @@ public class Player {
         this.state = state;
     }
 
-    public Component ChooseFaceUpComponent(){
+    public Tile ChooseFaceUpTile(){
         // todo
         return null;
     }
 
-    public Component PickFaceDownComponent(){
+    public Tile PickFaceDownTile(){
         // todo
         return null;
     }
 
-    public void returnComponent(){
+    public void returnTile(){
         // todo
     }
 
-    public boolean bufferComponent(){
+    public boolean bufferTile(){
         // todo
         return false;
     }
 
-    public boolean placeComponent(int x, int y){
+    public boolean placeTile(int x, int y){
         // todo
     return false;
     }

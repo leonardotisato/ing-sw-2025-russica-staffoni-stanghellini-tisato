@@ -1,8 +1,6 @@
 package it.polimi.ingsw.cg04.model;
-
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.advetureCards.AdventureCard;
-import java.awt.*;
-import java.awt.event.AdjustmentEvent;
 import java.util.Random;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +10,8 @@ public abstract class FlightBoard {
     private int pathSize;
     private Map<Integer, Integer> startingPosition;
     private Bank bank;
-    private List<Component> faceDownComponents;
-    private List<Component> faceUpComponents;
+    private List<Tile> faceDownTiles;
+    private List<Tile> faceUpTiles;
     private AdventureCard[][] preFlightPiles;
     private List<AdventureCard> AdventureCardsDeck;
     private int dices;
@@ -25,19 +23,19 @@ public abstract class FlightBoard {
         pathSize = 0;
         startingPosition = null;
         bank = null;
-        faceDownComponents = null;
-        faceUpComponents = null;
+        faceDownTiles = null;
+        faceUpTiles = null;
         preFlightPiles = null;
         AdventureCardsDeck = null;
         dices = 0;
         endGameCredits = null;
     }
-    public List<Component> getFaceDownComponents(){
-        return faceDownComponents;
+    public List<Tile> getFaceDownTiles(){
+        return faceDownTiles;
     }
 
-    public List<Component> getFaceUpComponents(){
-        return faceUpComponents;
+    public List<Tile> getFaceUpTiles(){
+        return faceUpTiles;
     }
 
     public AdventureCard[] getPreFlightsPiles(int num){
@@ -51,7 +49,7 @@ public abstract class FlightBoard {
 
     public int rollDices(){
         Random rand = new Random();
-        int dice1 = Random.nextInt(1, 7);
+        int dice1 = rand.nextInt(1, 7);
         int dice2 = rand.nextInt(1, 7);
         return dice1 + dice2;
     }

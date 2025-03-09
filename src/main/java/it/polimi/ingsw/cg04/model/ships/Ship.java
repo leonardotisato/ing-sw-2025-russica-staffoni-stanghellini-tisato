@@ -2,11 +2,9 @@ package it.polimi.ingsw.cg04.model.ships;
 import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.components.Component;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Comparator;
 
@@ -15,18 +13,18 @@ public abstract class Ship {
     private int numHumans = 0;
     private int numAliens = 0;
     private int numBatteries = 0;
-    private int numBrokenComponents = 0;
+    private int numBrokenTiles = 0;
     private Map<AlienColor, Integer> aliens;
     private Map<BoxType, Integer> boxes;
     private int numExposedConnectors;
     private List<Direction> protectedDirections;
-    private Component[] componentsBuffer;
+    private Tile[] tilesBuffer;
     private int baseFirePower = 0;
     private int basePropulsionPower = 0;
-    private Component[][] componentsMatrix;
+    private Tile[][] tilesMatrix;
 
-    public int getNumBrokenComponents() {
-        return numBrokenComponents;
+    public int getNumBrokenTiles() {
+        return numBrokenTiles;
     }
 
     public int getNumBatteries() {
@@ -57,8 +55,8 @@ public abstract class Ship {
         return protectedDirections;
     }
 
-    public Component[] getComponentsBuffer() {
-        return componentsBuffer;
+    public Tile[] getTilesBuffer() {
+        return tilesBuffer;
     }
 
     public Map<AlienColor, Integer> getAliens() {
@@ -150,7 +148,7 @@ public abstract class Ship {
         return -1;
     }
 
-    public boolean placeComponent(Component component, int x, int y) {
+    public boolean placeComponent(Tile Tile, int x, int y) {
         return false;
     }
 
