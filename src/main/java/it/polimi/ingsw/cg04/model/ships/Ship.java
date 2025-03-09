@@ -1,9 +1,5 @@
 package it.polimi.ingsw.cg04.model.ships;
-import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
+import it.polimi.ingsw.cg04.model.enumerations.*;
 
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
@@ -16,6 +12,8 @@ public class Ship {
     private final int level;
     private final int shipHeight;
     private final int shipWidth;
+    private Tile[][] tilesMatrix;
+    private boolean[][] validSlots;
 
     private int numHumans = 0;
     private int numAliens = 0;
@@ -28,23 +26,42 @@ public class Ship {
     private Tile[] tilesBuffer;
     private int baseFirePower = 0;
     private int basePropulsionPower = 0;
-    private Tile[][] tilesMatrix;
 
-    public Ship(int lev) {
+    public Ship(int lev, PlayerColor playerColor) {
         this.level = lev;
+        assert(level == 1 || level == 2);
 
-        assert (this.level == 1 || this.level == 2);
-        if (this.level == 1) {
-            this.shipWidth = 5;
-            this.shipHeight = 5;
-        }
-        else {
-            this.shipWidth = 7;
-            this.shipHeight = 5;
+        if (level == 1) {
+            shipWidth = 5;
+            shipHeight = 5;
+        } else {
+            shipWidth = 7;
+            shipHeight = 5;
         }
 
-        this.tilesMatrix = new Tile[this.shipWidth][this.shipHeight];
+        validSlots = new boolean[shipHeight][shipWidth];
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+                validSlots[i][j] = true;
+            }
+        }
+
+        // common invalid slot positions
+        validSlots[0][0] = false;
+        validSlots[0][1] = false;
+        validSlots[1][0] = false;
+
+        validSlots[0][shipWidth - 1] = false;
+        validSlots[0][shipHeight - 2] = false;
+        validSlots[1][shipWidth - 1] = false;
+
+        validSlots[shipHeight - 1][shipWidth / 2] = false;
+        if (level == 2) { validSlots[0][3] = false; }
+
+        tilesMatrix = new Tile[shipHeight][shipWidth];
+        // todo: placeTile(new HousingTile(playerColor), shipHeight / 2, shipWidth / 2);
     }
+
 
     public int getNumBrokenTiles() {
         return numBrokenTiles;
@@ -175,19 +192,31 @@ public class Ship {
         return -1;
     }
 
-    public boolean placeComponent(Tile Tile, int x, int y) {
-        return false;
-    }
-
-    // the method should return true if component was broken, so state of the ship can be updated
+    // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
         return  true;
     }
 
-    // the method should return true if component was broken, so state of the ship can be updated
+    // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleShot(Direction dir, Shot shot, int k) {
+        return true;
+    }
+
+    public boolean placeTile(Tile Tile, int x, int y) {
+
+        // check out-of-bound placement
+        if (!validSlots[x][y]) {
+            return false;
+        }
+
+        // check placement on top of existing tile
+        if (tilesMatrix[x][y] != null) {
+            return false;
+        }
+
+
         return true;
     }
 }
