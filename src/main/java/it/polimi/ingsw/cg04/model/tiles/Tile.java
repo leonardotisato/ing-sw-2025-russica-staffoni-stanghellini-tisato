@@ -15,21 +15,14 @@ public abstract class Tile {
     private Map<Direction, Connection> connections;
 
     // todo
-    // per poter sfruttare polimorfismo definisco attributi di tutte le sottoclassi di Tile
-
+    // per poter sfruttare polimorfismo definisco attributi di tutte le sottoclassi di Tile ??
     // housingTile
-
     // alienSupportTile
-
     // batteryTile
-
     // propulsorTile
-
     // laserTile
-
     // storageTile
-
-    //shieldTile
+    // shieldTile
 
     // clockwise rotation of the Tile
     public void rotate90dx() {
