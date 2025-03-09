@@ -5,18 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Planets extends AdventureCard{
+public class Planets extends AdventureCard {
     private List<Map<BoxType, Integer>> planetReward;
 
     public Planets(int cardLevel, int daysLost) {
         super(cardLevel, daysLost);
         planetReward = new ArrayList<>();
     }
-    public void solveEffect(){
-        // add effect
+
+    public List<Map<BoxType, Integer>> getPlanetReward() {
+        return planetReward;
     }
 
-    public List<Map<BoxType, Integer>> getPlanetReward(){
-        return planetReward;
+    public Map<BoxType, Integer> getSinglePlanetReward(int i) {
+        return planetReward.get(i);
+    }
+
+    // potrebbe servire ad esempio per controllare quanti rossi ci sono e se il giocatore può trasportarli?
+    // nel dubbio lo tengo per ora
+    public int getSinglePlanetRewardByType(int i, BoxType boxType) {
+        return planetReward.get(i).get(boxType);
+    }
+
+    public void solveEffect() {
+        // add effect
     }
 }
