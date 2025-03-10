@@ -38,5 +38,27 @@ public class Pirates extends AdventureCard {
 
     public Shot getShot(int i) { return shots.get(i); }
 
-    public void solveEffect(Game game) {    }
+    public void solveEffect(Game game) {
+
+        /*
+         * list defeated_players
+         * for each player
+         *   player.calc_fire_power
+         *   if(fire_power > pirates_fire_power)
+         *       player.lose_days
+         *       player.add_credits
+         *       break
+         *   if(fire_power == smuggler_fire_power)
+         *       continue
+         *   if(fire_power < smuggler_fire_power)
+         *       defeated_players.add(player)
+         *
+         * for each shot
+         *   defeated_players.get(0).roll_dices
+         *   for each player in defeated_players
+         *      player.handle_shot
+         *
+         */
+
+    }
 }

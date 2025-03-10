@@ -17,5 +17,18 @@ public class AbandonedShip extends AdventureCard {
 
     public int getEarnedCredits() { return earnedCredits; }
 
-    public void solveEffect(Game game) {    }
+    public void solveEffect(Game game) {
+
+        /*
+        *
+        * for each player
+        *   if player.wants_to_solve == true
+        *       player.add_credits
+        *       player.lose_crew
+        *       player.lose_days
+        *       break
+        *
+        */
+
+    }
 }

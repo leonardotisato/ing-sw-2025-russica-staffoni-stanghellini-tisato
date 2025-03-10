@@ -30,5 +30,16 @@ public class MeteorsRain extends AdventureCard {
 
     public Meteor getMeteor(int i) { return meteors.get(i); }
 
-    public void solveEffect(Game game) { }
+    public void solveEffect(Game game) {
+
+        /*
+        *
+        * for each meteor in list(meteor)
+        *   dice = getPlayer(0).throw_dices
+        *   for each player in list(players)
+        *       player.handle_meteor
+        *
+        */
+
+    }
 }
