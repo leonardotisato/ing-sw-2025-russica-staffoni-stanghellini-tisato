@@ -9,6 +9,7 @@ public class Stardust extends AdventureCard {
         super(cardLevel, daysLost);
     }
 
+    // todo: testing
     public void solveEffect(Game game) {
         // partendo dall'ultimo in classifica lo sposto di tante posizioni quanti i connettori esposti
         for(int i = game.getPlayers().size() - 1; i>= 0; i--) {
