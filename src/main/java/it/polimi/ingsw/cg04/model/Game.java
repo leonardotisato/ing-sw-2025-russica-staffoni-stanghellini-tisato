@@ -15,7 +15,6 @@ public class Game{
     private FlightBoard board;
     private GameState gameState;
     private Bank bank;
-    private int dice;
 
     public Game(int level){
         this.maxPlayers = 0;
@@ -24,7 +23,6 @@ public class Game{
         if(level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
         this.gameState = GameState.START;
-        this.dice = 0;
     }
 
     public void setNumPlayers(int num){
