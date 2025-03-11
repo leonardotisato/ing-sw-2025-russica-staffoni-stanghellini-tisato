@@ -72,7 +72,7 @@ public class Player {
         this.state = state;
     }
 
-    public void ChooseFaceUpTile() {
+    public void ChooseFaceUpTile(Tile tile) {
         // todo
 
         List<Tile> faceUpTiles = flightBoard.getFaceUpTiles();
@@ -84,7 +84,7 @@ public class Player {
 
     }
 
-    public Tile PickFaceDownTile() {
+    public Tile PickFaceDownTile(Tile tile) {
         // todo
         return null;
     }
@@ -105,7 +105,7 @@ public class Player {
         return true;
     }
 
-    public boolean placeTile(int x, int y) {
+    public boolean placeTile(Tile tile, int x, int y) {
         // todo
         boolean validPlacement = ship.placeTile(heldTile, x, y);
 

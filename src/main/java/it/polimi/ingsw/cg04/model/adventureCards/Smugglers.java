@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg04.model.advetureCards;
+package it.polimi.ingsw.cg04.model.adventureCards;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;

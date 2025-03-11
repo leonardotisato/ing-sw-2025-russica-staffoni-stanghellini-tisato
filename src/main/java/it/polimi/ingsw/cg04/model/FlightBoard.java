@@ -1,9 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.advetureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.util.Random;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +38,7 @@ public abstract class FlightBoard {
         return faceUpComponents;
     }
 
-    public int getMostBeautifulShipCredits(){
+    public int giveMostBeautifulShipCredits(){
         return mostBeautifulShipCredits;
     }
 
@@ -48,10 +46,6 @@ public abstract class FlightBoard {
         return preFlightPiles[num];
     }
 
-    public AdventureCard getAdventureCard(){
-        if (this.adventureCardsDeck.isEmpty()) return null;
-        return adventureCardsDeck.remove(this.adventureCardsDeck.size() - 1);
-    }
 
     private void createPreFlightPiles(){
     }

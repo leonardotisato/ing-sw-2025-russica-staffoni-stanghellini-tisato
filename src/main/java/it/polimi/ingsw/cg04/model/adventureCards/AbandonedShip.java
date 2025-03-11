@@ -1,6 +1,5 @@
-package it.polimi.ingsw.cg04.model.advetureCards;
+package it.polimi.ingsw.cg04.model.adventureCards;
 
-import it.polimi.ingsw.cg04.model.FlightBoard;
 import it.polimi.ingsw.cg04.model.Game;
 
 public class AbandonedShip extends AdventureCard {

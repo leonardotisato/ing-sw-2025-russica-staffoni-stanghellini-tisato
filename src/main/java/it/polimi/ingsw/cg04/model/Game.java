@@ -1,9 +1,12 @@
 package it.polimi.ingsw.cg04.model;
+import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -15,7 +18,12 @@ public class Game{
     private List<Player> players;
     private FlightBoard board;
     private GameState gameState;
+    private AdventureCard currentAdventureCard;
     private Bank bank;
+    protected List<List<AdventureCard>>preFlightPiles;
+    private List<AdventureCard> adventureCardsDeck;
+    private List<Tile> faceDownComponents;
+    private List<Tile> faceUpComponents;
 
     public Game(int level){
         this.maxPlayers = 0;
@@ -50,6 +58,14 @@ public class Game{
 
     public void setBoard(FlightBoard board){
         this.board = board;
+    }
+
+    public void createAdventureDeck(){
+        this.adventureCardsDeck = new ArrayList<>();
+        for (List<AdventureCard> pile : preFlightPiles){
+            this.adventureCardsDeck.addAll(pile);
+        }
+        Collections.shuffle(this.adventureCardsDeck);
     }
 
     public List<Player> getPlayers(){
@@ -108,7 +124,7 @@ public class Game{
                 .collect(Collectors.toList());
 
         for(Player p : minPlayers){
-            p.addCredits(this.board.getMostBeautifulShipCredits());
+            p.addCredits(this.board.giveMostBeautifulShipCredits());
         }
     }
 
@@ -127,17 +143,36 @@ public class Game{
         player.move(steps);
     }
 
-    public void placeTile(Player player, int x, int y){
-        player.placeTile(x, y);
+    public void placeTile(Player player, Tile tile, int x, int y){
+        player.placeTile(tile, x, y);
     }
 
-    public void ChooseFaceUpTile(Player player) {
-      player.ChooseFaceUpTile();
+    public void ChooseFaceUpTile(Player player, Tile tile) {
+      player.ChooseFaceUpTile(tile);
     }
 
-    public void PickFaceDownTile(Player player) {
-        player.PickFaceDownTile();
+    public void PickFaceDownTile(Player player, Tile tile) {
+        player.PickFaceDownTile(tile);
     }
+
+    public void addCredits(Player player, int credits) {
+        player.addCredits(credits);
+    }
+
+    public void removeCredits(Player player, int credits) {
+        player.removeCredits(credits);
+    }
+
+    public AdventureCard getAdventureCard(){
+        if (this.adventureCardsDeck.isEmpty()) return null;
+        currentAdventureCard = this.adventureCardsDeck.getFirst();
+        return adventureCardsDeck.removeFirst();
+    }
+
+
+
+
+
 
 
 
