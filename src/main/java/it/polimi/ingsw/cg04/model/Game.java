@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,23 @@ public class Game{
         this.giveEndCredits();
         this.calculateBestShip();
     }
+
+    public void movePlayer(Player player, int steps){
+        player.move(steps);
+    }
+
+    public void placeTile(Player player, int x, int y){
+        player.placeTile(x, y);
+    }
+
+    public void ChooseFaceUpTile(Player player) {
+      player.ChooseFaceUpTile();
+    }
+
+    public void PickFaceDownTile(Player player) {
+        player.PickFaceDownTile();
+    }
+
 
 
 
