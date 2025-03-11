@@ -1,8 +1,11 @@
 package it.polimi.ingsw.cg04.model;
+
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+
+import java.util.List;
 
 public class Player {
 
@@ -15,8 +18,9 @@ public class Player {
     private Ship ship;
     private Game game;
     private FlightBoard flightBoard;
+    private Tile heldTile;
 
-    public Player(String name, PlayerColor color, Game game){
+    public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
         this.state = PlayerState.IN_LOBBY;
@@ -32,7 +36,9 @@ public class Player {
         return color;
     }
 
-    public PlayerState getState() {return state;}
+    public PlayerState getState() {
+        return state;
+    }
 
     public int getLoops() {
         return loops;
@@ -50,47 +56,70 @@ public class Player {
         return ship;
     }
 
-    public void addCredits(int credits){
+    public void addCredits(int credits) {
         numCredits += credits;
     }
 
-    public void removeCredits(int credits){
+    public void removeCredits(int credits) {
         numCredits -= credits;
     }
 
-    public void addLoop(){
+    public void addLoop() {
         loops++;
     }
 
-    public void setState(PlayerState state){
+    public void setState(PlayerState state) {
         this.state = state;
     }
 
-    public Tile ChooseFaceUpTile(){
+    public void ChooseFaceUpTile() {
+        // todo
+
+        List<Tile> faceUpTiles = flightBoard.getFaceUpTiles();
+
+        // todo: ask user which he would like to pick
+        int selection = -1;
+
+        heldTile = faceUpTiles.remove(selection);
+
+    }
+
+    public Tile PickFaceDownTile() {
         // todo
         return null;
     }
 
-    public Tile PickFaceDownTile(){
-        // todo
-        return null;
-    }
-
-    public void returnTile(){
+    public void returnTile() {
         // todo
     }
 
-    public boolean bufferTile(){
+    public boolean bufferTile() {
         // todo
+        assert (ship.getTilesBuffer().size() <= 2);
+        if (ship.getTilesBuffer().size() >= 2) {
+            return false;
+        }
+
+        ship.addTileInBuffer(heldTile);
+        heldTile = null;
+        return true;
+    }
+
+    public boolean placeTile(int x, int y) {
+        // todo
+        boolean validPlacement = ship.placeTile(heldTile, x, y);
+
+        if (validPlacement) {
+            heldTile = null;
+            return true;
+        }
+
         return false;
     }
 
-    public boolean placeTile(int x, int y){
-        // todo
-    return false;
-    }
+    public void move(int steps) {
 
-    public void move(int steps) { }
+    }
 
 
 }

@@ -24,7 +24,7 @@ public class Ship {
     private Map<BoxType, Integer> boxes;
     private int numExposedConnectors;
     private List<Direction> protectedDirections;
-    private Tile[] tilesBuffer;
+    private List<Tile> tilesBuffer;
     private int baseFirePower = 0;
     private int basePropulsionPower = 0;
 
@@ -98,8 +98,12 @@ public class Ship {
         return protectedDirections;
     }
 
-    public Tile[] getTilesBuffer() {
+    public List<Tile> getTilesBuffer() {
         return tilesBuffer;
+    }
+
+    public void addTileInBuffer(Tile tile) {
+        tilesBuffer.add(tile);
     }
 
     public Map<AlienColor, Integer> getAliens() {
@@ -239,6 +243,11 @@ public class Ship {
     }
 
     public boolean placeTile(Tile tile, int x, int y) {
+
+        // check if tile != null
+        if (tile == null) {
+            return false;
+        }
 
         // check out-of-bound placement
         if (!validSlots[x][y]) {

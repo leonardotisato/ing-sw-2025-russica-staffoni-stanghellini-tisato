@@ -12,6 +12,7 @@ public class OpenSpace extends AdventureCard {
     public void solveEffect(Game game) {
         int totalPropulsionPower;
 
+        // todo: ordineDiRotta??
         for (Player player : game.getPlayers()) {
             totalPropulsionPower = player.getShip().calcTotalPropulsionPower(player.getShip().askNumBatteriesToUse());
             player.move(totalPropulsionPower);
