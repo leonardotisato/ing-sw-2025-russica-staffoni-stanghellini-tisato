@@ -1,11 +1,10 @@
 package it.polimi.ingsw.cg04.model.ships;
+
 import it.polimi.ingsw.cg04.model.enumerations.*;
 
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.util.Map;
-import java.util.List;
-import java.util.Comparator;
+import java.util.*;
 
 public class Ship {
 
@@ -14,6 +13,8 @@ public class Ship {
     private final int shipWidth;
     private Tile[][] tilesMatrix;
     private boolean[][] validSlots;
+
+    private final Set<Connection> connectors = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
 
     private int numHumans = 0;
     private int numAliens = 0;
@@ -29,7 +30,7 @@ public class Ship {
 
     public Ship(int lev, PlayerColor playerColor) {
         this.level = lev;
-        assert(level == 1 || level == 2);
+        assert (level == 1 || level == 2);
 
         if (level == 1) {
             shipWidth = 5;
@@ -56,7 +57,9 @@ public class Ship {
         validSlots[1][shipWidth - 1] = false;
 
         validSlots[shipHeight - 1][shipWidth / 2] = false;
-        if (level == 2) { validSlots[0][3] = false; }
+        if (level == 2) {
+            validSlots[0][3] = false;
+        }
 
         tilesMatrix = new Tile[shipHeight][shipWidth];
         // todo: placeTile(new HousingTile(playerColor), shipHeight / 2, shipWidth / 2);
@@ -83,7 +86,7 @@ public class Ship {
         return numHumans;
     }
 
-    public  int getNumCrew() {
+    public int getNumCrew() {
         return this.getNumHumans() + this.getNumAliens();
     }
 
@@ -178,11 +181,42 @@ public class Ship {
         return currentCount;
     }
 
-    public boolean isShipLegal(){
+    public boolean isShipLegal() {
+
+        // for all tiles, existing neighbouring tiles must have matching connector
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+
+                if (tilesMatrix[i][j] != null) {
+                    Tile currTile = tilesMatrix[i][j];
+
+                    if (i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
+                        return false;
+                    }
+
+                    if (j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
+                        return false;
+                    }
+
+                    if (i != shipHeight - 1 && !currTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
+                        return false;
+                    }
+
+                    if (j != shipWidth - 1 && !currTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // todo: check that all propulsors are pointing backwards
+
         return false;
     }
 
-    public int askNumBatteriesToUse() { return -1; }
+    public int askNumBatteriesToUse() {
+        return -1;
+    }
 
     public int calcTotalPropulsionPower(int usedBatteries) {
         return -1;
@@ -195,7 +229,7 @@ public class Ship {
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
-        return  true;
+        return true;
     }
 
     // the method should return true if tile was broken, so state of the ship can be updated
@@ -204,7 +238,7 @@ public class Ship {
         return true;
     }
 
-    public boolean placeTile(Tile Tile, int x, int y) {
+    public boolean placeTile(Tile tile, int x, int y) {
 
         // check out-of-bound placement
         if (!validSlots[x][y]) {
@@ -216,6 +250,43 @@ public class Ship {
             return false;
         }
 
+        // check that placed tile neighbours another tile. let pass any connection, "punish" illegal behaviours later in isShipLegal()
+        boolean connectionExists = false;
+        Connection currConnection, otherConnection = null;
+        if (x != 0) {
+            currConnection = tile.getConnection(Direction.UP);
+            otherConnection = tile.getConnection(Direction.DOWN);
+            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
+                connectionExists = true;
+            }
+        }
+        if (y != 0) {
+            currConnection = tile.getConnection(Direction.LEFT);
+            otherConnection = tile.getConnection(Direction.RIGHT);
+            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
+                connectionExists = true;
+            }
+        }
+        if (x != this.shipHeight - 1) {
+            currConnection = tile.getConnection(Direction.DOWN);
+            otherConnection = tile.getConnection(Direction.UP);
+            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
+                connectionExists = true;
+            }
+        }
+        if (y != this.shipWidth - 1) {
+            currConnection = tile.getConnection(Direction.RIGHT);
+            otherConnection = tile.getConnection(Direction.LEFT);
+            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
+                connectionExists = true;
+            }
+        }
+
+        if (!connectionExists) {
+            return false;
+        }
+
+        tilesMatrix[x][y] = tile;
 
         return true;
     }

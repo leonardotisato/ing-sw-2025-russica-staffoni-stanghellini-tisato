@@ -46,5 +46,66 @@ public abstract class Tile {
         rotate90dx();
     }
 
-    // todo
+    public Connection getConnection(Direction dir) {
+        return connections.get(dir);
+    }
+
+    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this -- otherTile
+    public boolean isValidConnection(Direction dir, Tile otherTile) {
+
+        // if otherTile does not exist the connection is valid
+        if (otherTile == null) {
+            return true;
+        }
+
+        Connection c1, c2;
+        // set up connections to consider to validate
+        switch (dir) {
+            case UP:
+                c1 = this.getConnection(Direction.UP);
+                c2 = otherTile.getConnection(Direction.DOWN);
+                break;
+            case RIGHT:
+                c1 = this.getConnection(Direction.RIGHT);
+                c2 = otherTile.getConnection(Direction.LEFT);
+                break;
+            case DOWN:
+                c1 = this.getConnection(Direction.DOWN);
+                c2 = otherTile.getConnection(Direction.UP);
+                break;
+            case LEFT:
+                c1 = this.getConnection(Direction.LEFT);
+                c2 = otherTile.getConnection(Direction.RIGHT);
+                break;
+            default:
+                c1 = null;
+                c2 = null;
+                assert false;
+                break;
+        }
+
+        // if c1 universal only single, double and universal are allowed for c2
+        if (c1 == Connection.UNIVERSAL) {
+            return c2 == Connection.UNIVERSAL || c2 == Connection.SINGLE || c2 == Connection.DOUBLE;
+        }
+
+        // if c1 single, only single and universal are allowed for c2
+        if (c1 == Connection.SINGLE) {
+            return c2 == Connection.SINGLE || c2 == Connection.UNIVERSAL;
+        }
+
+        // if c1 double, only double and universal are allowed for c2
+        if (c1 == Connection.DOUBLE) {
+            return c2 == Connection.DOUBLE || c2 == Connection.UNIVERSAL;
+        }
+
+        // if c1 empty, only empty is allowed for c2
+        if (c1 == Connection.EMPTY) {
+            return c2 == Connection.EMPTY;
+        }
+
+        // i restanti casi per c1 sono PROPULSOR e GUN, ma dovrebbero ritornare tutti false...
+
+        return false;
+    }
 }
