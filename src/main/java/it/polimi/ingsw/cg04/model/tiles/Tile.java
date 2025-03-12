@@ -7,12 +7,13 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 
 public abstract class Tile {
-    private Map<Direction, Connection> connections;
+    protected Map<Direction, Connection> connections;
 
     // todo
     // per poter sfruttare polimorfismo definisco attributi di tutte le sottoclassi di Tile ??
@@ -21,17 +22,24 @@ public abstract class Tile {
     // batteryTile
     // propulsorTile
     // laserTile
-    // storageTile
-    // shieldTile
+
+    // Tile generic methods
 
     // clockwise rotation of the Tile
     public void rotate90dx() {
-        Connection temp = connections.get(Direction.UP);
 
-        connections.put(Direction.UP, connections.get(Direction.LEFT));
-        connections.put(Direction.LEFT, connections.get(Direction.DOWN));
-        connections.put(Direction.DOWN, connections.get(Direction.RIGHT));
-        connections.put(Direction.RIGHT, temp);
+        Map<Direction, Direction> rotationMap = Map.of(
+                Direction.UP, Direction.RIGHT,
+                Direction.RIGHT, Direction.DOWN,
+                Direction.DOWN, Direction.LEFT,
+                Direction.LEFT, Direction.UP
+        );
+
+        Map<Direction, Connection> newConnections = new HashMap<Direction, Connection>();
+        for (Direction dir : connections.keySet()) {
+            newConnections.put(rotationMap.get(dir), connections.get(dir));
+        }
+        connections = newConnections;
     }
 
     public void rotate180() {
@@ -50,7 +58,7 @@ public abstract class Tile {
         return connections.get(dir);
     }
 
-    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this -- otherTile
+    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
         // if otherTile does not exist the connection is valid
@@ -108,4 +116,90 @@ public abstract class Tile {
 
         return false;
     }
+
+    // shieldTile methods
+    public Set<Direction> getProtectedDirections() {
+        return null;
+    }
+
+    // batteryTile methods
+    public Integer getMaxBatteryCapacity() {
+        return null;
+    }
+
+    public Integer getNumBatteries() {
+        return null;
+    }
+
+    public void removeBatteries(Integer numBatteries) {
+
+        if (!(this instanceof BatteryTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    // storageTile methods
+    public Boolean isSpecialStorageTile() {
+        return null;
+    }
+
+    public Integer getMaxBoxes() {
+        return null;
+    }
+
+    public Map<BoxType, Integer> getBoxes() {
+        return null;
+    }
+
+    public void addBox(BoxType boxType) {
+        if (!(this instanceof StorageTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    public void removeBox(BoxType boxType) {
+        if (!(this instanceof StorageTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    // propulsorTile methods
+    public Boolean isDoublePropulsor() {
+        return null;
+    }
+
+    // laserTile methods
+    public Boolean isDoubleLaser() {
+        return null;
+    }
+
+    public Direction getShootingDirection() {
+        return null;
+    }
+
+    // alienSupportTile methods
+    public AlienColor getSupportedAlienColor() {
+        return null;
+    }
+
+    // housingTile methods
+    // this one is tricky... housingUnit can be central, and if so have a specific color
+    // and can host only humans if its central, and host aliens of a specific color only if a alienSupportTile is neighbouring...
+    public Boolean isCentralTile() {
+        return null;
+    }
+
+    public Set<AlienColor> getSupportedAlienColors() {
+        return null;
+    }
+
+    public Integer getNumHumans() {
+        return null;
+    }
+
+    // todo: discuss how to model this better...
+
 }
