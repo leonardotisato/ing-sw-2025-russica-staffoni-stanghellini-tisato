@@ -7,12 +7,13 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 
 public abstract class Tile {
-    private Map<Direction, Connection> connections;
+    protected Map<Direction, Connection> connections;
 
     // todo
     // per poter sfruttare polimorfismo definisco attributi di tutte le sottoclassi di Tile ??
@@ -26,12 +27,19 @@ public abstract class Tile {
 
     // clockwise rotation of the Tile
     public void rotate90dx() {
-        Connection temp = connections.get(Direction.UP);
 
-        connections.put(Direction.UP, connections.get(Direction.LEFT));
-        connections.put(Direction.LEFT, connections.get(Direction.DOWN));
-        connections.put(Direction.DOWN, connections.get(Direction.RIGHT));
-        connections.put(Direction.RIGHT, temp);
+        Map<Direction, Direction> rotationMap = Map.of(
+                Direction.UP, Direction.RIGHT,
+                Direction.RIGHT, Direction.DOWN,
+                Direction.DOWN, Direction.LEFT,
+                Direction.LEFT, Direction.UP
+        );
+
+        Map<Direction, Connection> newConnections = new HashMap<Direction, Connection>();
+        for (Direction dir : connections.keySet()) {
+            newConnections.put(rotationMap.get(dir), connections.get(dir));
+        }
+        connections = newConnections;
     }
 
     public void rotate180() {
@@ -115,6 +123,10 @@ public abstract class Tile {
     }
 
     // batteryTile methods
+    public Integer getMaxBatteryCapacity() {
+        return null;
+    }
+
     public Integer getNumBatteries() {
         return null;
     }
