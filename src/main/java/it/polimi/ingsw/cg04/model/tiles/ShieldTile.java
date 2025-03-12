@@ -13,10 +13,12 @@ public class ShieldTile extends Tile {
         this.protectedDirections = protectedDirs;
     }
 
+    @Override
     public Set<Direction> getProtectedDirections() {
         return protectedDirections;
     }
 
+    @Override
     public void rotate90dx() {
 
         // rotate connections
@@ -37,11 +39,13 @@ public class ShieldTile extends Tile {
         protectedDirections = newProtectedDirections;
     }
 
+    @Override
     public void rotate180() {
         this.rotate90dx();
         this.rotate90dx();
     }
 
+    @Override
     public void rotate90sx() {
         this.rotate90dx();
         this.rotate90dx();
