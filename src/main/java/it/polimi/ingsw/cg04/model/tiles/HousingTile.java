@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.ships.Ship;
 
 import java.util.Set;
 
@@ -42,5 +44,14 @@ public class HousingTile extends Tile {
 
     public void removeCrewMember() {
         // if numCrew > 0: numCrew--;
+    }
+
+    @Override
+    public void broken(Ship ship){
+        if (hostedCrewType.equals(CrewType.HUMAN)) {
+            for(int i = numCrew; i > 0; i--) {
+                ship.removeCrewByType(CrewType.HUMAN);
+            }
+        } else ship.removeCrewByType(hostedCrewType);
     }
 }
