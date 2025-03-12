@@ -355,4 +355,16 @@ public class Ship {
         basePropulsionPower = basePropulsionPower + i;
     }
 
+    // todo: check if works
+    public void removeProtectedDirections(Set<Direction> dir){
+        for(Direction d : dir){
+            for(Direction direction : protectedDirections){
+                if(d.equals(direction)){
+                    protectedDirections.remove(d);
+                }
+                break;
+            }
+        }
+    }
+
 }

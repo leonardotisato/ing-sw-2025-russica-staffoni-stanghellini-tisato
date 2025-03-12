@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.ships.Ship;
 
 import java.util.*;
 
@@ -50,6 +51,11 @@ public class ShieldTile extends Tile {
         this.rotate90dx();
         this.rotate90dx();
         this.rotate90dx();
+    }
+
+    @Override
+    public void broken(Ship ship) {
+        ship.removeProtectedDirections(getProtectedDirections());
     }
 
 }
