@@ -176,6 +176,10 @@ public abstract class Tile {
         return null;
     }
 
+    public Direction getShootingDirection() {
+        return null;
+    }
+
     // alienSupportTile methods
     public AlienColor getSupportedAlienColor() {
         return null;
