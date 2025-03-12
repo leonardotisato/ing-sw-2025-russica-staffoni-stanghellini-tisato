@@ -58,6 +58,11 @@ public class StorageTile extends Tile {
 
     @Override
     public void broken(Ship ship) {
-        ship.removeBoxes(getBoxes());
+        //ship.removeBoxes(getBoxes());
+        for(BoxType boxType : BoxType.values()) {
+            if(boxes.get(boxType) > 0) {
+                ship.removeBoxes(boxType, boxes.get(boxType));
+            }
+        }
     }
 }

@@ -325,10 +325,6 @@ public class Ship {
         this.tilesMatrix[x][y] = null;
     }
 
-    public void updateBatteries(int i) {
-        numBatteries = numBatteries + i;
-    }
-
     public void updateBaseFirePower(double i) {
         baseFirePower = baseFirePower + i;
     }
@@ -346,13 +342,6 @@ public class Ship {
                     break;
                 }
             }
-        }
-    }
-
-    public void removeBoxes(Map<BoxType, Integer> boxesToRemove) {
-        // for each key remove as many elements are there are in boxesToRemove
-        for (BoxType type : BoxType.values()) {
-            boxes.put(type, boxes.get(type) - boxesToRemove.get(type));
         }
     }
 }
