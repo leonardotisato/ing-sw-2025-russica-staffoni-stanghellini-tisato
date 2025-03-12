@@ -1,16 +1,21 @@
 package it.polimi.ingsw.cg04.model;
-import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import com.google.gson.*;
+import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
+import it.polimi.ingsw.cg04.model.enumerations.Meteor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 public class Game{
     private int maxPlayers;
@@ -20,17 +25,29 @@ public class Game{
     private GameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
-    protected List<List<AdventureCard>>preFlightPiles;
-    private List<AdventureCard> adventureCardsDeck;
+    private List<List<Integer>>preFlightPiles;
+    private List<Integer> level1Cards;
+    private List<Integer> level2Cards;
+    private Map<Integer, AdventureCard> adventureCardsMap;
+    private List<Integer> adventureCardsDeck;
     private List<Tile> faceDownComponents;
     private List<Tile> faceUpComponents;
 
-    public Game(int level){
+    public Game(int level, String jsonFilePath){
         this.maxPlayers = 0;
         this.numPlayers = 0;
         this.players = new ArrayList<Player>();
         if(level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
+        this.level1Cards = new ArrayList<>();
+        this.level2Cards = new ArrayList<>();
+        this.adventureCardsMap = loadCardsFromJson(jsonFilePath);
+        this.preFlightPiles = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            preFlightPiles.add(new ArrayList<>());
+        }
+        buildPiles();
+        this.adventureCardsDeck = new ArrayList<>();
         this.gameState = GameState.START;
     }
 
@@ -62,7 +79,7 @@ public class Game{
 
     public void createAdventureDeck(){
         this.adventureCardsDeck = new ArrayList<>();
-        for (List<AdventureCard> pile : preFlightPiles){
+        for (List<Integer> pile : preFlightPiles){
             this.adventureCardsDeck.addAll(pile);
         }
         Collections.shuffle(this.adventureCardsDeck);
@@ -87,9 +104,9 @@ public class Game{
         return null;
     }
 
-    public Player getPlayer(int position){
+    public Player getPlayer(int ranking){
         for (Player p : players){
-            if(p.getPosition() == position) return p;
+            if(p.getRanking() == ranking) return p;
         }
         return null;
     }
@@ -130,7 +147,7 @@ public class Game{
 
     public void giveEndCredits(){
         for (Player p : this.players){
-            p.addCredits(this.board.endGameCredits.get(p.getPosition()));
+            p.addCredits(this.board.endGameCredits.get(p.getRanking()));
         }
     }
 
@@ -165,9 +182,61 @@ public class Game{
 
     public AdventureCard getAdventureCard(){
         if (this.adventureCardsDeck.isEmpty()) return null;
-        currentAdventureCard = this.adventureCardsDeck.getFirst();
-        return adventureCardsDeck.removeFirst();
+        this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
+        return this.currentAdventureCard;
     }
+
+    private AdventureCard createCardFromJson(JsonObject jsonObject) {
+        String type = jsonObject.get("type").getAsString();
+        return switch (type) {
+            case "AbandonedShip" -> new Gson().fromJson(jsonObject, AbandonedShip.class);
+            case "AbandonedStation" -> new Gson().fromJson(jsonObject, AbandonedStation.class);
+            case "Epidemic" -> new Gson().fromJson(jsonObject, Epidemic.class);
+            case "MeteorsRain" -> new Gson().fromJson(jsonObject, MeteorsRain.class);
+            case "OpenSpace" -> new Gson().fromJson(jsonObject, OpenSpace.class);
+            case "Pirates" -> new Gson().fromJson(jsonObject, Pirates.class);
+            case "Planets" -> new Gson().fromJson(jsonObject, Planets.class);
+            case "Slavers" -> new Gson().fromJson(jsonObject, Slavers.class);
+            case "Smugglers" -> new Gson().fromJson(jsonObject, Smugglers.class);
+            case "Stardust" -> new Gson().fromJson(jsonObject, Stardust.class);
+            case "WarZone" -> new Gson().fromJson(jsonObject, WarZone.class);
+            default -> throw new JsonParseException("Tipo sconosciuto: " + type);
+        };
+        }
+
+    private Map<Integer, AdventureCard> loadCardsFromJson(String jsonFilePath) {
+        Gson gson = new Gson();
+
+        try (FileReader reader = new FileReader(jsonFilePath)) {
+            Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
+            Map<String, JsonObject> tempMap = gson.fromJson(reader, mapType);
+
+            Map<Integer, AdventureCard> cardMap = new HashMap<>();
+            for (Map.Entry<String, JsonObject> entry : tempMap.entrySet()) {
+                int id = Integer.parseInt(entry.getKey());
+                AdventureCard card = createCardFromJson(entry.getValue());
+                cardMap.put(id, card);
+                if (id == 1) this.level1Cards.add(id);
+                else if (id == 2) this.level2Cards.add(id);
+            }
+            return cardMap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+    }
+
+    public void buildPiles() {
+        Collections.shuffle(this.level1Cards);
+        Collections.shuffle(this.level2Cards);
+        for (List<Integer> pile : this.preFlightPiles){
+            pile.add(this.level2Cards.removeFirst());
+            pile.add(this.level2Cards.removeFirst());
+            pile.add(this.level1Cards.removeFirst());
+            //da mettere in board?
+        }
+    }
+
 
 
 
