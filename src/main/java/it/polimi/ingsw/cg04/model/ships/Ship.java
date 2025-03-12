@@ -367,4 +367,10 @@ public class Ship {
         }
     }
 
+    public void removeBoxes(Map<BoxType, Integer> boxesToRemove){
+        // for each key remove as many elements are there are in boxesToRemove
+        for(BoxType type : BoxType.values()){
+            boxes.put(type, boxes.get(type) - boxesToRemove.get(type));
+        }
+    }
 }

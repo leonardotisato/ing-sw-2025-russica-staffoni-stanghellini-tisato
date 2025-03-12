@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.ships.Ship;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,5 +54,10 @@ public class StorageTile extends Tile {
         if (totalBoxes == 0) { throw new RuntimeException("Illegal Operation!"); }
 
         boxes.put(boxType, boxes.get(boxType) - 1);
+    }
+
+    @Override
+    public void broken(Ship ship) {
+        ship.removeBoxes(getBoxes());
     }
 }
