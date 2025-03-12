@@ -1,12 +1,17 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.enumerations.Connection;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
+
+import java.util.Map;
 
 public class PropulsorTile extends Tile {
 
     private final boolean isDoublePropulsor;
 
-    public PropulsorTile(boolean isDoublePropulsor) {
+    public PropulsorTile(Map<Direction, Connection> connectionMap, boolean isDoublePropulsor) {
+        super(connectionMap);
         this.isDoublePropulsor = isDoublePropulsor;
     }
 

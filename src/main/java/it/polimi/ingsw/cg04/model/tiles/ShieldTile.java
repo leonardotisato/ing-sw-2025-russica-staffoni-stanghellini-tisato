@@ -10,7 +10,8 @@ public class ShieldTile extends Tile {
 
     private Set<Direction> protectedDirections;
 
-    public ShieldTile(Set<Direction> protectedDirs) {
+    public ShieldTile(Map<Direction, Connection> connectionMap, Set<Direction> protectedDirs) {
+        super(connectionMap);
         this.protectedDirections = protectedDirs;
     }
 

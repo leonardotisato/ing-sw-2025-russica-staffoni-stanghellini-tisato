@@ -1,9 +1,10 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
-import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 
+import java.util.Map;
 import java.util.Set;
 
 public class HousingTile extends Tile {
@@ -15,8 +16,8 @@ public class HousingTile extends Tile {
     private boolean isCentralTile;
     private PlayerColor color;
 
-    public HousingTile(boolean isCentralTile, PlayerColor color) {
-
+    public HousingTile(Map<Direction, Connection> connectionMap, boolean isCentralTile, PlayerColor color) {
+        super(connectionMap);
         this.isCentralTile = isCentralTile;
         this.color = color;
     }

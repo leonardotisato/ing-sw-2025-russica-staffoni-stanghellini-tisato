@@ -15,15 +15,10 @@ import java.util.Set;
 public abstract class Tile {
     protected Map<Direction, Connection> connections;
 
-    // todo
-    // per poter sfruttare polimorfismo definisco attributi di tutte le sottoclassi di Tile ??
-    // housingTile
-    // alienSupportTile
-    // batteryTile
-    // propulsorTile
-    // laserTile
-
     // Tile generic methods
+    public Tile(Map<Direction, Connection> connections) {
+        this.connections = connections;
+    }
 
     public void broken(Ship ship){
         // todo: implement in each specific tile

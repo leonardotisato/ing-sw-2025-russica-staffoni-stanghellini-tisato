@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.Connection;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 
 import java.util.HashMap;
@@ -12,7 +14,8 @@ public class StorageTile extends Tile {
     private final Integer maxBoxes;
     private Map<BoxType, Integer> boxes;
 
-    public StorageTile(Integer maxBoxes, boolean isSpecialStorageTile) {
+    public StorageTile(Map<Direction, Connection> connectionMap, Integer maxBoxes, boolean isSpecialStorageTile) {
+        super(connectionMap);
         this.maxBoxes = maxBoxes;
         this.isSpecialStorageTile = isSpecialStorageTile;
         this.boxes = new HashMap<>();

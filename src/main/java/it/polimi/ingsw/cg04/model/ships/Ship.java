@@ -9,6 +9,7 @@ import java.util.*;
 public class Ship {
 
     private final int level;
+    private final PlayerColor color;
     private final int shipHeight;
     private final int shipWidth;
     private Tile[][] tilesMatrix;
@@ -28,6 +29,7 @@ public class Ship {
 
     public Ship(int lev, PlayerColor playerColor) {
         this.level = lev;
+        this.color = playerColor;
         assert (level == 1 || level == 2);
 
         if (level == 1) {

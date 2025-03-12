@@ -1,13 +1,18 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.enumerations.Connection;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
+
+import java.util.Map;
 
 public class BatteryTile extends Tile {
 
     private final int maxBatteryCapacity;
     private int numBatteries;
 
-    public BatteryTile(int maxBatteryCapacity) {
+    public BatteryTile(Map<Direction, Connection> connectionMap, int maxBatteryCapacity) {
+        super(connectionMap);
         this.maxBatteryCapacity = maxBatteryCapacity;
         this.numBatteries = this.maxBatteryCapacity;
     }
