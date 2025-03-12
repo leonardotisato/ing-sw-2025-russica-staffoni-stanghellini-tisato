@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.ships.Ship;
 
 public class LaserTile extends Tile {
 
@@ -26,6 +27,15 @@ public class LaserTile extends Tile {
 
         assert(false);
         return null;
+    }
+
+    @Override
+    public void broken(Ship ship){
+        if(!isDoubleLaser){
+            if(getShootingDirection() == Direction.UP){
+                ship.updateBaseFirePower(-1);
+            } else ship.updateBaseFirePower(-0.5);
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.ships.Ship;
 
 
 import java.util.HashMap;
@@ -24,6 +25,12 @@ public abstract class Tile {
     // laserTile
 
     // Tile generic methods
+
+    public void broken(Ship ship){
+        // todo: implement in each specific tile
+        // todo: count connectors?
+        return;
+    }
 
     // clockwise rotation of the Tile
     public void rotate90dx() {
@@ -127,8 +134,9 @@ public abstract class Tile {
         return null;
     }
 
+    // todo: check if this is ok
     public Integer getNumBatteries() {
-        return null;
+        return 0;
     }
 
     public void removeBatteries(Integer numBatteries) {

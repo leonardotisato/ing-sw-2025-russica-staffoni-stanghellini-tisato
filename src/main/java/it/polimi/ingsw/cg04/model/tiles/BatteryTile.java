@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.ships.Ship;
+
 public class BatteryTile extends Tile {
 
     private final int maxBatteryCapacity;
@@ -26,5 +28,10 @@ public class BatteryTile extends Tile {
 
         this.numBatteries -= num;
         assert this.numBatteries >= 0;
+    }
+
+    @Override
+    public void broken(Ship ship){
+        ship.updateBatteries(-numBatteries);
     }
 }

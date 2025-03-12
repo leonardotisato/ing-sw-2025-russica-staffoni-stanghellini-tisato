@@ -25,7 +25,7 @@ public class Ship {
     private int numExposedConnectors;
     private List<Direction> protectedDirections;
     private List<Tile> tilesBuffer;
-    private int baseFirePower = 0;
+    private double baseFirePower = 0;
     private int basePropulsionPower = 0;
 
     public Ship(int lev, PlayerColor playerColor) {
@@ -65,7 +65,18 @@ public class Ship {
         // todo: placeTile(new HousingTile(playerColor), shipHeight / 2, shipWidth / 2);
     }
 
+    public Tile[][] getTilesMatrix() {
+        return tilesMatrix;
+    }
 
+    public boolean[][] getValidSlots() {
+        return validSlots;
+    }
+
+    public Tile getTile(int x, int y) {
+        // todo: add exceptions
+        return tilesMatrix[y][x];
+    }
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
@@ -74,9 +85,36 @@ public class Ship {
         return numBatteries;
     }
 
+    /*
+    public void updateNumBatteries() {
+        int count = 0;
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+                if (tilesMatrix[i][j] != null) {
+                    count = count + tilesMatrix[i][j].getNumBatteries();
+                }
+            }
+        }
+        numBrokenTiles = count;
+    }
+    */
+
     public int getNumAliens() {
         return numAliens;
     }
+
+    /*
+    public void updateNumAliens() {
+        int count = 0;
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+                if (tilesMatrix[i][j] != null) {
+                    // todo after implementing housingTile
+                }
+            }
+        }
+    }
+    */
 
     public int getNumAliens(AlienColor color) {
         return aliens.get(color);
@@ -119,7 +157,7 @@ public class Ship {
         return boxes.get(type);
     }
 
-    public int getBaseFirePower() {
+    public double getBaseFirePower() {
         return baseFirePower;
     }
 
@@ -299,4 +337,22 @@ public class Ship {
 
         return true;
     }
+
+    public void breakTile(Integer x, Integer y) {
+        this.getTile(x, y).broken(this);
+        this.tilesMatrix[x][y] = null;
+    }
+
+    public void updateBatteries(int i){
+        numBatteries = numBatteries + i;
+    }
+
+    public void updateBaseFirePower(double i){
+        baseFirePower = baseFirePower + i;
+    }
+
+    public void updateBasePropulsionPower(int i){
+        basePropulsionPower = basePropulsionPower + i;
+    }
+
 }
