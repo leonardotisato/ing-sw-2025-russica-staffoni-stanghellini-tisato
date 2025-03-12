@@ -38,11 +38,20 @@ public class StorageTile extends Tile {
 
     @Override
     public void addBox(BoxType boxType){
+        if(!this.isSpecialStorageTile() && boxType == BoxType.RED) {
+            throw new RuntimeException("Illegal Operation!");
+        }
+        int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
+        if (totalBoxes >= maxBoxes) { throw new RuntimeException("Illegal Operation!"); }
+
         boxes.put(boxType, boxes.get(boxType) + 1);
     }
 
     @Override
     public void removeBox(BoxType boxType){
+        int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
+        if (totalBoxes == 0) { throw new RuntimeException("Illegal Operation!"); }
+
         boxes.put(boxType, boxes.get(boxType) - 1);
     }
 }
