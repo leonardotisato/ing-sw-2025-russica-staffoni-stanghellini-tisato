@@ -16,11 +16,9 @@ public class Ship {
 
     private final Set<Connection> connectors = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
 
-    private int numHumans = 0;
-    private int numAliens = 0;
     private int numBatteries = 0;
     private int numBrokenTiles = 0;
-    private Map<CrewType, Integer> aliens;
+    private Map<CrewType, Integer> crewMap;
     private Map<BoxType, Integer> boxes;
     private int numExposedConnectors;
     private List<Direction> protectedDirections;
@@ -77,6 +75,7 @@ public class Ship {
         // todo: add exceptions
         return tilesMatrix[y][x];
     }
+
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
@@ -100,7 +99,7 @@ public class Ship {
     */
 
     public int getNumAliens() {
-        return numAliens;
+        return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
 
     /*
@@ -116,16 +115,12 @@ public class Ship {
     }
     */
 
-    public int getNumAliens(CrewType color) {
-        return aliens.get(color);
-    }
-
-    public int getNumHumans() {
-        return numHumans;
+    public int getNumCrewByType(CrewType type) {
+        return crewMap.get(type);
     }
 
     public int getNumCrew() {
-        return this.getNumHumans() + this.getNumAliens();
+        return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN) + crewMap.get(CrewType.HUMAN);
     }
 
     public int getNumExposedConnectors() {
@@ -142,10 +137,6 @@ public class Ship {
 
     public void addTileInBuffer(Tile tile) {
         tilesBuffer.add(tile);
-    }
-
-    public Map<CrewType, Integer> getAliens() {
-        return aliens;
     }
 
     // do we need this?
@@ -165,27 +156,18 @@ public class Ship {
         return basePropulsionPower;
     }
 
-    public void removeHumans(int lostHumans) {
+    public void removeCrewByType(CrewType type) {
 
         // todo: handle this gracefully
-        assert this.getNumHumans() - lostHumans >= 0;
+        assert crewMap.containsKey(type);
+        assert crewMap.get(type) > 0;
 
-        numHumans -= lostHumans;
+        crewMap.put(type, this.getNumCrewByType(type) - 1);
     }
 
     public void removeBatteries(int lostBatteries) {
         assert this.getNumBatteries() - lostBatteries >= 0;
         numBatteries -= lostBatteries;
-    }
-
-    public void removeAliens(CrewType color, int lostAliens) {
-        numAliens -= lostAliens;
-
-        // todo: handle this gracefully
-        assert aliens.get(color) != null;
-        assert this.getNumAliens(color) - lostAliens >= 0;
-
-        aliens.put(color, aliens.get(color) - lostAliens);
     }
 
     // this method remove 'lostBoxes' boxes, prioritizing high value boxes, then removes battery. As stated in the game rules
@@ -343,23 +325,23 @@ public class Ship {
         this.tilesMatrix[x][y] = null;
     }
 
-    public void updateBatteries(int i){
+    public void updateBatteries(int i) {
         numBatteries = numBatteries + i;
     }
 
-    public void updateBaseFirePower(double i){
+    public void updateBaseFirePower(double i) {
         baseFirePower = baseFirePower + i;
     }
 
-    public void updateBasePropulsionPower(int i){
+    public void updateBasePropulsionPower(int i) {
         basePropulsionPower = basePropulsionPower + i;
     }
 
     // todo: check if works
-    public void removeProtectedDirections(Set<Direction> dir){
-        for(Direction d : dir){
-            for(Direction direction : protectedDirections){
-                if(d.equals(direction)){
+    public void removeProtectedDirections(Set<Direction> dir) {
+        for (Direction d : dir) {
+            for (Direction direction : protectedDirections) {
+                if (d.equals(direction)) {
                     protectedDirections.remove(d);
                     break;
                 }
@@ -367,9 +349,9 @@ public class Ship {
         }
     }
 
-    public void removeBoxes(Map<BoxType, Integer> boxesToRemove){
+    public void removeBoxes(Map<BoxType, Integer> boxesToRemove) {
         // for each key remove as many elements are there are in boxesToRemove
-        for(BoxType type : BoxType.values()){
+        for (BoxType type : BoxType.values()) {
             boxes.put(type, boxes.get(type) - boxesToRemove.get(type));
         }
     }
