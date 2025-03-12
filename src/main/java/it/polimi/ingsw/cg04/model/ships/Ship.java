@@ -361,8 +361,8 @@ public class Ship {
             for(Direction direction : protectedDirections){
                 if(d.equals(direction)){
                     protectedDirections.remove(d);
+                    break;
                 }
-                break;
             }
         }
     }
