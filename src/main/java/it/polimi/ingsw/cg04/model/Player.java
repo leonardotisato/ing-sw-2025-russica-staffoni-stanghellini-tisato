@@ -16,7 +16,7 @@ public class Player {
     private int position = 0;
     private int numCredits = 0;
     private Ship ship;
-    private Game game;
+    private final Game game;
     private FlightBoard flightBoard;
     private Tile heldTile;
 
@@ -72,19 +72,19 @@ public class Player {
         this.state = state;
     }
 
-    public void ChooseFaceUpTile(Tile tile) {
+    public void ChooseFaceUpTile(int index) {
         // todo
 
-        List<Tile> faceUpTiles = flightBoard.getFaceUpTiles();
+        // List<Tile> faceUpTiles = flightBoard.getFaceUpTiles();
 
         // todo: ask user which he would like to pick
         int selection = -1;
 
-        heldTile = faceUpTiles.remove(selection);
+        // heldTile = faceUpTiles.remove(selection);
 
     }
 
-    public Tile PickFaceDownTile(Tile tile) {
+    public Tile PickFaceDownTile() {
         // todo
         return null;
     }
