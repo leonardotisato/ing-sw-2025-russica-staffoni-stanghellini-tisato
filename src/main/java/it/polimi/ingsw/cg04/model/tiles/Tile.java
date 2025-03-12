@@ -21,8 +21,8 @@ public abstract class Tile {
     // batteryTile
     // propulsorTile
     // laserTile
-    // storageTile
-    // shieldTile
+
+    // Tile generic methods
 
     // clockwise rotation of the Tile
     public void rotate90dx() {
@@ -50,7 +50,7 @@ public abstract class Tile {
         return connections.get(dir);
     }
 
-    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this -- otherTile
+    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
         // if otherTile does not exist the connection is valid
@@ -108,4 +108,82 @@ public abstract class Tile {
 
         return false;
     }
+
+    // shieldTile methods
+    public Set<Direction> getProtectedDirections() {
+        return null;
+    }
+
+    // batteryTile methods
+    public Integer getNumBatteries() {
+        return null;
+    }
+
+    public void removeBatteries(Integer numBatteries) {
+
+        if (!(this instanceof BatteryTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    // storageTile methods
+    public Boolean isSpecialStorageTile() {
+        return null;
+    }
+
+    public Integer getMaxBoxes() {
+        return null;
+    }
+
+    public Map<BoxType, Integer> getBoxes() {
+        return null;
+    }
+
+    public void addBox(BoxType boxType) {
+        if (!(this instanceof StorageTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    public void removeBox(BoxType boxType) {
+        if (!(this instanceof StorageTile)) {
+            System.out.println("Illegal Operation!");
+            throw new RuntimeException("Illegal Operation!");
+        }
+    }
+
+    // propulsorTile methods
+    public Boolean isDoublePropulsor() {
+        return null;
+    }
+
+    // laserTile methods
+    public Boolean isDoubleLaser() {
+        return null;
+    }
+
+    // alienSupportTile methods
+    public AlienColor getSupportedAlienColor() {
+        return null;
+    }
+
+    // housingTile methods
+    // this one is tricky... housingUnit can be central, and if so have a specific color
+    // and can host only humans if its central, and host aliens of a specific color only if a alienSupportTile is neighbouring...
+    public Boolean isCentralTile() {
+        return null;
+    }
+
+    public Set<AlienColor> getSupportedAlienColors() {
+        return null;
+    }
+
+    public Integer getNumHumans() {
+        return null;
+    }
+
+    // todo: discuss how to model this better...
+
 }
