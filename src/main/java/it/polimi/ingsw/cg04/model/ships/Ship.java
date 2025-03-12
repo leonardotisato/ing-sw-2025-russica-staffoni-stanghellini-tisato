@@ -20,7 +20,7 @@ public class Ship {
     private int numAliens = 0;
     private int numBatteries = 0;
     private int numBrokenTiles = 0;
-    private Map<AlienColor, Integer> aliens;
+    private Map<CrewType, Integer> aliens;
     private Map<BoxType, Integer> boxes;
     private int numExposedConnectors;
     private List<Direction> protectedDirections;
@@ -116,7 +116,7 @@ public class Ship {
     }
     */
 
-    public int getNumAliens(AlienColor color) {
+    public int getNumAliens(CrewType color) {
         return aliens.get(color);
     }
 
@@ -144,7 +144,7 @@ public class Ship {
         tilesBuffer.add(tile);
     }
 
-    public Map<AlienColor, Integer> getAliens() {
+    public Map<CrewType, Integer> getAliens() {
         return aliens;
     }
 
@@ -178,7 +178,7 @@ public class Ship {
         numBatteries -= lostBatteries;
     }
 
-    public void removeAliens(AlienColor color, int lostAliens) {
+    public void removeAliens(CrewType color, int lostAliens) {
         numAliens -= lostAliens;
 
         // todo: handle this gracefully

@@ -2,8 +2,7 @@ package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 
@@ -189,7 +188,7 @@ public abstract class Tile {
     }
 
     // alienSupportTile methods
-    public AlienColor getSupportedAlienColor() {
+    public CrewType getSupportedAlienColor() {
         return null;
     }
 
@@ -200,7 +199,7 @@ public abstract class Tile {
         return null;
     }
 
-    public Set<AlienColor> getSupportedAlienColors() {
+    public Set<CrewType> getSupportedAlienColors() {
         return null;
     }
 

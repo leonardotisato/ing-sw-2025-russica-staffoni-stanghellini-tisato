@@ -1,17 +1,17 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
-import it.polimi.ingsw.cg04.model.enumerations.AlienColor;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 
 public class AlienSupportTile extends Tile {
 
-    private final AlienColor supportedAlienColor;
+    private final CrewType supportedAlienColor;
 
-    public AlienSupportTile(AlienColor supportedAlienColor) {
+    public AlienSupportTile(CrewType supportedAlienColor) {
         this.supportedAlienColor = supportedAlienColor;
     }
 
     @Override
-    public AlienColor getSupportedAlienColor() {
+    public CrewType getSupportedAlienColor() {
         return supportedAlienColor;
     }
 }
