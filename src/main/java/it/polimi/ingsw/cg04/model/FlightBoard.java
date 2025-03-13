@@ -32,11 +32,4 @@ public abstract class FlightBoard {
         return mostBeautifulShipCredits;
     }
 
-
-    private void createPreFlightPiles(){
-    }
-
-    private void createAdventureCardsDeck(){
-    }
-
 }
