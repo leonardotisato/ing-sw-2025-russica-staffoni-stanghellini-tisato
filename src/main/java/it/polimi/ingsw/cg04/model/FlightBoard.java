@@ -10,10 +10,6 @@ public abstract class FlightBoard {
     protected int pathSize;
     protected Map<Integer, Integer> startingPosition;
     protected Bank bank;
-    protected List<Component> faceDownComponents;
-    protected List<Component> faceUpComponents;
-    protected AdventureCard[][] preFlightPiles;
-    protected List<AdventureCard> adventureCardsDeck;
     protected Map<Integer,Integer> endGameCredits;
     protected int mostBeautifulShipCredits;
 
@@ -23,10 +19,6 @@ public abstract class FlightBoard {
         pathSize = 0;
         startingPosition = null;
         bank = null;
-        faceDownComponents = null;
-        faceUpComponents = null;
-        preFlightPiles = null;
-        adventureCardsDeck = null;
         endGameCredits = null;
         mostBeautifulShipCredits = 0;
     }
@@ -35,20 +27,9 @@ public abstract class FlightBoard {
         return pathSize;
     }
 
-    public List<Component> getFaceDownComponents(){
-        return faceDownComponents;
-    }
-
-    public List<Component> getFaceUpComponents(){
-        return faceUpComponents;
-    }
 
     public int giveMostBeautifulShipCredits(){
         return mostBeautifulShipCredits;
-    }
-
-    public AdventureCard[] getPreFlightsPiles(int num){
-        return preFlightPiles[num];
     }
 
 

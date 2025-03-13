@@ -8,5 +8,7 @@ public enum PlayerState {
     RETIRED,
     LOST,
     BUILDING,
-    IN_LOBBY
+    IN_LOBBY,
+    SHIP_CORRECTION,
+    FLIGHT
 }
