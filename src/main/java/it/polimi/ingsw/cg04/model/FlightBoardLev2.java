@@ -18,7 +18,7 @@ public class FlightBoardLev2 extends FlightBoard {
         this.startingPosition.put(2, 3);
         this.startingPosition.put(3, 1);
         this.startingPosition.put(4, 0);
-        this.bank = new Bank(....);
+        this.bank = new Bank(9999, 9999, 9999, 9999, null);
         this.faceDownComponents = new ArrayList<>();
         this.faceUpComponents = new ArrayList<>();
         this.preFlightPiles = null;

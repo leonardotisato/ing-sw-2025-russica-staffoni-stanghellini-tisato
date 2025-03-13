@@ -30,6 +30,11 @@ public abstract class FlightBoard {
         endGameCredits = null;
         mostBeautifulShipCredits = 0;
     }
+
+    public int getPathSize() {
+        return pathSize;
+    }
+
     public List<Component> getFaceDownComponents(){
         return faceDownComponents;
     }

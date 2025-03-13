@@ -12,12 +12,12 @@ public class Bank {
     public int numHumans;
     public int numAliens;
 
-    private Bank(int numCredits, int numBatteries, int numHumans, int numAliens, Map<BoxType, Integer> boxes) {
+    public Bank(int numCredits, int numBatteries, int numHumans, int numAliens, Map<BoxType, Integer> boxes) {
         this.numCredits = numCredits;
         this.numBatteries = numBatteries;
         this.numHumans = numHumans;
         this.numAliens = numAliens;
-        this.boxes = new HashMap<>(boxes);
+        this.boxes = boxes;
     }
 
     private void addCredits(int credits){

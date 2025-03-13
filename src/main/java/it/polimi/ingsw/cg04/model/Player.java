@@ -5,19 +5,18 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.util.List;
-
 public class Player {
 
     private final String name;
     private final PlayerColor color;
     private PlayerState state;
-    private int loops = 0;
-    private int position = 0;
-    private int numCredits = 0;
     private Ship ship;
     private final Game game;
-    private FlightBoard flightBoard;
+    private final FlightBoard flightBoard;
+
+    private int position = 0;
+    private int numCredits = 0;
+
     private Tile heldTile;
 
     public Player(String name, PlayerColor color, Game game) {
@@ -40,12 +39,23 @@ public class Player {
         return state;
     }
 
-    public int getLoops() {
-        return loops;
-    }
 
     public int getPosition() {
         return position;
+    }
+
+    // update position by positive or negative delta
+    // todo: this method does not consider the fact that if other player occupies a cell in the path that cell doesnt count
+    public void move(int delta) {
+        position += delta;
+    }
+
+    public int getLoops() {
+        return position / flightBoard.getPathSize();
+    }
+
+    public int getCurrentCell() {
+        return position % flightBoard.getPathSize();
     }
 
     public int getNumCredits() {
@@ -62,10 +72,6 @@ public class Player {
 
     public void removeCredits(int credits) {
         numCredits -= credits;
-    }
-
-    public void addLoop() {
-        loops++;
     }
 
     public void setState(PlayerState state) {
@@ -116,10 +122,5 @@ public class Player {
 
         return false;
     }
-
-    public void move(int steps) {
-
-    }
-
 
 }

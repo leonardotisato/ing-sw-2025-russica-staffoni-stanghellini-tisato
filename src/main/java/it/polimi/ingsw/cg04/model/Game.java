@@ -2,12 +2,9 @@ package it.polimi.ingsw.cg04.model;
 import com.google.gson.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -89,6 +86,10 @@ public class Game{
         return players;
     }
 
+    public List<Player> getPlayersByPosition() {
+        return players.stream().sorted(Comparator.comparingInt(Player::getPosition).reversed()).collect(Collectors.toList());
+    }
+
     public int getNumPlayers() {
         return numPlayers;
     }
@@ -105,10 +106,10 @@ public class Game{
     }
 
     public Player getPlayer(int ranking){
-        for (Player p : players){
-            if(p.getRanking() == ranking) return p;
-        }
-        return null;
+
+        List<Player> playersByPosition = this.getPlayersByPosition();
+
+        return playersByPosition.get(ranking);
     }
 
     public int rollDices(){
@@ -145,9 +146,13 @@ public class Game{
         }
     }
 
+    // todo: fare che solo i players che arrivano alla fine, quindi non PlayerState == RETIRED or LOST, ricevano le ricompense
     public void giveEndCredits(){
-        for (Player p : this.players){
-            p.addCredits(this.board.endGameCredits.get(p.getRanking()));
+
+        List<Player> playersByPosition = this.getPlayersByPosition();
+
+        for (int i = 0; i < playersByPosition.size(); i++) {
+            playersByPosition.get(i).addCredits(this.board.endGameCredits.get(i));
         }
     }
 
