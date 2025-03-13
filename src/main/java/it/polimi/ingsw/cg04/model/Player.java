@@ -72,7 +72,7 @@ public class Player {
         this.state = state;
     }
 
-    public void ChooseFaceUpTile(int index) {
+    public void chooseFaceUpTile(int index) {
         // todo
 
         // List<Tile> faceUpTiles = flightBoard.getFaceUpTiles();
@@ -84,7 +84,7 @@ public class Player {
 
     }
 
-    public Tile PickFaceDownTile() {
+    public Tile pickFaceDownTile() {
         // todo
         return null;
     }

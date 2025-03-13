@@ -164,12 +164,12 @@ public class Game{
         player.placeTile(tile, x, y);
     }
 
-    public void ChooseFaceUpTile(Player player, Tile tile) {
-      player.ChooseFaceUpTile(tile);
+    public void chooseFaceUpTile(Player player, int index) {
+      player.chooseFaceUpTile(index);
     }
 
-    public void PickFaceDownTile(Player player, Tile tile) {
-        player.PickFaceDownTile(tile);
+    public void pickFaceDownTile(Player player, Tile tile) {
+        player.pickFaceDownTile();
     }
 
     public void addCredits(Player player, int credits) {
