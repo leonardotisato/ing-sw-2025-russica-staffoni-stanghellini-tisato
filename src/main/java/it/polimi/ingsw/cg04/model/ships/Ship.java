@@ -86,36 +86,9 @@ public class Ship {
         return numBatteries;
     }
 
-    /*
-    public void updateNumBatteries() {
-        int count = 0;
-        for (int i = 0; i < shipHeight; i++) {
-            for (int j = 0; j < shipWidth; j++) {
-                if (tilesMatrix[i][j] != null) {
-                    count = count + tilesMatrix[i][j].getNumBatteries();
-                }
-            }
-        }
-        numBrokenTiles = count;
-    }
-    */
-
     public int getNumAliens() {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
-
-    /*
-    public void updateNumAliens() {
-        int count = 0;
-        for (int i = 0; i < shipHeight; i++) {
-            for (int j = 0; j < shipWidth; j++) {
-                if (tilesMatrix[i][j] != null) {
-                    // todo after implementing housingTile
-                }
-            }
-        }
-    }
-    */
 
     public int getNumCrewByType(CrewType type) {
         return crewMap.get(type);
