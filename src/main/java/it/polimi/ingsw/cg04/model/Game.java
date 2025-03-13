@@ -63,9 +63,9 @@ public class Game{
         return false;
     }
 
-    public void addPlayer(String name, PlayerColor color) throws NameAlreadyTakenException{
+    public void addPlayer(String name, PlayerColor color) throws IllegalArgumentException{
         // check name already taken
-        if(this.isNameTaken(name)) throw new NameAlreadyTakenException();
+        if(this.isNameTaken(name)) throw new IllegalArgumentException();
         this.players.add(new Player(name, color, this));
     }
 
