@@ -194,11 +194,27 @@ public abstract class Tile {
         return null;
     }
 
-    public Set<CrewType> getSupportedAlienColors() {
+    public void updateSupportedCrewTypes() {
+
+    }
+
+    public Set<CrewType> getSupportedCrewType() {
         return null;
     }
 
-    public Integer getNumHumans() {
+    public Integer getNumCrew() {
+        return null;
+    }
+
+    public void addCrew(CrewType crewType) {
+
+    }
+
+    public void removeCrewMember() {
+
+    }
+
+    public CrewType getHostedCrewType() {
         return null;
     }
 

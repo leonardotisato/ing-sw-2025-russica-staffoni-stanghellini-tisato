@@ -22,6 +22,10 @@ public class HousingTile extends Tile {
         this.color = color;
     }
 
+    public Boolean isCentralTile() {
+        return isCentralTile;
+    }
+
     public void updateSupportedCrewTypes() {
         // if (!isCentralTile || no supports) { supportedCrewType = set(HUMANS)
         // else supportedCrewType can host some aliens...
@@ -35,7 +39,7 @@ public class HousingTile extends Tile {
         // if type in supported add 1 alien or 2 humans
     }
 
-    public int getNumCrew() {
+    public Integer getNumCrew() {
         return numCrew;
     }
 

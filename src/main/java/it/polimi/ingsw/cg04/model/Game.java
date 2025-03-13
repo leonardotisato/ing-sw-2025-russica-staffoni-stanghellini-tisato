@@ -142,7 +142,7 @@ public class Game{
                 .collect(Collectors.toList());
 
         for(Player p : minPlayers){
-            p.addCredits(this.board.giveMostBeautifulShipCredits());
+            p.updateCredits(this.board.giveMostBeautifulShipCredits());
         }
     }
 
@@ -152,7 +152,7 @@ public class Game{
         List<Player> playersByPosition = this.getPlayersByPosition();
 
         for (int i = 0; i < playersByPosition.size(); i++) {
-            playersByPosition.get(i).addCredits(this.board.endGameCredits.get(i));
+            playersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i));
         }
     }
 
@@ -177,12 +177,8 @@ public class Game{
         player.pickFaceDownTile();
     }
 
-    public void addCredits(Player player, int credits) {
-        player.addCredits(credits);
-    }
-
-    public void removeCredits(Player player, int credits) {
-        player.removeCredits(credits);
+    public void updateCredits(Player player, int delta) {
+        player.updateCredits(delta);
     }
 
     public AdventureCard getAdventureCard(){

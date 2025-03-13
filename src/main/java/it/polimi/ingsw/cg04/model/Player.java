@@ -39,6 +39,14 @@ public class Player {
         return state;
     }
 
+    public void setState(PlayerState state) {
+        this.state = state;
+    }
+
+    public Ship getShip() {
+        return ship;
+    }
+
 
     public int getPosition() {
         return position;
@@ -62,20 +70,8 @@ public class Player {
         return numCredits;
     }
 
-    public Ship getShip() {
-        return ship;
-    }
-
-    public void addCredits(int credits) {
-        numCredits += credits;
-    }
-
-    public void removeCredits(int credits) {
-        numCredits -= credits;
-    }
-
-    public void setState(PlayerState state) {
-        this.state = state;
+    public void updateCredits(int delta) {
+        numCredits += delta;
     }
 
     public void chooseFaceUpTile(int index) {

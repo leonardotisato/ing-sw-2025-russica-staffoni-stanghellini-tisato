@@ -19,13 +19,15 @@ public class Ship {
 
     private int numBatteries = 0;
     private int numBrokenTiles = 0;
-    private Map<CrewType, Integer> crewMap;
-    private Map<BoxType, Integer> boxes;
     private int numExposedConnectors;
-    private List<Direction> protectedDirections;
-    private List<Tile> tilesBuffer;
     private double baseFirePower = 0;
     private int basePropulsionPower = 0;
+
+    private Map<CrewType, Integer> crewMap;
+    private Map<BoxType, Integer> boxes;
+    private List<Direction> protectedDirections;
+    private List<Tile> tilesBuffer;
+
 
     public Ship(int lev, PlayerColor playerColor) {
         this.level = lev;
@@ -211,10 +213,6 @@ public class Ship {
         // todo: check that all propulsors are pointing backwards
 
         return false;
-    }
-
-    public int askNumBatteriesToUse() {
-        return -1;
     }
 
     public int calcTotalPropulsionPower(int usedBatteries) {

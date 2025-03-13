@@ -15,21 +15,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TileTest {
 
-    private Tile shieldTile16;
+    private Tile shieldTile151;
+    private Tile batteryTile5;
 
     @BeforeEach
     void setUp() {
-        Map<Direction, Connection> connections16 = new HashMap<>();
-        connections16.put(Direction.UP, Connection.DOUBLE);
-        connections16.put(Direction.RIGHT, Connection.SINGLE);
-        connections16.put(Direction.DOWN, Connection.DOUBLE);
-        connections16.put(Direction.LEFT, Connection.SINGLE);
+        Map<Direction, Connection> connection151 = new HashMap<>();
+        connection151.put(Direction.UP, Connection.DOUBLE);
+        connection151.put(Direction.RIGHT, Connection.SINGLE);
+        connection151.put(Direction.DOWN, Connection.DOUBLE);
+        connection151.put(Direction.LEFT, Connection.SINGLE);
 
-        Set<Direction> protectedDirections16 = new HashSet<>();
-        protectedDirections16.add(Direction.UP);
-        protectedDirections16.add(Direction.RIGHT);
+        Set<Direction> protectedDirections151 = new HashSet<>();
+        protectedDirections151.add(Direction.UP);
+        protectedDirections151.add(Direction.RIGHT);
 
-        shieldTile16 = new ShieldTile(connections16, protectedDirections16);
+        shieldTile151 = new ShieldTile(connection151, protectedDirections151);
+
+        Map<Direction, Connection> connection5 = new HashMap<>();
+        connection5.put(Direction.UP, Connection.UNIVERSAL);
+        connection5.put(Direction.RIGHT, Connection.EMPTY);
+        connection5.put(Direction.DOWN, Connection.EMPTY);
+        connection5.put(Direction.LEFT, Connection.SINGLE);
+
+        batteryTile5 = new BatteryTile(connection5, 2);
+
     }
 
     @AfterEach
@@ -43,18 +53,26 @@ class TileTest {
     @Test
     void rotate90dx() {
 
-        Set<Direction> newProtectedDirections16 = new HashSet<>();
-        newProtectedDirections16.add(Direction.RIGHT);
-        newProtectedDirections16.add(Direction.DOWN);
+        // check tile151
+        Set<Direction> newProtectedDirections151 = new HashSet<>();
+        newProtectedDirections151.add(Direction.RIGHT);
+        newProtectedDirections151.add(Direction.DOWN);
 
-        shieldTile16.rotate90dx();
+        shieldTile151.rotate90dx();
 
-        assertEquals (Connection.SINGLE, shieldTile16.getConnection(Direction.UP));
-        assertEquals(Connection.DOUBLE, shieldTile16.getConnection(Direction.RIGHT));
-        assertEquals(Connection.SINGLE, shieldTile16.getConnection(Direction.DOWN));
-        assertEquals(Connection.DOUBLE, shieldTile16.getConnection(Direction.LEFT));
+        assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.UP));
+        assertEquals(Connection.DOUBLE, shieldTile151.getConnection(Direction.RIGHT));
+        assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.DOWN));
+        assertEquals(Connection.DOUBLE, shieldTile151.getConnection(Direction.LEFT));
 
-        assertEquals(newProtectedDirections16, shieldTile16.getProtectedDirections());
+        assertEquals(newProtectedDirections151, shieldTile151.getProtectedDirections());
+
+        // check tile5
+        batteryTile5.rotate90dx();
+        assertEquals(Connection.SINGLE, batteryTile5.getConnection(Direction.UP));
+        assertEquals(Connection.UNIVERSAL, batteryTile5.getConnection(Direction.RIGHT));
+        assertEquals(Connection.EMPTY, batteryTile5.getConnection(Direction.DOWN));
+        assertEquals(Connection.EMPTY, batteryTile5.getConnection(Direction.LEFT));
     }
 
     @Test
@@ -67,38 +85,73 @@ class TileTest {
 
     @Test
     void getConnection() {
+        assertEquals(Connection.DOUBLE, shieldTile151.getConnection(Direction.UP));
+        assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.RIGHT));
+        assertEquals(Connection.DOUBLE, shieldTile151.getConnection(Direction.DOWN));
+        assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.LEFT));
     }
 
     @Test
     void isValidConnection() {
+        assertTrue(shieldTile151.isValidConnection(Direction.RIGHT, shieldTile151));
+        assertTrue(shieldTile151.isValidConnection(Direction.DOWN, shieldTile151));
+        assertTrue(shieldTile151.isValidConnection(Direction.UP, shieldTile151));
+        assertTrue(shieldTile151.isValidConnection(Direction.LEFT, shieldTile151));
+
+        assertFalse(batteryTile5.isValidConnection(Direction.DOWN, shieldTile151));
+        assertFalse(shieldTile151.isValidConnection(Direction.UP, batteryTile5));
+        assertFalse(shieldTile151.isValidConnection(Direction.LEFT, batteryTile5));
+        assertTrue(shieldTile151.isValidConnection(Direction.RIGHT, batteryTile5));
+
+        assertTrue(batteryTile5.isValidConnection(Direction.LEFT, shieldTile151));
+
+
     }
 
     @Test
     void getProtectedDirections() {
+        assertNull(batteryTile5.getProtectedDirections());
+        assertNotNull(shieldTile151.getProtectedDirections());
     }
 
     @Test
     void getMaxBatteryCapacity() {
+        assertNull(shieldTile151.getMaxBatteryCapacity());
     }
 
     @Test
     void getNumBatteries() {
+        assertEquals(0, shieldTile151.getNumBatteries());
+        assertEquals(2, batteryTile5.getNumBatteries());
     }
 
     @Test
     void removeBatteries() {
+        batteryTile5.removeBatteries(1);
+        assertEquals(1, batteryTile5.getNumBatteries());
+        batteryTile5.removeBatteries(1);
+        assertEquals(0, batteryTile5.getNumBatteries());
+        assertThrows(IllegalArgumentException.class, () -> batteryTile5.removeBatteries(-1));
+        assertThrows(RuntimeException.class, () -> batteryTile5.removeBatteries(2));
+        assertEquals(0, batteryTile5.getNumBatteries());
     }
 
     @Test
     void isSpecialStorageTile() {
+        assertNull(shieldTile151.isSpecialStorageTile());
+        assertNull(batteryTile5.isSpecialStorageTile());
     }
 
     @Test
     void getMaxBoxes() {
+        assertNull(shieldTile151.getMaxBoxes());
+        assertNull(batteryTile5.getMaxBoxes());
     }
 
     @Test
     void getBoxes() {
+        assertNull(shieldTile151.getBoxes());
+        assertNull(batteryTile5.getBoxes());
     }
 
     @Test
@@ -111,14 +164,18 @@ class TileTest {
 
     @Test
     void isDoublePropulsor() {
+        assertNull(shieldTile151.isDoublePropulsor());
     }
 
     @Test
     void isDoubleLaser() {
+        assertNull(shieldTile151.isDoubleLaser());
     }
 
     @Test
     void getShootingDirection() {
+        assertNull(shieldTile151.getShootingDirection());
+        assertNull(batteryTile5.getShootingDirection());
     }
 
     @Test

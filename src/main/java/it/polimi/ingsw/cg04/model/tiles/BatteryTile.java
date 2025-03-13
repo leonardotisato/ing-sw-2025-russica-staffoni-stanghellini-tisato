@@ -26,13 +26,15 @@ public class BatteryTile extends Tile {
     }
 
     public void removeBatteries(Integer num) {
+        if (num <= 0) {
+            throw new IllegalArgumentException("Battery number must be greater than zero");
+        }
         if (this.numBatteries < num) {
             System.out.println("Illegal operation: avail batteries" + this.numBatteries + " taken batteries: " + num);
             throw new RuntimeException("Illegal operation");
         }
 
         this.numBatteries -= num;
-        assert this.numBatteries >= 0;
     }
 
     @Override
