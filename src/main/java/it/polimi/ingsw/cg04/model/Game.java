@@ -33,8 +33,8 @@ public class Game{
     private Map<Integer, AdventureCard> adventureCardsMap;
     private List<Integer> adventureCardsDeck;
     private Map<Integer, Tile> TilesDeckMap;
-    private List<Integer> faceDownComponents;
-    private List<Integer> faceUpComponents;
+    private List<Integer> faceDownTiles;
+    private List<Integer> faceUpTiles;
 
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 0;
@@ -50,9 +50,9 @@ public class Game{
             preFlightPiles.add(new ArrayList<>());
         }
         this.adventureCardsDeck = new ArrayList<>();
-        this.faceDownComponents = new ArrayList<>();
-        this.faceUpComponents = new ArrayList<>();
-        this.TilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownComponents);
+        this.faceDownTiles = new ArrayList<>();
+        this.faceUpTiles = new ArrayList<>();
+        this.TilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = GameState.START;
     }
 
@@ -94,7 +94,7 @@ public class Game{
         return players;
     }
 
-    public List<Player> getPlayersByPosition() {
+    public List<Player> getSortedPlayers() {
         return players.stream().sorted(Comparator.comparingInt(Player::getPosition).reversed()).collect(Collectors.toList());
     }
 
@@ -115,7 +115,7 @@ public class Game{
 
     public Player getPlayer(int ranking){
 
-        List<Player> playersByPosition = this.getPlayersByPosition();
+        List<Player> playersByPosition = this.getSortedPlayers();
 
         return playersByPosition.get(ranking);
     }
@@ -128,12 +128,12 @@ public class Game{
         return TilesDeckMap.get(id);
     }
 
-    public List<Integer> getFaceDownComponents(){
-        return faceDownComponents;
+    public List<Integer> getFaceDownTiles(){
+        return faceDownTiles;
     }
 
-    public List<Integer> getFaceUpComponents(){
-        return faceUpComponents;
+    public List<Integer> getFaceUpTiles(){
+        return faceUpTiles;
     }
 
     public int rollDices(){
@@ -176,7 +176,7 @@ public class Game{
     // todo: fare che solo i players che arrivano alla fine, quindi non PlayerState == RETIRED or LOST, ricevano le ricompense
     public void giveEndCredits(){
 
-        List<Player> playersByPosition = this.getPlayersByPosition();
+        List<Player> playersByPosition = this.getSortedPlayers();
 
         for (int i = 0; i < playersByPosition.size(); i++) {
             playersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i));
@@ -208,7 +208,7 @@ public class Game{
         player.updateCredits(delta);
     }
 
-    public AdventureCard getAdventureCard(){
+    public AdventureCard getNextAdventureCard(){
         if (this.adventureCardsDeck.isEmpty()) return null;
         this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
         return this.currentAdventureCard;
