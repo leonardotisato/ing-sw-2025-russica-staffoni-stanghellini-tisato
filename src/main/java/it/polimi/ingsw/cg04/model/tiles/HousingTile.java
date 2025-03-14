@@ -63,5 +63,16 @@ public class HousingTile extends Tile {
                 ship.removeCrewByType(CrewType.HUMAN);
             }
         } else ship.removeCrewByType(hostedCrewType);
+
+        // remove this tile from adjacentHousingTile in relative AlienSupportTile
+        Tile[][] tilesMatrix = ship.getTilesMatrix();
+        for(int i = 0; i < tilesMatrix[0].length - 1; i++) {
+            for(int j = 0; j < tilesMatrix.length - 1; j++) {
+                if(tilesMatrix[i][j] instanceof AlienSupportTile && tilesMatrix[i][j].getAdjacentHousingTile().contains(this)) {
+                    tilesMatrix[i][j].removeAdjacentHousingTile(this);
+                }
+            }
+        }
+
     }
 }

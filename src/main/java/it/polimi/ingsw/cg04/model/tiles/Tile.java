@@ -188,6 +188,11 @@ public abstract class Tile {
         return null;
     }
 
+    public void addAdjacentHousingTile(Tile tile){ }
+
+    public void removeAdjacentHousingTile(Tile tile){ }
+
+    public Set<Tile> getAdjacentHousingTile(){ return null; }
     // housingTile methods
     // this one is tricky... housingUnit can be central, and if so have a specific color
     // and can host only humans if its central, and host aliens of a specific color only if a alienSupportTile is neighbouring...
