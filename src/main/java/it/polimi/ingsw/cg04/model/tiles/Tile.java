@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg04.model.ships.Ship;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -198,7 +199,10 @@ public abstract class Tile {
 
     }
 
-    public Set<CrewType> getSupportedCrewType() {
+    public void removeCrewType(CrewType crewType) {
+    }
+
+    public List<CrewType> getSupportedCrewType() {
         return null;
     }
 

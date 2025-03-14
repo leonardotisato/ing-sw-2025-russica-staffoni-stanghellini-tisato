@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.ships.Ship;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public class HousingTile extends Tile {
 
     private int numCrew;
     private CrewType hostedCrewType;
-    private Set<CrewType> supportedCrewType;
+    private List<CrewType> supportedCrewType;
 
     private boolean isCentralTile;
     private PlayerColor color;
@@ -31,7 +32,11 @@ public class HousingTile extends Tile {
         // else supportedCrewType can host some aliens...
     }
 
-    public Set<CrewType> getSupportedCrewType() {
+    public void removeCrewType(CrewType crewType) {
+        supportedCrewType.remove(crewType);
+    }
+
+    public List<CrewType> getSupportedCrewType() {
         return supportedCrewType;
     }
 
