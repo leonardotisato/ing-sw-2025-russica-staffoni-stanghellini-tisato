@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import org.junit.jupiter.api.AfterEach;
@@ -17,9 +18,12 @@ class TileTest {
 
     private Tile shieldTile151;
     private Tile batteryTile5;
+    private Tile storageTile26;
 
     @BeforeEach
     void setUp() {
+
+        // shieldTile151
         Map<Direction, Connection> connection151 = new HashMap<>();
         connection151.put(Direction.UP, Connection.DOUBLE);
         connection151.put(Direction.RIGHT, Connection.SINGLE);
@@ -32,6 +36,7 @@ class TileTest {
 
         shieldTile151 = new ShieldTile(connection151, protectedDirections151);
 
+        // batteryTile5
         Map<Direction, Connection> connection5 = new HashMap<>();
         connection5.put(Direction.UP, Connection.UNIVERSAL);
         connection5.put(Direction.RIGHT, Connection.EMPTY);
@@ -40,6 +45,14 @@ class TileTest {
 
         batteryTile5 = new BatteryTile(connection5, 2);
 
+        // storageTile26
+        Map<Direction, Connection> connection26 = new HashMap<>();
+        connection26.put(Direction.UP, Connection.UNIVERSAL);
+        connection26.put(Direction.RIGHT, Connection.EMPTY);
+        connection26.put(Direction.DOWN, Connection.EMPTY);
+        connection26.put(Direction.LEFT, Connection.UNIVERSAL);
+
+        storageTile26 = new StorageTile(connection26, 2, false);
     }
 
     @AfterEach
@@ -93,18 +106,21 @@ class TileTest {
 
     @Test
     void isValidConnection() {
+        // shieldTile151 vs shieldTile151
         assertTrue(shieldTile151.isValidConnection(Direction.RIGHT, shieldTile151));
         assertTrue(shieldTile151.isValidConnection(Direction.DOWN, shieldTile151));
         assertTrue(shieldTile151.isValidConnection(Direction.UP, shieldTile151));
         assertTrue(shieldTile151.isValidConnection(Direction.LEFT, shieldTile151));
 
+        // shieldTile151 vs batteryTile5
         assertFalse(batteryTile5.isValidConnection(Direction.DOWN, shieldTile151));
         assertFalse(shieldTile151.isValidConnection(Direction.UP, batteryTile5));
         assertFalse(shieldTile151.isValidConnection(Direction.LEFT, batteryTile5));
         assertTrue(shieldTile151.isValidConnection(Direction.RIGHT, batteryTile5));
-
         assertTrue(batteryTile5.isValidConnection(Direction.LEFT, shieldTile151));
 
+        storageTile26.rotate90dx();
+        assertTrue(batteryTile5.isValidConnection(Direction.RIGHT, storageTile26));
 
     }
 
@@ -140,26 +156,64 @@ class TileTest {
     void isSpecialStorageTile() {
         assertNull(shieldTile151.isSpecialStorageTile());
         assertNull(batteryTile5.isSpecialStorageTile());
+        assertFalse(storageTile26.isSpecialStorageTile());
     }
 
     @Test
     void getMaxBoxes() {
         assertNull(shieldTile151.getMaxBoxes());
         assertNull(batteryTile5.getMaxBoxes());
+        assertEquals(2, storageTile26.getMaxBoxes());
     }
 
     @Test
     void getBoxes() {
         assertNull(shieldTile151.getBoxes());
         assertNull(batteryTile5.getBoxes());
+
+        assertNotNull(storageTile26.getBoxes());
     }
 
     @Test
     void addBox() {
+        // try to add special box into normal storage
+        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.RED));
+
+        storageTile26.addBox(BoxType.BLUE);
+        assertEquals(4, storageTile26.getBoxes().size());
+        assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
+
+        storageTile26.addBox(BoxType.GREEN);
+        assertEquals(4, storageTile26.getBoxes().size());
+        assertEquals(1, storageTile26.getBoxes().get(BoxType.GREEN));
+
+        // check if maxCapacity exceeded works
+        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.YELLOW));
     }
 
     @Test
     void removeBox() {
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.RED));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.YELLOW));
+
+        storageTile26.addBox(BoxType.GREEN);
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE));
+        assertEquals(1, storageTile26.getBoxes().get(BoxType.GREEN));
+        storageTile26.removeBox(BoxType.GREEN);
+        assertEquals(4, storageTile26.getBoxes().size());
+        assertEquals(0, storageTile26.getBoxes().get(BoxType.BLUE));
+        assertEquals(0, storageTile26.getBoxes().get(BoxType.GREEN));
+
+        storageTile26.addBox(BoxType.BLUE);
+        storageTile26.addBox(BoxType.YELLOW);
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN));
+        assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
+        storageTile26.removeBox(BoxType.YELLOW);
+        assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
+        assertEquals(0, storageTile26.getBoxes().get(BoxType.GREEN));
+        assertEquals(0, storageTile26.getBoxes().get(BoxType.YELLOW));
     }
 
     @Test

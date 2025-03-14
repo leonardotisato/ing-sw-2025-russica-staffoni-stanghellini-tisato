@@ -12,7 +12,7 @@ import java.util.Set;
 public class StorageTile extends Tile {
     private final boolean isSpecialStorageTile;
     private final Integer maxBoxes;
-    private Map<BoxType, Integer> boxes;
+    private final Map<BoxType, Integer> boxes;
 
     public StorageTile(Map<Direction, Connection> connectionMap, Integer maxBoxes, boolean isSpecialStorageTile) {
         super(connectionMap);
@@ -46,7 +46,7 @@ public class StorageTile extends Tile {
             throw new RuntimeException("Illegal Operation!");
         }
         int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
-        if (totalBoxes >= maxBoxes) { throw new RuntimeException("Illegal Operation!"); }
+        if (totalBoxes >= maxBoxes) { throw new RuntimeException("Illegal Operation! Max capacity exceeded!"); }
 
         boxes.put(boxType, boxes.get(boxType) + 1);
     }
@@ -54,7 +54,10 @@ public class StorageTile extends Tile {
     @Override
     public void removeBox(BoxType boxType){
         int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
-        if (totalBoxes == 0) { throw new RuntimeException("Illegal Operation!"); }
+        if (totalBoxes == 0) { throw new RuntimeException("Illegal Operation! No boxes found!"); }
+
+        if (!boxes.containsKey(boxType)) { throw new RuntimeException("Illegal Operation! No boxes of type " + boxType + " found!"); }
+        if (boxes.get(boxType) == 0) { throw new RuntimeException("Illegal Operation! boxes.get(boxType) == 0 found!"); }
 
         boxes.put(boxType, boxes.get(boxType) - 1);
     }
