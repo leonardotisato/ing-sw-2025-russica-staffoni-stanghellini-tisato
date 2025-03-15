@@ -32,7 +32,7 @@ public class HousingTile extends Tile {
         // else supportedCrewType can host some aliens...
     }
 
-    public void removeCrewType(CrewType crewType) {
+    public void removeSupportedCrewType(CrewType crewType) {
         supportedCrewType.remove(crewType);
     }
 
