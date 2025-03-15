@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.ships;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import java.util.HashSet;
 
 import java.util.*;
 
@@ -296,6 +297,7 @@ public class Ship {
     public void breakTile(Integer x, Integer y) {
         this.getTile(x, y).broken(this);
         this.tilesMatrix[x][y] = null;
+        this.updateExposedConnectors();
     }
 
     public void updateBaseFirePower(double i) {
@@ -316,5 +318,45 @@ public class Ship {
                 }
             }
         }
+    }
+
+    public void updateExposedConnectors(){
+        int cont = 0;
+        // set of connections that increases the count, used to make code more readable
+        Set<Connection> connectors = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
+        for(int i = 0; i<shipHeight; i++) {
+            for(int j = 0; j<shipWidth; j++) {
+                if (tilesMatrix[i][j] != null) {
+
+                    if (i == 0) {
+                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))){cont++;}
+                    }
+                    else {
+                        if (tilesMatrix[i-1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))){cont++;}
+                    }
+
+                    if (i == shipHeight - 1) {
+                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))){cont++;}
+                    }
+                    else {
+                        if(tilesMatrix[i+1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))){cont++;}
+                    }
+
+                    if (j == 0) {
+                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))){cont++;}
+                    }
+                    else {
+                        if(tilesMatrix[i][j-1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))){ cont++; }
+                    }
+
+                    if (j == shipWidth - 1) {
+                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))) { cont++; }
+                    } else {
+                        if(tilesMatrix[i][j+1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))){ cont++; }
+                    }
+                }
+            }
+        }
+        this.numExposedConnectors = cont;
     }
 }
