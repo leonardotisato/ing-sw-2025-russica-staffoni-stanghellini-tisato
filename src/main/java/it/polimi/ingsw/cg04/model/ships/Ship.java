@@ -75,9 +75,18 @@ public class Ship {
         return validSlots;
     }
 
+    // returns Tile in slot (x,y) and null if no tile is found in (x,y)
     public Tile getTile(int x, int y) {
-        // todo: add exceptions
-        return tilesMatrix[y][x];
+
+        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+
+        if (!validSlots[x][y]) {
+            throw new IllegalArgumentException("Requested slot is not a valid slot!");
+        }
+
+        return tilesMatrix[x][y];
     }
 
     public int getNumBrokenTiles() {
