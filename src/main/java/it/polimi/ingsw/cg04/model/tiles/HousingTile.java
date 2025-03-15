@@ -11,7 +11,7 @@ import java.util.Set;
 public class HousingTile extends Tile {
 
     private int numCrew;
-    private CrewType hostedCrewType;
+    private CrewType hostedCrewType = null;
     private List<CrewType> supportedCrewType;
 
     private boolean isCentralTile;
@@ -41,7 +41,21 @@ public class HousingTile extends Tile {
     }
 
     public void addCrew(CrewType type) {
-        // if type in supported add 1 alien or 2 humans
+        if (type == null) {
+            throw new RuntimeException("CrewType cannot be null");
+        }
+
+        if (!supportedCrewType.contains(type)) {
+            throw new RuntimeException("Crew type:" + type + " is not supported");
+        }
+
+        hostedCrewType = type;
+        if (hostedCrewType == CrewType.HUMAN) {
+            numCrew = 2;
+        } else {
+            numCrew = 1;
+        }
+
     }
 
     public Integer getNumCrew() {
@@ -53,22 +67,30 @@ public class HousingTile extends Tile {
     }
 
     public void removeCrewMember() {
-        // if numCrew > 0: numCrew--;
+        if (numCrew <= 0) {
+            throw new RuntimeException("Crew member is zero or negative");
+        }
+
+        numCrew--;
+
+        if (numCrew == 0) {
+            hostedCrewType = null;
+        }
     }
 
     @Override
-    public void broken(Ship ship){
+    public void broken(Ship ship) {
         if (hostedCrewType.equals(CrewType.HUMAN)) {
-            for(int i = numCrew; i > 0; i--) {
+            for (int i = numCrew; i > 0; i--) {
                 ship.removeCrewByType(CrewType.HUMAN);
             }
         } else ship.removeCrewByType(hostedCrewType);
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile
         Tile[][] tilesMatrix = ship.getTilesMatrix();
-        for(int i = 0; i < tilesMatrix[0].length - 1; i++) {
-            for(int j = 0; j < tilesMatrix.length - 1; j++) {
-                if(tilesMatrix[i][j] instanceof AlienSupportTile && tilesMatrix[i][j].getAdjacentHousingTile().contains(this)) {
+        for (int i = 0; i < tilesMatrix[0].length - 1; i++) {
+            for (int j = 0; j < tilesMatrix.length - 1; j++) {
+                if (tilesMatrix[i][j] instanceof AlienSupportTile && tilesMatrix[i][j].getAdjacentHousingTile().contains(this)) {
                     tilesMatrix[i][j].removeAdjacentHousingTile(this);
                 }
             }
