@@ -1,20 +1,27 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 
 public class AbandonedShip extends AdventureCard {
-    private final int lostMembers;
-    private final int earnedCredits;
+    @Expose
+    private int lostMembers;
+    @Expose
+    private int earnedCredits;
 
-    public AbandonedShip(int cardLevel, int daysLost, int lostMembers, int earnedCredits) {
-        super(cardLevel, daysLost);
-        this.lostMembers = lostMembers;
-        this.earnedCredits = earnedCredits;
+    public AbandonedShip() {
+        super();
     }
 
     public int getLostMembers() { return lostMembers; }
+    public void setLostMembers(int lostMembers) {
+        this.lostMembers = lostMembers;
+    }
 
     public int getEarnedCredits() { return earnedCredits; }
+    public void setEarnedCredits(int earnedCredits) {
+        this.earnedCredits = earnedCredits;
+    }
 
     public void solveEffect(Game game) {
 

@@ -1,30 +1,39 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 
 public class Slavers extends AdventureCard{
+    @Expose
+    private int firePower;
+    @Expose
+    private int membersLost;
+    @Expose
+    private int creditsEarned;
 
-    private final int firePower;
-    private final int membersLost;
-    private final int creditsEarned;
-
-    public Slavers(int cardLevel, int daysLost, int firePower, int membersLost, int creditsEarned){
-        super(cardLevel, daysLost);
-        this.firePower = firePower;
-        this.membersLost = membersLost;
-        this.creditsEarned = creditsEarned;
+    public Slavers(){
+        super();
     }
 
     public int getFirePower() {
         return firePower;
     }
+    public void setFirePower(int firePower) {
+        this.firePower = firePower;
+    }
 
     public int getMembersLost() {
         return membersLost;
     }
+    public void setMembersLost(int membersLost) {
+        this.membersLost = membersLost;
+    }
 
     public int getCreditsEarned() {
         return creditsEarned;
+    }
+    public void setCreditsEarned(int creditsEarned) {
+        this.creditsEarned = creditsEarned;
     }
 
     public void solveEffect(Game game){

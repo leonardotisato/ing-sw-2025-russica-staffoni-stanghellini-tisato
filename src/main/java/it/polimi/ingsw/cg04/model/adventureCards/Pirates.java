@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Shot;
@@ -8,15 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pirates extends AdventureCard {
-    private final int firePower;
-    private final int reward;
-    private final List<Direction> directions;
-    private final List<Shot> shots;
+    @Expose
+    private int firePower;
+    @Expose
+    private int reward;
+    @Expose
+    private List<Direction> directions;
+    @Expose
+    private List<Shot> shots;
 
-    public Pirates(int cardLevel, int daysLost, int firePower, int reward) {
-        super(cardLevel, daysLost);
-        this.firePower = firePower;
-        this.reward = reward;
+    public Pirates() {
+        super();
         directions = new ArrayList<Direction>();
         shots = new ArrayList<Shot>();
     }
@@ -27,12 +30,20 @@ public class Pirates extends AdventureCard {
     }
 
     public int getFirePower() { return firePower; }
+    public void setFirePower(int firePower) { this.firePower = firePower; }
 
     public int getReward() { return reward; }
+    public void setReward(int reward) { this.reward = reward; }
 
     public List<Direction> getDirections() { return directions; }
+    public void setDirections(List<Direction> directions) {
+        this.directions = new ArrayList<>(directions);
+    }
 
     public List<Shot> getShots() { return shots; }
+    public void setShots(List<Shot> shots) {
+        this.shots = new ArrayList<>(shots);
+    }
 
     public Direction getDirection(int i) { return directions.get(i); }
 

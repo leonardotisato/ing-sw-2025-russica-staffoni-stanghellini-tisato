@@ -4,8 +4,8 @@ import it.polimi.ingsw.cg04.model.Game;
 
 public class Stardust extends AdventureCard {
 
-    public Stardust(int cardLevel, int daysLost) {
-        super(cardLevel, daysLost);
+    public Stardust() {
+        super();
     }
 
     // todo: testing

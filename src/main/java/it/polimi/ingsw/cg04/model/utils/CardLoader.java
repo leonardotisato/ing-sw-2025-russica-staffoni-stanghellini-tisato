@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg04.model.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.enumerations.Meteor;
+import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +17,17 @@ import java.util.Map;
 
 public class CardLoader {
     public static Map<Integer, AdventureCard> loadCardsFromJson(String jsonFilePath, List<Integer> level1Cards, List<Integer> level2Cards) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .registerTypeAdapter(BoxType.class, new EnumDeserializer<>(BoxType.class))
+                .registerTypeAdapter(Direction.class, new EnumDeserializer<>(Direction.class))
+                .registerTypeAdapter(Meteor.class, new EnumDeserializer<>(Meteor.class))
+                .registerTypeAdapter(new TypeToken<Map<BoxType, Integer>>() {}.getType(), new BoxTypeMapDeserializer())
+                .registerTypeAdapter(new TypeToken<List<Direction>>() {}.getType(), new EnumListDeserializer<>(Direction.class))
+                .registerTypeAdapter(new TypeToken<List<Meteor>>() {}.getType(), new EnumListDeserializer<>(Meteor.class))
+                .registerTypeAdapter(new TypeToken<List<Shot>>() {}.getType(), new EnumListDeserializer<>(Shot.class))
+                .registerTypeAdapter(new TypeToken<List<Map<BoxType, Integer>>>() {}.getType(), new BoxTypeListMapDeserializer())
+                .create();
 
         try (FileReader reader = new FileReader(jsonFilePath)) {
             Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
@@ -26,8 +38,8 @@ public class CardLoader {
                 int id = Integer.parseInt(entry.getKey());
                 AdventureCard card = createCardFromJson(entry.getValue());
                 cardMap.put(id, card);
-                if (id == 1) level1Cards.add(id);
-                else if (id == 2) level2Cards.add(id);
+                if (card.getCardLevel() == 1) level1Cards.add(id);
+                else if (card.getCardLevel() == 2) level2Cards.add(id);
             }
             return cardMap;
         } catch (IOException e) {

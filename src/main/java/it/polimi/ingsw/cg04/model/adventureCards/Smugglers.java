@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
@@ -7,22 +8,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Smugglers extends AdventureCard {
-    private final int firePower;
-    private final int lostGoods;
-    private final Map<BoxType, Integer> rewards;
+    @Expose
+    private int firePower;
+    @Expose
+    private int lostGoods;
+    @Expose
+    private Map<BoxType, Integer> rewards;
 
-    public Smugglers(int cardLevel, int daysLost, int firePower, int lostGoods) {
-        super(cardLevel, daysLost);
-        this.firePower = firePower;
-        this.lostGoods = lostGoods;
+    public Smugglers() {
+        super();
         this.rewards = new HashMap<BoxType, Integer>();
     }
 
     public int getFirePower() { return firePower; }
+    public void setFirePower(int firePower) { this.firePower = firePower; }
 
     public int getLostGoods() { return lostGoods; }
+    public void setLostGoods(int lostGoods) {
+        this.lostGoods = lostGoods;
+    }
 
     public Map<BoxType, Integer> getReward() { return rewards; }
+    public void setReward(Map<BoxType, Integer> rewards) {
+        this.rewards = rewards;
+    }
 
     public void addReward(BoxType boxType, int quantity) {
         rewards.put(boxType, quantity);

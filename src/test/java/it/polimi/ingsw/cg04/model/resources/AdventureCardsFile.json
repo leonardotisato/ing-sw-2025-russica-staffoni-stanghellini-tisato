@@ -1,0 +1,26 @@
+{
+  "1": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 50,
+    "lostMembers": 2,
+    "earnedCredits": 1
+  },
+  "2": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 30,
+    "membersNeeded": 1,
+    "obtainedResources": {
+      "RED": 2,
+      "YELLOW": 3
+    }
+  },
+  "3": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 60,
+    "directions":  ["UP", "DOWN"],
+    "meteors": ["HEAVYMETEOR", "HEAVYMETEOR"]
+  }
+}

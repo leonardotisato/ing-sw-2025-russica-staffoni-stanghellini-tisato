@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.Game;
 import java.util.ArrayList;
@@ -7,15 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 public class Planets extends AdventureCard {
+    @Expose
     private List<Map<BoxType, Integer>> planetReward;
 
-    public Planets(int cardLevel, int daysLost) {
-        super(cardLevel, daysLost);
+    public Planets() {
+        super();
         planetReward = new ArrayList<>();
     }
 
     public List<Map<BoxType, Integer>> getPlanetReward() {
         return planetReward;
+    }
+    public void setPlanetReward(List<Map<BoxType, Integer>> planetReward) {
+        this.planetReward = planetReward;
     }
 
     public Map<BoxType, Integer> getSinglePlanetReward(int i) {

@@ -5,8 +5,8 @@ import it.polimi.ingsw.cg04.model.Player;
 
 public class OpenSpace extends AdventureCard {
 
-    public OpenSpace(int cardLevel, int daysLost) {
-        super(cardLevel, daysLost);
+    public OpenSpace() {
+        super();
     }
 
     public void solveEffect(Game game) {

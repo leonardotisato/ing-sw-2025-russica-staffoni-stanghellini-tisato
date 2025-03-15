@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Meteor;
@@ -8,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MeteorsRain extends AdventureCard {
-    private final List<Direction> directions;
-    private final List<Meteor> meteors;
+    @Expose
+    private List<Direction> directions;
+    @Expose
+    private List<Meteor> meteors;
 
-    public MeteorsRain(int cardLevel, int daysLost) {
-        super(cardLevel, daysLost);
+    public MeteorsRain() {
+        super();
         directions = new ArrayList<Direction>();
         meteors = new ArrayList<Meteor>();
     }
@@ -23,8 +26,14 @@ public class MeteorsRain extends AdventureCard {
     }
 
     public List<Meteor> getMeteors() { return meteors; }
+    public void setMeteors(List<Meteor> meteors) {
+        this.meteors = meteors;
+    }
 
     public List<Direction> getDirections() { return directions; }
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
+    }
 
     public Direction getDirection(int i) { return directions.get(i); }
 

@@ -1,22 +1,25 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.util.List;
 
 public class WarZone extends AdventureCard {
 
-    private final int[][] critPenalty;
+    @Expose
+    private int[][] critPenalty;
 
-    public WarZone(int cardLevel, int daysLost, int[][] critPenalty) {
-        super(cardLevel, daysLost);
-        this.critPenalty = critPenalty;
+    public WarZone() {
+        super();
     }
 
     public int[][] getCritPenalty(){
         return critPenalty;
     }
+
 
     public int getParam(int i) {
         return critPenalty[i][0];

@@ -1,0 +1,72 @@
+{
+  "1": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 50,
+    "lostMembers": 2,
+    "earnedCredits" : 1
+  },
+  "2": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 30,
+    "membersNeeded": 1,
+    "obtainedResources": {"RED": 2, "YELLOW": 3 }
+  },
+  "3": {
+    "type": "Epidemic",
+    "cardLevel": 1,
+    "daysLost": 40
+  },
+  "4": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 60,
+    "directions":  [],
+    "meteors": []
+  },
+  "5": {
+    "type": "OpenSpace",
+    "cardLevel": 1,
+    "daysLost": 70
+  },
+  "6": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 50,
+    "firePower": 10,
+    "reward" : 10,
+    "directions": [],
+    "shots": []
+  },
+  "7": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 30,
+    "planetReward": []
+  },
+  "8": { "type": "Slavers",
+    "cardLevel": 1,
+    "daysLost": 40,
+    "firePower": 2,
+    "membersLost":  1,
+    "creditsEarned":  1
+  },
+  "9": {
+    "type": "Smugglers",
+    "cardLevel": "",
+    "daysLost": 60,
+    "firePower": 2,
+    "lostGoods": "",
+    "rewards": {}
+  },
+  "10": { "type": "Stardust",
+    "cardLevel": "",
+    "daysLost": 70
+  },
+  "11": {
+    "type": "WarZone",
+    "cardLevel": "",
+    "daysLost": 70,
+    "critPenalty": [] }
+}
