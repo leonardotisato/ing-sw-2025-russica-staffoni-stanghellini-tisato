@@ -204,7 +204,7 @@ public abstract class Tile {
 
     }
 
-    public void removeCrewType(CrewType crewType) {
+    public void removeSupportedCrewType(CrewType crewType) {
     }
 
     public List<CrewType> getSupportedCrewType() {

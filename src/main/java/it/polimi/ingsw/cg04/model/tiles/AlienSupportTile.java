@@ -44,7 +44,7 @@ public class AlienSupportTile extends Tile {
         // remove supported crewType
         for(Tile adj : adjacentHousingTiles) {
             if(adj.getSupportedCrewType().contains(getSupportedAlienColor())) {
-                adj.removeCrewType(getSupportedAlienColor());
+                adj.removeSupportedCrewType(getSupportedAlienColor());
             }
 
             // if alien no longer supported remove it
