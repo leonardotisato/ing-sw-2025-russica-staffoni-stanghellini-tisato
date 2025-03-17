@@ -67,10 +67,79 @@
   "11": {
     "type": "MeteorsRain",
     "cardLevel": 1,
-    "daysLost": 60,
+    "daysLost": 0,
     "directions":  ["UP", "UP", "UP"],
     "meteors": ["HEAVYMETEOR", "LIGHTMETEOR","HEAVYMETEOR"]
   },
+  "31": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions":  ["UP", "UP", "RIGHT", "RIGHT", "RIGHT"],
+    "meteors": ["LIGHTMETEOR", "LIGHTMETEOR","HEAVYMETEOR", "LIGHTMETEOR", "LIGHTMETEOR"]
+  },
+  "32": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 4,
+    "planetReward": [{"RED" :  3, "YELLOW" :  1}, {"RED" :  2, "GREEN":  2}, {"RED" :  1, "BLU" :  4}]
+  },
+  "33": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 3,
+    "planetReward": [{"RED" :  2}, {"GREEN":  4}]
+  },
+  "34": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "planetReward": [{"RED" :  1, "YELLOW" :  1}, {"YELLOW" :  1, "GREEN":  1, "BLU" :  1}, {"GREEN" : 2}, {"YELLOW" :  1}]
+  },
+  "35": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 3,
+    "planetReward": [{"GREEN" :  4}, {"YELLOW" :  2}, {"BLU" :  4}]
+  },
+  "36": {
+    "type": "WarZone",
+    "cardLevel": "",
+    "daysLost": 70,
+    "critPenalty": []
+  },
+  "37": {
+    "type": "AbandonedShip",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "lostMembers": 4,
+    "earnedCredits" : 6
+  },
+  "38": {
+    "type": "AbandonedShip",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "lostMembers": 5,
+    "earnedCredits" : 8
+  },
+  "39": {
+    "type": "AbandonedStation",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "membersNeeded": 7,
+    "obtainedResources": {"RED": 1, "YELLOW": 1}
+  },
+  "40": {
+    "type": "AbandonedStation",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "membersNeeded": 8,
+    "obtainedResources": {"YELLOW": 2, "GREEN": 1}
+  },
+
+
+
+
 
   "41": {
     "type": "AbandonedShip",
@@ -141,5 +210,6 @@
     "type": "WarZone",
     "cardLevel": "",
     "daysLost": 70,
-    "critPenalty": [] }
+    "critPenalty": []
+  }
 }
