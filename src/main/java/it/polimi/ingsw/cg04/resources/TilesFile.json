@@ -1035,239 +1035,239 @@
   "101": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "102": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "103": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "104": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "105": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "106": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "107": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "108": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "109": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "110": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "DOWN": "UNIVERSAL",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "111": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": false
   },
   "112": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "113": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "114": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "115": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "116": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "DOWN": "UNIVERSAL",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "117": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": false
   },
   "118": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "119": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "120": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "121": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "122": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "123": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "DOWN": "DOUBLE",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": false
   },
   "124": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
       "LEFT": "UNIVERSAL"
     },
     "isDoubleLaser": false
@@ -1275,9 +1275,9 @@
   "125": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
+      "DOWN": "EMPTY",
       "LEFT": "UNIVERSAL"
     },
     "isDoubleLaser": false
@@ -1285,99 +1285,99 @@
   "126": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": true
   },
   "127": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": true
   },
   "128": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": true
   },
   "129": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": true
   },
   "130": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
     },
     "isDoubleLaser": true
   },
   "131": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": true
   },
   "132": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
     },
     "isDoubleLaser": true
   },
   "133": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": true
   },
   "134": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
+      "UP": "EMPTY",
       "RIGHT": "DOUBLE",
       "DOWN": "SINGLE",
-      "LEFT": "UNIVERSAL"
+      "LEFT": "DOUBLE"
     },
     "isDoubleLaser": true
   },
   "135": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
-      "DOWN": "SINGLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
       "LEFT": "UNIVERSAL"
     },
     "isDoubleLaser": true
@@ -1385,8 +1385,8 @@
   "136": {
     "type": "LaserTile",
     "connections": {
-      "UP": "SINGLE",
-      "RIGHT": "DOUBLE",
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "UNIVERSAL"
     },
