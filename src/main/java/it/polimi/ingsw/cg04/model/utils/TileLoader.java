@@ -54,6 +54,7 @@ public class TileLoader {
             case "PropulsorTile" -> new Gson().fromJson(jsonObject, PropulsorTile.class);
             case "ShieldTile" -> new Gson().fromJson(jsonObject, ShieldTile.class);
             case "StorageTile" -> new Gson().fromJson(jsonObject, StorageTile.class);
+            case "StructuralTile" -> new Gson().fromJson(jsonObject, StructuralTile.class);
             default -> throw new JsonParseException("Tipo sconosciuto: " + type);
         };
     }

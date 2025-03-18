@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
@@ -7,10 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,36 +21,18 @@ class TileTest {
     @BeforeEach
     void setUp() {
 
-        // shieldTile151
-        Map<Direction, Connection> connection151 = new HashMap<>();
-        connection151.put(Direction.UP, Connection.DOUBLE);
-        connection151.put(Direction.RIGHT, Connection.SINGLE);
-        connection151.put(Direction.DOWN, Connection.DOUBLE);
-        connection151.put(Direction.LEFT, Connection.SINGLE);
+        // new tests using the tileLoader
+        ArrayList<Integer> faceDownTiles = new ArrayList<>();
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
 
-        Set<Direction> protectedDirections151 = new HashSet<>();
-        protectedDirections151.add(Direction.UP);
-        protectedDirections151.add(Direction.RIGHT);
+        assertNotNull(tiles);
+        assertFalse(tiles.isEmpty());
 
-       // shieldTile151 = new ShieldTile(connection151, protectedDirections151);
+        shieldTile151 = tiles.get(151);
+        batteryTile5 = tiles.get(5);
+        storageTile26 = tiles.get(26);
 
-        // batteryTile5
-        Map<Direction, Connection> connection5 = new HashMap<>();
-        connection5.put(Direction.UP, Connection.UNIVERSAL);
-        connection5.put(Direction.RIGHT, Connection.EMPTY);
-        connection5.put(Direction.DOWN, Connection.EMPTY);
-        connection5.put(Direction.LEFT, Connection.SINGLE);
 
-        //batteryTile5 = new BatteryTile(connection5, 2);
-
-        // storageTile26
-        Map<Direction, Connection> connection26 = new HashMap<>();
-        connection26.put(Direction.UP, Connection.UNIVERSAL);
-        connection26.put(Direction.RIGHT, Connection.EMPTY);
-        connection26.put(Direction.DOWN, Connection.EMPTY);
-        connection26.put(Direction.LEFT, Connection.UNIVERSAL);
-
-     //   storageTile26 = new StorageTile(connection26, 2, false);
     }
 
     @AfterEach
@@ -150,6 +130,9 @@ class TileTest {
         assertThrows(IllegalArgumentException.class, () -> batteryTile5.removeBatteries(-1));
         assertThrows(RuntimeException.class, () -> batteryTile5.removeBatteries(2));
         assertEquals(0, batteryTile5.getNumBatteries());
+
+        // try to removeBattery on non batteryTiles
+        assertThrows(RuntimeException.class, () -> shieldTile151.removeBatteries(3));
     }
 
     @Test
