@@ -73,7 +73,8 @@
   },
 
 
-  "21": { "type": "Slavers",
+  "21": {
+    "type": "Slavers",
     "cardLevel": 2,
     "daysLost": 2,
     "firePower": 7,
