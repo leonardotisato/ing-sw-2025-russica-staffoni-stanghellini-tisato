@@ -23,7 +23,7 @@
     "firePower": 5,
     "reward" : 4,
     "directions": ["UP", "UP", "UP"],
-    "shots": ["LIGHTMETEOR", "HEAVYMETEOR", "LIGHTMETEOR"]
+    "shots": ["LIGHTSHOT", "HEAVYSHOT", "LIGHTSHOT"]
   },
   "4": {
     "type": "Stardust",
