@@ -8,5 +8,70 @@
       "LEFT": "UNIVERSAL"
     },
     "supportedAlienColor": "PINK_ALIEN"
+  },
+  "2": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "3": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": true
+  },
+  "4": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "5": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": true
+  },
+  "6": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "7": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 7
   }
 }

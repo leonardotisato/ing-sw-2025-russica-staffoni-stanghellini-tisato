@@ -10,14 +10,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class StorageTile extends Tile {
-    private final boolean isSpecialStorageTile;
-    private final Integer maxBoxes;
-    private final Map<BoxType, Integer> boxes;
+    private boolean isSpecialStorageTile;
+    private Integer maxBoxes;
+    private Map<BoxType, Integer> boxes;
 
-    public StorageTile(Map<Direction, Connection> connectionMap, Integer maxBoxes, boolean isSpecialStorageTile) {
+    public StorageTile() {
         super();
-        this.maxBoxes = maxBoxes;
-        this.isSpecialStorageTile = isSpecialStorageTile;
         this.boxes = new HashMap<>();
         boxes.put(BoxType.BLUE, 0);
         boxes.put(BoxType.RED, 0);
@@ -29,15 +27,28 @@ public class StorageTile extends Tile {
     public Boolean isSpecialStorageTile() {
         return isSpecialStorageTile;
     }
+    public void setSpecialStorageTile(boolean isSpecialStorageTile) {
+        this.isSpecialStorageTile = isSpecialStorageTile;
+    }
+
+
+
+
 
     @Override
     public Integer getMaxBoxes() {
         return maxBoxes;
     }
+    public void setMaxBoxes(Integer maxBoxes) {
+        this.maxBoxes = maxBoxes;
+    }
 
     @Override
     public Map<BoxType, Integer> getBoxes() {
         return boxes;
+    }
+    public void setBoxes(Map<BoxType, Integer> boxes) {
+        this.boxes = boxes;
     }
 
     @Override

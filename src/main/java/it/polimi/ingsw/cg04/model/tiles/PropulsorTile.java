@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -8,16 +9,19 @@ import java.util.Map;
 
 public class PropulsorTile extends Tile {
 
-    private final boolean isDoublePropulsor;
+    @Expose
+    private boolean isDoublePropulsor;
 
-    public PropulsorTile(Map<Direction, Connection> connectionMap, boolean isDoublePropulsor) {
+    public PropulsorTile() {
         super();
-        this.isDoublePropulsor = isDoublePropulsor;
     }
 
     @Override
     public Boolean isDoublePropulsor() {
         return isDoublePropulsor;
+    }
+    public void setDoublePropulsor(boolean isDoublePropulsor) {
+        this.isDoublePropulsor = isDoublePropulsor;
     }
 
     @Override

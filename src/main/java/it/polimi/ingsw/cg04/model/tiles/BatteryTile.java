@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -7,8 +8,9 @@ import it.polimi.ingsw.cg04.model.ships.Ship;
 import java.util.Map;
 
 public class BatteryTile extends Tile {
-
+    @Expose
     private int maxBatteryCapacity;
+    @Expose
     private int numBatteries;
 
     public BatteryTile() {

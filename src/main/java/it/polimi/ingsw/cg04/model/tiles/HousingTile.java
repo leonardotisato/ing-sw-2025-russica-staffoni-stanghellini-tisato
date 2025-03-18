@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -14,6 +15,7 @@ public class HousingTile extends Tile {
     private CrewType hostedCrewType = null;
     private List<CrewType> supportedCrewType;
 
+    @Expose
     private boolean isCentralTile;
     private PlayerColor color;
 

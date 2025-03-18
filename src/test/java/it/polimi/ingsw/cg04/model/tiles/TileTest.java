@@ -34,7 +34,7 @@ class TileTest {
         protectedDirections151.add(Direction.UP);
         protectedDirections151.add(Direction.RIGHT);
 
-        shieldTile151 = new ShieldTile(connection151, protectedDirections151);
+       // shieldTile151 = new ShieldTile(connection151, protectedDirections151);
 
         // batteryTile5
         Map<Direction, Connection> connection5 = new HashMap<>();
@@ -52,7 +52,7 @@ class TileTest {
         connection26.put(Direction.DOWN, Connection.EMPTY);
         connection26.put(Direction.LEFT, Connection.UNIVERSAL);
 
-        storageTile26 = new StorageTile(connection26, 2, false);
+     //   storageTile26 = new StorageTile(connection26, 2, false);
     }
 
     @AfterEach

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -8,16 +9,19 @@ import java.util.*;
 
 public class ShieldTile extends Tile {
 
+    @Expose
     private Set<Direction> protectedDirections;
 
-    public ShieldTile(Map<Direction, Connection> connectionMap, Set<Direction> protectedDirs) {
+    public ShieldTile() {
         super();
-        this.protectedDirections = protectedDirs;
     }
 
     @Override
     public Set<Direction> getProtectedDirections() {
         return protectedDirections;
+    }
+    public void setProtectedDirections(Set<Direction> protectedDirections) {
+        this.protectedDirections = protectedDirections;
     }
 
     @Override

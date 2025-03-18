@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -8,18 +9,20 @@ import java.util.Map;
 
 public class LaserTile extends Tile {
 
-    private final boolean isDoubleLaser;
+    @Expose
+    private boolean isDoubleLaser;
 
-    public LaserTile(Map<Direction, Connection> connectionMap, boolean isDoubleLaser) {
+    public LaserTile() {
         super();
-        this.isDoubleLaser = isDoubleLaser;
     }
 
     @Override
     public Boolean isDoubleLaser() {
         return isDoubleLaser;
     }
-
+    public void setDoubleLaser(boolean isDoubleLaser) {
+        this.isDoubleLaser = isDoubleLaser;
+    }
     @ Override
     public Direction getShootingDirection() {
         for (Direction dir : connections.keySet()) {
