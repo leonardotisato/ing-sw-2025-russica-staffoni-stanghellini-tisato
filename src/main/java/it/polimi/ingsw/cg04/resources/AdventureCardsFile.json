@@ -71,6 +71,71 @@
     "directions":  ["UP", "UP", "UP"],
     "meteors": ["HEAVYMETEOR", "LIGHTMETEOR","HEAVYMETEOR"]
   },
+
+
+  "21": { "type": "Slavers",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 7,
+    "membersLost":  4,
+    "creditsEarned":  8
+  },
+  "22": {
+    "type": "Smugglers",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "firePower": 8,
+    "lostGoods": "3",
+    "rewards": {"RED" : 1, "YELLOW" : 2}
+  },
+  "23": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward" : 7,
+    "directions": ["UP", "UP", "UP"],
+    "shots": ["HEAVYSHOT", "LIGHTSHOT", "HEAVYSHOT"]
+  },
+  "24": { "type": "Stardust",
+    "cardLevel": 2,
+    "daysLost": 1
+  },
+  "25": {
+    "type": "Epidemic",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "26": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "27": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "28": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "29": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions":  ["UP", "UP", "LEFT", "LEFT", "LEFT"],
+    "meteors": ["LIGHTMETEOR", "LIGHTMETEOR", "HEAVYMETEOR", "LIGHTMETEOR", "LIGHTMETEOR"]
+  },
+  "30": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions":  ["UP", "UP", "DOWN", "DOWN"],
+    "meteors": ["HEAVYMETEOR", "HEAVYMETEOR", "LIGHTMETEOR", "LIGHTMETEOR"]
+  },
+
   "31": {
     "type": "MeteorsRain",
     "cardLevel": 2,
@@ -142,7 +207,7 @@
 
 
   "41": {
-    "type": "AbandonedShip",
+    "type": "AbandonedShip: EXAMPLE!! 41+ are all examples!!",
     "cardLevel": 1,
     "daysLost": 50,
     "lostMembers": 2,
