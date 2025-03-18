@@ -11,7 +11,7 @@ public class LaserTile extends Tile {
     private final boolean isDoubleLaser;
 
     public LaserTile(Map<Direction, Connection> connectionMap, boolean isDoubleLaser) {
-        super(connectionMap);
+        super();
         this.isDoubleLaser = isDoubleLaser;
     }
 

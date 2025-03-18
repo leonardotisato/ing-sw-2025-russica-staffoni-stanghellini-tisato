@@ -15,7 +15,7 @@ public class StorageTile extends Tile {
     private final Map<BoxType, Integer> boxes;
 
     public StorageTile(Map<Direction, Connection> connectionMap, Integer maxBoxes, boolean isSpecialStorageTile) {
-        super(connectionMap);
+        super();
         this.maxBoxes = maxBoxes;
         this.isSpecialStorageTile = isSpecialStorageTile;
         this.boxes = new HashMap<>();

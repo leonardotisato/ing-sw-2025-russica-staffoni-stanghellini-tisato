@@ -17,14 +17,22 @@ public class HousingTile extends Tile {
     private boolean isCentralTile;
     private PlayerColor color;
 
-    public HousingTile(Map<Direction, Connection> connectionMap, boolean isCentralTile, PlayerColor color) {
-        super(connectionMap);
-        this.isCentralTile = isCentralTile;
-        this.color = color;
+    public HousingTile() {
+        super();
     }
 
     public Boolean isCentralTile() {
         return isCentralTile;
+    }
+    public void setIsCentralTile(boolean isCentralTile) {
+        this.isCentralTile = isCentralTile;
+    }
+
+    public PlayerColor getColor() {
+        return color;
+    }
+    public void setColor(PlayerColor color) {
+        this.color = color;
     }
 
     public void updateSupportedCrewTypes() {
@@ -77,6 +85,7 @@ public class HousingTile extends Tile {
             hostedCrewType = null;
         }
     }
+
 
     @Override
     public void broken(Ship ship) {

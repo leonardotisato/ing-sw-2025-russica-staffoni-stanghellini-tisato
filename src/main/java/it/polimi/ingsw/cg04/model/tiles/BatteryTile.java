@@ -8,21 +8,25 @@ import java.util.Map;
 
 public class BatteryTile extends Tile {
 
-    private final int maxBatteryCapacity;
+    private int maxBatteryCapacity;
     private int numBatteries;
 
-    public BatteryTile(Map<Direction, Connection> connectionMap, int maxBatteryCapacity) {
-        super(connectionMap);
-        this.maxBatteryCapacity = maxBatteryCapacity;
-        this.numBatteries = this.maxBatteryCapacity;
+    public BatteryTile() {
+        super();
     }
 
     public Integer getMaxBatteryCapacity() {
         return this.maxBatteryCapacity;
     }
+    public void setMaxBatteryCapacity(Integer maxBatteryCapacity) {
+        this.maxBatteryCapacity = maxBatteryCapacity;
+    }
 
     public Integer getNumBatteries() {
         return numBatteries;
+    }
+    public void setNumBatteries(Integer numBatteries) {
+        this.numBatteries = numBatteries;
     }
 
     public void removeBatteries(Integer num) {

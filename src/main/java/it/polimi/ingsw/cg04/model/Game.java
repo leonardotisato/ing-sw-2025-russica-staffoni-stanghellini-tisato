@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 import com.google.gson.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
@@ -192,15 +193,15 @@ public class Game{
         player.move(steps);
     }
 
-    public void placeTile(Player player, Tile tile, int x, int y){
-        player.placeTile(tile, x, y);
+    public void placeTile(Player player, int x, int y){
+        player.placeTile(x, y);
     }
 
     public void chooseFaceUpTile(Player player, int index) {
       player.chooseFaceUpTile(index);
     }
 
-    public void pickFaceDownTile(Player player, Tile tile) {
+    public void pickFaceDownTile(Player player) {
         player.pickFaceDownTile();
     }
 
@@ -226,12 +227,59 @@ public class Game{
     }
 
 
+    public void bookTile(Player player) {
+        player.bookTile();
+    }
 
+    public void returnTile(Player player) {
+        player.returnTile();
+    }
 
+    public void chooseBookedTile(Player player, int idx) {
+        player.chooseBookedTile(idx);
+    }
 
+    public void showFaceUpTile(Player player) {
+        player.showFaceUpTile();
+    }
 
+    public void showPile(Player player, int idx) {
+        player.showPile(idx);
+    }
 
+    public void returnPile(Player player) {
+        player.returnPile();
+    }
 
+    public void loadResource(Player player, int x, int y, BoxType box) {
+        player.loadResource(x,y, box);
+    }
 
+    public void removeResource(Player player, int x, int y, BoxType box) {
+        player.removeResource(x,y,box);
+    }
 
+    public void removeCrew(Player player, int x, int y) {
+        player.removeCrew(x,y);
+    }
+
+    public void useBattery(Player player, int x, int y) {
+        player.useBattery(x,y);
+    }
+
+    public void setPlayerState(Player player, PlayerState state) {
+        player.setState(state);
+    }
+
+    public void setGameState(GameState state) {
+        this.gameState = state;
+    }
+
+    public void beginGame() {
+        this.setGameState(GameState.BUILDING);
+    }
+
+    public void endGame() {
+        this.setGameState(GameState.END);
+    }
 }

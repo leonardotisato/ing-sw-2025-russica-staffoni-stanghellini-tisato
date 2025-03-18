@@ -1,10 +1,15 @@
 package it.polimi.ingsw.cg04.model.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.enumerations.Meteor;
+import it.polimi.ingsw.cg04.model.enumerations.Shot;
 import it.polimi.ingsw.cg04.model.tiles.*;
 
 import java.io.FileReader;
@@ -17,7 +22,9 @@ import java.util.Map;
 public class TileLoader {
 
     public static Map<Integer, Tile> loadTilesFromJson(String jsonFilePath, List<Integer> faceDownTiles) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
 
         try (FileReader reader = new FileReader(jsonFilePath)) {
             Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
@@ -40,7 +47,7 @@ public class TileLoader {
     public static Tile createTileFromJson(JsonObject jsonObject) {
         String type = jsonObject.get("type").getAsString();
         return switch (type) {
-            case "AlienSupport" -> new Gson().fromJson(jsonObject, AlienSupportTile.class);
+            case "AlienSupportTile" -> new Gson().fromJson(jsonObject, AlienSupportTile.class);
             case "BatteryTile" -> new Gson().fromJson(jsonObject, BatteryTile.class);
             case "HousingTile" -> new Gson().fromJson(jsonObject, HousingTile.class);
             case "LaserTile" -> new Gson().fromJson(jsonObject, LaserTile.class);

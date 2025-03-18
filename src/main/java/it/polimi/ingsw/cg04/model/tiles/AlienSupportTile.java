@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
@@ -10,13 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class AlienSupportTile extends Tile {
-
-    private final CrewType supportedAlienColor;
+    @Expose
+    private CrewType supportedAlienColor;
     private final Set<Tile> adjacentHousingTiles;
 
-    public AlienSupportTile(Map<Direction, Connection> connectionMap, CrewType supportedAlienColor) {
-        super(connectionMap);
-        this.supportedAlienColor = supportedAlienColor;
+    public AlienSupportTile() {
         this.adjacentHousingTiles = new HashSet<>();
     }
 
@@ -38,7 +37,9 @@ public class AlienSupportTile extends Tile {
     public CrewType getSupportedAlienColor() {
         return supportedAlienColor;
     }
-
+    public void setSupportedAlienColor(CrewType supportedAlienColor) {
+        this.supportedAlienColor = supportedAlienColor;
+    }
     @Override
     public void broken(Ship ship) {
         // remove supported crewType

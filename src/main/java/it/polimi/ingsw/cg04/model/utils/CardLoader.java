@@ -19,16 +19,16 @@ public class CardLoader {
     public static Map<Integer, AdventureCard> loadCardsFromJson(String jsonFilePath, List<Integer> level1Cards, List<Integer> level2Cards) {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(BoxType.class, new EnumDeserializer<>(BoxType.class))
-                .registerTypeAdapter(Direction.class, new EnumDeserializer<>(Direction.class))
-                .registerTypeAdapter(Meteor.class, new EnumDeserializer<>(Meteor.class))
-                .registerTypeAdapter(new TypeToken<Map<BoxType, Integer>>() {}.getType(), new BoxTypeMapDeserializer())
-                .registerTypeAdapter(new TypeToken<List<Direction>>() {}.getType(), new EnumListDeserializer<>(Direction.class))
-                .registerTypeAdapter(new TypeToken<List<Meteor>>() {}.getType(), new EnumListDeserializer<>(Meteor.class))
-                .registerTypeAdapter(new TypeToken<List<Shot>>() {}.getType(), new EnumListDeserializer<>(Shot.class))
-                .registerTypeAdapter(new TypeToken<List<Map<BoxType, Integer>>>() {}.getType(), new BoxTypeListMapDeserializer())
                 .create();
 
+//                .registerTypeAdapter(BoxType.class, new EnumDeserializer<>(BoxType.class))
+//                .registerTypeAdapter(Direction.class, new EnumDeserializer<>(Direction.class))
+//                .registerTypeAdapter(Meteor.class, new EnumDeserializer<>(Meteor.class))
+//                .registerTypeAdapter(new TypeToken<Map<BoxType, Integer>>() {}.getType(), new BoxTypeMapDeserializer())
+//                .registerTypeAdapter(new TypeToken<List<Direction>>() {}.getType(), new EnumListDeserializer<>(Direction.class))
+//                .registerTypeAdapter(new TypeToken<List<Meteor>>() {}.getType(), new EnumListDeserializer<>(Meteor.class))
+//                .registerTypeAdapter(new TypeToken<List<Shot>>() {}.getType(), new EnumListDeserializer<>(Shot.class))
+//                .registerTypeAdapter(new TypeToken<List<Map<BoxType, Integer>>>() {}.getType(), new BoxTypeListMapDeserializer())
         try (FileReader reader = new FileReader(jsonFilePath)) {
             Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
             Map<String, JsonObject> tempMap = gson.fromJson(reader, mapType);

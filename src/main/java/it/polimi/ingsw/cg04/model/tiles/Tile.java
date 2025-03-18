@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
@@ -14,12 +15,19 @@ import java.util.Set;
 
 
 public abstract class Tile {
-    protected String type;
-    protected Map<Direction, Connection> connections;
+    @Expose
+    String type;
+    @Expose
+    Map<Direction, Connection> connections;
 
     // Tile generic methods
-    public Tile(Map<Direction, Connection> connections) {
-        this.connections = connections;
+    public Tile() {}
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void broken(Ship ship){
@@ -59,6 +67,9 @@ public abstract class Tile {
 
     public Connection getConnection(Direction dir) {
         return connections.get(dir);
+    }
+    public void setConnections(Map<Direction, Connection> connections) {
+        this.connections = connections;
     }
 
     // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile

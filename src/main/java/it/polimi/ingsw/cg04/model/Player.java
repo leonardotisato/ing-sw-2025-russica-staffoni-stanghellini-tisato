@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.ships.Ship;
@@ -95,7 +96,7 @@ public class Player {
         // todo
     }
 
-    public boolean bufferTile() {
+    public boolean bookTile() {
         // todo
         assert (ship.getTilesBuffer().size() <= 2);
         if (ship.getTilesBuffer().size() >= 2) {
@@ -107,7 +108,7 @@ public class Player {
         return true;
     }
 
-    public boolean placeTile(Tile tile, int x, int y) {
+    public boolean placeTile(int x, int y) {
         // todo
         boolean validPlacement = ship.placeTile(heldTile, x, y);
 
@@ -119,4 +120,28 @@ public class Player {
         return false;
     }
 
+
+    public void chooseBookedTile(int idx) {
+    }
+
+    public void showFaceUpTile() {
+    }
+
+    public void showPile(int idx) {
+    }
+
+    public void returnPile() {
+    }
+
+    public void loadResource(int x, int y, BoxType box) {
+    }
+
+    public void removeResource(int x, int y, BoxType box) {
+    }
+
+    public void removeCrew(int x, int y) {
+    }
+
+    public void useBattery(int x, int y) {
+    }
 }

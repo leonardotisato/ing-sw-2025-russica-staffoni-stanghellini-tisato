@@ -11,7 +11,7 @@ public class PropulsorTile extends Tile {
     private final boolean isDoublePropulsor;
 
     public PropulsorTile(Map<Direction, Connection> connectionMap, boolean isDoublePropulsor) {
-        super(connectionMap);
+        super();
         this.isDoublePropulsor = isDoublePropulsor;
     }
 

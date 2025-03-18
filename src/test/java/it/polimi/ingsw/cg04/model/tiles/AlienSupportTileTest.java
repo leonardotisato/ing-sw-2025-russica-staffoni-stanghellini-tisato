@@ -25,7 +25,7 @@ class AlienSupportTileTest {
         connection50.put(Direction.LEFT, Connection.UNIVERSAL);
         connection50.put(Direction.RIGHT, Connection.EMPTY);
 
-        housingTile50 = new HousingTile(connection50, false, PlayerColor.BLUE);
+       // housingTile50 = new HousingTile(connection50, false, PlayerColor.BLUE);
 
         // alienSupportTile137
         Map<Direction, Connection> connection137 = new HashMap<>();
@@ -36,7 +36,7 @@ class AlienSupportTileTest {
 
         CrewType supportedAlienColor = CrewType.BROWN_ALIEN;
 
-        alienSupportTile137 = new AlienSupportTile(connection137, supportedAlienColor);
+       // alienSupportTile137 = new AlienSupportTile(connection137, supportedAlienColor);
     }
 
     @AfterEach

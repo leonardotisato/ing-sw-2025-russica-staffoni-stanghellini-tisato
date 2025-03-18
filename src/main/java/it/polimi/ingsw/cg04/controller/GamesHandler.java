@@ -21,16 +21,12 @@ public class GamesHandler {
 
     public List<Game> getGames() { return games; }
 
-    public void addCredits(Game game, Player player, int credits) {
-        game.addCredits(player, credits);
+    public void updateCredits(Game game, Player player, int credits) {
+        game.updateCredits(player, credits);
     }
 
-    public void removeCredits(Game game, Player player, int credits) {
-        game.removeCredits(player, credits);
-    }
-
-    public void placeTile(Game game, Player player, int x, int y, int orientation) {
-        game.placeTile(player, x, y, orientation);
+    public void placeTile(Game game, Player player, int x, int y) {
+        game.placeTile(player, x, y);
     }
 
     public void bookTile(Game game, Player player) {
@@ -45,8 +41,8 @@ public class GamesHandler {
         game.returnTile(player);
     }
 
-    public void chooseTile(Game game, Player player, int listIdx) {
-        game.chooseTile(player, listIdx);
+    public void chooseFaceUpTile(Game game, Player player, int listIdx) {
+        game.chooseFaceUpTile(player, listIdx);
     }
 
     public void chooseBookedTile(Game game, Player player, int idx) {
@@ -62,7 +58,7 @@ public class GamesHandler {
     }
 
     public void returnPile(Game game, Player player) {
-        game.returPile(player);
+        game.returnPile(player);
     }
 
     public void checkShips(Game game) {
@@ -82,11 +78,11 @@ public class GamesHandler {
     }
 
     public void useBattery(Game game, Player player, int x, int y) {
-        game.useBattery(game, x, y);
+        game.useBattery(player, x, y);
     }
 
-    public void movePlayer(Game game, Player player) {
-        game.movePlayer(player);
+    public void movePlayer(Game game, Player player, int steps) {
+        game.movePlayer(player, steps);
     }
 
     public void setPlayerState(Game game, Player player, PlayerState state) {
@@ -105,9 +101,6 @@ public class GamesHandler {
         game.endGame();
     }
 
-    public void joinGame(Game game, Player player) {
-        game.joinGame(player);
-    }
 
     public void createGame(int level) {
         // todo
@@ -122,7 +115,7 @@ public class GamesHandler {
     }
 
     public void addPlayer(Game game, String playerName, Player player, PlayerColor color) {
-        // todo
+        game.addPlayer(playerName, color);
     }
 
 }

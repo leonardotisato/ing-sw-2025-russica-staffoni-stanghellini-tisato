@@ -11,7 +11,7 @@ public class ShieldTile extends Tile {
     private Set<Direction> protectedDirections;
 
     public ShieldTile(Map<Direction, Connection> connectionMap, Set<Direction> protectedDirs) {
-        super(connectionMap);
+        super();
         this.protectedDirections = protectedDirs;
     }
 

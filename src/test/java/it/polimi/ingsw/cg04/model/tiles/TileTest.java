@@ -43,7 +43,7 @@ class TileTest {
         connection5.put(Direction.DOWN, Connection.EMPTY);
         connection5.put(Direction.LEFT, Connection.SINGLE);
 
-        batteryTile5 = new BatteryTile(connection5, 2);
+        //batteryTile5 = new BatteryTile(connection5, 2);
 
         // storageTile26
         Map<Direction, Connection> connection26 = new HashMap<>();

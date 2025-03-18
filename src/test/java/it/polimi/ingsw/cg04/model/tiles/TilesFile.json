@@ -1,0 +1,12 @@
+{
+  "1": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  }
+}
