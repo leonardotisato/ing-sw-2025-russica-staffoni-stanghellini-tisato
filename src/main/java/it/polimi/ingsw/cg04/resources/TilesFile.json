@@ -1,38 +1,1619 @@
 {
-  "prova1": {
-    "type": "AlienSupportTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
-    "supportedAlienColor": "PINK_ALIEN"
-  },
-  "prova2": {
+  "1": {
     "type": "BatteryTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
+    },
     "maxBatteryCapacity": "2",
     "numBatteries": "2"
   },
-  "prova3": {
+  "2": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "3": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "4": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "5": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "6": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "SINGLE",
+      "DOWN": "SINGLE",
+      "LEFT": "SINGLE"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "7": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "DOUBLE"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "8": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "9": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "10": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "11": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "RIGHT",
+      "DOWN": "RIGHT",
+      "LEFT": "UNIVERSAL"
+    },
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "12": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "13": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "14": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "15": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "16": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "EMPTY"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "17": {
+    "type": "BatteryTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "maxBatteryCapacity": "3",
+    "numBatteries": "3"
+  },
+  "18": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "EMPTY"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "19": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "20": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "21": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "22": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "23": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "24": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "25": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "26": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 2
+  },
+  "27": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "28": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "SINGLE",
+      "LEFT": "EMPTY"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "29": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "30": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "EMPTY"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "31": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "32": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "SINGLE",
+      "LEFT": "DOUBLE"
+    },
+    "isSpecialStorageTile": false,
+    "maxBoxes": 3
+  },
+  "33": {
     "type": "HousingTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
-    "isCentralTile" :  true
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": true
   },
-  "prova4": {
-    "type": "LaserTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
-    "isDoubleLaser": false
+  "34": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": true
   },
-  "prova5": {
+  "35": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "36": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "37": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "38": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "39": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "40": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
+    },
+    "isCentralTile": false
+  },
+  "41": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "DOUBLE"
+    },
+    "isCentralTile": false
+  },
+  "42": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isCentralTile": false
+  },
+  "43": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "DOUBLE"
+    },
+    "isCentralTile": false
+  },
+  "44": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isCentralTile": false
+  },
+  "45": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "46": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "47": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "48": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "49": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "50": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "51": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": false
+  },
+  "52": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": true
+  },
+  "53": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    }
+  },
+  "54": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "55": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "56": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "57": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "58": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "59": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "60": {
+    "type": "StructuralTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    }
+  },
+  "61": {
+    "type": "HousingTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "UNIVERSAL"
+    },
+    "isCentralTile": true
+  },
+  "62": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "63": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "64": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "65": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "66": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "67": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 1
+  },
+  "68": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 2
+  },
+  "69": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 2
+  },
+  "70": {
+    "type": "StorageTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isSpecialStorageTile": true,
+    "maxBoxes": 2
+  },
+  "71": {
     "type": "PropulsorTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "72": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "73": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "74": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "75": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "76": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "77": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "78": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "79": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": false
+  },
+  "80": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "81": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "82": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "83": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "84": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "85": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "86": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "87": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": false
+  },
+  "88": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": false
+  },
+  "89": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": false
+  },
+  "90": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": false
+  },
+  "91": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": false
+  },
+  "92": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
     "isDoublePropulsor": true
   },
-  "prova6": {
+  "93": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": true
+  },
+  "94": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": true
+  },
+  "95": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "EMPTY"
+    },
+    "isDoublePropulsor": true
+  },
+  "96": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "isDoublePropulsor": true
+  },
+  "97": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": true
+  },
+  "98": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "UNIVERSAL",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "isDoublePropulsor": true
+  },
+  "99": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "UNIVERSAL",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": true
+  },
+  "100": {
+    "type": "PropulsorTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoublePropulsor": true
+  },
+  "101": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "102": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "103": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "104": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "105": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "106": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "107": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "108": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "109": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "110": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "111": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "112": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "113": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "114": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "115": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "116": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "117": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "118": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "119": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "120": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "121": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "122": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "123": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "124": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "125": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": false
+  },
+  "126": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "127": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "128": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "129": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "130": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "131": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "132": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "133": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "134": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "135": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "136": {
+    "type": "LaserTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "isDoubleLaser": true
+  },
+  "137": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "138": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "SINGLE"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "139": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "140": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "SIGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "141": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "142": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "BROWN_ALIEN"
+  },
+  "143": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "144": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "EMPTY",
+      "LEFT": "DOUBLE"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "145": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "146": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "DPUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "147": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "148": {
+    "type": "AlienSupportTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
+      "LEFT": "UNIVERSAL"
+    },
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "149": {
     "type": "ShieldTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
-    "protectedDirections": ["UP", "RIGHT"]
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "SINGLE",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "SINGLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
   },
-  "prova7": {
-    "type": "StorageTile",
-    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
-    "isSpecialStorageTile": true,
-    "maxBoxes": 7
+  "150": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "EMPTY",
+      "DOWN": "SINGLE",
+      "LEFT": "SINGLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
   },
+  "151": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "DOUBLE",
+      "RIGHT": "SINGLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "SINGLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "152": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "UNIVERSAL",
+      "LEFT": "DOUBLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "153": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "DOUBLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "154": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "SINGLE",
+      "RIGHT": "DOUBLE",
+      "DOWN": "SINGLE",
+      "LEFT": "DOUBLE"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "155": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "EMPTY",
+      "DOWN": "SINGLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  },
+  "156": {
+    "type": "ShieldTile",
+    "connections": {
+      "UP": "EMPTY",
+      "RIGHT": "DOUBLE",
+      "DOWN": "DOUBLE",
+      "LEFT": "UNIVERSAL"
+    },
+    "protectedDirections": [
+      "UP",
+      "RIGHT"
+    ]
+  }
+}
