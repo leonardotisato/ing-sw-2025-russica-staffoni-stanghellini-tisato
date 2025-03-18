@@ -1,0 +1,38 @@
+{
+  "prova1": {
+    "type": "AlienSupportTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "supportedAlienColor": "PINK_ALIEN"
+  },
+  "prova2": {
+    "type": "BatteryTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "maxBatteryCapacity": "2",
+    "numBatteries": "2"
+  },
+  "prova3": {
+    "type": "HousingTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "isCentralTile" :  true
+  },
+  "prova4": {
+    "type": "LaserTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "isDoubleLaser": false
+  },
+  "prova5": {
+    "type": "PropulsorTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "isDoublePropulsor": true
+  },
+  "prova6": {
+    "type": "ShieldTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "protectedDirections": ["UP", "RIGHT"]
+  },
+  "prova7": {
+    "type": "StorageTile",
+    "connections": {"UP" :  "SINGLE", "RIGHT":  "DOUBLE", "DOWN" : "SINGLE", "LEFT":  "UNIVERSAL"},
+    "isSpecialStorageTile": true,
+    "maxBoxes": 7
+  },

@@ -14,6 +14,7 @@ import java.util.Set;
 
 
 public abstract class Tile {
+    protected String type;
     protected Map<Direction, Connection> connections;
 
     // Tile generic methods
