@@ -27,13 +27,24 @@ public class Ship {
     private Map<CrewType, Integer> crewMap;
     private Map<BoxType, Integer> boxes;
     private List<Direction> protectedDirections;
-    private List<Tile> tilesBuffer;
+    private List<Tile> tilesBuffer = new ArrayList<>();
 
 
     public Ship(int lev, PlayerColor playerColor) {
         this.level = lev;
         this.color = playerColor;
         assert (level == 1 || level == 2);
+
+        crewMap = new HashMap<>();
+        crewMap.put(CrewType.HUMAN, 0);
+        crewMap.put(CrewType.PINK_ALIEN, 0);
+        crewMap.put(CrewType.BROWN_ALIEN, 0);
+
+        boxes = new HashMap<>();
+        boxes.put(BoxType.BLUE, 0);
+        boxes.put(BoxType.GREEN, 0);
+        boxes.put(BoxType.YELLOW, 0);
+        boxes.put(BoxType.RED, 0);
 
         if (level == 1) {
             shipWidth = 5;
@@ -65,7 +76,9 @@ public class Ship {
         }
 
         tilesMatrix = new Tile[shipHeight][shipWidth];
+
         // todo: placeTile(new HousingTile(playerColor), shipHeight / 2, shipWidth / 2);
+
     }
 
 
