@@ -181,6 +181,23 @@ class ShipTest {
 
     @Test
     void breakTile() {
+
+        // BatteryTile
+        lev1Ship.placeTile(batteryTile5, 0, 2);
+        assertEquals(batteryTile5.getMaxBatteryCapacity(), lev1Ship.getNumBatteries());
+        lev1Ship.breakTile(0, 2);
+        assertEquals(0, lev1Ship.getNumBatteries());
+
+        // StructuralTile
+        lev1Ship.placeTile(structuralTile58, 0, 2);
+        assertEquals(0, lev1Ship.getNumBatteries());
+        lev1Ship.breakTile(0, 2);
+        assertNull(lev1Ship.getTile(0, 2));
+
+        // storage
+        lev1Ship.placeTile(storageTile26, 0, 2);
+        // storageTile26.addBox();
+
     }
 
     @Test

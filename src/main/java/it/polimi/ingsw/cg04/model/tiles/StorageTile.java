@@ -79,4 +79,6 @@ public class StorageTile extends Tile {
             }
         }
     }
+
+    // no need to override place methode
 }
