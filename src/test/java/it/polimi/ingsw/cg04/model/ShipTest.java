@@ -275,6 +275,24 @@ class ShipTest {
         assertNull(lev1Ship.getTile(0, 2));
         assertNull(lev1Ship.getTile(1, 2));
         assertNull(lev1Ship.getTile(1, 1));
+
+        // housingTile and AlienSupportTile
+        // todo: tricky, might need more accurate testing
+        // todo: cannot test this till we figure out how to add crew with the correct logic
+
+        // test all the possible combinations
+        // 1. add HousingTile (ht) add AlienSupport (as) -> rm ht rm as
+        // 2. add hs add as -> rm as rm ht
+        // 3. add as add ht -> rm ht rm as
+        // 4. add as add ht -> rm as rm ht
+
+        // 1.
+        lev1Ship.placeTile(housingTile46, 2, 2);
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        //lev1Ship.breakTile(2, 2); // remove ht
+        //assertFalse(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
     }
 
     @Test

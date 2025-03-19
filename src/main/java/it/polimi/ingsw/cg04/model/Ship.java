@@ -175,6 +175,9 @@ public class Ship {
     }
 
     public void breakTile(Integer x, Integer y) {
+        if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
+        if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is not a valid slot!"); }
+
         this.getTile(x, y).broken(this);
         this.tilesMatrix[x][y] = null;
         this.updateExposedConnectors();
@@ -187,7 +190,6 @@ public class Ship {
     public void addTileInBuffer(Tile tile) {
         tilesBuffer.add(tile);
     }
-
 
     // ship resources
     public int getNumBatteries() {
@@ -360,7 +362,6 @@ public class Ship {
         this.numExposedConnectors = cont;
     }
 
-    // todo: check if works
     public void removeProtectedDirections(Set<Direction> dir) {
         for (Direction d : dir) {
             for (Direction direction : protectedDirections) {
@@ -411,15 +412,92 @@ public class Ship {
         return false;
     }
 
+    // // todo: metodo non fininto, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
-        return true;
+        if(k < 0 || k > shipWidth){
+            return false;
+        }
+
+        if (dir == Direction.UP) {
+            for (int i = 0; i < shipHeight; i++) {
+                if(tilesMatrix[i][k] != null) {
+                    breakTile(i, k);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.LEFT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if(tilesMatrix[k][i] != null) {
+                    breakTile(k, i);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.RIGHT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if(tilesMatrix[k][shipWidth-1-i] != null) {
+                    breakTile(k, shipWidth-1-i);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.DOWN) {
+            for (int i = 0; i < shipHeight; i++) {
+                if(tilesMatrix[shipHeight-1-i][k] != null) {
+                    breakTile(shipHeight-1-i, k);
+                    return true;
+                }
+            }
+        }
+
+        // todo: non penso serva ritornare valori visto come abbiamo implementato breakTile
+        return false;
     }
 
+    // todo: metodo non fininto, fare distinzioni tra LIGHT e HEAVY
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleShot(Direction dir, Shot shot, int k) {
-        return true;
+        if(k < 0 || k > shipWidth){
+            return false;
+        }
+
+        if (dir == Direction.UP) {
+            for (int i = 0; i < shipHeight; i++) {
+                if(tilesMatrix[i][k] != null) {
+                    breakTile(i, k);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.LEFT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if(tilesMatrix[k][i] != null) {
+                    breakTile(k, i);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.RIGHT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if(tilesMatrix[k][shipWidth-1-i] != null) {
+                    breakTile(k, shipWidth-1-i);
+                    return true;
+                }
+            }
+        }
+        if (dir == Direction.DOWN) {
+            for (int i = 0; i < shipHeight; i++) {
+                if(tilesMatrix[shipHeight-1-i][k] != null) {
+                    breakTile(shipHeight-1-i, k);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
