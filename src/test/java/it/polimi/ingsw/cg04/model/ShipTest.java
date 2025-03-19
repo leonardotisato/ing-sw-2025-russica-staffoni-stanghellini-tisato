@@ -212,6 +212,7 @@ class ShipTest {
         assertNull(lev1Ship.getTile(0, 2)); // tile is removed from matrix
 
         // shield
+
         // first let's try one shield
         lev1Ship.placeTile(shieldTile151, 0, 2); // 151 is UP RIGHT
         assertTrue(lev1Ship.getProtectedDirections().containsAll(shieldTile151.getProtectedDirections()));
@@ -243,6 +244,37 @@ class ShipTest {
         assertFalse(lev1Ship.getProtectedDirections().contains(Direction.DOWN));
         assertFalse(lev1Ship.getProtectedDirections().contains(Direction.UP));
         assertFalse(lev1Ship.getProtectedDirections().contains(Direction.LEFT));
+
+        // propulsion
+        assertEquals(0, lev1Ship.getBasePropulsionPower());
+        lev1Ship.placeTile(propulsorTile97, 0, 2); // 97 is double
+        assertEquals(0, lev1Ship.getBasePropulsionPower());
+        lev1Ship.placeTile(propulsorTile71, 1, 1); // 71 is single
+        assertEquals(1, lev1Ship.getBasePropulsionPower());
+        lev1Ship.breakTile(0, 2);
+        lev1Ship.breakTile(1, 1);
+        assertEquals(0, lev1Ship.getBasePropulsionPower());
+
+        // lasers
+        assertEquals(0, lev1Ship.getBaseFirePower());
+        lev1Ship.placeTile(laserTile134, 0, 2);     // double
+        assertEquals(0, lev1Ship.getBaseFirePower());
+        lev1Ship.placeTile(laserTile123, 1, 1);     // single, gun UP
+        assertEquals(1, lev1Ship.getBaseFirePower());
+        laserTile121.rotate90dx(); // gun not UP, should add only .5 baseFirePower
+        lev1Ship.placeTile(laserTile121, 1, 2);
+        assertEquals(1.5, lev1Ship.getBaseFirePower());
+
+        lev1Ship.breakTile(1, 1);
+        assertEquals(0.5, lev1Ship.getBaseFirePower());
+        lev1Ship.breakTile(0, 2);
+        assertEquals(0.5, lev1Ship.getBaseFirePower());
+        lev1Ship.breakTile(1, 2);
+        assertEquals(0, lev1Ship.getBaseFirePower());
+
+        assertNull(lev1Ship.getTile(0, 2));
+        assertNull(lev1Ship.getTile(1, 2));
+        assertNull(lev1Ship.getTile(1, 1));
     }
 
     @Test
