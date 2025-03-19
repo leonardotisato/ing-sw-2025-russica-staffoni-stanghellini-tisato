@@ -18,6 +18,12 @@ class ShipTest {
     Ship lev1Ship;
     Ship lev2Ship;
 
+    private Tile shieldTile151;
+    private Tile batteryTile5;
+    private Tile storageTile26;
+    private Tile laserTile134;
+    private Tile laserTile123;
+
     @BeforeEach
     void setUp() {
         // new tests using the tileLoader
@@ -30,6 +36,11 @@ class ShipTest {
         lev1Ship = new Ship(1, PlayerColor.BLUE);
         lev2Ship = new Ship(2, PlayerColor.RED);
 
+        shieldTile151 = tiles.get(151);
+        batteryTile5 = tiles.get(5);
+        storageTile26 = tiles.get(26);
+        laserTile134 = tiles.get(134);
+        laserTile123 = tiles.get(123);
     }
 
     @AfterEach
@@ -61,6 +72,26 @@ class ShipTest {
 
     @Test
     void placeTile() {
+
+        // check init params are ok
+        assertEquals(0, lev1Ship.getNumCrew());
+        assertEquals(0, lev1Ship.getNumBatteries());
+        assertEquals(0, lev1Ship.getNumExposedConnectors());
+        assertEquals(0, lev2Ship.getBaseFirePower());
+        assertEquals(0, lev1Ship.getBasePropulsionPower());
+        assertTrue(lev1Ship.getProtectedDirections().isEmpty());
+        assertTrue(lev1Ship.getTilesBuffer().isEmpty());
+
+        // check placement is ok
+        lev1Ship.placeTile(storageTile26, 0, 0);
+        lev1Ship.placeTile(batteryTile5, 0, 2);
+        assertEquals(lev1Ship.getTile(0, 2), batteryTile5);
+        assertThrowsExactly(IllegalArgumentException.class, () -> lev1Ship.getTile(0, 0));
+
+        // check resources are updated
+        assertEquals(2, lev1Ship.getNumBatteries());
+
+        // check tile attributes are updated
 
     }
 

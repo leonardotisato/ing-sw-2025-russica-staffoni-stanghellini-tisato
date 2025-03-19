@@ -35,6 +35,9 @@ public class Ship {
         this.color = playerColor;
         assert (level == 1 || level == 2);
 
+        protectedDirections = new ArrayList<>();
+        tilesBuffer = new ArrayList<>();
+
         crewMap = new HashMap<>();
         crewMap.put(CrewType.HUMAN, 0);
         crewMap.put(CrewType.PINK_ALIEN, 0);
@@ -126,6 +129,7 @@ public class Ship {
             return false;
         }
 
+        /*
         // check that placed tile neighbours another tile. let pass any connection, "punish" illegal behaviours later in isShipLegal()
         boolean connectionExists = false;
         Connection currConnection, otherConnection = null;
@@ -161,8 +165,12 @@ public class Ship {
         if (!connectionExists) {
             return false;
         }
+        */
 
         tilesMatrix[x][y] = tile;
+
+        // update resources and tiles params
+        tile.place(this);
 
         return true;
     }
@@ -211,6 +219,11 @@ public class Ship {
     public void removeBatteries(int lostBatteries) {
         assert this.getNumBatteries() - lostBatteries >= 0;
         numBatteries -= lostBatteries;
+    }
+
+    public void addBatteries(int newBatteries) {
+        assert this.getNumBatteries() + newBatteries >= 0;
+        numBatteries += newBatteries;
     }
 
     // this method remove 'lostBoxes' boxes, prioritizing high value boxes, then removes battery. As stated in the game rules

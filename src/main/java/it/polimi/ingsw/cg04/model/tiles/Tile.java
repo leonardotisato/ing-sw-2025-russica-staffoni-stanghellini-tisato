@@ -30,6 +30,10 @@ public abstract class Tile {
         this.type = type;
     }
 
+    public void place(Ship ship) {
+        // todo: implement each tile with specific tile-ship attributes updates
+    }
+
     public void broken(Ship ship){
         // todo: implement in each specific tile
         // todo: count connectors?
