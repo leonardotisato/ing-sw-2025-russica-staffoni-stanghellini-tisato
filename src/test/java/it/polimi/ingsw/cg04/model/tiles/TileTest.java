@@ -17,6 +17,8 @@ class TileTest {
     private Tile shieldTile151;
     private Tile batteryTile5;
     private Tile storageTile26;
+    private Tile laserTile134;
+    private Tile laserTile123;
 
     @BeforeEach
     void setUp() {
@@ -31,8 +33,8 @@ class TileTest {
         shieldTile151 = tiles.get(151);
         batteryTile5 = tiles.get(5);
         storageTile26 = tiles.get(26);
-
-
+        laserTile134 = tiles.get(134);
+        laserTile123 = tiles.get(123);
     }
 
     @AfterEach
@@ -102,6 +104,8 @@ class TileTest {
         storageTile26.rotate90dx();
         assertTrue(batteryTile5.isValidConnection(Direction.RIGHT, storageTile26));
 
+        // check connection vs laser gun
+        assertFalse(laserTile123.isValidConnection(Direction.UP, storageTile26));
     }
 
     @Test
@@ -207,6 +211,8 @@ class TileTest {
     @Test
     void isDoubleLaser() {
         assertNull(shieldTile151.isDoubleLaser());
+        assertTrue(laserTile134.isDoubleLaser());
+        assertFalse(laserTile123.isDoubleLaser());
     }
 
     @Test

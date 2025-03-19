@@ -737,7 +737,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -747,7 +747,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -757,7 +757,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -767,7 +767,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -777,7 +777,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -787,7 +787,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -797,7 +797,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -807,7 +807,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -817,7 +817,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "DOUBLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": false
@@ -827,7 +827,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "SINGLE"
     },
     "isDoublePropulsor": false
@@ -837,7 +837,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "SINGLE"
     },
     "isDoublePropulsor": false
@@ -847,7 +847,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "SINGLE"
     },
     "isDoublePropulsor": false
@@ -857,7 +857,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "DOUBLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "SINGLE"
     },
     "isDoublePropulsor": false
@@ -867,7 +867,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": false
@@ -877,7 +877,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "DOUBLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": false
@@ -887,7 +887,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": false
@@ -897,7 +897,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": false
@@ -907,7 +907,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": false
@@ -917,7 +917,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": false
@@ -927,7 +927,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "DOUBLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": false
@@ -937,7 +937,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": false
@@ -947,7 +947,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": true
@@ -957,7 +957,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": true
@@ -967,7 +967,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": true
@@ -977,7 +977,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "EMPTY"
     },
     "isDoublePropulsor": true
@@ -987,7 +987,7 @@
     "connections": {
       "UP": "SINGLE",
       "RIGHT": "SINGLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "SINGLE"
     },
     "isDoublePropulsor": true
@@ -997,7 +997,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "DOUBLE",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": true
@@ -1007,7 +1007,7 @@
     "connections": {
       "UP": "UNIVERSAL",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "DOUBLE"
     },
     "isDoublePropulsor": true
@@ -1017,7 +1017,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "UNIVERSAL",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": true
@@ -1027,7 +1027,7 @@
     "connections": {
       "UP": "DOUBLE",
       "RIGHT": "EMPTY",
-      "DOWN": "EMPTY",
+      "DOWN": "PROPULSOR",
       "LEFT": "UNIVERSAL"
     },
     "isDoublePropulsor": true
@@ -1035,7 +1035,7 @@
   "101": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "EMPTY"
@@ -1045,7 +1045,7 @@
   "102": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "EMPTY"
@@ -1055,7 +1055,7 @@
   "103": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "DOUBLE",
       "LEFT": "EMPTY"
@@ -1065,7 +1065,7 @@
   "104": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "DOUBLE",
       "LEFT": "EMPTY"
@@ -1075,7 +1075,7 @@
   "105": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "EMPTY",
       "LEFT": "EMPTY"
@@ -1085,7 +1085,7 @@
   "106": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "DOUBLE",
       "LEFT": "EMPTY"
@@ -1095,7 +1095,7 @@
   "107": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "UNIVERSAL",
       "LEFT": "EMPTY"
@@ -1105,7 +1105,7 @@
   "108": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "EMPTY",
       "LEFT": "EMPTY"
@@ -1115,7 +1115,7 @@
   "109": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "SINGLE",
       "LEFT": "EMPTY"
@@ -1125,7 +1125,7 @@
   "110": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "UNIVERSAL",
       "LEFT": "EMPTY"
@@ -1135,7 +1135,7 @@
   "111": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "UNIVERSAL",
       "DOWN": "SINGLE",
       "LEFT": "EMPTY"
@@ -1145,7 +1145,7 @@
   "112": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "EMPTY",
       "LEFT": "SINGLE"
@@ -1155,7 +1155,7 @@
   "113": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "DOUBLE",
       "LEFT": "SINGLE"
@@ -1165,7 +1165,7 @@
   "114": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "UNIVERSAL",
       "LEFT": "SINGLE"
@@ -1175,7 +1175,7 @@
   "115": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "SINGLE",
       "LEFT": "SINGLE"
@@ -1185,7 +1185,7 @@
   "116": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "UNIVERSAL",
       "LEFT": "SINGLE"
@@ -1195,7 +1195,7 @@
   "117": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "UNIVERSAL",
       "DOWN": "EMPTY",
       "LEFT": "SINGLE"
@@ -1205,7 +1205,7 @@
   "118": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "EMPTY",
       "LEFT": "DOUBLE"
@@ -1215,7 +1215,7 @@
   "119": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "DOUBLE"
@@ -1225,7 +1225,7 @@
   "120": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "UNIVERSAL",
       "LEFT": "DOUBLE"
@@ -1235,7 +1235,7 @@
   "121": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "EMPTY",
       "LEFT": "DOUBLE"
@@ -1245,7 +1245,7 @@
   "122": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "UNIVERSAL",
       "LEFT": "DOUBLE"
@@ -1255,7 +1255,7 @@
   "123": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "DOUBLE",
       "LEFT": "DOUBLE"
@@ -1265,7 +1265,7 @@
   "124": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "DOUBLE",
       "LEFT": "UNIVERSAL"
@@ -1275,7 +1275,7 @@
   "125": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "EMPTY",
       "LEFT": "UNIVERSAL"
@@ -1285,7 +1285,7 @@
   "126": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "EMPTY"
@@ -1295,7 +1295,7 @@
   "127": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "DOUBLE",
       "LEFT": "EMPTY"
@@ -1305,7 +1305,7 @@
   "128": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "UNIVERSAL",
       "LEFT": "EMPTY"
@@ -1315,7 +1315,7 @@
   "129": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "UNIVERSAL",
       "DOWN": "EMPTY",
       "LEFT": "EMPTY"
@@ -1325,7 +1325,7 @@
   "130": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "UNIVERSAL",
       "DOWN": "DOUBLE",
       "LEFT": "EMPTY"
@@ -1335,7 +1335,7 @@
   "131": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "SINGLE",
       "DOWN": "DOUBLE",
       "LEFT": "SINGLE"
@@ -1345,7 +1345,7 @@
   "132": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "EMPTY",
       "LEFT": "SINGLE"
@@ -1355,7 +1355,7 @@
   "133": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "UNIVERSAL",
       "LEFT": "DOUBLE"
@@ -1365,7 +1365,7 @@
   "134": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "DOUBLE",
       "DOWN": "SINGLE",
       "LEFT": "DOUBLE"
@@ -1375,7 +1375,7 @@
   "135": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "EMPTY",
       "LEFT": "UNIVERSAL"
@@ -1385,7 +1385,7 @@
   "136": {
     "type": "LaserTile",
     "connections": {
-      "UP": "EMPTY",
+      "UP": "GUN",
       "RIGHT": "EMPTY",
       "DOWN": "SINGLE",
       "LEFT": "UNIVERSAL"
