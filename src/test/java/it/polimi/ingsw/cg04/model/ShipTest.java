@@ -143,7 +143,9 @@ class ShipTest {
         lev1Ship.placeTile(laserTile134, 3, 0);
         assertEquals(2, lev1Ship.getBaseFirePower());
 
-
+        // todo: housing and alien support are tricky -> might have to extend tests
+        // housing -> check is in place + check supportedCrew is updated + check adjacent alien supports params are updated
+        // alien support -> check is in place + check adjacentHousingTiles is ok and adjacentHousingTile params are updated
 
     }
 

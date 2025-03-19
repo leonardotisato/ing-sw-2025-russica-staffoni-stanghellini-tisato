@@ -39,6 +39,9 @@ public class HousingTile extends Tile {
         // if (!isCentralTile || no supports) { supportedCrewType = set(HUMANS)
         // else supportedCrewType can host some aliens...
     }
+    public void addSupportedCrewType(CrewType crewType) {
+        supportedCrewType.add(crewType);
+    }
 
     public void removeSupportedCrewType(CrewType crewType) {
         supportedCrewType.remove(crewType);
@@ -104,6 +107,48 @@ public class HousingTile extends Tile {
                 }
             }
         }
+    }
+
+    @Override
+    public void place(Ship ship) {
+
+        this.addSupportedCrewType(CrewType.HUMAN);
+        int shipHeight = ship.getTilesMatrix().length;
+        int shipWidth = ship.getTilesMatrix()[0].length;
+        Tile[][] tilesMatrix = ship.getTilesMatrix();
+
+        for(int i=0; i<shipHeight; i++){
+            for(int j=0; j<shipWidth; j++){
+                if(tilesMatrix[i][j].equals(this)){
+
+                    // look UP
+                    if(i>0 && tilesMatrix[i-1][j] instanceof AlienSupportTile){
+                        tilesMatrix[i-1][j].addAdjacentHousingTile(this);
+                        this.addSupportedCrewType(tilesMatrix[i-1][j].getSupportedAlienColor());
+                    }
+
+                    // look LEFT
+                    if(j>0 && tilesMatrix[i][j-1] instanceof AlienSupportTile){
+                        tilesMatrix[i][j-1].addAdjacentHousingTile(this);
+                        this.addSupportedCrewType(tilesMatrix[i][j-1].getSupportedAlienColor());
+                    }
+
+                    // look RIGHT
+                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof AlienSupportTile){
+                        tilesMatrix[i][j+1].addAdjacentHousingTile(this);
+                        this.addSupportedCrewType(tilesMatrix[i][j+1].getSupportedAlienColor());
+                    }
+
+                    // look DOWN
+                    if(i<shipHeight-1 && tilesMatrix[i+1][j] instanceof AlienSupportTile){
+                        tilesMatrix[i+1][j].addAdjacentHousingTile(this);
+                        this.addSupportedCrewType(tilesMatrix[i+1][j].getSupportedAlienColor());
+                    }
+                    break;
+                }
+            }
+        }
+
 
     }
 }
