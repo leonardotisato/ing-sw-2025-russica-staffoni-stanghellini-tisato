@@ -354,6 +354,10 @@ public class Ship {
         }
     }
 
+    public void addProtectedDirections(Set<Direction> dir) {
+        protectedDirections.addAll(dir);
+    }
+
 
     // events and checks
     public boolean isShipLegal() {

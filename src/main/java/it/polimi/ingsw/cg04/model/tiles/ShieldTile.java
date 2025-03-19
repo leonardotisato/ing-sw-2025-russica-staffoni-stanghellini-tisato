@@ -62,4 +62,8 @@ public class ShieldTile extends Tile {
         ship.removeProtectedDirections(getProtectedDirections());
     }
 
+    @Override
+    public void place(Ship ship) {
+        ship.addProtectedDirections(getProtectedDirections());
+    }
 }
