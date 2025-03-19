@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.Ship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HousingTile extends Tile {
@@ -111,7 +112,7 @@ public class HousingTile extends Tile {
 
     @Override
     public void place(Ship ship) {
-
+        this.supportedCrewType = new ArrayList<CrewType>();
         this.addSupportedCrewType(CrewType.HUMAN);
         int shipHeight = ship.getTilesMatrix().length;
         int shipWidth = ship.getTilesMatrix()[0].length;
@@ -119,36 +120,34 @@ public class HousingTile extends Tile {
 
         for(int i=0; i<shipHeight; i++){
             for(int j=0; j<shipWidth; j++){
-                if(tilesMatrix[i][j].equals(this)){
+                if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
 
-                    // look UP
-                    if(i>0 && tilesMatrix[i-1][j] instanceof AlienSupportTile){
-                        tilesMatrix[i-1][j].addAdjacentHousingTile(this);
-                        this.addSupportedCrewType(tilesMatrix[i-1][j].getSupportedAlienColor());
-                    }
+                        // look UP
+                        if (i > 0 && tilesMatrix[i - 1][j] instanceof AlienSupportTile) {
+                            tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
+                            this.addSupportedCrewType(tilesMatrix[i - 1][j].getSupportedAlienColor());
+                        }
 
-                    // look LEFT
-                    if(j>0 && tilesMatrix[i][j-1] instanceof AlienSupportTile){
-                        tilesMatrix[i][j-1].addAdjacentHousingTile(this);
-                        this.addSupportedCrewType(tilesMatrix[i][j-1].getSupportedAlienColor());
-                    }
+                        // look LEFT
+                        if (j > 0 && tilesMatrix[i][j - 1] instanceof AlienSupportTile) {
+                            tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
+                            this.addSupportedCrewType(tilesMatrix[i][j - 1].getSupportedAlienColor());
+                        }
 
-                    // look RIGHT
-                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof AlienSupportTile){
-                        tilesMatrix[i][j+1].addAdjacentHousingTile(this);
-                        this.addSupportedCrewType(tilesMatrix[i][j+1].getSupportedAlienColor());
-                    }
+                        // look RIGHT
+                        if (j < shipWidth - 1 && tilesMatrix[i][j + 1] instanceof AlienSupportTile) {
+                            tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
+                            this.addSupportedCrewType(tilesMatrix[i][j + 1].getSupportedAlienColor());
+                        }
 
-                    // look DOWN
-                    if(i<shipHeight-1 && tilesMatrix[i+1][j] instanceof AlienSupportTile){
-                        tilesMatrix[i+1][j].addAdjacentHousingTile(this);
-                        this.addSupportedCrewType(tilesMatrix[i+1][j].getSupportedAlienColor());
-                    }
-                    break;
+                        // look DOWN
+                        if (i < shipHeight - 1 && tilesMatrix[i + 1][j] instanceof AlienSupportTile) {
+                            tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
+                            this.addSupportedCrewType(tilesMatrix[i + 1][j].getSupportedAlienColor());
+                        }
+                        break;
                 }
             }
         }
-
-
     }
 }

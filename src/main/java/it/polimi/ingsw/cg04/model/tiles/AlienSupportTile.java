@@ -63,7 +63,7 @@ public class AlienSupportTile extends Tile {
 
         for(int i=0; i<shipHeight; i++){
             for(int j=0; j<shipWidth; j++){
-                if(tilesMatrix[i][j].equals(this)){
+                if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)){
 
                     // look UP
                     if(i>0 && tilesMatrix[i-1][j] instanceof HousingTile) {
@@ -72,13 +72,13 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look LEFT
-                    if(j>0 && tilesMatrix[i][j-1] instanceof AlienSupportTile){
+                    if(j>0 && tilesMatrix[i][j-1] instanceof HousingTile) {
                         addAdjacentHousingTile(tilesMatrix[i][j-1]);
                         tilesMatrix[i][j-1].addSupportedCrewType(getSupportedAlienColor());
                     }
 
                     // look RIGHT
-                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof AlienSupportTile){
+                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof HousingTile) {
                         addAdjacentHousingTile(tilesMatrix[i][j+1]);
                         tilesMatrix[i][j+1].addSupportedCrewType(getSupportedAlienColor());
                     }
@@ -88,6 +88,7 @@ public class AlienSupportTile extends Tile {
                         addAdjacentHousingTile(tilesMatrix[i+1][j]);
                         tilesMatrix[i+1][j].addSupportedCrewType(getSupportedAlienColor());
                     }
+                    break;
                 }
             }
         }

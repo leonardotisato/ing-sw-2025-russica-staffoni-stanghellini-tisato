@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import org.junit.jupiter.api.AfterEach;
@@ -28,6 +29,14 @@ class ShipTest {
     private Tile structuralTile58;
     private Tile propulsorTile71;
     private Tile propulsorTile97;
+    private Tile housingTile46;
+    private Tile housingTile47;
+    private Tile housingTile48;
+    private Tile alienSupportTile141;
+    private Tile alienSupportTile142;
+    private Tile alienSupportTile143;
+
+
 
     @BeforeEach
     void setUp() {
@@ -51,6 +60,12 @@ class ShipTest {
         structuralTile58 = tiles.get(58);
         propulsorTile71 = tiles.get(71); // single
         propulsorTile97 = tiles.get(97); // double
+        housingTile46 = tiles.get(46);
+        housingTile47 = tiles.get(47);
+        housingTile48 = tiles.get(48);
+        alienSupportTile141 = tiles.get(141);
+        alienSupportTile142 = tiles.get(142);
+        alienSupportTile143 = tiles.get(143);
     }
 
     @AfterEach
@@ -146,6 +161,21 @@ class ShipTest {
         // todo: housing and alien support are tricky -> might have to extend tests
         // housing -> check is in place + check supportedCrew is updated + check adjacent alien supports params are updated
         // alien support -> check is in place + check adjacentHousingTiles is ok and adjacentHousingTile params are updated
+
+        // place un housing e place un support vicino
+        // check: aggiunto a lista di adj + aggiunto tipo di alieno supportato
+        lev1Ship.placeTile(housingTile46, 3, 1);
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+
+        lev1Ship.placeTile(alienSupportTile142, 4, 0);
+        lev1Ship.placeTile(housingTile47, 4, 1);
+        assertTrue(alienSupportTile142.getAdjacentHousingTiles().contains(housingTile47));
+        assertTrue(housingTile47.getSupportedCrewType().contains(alienSupportTile142.getSupportedAlienColor()));
+
+        // place un support e palce un hosuing vicino
+        // check: aggiunto a lista di adj + aggiunto tipo di alieno supportato
 
     }
 
