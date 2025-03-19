@@ -220,6 +220,9 @@ public abstract class Tile {
 
     }
 
+    public void addSupportedCrewType(CrewType crewType) {
+    }
+
     public void removeSupportedCrewType(CrewType crewType) {
     }
 

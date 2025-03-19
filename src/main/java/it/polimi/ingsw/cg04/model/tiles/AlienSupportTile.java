@@ -28,15 +28,15 @@ public class AlienSupportTile extends Tile {
         adjacentHousingTiles.remove(tile);
     }
 
-
-
     @Override
     public CrewType getSupportedAlienColor() {
         return supportedAlienColor;
     }
+
     public void setSupportedAlienColor(CrewType supportedAlienColor) {
         this.supportedAlienColor = supportedAlienColor;
     }
+
     @Override
     public void broken(Ship ship) {
         // remove supported crewType
@@ -50,6 +50,45 @@ public class AlienSupportTile extends Tile {
                 ship.removeCrewByType(adj.getHostedCrewType());
                 adj.removeCrewMember();
 
+            }
+        }
+    }
+
+    @Override
+    public void place(Ship ship) {
+
+        int shipHeight = ship.getTilesMatrix().length;
+        int shipWidth = ship.getTilesMatrix()[0].length;
+        Tile[][] tilesMatrix = ship.getTilesMatrix();
+
+        for(int i=0; i<shipHeight; i++){
+            for(int j=0; j<shipWidth; j++){
+                if(tilesMatrix[i][j].equals(this)){
+
+                    // look UP
+                    if(i>0 && tilesMatrix[i-1][j] instanceof HousingTile) {
+                        addAdjacentHousingTile(tilesMatrix[i-1][j]);
+                        tilesMatrix[i-1][j].addSupportedCrewType(getSupportedAlienColor());
+                    }
+
+                    // look LEFT
+                    if(j>0 && tilesMatrix[i][j-1] instanceof AlienSupportTile){
+                        addAdjacentHousingTile(tilesMatrix[i][j-1]);
+                        tilesMatrix[i][j-1].addSupportedCrewType(getSupportedAlienColor());
+                    }
+
+                    // look RIGHT
+                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof AlienSupportTile){
+                        addAdjacentHousingTile(tilesMatrix[i][j+1]);
+                        tilesMatrix[i][j+1].addSupportedCrewType(getSupportedAlienColor());
+                    }
+
+                    // look DOWN
+                    if(i<shipHeight-1 && tilesMatrix[i+1][j] instanceof HousingTile) {
+                        addAdjacentHousingTile(tilesMatrix[i+1][j]);
+                        tilesMatrix[i+1][j].addSupportedCrewType(getSupportedAlienColor());
+                    }
+                }
             }
         }
     }
