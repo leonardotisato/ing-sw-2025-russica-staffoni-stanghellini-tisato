@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -19,6 +21,7 @@ class ShipTest {
     Ship lev1Ship;
     Ship lev2Ship;
 
+    private Tile shieldTile150;
     private Tile shieldTile151;
     private Tile batteryTile5;
     private Tile storageTile26;
@@ -50,6 +53,7 @@ class ShipTest {
         lev1Ship = new Ship(1, PlayerColor.BLUE);
         lev2Ship = new Ship(2, PlayerColor.RED);
 
+        shieldTile150 = tiles.get(150);
         shieldTile151 = tiles.get(151);
         batteryTile5 = tiles.get(5);
         storageTile26 = tiles.get(26);
@@ -169,13 +173,14 @@ class ShipTest {
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
 
+        // place un support e place un housing vicino
+        // check: aggiunto a lista di adj + aggiunto tipo di alieno supportato
         lev1Ship.placeTile(alienSupportTile142, 4, 0);
         lev1Ship.placeTile(housingTile47, 4, 1);
         assertTrue(alienSupportTile142.getAdjacentHousingTiles().contains(housingTile47));
         assertTrue(housingTile47.getSupportedCrewType().contains(alienSupportTile142.getSupportedAlienColor()));
 
-        // place un support e palce un hosuing vicino
-        // check: aggiunto a lista di adj + aggiunto tipo di alieno supportato
+
 
     }
 
@@ -196,8 +201,48 @@ class ShipTest {
 
         // storage
         lev1Ship.placeTile(storageTile26, 0, 2);
-        // storageTile26.addBox();
+        lev1Ship.addBox(BoxType.YELLOW, 0, 2);
+        lev1Ship.addBox(BoxType.GREEN, 0, 2);
+        assertEquals(1, lev1Ship.getBoxes().get(BoxType.YELLOW));// todo: non viene aggunto param alla ship
+        assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 0, 2)); // 26 is not special
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 0, 2));   // is full
+        lev1Ship.breakTile(0, 2);
+        assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN)); // resources are removed
+        assertNull(lev1Ship.getTile(0, 2)); // tile is removed from matrix
 
+        // shield
+        // first let's try one shield
+        lev1Ship.placeTile(shieldTile151, 0, 2); // 151 is UP RIGHT
+        assertTrue(lev1Ship.getProtectedDirections().containsAll(shieldTile151.getProtectedDirections()));
+        assertTrue(shieldTile151.getProtectedDirections().containsAll(lev1Ship.getProtectedDirections()));
+        lev1Ship.breakTile(0, 2);
+        assertTrue(lev1Ship.getProtectedDirections().isEmpty());
+        lev1Ship.placeTile(shieldTile151, 0, 2); // 151 is UP RIGHT
+
+        assertTrue(lev1Ship.getProtectedDirections().containsAll(shieldTile151.getProtectedDirections()));
+        assertTrue(shieldTile151.getProtectedDirections().containsAll(lev1Ship.getProtectedDirections()));
+
+        // now try 2 shield with common directions
+        lev1Ship.placeTile(shieldTile151, 0, 2); // 151 is UP RIGHT
+        shieldTile150.rotate90dx(); // now 150 has RIGHT DOWN (if rotate90dx works)
+        lev1Ship.placeTile(shieldTile150, 1, 1);
+        assertTrue(lev1Ship.getProtectedDirections().contains(Direction.UP));
+        assertTrue(lev1Ship.getProtectedDirections().contains(Direction.RIGHT));
+        assertTrue(lev1Ship.getProtectedDirections().contains(Direction.DOWN));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.LEFT));
+
+        lev1Ship.breakTile(0, 2); // should remain DOWN RIGHT
+        assertTrue(lev1Ship.getProtectedDirections().contains(Direction.RIGHT));
+        assertTrue(lev1Ship.getProtectedDirections().contains(Direction.DOWN));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.UP));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.LEFT));
+
+        lev1Ship.breakTile(1, 1);
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.RIGHT));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.DOWN));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.UP));
+        assertFalse(lev1Ship.getProtectedDirections().contains(Direction.LEFT));
     }
 
     @Test

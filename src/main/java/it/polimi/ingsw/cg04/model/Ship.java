@@ -167,10 +167,9 @@ public class Ship {
         }
         */
 
-        tilesMatrix[x][y] = tile;
-
-        // update resources and tiles params
-        tile.place(this);
+        tilesMatrix[x][y] = tile;   // place tile in the ship
+        tile.place(this);   // update resources and tiles params
+        updateExposedConnectors();  // update exposedConnectors attribute
 
         return true;
     }
@@ -259,6 +258,25 @@ public class Ship {
 
         this.boxes.put(type, 0);
         return currentCount;
+    }
+
+    // needed for player choice to remove single box
+    public void removeBox(BoxType boxType, int x, int y) {
+        // exception are already in tile methode
+        getTile(x, y).removeBox(boxType);   // remove box from tile's map
+
+        if(boxes.get(boxType) <= 0) {
+            throw new RuntimeException("Illegal Operation! No boxes to remove!");
+        }
+        boxes.put(boxType, boxes.get(boxType) - 1); // remove from ship's map
+    }
+
+    // needed for player choice to add single box
+    public void addBox(BoxType boxType, int x, int y) {
+        // exception are already in tile methode
+        getTile(x, y).addBox(boxType);  // add box to tile's map
+
+        boxes.put(boxType, boxes.get(boxType) + 1); // add box to ship's map
     }
 
     public void removeCrewByType(CrewType type) {

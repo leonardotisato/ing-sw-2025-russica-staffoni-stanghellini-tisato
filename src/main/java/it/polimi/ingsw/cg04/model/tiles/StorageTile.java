@@ -72,7 +72,7 @@ public class StorageTile extends Tile {
 
     @Override
     public void broken(Ship ship) {
-        //ship.removeBoxes(getBoxes());
+        // rimuove tutti i box un tipo alla volta
         for(BoxType boxType : BoxType.values()) {
             if(boxes.get(boxType) > 0) {
                 ship.removeBoxes(boxType, boxes.get(boxType));

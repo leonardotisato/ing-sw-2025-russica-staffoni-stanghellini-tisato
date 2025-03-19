@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.tiles.HousingTile;
+import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class Player {
@@ -132,15 +134,31 @@ public class Player {
     public void returnPile() {
     }
 
+    // load resources both in tile and ship maps
     public void loadResource(int x, int y, BoxType box) {
+        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+            throw new RuntimeException("Illegal Operation! Not a StorageTile!");
+        }
+        ship.getTile(x, y).addBox(box);
     }
 
+    // todo: rivedere logica
     public void removeResource(int x, int y, BoxType box) {
+        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+            throw new RuntimeException("Illegal Operation! Not a StorageTile!");
+        }
+        ship.getTile(x, y).removeBox(box);
     }
 
+    // todo: rivedere logica
     public void removeCrew(int x, int y) {
+        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
+        }
+        ship.getTile(x, y).removeCrewMember();
     }
 
     public void useBattery(int x, int y) {
+
     }
 }
