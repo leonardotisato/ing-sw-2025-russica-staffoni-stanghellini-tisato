@@ -3,7 +3,6 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
-import it.polimi.ingsw.cg04.model.ships.Ship;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class Player {

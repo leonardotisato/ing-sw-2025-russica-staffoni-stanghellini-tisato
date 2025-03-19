@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.ships.Ship;
+import it.polimi.ingsw.cg04.model.Ship;
 
 
 import java.util.HashMap;

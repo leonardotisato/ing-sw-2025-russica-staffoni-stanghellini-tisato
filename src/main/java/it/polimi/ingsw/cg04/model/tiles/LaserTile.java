@@ -3,9 +3,7 @@ package it.polimi.ingsw.cg04.model.tiles;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.ships.Ship;
-
-import java.util.Map;
+import it.polimi.ingsw.cg04.model.Ship;
 
 public class LaserTile extends Tile {
 

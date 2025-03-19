@@ -1,13 +1,10 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.ships.Ship;
+import it.polimi.ingsw.cg04.model.Ship;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class StorageTile extends Tile {
     private boolean isSpecialStorageTile;
