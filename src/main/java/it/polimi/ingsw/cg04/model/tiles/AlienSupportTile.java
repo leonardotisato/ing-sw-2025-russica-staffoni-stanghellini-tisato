@@ -39,6 +39,8 @@ public class AlienSupportTile extends Tile {
     }
 
     @Override
+    // remove supported crewType form adjacent HousingTiles
+    // if this implies that now those HousingTiles contains unsupportedCrewTypes remove them
     public void broken(Ship ship) {
         // remove supported crewType
         for(Tile adj : adjacentHousingTiles) {
@@ -50,13 +52,15 @@ public class AlienSupportTile extends Tile {
             if(adj.getHostedCrewType() != null && !adj.getSupportedCrewType().contains(adj.getHostedCrewType())) {
                 ship.removeCrewByType(adj.getHostedCrewType());
                 adj.removeCrewMember();
-
             }
+
+            // clear in case of reuse of this tile
             adjacentHousingTiles.clear();
         }
     }
 
-    // if there is a HousingTile adjacent add it to the adjacentList, update supportedCrewType remove it's crewMembers than leave the choice to the player
+    // if there is a HousingTile adjacent to this add it to the adjacentList
+    // update supportedCrewType for adjacent HousingTiles and remove it's crewMembers than leave the choice ok alien/human to the player
     @Override
     public void place(Ship ship) {
 

@@ -45,7 +45,7 @@ public class LaserTile extends Tile {
 
     public void place(Ship ship){
         if(!isDoubleLaser){
-            if(this.getConnection(Direction.UP).equals(Connection.GUN)) {
+            if(getShootingDirection() == Direction.UP) {
                 ship.updateBaseFirePower(1);
             } else ship.updateBaseFirePower(0.5);
         }
