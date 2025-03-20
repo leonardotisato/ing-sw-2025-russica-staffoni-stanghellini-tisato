@@ -283,6 +283,9 @@ public class Ship {
 
     public void removeCrewByType(CrewType type) {
 
+        // non bellissimo ma potrebbe dover essere necessario
+        if(type == null) { return; }
+
         // todo: handle this gracefully
         assert crewMap.containsKey(type);
         assert crewMap.get(type) > 0;

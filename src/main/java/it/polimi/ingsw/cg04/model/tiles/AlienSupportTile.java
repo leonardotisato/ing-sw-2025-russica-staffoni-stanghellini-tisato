@@ -47,11 +47,12 @@ public class AlienSupportTile extends Tile {
             }
 
             // if alien no longer supported remove it
-            if(!adj.getSupportedCrewType().contains(adj.getHostedCrewType())) {
+            if(adj.getHostedCrewType() != null && !adj.getSupportedCrewType().contains(adj.getHostedCrewType())) {
                 ship.removeCrewByType(adj.getHostedCrewType());
                 adj.removeCrewMember();
 
             }
+            adjacentHousingTiles.clear();
         }
     }
 

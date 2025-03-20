@@ -175,13 +175,12 @@ class ShipTest {
 
         // place un support e place un housing vicino
         // check: aggiunto a lista di adj + aggiunto tipo di alieno supportato
+        alienSupportTile142.rotate90dx();
         lev1Ship.placeTile(alienSupportTile142, 4, 0);
         lev1Ship.placeTile(housingTile47, 4, 1);
         assertTrue(alienSupportTile142.getAdjacentHousingTiles().contains(housingTile47));
         assertTrue(housingTile47.getSupportedCrewType().contains(alienSupportTile142.getSupportedAlienColor()));
-
-
-
+        alienSupportTile143.rotate90sx();
     }
 
     @Test
@@ -282,17 +281,69 @@ class ShipTest {
 
         // test all the possible combinations
         // 1. add HousingTile (ht) add AlienSupport (as) -> rm ht rm as
-        // 2. add hs add as -> rm as rm ht
-        // 3. add as add ht -> rm ht rm as
-        // 4. add as add ht -> rm as rm ht
+        // 2. add as add ht -> rm as rm ht
+        // 3. add hs add as -> rm as rm ht
+        // 4. add as add ht -> rm ht rm as
 
-        // 1.
+
         lev1Ship.placeTile(housingTile46, 2, 2);
         lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertFalse(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46)); // not valid connection
+        assertFalse(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor())); // not valid connection
+        lev1Ship.breakTile(2, 2);
+        lev1Ship.breakTile(3, 2);
+
+
+        // 1. add ht add as -> rm ht rm as
+        // rotate and reposition to connect them
+        alienSupportTile141.rotate90dx();
+        lev1Ship.placeTile(housingTile46, 2, 2);
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN)); // humans added automatically
+        assertFalse(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46)); // valid connection
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor())); // valid connection
+        lev1Ship.breakTile(2, 2);
+        assertFalse(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
+        lev1Ship.breakTile(3, 2);
+
+
+        // 2. add as add ht -> rm as rm ht
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().isEmpty());
+        lev1Ship.placeTile(housingTile46, 2, 2);
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
-        //lev1Ship.breakTile(2, 2); // remove ht
-        //assertFalse(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
+        lev1Ship.breakTile(3, 2);
+        assertFalse(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        lev1Ship.breakTile(2, 2);
+
+
+        // 3. add hs add as -> rm as rm ht
+        lev1Ship.placeTile(housingTile46, 2, 2);
+        assertEquals(1, housingTile46.getSupportedCrewType().size());
+        assertTrue(housingTile46.getSupportedCrewType().contains(CrewType.HUMAN));
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        assertTrue(housingTile46.getSupportedCrewType().contains(CrewType.HUMAN));
+        assertEquals(2, housingTile46.getSupportedCrewType().size());
+        lev1Ship.breakTile(3, 2);
+        assertEquals(0, alienSupportTile141.getAdjacentHousingTiles().size());
+        assertEquals(1, housingTile46.getSupportedCrewType().size());
+        assertTrue(housingTile46.getSupportedCrewType().contains(CrewType.HUMAN));
+        lev1Ship.breakTile(2, 2);
+
+        // 4. add as add ht -> rm ht rm as
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().isEmpty());
+        lev1Ship.placeTile(housingTile46, 2, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
+        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+        lev1Ship.breakTile(2, 2);
+        assertTrue(alienSupportTile141.getAdjacentHousingTiles().isEmpty());
+        lev1Ship.breakTile(3, 2);
     }
 
     @Test

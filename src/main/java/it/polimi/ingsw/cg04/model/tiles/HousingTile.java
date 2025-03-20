@@ -93,11 +93,13 @@ public class HousingTile extends Tile {
 
     @Override
     public void broken(Ship ship) {
-        if (hostedCrewType.equals(CrewType.HUMAN)) {
-            for (int i = numCrew; i > 0; i--) {
-                ship.removeCrewByType(CrewType.HUMAN);
-            }
-        } else ship.removeCrewByType(hostedCrewType);
+        if(hostedCrewType != null) {
+            if (hostedCrewType.equals(CrewType.HUMAN)) {
+                for (int i = numCrew; i > 0; i--) {
+                    ship.removeCrewByType(CrewType.HUMAN);
+                }
+            } else ship.removeCrewByType(hostedCrewType);
+        }
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile
         Tile[][] tilesMatrix = ship.getTilesMatrix();
@@ -108,6 +110,9 @@ public class HousingTile extends Tile {
                 }
             }
         }
+
+        supportedCrewType.clear();
+        hostedCrewType = null;
     }
 
     // add human to supportedCrewType than adds 2 humans
@@ -119,7 +124,7 @@ public class HousingTile extends Tile {
         this.addSupportedCrewType(CrewType.HUMAN);
 
         // initially add humans, remove them if LifeSupport adjacent and leave the choice to the player
-        this.addCrew(CrewType.HUMAN);
+        //this.addCrew(CrewType.HUMAN);
         this.addCrew(CrewType.HUMAN);
         ship.addCrewByType(CrewType.HUMAN);
         ship.addCrewByType(CrewType.HUMAN);
