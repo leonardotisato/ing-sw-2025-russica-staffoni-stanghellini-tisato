@@ -290,6 +290,11 @@ public class Ship {
         crewMap.put(type, this.getNumCrewByType(type) - 1);
     }
 
+    public void addCrewByType(CrewType type) {
+        // todo: may needs exceptions
+        crewMap.put(type, this.getNumCrewByType(type) + 1);
+    }
+
 
     // stats
     public int getNumExposedConnectors() {
