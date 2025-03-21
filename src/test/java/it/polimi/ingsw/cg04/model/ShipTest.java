@@ -16,6 +16,8 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// todo: test edge cases for place/break HousingTile and AlienSupportTile
+
 class ShipTest {
 
     Ship lev1Ship;

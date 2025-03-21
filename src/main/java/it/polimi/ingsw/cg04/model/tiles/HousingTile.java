@@ -140,7 +140,9 @@ public class HousingTile extends Tile {
                 if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
 
                     // look UP -> check tile type and connection
-                    if (i > 0 && tilesMatrix[i - 1][j] instanceof AlienSupportTile && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
+                    if (i > 0 && tilesMatrix[i - 1][j] instanceof AlienSupportTile
+                            && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
+                            && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
                         this.removeCrewMember();
@@ -151,7 +153,9 @@ public class HousingTile extends Tile {
                     }
 
                     // look LEFT -> check tile type and connection
-                    if (j > 0 && tilesMatrix[i][j - 1] instanceof AlienSupportTile && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
+                    if (j > 0 && tilesMatrix[i][j - 1] instanceof AlienSupportTile
+                            && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
+                            && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
                         this.removeCrewMember();
@@ -162,7 +166,9 @@ public class HousingTile extends Tile {
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if (j < shipWidth - 1 && tilesMatrix[i][j + 1] instanceof AlienSupportTile && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
+                    if (j < shipWidth - 1 && tilesMatrix[i][j + 1] instanceof AlienSupportTile
+                            && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
+                            && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
                         this.removeCrewMember();
@@ -173,7 +179,9 @@ public class HousingTile extends Tile {
                     }
 
                     // look DOWN -> check tile type and connection
-                    if (i < shipHeight - 1 && tilesMatrix[i + 1][j] instanceof AlienSupportTile && this.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
+                    if (i < shipHeight - 1 && tilesMatrix[i + 1][j] instanceof AlienSupportTile
+                            && this.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
+                            && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
                         this.removeCrewMember();
