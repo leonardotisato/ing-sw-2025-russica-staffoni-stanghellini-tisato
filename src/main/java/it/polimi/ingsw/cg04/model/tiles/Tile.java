@@ -238,8 +238,8 @@ public abstract class Tile {
 
     }
 
-    public void removeCrewMember() {
-
+    public CrewType removeCrewMember() {
+        return null;
     }
 
     public CrewType getHostedCrewType() {

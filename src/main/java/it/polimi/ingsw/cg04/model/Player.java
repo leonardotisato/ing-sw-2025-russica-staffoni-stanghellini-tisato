@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
@@ -134,28 +135,37 @@ public class Player {
     public void returnPile() {
     }
 
-    // load resources both in tile and ship maps
     public void loadResource(int x, int y, BoxType box) {
         if(!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
-        ship.getTile(x, y).addBox(box);
+        ship.addBox(box, x, y);
     }
 
-    // todo: rivedere logica
     public void removeResource(int x, int y, BoxType box) {
         if(!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
-        ship.getTile(x, y).removeBox(box);
+        ship.removeBox(box, x, y);
     }
 
-    // todo: rivedere logica
     public void removeCrew(int x, int y) {
         if(!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");
         }
-        ship.getTile(x, y).removeCrewMember();
+
+        // removes crew member from ship and tile
+        ship.removeCrewByType(ship.getTile(x, y).removeCrewMember());
+    }
+
+    public void addCrewByType(CrewType crewType, int x, int y) {
+        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
+        }
+
+        // removes crew member from ship and tile
+        ship.getTile(x, y).addCrew(crewType);
+        ship.addCrewByType(crewType);
     }
 
     public void useBattery(int x, int y) {

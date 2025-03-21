@@ -368,7 +368,16 @@ class ShipTest {
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().isEmpty());
         lev1Ship.breakTile(3, 2);
 
-        alienSupportTile141.rotate90sx();
+        // more HousingTile and AlienSupportTile
+        lev1Ship.placeTile(housingTile46, 2, 2);
+        lev1Ship.placeTile(alienSupportTile141, 3, 2);
+        lev1Ship.getTile(2, 2).addCrew(alienSupportTile141.getSupportedAlienColor());
+        lev1Ship.addCrewByType(alienSupportTile141.getSupportedAlienColor());
+        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(1, lev1Ship.getNumCrewByType(alienSupportTile141.getSupportedAlienColor()));
+        lev1Ship.breakTile(3, 2);
+        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(0, lev1Ship.getNumCrewByType(alienSupportTile141.getSupportedAlienColor()));
     }
 
     @Test
