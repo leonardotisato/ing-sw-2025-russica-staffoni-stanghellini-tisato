@@ -90,7 +90,20 @@ class ShipTest {
 
     @Test
     void getTile() {
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(1, -1));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(0, 5));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(5, 0));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(4, 2));
 
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(1, -1));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(0, 7));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(5, 0));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.getTile(4, 2));
+
+        // returns null if tile not present
+        assertNull(lev1Ship.getTile(1, 1));
     }
 
     @Test
@@ -101,6 +114,14 @@ class ShipTest {
 
     @Test
     void placeTile() {
+
+        assertFalse(lev1Ship.placeTile(null, 2, 2));
+        assertFalse(lev1Ship.placeTile(storageTile26, 0, 0));
+        assertFalse(lev1Ship.placeTile(storageTile26, 1, 0));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, -1, 0));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, 0, -1));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, 1, 5));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, 5, 1));
 
         // check init params are ok
         assertEquals(0, lev1Ship.getNumCrew());
@@ -117,9 +138,6 @@ class ShipTest {
         assertEquals(lev1Ship.getTile(0, 2), batteryTile5);
         assertThrowsExactly(IllegalArgumentException.class, () -> lev1Ship.getTile(0, 0));
         assertFalse(lev1Ship.placeTile(storageTile26, 0, 2));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> lev1Ship.placeTile(laserTile134, -1, 0));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> lev1Ship.placeTile(laserTile134, 0, -1));
-
 
         // check resources are updated
 
@@ -186,6 +204,10 @@ class ShipTest {
     @Test
     void breakTile() {
 
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(0, 0));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(2, 2));
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(-1, 3));
+
         // BatteryTile
         lev1Ship.placeTile(batteryTile5, 0, 2);
         assertEquals(batteryTile5.getMaxBatteryCapacity(), lev1Ship.getNumBatteries());
@@ -197,7 +219,6 @@ class ShipTest {
         assertEquals(0, lev1Ship.getNumBatteries());
         lev1Ship.breakTile(0, 2);
         assertNull(lev1Ship.getTile(0, 2));
-
         // storage
         lev1Ship.placeTile(storageTile26, 0, 2);
         lev1Ship.addBox(BoxType.YELLOW, 0, 2);
@@ -344,6 +365,8 @@ class ShipTest {
         lev1Ship.breakTile(2, 2);
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().isEmpty());
         lev1Ship.breakTile(3, 2);
+
+        alienSupportTile141.rotate90sx();
     }
 
     @Test
@@ -397,6 +420,27 @@ class ShipTest {
     }
 
     @Test
+    void removeBox() {
+        lev1Ship.placeTile(storageTile26, 2, 2);
+        lev1Ship.addBox(BoxType.GREEN, 2, 2);
+        lev1Ship.addBox(BoxType.GREEN, 2, 2);
+        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.GREEN, 2, 2);});
+        assertEquals(2, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(0, lev1Ship.getBoxes().get(BoxType.BLUE));
+        assertEquals(0, lev1Ship.getBoxes().get(BoxType.RED));
+        assertEquals(0, lev2Ship.getBoxes().get(BoxType.YELLOW));
+        lev1Ship.removeBox(BoxType.GREEN, 2, 2);
+        assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
+        lev1Ship.removeBox(BoxType.GREEN, 2, 2);
+        assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertThrows(RuntimeException.class, () -> {lev1Ship.removeBox(BoxType.GREEN, 2, 2);});
+        assertThrows(RuntimeException.class, () -> {lev1Ship.removeBox(BoxType.RED, 2, 2);});
+        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.RED, 2, 2);});
+        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.YELLOW, 0, 0);});
+        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.YELLOW, -1, 0);});
+    }
+
+    @Test
     void testRemoveBoxes() {
     }
 
@@ -438,10 +482,41 @@ class ShipTest {
 
     @Test
     void updateExposedConnectors() {
+        assertEquals(0, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile141, 3, 2); // placeTile has updateExposedConnectors in its implementation
+        assertEquals(2, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile142, 3, 4);
+        assertEquals(4, lev1Ship.getNumExposedConnectors());
+        lev1Ship.breakTile(3, 4);   // breakTile has updateExposedConnectors in its implementation
+        assertEquals(2, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile142, 3, 1);
+        assertEquals(3, lev1Ship.getNumExposedConnectors());
+        lev1Ship.breakTile(3, 1);
+        lev1Ship.breakTile(3, 2);
     }
 
     @Test
     void removeProtectedDirections() {
+    }
+
+    @Test
+    void addProtectedDirections() {
+
+    }
+
+    @Test
+    void isShipConnectedBFS(){
+
+        assertTrue(lev1Ship.isShipConnectedBFS());
+        lev1Ship.placeTile(alienSupportTile143, 3, 2);
+        lev1Ship.placeTile(alienSupportTile141, 3, 3);
+        assertTrue(lev1Ship.isShipConnectedBFS());
+        lev1Ship.placeTile(alienSupportTile142, 0, 2);
+        assertFalse(lev1Ship.isShipConnectedBFS());
+
+        lev1Ship.breakTile(3, 3);
+        lev1Ship.breakTile(3, 2);
+        lev1Ship.breakTile(0, 2);
     }
 
     @Test

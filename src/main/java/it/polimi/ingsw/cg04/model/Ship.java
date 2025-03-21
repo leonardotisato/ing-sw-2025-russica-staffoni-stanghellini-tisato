@@ -114,6 +114,9 @@ public class Ship {
 
     public boolean placeTile(Tile tile, int x, int y) {
 
+        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
         // check if tile != null
         if (tile == null) {
             return false;
@@ -175,6 +178,7 @@ public class Ship {
     }
 
     public void breakTile(Integer x, Integer y) {
+        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is not a valid slot!"); }
 
@@ -418,6 +422,65 @@ public class Ship {
         // todo: check that all propulsors are pointing backwards
 
         return false;
+    }
+
+    // todo: testing
+    public boolean isShipConnectedBFS(){
+        int totalTiles = 0;
+        int visitedTiles = 0;
+        boolean[][] visited = new boolean[shipHeight][shipWidth];
+
+        // find a tile to start
+        int startX = -1;
+        int startY = -1;
+        for(int i = 0; i<shipHeight; i++) {
+            for(int j = 0; j<shipWidth; j++) {
+                if (tilesMatrix[i][j] != null) {
+                    totalTiles++;
+                    if(startX == -1 && startY == -1) {
+                        startX = i;
+                        startY = j;
+                    }
+                }
+            }
+        }
+
+        // il bro ha una nave con zero componenti e non si è ancora ritirato
+        if (totalTiles == 0) { return true; }
+
+        // count reachable tiles
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{startX, startY});
+        visited[startX][startY] = true;
+
+        while (!list.isEmpty()) {
+            int[] pos = list.removeFirst();
+            int x = pos[0];
+            int y = pos[1];
+            visitedTiles++;
+
+            Tile currTile = tilesMatrix[x][y];
+
+            for(Direction direction: Direction.values()) {
+                int newX = x;
+                int newY = y;
+
+                switch(direction) {
+                    case UP -> newX--;
+                    case DOWN -> newX++;
+                    case LEFT -> newY--;
+                    case RIGHT -> newY++;
+                }
+
+                if(newX >= 0 && newX < shipWidth && newY >= 0 && newY < shipHeight) {
+                    if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
+                        list.add(new int[]{newX, newY});
+                        visited[newX][newY] = true;
+                    }
+                }
+            }
+        }
+        return visitedTiles == totalTiles;
     }
 
     // // todo: metodo non fininto, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
