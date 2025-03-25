@@ -19,6 +19,8 @@ public abstract class Tile {
     String type;
     @Expose
     Map<Direction, Connection> connections;
+    @Expose
+    int id;
 
     // Tile generic methods
     public Tile() {}
@@ -26,8 +28,14 @@ public abstract class Tile {
     public String getType() {
         return type;
     }
+
+    // serve???
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void place(Ship ship) {

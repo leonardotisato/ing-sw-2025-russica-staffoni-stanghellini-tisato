@@ -121,7 +121,7 @@ class TileTest {
 
     @Test
     void getNumBatteries() {
-        assertEquals(0, shieldTile151.getNumBatteries());
+        assertNull(shieldTile151.getNumBatteries());
         assertEquals(2, batteryTile5.getNumBatteries());
     }
 
@@ -247,5 +247,13 @@ class TileTest {
         System.out.println(laserTile134.toString());
         System.out.println(laserTile123.toString());
         System.out.println(storageTile26.toString());
+    }
+
+    @Test
+    void getId() {
+        assertEquals(151, shieldTile151.getId());
+        assertEquals(5, batteryTile5.getId());
+        assertEquals(26, storageTile26.getId());
+        assertEquals(123, laserTile123.getId());
     }
 }

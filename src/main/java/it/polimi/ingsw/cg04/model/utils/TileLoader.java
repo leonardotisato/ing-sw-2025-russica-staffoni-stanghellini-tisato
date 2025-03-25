@@ -33,7 +33,11 @@ public class TileLoader {
             Map<Integer, Tile> tileMap = new HashMap<>();
             for (Map.Entry<String, JsonObject> entry : tempMap.entrySet()) {
                 int id = Integer.parseInt(entry.getKey());
-                Tile card = createTileFromJson(entry.getValue());
+
+                JsonObject tileJson = entry.getValue();
+                tileJson.addProperty("id", id);
+
+                Tile card = createTileFromJson(tileJson);
                 tileMap.put(id, card);
                 faceDownTiles.add(id);
             }
