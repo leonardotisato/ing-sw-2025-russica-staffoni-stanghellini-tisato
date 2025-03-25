@@ -581,4 +581,53 @@ public class Ship {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+
+        // formatted grid for tilesMatrix with coordinates and tile details
+        StringBuilder tilesMatrixGrid = new StringBuilder();
+        tilesMatrixGrid.append("TilesMatrix Grid:\n");
+
+        // print the coordinate grid
+        for (int y = 0; y < tilesMatrix.length; y++) {
+            for (int x = 0; x < tilesMatrix[y].length; x++) {
+                if (this.validSlots[y][x]) {
+                    tilesMatrixGrid.append(String.format("(%d,%d) ", x, y));
+                }
+                else {
+                    tilesMatrixGrid.append("(X,X) ");
+                }
+            }
+            tilesMatrixGrid.append("\n");
+        }
+
+        // print the tile details for each coordinate
+        tilesMatrixGrid.append("\nTile Details:\n");
+        for (int y = 0; y < tilesMatrix.length; y++) {
+            for (int x = 0; x < tilesMatrix[y].length; x++) {
+                if (tilesMatrix[y][x] != null) {
+                    tilesMatrixGrid.append(String.format("(%d,%d): %s\n", x, y, tilesMatrix[y][x]));
+                }
+            }
+        }
+
+        return "Ship{" +
+                "level=" + level +
+                ", color=" + color +
+                ", shipHeight=" + shipHeight +
+                ", shipWidth=" + shipWidth +
+                ", tilesBuffer=" + tilesBuffer +
+                ", \n" + tilesMatrixGrid +
+                "\nShip parameters:" +
+                " numBatteries=" + numBatteries +
+                ", numExposedConnectors=" + numExposedConnectors +
+                ", numBrokenTiles=" + numBrokenTiles +
+                ", baseFirePower=" + baseFirePower +
+                ", basePropulsionPower=" + basePropulsionPower +
+                ", crewMap=" + crewMap +
+                ", boxes=" + boxes +
+                ", protectedDirections=" + protectedDirections +
+                '}';
+    }
 }

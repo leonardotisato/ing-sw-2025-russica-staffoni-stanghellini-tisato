@@ -236,4 +236,16 @@ class TileTest {
     @Test
     void getNumHumans() {
     }
+
+    @Test
+    void testToString() {
+
+        // not real tests. just making sure it prints all & correct info.
+        System.out.println(shieldTile151.toString());
+        System.out.println(batteryTile5.toString());
+        System.out.println(storageTile26.toString());
+        System.out.println(laserTile134.toString());
+        System.out.println(laserTile123.toString());
+        System.out.println(storageTile26.toString());
+    }
 }
