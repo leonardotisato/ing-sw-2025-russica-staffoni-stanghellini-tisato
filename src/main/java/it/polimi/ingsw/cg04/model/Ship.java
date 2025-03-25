@@ -114,6 +114,14 @@ public class Ship {
         return numBrokenTiles;
     }
 
+    public int getShipWidth(){
+        return shipWidth;
+    }
+
+    public int getShipHeight(){
+        return shipHeight;
+    }
+
     public boolean placeTile(Tile tile, int x, int y) {
 
         if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {

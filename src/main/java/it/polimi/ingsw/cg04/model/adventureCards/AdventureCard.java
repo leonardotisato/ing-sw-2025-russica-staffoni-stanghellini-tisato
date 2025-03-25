@@ -16,7 +16,7 @@ public abstract class AdventureCard {
     public AdventureCard(){
     }
 
-    public abstract void solveEffect(Game game);
+    //public abstract void solveEffect(Game game);
 
     public String getType() {
         return type;

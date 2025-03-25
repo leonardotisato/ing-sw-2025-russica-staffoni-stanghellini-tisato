@@ -79,12 +79,12 @@ public class HousingTile extends Tile {
         return hostedCrewType;
     }
 
-    public CrewType removeCrewMember() {
-        if (numCrew <= 0) {
-            throw new RuntimeException("Crew member is zero or negative");
+    public CrewType removeCrewMember(int num){
+        if (numCrew - num < 0) {
+            throw new RuntimeException("Not enough crew members");
         }
 
-        numCrew--;
+        numCrew = numCrew - num;
         CrewType removed = hostedCrewType;
         if (numCrew == 0) {
             hostedCrewType = null;

@@ -75,7 +75,8 @@ public class Game{
         this.players.add(new Player(name, color, this));
     }
 
-    public void removePlayer(String name){
+    public void removePlayer(String name) throws IllegalArgumentException{
+        if(!this.isNameTaken(name)) throw new IllegalArgumentException();
         this.players.removeIf(p -> p.getName().equals(name));
     }
 
@@ -193,12 +194,20 @@ public class Game{
         player.move(steps);
     }
 
-    public void placeTile(Player player, int x, int y){
-        player.placeTile(x, y);
+    public void placeTile(Player player, int x, int y) throws IllegalArgumentException{
+        if (x < 0 || y < 0 || x > player.getShip().getShipWidth() || y > player.getShip().getShipHeight()){
+            throw new IllegalArgumentException();
+        }
+        else {
+            player.placeTile(x, y);
+        }
     }
 
-    public void chooseFaceUpTile(Player player, int index) {
-      player.chooseFaceUpTile(index);
+    public void chooseFaceUpTile(Player player, int index) throws IllegalArgumentException {
+        if(index < 0 || index > faceUpTiles.size()) throw new IllegalArgumentException();
+        else{
+        player.chooseFaceUpTile(index);
+        }
     }
 
     public void pickFaceDownTile(Player player) {
@@ -235,16 +244,18 @@ public class Game{
         player.returnTile();
     }
 
-    public void chooseBookedTile(Player player, int idx) {
-        player.chooseBookedTile(idx);
+    public void chooseBookedTile(Player player, int idx) throws IllegalArgumentException {
+        if (idx < 0 || idx > 1) throw new IllegalArgumentException();
+        else player.chooseBookedTile(idx);
     }
 
     public void showFaceUpTile(Player player) {
         player.showFaceUpTile();
     }
 
-    public void showPile(Player player, int idx) {
-        player.showPile(idx);
+    public void showPile(Player player, int idx) throws IllegalArgumentException {
+        if (idx < 0 || idx > 2) throw new IllegalArgumentException();
+        else player.showPile(idx);
     }
 
     public void returnPile(Player player) {
@@ -252,11 +263,21 @@ public class Game{
     }
 
     public void loadResource(Player player, int x, int y, BoxType box) {
-        player.loadResource(x,y, box);
+        try {
+            player.loadResource(x, y, box);
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removeResource(Player player, int x, int y, BoxType box) {
-        player.removeResource(x,y,box);
+        try {
+            player.removeResource(x, y, box);
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removeCrew(Player player, int x, int y) {
