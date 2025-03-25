@@ -89,20 +89,25 @@ public class Player {
 
     }
 
-    public Tile pickFaceDownTile() {
-        // todo
-        return null;
+    public void pickFaceDownTile(Tile tile) {
+        heldTile = tile;
     }
 
-    public void returnTile() {
-        // todo
+    public Integer returnTile() {
+
+        if (heldTile == null) {
+            throw new RuntimeException("No tile are currently held");
+        }
+
+        Integer tileId = heldTile.getId();
+        heldTile = null;
+        return tileId;
     }
 
     public boolean bookTile() {
-        // todo
-        assert (ship.getTilesBuffer().size() <= 2);
+
         if (ship.getTilesBuffer().size() >= 2) {
-            return false;
+            throw new RuntimeException("Buffer is full!");
         }
 
         ship.addTileInBuffer(heldTile);
@@ -119,22 +124,28 @@ public class Player {
             return true;
         }
 
+        System.out.println("Place tile failed");
         return false;
     }
 
 
     public void chooseBookedTile(int idx) {
+        heldTile = ship.takeFromTileBuffer(idx);
     }
 
+    // todo: secondo me non va nel model
     public void showFaceUpTile() {
     }
 
+    // todo: secondo me non va nel model
     public void showPile(int idx) {
     }
 
+    // todo: secondo me non va nel model
     public void returnPile() {
     }
 
+    // todo: secondo me non va nel model ?
     public void loadResource(int x, int y, BoxType box) {
         if(!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
@@ -142,6 +153,7 @@ public class Player {
         ship.addBox(box, x, y);
     }
 
+    // todo: secondo me non va nel model ?
     public void removeResource(int x, int y, BoxType box) {
         if(!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
@@ -149,6 +161,7 @@ public class Player {
         ship.removeBox(box, x, y);
     }
 
+    // todo: secondo me non va nel model ?
     public void removeCrew(int x, int y) {
         if(!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");

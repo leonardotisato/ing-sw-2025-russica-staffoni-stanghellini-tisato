@@ -197,6 +197,19 @@ public class Ship {
         tilesBuffer.add(tile);
     }
 
+    public Tile takeFromTileBuffer(int index) {
+
+        if (index < 0 || index >= this.tilesBuffer.size()) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+
+        if (tilesMatrix[index] == null) {
+            throw new IllegalArgumentException("Requested slot is not a valid slot!");
+        }
+
+        return tilesBuffer.remove(index);
+    }
+
     // ship resources
     public int getNumBatteries() {
         return numBatteries;

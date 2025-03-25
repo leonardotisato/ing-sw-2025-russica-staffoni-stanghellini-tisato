@@ -1,5 +1,4 @@
 package it.polimi.ingsw.cg04.model;
-import com.google.gson.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
@@ -8,17 +7,11 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
-import java.awt.*;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
-
-import java.lang.reflect.Type;
 
 public class Game{
     private int maxPlayers;
@@ -28,12 +21,12 @@ public class Game{
     private GameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
-    private List<List<Integer>>preFlightPiles;
+    private List<List<Integer>> preFlightPiles;
     private List<Integer> level1Cards;
     private List<Integer> level2Cards;
     private Map<Integer, AdventureCard> adventureCardsMap;
     private List<Integer> adventureCardsDeck;
-    private Map<Integer, Tile> TilesDeckMap;
+    private Map<Integer, Tile> tilesDeckMap;
     private List<Integer> faceDownTiles;
     private List<Integer> faceUpTiles;
 
@@ -53,7 +46,7 @@ public class Game{
         this.adventureCardsDeck = new ArrayList<>();
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
-        this.TilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
+        this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = GameState.START;
     }
 
@@ -126,7 +119,7 @@ public class Game{
     }
 
     public Tile getTileById(Integer id){
-        return TilesDeckMap.get(id);
+        return tilesDeckMap.get(id);
     }
 
     public List<Integer> getFaceDownTiles(){
@@ -202,7 +195,9 @@ public class Game{
     }
 
     public void pickFaceDownTile(Player player) {
-        player.pickFaceDownTile();
+        int tileId = faceDownTiles.removeFirst();
+        Tile tile = getTileById(tileId);
+        player.pickFaceDownTile(tile);
     }
 
     public void updateCredits(Player player, int delta) {
@@ -232,7 +227,8 @@ public class Game{
     }
 
     public void returnTile(Player player) {
-        player.returnTile();
+        Integer collectedTileId = player.returnTile();
+        faceUpTiles.add(collectedTileId);
     }
 
     public void chooseBookedTile(Player player, int idx) {
