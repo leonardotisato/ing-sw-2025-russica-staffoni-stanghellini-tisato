@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 
 import it.polimi.ingsw.cg04.model.tiles.LaserTile;
 import it.polimi.ingsw.cg04.model.tiles.PropulsorTile;
+import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import java.util.HashSet;
 
@@ -293,7 +294,7 @@ public class Ship {
     // needed for player choice to remove single box
     public void removeBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
-        getTile(x, y).removeBox(boxType);   // remove box from tile's map
+        getTile(x, y).removeBox(boxType, 1);   // remove box from tile's map
 
         if(boxes.get(boxType) <= 0) {
             throw new RuntimeException("Illegal Operation! No boxes to remove!");
@@ -304,9 +305,34 @@ public class Ship {
     // needed for player choice to add single box
     public void addBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
-        getTile(x, y).addBox(boxType);  // add box to tile's map
+        getTile(x, y).addBox(boxType, 1);  // add box to tile's map
 
         boxes.put(boxType, boxes.get(boxType) + 1); // add box to ship's map
+    }
+
+    public void setBoxes(Map<BoxType, Integer> newBoxes, int x, int y) {
+        Tile currTile = getTile(x, y);
+
+        if (!(currTile instanceof StorageTile)) {
+            throw new RuntimeException("not a StorageTile!");
+        }
+
+        Map <BoxType, Integer> oldBoxes = new HashMap<>();
+        oldBoxes = currTile.getBoxes();
+
+        for(BoxType type : BoxType.values()) {
+            if(newBoxes.get(type) > oldBoxes.get(type)) {
+                int delta = newBoxes.get(type) - oldBoxes.get(type);
+                currTile.addBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) + delta);
+            }
+
+            if(newBoxes.get(type) < oldBoxes.get(type)) {
+                int delta = oldBoxes.get(type) - newBoxes.get(type);
+                currTile.removeBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) - delta);
+            }
+        }
     }
 
     public void removeCrewByType(CrewType type) {
@@ -324,6 +350,19 @@ public class Ship {
     public void addCrewByType(CrewType type) {
         // todo: may needs exceptions
         crewMap.put(type, this.getNumCrewByType(type) + 1);
+    }
+
+    public void removeCrew(CrewType type, int x, int y, int num) {
+        // remove crewMembers from tile
+        for(int i = 0; i<num; i++) {
+            getTile(x, y).removeCrewMember();
+        }
+
+        // remove crewMembers from ship
+        if (crewMap.get(type) < num) {
+            throw new RuntimeException("not enough crewMembers to remove");
+        }
+        crewMap.put(type, this.getNumCrewByType(type) - num);
     }
 
 

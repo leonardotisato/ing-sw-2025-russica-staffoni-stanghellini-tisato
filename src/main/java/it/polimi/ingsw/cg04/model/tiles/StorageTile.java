@@ -49,18 +49,18 @@ public class StorageTile extends Tile {
     }
 
     @Override
-    public void addBox(BoxType boxType){
+    public void addBox(BoxType boxType, int num){
         if(!this.isSpecialStorageTile() && boxType == BoxType.RED) {
             throw new RuntimeException("Illegal Operation!");
         }
         int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
         if (totalBoxes >= maxBoxes) { throw new RuntimeException("Illegal Operation! Max capacity exceeded!"); }
 
-        boxes.put(boxType, boxes.get(boxType) + 1);
+        boxes.put(boxType, boxes.get(boxType) + num);
     }
 
     @Override
-    public void removeBox(BoxType boxType){
+    public void removeBox(BoxType boxType, int num){
         int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();
         if (totalBoxes == 0) { throw new RuntimeException("Illegal Operation! No boxes found!"); }
 
