@@ -17,7 +17,8 @@ public class Player {
     private final Game game;
     private final FlightBoard flightBoard;
 
-    private int position = 0;
+    private int currentCell = 0;
+    private int loopsCompleted = 0;
     private int numCredits = 0;
 
     private Tile heldTile;
@@ -28,6 +29,7 @@ public class Player {
         this.state = PlayerState.IN_LOBBY;
         this.game = game;
         this.flightBoard = this.game.getBoard();
+        this.ship = new Ship(game.getLevel(), this.color);
     }
 
     public String getName() {
@@ -52,21 +54,20 @@ public class Player {
 
 
     public int getPosition() {
-        return position;
+        return currentCell + (flightBoard.getPathSize()*loopsCompleted);
     }
 
     // update position by positive or negative delta
-    // todo: this method does not consider the fact that if other player occupies a cell in the path that cell doesnt count
     public void move(int delta) {
-        position += delta;
+        currentCell = flightBoard.move(this, delta);
     }
 
     public int getLoops() {
-        return position / flightBoard.getPathSize();
+        return loopsCompleted;
     }
 
     public int getCurrentCell() {
-        return position % flightBoard.getPathSize();
+        return currentCell;
     }
 
     public int getNumCredits() {
@@ -74,7 +75,16 @@ public class Player {
     }
 
     public void updateCredits(int delta) {
-        numCredits += delta;
+        if (numCredits + delta < 0) {
+            numCredits = 0;
+        }
+        else {
+            numCredits += delta;
+        }
+    }
+
+    public Tile getHeldTile() {
+        return heldTile;
     }
 
     public void chooseFaceUpTile(int index) {
@@ -134,7 +144,7 @@ public class Player {
     }
 
     // todo: secondo me non va nel model
-    public void showFaceUpTile() {
+    public void showFaceUpTiles() {
     }
 
     // todo: secondo me non va nel model

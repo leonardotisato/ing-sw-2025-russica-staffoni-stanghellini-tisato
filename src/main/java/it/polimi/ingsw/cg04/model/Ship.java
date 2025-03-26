@@ -87,6 +87,14 @@ public class Ship {
     }
 
 
+    public int getLevel() {
+        return level;
+    }
+
+    public PlayerColor getColor() {
+        return this.color;
+    }
+
     // ship structure and tiles management
     public Tile[][] getTilesMatrix() {
         return tilesMatrix;
@@ -187,6 +195,7 @@ public class Ship {
         this.getTile(x, y).broken(this);
         this.tilesMatrix[x][y] = null;
         this.updateExposedConnectors();
+        this.numBrokenTiles++;
     }
 
     public List<Tile> getTilesBuffer() {

@@ -16,6 +16,7 @@ import it.polimi.ingsw.cg04.model.utils.TileLoader;
 public class Game{
     private int maxPlayers;
     private int numPlayers;
+    private int level;
     private List<Player> players;
     private FlightBoard board;
     private GameState gameState;
@@ -30,9 +31,13 @@ public class Game{
     private List<Integer> faceDownTiles;
     private List<Integer> faceUpTiles;
 
+    // for testing purposes
+    private final Random seed =  new Random(42);
+
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 0;
         this.numPlayers = 0;
+        this.level = level;
         this.players = new ArrayList<Player>();
         if(level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
@@ -48,6 +53,10 @@ public class Game{
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = GameState.START;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     public void setNumPlayers(int num){
@@ -81,7 +90,7 @@ public class Game{
         for (List<Integer> pile : preFlightPiles){
             this.adventureCardsDeck.addAll(pile);
         }
-        Collections.shuffle(this.adventureCardsDeck);
+        Collections.shuffle(this.adventureCardsDeck, seed);
     }
 
     public List<Player> getPlayers(){
@@ -212,8 +221,8 @@ public class Game{
 
 
     public void buildPiles() {
-        Collections.shuffle(this.level1Cards);
-        Collections.shuffle(this.level2Cards);
+        Collections.shuffle(this.level1Cards, seed);
+        Collections.shuffle(this.level2Cards, seed);
         for (List<Integer> pile : this.preFlightPiles){
             pile.add(this.level2Cards.removeFirst());
             pile.add(this.level2Cards.removeFirst());
@@ -235,8 +244,8 @@ public class Game{
         player.chooseBookedTile(idx);
     }
 
-    public void showFaceUpTile(Player player) {
-        player.showFaceUpTile();
+    public void showFaceUpTiles(Player player) {
+        player.showFaceUpTiles();
     }
 
     public void showPile(Player player, int idx) {
