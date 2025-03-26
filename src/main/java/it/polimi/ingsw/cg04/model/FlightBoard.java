@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class FlightBoard {
     protected Player[] path;
@@ -12,12 +14,6 @@ public abstract class FlightBoard {
 
 
     public FlightBoard(){
-        path = null;
-        pathSize = 0;
-        startingPosition = null;
-        bank = null;
-        endGameCredits = null;
-        mostBeautifulShipCredits = 0;
     }
 
     public int getPathSize() {
@@ -91,4 +87,13 @@ public abstract class FlightBoard {
         return mostBeautifulShipCredits;
     }
 
+    @Override
+    public String toString() {
+        return "FlightBoard{" +
+                "pathSize=" + pathSize +
+                ", path=" + Arrays.stream(path)
+                .map(cell -> cell == null ? "null" : cell.getName())
+                .collect(Collectors.joining(", ", "[", "]")) +
+                '}';
+    }
 }
