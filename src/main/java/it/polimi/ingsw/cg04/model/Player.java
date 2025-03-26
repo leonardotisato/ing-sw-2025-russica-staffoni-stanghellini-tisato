@@ -87,6 +87,10 @@ public class Player {
         return heldTile;
     }
 
+    public void setHeldTile(Tile t) {
+        heldTile = t;
+    }
+
     public void chooseFaceUpTile(int index) {
         // todo
 
@@ -97,10 +101,6 @@ public class Player {
 
         // heldTile = faceUpTiles.remove(selection);
 
-    }
-
-    public void pickFaceDownTile(Tile tile) {
-        heldTile = tile;
     }
 
     public Integer returnTile() {

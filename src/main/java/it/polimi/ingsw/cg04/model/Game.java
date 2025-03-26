@@ -81,6 +81,7 @@ public class Game{
         this.players.removeIf(p -> p.getName().equals(name));
     }
 
+    // todo: a che serve?
     public void setBoard(FlightBoard board){
         this.board = board;
     }
@@ -206,7 +207,7 @@ public class Game{
     public void pickFaceDownTile(Player player) {
         int tileId = faceDownTiles.removeFirst();
         Tile tile = getTileById(tileId);
-        player.pickFaceDownTile(tile);
+        player.setHeldTile(tile);
     }
 
     public void updateCredits(Player player, int delta) {
