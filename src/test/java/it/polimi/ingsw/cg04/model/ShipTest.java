@@ -546,6 +546,31 @@ class ShipTest {
 
     @Test
     void isShipLegal() {
+        assertTrue(lev1Ship.isShipLegal());
+        lev1Ship.placeTile(alienSupportTile143, 3, 2);
+        assertTrue(lev1Ship.isShipLegal());
+        lev1Ship.placeTile(housingTile46, 3, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(3, 1);
+        lev1Ship.placeTile(housingTile46, 3, 3);
+        assertTrue(lev1Ship.isShipLegal());
+
+        propulsorTile97.rotate90dx();
+        lev1Ship.placeTile(propulsorTile97, 3, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(3, 1);
+        propulsorTile97.rotate90sx();
+        lev1Ship.placeTile(propulsorTile97, 3,1);
+        assertTrue(lev1Ship.isShipLegal());
+
+        lev1Ship.placeTile(laserTile121, 2, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(2, 1);
+        laserTile121.rotate90dx();
+        laserTile121.rotate90dx();
+        laserTile121.rotate90dx();
+        lev1Ship.placeTile(laserTile121, 2, 1);
+        assertTrue(lev1Ship.isShipLegal());
     }
 
     @Test

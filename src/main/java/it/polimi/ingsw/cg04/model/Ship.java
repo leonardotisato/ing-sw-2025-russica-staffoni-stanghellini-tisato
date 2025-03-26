@@ -428,10 +428,10 @@ public class Ship {
                     }
 
                     // check that you don't have a tile directly in front of the gun
-                    if (currTile instanceof LaserTile && (i!=0 && tilesMatrix[i-1][j] == null && currTile.getConnection(Direction.UP) == Connection.GUN)
-                            || (i != shipHeight - 1 && tilesMatrix[i+1][j] == null && currTile.getConnection(Direction.DOWN) == Connection.GUN)
-                            || (j != 0 && tilesMatrix[i][j-1] == null && currTile.getConnection(Direction.LEFT) == Connection.GUN)
-                            || (j != shipWidth - 1 && tilesMatrix[i][j+1] == null) && currTile.getConnection(Direction.RIGHT) == Connection.GUN) {
+                    if (currTile instanceof LaserTile && (i!=0 && tilesMatrix[i-1][j] != null && currTile.getConnection(Direction.UP) == Connection.GUN)
+                            || (i != shipHeight - 1 && tilesMatrix[i+1][j] != null && currTile.getConnection(Direction.DOWN) == Connection.GUN)
+                            || (j != 0 && tilesMatrix[i][j-1] != null && currTile.getConnection(Direction.LEFT) == Connection.GUN)
+                            || (j != shipWidth - 1 && tilesMatrix[i][j+1] != null) && currTile.getConnection(Direction.RIGHT) == Connection.GUN) {
                         return false;
                     }
 
