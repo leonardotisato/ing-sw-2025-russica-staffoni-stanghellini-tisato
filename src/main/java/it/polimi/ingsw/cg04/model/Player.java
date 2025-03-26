@@ -54,7 +54,7 @@ public class Player {
 
 
     public int getPosition() {
-        return currentCell + (flightBoard.getPathSize()*loopsCompleted);
+        return currentCell + (flightBoard.getPathSize() * loopsCompleted);
     }
 
     // update position by positive or negative delta
@@ -82,7 +82,6 @@ public class Player {
         this.currentCell = currentCell;
     }
 
-
     public int getNumCredits() {
         return numCredits;
     }
@@ -90,8 +89,7 @@ public class Player {
     public void updateCredits(int delta) {
         if (numCredits + delta < 0) {
             numCredits = 0;
-        }
-        else {
+        } else {
             numCredits += delta;
         }
     }
@@ -170,7 +168,7 @@ public class Player {
 
     // todo: secondo me non va nel model ?
     public void loadResource(int x, int y, BoxType box) {
-        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+        if (!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
         ship.addBox(box, x, y);
@@ -178,7 +176,7 @@ public class Player {
 
     // todo: secondo me non va nel model ?
     public void removeResource(int x, int y, BoxType box) {
-        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+        if (!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
         ship.removeBox(box, x, y);
@@ -186,7 +184,7 @@ public class Player {
 
     // todo: secondo me non va nel model ?
     public void removeCrew(int x, int y) {
-        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+        if (!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");
         }
 
@@ -195,7 +193,7 @@ public class Player {
     }
 
     public void addCrewByType(CrewType crewType, int x, int y) {
-        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+        if (!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");
         }
 

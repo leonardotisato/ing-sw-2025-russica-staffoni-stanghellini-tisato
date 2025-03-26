@@ -162,6 +162,7 @@ public class Game{
         }
     }
 
+    // todo: also considers players that lost or retired!!
     public void calculateBestShip(){
         int minConnectors = players.stream()
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
@@ -201,10 +202,20 @@ public class Game{
     }
 
     public void chooseFaceUpTile(Player player, int index) {
-      player.chooseFaceUpTile(index);
+        if (index < 0 || index >= this.faceUpTiles.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int selectedTileId = faceUpTiles.remove(index);
+        Tile selectedTile = tilesDeckMap.get(selectedTileId);
+        player.setHeldTile(selectedTile);
     }
 
     public void pickFaceDownTile(Player player) {
+        if (faceDownTiles.isEmpty()) {
+            throw new RuntimeException("No face down tiles available");
+        }
+
         int tileId = faceDownTiles.removeFirst();
         Tile tile = getTileById(tileId);
         player.setHeldTile(tile);
