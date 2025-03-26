@@ -66,9 +66,22 @@ public class Player {
         return loopsCompleted;
     }
 
+    public void addLoop() {
+        loopsCompleted++;
+    }
+
+    public void removeLoop() {
+        loopsCompleted--;
+    }
+
     public int getCurrentCell() {
         return currentCell;
     }
+
+    public void setCurrentCell(int currentCell) {
+        this.currentCell = currentCell;
+    }
+
 
     public int getNumCredits() {
         return numCredits;

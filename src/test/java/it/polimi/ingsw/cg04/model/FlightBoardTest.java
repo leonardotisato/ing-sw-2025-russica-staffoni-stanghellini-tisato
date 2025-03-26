@@ -72,11 +72,13 @@ class FlightBoardTest {
         System.out.println(fb1.pathSize-1);
         assertEquals(p3, fb1.getCell(fb1.pathSize-1));
         assertNull(fb1.getCell(1));
+        assertEquals(-1, p3.getLoops());
 
         fb1.move(p4, -1);
         System.out.println(fb1.pathSize-2);
         assertEquals(p4, fb1.getCell(fb1.pathSize-2));
         assertNull(fb1.getCell(0));
+        assertEquals(-1, p4.getLoops());
 
     }
 

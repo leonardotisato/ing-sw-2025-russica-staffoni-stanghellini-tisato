@@ -35,6 +35,7 @@ public abstract class FlightBoard {
     public void occupyCell(int cell, Player player) {
         int mapIndex = cell % pathSize;
         path[mapIndex] = player;
+        player.setCurrentCell(mapIndex);
     }
 
     public int getStartingPosition(int idx) {
@@ -48,14 +49,7 @@ public abstract class FlightBoard {
 
     public int move(Player player, int delta) {
 
-        int oldPlayerCell = -1;
-        for (int i = 0; i < pathSize; i++) {
-            if (path[i] != null && path[i].equals(player)) {
-                oldPlayerCell = i;
-                break;
-            }
-        }
-        assert oldPlayerCell != -1;
+        int oldPlayerCell = player.getCurrentCell();
 
         int newCell = oldPlayerCell;
         int stepsTaken = 0;
@@ -67,12 +61,23 @@ public abstract class FlightBoard {
                     stepsTaken++;
                 }
             }
+
+            // if newCell < oldPlayerCell --> player.addLoop()
+            if (newCell < oldPlayerCell) {
+                player.addLoop();
+            }
+
         } else if (delta < 0) {
             while (stepsTaken > delta) {
                 newCell = (newCell - 1 + pathSize) % pathSize;
                 if (path[newCell] == null) {
                     stepsTaken--;
                 }
+            }
+
+            // if newCell > oldPlayerCell --> player.removeLoop()
+            if (newCell > oldPlayerCell) {
+                player.removeLoop();
             }
         }
 
