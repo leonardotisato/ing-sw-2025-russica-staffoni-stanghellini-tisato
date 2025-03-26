@@ -82,7 +82,7 @@ public abstract class FlightBoard {
         return newCell;
     }
 
-    public int giveMostBeautifulShipCredits(){
+    public int getMostBeautifulShipCredits(){
         return mostBeautifulShipCredits;
     }
 
