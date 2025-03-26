@@ -172,7 +172,7 @@ public class Game{
                 .collect(Collectors.toList());
 
         for(Player p : minPlayers){
-            p.updateCredits(this.board.giveMostBeautifulShipCredits());
+            p.updateCredits(this.board.getMostBeautifulShipCredits());
         }
     }
 

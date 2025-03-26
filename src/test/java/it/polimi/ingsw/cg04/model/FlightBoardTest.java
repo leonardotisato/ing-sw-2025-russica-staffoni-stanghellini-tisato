@@ -81,7 +81,7 @@ class FlightBoardTest {
     }
 
     @Test
-    void giveMostBeautifulShipCredits() {
+    void getMostBeautifulShipCredits() {
     }
 
     @Test
