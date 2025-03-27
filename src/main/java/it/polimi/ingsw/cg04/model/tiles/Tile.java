@@ -147,7 +147,7 @@ public abstract class Tile {
 
     // todo: check if this is ok
     public Integer getNumBatteries() {
-        return 0;
+        return null;
     }
 
     public void removeBatteries(Integer numBatteries) {
@@ -246,6 +246,55 @@ public abstract class Tile {
         return null;
     }
 
-    // todo: discuss how to model this better...
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Tile{");
+        sb.append("type='").append(type).append("', ");
+        sb.append("connections=").append(connections);
+
+        if (getProtectedDirections() != null)
+            sb.append(", protectedDirections=").append(getProtectedDirections());
+
+        if (getMaxBatteryCapacity() != null)
+            sb.append(", maxBatteryCapacity=").append(getMaxBatteryCapacity());
+
+        if (getNumBatteries() != null)
+            sb.append(", numBatteries=").append(getNumBatteries());
+
+        if (getBoxes() != null)
+            sb.append(", boxes=").append(getBoxes());
+
+        if (getMaxBoxes() != null)
+            sb.append(", maxBoxes=").append(getMaxBoxes());
+
+        if (isSpecialStorageTile() != null)
+            sb.append(", specialStorageTile=true");
+
+        if (isDoublePropulsor() != null)
+            sb.append(", doublePropulsor=true");
+
+        if (isDoubleLaser() != null)
+            sb.append(", doubleLaser=true");
+
+        if (getSupportedAlienColor() != null)
+            sb.append(", supportedAlienColor=").append(getSupportedAlienColor());
+
+        if (getAdjacentHousingTiles() != null)
+            sb.append(", adjacentHousingTiles=").append(getAdjacentHousingTiles());
+
+        if (getSupportedCrewType() != null)
+            sb.append(", supportedCrewType=").append(getSupportedCrewType());
+
+        if (isCentralTile() != null)
+            sb.append(", centralTile=true");
+
+        if (getNumCrew() != null)
+            sb.append(", numCrew=").append(getNumCrew());
+
+        sb.append("}");
+
+        return sb.toString();
+    }
 
 }

@@ -541,4 +541,10 @@ class ShipTest {
     @Test
     void handleShot() {
     }
+
+    @Test
+    void testToString() {
+        System.out.println(lev1Ship.toString());
+        System.out.println(lev2Ship.toString());
+    }
 }
