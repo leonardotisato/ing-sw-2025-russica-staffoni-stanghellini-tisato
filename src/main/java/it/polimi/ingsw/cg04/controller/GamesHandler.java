@@ -6,7 +6,6 @@ import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.util.List;
 import java.util.Map;
@@ -49,8 +48,8 @@ public class GamesHandler {
         game.chooseBookedTile(player, idx);
     }
 
-    public void showFaceUpTile(Game game, Player player) {
-        game.showFaceUpTile(player);
+    public void showFaceUpTiles(Game game, Player player) {
+        game.showFaceUpTiles(player);
     }
 
     public void showPile(Game game, Player player, int idx) {

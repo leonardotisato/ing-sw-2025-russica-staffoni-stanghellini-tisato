@@ -121,7 +121,7 @@ class TileTest {
 
     @Test
     void getNumBatteries() {
-        assertEquals(0, shieldTile151.getNumBatteries());
+        assertNull(shieldTile151.getNumBatteries());
         assertEquals(2, batteryTile5.getNumBatteries());
     }
 
@@ -164,40 +164,40 @@ class TileTest {
     @Test
     void addBox() {
         // try to add special box into normal storage
-        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.RED));
+        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.RED, 1));
 
-        storageTile26.addBox(BoxType.BLUE);
+        storageTile26.addBox(BoxType.BLUE, 1);
         assertEquals(4, storageTile26.getBoxes().size());
         assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
 
-        storageTile26.addBox(BoxType.GREEN);
+        storageTile26.addBox(BoxType.GREEN, 1);
         assertEquals(4, storageTile26.getBoxes().size());
         assertEquals(1, storageTile26.getBoxes().get(BoxType.GREEN));
 
         // check if maxCapacity exceeded works
-        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.YELLOW));
+        assertThrows(RuntimeException.class, () -> storageTile26.addBox(BoxType.YELLOW, 1));
     }
 
     @Test
     void removeBox() {
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE));
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN));
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.RED));
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.YELLOW));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE, 1));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN, 1));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.RED, 1));
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.YELLOW, 1));
 
-        storageTile26.addBox(BoxType.GREEN);
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE));
+        storageTile26.addBox(BoxType.GREEN, 1);
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.BLUE, 1));
         assertEquals(1, storageTile26.getBoxes().get(BoxType.GREEN));
-        storageTile26.removeBox(BoxType.GREEN);
+        storageTile26.removeBox(BoxType.GREEN, 1);
         assertEquals(4, storageTile26.getBoxes().size());
         assertEquals(0, storageTile26.getBoxes().get(BoxType.BLUE));
         assertEquals(0, storageTile26.getBoxes().get(BoxType.GREEN));
 
-        storageTile26.addBox(BoxType.BLUE);
-        storageTile26.addBox(BoxType.YELLOW);
-        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN));
+        storageTile26.addBox(BoxType.BLUE, 1);
+        storageTile26.addBox(BoxType.YELLOW, 1);
+        assertThrows(RuntimeException.class, () -> storageTile26.removeBox(BoxType.GREEN, 1));
         assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
-        storageTile26.removeBox(BoxType.YELLOW);
+        storageTile26.removeBox(BoxType.YELLOW, 1);
         assertEquals(1, storageTile26.getBoxes().get(BoxType.BLUE));
         assertEquals(0, storageTile26.getBoxes().get(BoxType.GREEN));
         assertEquals(0, storageTile26.getBoxes().get(BoxType.YELLOW));
@@ -247,5 +247,13 @@ class TileTest {
         System.out.println(laserTile134.toString());
         System.out.println(laserTile123.toString());
         System.out.println(storageTile26.toString());
+    }
+
+    @Test
+    void getId() {
+        assertEquals(151, shieldTile151.getId());
+        assertEquals(5, batteryTile5.getId());
+        assertEquals(26, storageTile26.getId());
+        assertEquals(123, laserTile123.getId());
     }
 }

@@ -17,7 +17,8 @@ public class Player {
     private final Game game;
     private final FlightBoard flightBoard;
 
-    private int position = 0;
+    private int currentCell = 0;
+    private int loopsCompleted = 0;
     private int numCredits = 0;
 
     private Tile heldTile;
@@ -28,6 +29,7 @@ public class Player {
         this.state = PlayerState.IN_LOBBY;
         this.game = game;
         this.flightBoard = this.game.getBoard();
+        this.ship = new Ship(game.getLevel(), this.color);
     }
 
     public String getName() {
@@ -52,21 +54,32 @@ public class Player {
 
 
     public int getPosition() {
-        return position;
+        return currentCell + (flightBoard.getPathSize() * loopsCompleted);
     }
 
     // update position by positive or negative delta
-    // todo: this method does not consider the fact that if other player occupies a cell in the path that cell doesnt count
     public void move(int delta) {
-        position += delta;
+        currentCell = flightBoard.move(this, delta);
     }
 
     public int getLoops() {
-        return position / flightBoard.getPathSize();
+        return loopsCompleted;
+    }
+
+    public void addLoop() {
+        loopsCompleted++;
+    }
+
+    public void removeLoop() {
+        loopsCompleted--;
     }
 
     public int getCurrentCell() {
-        return position % flightBoard.getPathSize();
+        return currentCell;
+    }
+
+    public void setCurrentCell(int currentCell) {
+        this.currentCell = currentCell;
     }
 
     public int getNumCredits() {
@@ -74,7 +87,19 @@ public class Player {
     }
 
     public void updateCredits(int delta) {
-        numCredits += delta;
+        if (numCredits + delta < 0) {
+            numCredits = 0;
+        } else {
+            numCredits += delta;
+        }
+    }
+
+    public Tile getHeldTile() {
+        return heldTile;
+    }
+
+    public void setHeldTile(Tile t) {
+        heldTile = t;
     }
 
     public void chooseFaceUpTile(int index) {
@@ -89,20 +114,21 @@ public class Player {
 
     }
 
-    public Tile pickFaceDownTile() {
-        // todo
-        return null;
-    }
+    public Integer returnTile() {
 
-    public void returnTile() {
-        // todo
+        if (heldTile == null) {
+            throw new RuntimeException("No tile are currently held");
+        }
+
+        Integer tileId = heldTile.getId();
+        heldTile = null;
+        return tileId;
     }
 
     public boolean bookTile() {
-        // todo
-        assert (ship.getTilesBuffer().size() <= 2);
+
         if (ship.getTilesBuffer().size() >= 2) {
-            return false;
+            throw new RuntimeException("Buffer is full!");
         }
 
         ship.addTileInBuffer(heldTile);
@@ -119,38 +145,46 @@ public class Player {
             return true;
         }
 
+        System.out.println("Place tile failed");
         return false;
     }
 
 
     public void chooseBookedTile(int idx) {
+        heldTile = ship.takeFromTileBuffer(idx);
     }
 
-    public void showFaceUpTile() {
+    // todo: secondo me non va nel model
+    public void showFaceUpTiles() {
     }
 
+    // todo: secondo me non va nel model
     public void showPile(int idx) {
     }
 
+    // todo: secondo me non va nel model
     public void returnPile() {
     }
 
+    // todo: secondo me non va nel model ?
     public void loadResource(int x, int y, BoxType box) {
-        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+        if (!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
         ship.addBox(box, x, y);
     }
 
+    // todo: secondo me non va nel model ?
     public void removeResource(int x, int y, BoxType box) {
-        if(!(ship.getTile(x, y) instanceof StorageTile)) {
+        if (!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
         }
         ship.removeBox(box, x, y);
     }
 
+    // todo: secondo me non va nel model ?
     public void removeCrew(int x, int y) {
-        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+        if (!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");
         }
 
@@ -159,7 +193,7 @@ public class Player {
     }
 
     public void addCrewByType(CrewType crewType, int x, int y) {
-        if(!(ship.getTile(x, y) instanceof HousingTile)) {
+        if (!(ship.getTile(x, y) instanceof HousingTile)) {
             throw new RuntimeException("Illegal Operation! Not a HousingTile!");
         }
 

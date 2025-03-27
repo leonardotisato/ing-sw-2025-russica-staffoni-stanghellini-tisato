@@ -112,6 +112,12 @@ class ShipTest {
     void getNumBrokenTiles() {
         assertEquals(0, lev1Ship.getNumBrokenTiles());
         assertEquals(0, lev2Ship.getNumBrokenTiles());
+
+        // BatteryTile
+        lev1Ship.placeTile(batteryTile5, 0, 2);
+        assertEquals(batteryTile5.getMaxBatteryCapacity(), lev1Ship.getNumBatteries());
+        lev1Ship.breakTile(0, 2);
+        assertEquals(1, lev1Ship.getNumBrokenTiles());
     }
 
     @Test
@@ -140,6 +146,9 @@ class ShipTest {
         assertEquals(lev1Ship.getTile(0, 2), batteryTile5);
         assertThrowsExactly(IllegalArgumentException.class, () -> lev1Ship.getTile(0, 0));
         assertFalse(lev1Ship.placeTile(storageTile26, 0, 2));
+
+        // check placement on top of existing is illegal
+        assertFalse(lev1Ship.placeTile(laserTile121, 0, 2));
 
         // check resources are updated
 
@@ -394,6 +403,11 @@ class ShipTest {
     void getNumBatteries() {
         assertEquals(0, lev1Ship.getNumBatteries());
         assertEquals(0, lev2Ship.getNumBatteries());
+
+        lev2Ship.placeTile(batteryTile5, 2, 2);
+        assertEquals(2, lev2Ship.getNumBatteries());
+        lev2Ship.placeTile(batteryTile5, 2, 3); // assumes tile can be placed there
+        assertEquals(4, lev2Ship.getNumBatteries());
     }
 
     @Test
@@ -532,6 +546,31 @@ class ShipTest {
 
     @Test
     void isShipLegal() {
+        assertTrue(lev1Ship.isShipLegal());
+        lev1Ship.placeTile(alienSupportTile143, 3, 2);
+        assertTrue(lev1Ship.isShipLegal());
+        lev1Ship.placeTile(housingTile46, 3, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(3, 1);
+        lev1Ship.placeTile(housingTile46, 3, 3);
+        assertTrue(lev1Ship.isShipLegal());
+
+        propulsorTile97.rotate90dx();
+        lev1Ship.placeTile(propulsorTile97, 3, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(3, 1);
+        propulsorTile97.rotate90sx();
+        lev1Ship.placeTile(propulsorTile97, 3,1);
+        assertTrue(lev1Ship.isShipLegal());
+
+        lev1Ship.placeTile(laserTile121, 2, 1);
+        assertFalse(lev1Ship.isShipLegal());
+        lev1Ship.breakTile(2, 1);
+        laserTile121.rotate90dx();
+        laserTile121.rotate90dx();
+        laserTile121.rotate90dx();
+        lev1Ship.placeTile(laserTile121, 2, 1);
+        assertTrue(lev1Ship.isShipLegal());
     }
 
     @Test

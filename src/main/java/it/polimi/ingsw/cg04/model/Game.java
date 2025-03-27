@@ -1,5 +1,4 @@
 package it.polimi.ingsw.cg04.model;
-import com.google.gson.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
@@ -8,38 +7,37 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
-import java.awt.*;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
-
-import java.lang.reflect.Type;
 
 public class Game{
     private int maxPlayers;
     private int numPlayers;
+    private int level;
     private List<Player> players;
     private FlightBoard board;
     private GameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
-    private List<List<Integer>>preFlightPiles;
+    private List<List<Integer>> preFlightPiles;
     private List<Integer> level1Cards;
     private List<Integer> level2Cards;
     private Map<Integer, AdventureCard> adventureCardsMap;
     private List<Integer> adventureCardsDeck;
-    private Map<Integer, Tile> TilesDeckMap;
+    private Map<Integer, Tile> tilesDeckMap;
     private List<Integer> faceDownTiles;
     private List<Integer> faceUpTiles;
+
+    // for testing purposes
+    private final Random seed =  new Random(42);
 
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 0;
         this.numPlayers = 0;
+        this.level = level;
         this.players = new ArrayList<Player>();
         if(level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
@@ -53,8 +51,12 @@ public class Game{
         this.adventureCardsDeck = new ArrayList<>();
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
-        this.TilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
+        this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = GameState.START;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     public void setNumPlayers(int num){
@@ -75,11 +77,11 @@ public class Game{
         this.players.add(new Player(name, color, this));
     }
 
-    public void removePlayer(String name) throws IllegalArgumentException{
-        if(!this.isNameTaken(name)) throw new IllegalArgumentException();
+    public void removePlayer(String name){
         this.players.removeIf(p -> p.getName().equals(name));
     }
 
+    // todo: a che serve?
     public void setBoard(FlightBoard board){
         this.board = board;
     }
@@ -89,7 +91,7 @@ public class Game{
         for (List<Integer> pile : preFlightPiles){
             this.adventureCardsDeck.addAll(pile);
         }
-        Collections.shuffle(this.adventureCardsDeck);
+        Collections.shuffle(this.adventureCardsDeck, seed);
     }
 
     public List<Player> getPlayers(){
@@ -127,7 +129,7 @@ public class Game{
     }
 
     public Tile getTileById(Integer id){
-        return TilesDeckMap.get(id);
+        return tilesDeckMap.get(id);
     }
 
     public List<Integer> getFaceDownTiles(){
@@ -160,6 +162,7 @@ public class Game{
         }
     }
 
+    // todo: also considers players that lost or retired!!
     public void calculateBestShip(){
         int minConnectors = players.stream()
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
@@ -171,7 +174,7 @@ public class Game{
                 .collect(Collectors.toList());
 
         for(Player p : minPlayers){
-            p.updateCredits(this.board.giveMostBeautifulShipCredits());
+            p.updateCredits(this.board.getMostBeautifulShipCredits());
         }
     }
 
@@ -194,24 +197,28 @@ public class Game{
         player.move(steps);
     }
 
-    public void placeTile(Player player, int x, int y) throws IllegalArgumentException{
-        if (x < 0 || y < 0 || x > player.getShip().getShipWidth() || y > player.getShip().getShipHeight()){
-            throw new IllegalArgumentException();
-        }
-        else {
-            player.placeTile(x, y);
-        }
+    public void placeTile(Player player, int x, int y){
+        player.placeTile(x, y);
     }
 
-    public void chooseFaceUpTile(Player player, int index) throws IllegalArgumentException {
-        if(index < 0 || index > faceUpTiles.size()) throw new IllegalArgumentException();
-        else{
-        player.chooseFaceUpTile(index);
+    public void chooseFaceUpTile(Player player, int index) {
+        if (index < 0 || index >= this.faceUpTiles.size()) {
+            throw new IndexOutOfBoundsException();
         }
+
+        int selectedTileId = faceUpTiles.remove(index);
+        Tile selectedTile = tilesDeckMap.get(selectedTileId);
+        player.setHeldTile(selectedTile);
     }
 
     public void pickFaceDownTile(Player player) {
-        player.pickFaceDownTile();
+        if (faceDownTiles.isEmpty()) {
+            throw new RuntimeException("No face down tiles available");
+        }
+
+        int tileId = faceDownTiles.removeFirst();
+        Tile tile = getTileById(tileId);
+        player.setHeldTile(tile);
     }
 
     public void updateCredits(Player player, int delta) {
@@ -226,8 +233,8 @@ public class Game{
 
 
     public void buildPiles() {
-        Collections.shuffle(this.level1Cards);
-        Collections.shuffle(this.level2Cards);
+        Collections.shuffle(this.level1Cards, seed);
+        Collections.shuffle(this.level2Cards, seed);
         for (List<Integer> pile : this.preFlightPiles){
             pile.add(this.level2Cards.removeFirst());
             pile.add(this.level2Cards.removeFirst());
@@ -241,21 +248,20 @@ public class Game{
     }
 
     public void returnTile(Player player) {
-        player.returnTile();
+        Integer collectedTileId = player.returnTile();
+        faceUpTiles.add(collectedTileId);
     }
 
-    public void chooseBookedTile(Player player, int idx) throws IllegalArgumentException {
-        if (idx < 0 || idx > 1) throw new IllegalArgumentException();
-        else player.chooseBookedTile(idx);
+    public void chooseBookedTile(Player player, int idx) {
+        player.chooseBookedTile(idx);
     }
 
-    public void showFaceUpTile(Player player) {
-        player.showFaceUpTile();
+    public void showFaceUpTiles(Player player) {
+        player.showFaceUpTiles();
     }
 
-    public void showPile(Player player, int idx) throws IllegalArgumentException {
-        if (idx < 0 || idx > 2) throw new IllegalArgumentException();
-        else player.showPile(idx);
+    public void showPile(Player player, int idx) {
+        player.showPile(idx);
     }
 
     public void returnPile(Player player) {
@@ -263,21 +269,11 @@ public class Game{
     }
 
     public void loadResource(Player player, int x, int y, BoxType box) {
-        try {
-            player.loadResource(x, y, box);
-        }
-        catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+        player.loadResource(x,y, box);
     }
 
     public void removeResource(Player player, int x, int y, BoxType box) {
-        try {
-            player.removeResource(x, y, box);
-        }
-        catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+        player.removeResource(x,y,box);
     }
 
     public void removeCrew(Player player, int x, int y) {
