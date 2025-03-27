@@ -259,6 +259,11 @@ public class Ship {
         numBatteries -= lostBatteries;
     }
 
+    public void removeBatteries(int usedBatteries, int x, int y) {
+        this.removeBatteries(usedBatteries);
+        getTile(x, y).removeBatteries(usedBatteries);
+    }
+
     public void addBatteries(int newBatteries) {
         assert this.getNumBatteries() + newBatteries >= 0;
         numBatteries += newBatteries;

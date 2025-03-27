@@ -39,7 +39,7 @@ public class AbandonedStation extends AdventureCard {
     public void solveEffect(Player player, List<List<Integer>> coordinates, List<Map<BoxType,Integer>> boxes) {
         if (player.getShip().getNumCrew() >= this.getMembersNeeded()) {
             for (int i = 0; i < coordinates.size(); i++) {
-                player.getShip().setBoxes(coordinates.get(i).get(0), coordinates.get(i).get(1), boxes.get(i));
+                player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
             }
         }
     }

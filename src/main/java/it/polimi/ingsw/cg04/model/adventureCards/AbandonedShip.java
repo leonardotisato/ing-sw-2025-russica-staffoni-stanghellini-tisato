@@ -37,7 +37,7 @@ public class AbandonedShip extends AdventureCard {
         for (int i = 0; i < numCrewMembersLost.size(); i++) {
             currTile = player.getShip().getTile(coordinates.get(i).get(0), coordinates.get(i).get(1));
             if (currTile instanceof HousingTile) {
-                player.getShip().removeCrew(CrewType.HUMAN, numCrewMembersLost.get(i), coordinates.get(0), coordinates.get(1));
+                player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).get(0), coordinates.get(i).get(1), numCrewMembersLost.get(i));
             }
         }
         player.updateCredits(this.getEarnedCredits());
