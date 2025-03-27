@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -31,20 +32,15 @@ public class AbandonedShip extends AdventureCard {
         this.earnedCredits = earnedCredits;
     }
 
-    public void solveEffect(Player player, Map<Integer, List<Integer>> crewLost) {
-        List<Integer> coordinates = new ArrayList<>();
+    public void solveEffect(Player player, List<Integer> numCrewMembersLost, List<List<Integer>> coordinates) {
         Tile currTile;
-        for (int numCrew : crewLost.keySet()) {
-            coordinates.addAll(crewLost.get(numCrew));
-            currTile = player.getShip().getTile(coordinates.get(0), coordinates.get(1));
-            if (currTile instanceof HousingTile || currTile instanceof AlienSupportTile) {
-                currTile.removeCrewMember(numCrew);
+        for (int i = 0; i < numCrewMembersLost.size(); i++) {
+            currTile = player.getShip().getTile(coordinates.get(i).get(0), coordinates.get(i).get(1));
+            if (currTile instanceof HousingTile) {
+                player.getShip().removeCrew(CrewType.HUMAN, numCrewMembersLost.get(i), coordinates.get(0), coordinates.get(1));
             }
         }
         player.updateCredits(this.getEarnedCredits());
         player.move(-this.getDaysLost());
-        
-
-
     }
 }

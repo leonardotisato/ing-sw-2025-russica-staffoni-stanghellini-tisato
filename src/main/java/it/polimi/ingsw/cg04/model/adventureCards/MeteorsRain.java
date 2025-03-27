@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Meteor;
 
@@ -40,15 +41,24 @@ public class MeteorsRain extends AdventureCard {
     public Meteor getMeteor(int i) { return meteors.get(i); }
 
     public void solveEffect(Game game) {
-
-        /*
-        *
-        * for each meteor in list(meteor)
-        *   dice = getPlayer(0).throw_dices
-        *   for each player in list(players)
-        *       player.handle_meteor
-        *
-        */
-
+        int dice = 0;
+        for (int i = 0; i < meteors.size(); i++) {
+            dice = game.rollDices();
+            if(dice < 4 || ((this.getDirection(i) == Direction.UP || this.getDirection(i) == Direction.DOWN) && dice > 10) ||
+                    ((this.getDirection(i) == Direction.LEFT || this.getDirection(i) == Direction.RIGHT) && dice > 9)){
+                continue;
+            }
+            else {
+                if(this.getDirection(i) == Direction.UP || this.getDirection(i) == Direction.DOWN){
+                    dice = dice - 4;
+                }
+                else if(this.getDirection(i) == Direction.LEFT || this.getDirection(i) == Direction.RIGHT){
+                    dice = dice - 5;
+                }
+                for (Player player : game.getPlayers()) {
+                    player.getShip().handleMeteor(this.getDirection(i), this.getMeteor(i), dice);
+                }
+            }
+        }
     }
 }

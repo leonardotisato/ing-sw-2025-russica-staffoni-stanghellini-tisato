@@ -1,6 +1,14 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.Ship;
+import it.polimi.ingsw.cg04.model.enumerations.Connection;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
+import it.polimi.ingsw.cg04.model.tiles.HousingTile;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class Epidemic extends AdventureCard {
 
@@ -8,25 +16,47 @@ public class Epidemic extends AdventureCard {
         super();
     }
 
-    public void solveEffect(Game game) {
+    public void solveEffect(Player player) {
+        Ship ship = player.getShip();
+        Tile[][] tilesMatrix = ship.getTilesMatrix();
+        Tile currentTile;
+        for (int i = 0; i < ship.getShipHeight(); i++) {
+            for (int j = 0; j < ship.getShipWidth(); j++) {
+                if (tilesMatrix[i][j] != null && tilesMatrix[i][j] instanceof HousingTile && tilesMatrix[i][j].getNumCrew() > 0) {
+                    currentTile = tilesMatrix[i][j];
+                    // look UP -> check tile type and connection
+                    if (i > 0 && tilesMatrix[i - 1][j] instanceof HousingTile
+                            && tilesMatrix[i - 1][j].getNumCrew() > 0
+                            && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
+                            && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
+                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                    }
+                    // look LEFT -> check tile type and connection
+                    else if (j > 0 && tilesMatrix[i][j - 1] instanceof HousingTile
+                            && tilesMatrix[i][j - 1].getNumCrew() > 0
+                            && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
+                            && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
+                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                    }
 
-        /*
-        *
-        * for each player
-        *   player.getShip
-        *   bool at_least_one_occupied = false
-        *   for each tile
-        *       if tile.type() == HousingTile && tile.occupied() == true
-        *           list near_tiles = ship.near_tiles()
-        *           for each tile1 in near_tiles
-        *               if tile1.type == HousingTile && tile1.occupied
-        *                   tile1.remove_crew       // update also ship parametres
-        *                   at_least_one_occupied = true
-        *           if(at_least_one_occupied == true)
-        *               tile.remove_crew
-        *               at_least_one_occupied = false
-        *
-        */
+                    // look RIGHT -> check tile type and connection
+                    else if (j < ship.getShipWidth() - 1 && tilesMatrix[i][j + 1] instanceof HousingTile
+                            && tilesMatrix[i][j + 1].getNumCrew() > 0
+                            && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
+                            && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
+                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                    }
 
+                    // look DOWN -> check tile type and connection
+                    else if (i < ship.getShipHeight() - 1 && tilesMatrix[i + 1][j] instanceof HousingTile
+                            && tilesMatrix[i + 1][j].getNumCrew() > 0
+                            && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
+                            && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
+                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                    }
+
+                }
+            }
+        }
     }
 }
