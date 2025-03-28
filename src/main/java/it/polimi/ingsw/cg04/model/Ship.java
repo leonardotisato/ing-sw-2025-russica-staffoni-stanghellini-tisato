@@ -365,6 +365,21 @@ public class Ship {
         crewMap.put(type, this.getNumCrewByType(type) + 1);
     }
 
+    public void addCrew(CrewType type, int x, int y) {
+        if(type == CrewType.HUMAN){
+            crewMap.put(type, this.getNumCrewByType(type) + 2);
+            getTile(x, y).addCrew(type);
+            getTile(x, y).addCrew(type);
+            return;
+        }
+
+        if(!getTile(x, y).getSupportedCrewType().contains(type)) {
+            throw new RuntimeException("this alien type is not supported in tile:" + x + y);
+        }
+        crewMap.put(type, this.getNumCrewByType(type) + 1);
+        getTile(x, y).addCrew(type);
+    }
+
     public void removeCrew(CrewType type, int x, int y, int num) {
         // remove crewMembers from tile
         for(int i = 0; i<num; i++) {
