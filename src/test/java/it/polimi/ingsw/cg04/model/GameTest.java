@@ -94,6 +94,7 @@ class GameTest {
         Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
 
         assertEquals(alice, gameLev2.getPlayer("Alice"));
+        assertEquals(bob, gameLev2.getPlayer("Bob"));
 
     }
 
