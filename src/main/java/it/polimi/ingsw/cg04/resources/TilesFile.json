@@ -1427,7 +1427,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "EMPTY",
-      "DOWN": "SIGLE",
+      "DOWN": "SINGLE",
       "LEFT": "UNIVERSAL"
     },
     "supportedAlienColor": "BROWN_ALIEN"
@@ -1487,7 +1487,7 @@
     "connections": {
       "UP": "EMPTY",
       "RIGHT": "EMPTY",
-      "DOWN": "DPUBLE",
+      "DOWN": "DOUBLE",
       "LEFT": "UNIVERSAL"
     },
     "supportedAlienColor": "PINK_ALIEN"
