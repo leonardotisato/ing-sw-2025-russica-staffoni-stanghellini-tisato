@@ -9,11 +9,10 @@ public abstract class FlightBoard {
     protected int pathSize;
     protected Map<Integer, Integer> startingPosition;
     protected Bank bank;
-    protected Map<Integer,Integer> endGameCredits;
+    protected Map<Integer, Integer> endGameCredits;
     protected int mostBeautifulShipCredits;
 
-
-    public FlightBoard(){
+    public FlightBoard() {
     }
 
     public int getPathSize() {
@@ -83,7 +82,7 @@ public abstract class FlightBoard {
         return newCell;
     }
 
-    public int getMostBeautifulShipCredits(){
+    public int getMostBeautifulShipCredits() {
         return mostBeautifulShipCredits;
     }
 
