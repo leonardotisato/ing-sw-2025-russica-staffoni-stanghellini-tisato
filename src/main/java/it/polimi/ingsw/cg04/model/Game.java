@@ -31,7 +31,7 @@ public class Game{
     private List<Integer> faceUpTiles;
 
     // for testing purposes
-    private final Random seed =  new Random(42);
+    private final Random rand =  new Random();
 
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 4;
@@ -68,7 +68,6 @@ public class Game{
         for (Player p : players){
             if(p.getColor().equals(color)) return true;
         }
-
         return false;
     }
 
@@ -97,14 +96,6 @@ public class Game{
         }
     }
 
-    public void createAdventureDeck(){
-        this.adventureCardsDeck = new ArrayList<>();
-        for (List<Integer> pile : preFlightPiles){
-            this.adventureCardsDeck.addAll(pile);
-        }
-        Collections.shuffle(this.adventureCardsDeck, seed);
-    }
-
     public List<Player> getPlayers(){
         return players;
     }
@@ -125,7 +116,7 @@ public class Game{
         for (Player p : players){
             if(p.getName().equals(name)) return p;
         }
-        return null;
+        throw new RuntimeException("Player not found!");
     }
 
     public Player getPlayer(int ranking){
@@ -135,8 +126,82 @@ public class Game{
         return playersByPosition.get(ranking);
     }
 
+    public int rollDices(){
+        int dice1 = rand.nextInt(1, 7);
+        int dice2 = rand.nextInt(1, 7);
+        return dice1 + dice2;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState state) {
+        this.gameState = state;
+    }
+
+    // state management
+
+    public void startBuildPhase(){
+        this.setGameState(GameState.BUILDING);
+        for(Player p : players){
+            p.setState(PlayerState.BUILDING);
+        }
+    }
+
+    public void startFlightPhase(){
+        this.setGameState(GameState.FLIGHT);
+        for(Player p : players){
+            p.setState(PlayerState.FLIGHT);
+        }
+    }
+
+    // todo: test
+    public void checkShips(){
+        for (Player p : players){
+            if (!p.getShip().isShipLegal()) p.setState(PlayerState.SHIP_CORRECTION);
+            else p.setState(PlayerState.FLIGHT);
+        }
+    }
+
+    // ridondante! esiste già startBuildPhase...
+    public void beginGame() {
+        this.setGameState(GameState.BUILDING);
+    }
+
+    public void endGame() {
+        this.setGameState(GameState.END);
+    }
+
+
+    // cards and tiles handling
+
+    public void createAdventureDeck(){
+        this.adventureCardsDeck = new ArrayList<>();
+        for (List<Integer> pile : preFlightPiles){
+            this.adventureCardsDeck.addAll(pile);
+        }
+        Collections.shuffle(this.adventureCardsDeck, rand);
+    }
+
+    public void buildPiles() {
+        Collections.shuffle(this.level1Cards, rand);
+        Collections.shuffle(this.level2Cards, rand);
+        for (List<Integer> pile : this.preFlightPiles){
+            pile.add(this.level2Cards.removeFirst());
+            pile.add(this.level2Cards.removeFirst());
+            pile.add(this.level1Cards.removeFirst());
+        }
+    }
+
     public AdventureCard getCardById(Integer id){
         return adventureCardsMap.get(id);
+    }
+
+    public AdventureCard getNextAdventureCard(){
+        if (this.adventureCardsDeck.isEmpty()) return null;
+        this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
+        return this.currentAdventureCard;
     }
 
     public Tile getTileById(Integer id){
@@ -155,51 +220,41 @@ public class Game{
         return tilesDeckMap;
     }
 
-    public int rollDices(){
-        Random rand = new Random();
-        int dice1 = rand.nextInt(1, 7);
-        int dice2 = rand.nextInt(1, 7);
-        return dice1 + dice2;
-    }
 
-    public void startBuildPhase(){
-        this.gameState = GameState.BUILDING;
-    }
+    // give end game bonuses
 
-    public void startFLIGHT(){
-        this.gameState = GameState.FLIGHT;
-    }
-
-    public void checkShips(){
-        for (Player p : players){
-            if (!p.getShip().isShipLegal()) p.setState(PlayerState.SHIP_CORRECTION);
-            else p.setState(PlayerState.FLIGHT);
-        }
-    }
-
-    // todo: also considers players that lost or retired!!
+    // todo: test
     public void calculateBestShip(){
+
+        // assumes state of players that are still "alive" is PlayerState.FLIGHT
+
         int minConnectors = players.stream()
+                .filter(p -> p.getState() == PlayerState.FLIGHT)
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
                 .min()
                 .orElse(0);
 
         List<Player> minPlayers = players.stream()
-                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors)
-                .collect(Collectors.toList());
+                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == PlayerState.FLIGHT)
+                .toList();
 
         for(Player p : minPlayers){
             p.updateCredits(this.board.getMostBeautifulShipCredits());
         }
     }
 
-    // todo: fare che solo i players che arrivano alla fine, quindi non PlayerState == RETIRED or LOST, ricevano le ricompense
+    // todo: test
     public void giveEndCredits(){
 
-        List<Player> playersByPosition = this.getSortedPlayers();
+        // assumes state of players that are still "alive" is PlayerState.FLIGHT
 
-        for (int i = 0; i < playersByPosition.size(); i++) {
-            playersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i));
+        List<Player> survivedPlayersByPosition = this.getSortedPlayers().stream().
+                filter(p -> p.getState() == PlayerState.FLIGHT).
+                sorted(Comparator.comparingInt(Player::getPosition).reversed()).
+                toList();
+
+        for (int i = 0; i < survivedPlayersByPosition.size(); i++) {
+            survivedPlayersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i));
         }
     }
 
@@ -207,6 +262,8 @@ public class Game{
         this.giveEndCredits();
         this.calculateBestShip();
     }
+
+    // tutti metodi da controller?
 
     public void movePlayer(Player player, int steps){
         player.move(steps);
@@ -239,24 +296,6 @@ public class Game{
     public void updateCredits(Player player, int delta) {
         player.updateCredits(delta);
     }
-
-    public AdventureCard getNextAdventureCard(){
-        if (this.adventureCardsDeck.isEmpty()) return null;
-        this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
-        return this.currentAdventureCard;
-    }
-
-
-    public void buildPiles() {
-        Collections.shuffle(this.level1Cards, seed);
-        Collections.shuffle(this.level2Cards, seed);
-        for (List<Integer> pile : this.preFlightPiles){
-            pile.add(this.level2Cards.removeFirst());
-            pile.add(this.level2Cards.removeFirst());
-            pile.add(this.level1Cards.removeFirst());
-        }
-    }
-
 
     public void bookTile(Player player) {
         player.bookTile();
@@ -303,15 +342,4 @@ public class Game{
         player.setState(state);
     }
 
-    public void setGameState(GameState state) {
-        this.gameState = state;
-    }
-
-    public void beginGame() {
-        this.setGameState(GameState.BUILDING);
-    }
-
-    public void endGame() {
-        this.setGameState(GameState.END);
-    }
 }
