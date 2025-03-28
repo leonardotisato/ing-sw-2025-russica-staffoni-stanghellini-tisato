@@ -246,7 +246,7 @@ public abstract class Tile {
 
     }
 
-    public CrewType removeCrewMember(int numCrew) {
+    public CrewType removeCrewMember() {
         return null;
     }
 

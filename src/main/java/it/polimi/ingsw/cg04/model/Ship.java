@@ -368,7 +368,7 @@ public class Ship {
     public void removeCrew(CrewType type, int x, int y, int num) {
         // remove crewMembers from tile
         for(int i = 0; i<num; i++) {
-            getTile(x, y).removeCrewMember(num);
+            getTile(x, y).removeCrewMember();
         }
 
         // remove crewMembers from ship
