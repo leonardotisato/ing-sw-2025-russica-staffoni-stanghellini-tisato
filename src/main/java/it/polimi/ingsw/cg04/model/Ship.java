@@ -489,6 +489,8 @@ public class Ship {
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
 
+
+                    /*
                     // check you don't have a tile directly under a propulsor and check propulsor is pointing down
                     if (currTile instanceof PropulsorTile && (currTile.getConnection(Direction.DOWN) != Connection.PROPULSOR  || (i != shipHeight - 1 && tilesMatrix[i+1][j] != null))) {
                         return false;
@@ -501,6 +503,8 @@ public class Ship {
                             || (j != shipWidth - 1 && tilesMatrix[i][j+1] != null) && currTile.getConnection(Direction.RIGHT) == Connection.GUN) {
                         return false;
                     }
+                    */
+
 
                     if (i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;

@@ -1,21 +1,21 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
 
-    Game game1;
+    Game gameLev2;
 
     @BeforeEach
     void setUp() {
-        game1 = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        gameLev2 = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
     }
 
@@ -24,97 +24,91 @@ class GameTest {
     }
 
     @Test
-    void setNumPlayers() {
-    }
-
-    @Test
     void addPlayer() {
-        assertEquals(0, game1.getNumPlayers());
+        assertEquals(0, gameLev2.getNumPlayers());
 
-        game1.addPlayer("Alice", PlayerColor.RED);
-        assertNotNull(game1.getPlayers());
-        assertEquals(1, game1.getNumPlayers());
-        assertEquals("Alice", game1.getPlayers().getFirst().getName());
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        assertNotNull(gameLev2.getPlayers());
+        assertEquals(1, gameLev2.getNumPlayers());
+        assertEquals("Alice", gameLev2.getPlayers().getFirst().getName());
 
         // try to add player with same name or same color
-        assertThrows(IllegalArgumentException.class, () -> game1.addPlayer("Bob", PlayerColor.RED));
-        assertThrows(IllegalArgumentException.class, () -> game1.addPlayer("Alice", PlayerColor.BLUE));
+        assertThrows(IllegalArgumentException.class, () -> gameLev2.addPlayer("Bob", PlayerColor.RED));
+        assertThrows(IllegalArgumentException.class, () -> gameLev2.addPlayer("Alice", PlayerColor.BLUE));
 
         // add other players
-        game1.addPlayer("Bob", PlayerColor.BLUE);
-        game1.addPlayer("Charlie", PlayerColor.GREEN);
-        game1.addPlayer("Dave", PlayerColor.YELLOW);
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
 
-        assertEquals(4, game1.getNumPlayers());
+        assertEquals(4, gameLev2.getNumPlayers());
 
         // check info retrieval of player in players list
-        Player dave = game1.getPlayer("Dave");
+        Player dave = gameLev2.getPlayer("Dave");
         assertEquals("Dave", dave.getName());
         assertEquals(PlayerColor.YELLOW, dave.getColor());
 
         // try to add one more player, exceeding maximum
-        assertThrows(RuntimeException.class, () -> game1.addPlayer("Please add me too!", PlayerColor.RED));
+        assertThrows(RuntimeException.class, () -> gameLev2.addPlayer("Please add me too!", PlayerColor.RED));
 
-        assert(game1.getNumPlayers() == 4);
+        assert(gameLev2.getNumPlayers() == 4);
     }
 
     @Test
     void removePlayer() {
         // try to remove non-existing player
-        assertThrows(IllegalArgumentException.class, () -> game1.removePlayer("Alice"));
+        assertThrows(IllegalArgumentException.class, () -> gameLev2.removePlayer("Alice"));
 
-        game1.addPlayer("Alice", PlayerColor.RED);
-        assertThrows(IllegalArgumentException.class, () -> game1.removePlayer("Bob"));
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        assertThrows(IllegalArgumentException.class, () -> gameLev2.removePlayer("Bob"));
 
-        game1.addPlayer("Bob", PlayerColor.BLUE);
-        game1.addPlayer("Charlie", PlayerColor.GREEN);
-        game1.addPlayer("Dave", PlayerColor.YELLOW);
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
 
-        assertEquals(4, game1.getNumPlayers());
-        assertThrows(IllegalArgumentException.class, () ->game1.removePlayer(null));
+        assertEquals(4, gameLev2.getNumPlayers());
+        assertThrows(IllegalArgumentException.class, () -> gameLev2.removePlayer(null));
 
-        game1.removePlayer("Alice");
-        assertEquals(3, game1.getNumPlayers());
+        gameLev2.removePlayer("Alice");
+        assertEquals(3, gameLev2.getNumPlayers());
 
-        game1.removePlayer("Bob");
-        assertEquals(2, game1.getNumPlayers());
+        gameLev2.removePlayer("Bob");
+        assertEquals(2, gameLev2.getNumPlayers());
 
-        game1.removePlayer("Charlie");
-        assertEquals(1, game1.getNumPlayers());
+        gameLev2.removePlayer("Charlie");
+        assertEquals(1, gameLev2.getNumPlayers());
 
-        game1.removePlayer("Dave");
-        assertEquals(0, game1.getNumPlayers());
+        gameLev2.removePlayer("Dave");
+        assertEquals(0, gameLev2.getNumPlayers());
 
-    }
-
-    @Test
-    void setBoard() {
     }
 
     @Test
     void createAdventureDeck() {
+        // todo: check this method was tested in cardLoader
     }
 
     @Test
     void getPlayers() {
-        Player alice = game1.addPlayer("Alice", PlayerColor.RED);
-        Player bob = game1.addPlayer("Bob", PlayerColor.BLUE);
+        Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
 
-        assertEquals(alice, game1.getPlayer("Alice"));
+        assertEquals(alice, gameLev2.getPlayer("Alice"));
+        assertEquals(bob, gameLev2.getPlayer("Bob"));
 
     }
 
     @Test
     void getSortedPlayers() {
-        Player alice = game1.addPlayer("Alice", PlayerColor.RED);
-        Player bob = game1.addPlayer("Bob", PlayerColor.BLUE);
-        Player charlie = game1.addPlayer("Charlie", PlayerColor.GREEN);
-        Player dave = game1.addPlayer("Dave", PlayerColor.YELLOW);
+        Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        Player charlie = gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        Player dave = gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
         
-        assertEquals(4, game1.getNumPlayers());
+        assertEquals(4, gameLev2.getNumPlayers());
         
 
-        FlightBoard fb = game1.getBoard();
+        FlightBoard fb = gameLev2.getBoard();
         System.out.println(fb);
 
         alice.move(fb.getStartingPosition(1));
@@ -124,26 +118,115 @@ class GameTest {
 
         System.out.println(fb);
 
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(alice, gameLev2.getSortedPlayers().get(0));
+        assertEquals(bob, gameLev2.getSortedPlayers().get(1));
+        assertEquals(charlie, gameLev2.getSortedPlayers().get(2));
+        assertEquals(dave, gameLev2.getSortedPlayers().get(3));
 
+        dave.move(1);
+        System.out.println(fb);
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(alice, gameLev2.getSortedPlayers().get(0));
+        assertEquals(bob, gameLev2.getSortedPlayers().get(1));
+        assertEquals(dave, gameLev2.getSortedPlayers().get(2));
+        assertEquals(charlie, gameLev2.getSortedPlayers().get(3));
 
+        charlie.move(10);
+        System.out.println(fb);
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(charlie, gameLev2.getSortedPlayers().get(0));
+        assertEquals(alice, gameLev2.getSortedPlayers().get(1));
+        assertEquals(bob, gameLev2.getSortedPlayers().get(2));
+        assertEquals(dave, gameLev2.getSortedPlayers().get(3));
+
+        // charlie completes a loop, make sure he is still first
+        charlie.move(10);
+        System.out.println(fb);
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(charlie, gameLev2.getSortedPlayers().get(0));
+        assertEquals(alice, gameLev2.getSortedPlayers().get(1));
+        assertEquals(bob, gameLev2.getSortedPlayers().get(2));
+        assertEquals(dave, gameLev2.getSortedPlayers().get(3));
 
     }
 
     @Test
     void getNumPlayers() {
+        assertEquals(0, gameLev2.getNumPlayers());
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        assertEquals(1, gameLev2.getNumPlayers());
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        assertEquals(2, gameLev2.getNumPlayers());
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        assertEquals(3, gameLev2.getNumPlayers());
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+        assertEquals(4, gameLev2.getNumPlayers());
+
+        gameLev2.removePlayer("Alice");
+        assertEquals(3, gameLev2.getNumPlayers());
+        gameLev2.removePlayer("Bob");
+        assertEquals(2, gameLev2.getNumPlayers());
+        gameLev2.removePlayer("Charlie");
+        assertEquals(1, gameLev2.getNumPlayers());
+        gameLev2.removePlayer("Dave");
+        assertEquals(0, gameLev2.getNumPlayers());
     }
 
     @Test
     void getBoard() {
+        assertNotNull(gameLev2.getBoard());
+        assertInstanceOf(FlightBoard.class, gameLev2.getBoard());
     }
 
     @Test
     void getPlayer() {
+
+        // getPlayer(name)
+        assertThrows(RuntimeException.class, () -> gameLev2.getPlayer("Alice"));
+
+        Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        assertThrows(RuntimeException.class, () -> gameLev2.getPlayer("Bob"));
+        assertEquals(alice, gameLev2.getPlayer("Alice"));
+
+        gameLev2.removePlayer("Alice");
+        assertThrows(RuntimeException.class, () -> gameLev2.getPlayer("Alice"));
+
+        // getPlayer(ranking)
+        alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        Player charlie = gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        Player dave = gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+
+        assertEquals(4, gameLev2.getNumPlayers());
+
+
+        FlightBoard fb = gameLev2.getBoard();
+        System.out.println(fb);
+
+        alice.move(fb.getStartingPosition(1));
+        bob.move(fb.getStartingPosition(2));
+        charlie.move(fb.getStartingPosition(3));
+        dave.move(fb.getStartingPosition(4));
+
+        System.out.println(fb);
+
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(alice, gameLev2.getPlayer(0));
+        assertEquals(bob, gameLev2.getPlayer(1));
+        assertEquals(charlie, gameLev2.getPlayer(2));
+        assertEquals(dave, gameLev2.getPlayer(3));
+
+        dave.move(1);
+        System.out.println(fb);
+        assertEquals(4, gameLev2.getSortedPlayers().size());
+        assertEquals(alice, gameLev2.getPlayer(0));
+        assertEquals(bob, gameLev2.getPlayer(1));
+        assertEquals(dave, gameLev2.getPlayer(2));
+        assertEquals(charlie, gameLev2.getPlayer(3));
+
     }
 
-    @Test
-    void testGetPlayer() {
-    }
 
     @Test
     void getCardById() {
@@ -163,14 +246,45 @@ class GameTest {
 
     @Test
     void rollDices() {
+        for (int i = 0; i < 10; i++) {
+           assertTrue(gameLev2.rollDices() <= 12);
+           assertTrue(gameLev2.rollDices() >= 2);
+        }
     }
 
     @Test
     void startBuildPhase() {
+
+        Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        Player charlie = gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        Player dave = gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+
+        gameLev2.startBuildPhase();
+
+        assertEquals(GameState.BUILDING, gameLev2.getGameState());
+        assertEquals(4, gameLev2.getNumPlayers());
+        assertEquals(PlayerState.BUILDING, alice.getState());
+        assertEquals(PlayerState.BUILDING, bob.getState());
+        assertEquals(PlayerState.BUILDING, charlie.getState());
+        assertEquals(PlayerState.BUILDING, dave.getState());
     }
 
     @Test
-    void startFLIGHT() {
+    void startFlightPhase() {
+        Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);
+        Player bob = gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        Player charlie = gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        Player dave = gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+
+        gameLev2.startFlightPhase();
+
+        assertEquals(GameState.FLIGHT, gameLev2.getGameState());
+        assertEquals(4, gameLev2.getNumPlayers());
+        assertEquals(PlayerState.FLIGHT, alice.getState());
+        assertEquals(PlayerState.FLIGHT, bob.getState());
+        assertEquals(PlayerState.FLIGHT, charlie.getState());
+        assertEquals(PlayerState.FLIGHT, dave.getState());
     }
 
     @Test
@@ -275,6 +389,6 @@ class GameTest {
 
     @Test
     void getLevel() {
-        assertEquals(2, game1.getLevel());
+        assertEquals(2, gameLev2.getLevel());
     }
 }
