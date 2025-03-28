@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.adventureCards.AbandonedShip;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
@@ -21,11 +22,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AdventureCardsTest {
 
+    private Game game;
+    private Player p;
+//    Tile centerTile33;
+//    Tile housingTile35;
+//    Tile propulsorTile71;
+//    Tile batteryTile16;
+//    Tile storageTile68;
+//    Tile laserTile101;
+
     @BeforeEach
     void setUp() {
-        Game game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/game.getTilesDeckMap()File.json");
+        game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
         game.addPlayer("Filippo", PlayerColor.BLUE);
-        Player p = game.getPlayer("Filippo");
+        p = game.getPlayer("Filippo");
         Tile centerTile33 = game.getTilesDeckMap().get(33);
         Tile housingTile35 = game.getTilesDeckMap().get(35);
         housingTile35.rotate90dx();
@@ -40,6 +50,8 @@ public class AdventureCardsTest {
         Map<BoxType, Integer> boxes = new HashMap<>();
         boxes.put(BoxType.BLUE, 1);
         boxes.put(BoxType.RED, 1);
+        boxes.put(BoxType.YELLOW, 0);
+        boxes.put(BoxType.GREEN, 0);
         p.getShip().placeTile(centerTile33, 2, 2);
         p.getShip().placeTile(housingTile35, 3, 2);
         p.getShip().placeTile(propulsorTile71, 3, 1);
@@ -48,13 +60,28 @@ public class AdventureCardsTest {
         p.getShip().placeTile(laserTile119, 1, 1);
         p.getShip().placeTile(laserTile131, 1, 2);
         p.getShip().placeTile(laserTile101, 1, 3);
-        p.getShip().addCrew(CrewType.HUMAN, 2, 2);
-        p.getShip().addCrew(CrewType.HUMAN, 3, 2);
+//        p.getShip().addCrew(CrewType.HUMAN, 2, 2);
+//        p.getShip().addCrew(CrewType.HUMAN, 3, 2);
         p.getShip().setBoxes(boxes, 2, 3);
+        p.setCurrentCell(4);
     }
     
     @Test
     void testAbandonedShip() {
-        
+        List<Integer> numCrewMembersLost = new ArrayList<>();
+        numCrewMembersLost.add(2);
+        numCrewMembersLost.add(2);
+        List<List<Integer>> coordinates = new ArrayList<>();
+        coordinates.add(List.of(2, 2));
+        coordinates.add(List.of(3, 2));
+        game.setCurrentAdventureCard(game.getCardById(37));
+        AbandonedShip card = (AbandonedShip) game.getCurrentAdventureCard();
+        card.solveEffect(p, numCrewMembersLost, coordinates);
+        assertEquals(6, p.getNumCredits());
+        assertEquals(0, p.getShip().getNumCrew());
+        assertEquals(0, p.getShip().getTile(2,2).getNumCrew());
+        assertEquals(0, p.getShip().getTile(3,2).getNumCrew());
+        assertEquals(3, p.getCurrentCell());
+        assertThrows(RuntimeException.class, () -> card.solveEffect(p, List.of(1), List.of(List.of(2,1))));
     }
 }

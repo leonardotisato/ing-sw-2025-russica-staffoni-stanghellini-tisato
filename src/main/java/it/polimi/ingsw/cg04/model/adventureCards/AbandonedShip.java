@@ -39,6 +39,7 @@ public class AbandonedShip extends AdventureCard {
             if (currTile instanceof HousingTile) {
                 player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).get(0), coordinates.get(i).get(1), numCrewMembersLost.get(i));
             }
+            else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
         }
         player.updateCredits(this.getEarnedCredits());
         player.move(-this.getDaysLost());

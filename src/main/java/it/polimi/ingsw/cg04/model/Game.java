@@ -155,6 +155,13 @@ public class Game{
         return tilesDeckMap;
     }
 
+    public AdventureCard getCurrentAdventureCard(){
+        return this.currentAdventureCard;
+    }
+    public void setCurrentAdventureCard(AdventureCard adventureCard){
+        this.currentAdventureCard = adventureCard;
+    }
+
     public int rollDices(){
         Random rand = new Random();
         int dice1 = rand.nextInt(1, 7);
