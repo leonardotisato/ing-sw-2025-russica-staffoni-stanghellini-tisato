@@ -17,7 +17,7 @@ public class Player {
     private final Game game;
     private final FlightBoard flightBoard;
 
-    private int currentCell = 0;
+    private Integer currentCell = 0;
     private int loopsCompleted = 0;
     private int numCredits = 0;
 

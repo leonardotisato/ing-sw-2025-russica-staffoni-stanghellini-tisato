@@ -1,8 +1,11 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +16,7 @@ class GameTest {
     @BeforeEach
     void setUp() {
         game1 = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+
     }
 
     @AfterEach
@@ -25,10 +29,62 @@ class GameTest {
 
     @Test
     void addPlayer() {
+        assertEquals(0, game1.getNumPlayers());
+
+        game1.addPlayer("Alice", PlayerColor.RED);
+        assertNotNull(game1.getPlayers());
+        assertEquals(1, game1.getNumPlayers());
+        assertEquals("Alice", game1.getPlayers().getFirst().getName());
+
+        // try to add player with same name or same color
+        assertThrows(IllegalArgumentException.class, () -> game1.addPlayer("Bob", PlayerColor.RED));
+        assertThrows(IllegalArgumentException.class, () -> game1.addPlayer("Alice", PlayerColor.BLUE));
+
+        // add other players
+        game1.addPlayer("Bob", PlayerColor.BLUE);
+        game1.addPlayer("Charlie", PlayerColor.GREEN);
+        game1.addPlayer("Dave", PlayerColor.YELLOW);
+
+        assertEquals(4, game1.getNumPlayers());
+
+        // check info retrieval of player in players list
+        Player dave = game1.getPlayer("Dave");
+        assertEquals("Dave", dave.getName());
+        assertEquals(PlayerColor.YELLOW, dave.getColor());
+
+        // try to add one more player, exceeding maximum
+        assertThrows(RuntimeException.class, () -> game1.addPlayer("Please add me too!", PlayerColor.RED));
+
+        assert(game1.getNumPlayers() == 4);
     }
 
     @Test
     void removePlayer() {
+        // try to remove non-existing player
+        assertThrows(IllegalArgumentException.class, () -> game1.removePlayer("Alice"));
+
+        game1.addPlayer("Alice", PlayerColor.RED);
+        assertThrows(IllegalArgumentException.class, () -> game1.removePlayer("Bob"));
+
+        game1.addPlayer("Bob", PlayerColor.BLUE);
+        game1.addPlayer("Charlie", PlayerColor.GREEN);
+        game1.addPlayer("Dave", PlayerColor.YELLOW);
+
+        assertEquals(4, game1.getNumPlayers());
+        assertThrows(IllegalArgumentException.class, () ->game1.removePlayer(null));
+
+        game1.removePlayer("Alice");
+        assertEquals(3, game1.getNumPlayers());
+
+        game1.removePlayer("Bob");
+        assertEquals(2, game1.getNumPlayers());
+
+        game1.removePlayer("Charlie");
+        assertEquals(1, game1.getNumPlayers());
+
+        game1.removePlayer("Dave");
+        assertEquals(0, game1.getNumPlayers());
+
     }
 
     @Test
@@ -41,10 +97,36 @@ class GameTest {
 
     @Test
     void getPlayers() {
+        Player alice = game1.addPlayer("Alice", PlayerColor.RED);
+        Player bob = game1.addPlayer("Bob", PlayerColor.BLUE);
+
+        assertEquals(alice, game1.getPlayer("Alice"));
+
     }
 
     @Test
     void getSortedPlayers() {
+        Player alice = game1.addPlayer("Alice", PlayerColor.RED);
+        Player bob = game1.addPlayer("Bob", PlayerColor.BLUE);
+        Player charlie = game1.addPlayer("Charlie", PlayerColor.GREEN);
+        Player dave = game1.addPlayer("Dave", PlayerColor.YELLOW);
+        
+        assertEquals(4, game1.getNumPlayers());
+        
+
+        FlightBoard fb = game1.getBoard();
+        System.out.println(fb);
+
+        alice.move(fb.getStartingPosition(1));
+        bob.move(fb.getStartingPosition(2));
+        charlie.move(fb.getStartingPosition(3));
+        dave.move(fb.getStartingPosition(4));
+
+        System.out.println(fb);
+
+
+
+
     }
 
     @Test

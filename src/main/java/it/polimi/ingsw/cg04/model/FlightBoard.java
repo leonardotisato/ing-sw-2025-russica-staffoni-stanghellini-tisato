@@ -43,7 +43,6 @@ public abstract class FlightBoard {
     }
 
     public int move(Player player, int delta) {
-
         int oldPlayerCell = player.getCurrentCell();
 
         int newCell = oldPlayerCell;
@@ -57,8 +56,7 @@ public abstract class FlightBoard {
                 }
             }
 
-            // if newCell < oldPlayerCell --> player.addLoop()
-            if (newCell < oldPlayerCell) {
+            if (newCell <= oldPlayerCell) {
                 player.addLoop();
             }
 
@@ -70,8 +68,7 @@ public abstract class FlightBoard {
                 }
             }
 
-            // if newCell > oldPlayerCell --> player.removeLoop()
-            if (newCell > oldPlayerCell) {
+            if (newCell >= oldPlayerCell) {
                 player.removeLoop();
             }
         }

@@ -15,7 +15,6 @@ import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
 public class Game{
     private int maxPlayers;
-    private int numPlayers;
     private int level;
     private List<Player> players;
     private FlightBoard board;
@@ -35,8 +34,7 @@ public class Game{
     private final Random seed =  new Random(42);
 
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
-        this.maxPlayers = 0;
-        this.numPlayers = 0;
+        this.maxPlayers = 4;
         this.level = level;
         this.players = new ArrayList<Player>();
         if(level == 1) this.board = new FlightBoardLev1();
@@ -59,11 +57,6 @@ public class Game{
         return this.level;
     }
 
-    public void setNumPlayers(int num){
-        this.numPlayers = num;
-        this.maxPlayers = num;
-    }
-
     private boolean isNameTaken(String name){
         for (Player p : players){
             if(p.getName().equals(name)) return true;
@@ -71,19 +64,37 @@ public class Game{
         return false;
     }
 
-    public void addPlayer(String name, PlayerColor color) throws IllegalArgumentException{
-        // check name already taken
-        if(this.isNameTaken(name)) throw new IllegalArgumentException();
-        this.players.add(new Player(name, color, this));
+    private boolean isColorTaken(PlayerColor color){
+        for (Player p : players){
+            if(p.getColor().equals(color)) return true;
+        }
+
+        return false;
     }
 
-    public void removePlayer(String name){
-        this.players.removeIf(p -> p.getName().equals(name));
+    public Player addPlayer(String name, PlayerColor color) {
+        if(players.size() == this.maxPlayers){
+            throw new RuntimeException("Max number of players reached!");
+        }
+        if(this.isNameTaken(name)) throw new IllegalArgumentException("Name already taken!");
+        if(this.isColorTaken(color)) throw new IllegalArgumentException("Color already taken!");
+
+        Player newPlayer = new Player(name, color, this);
+        this.players.add(newPlayer);
+
+        return newPlayer;
     }
 
-    // todo: a che serve?
-    public void setBoard(FlightBoard board){
-        this.board = board;
+    public void removePlayer(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null!");
+        }
+
+        boolean removed = players.removeIf(p -> p.getName().equals(name));
+
+        if (!removed) {
+            throw new IllegalArgumentException("Player with name " + name + " does not exist!");
+        }
     }
 
     public void createAdventureDeck(){
@@ -103,7 +114,7 @@ public class Game{
     }
 
     public int getNumPlayers() {
-        return numPlayers;
+        return players.size();
     }
 
     public FlightBoard getBoard() {
