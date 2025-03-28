@@ -108,8 +108,11 @@ public abstract class FlightBoard {
         int newCell = oldPlayerCell;
         int stepsTaken = 0;
 
-        if (path[oldPlayerCell] != null) {
-            throw new RuntimeException("No player cell at position " + oldPlayerCell + " in path!");
+
+        if (Arrays.stream(path).toList().contains(player)){
+            if (Arrays.stream(path).toList().indexOf(player) != oldPlayerCell) {
+                throw new RuntimeException("Player vs Board cell mismatch");
+            }
         }
 
         if (delta > 0) {
