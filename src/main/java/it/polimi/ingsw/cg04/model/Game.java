@@ -85,13 +85,16 @@ public class Game{
         return newPlayer;
     }
 
-    public void removePlayer(String name){
-        this.players.removeIf(p -> p.getName().equals(name));
-    }
+    public void removePlayer(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null!");
+        }
 
-    // todo: a che serve?
-    public void setBoard(FlightBoard board){
-        this.board = board;
+        boolean removed = players.removeIf(p -> p.getName().equals(name));
+
+        if (!removed) {
+            throw new IllegalArgumentException("Player with name " + name + " does not exist!");
+        }
     }
 
     public void createAdventureDeck(){
@@ -111,7 +114,7 @@ public class Game{
     }
 
     public int getNumPlayers() {
-        return numPlayers;
+        return players.size();
     }
 
     public FlightBoard getBoard() {
