@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
@@ -22,39 +23,38 @@ public class AdventureCardsTest {
 
     @BeforeEach
     void setUp() {
-        List<Integer> cards1 = new ArrayList<>();
-        List<Integer> cards2 = new ArrayList<>();
-        Map<Integer, AdventureCard> cards = CardLoader.loadCardsFromJson("src/test/java/it/polimi/ingsw/cg04/model/resources/AdventureCardsFile.json", cards1, cards2);
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/test/java/it/polimi/ingsw/cg04/model/tiles/TilesFile.json", faceDownTiles);
-        Ship ship = new Ship(1, PlayerColor.BLUE);
-        Tile centerTile33 = tiles.get(33);
-        Tile housingTile35 = tiles.get(35);
+        Game game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/game.getTilesDeckMap()File.json");
+        game.addPlayer("Filippo", PlayerColor.BLUE);
+        Player p = game.getPlayer("Filippo");
+        Tile centerTile33 = game.getTilesDeckMap().get(33);
+        Tile housingTile35 = game.getTilesDeckMap().get(35);
         housingTile35.rotate90dx();
-        Tile propulsorTile71 = tiles.get(71);
-        Tile batteryTile16 = tiles.get(16);
-        Tile storageTile68 = tiles.get(68);
-        Tile laserTile101 = tiles.get(101);
+        Tile propulsorTile71 = game.getTilesDeckMap().get(71);
+        Tile batteryTile16 = game.getTilesDeckMap().get(16);
+        Tile storageTile68 = game.getTilesDeckMap().get(68);
+        Tile laserTile101 = game.getTilesDeckMap().get(101);
         laserTile101.rotate90dx();
-        Tile laserTile119 = tiles.get(119);
+        Tile laserTile119 = game.getTilesDeckMap().get(119);
         laserTile119.rotate90sx();
-        Tile laserTile131 = tiles.get(131);
+        Tile laserTile131 = game.getTilesDeckMap().get(131);
         Map<BoxType, Integer> boxes = new HashMap<>();
         boxes.put(BoxType.BLUE, 1);
         boxes.put(BoxType.RED, 1);
-        ship.placeTile(centerTile33, 2, 2);
-        ship.placeTile(housingTile35, 3, 2);
-        ship.placeTile(propulsorTile71, 3, 1);
-        ship.placeTile(batteryTile16, 2, 1);
-        ship.placeTile(storageTile68, 2, 3);
-        ship.placeTile(laserTile119, 1, 1);
-        ship.placeTile(laserTile131, 1, 2);
-        ship.placeTile(laserTile101, 1, 3);
-        ship.addCrewByType(CrewType.HUMAN, 2, 2);
-        ship.addCrewByType(CrewType.HUMAN, 3, 2);
-        ship.setBoxes(boxes, 2, 3);
-
-
-
+        p.getShip().placeTile(centerTile33, 2, 2);
+        p.getShip().placeTile(housingTile35, 3, 2);
+        p.getShip().placeTile(propulsorTile71, 3, 1);
+        p.getShip().placeTile(batteryTile16, 2, 1);
+        p.getShip().placeTile(storageTile68, 2, 3);
+        p.getShip().placeTile(laserTile119, 1, 1);
+        p.getShip().placeTile(laserTile131, 1, 2);
+        p.getShip().placeTile(laserTile101, 1, 3);
+        p.getShip().addCrew(CrewType.HUMAN, 2, 2);
+        p.getShip().addCrew(CrewType.HUMAN, 3, 2);
+        p.getShip().setBoxes(boxes, 2, 3);
+    }
+    
+    @Test
+    void testAbandonedShip() {
+        
     }
 }

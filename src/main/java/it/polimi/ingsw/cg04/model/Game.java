@@ -140,6 +140,10 @@ public class Game{
         return faceUpTiles;
     }
 
+    public Map<Integer, Tile> getTilesDeckMap(){
+        return tilesDeckMap;
+    }
+
     public int rollDices(){
         Random rand = new Random();
         int dice1 = rand.nextInt(1, 7);
