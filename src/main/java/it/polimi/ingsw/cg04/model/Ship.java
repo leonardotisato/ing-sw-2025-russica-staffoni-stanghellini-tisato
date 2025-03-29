@@ -334,6 +334,23 @@ public class Ship {
         oldBoxes = currTile.getBoxes();
 
         for(BoxType type : BoxType.values()) {
+            if(newBoxes.get(type) < oldBoxes.get(type)) {
+                int delta = oldBoxes.get(type) - newBoxes.get(type);
+                currTile.removeBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) - delta);
+            }
+        }
+
+        for(BoxType type : BoxType.values()) {
+            if(newBoxes.get(type) > oldBoxes.get(type)) {
+                int delta = newBoxes.get(type) - oldBoxes.get(type);
+                currTile.addBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) + delta);
+            }
+        }
+
+        /*
+        for(BoxType type : BoxType.values()) {
             if(newBoxes.get(type) > oldBoxes.get(type)) {
                 int delta = newBoxes.get(type) - oldBoxes.get(type);
                 currTile.addBox(type, delta);
@@ -346,6 +363,7 @@ public class Ship {
                 this.boxes.put(type, this.boxes.get(type) - delta);
             }
         }
+        */
     }
 
     public void removeCrewByType(CrewType type) {
