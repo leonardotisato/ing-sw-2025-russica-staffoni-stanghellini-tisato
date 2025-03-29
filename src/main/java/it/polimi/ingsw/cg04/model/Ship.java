@@ -105,7 +105,14 @@ public class Ship {
         return validSlots;
     }
 
-    // returns Tile in slot (x,y) and null if no tile is found in (x,y)
+    /**
+     * returns Tile in slot {@code x, y} and {@code null} if no tile is found in (x,y)
+     *
+     * @param x row
+     * @param y column
+     * @return the Tile in position {@code x, y} if present, {@code null} otherwise
+     * @throws IllegalArgumentException if the indexes are not valid
+     */
     public Tile getTile(int x, int y) {
 
         if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
@@ -131,8 +138,20 @@ public class Ship {
         return shipHeight;
     }
 
+    /**
+     * places a tile in a specific slot and calls {@code tile.place(...)}
+     * which takes care of updating ship and tile attributes
+     * lastly it updates exposedConnectors
+     *
+     *
+     * @param tile tile to place
+     * @param x row
+     * @param y column
+     * @return {@code true} if the slot {@code x, y} is valid and empty and the tile is not {@code null},
+     * @throws IllegalArgumentException if the {@code x, y} indexes are out of bounds
+     * {@code false} if slot is invalid or already taken or the selected tile is {@code null}
+     */
     public boolean placeTile(Tile tile, int x, int y) {
-
         if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
             throw new IllegalArgumentException("Requested slot is out of bounds!");
         }
@@ -196,6 +215,15 @@ public class Ship {
         return true;
     }
 
+    /**
+     * removes the tile in the {@code x, y} slot and calls {@code tile.broken(...)}
+     * which takes care of updating ship and tile attributes
+     * lastly it updates exposedConnectors
+     *
+     * @param x row
+     * @param y column
+     * @throws IllegalArgumentException if hte slot is not valid or if there is not a tile in the slot
+     */
     public void breakTile(Integer x, Integer y) {
         if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
@@ -254,16 +282,34 @@ public class Ship {
         return boxes.get(type);
     }
 
+    /**
+     * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
+     *
+     * @param lostBatteries number of batteries to remove
+     */
     public void removeBatteries(int lostBatteries) {
         assert this.getNumBatteries() - lostBatteries >= 0;
         numBatteries -= lostBatteries;
     }
 
+    /**
+     * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
+     * and from tile attribute {@code numBatteries}
+     *
+     * @param usedBatteries number of batteries to remove
+     * @param x row
+     * @param y column
+     */
     public void removeBatteries(int usedBatteries, int x, int y) {
         this.removeBatteries(usedBatteries);
         getTile(x, y).removeBatteries(usedBatteries);
     }
 
+    /**
+     * adds {@code int newBatteries} to ship attribute {@code numBatteries}
+     *
+     * @param newBatteries number of batteries to add
+     */
     public void addBatteries(int newBatteries) {
         assert this.getNumBatteries() + newBatteries >= 0;
         numBatteries += newBatteries;
@@ -286,8 +332,13 @@ public class Ship {
         }
     }
 
-    // returns the number of boxes that were removed
-    // todo: add storageTile location from the matrix to remove boxes from the tile as well?
+    /**
+     * remove {@code int lostBoxes} boxes of type {@code type} from ship attribute {@code boxes}
+     *
+     * @param type the type of box to remove
+     * @param lostBoxes the number of boxes to remove
+     * @return the number of boxes removed
+     */
     public int removeBoxes(BoxType type, int lostBoxes) {
         Integer currentCount = this.boxes.get(type);
 
@@ -304,7 +355,15 @@ public class Ship {
         return currentCount;
     }
 
-    // needed for player choice to remove single box
+    /**
+     * removes a single box of type {@code boxType} from ship attribute {@code boxes}
+     * and from tile attribute {@code boxes}
+     *
+     * @param boxType type of the box to remove
+     * @param x row
+     * @param y column
+     * @throws RuntimeException if there are no boxes to be removed from {@code ship.boxes}
+     */
     public void removeBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
         getTile(x, y).removeBox(boxType, 1);   // remove box from tile's map
@@ -315,7 +374,14 @@ public class Ship {
         boxes.put(boxType, boxes.get(boxType) - 1); // remove from ship's map
     }
 
-    // needed for player choice to add single box
+    /**
+     * adds a single box of type {@code boxType} to ship attribute {@code boxes}
+     * and to tile attribute {@code boxes}
+     *
+     * @param boxType type of the box to add
+     * @param x row
+     * @param y column
+     */
     public void addBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
         getTile(x, y).addBox(boxType, 1);  // add box to tile's map
@@ -323,6 +389,15 @@ public class Ship {
         boxes.put(boxType, boxes.get(boxType) + 1); // add box to ship's map
     }
 
+    /**
+     * updates {@code ship.boxes} and {@code tile.boxes} of the tile at position {@code x, y}
+     * to new configuration in the specific tile in position {@code x, y}
+     *
+     * @param newBoxes map of the new StorageTile configuration
+     * @param x row
+     * @param y columns
+     * @throws RuntimeException if the selected tile is not a StorageTile
+     */
     public void setBoxes(Map<BoxType, Integer> newBoxes, int x, int y) {
         Tile currTile = getTile(x, y);
 
@@ -366,6 +441,11 @@ public class Ship {
         */
     }
 
+    /**
+     * removes a single crewMember of type {@code type} from {@code this.crewMap}
+     *
+     * @param type type of crewMember to remove
+     */
     public void removeCrewByType(CrewType type) {
 
         // non bellissimo ma potrebbe dover essere necessario in caso di rimozione tile
@@ -378,11 +458,25 @@ public class Ship {
         crewMap.put(type, this.getNumCrewByType(type) - 1);
     }
 
+    /**
+     * adds a single crewMember of type {@code type} to {@code this.crewMap}
+     *
+     * @param type type of crewMember to add
+     */
     public void addCrewByType(CrewType type) {
         // todo: may needs exceptions
         crewMap.put(type, this.getNumCrewByType(type) + 1);
     }
 
+    /**
+     * fills the HousingTile in position {@code x, y} with crewMember/s of type {@code type} and adds them to {@code this.crewMap}
+     * if the type is {@code HUMAN} adds 2, otherwise adds 1
+     *
+     * @param type type of crewMember to be added
+     * @param x row
+     * @param y column
+     * @throws RuntimeException if the argument type is not support by the specific HousingTile
+     */
     public void addCrew(CrewType type, int x, int y) {
         if(type == CrewType.HUMAN){
             crewMap.put(type, this.getNumCrewByType(type) + 2);
@@ -398,6 +492,16 @@ public class Ship {
         getTile(x, y).addCrew(type);
     }
 
+    /**
+     * removes {@code num} crewMembers of type {@code type} from the HousingTile at position {@code x, y}
+     * and from {@code this.crewMap}
+     *
+     * @param type type of crewMembers to be removed
+     * @param x row
+     * @param y column
+     * @param num number of crewMembers to be removed
+     * @throws RuntimeException if there are not enough members to be removed in {@code this.crewMap}
+     */
     public void removeCrew(CrewType type, int x, int y, int num) {
         // remove crewMembers from tile
         for(int i = 0; i<num; i++) {
@@ -445,6 +549,11 @@ public class Ship {
         basePropulsionPower = basePropulsionPower + i;
     }
 
+    /**
+     * updates {@code this.numExposedConnectors}
+     * it's called after each placeTile and BreakTile
+     *
+     */
     public void updateExposedConnectors(){
         int cont = 0;
         for(int i = 0; i<shipHeight; i++) {
@@ -483,6 +592,11 @@ public class Ship {
         this.numExposedConnectors = cont;
     }
 
+    /**
+     * remove all the directions contained in {@code dir} from the list {@code this.protectedDirections}
+     *
+     * @param dir set of direction to be removed from protectedDirections list
+     */
     public void removeProtectedDirections(Set<Direction> dir) {
         for (Direction d : dir) {
             for (Direction direction : protectedDirections) {
@@ -494,10 +608,19 @@ public class Ship {
         }
     }
 
+    /**
+     * adds all the directions contained in {@code dir} to the list {@code this.protectedDirections}
+     *
+     * @param dir set of direction to be added to protectedDirections list
+     */
     public void addProtectedDirections(Set<Direction> dir) {
         protectedDirections.addAll(dir);
     }
 
+    /**
+     * @return {@code true} if the ship is legal and connected, {@code false} otherwise
+     *
+     */
     public boolean isShipLegal() {
 
         // for all tiles, existing neighbouring tiles must have matching connector
@@ -545,7 +668,10 @@ public class Ship {
         return isShipConnectedBFS();
     }
 
-    // todo: testing
+    /**
+     * @return {@code true} if the ship is connected, {@code false} otherwise
+     *
+     */
     public boolean isShipConnectedBFS(){
         int totalTiles = 0;
         int visitedTiles = 0;

@@ -25,9 +25,10 @@ class AlienSupportTileTest {
         connection50.put(Direction.LEFT, Connection.UNIVERSAL);
         connection50.put(Direction.RIGHT, Connection.EMPTY);
 
-       // housingTile50 = new HousingTile(connection50, false, PlayerColor.BLUE);
+        //housingTile50 = new HousingTile(connection50, false, PlayerColor.BLUE);
 
         // alienSupportTile137
+        alienSupportTile137 = new AlienSupportTile();
         Map<Direction, Connection> connection137 = new HashMap<>();
         connection137.put(Direction.UP, Connection.SINGLE);
         connection137.put(Direction.DOWN, Connection.EMPTY);
