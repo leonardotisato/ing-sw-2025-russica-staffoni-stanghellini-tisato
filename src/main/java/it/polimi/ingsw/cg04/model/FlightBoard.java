@@ -108,7 +108,7 @@ public abstract class FlightBoard {
         int newCell = oldPlayerCell;
         int stepsTaken = 0;
 
-        if (path[oldPlayerCell] != null) {
+        if (path[oldPlayerCell] == null) {
             throw new RuntimeException("No player cell at position " + oldPlayerCell + " in path!");
         }
 

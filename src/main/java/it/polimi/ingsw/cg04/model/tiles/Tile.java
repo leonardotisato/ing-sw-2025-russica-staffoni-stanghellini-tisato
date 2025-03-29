@@ -202,6 +202,10 @@ public abstract class Tile {
         return null;
     }
 
+    public void setDoublePropulsor(Boolean doublePropulsor) {
+        return;
+    }
+
     // laserTile methods
     public Boolean isDoubleLaser() {
         return null;

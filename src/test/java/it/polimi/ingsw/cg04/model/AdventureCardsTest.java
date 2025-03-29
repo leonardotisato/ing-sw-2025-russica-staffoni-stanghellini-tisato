@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.adventureCards.AbandonedShip;
-import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AdventureCardsTest {
@@ -63,7 +63,7 @@ public class AdventureCardsTest {
 //        p.getShip().addCrew(CrewType.HUMAN, 2, 2);
 //        p.getShip().addCrew(CrewType.HUMAN, 3, 2);
         p.getShip().setBoxes(boxes, 2, 3);
-        p.setCurrentCell(4);
+        game.getBoard().occupyCell(4, p);
     }
     
     @Test
@@ -83,5 +83,63 @@ public class AdventureCardsTest {
         assertEquals(0, p.getShip().getTile(3,2).getNumCrew());
         assertEquals(3, p.getCurrentCell());
         assertThrows(RuntimeException.class, () -> card.solveEffect(p, List.of(1), List.of(List.of(2,1))));
+    }
+
+    @Test
+    void testAbandonedStation() {
+        List<Map<BoxType,Integer>> newBoxes = new ArrayList<>();
+        newBoxes.add(new HashMap<>(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0)));
+        List<List<Integer>> coordinates = new ArrayList<>();
+        coordinates.add(List.of(2, 3));
+        game.setCurrentAdventureCard(game.getCardById(39));
+        AbandonedStation card = (AbandonedStation) game.getCurrentAdventureCard();
+        card.setMembersNeeded(4);
+        card.solveEffect(p, coordinates, newBoxes);
+        assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getBoxes());
+        assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
+        card.setMembersNeeded(7);
+        assertThrows(RuntimeException.class, () -> card.solveEffect(p, coordinates, newBoxes));
+    }
+
+    @Test
+    void testEpidemic() {;
+        game.setCurrentAdventureCard(game.getCardById(25));
+        Epidemic card = (Epidemic) game.getCurrentAdventureCard();
+        card.solveEffect(p);
+        assertEquals(2, p.getShip().getNumCrew());
+        assertEquals(1, p.getShip().getTile(2,2).getNumCrew());
+        assertEquals(1, p.getShip().getTile(3,2).getNumCrew());
+    }
+
+    @Test
+    void testOpenSpace(){
+        List<Integer> usedBatteries = new ArrayList<>();
+        List<List<Integer>> coordinates = new ArrayList<>();
+        game.setCurrentAdventureCard(game.getCardById(26));
+        OpenSpace card = (OpenSpace) game.getCurrentAdventureCard();
+        card.solveEffect(p, coordinates, usedBatteries);
+        assertEquals(5, p.getCurrentCell());
+        usedBatteries.add(1);
+        coordinates.add(List.of(2, 1));
+        card.solveEffect(p, coordinates, usedBatteries);
+        assertEquals(8, p.getCurrentCell());
+        assertEquals(2, p.getShip().getNumBatteries());
+        assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
+    }
+
+    @Test
+    void testPlanets(){
+        List<Map<BoxType,Integer>> newBoxes = new ArrayList<>();
+        newBoxes.add(new HashMap<>(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0)));
+        List<List<Integer>> coordinates = new ArrayList<>();
+        coordinates.add(List.of(2, 3));
+        game.setCurrentAdventureCard(game.getCardById(32));
+        Planets card = (Planets) game.getCurrentAdventureCard();
+        card.createListIsOccupied();
+        card.choosePlanet(1);
+        card.solveEffect(p, coordinates, newBoxes);
+        assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getBoxes());
+        assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
+        assertThrows(RuntimeException.class, () -> card.choosePlanet(1));
     }
 }

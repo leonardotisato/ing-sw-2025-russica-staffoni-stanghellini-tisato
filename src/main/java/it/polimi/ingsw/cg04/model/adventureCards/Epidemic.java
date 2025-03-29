@@ -29,14 +29,14 @@ public class Epidemic extends AdventureCard {
                             && tilesMatrix[i - 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
                     }
                     // look LEFT -> check tile type and connection
                     else if (j > 0 && tilesMatrix[i][j - 1] instanceof HousingTile
                             && tilesMatrix[i][j - 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
                     }
 
                     // look RIGHT -> check tile type and connection
@@ -44,7 +44,7 @@ public class Epidemic extends AdventureCard {
                             && tilesMatrix[i][j + 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
                     }
 
                     // look DOWN -> check tile type and connection
@@ -52,7 +52,7 @@ public class Epidemic extends AdventureCard {
                             && tilesMatrix[i + 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), 1, i, j);
+                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
                     }
 
                 }

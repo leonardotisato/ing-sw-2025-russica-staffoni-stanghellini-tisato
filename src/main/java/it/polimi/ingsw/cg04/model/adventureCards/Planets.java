@@ -11,6 +11,8 @@ import java.util.Map;
 public class Planets extends AdventureCard {
     @Expose
     private List<Map<BoxType, Integer>> planetReward;
+    private List<Boolean> isOccupied;
+
 
     public Planets() {
         super();
@@ -35,10 +37,26 @@ public class Planets extends AdventureCard {
         return planetReward.get(i).get(boxType);
     }
 
+    public void createListIsOccupied() {
+        isOccupied = new ArrayList<>();
+        int size = planetReward.size();
+        for (int i = 0; i < size; i++) {
+            isOccupied.add(false);
+        }
+    }
+
+    public void choosePlanet(int i){
+        if (isOccupied.get(i) == false) {
+            isOccupied.set(i, true);
+        }
+        else {
+            throw new RuntimeException("This planet is occupied");
+        }
+    }
     public void solveEffect(Player player, List<List<Integer>> coordinates, List<Map<BoxType, Integer>> boxes) {
         for (int i = 0; i < coordinates.size(); i++) {
             player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
         }
-        // in the controller we must call movePlayer for each players who landed in reverse order"
+        // in the controller we must call movePlayer for each player who landed in reverse order
     }
 }
