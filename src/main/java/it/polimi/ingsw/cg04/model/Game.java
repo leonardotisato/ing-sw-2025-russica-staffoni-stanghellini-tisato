@@ -305,6 +305,14 @@ public class Game {
         return this.currentAdventureCard;
     }
 
+    public AdventureCard getCurrentAdventureCard() {
+        return this.currentAdventureCard;
+    }
+
+    public void setCurrentAdventureCard(AdventureCard card) {
+        this.currentAdventureCard = card;
+    }
+
     public Tile getTileById(Integer id) {
         return tilesDeckMap.get(id);
     }
@@ -321,6 +329,7 @@ public class Game {
         return tilesDeckMap;
     }
 
+
     /**
      * Removes and returns the first tile from the face-down tile deck.
      * If the deck is empty, it throws a RuntimeException.
@@ -328,14 +337,6 @@ public class Game {
      * @return the first {@code Tile} from the face-down deck.
      * @throws RuntimeException if no face-down tiles are available.
      */
-
-    public AdventureCard getCurrentAdventureCard() {
-        return this.currentAdventureCard;
-    }
-    public void setCurrentAdventureCard(AdventureCard card) {
-        this.currentAdventureCard = card;
-    }
-
     public Tile drawFaceDownTile() {
         if (faceDownTiles.isEmpty()) {
             throw new RuntimeException("No face down tiles available");
