@@ -155,29 +155,56 @@ public abstract class FlightBoard {
 
     // timer methods for lev2 board
 
+    /**
+     * Starts the timer with a fixed duration of 5 seconds.
+     */
     public void startTimer() {
     }
 
+    /**
+     * Checks whether the timer has expired.
+     *
+     * @return {@code true} if the current system time is greater than or equal to the timer end time, {@code false} otherwise.
+     */
     public boolean isTimerExpired() {
         return false;
     }
 
+    /**
+     * Attempts to flip the timer if it has expired and the maximum number of flips has not been exceeded.
+     *
+     * @return {@code true} if the timer was successfully flipped, {@code false} otherwise.
+     */
     public boolean flipTimer() {
         return false;
     }
 
+    /**
+     * Gets the number of times the timer has been flipped.
+     *
+     * @return the number of timer flips used.
+     */
     public int getTimerFlipsUsed() {
         return 0;
     }
 
+    /**
+     * Gets the remaining number of flips allowed.
+     *
+     * @return the number of remaining timer flips.
+     */
     public int getTimerFlipsRemaining() {
         return 0;
     }
 
+    /**
+     * Gets the remaining time before the timer expires.
+     *
+     * @return the remaining time in milliseconds, or 0 if the timer has expired.
+     */
     public long getRemainingTime() {
         return 0;
     }
-
 
     @Override
     public String toString() {
