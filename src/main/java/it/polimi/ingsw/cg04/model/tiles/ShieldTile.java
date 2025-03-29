@@ -37,7 +37,7 @@ public class ShieldTile extends Tile {
                 Direction.LEFT, Direction.UP
         );
 
-        Set<Direction> newProtectedDirections = new HashSet<Direction>();
+        Set<Direction> newProtectedDirections = new HashSet<>();
         for (Direction dir : protectedDirections) {
             newProtectedDirections.add(rotationMap.get(dir));
         }

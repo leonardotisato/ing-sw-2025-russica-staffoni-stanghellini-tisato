@@ -68,7 +68,7 @@ public abstract class Tile {
                 Direction.LEFT, Direction.UP
         );
 
-        Map<Direction, Connection> newConnections = new HashMap<Direction, Connection>();
+        Map<Direction, Connection> newConnections = new HashMap<>();
         for (Direction dir : connections.keySet()) {
             newConnections.put(rotationMap.get(dir), connections.get(dir));
         }
@@ -227,7 +227,6 @@ public abstract class Tile {
     }
 
     public void setDoublePropulsor(Boolean doublePropulsor) {
-        return;
     }
 
     // laserTile methods

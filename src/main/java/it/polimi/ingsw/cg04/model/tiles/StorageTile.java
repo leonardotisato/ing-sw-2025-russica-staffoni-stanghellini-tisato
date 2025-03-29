@@ -77,6 +77,7 @@ public class StorageTile extends Tile {
             if(boxes.get(boxType) > 0) {
                 ship.removeBoxes(boxType, boxes.get(boxType));
             }
+            boxes.put(boxType, 0);
         }
     }
 

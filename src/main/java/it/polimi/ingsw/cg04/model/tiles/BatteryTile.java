@@ -42,6 +42,7 @@ public class BatteryTile extends Tile {
     @Override
     public void broken(Ship ship){
         ship.removeBatteries(numBatteries);
+        this.numBatteries = 0;
     }
 
     @Override

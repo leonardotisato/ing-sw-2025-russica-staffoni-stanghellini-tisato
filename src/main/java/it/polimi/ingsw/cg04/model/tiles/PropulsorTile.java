@@ -2,8 +2,6 @@ package it.polimi.ingsw.cg04.model.tiles;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Ship;
-import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
 
 public class PropulsorTile extends Tile {
 

@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.Ship;
-import javafx.scene.control.Slider;
 
 public class LaserTile extends Tile {
 

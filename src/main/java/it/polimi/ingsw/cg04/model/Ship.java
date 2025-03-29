@@ -2,8 +2,6 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.*;
 
-import it.polimi.ingsw.cg04.model.tiles.LaserTile;
-import it.polimi.ingsw.cg04.model.tiles.PropulsorTile;
 import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import java.util.HashSet;
@@ -30,7 +28,7 @@ public class Ship {
     private final Map<CrewType, Integer> crewMap;
     private final Map<BoxType, Integer> boxes;
     private final List<Direction> protectedDirections;
-    private List<Tile> tilesBuffer = new ArrayList<>();
+    private List<Tile> tilesBuffer;
 
 
     public Ship(int lev, PlayerColor playerColor) {
@@ -87,7 +85,6 @@ public class Ship {
 
     }
 
-
     public int getLevel() {
         return level;
     }
@@ -105,27 +102,6 @@ public class Ship {
         return validSlots;
     }
 
-    /**
-     * returns Tile in slot {@code x, y} and {@code null} if no tile is found in (x,y)
-     *
-     * @param x row
-     * @param y column
-     * @return the Tile in position {@code x, y} if present, {@code null} otherwise
-     * @throws IllegalArgumentException if the indexes are not valid
-     */
-    public Tile getTile(int x, int y) {
-
-        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
-            throw new IllegalArgumentException("Requested slot is out of bounds!");
-        }
-
-        if (!validSlots[x][y]) {
-            throw new IllegalArgumentException("Requested slot is not a valid slot!");
-        }
-
-        return tilesMatrix[x][y];
-    }
-
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
@@ -136,6 +112,38 @@ public class Ship {
 
     public int getShipHeight(){
         return shipHeight;
+    }
+
+    /**
+     * checks if the indexes are inside the matrix
+     *
+     * @param x row
+     * @param y column
+     * @return {@code true} if indexes out of bounds {@code false} if inbound
+     */
+    public boolean isOutOfBounds(int x, int y) {
+        return x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth;
+    }
+
+    /**
+     * returns Tile in slot {@code x, y} and {@code null} if no tile is found in (x,y)
+     *
+     * @param x row
+     * @param y column
+     * @return the Tile in position {@code x, y} if present, {@code null} otherwise
+     * @throws IllegalArgumentException if the indexes are not valid
+     */
+    public Tile getTile(int x, int y) {
+
+        if (isOutOfBounds(x, y)) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+
+        if (!validSlots[x][y]) {
+            throw new IllegalArgumentException("Requested slot is not a valid slot!");
+        }
+
+        return tilesMatrix[x][y];
     }
 
     /**
@@ -152,7 +160,7 @@ public class Ship {
      * {@code false} if slot is invalid or already taken or the selected tile is {@code null}
      */
     public boolean placeTile(Tile tile, int x, int y) {
-        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) {
+        if (isOutOfBounds(x, y)) {
             throw new IllegalArgumentException("Requested slot is out of bounds!");
         }
         // check if tile != null
@@ -170,44 +178,6 @@ public class Ship {
             return false;
         }
 
-        /*
-        // check that placed tile neighbours another tile. let pass any connection, "punish" illegal behaviours later in isShipLegal()
-        boolean connectionExists = false;
-        Connection currConnection, otherConnection = null;
-        if (x != 0) {
-            currConnection = tile.getConnection(Direction.UP);
-            otherConnection = tile.getConnection(Direction.DOWN);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (y != 0) {
-            currConnection = tile.getConnection(Direction.LEFT);
-            otherConnection = tile.getConnection(Direction.RIGHT);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (x != this.shipHeight - 1) {
-            currConnection = tile.getConnection(Direction.DOWN);
-            otherConnection = tile.getConnection(Direction.UP);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (y != this.shipWidth - 1) {
-            currConnection = tile.getConnection(Direction.RIGHT);
-            otherConnection = tile.getConnection(Direction.LEFT);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-
-        if (!connectionExists) {
-            return false;
-        }
-        */
-
         tilesMatrix[x][y] = tile;   // place tile in the ship
         tile.place(this);   // update resources and tiles params
         updateExposedConnectors();  // update exposedConnectors attribute
@@ -224,8 +194,8 @@ public class Ship {
      * @param y column
      * @throws IllegalArgumentException if hte slot is not valid or if there is not a tile in the slot
      */
-    public void breakTile(Integer x, Integer y) {
-        if (x < 0 || y < 0 || x >= this.shipHeight || y >= this.shipWidth) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
+    public void breakTile(int x, int y) {
+        if (isOutOfBounds(x, y)) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is not a valid slot!"); }
 
@@ -301,7 +271,10 @@ public class Ship {
      * @param y column
      */
     public void removeBatteries(int usedBatteries, int x, int y) {
-        this.removeBatteries(usedBatteries);
+        if (numBatteries < usedBatteries) {
+            throw new IllegalArgumentException("non enough batteries!");
+        }
+        numBatteries -= usedBatteries;
         getTile(x, y).removeBatteries(usedBatteries);
     }
 
@@ -405,7 +378,7 @@ public class Ship {
             throw new RuntimeException("not a StorageTile!");
         }
 
-        Map <BoxType, Integer> oldBoxes = new HashMap<>();
+        Map <BoxType, Integer> oldBoxes;
         oldBoxes = currTile.getBoxes();
 
         for(BoxType type : BoxType.values()) {
@@ -423,22 +396,6 @@ public class Ship {
                 this.boxes.put(type, this.boxes.get(type) + delta);
             }
         }
-
-        /*
-        for(BoxType type : BoxType.values()) {
-            if(newBoxes.get(type) > oldBoxes.get(type)) {
-                int delta = newBoxes.get(type) - oldBoxes.get(type);
-                currTile.addBox(type, delta);
-                this.boxes.put(type, this.boxes.get(type) + delta);
-            }
-
-            if(newBoxes.get(type) < oldBoxes.get(type)) {
-                int delta = oldBoxes.get(type) - newBoxes.get(type);
-                currTile.removeBox(type, delta);
-                this.boxes.put(type, this.boxes.get(type) - delta);
-            }
-        }
-        */
     }
 
     /**
@@ -459,12 +416,34 @@ public class Ship {
     }
 
     /**
+     * removes {@code num} crewMembers of type {@code type} from the HousingTile at position {@code x, y}
+     * and from {@code this.crewMap}
+     *
+     * @param type type of crewMembers to be removed
+     * @param x row
+     * @param y column
+     * @param num number of crewMembers to be removed
+     * @throws RuntimeException if there are not enough members to be removed in {@code this.crewMap}
+     */
+    public void removeCrew(CrewType type, int x, int y, int num) {
+        // remove crewMembers from tile
+        for(int i = 0; i<num; i++) {
+            getTile(x, y).removeCrewMember();
+        }
+
+        // remove crewMembers from ship
+        if (crewMap.get(type) < num) {
+            throw new RuntimeException("not enough crewMembers to remove");
+        }
+        crewMap.put(type, this.getNumCrewByType(type) - num);
+    }
+
+    /**
      * adds a single crewMember of type {@code type} to {@code this.crewMap}
      *
      * @param type type of crewMember to add
      */
     public void addCrewByType(CrewType type) {
-        // todo: may needs exceptions
         crewMap.put(type, this.getNumCrewByType(type) + 1);
     }
 
@@ -490,29 +469,6 @@ public class Ship {
         }
         crewMap.put(type, this.getNumCrewByType(type) + 1);
         getTile(x, y).addCrew(type);
-    }
-
-    /**
-     * removes {@code num} crewMembers of type {@code type} from the HousingTile at position {@code x, y}
-     * and from {@code this.crewMap}
-     *
-     * @param type type of crewMembers to be removed
-     * @param x row
-     * @param y column
-     * @param num number of crewMembers to be removed
-     * @throws RuntimeException if there are not enough members to be removed in {@code this.crewMap}
-     */
-    public void removeCrew(CrewType type, int x, int y, int num) {
-        // remove crewMembers from tile
-        for(int i = 0; i<num; i++) {
-            getTile(x, y).removeCrewMember();
-        }
-
-        // remove crewMembers from ship
-        if (crewMap.get(type) < num) {
-            throw new RuntimeException("not enough crewMembers to remove");
-        }
-        crewMap.put(type, this.getNumCrewByType(type) - num);
     }
 
 
@@ -630,23 +586,6 @@ public class Ship {
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
 
-
-                    /*
-                    // check you don't have a tile directly under a propulsor and check propulsor is pointing down
-                    if (currTile instanceof PropulsorTile && (currTile.getConnection(Direction.DOWN) != Connection.PROPULSOR  || (i != shipHeight - 1 && tilesMatrix[i+1][j] != null))) {
-                        return false;
-                    }
-
-                    // check that you don't have a tile directly in front of the gun
-                    if (currTile instanceof LaserTile && (i!=0 && tilesMatrix[i-1][j] != null && currTile.getConnection(Direction.UP) == Connection.GUN)
-                            || (i != shipHeight - 1 && tilesMatrix[i+1][j] != null && currTile.getConnection(Direction.DOWN) == Connection.GUN)
-                            || (j != 0 && tilesMatrix[i][j-1] != null && currTile.getConnection(Direction.LEFT) == Connection.GUN)
-                            || (j != shipWidth - 1 && tilesMatrix[i][j+1] != null) && currTile.getConnection(Direction.RIGHT) == Connection.GUN) {
-                        return false;
-                    }
-                    */
-
-
                     if (i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;
                     }
@@ -684,7 +623,7 @@ public class Ship {
             for(int j = 0; j<shipWidth; j++) {
                 if (tilesMatrix[i][j] != null) {
                     totalTiles++;
-                    if(startX == -1 && startY == -1) {
+                    if(startX == -1) {
                         startX = i;
                         startY = j;
                     }

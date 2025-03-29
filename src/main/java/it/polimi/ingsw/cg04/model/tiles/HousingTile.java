@@ -95,14 +95,14 @@ public class HousingTile extends Tile {
     // remove all the crewMembers and remove this from all the AlienSupportTiles Adjacent list
     @Override
     public void broken(Ship ship) {
-        // may occur that HousingTile is empty this methode is called
+        // may occur that HousingTile is empty when this methode is called
         if(hostedCrewType != null) {
             if (hostedCrewType == CrewType.HUMAN) {
                 for (int i = numCrew; i > 0; i--) {
                     ship.removeCrewByType(CrewType.HUMAN);
+                    this.removeCrewMember();
                 }
             } else ship.removeCrewByType(hostedCrewType);
-            hostedCrewType = null;
         }
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile
