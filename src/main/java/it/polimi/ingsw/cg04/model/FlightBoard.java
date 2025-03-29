@@ -109,7 +109,7 @@ public abstract class FlightBoard {
         int stepsTaken = 0;
 
 
-        if (Arrays.stream(path).toList().contains(player)){
+        if (Arrays.stream(path).toList().contains(player)) {
             if (Arrays.stream(path).toList().indexOf(player) != oldPlayerCell) {
                 throw new RuntimeException("Player vs Board cell mismatch");
             }
@@ -152,6 +152,32 @@ public abstract class FlightBoard {
     public int getMostBeautifulShipCredits() {
         return mostBeautifulShipCredits;
     }
+
+    // timer methods for lev2 board
+
+    public void startTimer() {
+    }
+
+    public boolean isTimerExpired() {
+        return false;
+    }
+
+    public boolean flipTimer() {
+        return false;
+    }
+
+    public int getTimerFlipsUsed() {
+        return 0;
+    }
+
+    public int getTimerFlipsRemaining() {
+        return 0;
+    }
+
+    public long getRemainingTime() {
+        return 0;
+    }
+
 
     @Override
     public String toString() {
