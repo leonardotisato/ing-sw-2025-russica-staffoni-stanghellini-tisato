@@ -19,6 +19,7 @@ class TileTest {
     private Tile storageTile26;
     private Tile laserTile134;
     private Tile laserTile123;
+    private Tile propulsorTile71;
 
     @BeforeEach
     void setUp() {
@@ -35,6 +36,7 @@ class TileTest {
         storageTile26 = tiles.get(26);
         laserTile134 = tiles.get(134);
         laserTile123 = tiles.get(123);
+        propulsorTile71 = tiles.get(71);
     }
 
     @AfterEach
@@ -106,6 +108,15 @@ class TileTest {
 
         // check connection vs laser gun
         assertFalse(laserTile123.isValidConnection(Direction.UP, storageTile26));
+        assertFalse(laserTile134.isValidConnection(Direction.UP, storageTile26));
+        assertFalse(storageTile26.isValidConnection(Direction.DOWN, laserTile123));
+        assertFalse(laserTile134.isValidConnection(Direction.UP, laserTile123));
+
+        // check connection propulsor on top of other tile
+        assertFalse(propulsorTile71.isValidConnection(Direction.DOWN, storageTile26));
+        assertFalse(storageTile26.isValidConnection(Direction.UP, propulsorTile71));
+
+
     }
 
     @Test

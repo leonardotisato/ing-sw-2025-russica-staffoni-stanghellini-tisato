@@ -305,6 +305,14 @@ public class Game {
         return this.currentAdventureCard;
     }
 
+    public AdventureCard getCurrentAdventureCard() {
+        return this.currentAdventureCard;
+    }
+
+    public void setCurrentAdventureCard(AdventureCard card) {
+        this.currentAdventureCard = card;
+    }
+
     public Tile getTileById(Integer id) {
         return tilesDeckMap.get(id);
     }
@@ -320,12 +328,7 @@ public class Game {
     public Map<Integer, Tile> getTilesDeckMap() {
         return tilesDeckMap;
     }
-    public AdventureCard getCurrentAdventureCard() {
-        return this.currentAdventureCard;
-    }
-    public void setCurrentAdventureCard(AdventureCard card) {
-        this.currentAdventureCard = card;
-    }
+
 
     /**
      * Removes and returns the first tile from the face-down tile deck.

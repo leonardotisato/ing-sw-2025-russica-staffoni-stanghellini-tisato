@@ -16,8 +16,8 @@ public class Ship {
     private final PlayerColor color;
     private final int shipHeight;
     private final int shipWidth;
-    private Tile[][] tilesMatrix;
-    private boolean[][] validSlots;
+    private final Tile[][] tilesMatrix;
+    private final boolean[][] validSlots;
 
     private final Set<Connection> connectors = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
 
@@ -27,9 +27,9 @@ public class Ship {
     private double baseFirePower = 0;
     private int basePropulsionPower = 0;
 
-    private Map<CrewType, Integer> crewMap;
-    private Map<BoxType, Integer> boxes;
-    private List<Direction> protectedDirections;
+    private final Map<CrewType, Integer> crewMap;
+    private final Map<BoxType, Integer> boxes;
+    private final List<Direction> protectedDirections;
     private List<Tile> tilesBuffer = new ArrayList<>();
 
 
@@ -334,6 +334,23 @@ public class Ship {
         oldBoxes = currTile.getBoxes();
 
         for(BoxType type : BoxType.values()) {
+            if(newBoxes.get(type) < oldBoxes.get(type)) {
+                int delta = oldBoxes.get(type) - newBoxes.get(type);
+                currTile.removeBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) - delta);
+            }
+        }
+
+        for(BoxType type : BoxType.values()) {
+            if(newBoxes.get(type) > oldBoxes.get(type)) {
+                int delta = newBoxes.get(type) - oldBoxes.get(type);
+                currTile.addBox(type, delta);
+                this.boxes.put(type, this.boxes.get(type) + delta);
+            }
+        }
+
+        /*
+        for(BoxType type : BoxType.values()) {
             if(newBoxes.get(type) > oldBoxes.get(type)) {
                 int delta = newBoxes.get(type) - oldBoxes.get(type);
                 currTile.addBox(type, delta);
@@ -346,6 +363,7 @@ public class Ship {
                 this.boxes.put(type, this.boxes.get(type) - delta);
             }
         }
+        */
     }
 
     public void removeCrewByType(CrewType type) {
@@ -586,7 +604,7 @@ public class Ship {
         return visitedTiles == totalTiles;
     }
 
-    // // todo: metodo non fininto, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
+    // // todo: metodo non finito, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
@@ -631,7 +649,7 @@ public class Ship {
         return false;
     }
 
-    // todo: metodo non fininto, fare distinzioni tra LIGHT e HEAVY
+    // todo: metodo non finito, fare distinzioni tra LIGHT e HEAVY
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleShot(Direction dir, Shot shot, int k) {

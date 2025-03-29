@@ -30,9 +30,9 @@ public abstract class Tile {
     }
 
     // serve???
-    public void setType(String type) {
-        this.type = type;
-    }
+//    public void setType(String type) {
+//        this.type = type;
+//    }
 
     public Integer getId() {
         return id;
@@ -45,10 +45,20 @@ public abstract class Tile {
     public void broken(Ship ship){
         // todo: implement in each specific tile
         // todo: count connectors?
-        return;
     }
 
-    // clockwise rotation of the Tile
+    /**
+     * Rotates the Tile 90 degrees clockwise.
+     * <p>
+     * This method rotates the Tile’s connections in a clockwise direction, updating the direction of
+     * each connection as follows:
+     * <ul>
+     *     <li>UP → RIGHT</li>
+     *     <li>RIGHT → DOWN</li>
+     *     <li>DOWN → LEFT</li>
+     *     <li>LEFT → UP</li>
+     * </ul>
+     */
     public void rotate90dx() {
 
         Map<Direction, Direction> rotationMap = Map.of(
@@ -65,24 +75,38 @@ public abstract class Tile {
         connections = newConnections;
     }
 
+    /**
+     * Rotates the Tile 180 degrees by performing two 90 degrees clockwise rotations.
+     */
     public void rotate180() {
         rotate90dx();
         rotate90dx();
     }
 
-    // counterclockwise rotation of the Tile
+    /**
+     * Rotates the Tile 90 degrees counterclockwise.
+     */
     public void rotate90sx() {
         rotate90dx();
         rotate90dx();
         rotate90dx();
     }
 
+    /**
+     * Retrieves the connection associated with the specified direction.
+     *
+     * @param dir The direction for which the connection is to be retrieved.
+     *            Must be one of the valid directions defined in the {@link Direction} enum.
+     *
+     * @return The {@link Connection} associated with the specified direction.
+     */
     public Connection getConnection(Direction dir) {
         return connections.get(dir);
     }
-    public void setConnections(Map<Direction, Connection> connections) {
-        this.connections = connections;
-    }
+
+//    public void setConnections(Map<Direction, Connection> connections) {
+//        this.connections = connections;
+//    }
 
     // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
