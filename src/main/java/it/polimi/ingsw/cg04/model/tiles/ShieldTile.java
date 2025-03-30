@@ -58,12 +58,12 @@ public class ShieldTile extends Tile {
     }
 
     @Override
-    public void broken(Ship ship) {
+    public void broken(Ship ship, int x, int y) {
         ship.removeProtectedDirections(getProtectedDirections());
     }
 
     @Override
-    public void place(Ship ship) {
+    public void place(Ship ship, int x, int y) {
         ship.addProtectedDirections(getProtectedDirections());
     }
 }

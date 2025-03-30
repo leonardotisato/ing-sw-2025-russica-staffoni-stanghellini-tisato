@@ -94,15 +94,18 @@ public class HousingTile extends Tile {
 
     // remove all the crewMembers and remove this from all the AlienSupportTiles Adjacent list
     @Override
-    public void broken(Ship ship) {
+    public void broken(Ship ship, int x, int y) {
         // may occur that HousingTile is empty when this methode is called
         if(hostedCrewType != null) {
+            ship.removeCrew(hostedCrewType, x, y, numCrew);
+            /*
             if (hostedCrewType == CrewType.HUMAN) {
                 for (int i = numCrew; i > 0; i--) {
                     ship.removeCrewByType(CrewType.HUMAN);
                     this.removeCrewMember();
                 }
             } else ship.removeCrewByType(hostedCrewType);
+             */
         }
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile
@@ -123,14 +126,17 @@ public class HousingTile extends Tile {
     // check every adjacent tile, if there is a AlienSupportTile add this to it's adjacentList, update this.supportedCrewTypes
     // lastly remove humans and leave the choice about the crew to the player after building the ship
     @Override
-    public void place(Ship ship) {
+    public void place(Ship ship, int x, int y) {
         // every HousingTile supports humans
         this.addSupportedCrewType(CrewType.HUMAN);
 
         // initially add 2 humans, remove them if there is a LifeSupportTile adjacent and leave the choice of hostedCrewType to the player
-        this.addCrew(CrewType.HUMAN);
+        //this.addCrew(CrewType.HUMAN);
+        ship.addCrew(CrewType.HUMAN, x, y); // adds crew members both in this tile and ship
+        /*
         ship.addCrewByType(CrewType.HUMAN);
         ship.addCrewByType(CrewType.HUMAN);
+         */
 
         int shipHeight = ship.getTilesMatrix().length;
         int shipWidth = ship.getTilesMatrix()[0].length;
@@ -145,10 +151,11 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        this.removeCrewMember();
-                        this.removeCrewMember();
-                        ship.removeCrewByType(CrewType.HUMAN);
-                        ship.removeCrewByType(CrewType.HUMAN);
+                        //this.removeCrewMember();
+                        //this.removeCrewMember();
+                        ship.removeCrew(CrewType.HUMAN, x, y, 2); // removes humans in both ship and tile attributes
+                        //ship.removeCrewByType(CrewType.HUMAN);
+                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i - 1][j].getSupportedAlienColor());
                     }
 
@@ -158,10 +165,11 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        this.removeCrewMember();
-                        this.removeCrewMember();
-                        ship.removeCrewByType(CrewType.HUMAN);
-                        ship.removeCrewByType(CrewType.HUMAN);
+                        //this.removeCrewMember();
+                        //this.removeCrewMember();
+                        ship.removeCrew(CrewType.HUMAN, x, y, 2);
+                        //ship.removeCrewByType(CrewType.HUMAN);
+                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i][j - 1].getSupportedAlienColor());
                     }
 
@@ -171,10 +179,11 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        this.removeCrewMember();
-                        this.removeCrewMember();
-                        ship.removeCrewByType(CrewType.HUMAN);
-                        ship.removeCrewByType(CrewType.HUMAN);
+                        //this.removeCrewMember();
+                        //this.removeCrewMember();
+                        ship.removeCrew(CrewType.HUMAN, x, y, 2);
+                        //ship.removeCrewByType(CrewType.HUMAN);
+                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i][j + 1].getSupportedAlienColor());
                     }
 
@@ -184,10 +193,11 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        this.removeCrewMember();
-                        this.removeCrewMember();
-                        ship.removeCrewByType(CrewType.HUMAN);
-                        ship.removeCrewByType(CrewType.HUMAN);
+                        //this.removeCrewMember();
+                        //this.removeCrewMember();
+                        ship.removeCrew(CrewType.HUMAN, x, y, 2);
+                        //ship.removeCrewByType(CrewType.HUMAN);
+                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i + 1][j].getSupportedAlienColor());
                     }
                     return;

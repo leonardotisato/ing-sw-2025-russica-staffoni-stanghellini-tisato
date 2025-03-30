@@ -179,7 +179,7 @@ public class Ship {
         }
 
         tilesMatrix[x][y] = tile;   // place tile in the ship
-        tile.place(this);   // update resources and tiles params
+        tile.place(this, x, y);   // update resources and tiles params
         updateExposedConnectors();  // update exposedConnectors attribute
 
         return true;
@@ -199,7 +199,7 @@ public class Ship {
         if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is not a valid slot!"); }
 
-        this.getTile(x, y).broken(this);
+        this.getTile(x, y).broken(this, x, y);
         this.tilesMatrix[x][y] = null;
         this.updateExposedConnectors();
         this.numBrokenTiles++;
@@ -426,6 +426,9 @@ public class Ship {
      * @throws RuntimeException if there are not enough members to be removed in {@code this.crewMap}
      */
     public void removeCrew(CrewType type, int x, int y, int num) {
+
+        if(type == null) { return; }
+
         // remove crewMembers from tile
         for(int i = 0; i<num; i++) {
             getTile(x, y).removeCrewMember();
@@ -460,7 +463,7 @@ public class Ship {
         if(type == CrewType.HUMAN){
             crewMap.put(type, this.getNumCrewByType(type) + 2);
             getTile(x, y).addCrew(type);
-            getTile(x, y).addCrew(type);
+            //getTile(x, y).addCrew(type);
             return;
         }
 

@@ -40,13 +40,14 @@ public class BatteryTile extends Tile {
     }
 
     @Override
-    public void broken(Ship ship){
-        ship.removeBatteries(numBatteries);
-        this.numBatteries = 0;
+    public void broken(Ship ship, int x, int y) {
+        ship.removeBatteries(numBatteries, x, y);
+        //ship.removeBatteries(numBatteries);
+        //this.numBatteries = 0;
     }
 
     @Override
-    public void place(Ship ship){
+    public void place(Ship ship, int x, int y){
         this.numBatteries = this.maxBatteryCapacity;
         ship.addBatteries(numBatteries);
     }

@@ -38,11 +38,11 @@ public abstract class Tile {
         return id;
     }
 
-    public void place(Ship ship) {
+    public void place(Ship ship, int x, int y) {
         // todo: implement each tile with specific tile-ship attributes updates
     }
 
-    public void broken(Ship ship){
+    public void broken(Ship ship, int x, int y) {
         // todo: implement in each specific tile
         // todo: count connectors?
     }

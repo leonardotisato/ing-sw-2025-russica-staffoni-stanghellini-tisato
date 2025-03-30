@@ -71,14 +71,28 @@ public class StorageTile extends Tile {
     }
 
     @Override
-    public void broken(Ship ship) {
+    public void broken(Ship ship, int x, int y) {
         // rimuove tutti i box un tipo alla volta
+        Map <BoxType, Integer> emptyStorage = new HashMap<>();
+        emptyStorage.put(BoxType.BLUE, 0);
+        emptyStorage.put(BoxType.RED, 0);
+        emptyStorage.put(BoxType.YELLOW, 0);
+        emptyStorage.put(BoxType.GREEN, 0);
+
+        ship.setBoxes(emptyStorage, x, y);
+        /*
         for(BoxType boxType : BoxType.values()) {
-            if(boxes.get(boxType) > 0) {
-                ship.removeBoxes(boxType, boxes.get(boxType));
+
+            //if(boxes.get(boxType) > 0) {
+            //    ship.removeBoxes(boxType, boxes.get(boxType));
+            //}
+
+            while (boxes.get(boxType) > 0) {
+                ship.removeBox(boxType, x, y);
             }
             boxes.put(boxType, 0);
         }
+        */
     }
 
     // no need to override place methode

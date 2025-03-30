@@ -34,7 +34,7 @@ public class LaserTile extends Tile {
     }
 
     @Override
-    public void broken(Ship ship){
+    public void broken(Ship ship, int x, int y) {
         if(!isDoubleLaser){
             if(getShootingDirection() == Direction.UP){
                 ship.updateBaseFirePower(-1);
@@ -42,7 +42,7 @@ public class LaserTile extends Tile {
         }
     }
 
-    public void place(Ship ship){
+    public void place(Ship ship, int x, int y) {
         if(!isDoubleLaser){
             if(getShootingDirection() == Direction.UP) {
                 ship.updateBaseFirePower(1);

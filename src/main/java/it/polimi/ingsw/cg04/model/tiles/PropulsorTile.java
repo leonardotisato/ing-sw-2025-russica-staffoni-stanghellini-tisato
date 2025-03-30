@@ -21,14 +21,14 @@ public class PropulsorTile extends Tile {
     }
 
     @Override
-    public void broken(Ship ship){
+    public void broken(Ship ship, int x, int y) {
         if(!isDoublePropulsor){
             ship.updateBasePropulsionPower(-1);
         }
     }
 
     @Override
-    public void place(Ship ship) {
+    public void place(Ship ship, int x, int y) {
         if(!isDoublePropulsor){
             ship.updateBasePropulsionPower(1);
         }
