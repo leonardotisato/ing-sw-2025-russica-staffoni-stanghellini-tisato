@@ -52,6 +52,9 @@ public abstract class AdventureCard {
     public int getLostGoods() {
         return 0;
     }
+    public List<Boolean> getIsOccupied() {
+        return null;
+    }
 
 
 }

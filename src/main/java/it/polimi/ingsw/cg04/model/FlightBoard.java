@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg04.model;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public abstract class FlightBoard {
@@ -11,6 +13,8 @@ public abstract class FlightBoard {
     protected Bank bank;
     protected Map<Integer, Integer> endGameCredits;
     protected int mostBeautifulShipCredits;
+    // for testing purposes
+    protected final Random rand = new Random();
 
     public FlightBoard() {
     }
@@ -205,6 +209,8 @@ public abstract class FlightBoard {
     public long getRemainingTime() {
         return 0;
     }
+
+    public List<Integer> createAdventureCardsDeck(Game game) { return null; }
 
     @Override
     public String toString() {

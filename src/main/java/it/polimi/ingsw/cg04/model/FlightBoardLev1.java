@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg04.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class FlightBoardLev1 extends FlightBoard{
     public FlightBoardLev1(){
@@ -22,6 +24,10 @@ public class FlightBoardLev1 extends FlightBoard{
         this.mostBeautifulShipCredits = 2;
     }
 
-
-
+    @Override
+    public List<Integer> createAdventureCardsDeck(Game game) {
+        List<Integer> adventureCardsDeck = new ArrayList<>(List.of(1, 3, 4, 8, 12, 15, 17, 18));
+        Collections.shuffle(adventureCardsDeck, rand);
+        return adventureCardsDeck;
+    }
 }

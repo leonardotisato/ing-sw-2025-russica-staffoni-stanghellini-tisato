@@ -136,10 +136,10 @@ public class AdventureCardsTest {
         game.setCurrentAdventureCard(game.getCardById(32));
         Planets card = (Planets) game.getCurrentAdventureCard();
         card.createListIsOccupied();
-        card.choosePlanet(1);
+        p.choosePlanet(1);
         card.solveEffect(p, coordinates, newBoxes);
         assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getBoxes());
         assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
-        assertThrows(RuntimeException.class, () -> card.choosePlanet(1));
+        assertThrows(RuntimeException.class, () -> p.choosePlanet(1));
     }
 }

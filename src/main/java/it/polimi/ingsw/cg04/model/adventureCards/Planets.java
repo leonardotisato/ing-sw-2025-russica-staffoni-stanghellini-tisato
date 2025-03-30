@@ -37,6 +37,9 @@ public class Planets extends AdventureCard {
         return planetReward.get(i).get(boxType);
     }
 
+    public List<Boolean> getIsOccupied() {
+        return isOccupied;
+    }
     public void createListIsOccupied() {
         isOccupied = new ArrayList<>();
         int size = planetReward.size();
@@ -45,14 +48,6 @@ public class Planets extends AdventureCard {
         }
     }
 
-    public void choosePlanet(int i){
-        if (isOccupied.get(i) == false) {
-            isOccupied.set(i, true);
-        }
-        else {
-            throw new RuntimeException("This planet is occupied");
-        }
-    }
     public void solveEffect(Player player, List<List<Integer>> coordinates, List<Map<BoxType, Integer>> boxes) {
         for (int i = 0; i < coordinates.size(); i++) {
             player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));

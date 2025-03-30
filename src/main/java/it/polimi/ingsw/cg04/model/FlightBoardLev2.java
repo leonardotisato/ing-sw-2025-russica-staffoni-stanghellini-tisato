@@ -1,6 +1,9 @@
 package it.polimi.ingsw.cg04.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class FlightBoardLev2 extends FlightBoard {
 
@@ -58,5 +61,14 @@ public class FlightBoardLev2 extends FlightBoard {
     public long getRemainingTime() {
         long remainingTime = timerEndTime - System.currentTimeMillis();
         return Math.max(0, remainingTime);
+    }
+
+    public List<Integer> createAdventureCardsDeck(Game game) {
+        List<Integer> adventureCardsDeck = new ArrayList<>();
+        for (List<Integer> pile : game.getPreFlightPiles()) {
+            adventureCardsDeck.addAll(pile);
+        }
+        Collections.shuffle(adventureCardsDeck, rand);
+        return adventureCardsDeck;
     }
 }

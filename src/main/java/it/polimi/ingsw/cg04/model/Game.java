@@ -277,12 +277,14 @@ public class Game {
 
     // cards and tiles handling
 
+    /**
+     * Builds the adventure cards deck.
+     * <p>
+     * This method creates the deck basing on the dynamic type of the board,
+     * distinguishing between level 2 and test match.
+     */
     public void createAdventureDeck() {
-        this.adventureCardsDeck = new ArrayList<>();
-        for (List<Integer> pile : preFlightPiles) {
-            this.adventureCardsDeck.addAll(pile);
-        }
-        Collections.shuffle(this.adventureCardsDeck, rand);
+        this.adventureCardsDeck = this.board.createAdventureCardsDeck(this);
     }
 
     public void buildPiles() {
@@ -295,6 +297,9 @@ public class Game {
         }
     }
 
+    public List<List<Integer>> getPreFlightPiles() {
+        return this.preFlightPiles;
+    }
     public AdventureCard getCardById(Integer id) {
         return adventureCardsMap.get(id);
     }

@@ -287,4 +287,22 @@ public class Player {
     public void useBattery(int x, int y) {
 
     }
+
+    /**
+     * Chooses the planet where the player wants to land.
+     * <p>
+     * The method takes the index of the planet, the list IsOccupied and the playerState are updated.
+     *
+     * @param i the index of the chosen planet.
+     * @throws RuntimeException if the chosen planet is already occupied.
+     */
+    public void choosePlanet(int i){
+        if (!this.game.getCurrentAdventureCard().getIsOccupied().get(i)) {
+            this.game.getCurrentAdventureCard().getIsOccupied().set(i, true);
+            this.setState(PlayerState.HANDLE_RESOURCES);
+        }
+        else {
+            throw new RuntimeException("This planet is occupied");
+        }
+    }
 }
