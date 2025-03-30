@@ -260,7 +260,7 @@ public class Game {
     // todo: test
     public void checkShips() {
         for (Player p : players) {
-            if (!p.getShip().isShipLegal()) p.setState(PlayerState.SHIP_CORRECTION);
+            if (!p.getShip().isShipLegal()) p.setState(PlayerState.FIX_SHIP);
             else p.setState(PlayerState.FLIGHT);
         }
     }

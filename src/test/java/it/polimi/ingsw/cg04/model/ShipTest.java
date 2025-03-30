@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
+import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +42,6 @@ class ShipTest {
     private Tile alienSupportTile141;
     private Tile alienSupportTile142;
     private Tile alienSupportTile143;
-
 
 
     @BeforeEach
@@ -106,6 +107,17 @@ class ShipTest {
 
         // returns null if tile not present
         assertNull(lev1Ship.getTile(1, 1));
+
+        // check central tile is correct
+        assertInstanceOf(HousingTile.class, lev1Ship.getTile(2, 2));
+        assertTrue(lev1Ship.getTile(2, 2).isCentralTile());
+        assertEquals(33, lev1Ship.getTile(2,2).getId());
+
+        // check central tile is correct
+        assertInstanceOf(HousingTile.class, lev2Ship.getTile(2, 3));
+        assertTrue(lev2Ship.getTile(2, 3).isCentralTile());
+        assertEquals(52, lev2Ship.getTile(2,3).getId());
+
     }
 
     @Test
@@ -123,7 +135,9 @@ class ShipTest {
     @Test
     void placeTile() {
 
-        assertFalse(lev1Ship.placeTile(null, 2, 2));
+        assertFalse(lev1Ship.placeTile(storageTile26, 2, 2), "Tile cannot be placed in the center where the central housing tile should be!");
+        assertFalse(lev2Ship.placeTile(storageTile26, 2,3), "Tile cannot be placed in the center where the central housing tile should be!");
+        assertFalse(lev1Ship.placeTile(null, 3, 2), "Null tile cannot be placed!");
         assertFalse(lev1Ship.placeTile(storageTile26, 0, 0));
         assertFalse(lev1Ship.placeTile(storageTile26, 1, 0));
         assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, -1, 0));
@@ -132,9 +146,9 @@ class ShipTest {
         assertThrows(IllegalArgumentException.class, () -> lev1Ship.placeTile(storageTile26, 5, 1));
 
         // check init params are ok
-        assertEquals(0, lev1Ship.getNumCrew());
+        assertEquals(2, lev1Ship.getNumCrew(), "Initial crew should be 2, as central housing tile hosts 2 humans");
         assertEquals(0, lev1Ship.getNumBatteries());
-        assertEquals(0, lev1Ship.getNumExposedConnectors());
+        assertEquals(4, lev1Ship.getNumExposedConnectors(), "Initial exposed connectors should be 4, as central housing tile has 4 universal connectors");
         assertEquals(0, lev2Ship.getBaseFirePower());
         assertEquals(0, lev1Ship.getBasePropulsionPower());
         assertTrue(lev1Ship.getProtectedDirections().isEmpty());
@@ -158,17 +172,17 @@ class ShipTest {
 
         // storage -> check is in place
         lev1Ship.placeTile(storageTile26, 1, 1);
-        assertEquals(storageTile26, lev1Ship.getTile(1,1));
+        assertEquals(storageTile26, lev1Ship.getTile(1, 1));
 
         // shield -> check is in place + check added protected directions
         lev1Ship.placeTile(shieldTile151, 1, 2);
-        assertEquals(shieldTile151, lev1Ship.getTile(1,2));
+        assertEquals(shieldTile151, lev1Ship.getTile(1, 2));
         // list in ship and set in tile may cause problems
         assertTrue(lev1Ship.getProtectedDirections().containsAll(shieldTile151.getProtectedDirections()));
 
         // structural -> check is in place
         lev1Ship.placeTile(structuralTile58, 1, 3);
-        assertEquals(structuralTile58, lev1Ship.getTile(1,3));
+        assertEquals(structuralTile58, lev1Ship.getTile(1, 3));
 
         // propulsion -> check is in place + check increased baseFrePower if !double
         lev1Ship.placeTile(propulsorTile71, 2, 0);
@@ -176,8 +190,9 @@ class ShipTest {
         lev1Ship.placeTile(propulsorTile97, 2, 1);
         assertEquals(1, lev1Ship.getBasePropulsionPower()); // 97 is double
 
-        // laser piu piu! -> check is in place + check correct baseFirePower update
-        lev1Ship.placeTile(laserTile123, 2, 2);
+        // laser -> check is in place + check correct baseFirePower update
+        boolean placement = lev1Ship.placeTile(laserTile123, 4, 4);
+        assertTrue(placement);
         assertEquals(1, lev1Ship.getBaseFirePower());
 
         laserTile122.rotate90dx();
@@ -216,7 +231,6 @@ class ShipTest {
     void breakTile() {
 
         assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(0, 0));
-        assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(2, 2));
         assertThrows(IllegalArgumentException.class, () -> lev1Ship.breakTile(-1, 3));
 
         // BatteryTile
@@ -234,7 +248,7 @@ class ShipTest {
         lev1Ship.placeTile(storageTile26, 0, 2);
         lev1Ship.addBox(BoxType.YELLOW, 0, 2);
         lev1Ship.addBox(BoxType.GREEN, 0, 2);
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.YELLOW));// todo: non viene aggunto param alla ship
+        assertEquals(1, lev1Ship.getBoxes().get(BoxType.YELLOW));// todo: non viene aggiunto param alla ship
         assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 0, 2)); // 26 is not special
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 0, 2));   // is full
@@ -404,16 +418,16 @@ class ShipTest {
         assertEquals(0, lev1Ship.getNumBatteries());
         assertEquals(0, lev2Ship.getNumBatteries());
 
-        lev2Ship.placeTile(batteryTile5, 2, 2);
+        lev2Ship.placeTile(batteryTile5, 1, 2);
         assertEquals(2, lev2Ship.getNumBatteries());
-        lev2Ship.placeTile(batteryTile5, 2, 3); // assumes tile can be placed there
+        lev2Ship.placeTile(batteryTile5, 3, 3);
         assertEquals(4, lev2Ship.getNumBatteries());
     }
 
     @Test
     void getNumCrewByType() {
-        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
-        assertEquals(0, lev2Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(2, lev2Ship.getNumCrewByType(CrewType.HUMAN));
         assertEquals(0, lev1Ship.getNumCrewByType(CrewType.PINK_ALIEN));
         assertEquals(0, lev2Ship.getNumCrewByType(CrewType.PINK_ALIEN));
         assertEquals(0, lev1Ship.getNumCrewByType(CrewType.BROWN_ALIEN));
@@ -446,23 +460,23 @@ class ShipTest {
 
     @Test
     void removeBox() {
-        lev1Ship.placeTile(storageTile26, 2, 2);
-        lev1Ship.addBox(BoxType.GREEN, 2, 2);
-        lev1Ship.addBox(BoxType.GREEN, 2, 2);
-        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.GREEN, 2, 2);});
+        lev1Ship.placeTile(storageTile26, 3, 2);
+        lev1Ship.addBox(BoxType.GREEN, 3, 2);
+        lev1Ship.addBox(BoxType.GREEN, 3, 2);
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 3, 2));
         assertEquals(2, lev1Ship.getBoxes().get(BoxType.GREEN));
         assertEquals(0, lev1Ship.getBoxes().get(BoxType.BLUE));
         assertEquals(0, lev1Ship.getBoxes().get(BoxType.RED));
         assertEquals(0, lev2Ship.getBoxes().get(BoxType.YELLOW));
-        lev1Ship.removeBox(BoxType.GREEN, 2, 2);
+        lev1Ship.removeBox(BoxType.GREEN, 3, 2);
         assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
-        lev1Ship.removeBox(BoxType.GREEN, 2, 2);
+        lev1Ship.removeBox(BoxType.GREEN, 3, 2);
         assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN));
-        assertThrows(RuntimeException.class, () -> {lev1Ship.removeBox(BoxType.GREEN, 2, 2);});
-        assertThrows(RuntimeException.class, () -> {lev1Ship.removeBox(BoxType.RED, 2, 2);});
-        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.RED, 2, 2);});
-        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.YELLOW, 0, 0);});
-        assertThrows(RuntimeException.class, () -> {lev1Ship.addBox(BoxType.YELLOW, -1, 0);});
+        assertThrows(RuntimeException.class, () -> lev1Ship.removeBox(BoxType.GREEN, 3, 2));
+        assertThrows(RuntimeException.class, () -> lev1Ship.removeBox(BoxType.RED, 3, 2));
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 3, 2));
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.YELLOW, 0, 0));
+        assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.YELLOW, -1, 0));
     }
 
     @Test
@@ -475,10 +489,30 @@ class ShipTest {
 
     @Test
     void getNumExposedConnectors() {
+        assertEquals(4, lev1Ship.getNumExposedConnectors());
     }
 
     @Test
     void getProtectedDirections() {
+        assertTrue(lev1Ship.getProtectedDirections().isEmpty(), "Initially (without any shield) protected directions should be empty");
+        lev1Ship.placeTile(batteryTile5, 1, 2);
+        assertTrue(lev1Ship.getProtectedDirections().isEmpty(), "When adding non-shield tiles no changes should occur");
+
+        // add shield check protectedDirections is updated
+        lev1Ship.placeTile(shieldTile150, 2, 1);
+        assertEquals(2, lev1Ship.getProtectedDirections().size());
+        assertTrue(lev1Ship.getProtectedDirections().containsAll(List.of(Direction.UP, Direction.RIGHT)));
+
+        // add other shieldTile, check protectedDirections is updated
+        shieldTile151.rotate90dx();
+        lev1Ship.placeTile(shieldTile151, 2, 3);
+        assertEquals(4, lev1Ship.getProtectedDirections().size());
+        assertTrue(lev1Ship.getProtectedDirections().containsAll(List.of(Direction.UP, Direction.RIGHT, Direction.RIGHT, Direction.DOWN)));
+
+        // remove a shieldTile, make sure protectedDirections are updated
+        lev1Ship.breakTile(2,1);
+        assertEquals(2, lev1Ship.getProtectedDirections().size());
+        assertTrue(lev1Ship.getProtectedDirections().containsAll(List.of(Direction.DOWN, Direction.RIGHT)));
     }
 
     @Test
@@ -507,17 +541,24 @@ class ShipTest {
 
     @Test
     void updateExposedConnectors() {
-        assertEquals(0, lev1Ship.getNumExposedConnectors());
-        lev1Ship.placeTile(alienSupportTile141, 3, 2); // placeTile has updateExposedConnectors in its implementation
-        assertEquals(2, lev1Ship.getNumExposedConnectors());
-        lev1Ship.placeTile(alienSupportTile142, 3, 4);
         assertEquals(4, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile141, 3, 2); // placeTile has updateExposedConnectors in its implementation
+        System.out.println(lev1Ship);
+        assertEquals(5, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile142, 3, 4);
+        assertEquals(7, lev1Ship.getNumExposedConnectors());
         lev1Ship.breakTile(3, 4);   // breakTile has updateExposedConnectors in its implementation
-        assertEquals(2, lev1Ship.getNumExposedConnectors());
+        assertEquals(5, lev1Ship.getNumExposedConnectors());
         lev1Ship.placeTile(alienSupportTile142, 3, 1);
-        assertEquals(3, lev1Ship.getNumExposedConnectors());
+        assertEquals(6, lev1Ship.getNumExposedConnectors());
         lev1Ship.breakTile(3, 1);
         lev1Ship.breakTile(3, 2);
+
+
+        lev1Ship.placeTile(alienSupportTile141, 2,3);
+        assertEquals(4, lev1Ship.getNumExposedConnectors());
+        lev1Ship.placeTile(alienSupportTile142, 2, 4);
+        assertEquals(4, lev1Ship.getNumExposedConnectors());
     }
 
     @Test
@@ -526,11 +567,10 @@ class ShipTest {
 
     @Test
     void addProtectedDirections() {
-
     }
 
     @Test
-    void isShipConnectedBFS(){
+    void isShipConnectedBFS() {
 
         assertTrue(lev1Ship.isShipConnectedBFS());
         lev1Ship.placeTile(alienSupportTile143, 3, 2);
@@ -560,16 +600,20 @@ class ShipTest {
         assertFalse(lev1Ship.isShipLegal());
         lev1Ship.breakTile(3, 1);
         propulsorTile97.rotate90sx();
-        lev1Ship.placeTile(propulsorTile97, 3,1);
+        lev1Ship.placeTile(propulsorTile97, 3, 2);
         assertTrue(lev1Ship.isShipLegal());
 
         lev1Ship.placeTile(laserTile121, 2, 1);
-        assertFalse(lev1Ship.isShipLegal());
+        assertTrue(lev1Ship.isShipLegal());
         lev1Ship.breakTile(2, 1);
         laserTile121.rotate90dx();
         laserTile121.rotate90dx();
         laserTile121.rotate90dx();
         lev1Ship.placeTile(laserTile121, 2, 1);
+        assertFalse(lev1Ship.isShipLegal());
+
+        lev1Ship.breakTile(2, 1);
+        lev1Ship.placeTile(laserTile121, 1, 2);
         assertTrue(lev1Ship.isShipLegal());
     }
 
@@ -585,5 +629,17 @@ class ShipTest {
     void testToString() {
         System.out.println(lev1Ship.toString());
         System.out.println(lev2Ship.toString());
+    }
+
+    @Test
+    void getLevel() {
+        assertEquals(1, lev1Ship.getLevel());
+        assertEquals(2, lev2Ship.getLevel());
+    }
+
+    @Test
+    void getColor() {
+        assertEquals(PlayerColor.BLUE, lev1Ship.getColor());
+        assertEquals(PlayerColor.RED, lev2Ship.getColor());
     }
 }

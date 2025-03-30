@@ -1,10 +1,7 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
 import com.google.gson.annotations.Expose;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.Ship;
 
 
@@ -24,6 +21,32 @@ public abstract class Tile {
 
     // Tile generic methods
     public Tile() {}
+
+
+    public Tile(PlayerColor playerColor) {
+        this.type = "HousingTile";
+
+        connections = new HashMap<>();
+        connections.put(Direction.UP, Connection.UNIVERSAL);
+        connections.put(Direction.RIGHT, Connection.UNIVERSAL);
+        connections.put(Direction.DOWN, Connection.UNIVERSAL);
+        connections.put(Direction.LEFT, Connection.UNIVERSAL);
+
+        switch (playerColor) {
+            case BLUE:
+                id = 33;
+                break;
+            case GREEN:
+                id = 34;
+                break;
+            case RED:
+                id = 52;
+                break;
+            case YELLOW:
+                id = 61;
+                break;
+        }
+    }
 
     public String getType() {
         return type;

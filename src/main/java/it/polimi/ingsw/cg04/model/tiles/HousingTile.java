@@ -12,7 +12,7 @@ public class HousingTile extends Tile {
 
     private int numCrew;
     private CrewType hostedCrewType = null;
-    private final List<CrewType> supportedCrewType;
+    private final List<CrewType> supportedCrewType = new ArrayList<>();
 
     @Expose
     private boolean isCentralTile;
@@ -20,7 +20,12 @@ public class HousingTile extends Tile {
 
     public HousingTile() {
         super();
-        supportedCrewType = new ArrayList<>();
+    }
+
+    public HousingTile(PlayerColor playerColor) {
+        super(playerColor);
+        color = playerColor;
+        isCentralTile = true;
     }
 
     public Boolean isCentralTile() {
