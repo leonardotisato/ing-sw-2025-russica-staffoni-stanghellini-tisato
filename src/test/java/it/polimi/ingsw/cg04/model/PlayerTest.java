@@ -35,7 +35,7 @@ class PlayerTest {
 
     @Test
     void getState() {
-        assertEquals(PlayerState.IN_LOBBY, player1.getState());
+        assertEquals(PlayerState.LOBBY, player1.getState());
     }
 
     @Test

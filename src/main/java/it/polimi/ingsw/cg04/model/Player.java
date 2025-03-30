@@ -26,7 +26,7 @@ public class Player {
     public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
-        this.state = PlayerState.IN_LOBBY;
+        this.state = PlayerState.LOBBY;
         this.game = game;
         this.flightBoard = this.game.getBoard();
         this.ship = new Ship(game.getLevel(), this.color);
