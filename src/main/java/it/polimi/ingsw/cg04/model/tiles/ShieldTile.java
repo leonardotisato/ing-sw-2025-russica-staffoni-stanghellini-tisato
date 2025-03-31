@@ -57,11 +57,25 @@ public class ShieldTile extends Tile {
         this.rotate90dx();
     }
 
+    /**
+     * removes this tile {@code protectedDirections} from ship attribute {@code protectedDirections}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void broken(Ship ship, int x, int y) {
         ship.removeProtectedDirections(getProtectedDirections());
     }
 
+    /**
+     * adds this tile {@code protectedDirections} to ship attribute {@code protectedDirections}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void place(Ship ship, int x, int y) {
         ship.addProtectedDirections(getProtectedDirections());

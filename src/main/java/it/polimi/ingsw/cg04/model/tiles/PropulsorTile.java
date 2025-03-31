@@ -20,6 +20,13 @@ public class PropulsorTile extends Tile {
         this.isDoublePropulsor = isDoublePropulsor;
     }
 
+    /**
+     * updates {@code basePropulsionPower} attribute in ship,
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void broken(Ship ship, int x, int y) {
         if(!isDoublePropulsor){

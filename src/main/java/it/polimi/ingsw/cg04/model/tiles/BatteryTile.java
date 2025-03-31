@@ -39,6 +39,14 @@ public class BatteryTile extends Tile {
         this.numBatteries -= num;
     }
 
+    /**
+     * removes batteries from tile and ship {@code numBatteries} attribute,
+     * the {@code x} and {@code y} attributes are needed to simplify the place/remove process
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void broken(Ship ship, int x, int y) {
         ship.removeBatteries(numBatteries, x, y);
@@ -46,6 +54,14 @@ public class BatteryTile extends Tile {
         //this.numBatteries = 0;
     }
 
+    /**
+     * updates attribute {@code numBatteries} of the ship and this tile,
+     * the {@code x} and {@code y} attributes are needed to simplify the place/remove process
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void place(Ship ship, int x, int y){
         this.numBatteries = this.maxBatteryCapacity;

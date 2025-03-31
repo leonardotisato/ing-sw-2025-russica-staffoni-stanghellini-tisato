@@ -39,9 +39,15 @@ public class AlienSupportTile extends Tile {
         this.supportedAlienColor = supportedAlienColor;
     }
 
+    /**
+     * remove this tile supported crewType from connected HousingTiles attribute supportedCrewType
+     * if now that HousingTile hosts an alien no longer supported removes it
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
-    // remove supported crewType form adjacent HousingTiles
-    // if this implies that now those HousingTiles contains unsupportedCrewTypes remove them
     public void broken(Ship ship, int x, int y) {
         // remove supported crewType
         for(Tile adj : adjacentHousingTiles) {
@@ -61,6 +67,14 @@ public class AlienSupportTile extends Tile {
         }
     }
 
+    /**
+     * if there is an HousingTile connected to this tile, update it's supportedCrewType, remove HUMANS from it,
+     * add that HousingTile to this tile's lsit {@code adjacentHousingTile}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     // if there is a HousingTile adjacent to this add it to the adjacentList
     // update supportedCrewType for adjacent HousingTiles and remove it's crewMembers than leave the choice ok alien/human to the player
     @Override

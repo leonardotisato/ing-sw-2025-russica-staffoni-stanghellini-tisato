@@ -98,6 +98,15 @@ public class HousingTile extends Tile {
 
 
     // remove all the crewMembers and remove this from all the AlienSupportTiles Adjacent list
+
+    /**
+     * removes aliens from ship's {@code crewMap} attribute
+     * removes this tile from connected AlienSupportTile's list {@code adjacentHousingTiles}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void broken(Ship ship, int x, int y) {
         // may occur that HousingTile is empty when this methode is called
@@ -127,9 +136,17 @@ public class HousingTile extends Tile {
         supportedCrewType.clear();
     }
 
-    // add human to supportedCrewType than adds 2 humans
-    // check every adjacent tile, if there is a AlienSupportTile add this to it's adjacentList, update this.supportedCrewTypes
-    // lastly remove humans and leave the choice about the crew to the player after building the ship
+    /**
+     * adds HUMANS to this tile {@code supportedCrewType},
+     * adds 2 HUMANS to this tile and ship attribute {@code crewMap}
+     * if this tile is connected to a {@code AlienSupportTile} removes the humans,
+     * adds the adjacent {@code AlienSupportTile}'s {@code supportedAlienColor} attribute to {@code this.supportedCrewType}
+     * adds this tile to the connected {@code AlienSupportTile} list {@code adjacentHousingTiles}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void place(Ship ship, int x, int y) {
         // every HousingTile supports humans

@@ -70,6 +70,13 @@ public class StorageTile extends Tile {
         boxes.put(boxType, boxes.get(boxType) - 1);
     }
 
+    /**
+     *  empties this tile storage and updates ship map {@cod boxes}
+     *
+     * @param ship
+     * @param x
+     * @param y
+     */
     @Override
     public void broken(Ship ship, int x, int y) {
         // rimuove tutti i box un tipo alla volta
