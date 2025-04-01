@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
@@ -239,7 +239,7 @@ public class Game {
     public void startBuildPhase() {
         this.setGameState(GameState.BUILDING);
         for (Player p : players) {
-            p.setState(PlayerState.BUILDING);
+            p.setState(ExPlayerState.BUILDING);
         }
     }
 
@@ -254,15 +254,15 @@ public class Game {
     public void startFlightPhase() {
         this.setGameState(GameState.FLIGHT);
         for (Player p : players) {
-            p.setState(PlayerState.FLIGHT);
+            p.setState(ExPlayerState.FLIGHT);
         }
     }
 
     // todo: test
     public void checkShips() {
         for (Player p : players) {
-            if (!p.getShip().isShipLegal()) p.setState(PlayerState.FIX_SHIP);
-            else p.setState(PlayerState.FLIGHT);
+            if (!p.getShip().isShipLegal()) p.setState(ExPlayerState.FIX_SHIP);
+            else p.setState(ExPlayerState.FLIGHT);
         }
     }
 
@@ -394,13 +394,13 @@ public class Game {
         // assumes state of players that are still "alive" is PlayerState.FLIGHT
 
         int minConnectors = players.stream()
-                .filter(p -> p.getState() == PlayerState.FLIGHT)
+                .filter(p -> p.getState() == ExPlayerState.FLIGHT)
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
                 .min()
                 .orElse(0);
 
         List<Player> minPlayers = players.stream()
-                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == PlayerState.FLIGHT)
+                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == ExPlayerState.FLIGHT)
                 .toList();
 
         for (Player p : minPlayers) {
@@ -425,7 +425,7 @@ public class Game {
         // assumes state of players that are still "alive" is PlayerState.FLIGHT
 
         List<Player> survivedPlayersByPosition = this.getSortedPlayers().stream().
-                filter(p -> p.getState() == PlayerState.FLIGHT).
+                filter(p -> p.getState() == ExPlayerState.FLIGHT).
                 sorted(Comparator.comparingInt(Player::getPosition).reversed()).
                 toList();
 
@@ -504,7 +504,7 @@ public class Game {
         player.useBattery(x, y);
     }
 
-    public void setPlayerState(Player player, PlayerState state) {
+    public void setPlayerState(Player player, ExPlayerState state) {
         player.setState(state);
     }
 

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,15 +35,15 @@ class PlayerTest {
 
     @Test
     void getState() {
-        assertEquals(PlayerState.LOBBY, player1.getState());
+        assertEquals(ExPlayerState.LOBBY, player1.getState());
     }
 
     @Test
     void setState() {
-        player1.setState(PlayerState.BUILDING);
-        assertEquals(PlayerState.BUILDING, player1.getState());
-        player1.setState(PlayerState.FLIGHT);
-        assertEquals(PlayerState.FLIGHT, player1.getState());
+        player1.setState(ExPlayerState.BUILDING);
+        assertEquals(ExPlayerState.BUILDING, player1.getState());
+        player1.setState(ExPlayerState.FLIGHT);
+        assertEquals(ExPlayerState.FLIGHT, player1.getState());
     }
 
     @Test

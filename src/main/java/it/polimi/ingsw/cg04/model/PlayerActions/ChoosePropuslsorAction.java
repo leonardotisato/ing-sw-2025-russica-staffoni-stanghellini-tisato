@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ChoosePropuslsorAction implements PlayerAction {
         if (player.getGame().getPlayers().size() == position){
             // porto tutti a flight
             player.getGame().getPlayers().stream().
-                    forEach(p -> p.setState(PlayerState.FLIGHT));
+                    forEach(p -> p.setState(ExPlayerState.FLIGHT));
 
             return;
         }

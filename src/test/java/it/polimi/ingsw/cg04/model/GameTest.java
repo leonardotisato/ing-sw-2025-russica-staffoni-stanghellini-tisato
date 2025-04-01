@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -264,10 +264,10 @@ class GameTest {
 
         assertEquals(GameState.BUILDING, gameLev2.getGameState());
         assertEquals(4, gameLev2.getNumPlayers());
-        assertEquals(PlayerState.BUILDING, alice.getState());
-        assertEquals(PlayerState.BUILDING, bob.getState());
-        assertEquals(PlayerState.BUILDING, charlie.getState());
-        assertEquals(PlayerState.BUILDING, dave.getState());
+        assertEquals(ExPlayerState.BUILDING, alice.getState());
+        assertEquals(ExPlayerState.BUILDING, bob.getState());
+        assertEquals(ExPlayerState.BUILDING, charlie.getState());
+        assertEquals(ExPlayerState.BUILDING, dave.getState());
     }
 
     @Test
@@ -281,10 +281,10 @@ class GameTest {
 
         assertEquals(GameState.FLIGHT, gameLev2.getGameState());
         assertEquals(4, gameLev2.getNumPlayers());
-        assertEquals(PlayerState.FLIGHT, alice.getState());
-        assertEquals(PlayerState.FLIGHT, bob.getState());
-        assertEquals(PlayerState.FLIGHT, charlie.getState());
-        assertEquals(PlayerState.FLIGHT, dave.getState());
+        assertEquals(ExPlayerState.FLIGHT, alice.getState());
+        assertEquals(ExPlayerState.FLIGHT, bob.getState());
+        assertEquals(ExPlayerState.FLIGHT, charlie.getState());
+        assertEquals(ExPlayerState.FLIGHT, dave.getState());
     }
 
     @Test

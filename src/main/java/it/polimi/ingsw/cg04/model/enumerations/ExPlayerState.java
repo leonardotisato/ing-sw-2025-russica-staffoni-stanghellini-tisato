@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg04.model.enumerations;
 
-public enum PlayerState {
+public enum ExPlayerState {
     PRE_LOBBY,
     LOBBY,
     READY,

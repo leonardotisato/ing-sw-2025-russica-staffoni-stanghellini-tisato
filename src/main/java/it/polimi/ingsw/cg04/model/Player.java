@@ -1,23 +1,24 @@
 package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.PlayerStates.PlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Player {
 
     private int activity;
-    private it.polimi.ingsw.cg04.model.PlayerStates.PlayerState currState;
+    private PlayerState currState;
     private final String name;
     private final PlayerColor color;
-    private PlayerState state;
+    private ExPlayerState state;
     private final Ship ship;
     private final Game game;
     private final FlightBoard flightBoard;
@@ -31,7 +32,7 @@ public class Player {
     public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
-        this.state = PlayerState.LOBBY;
+        this.state = ExPlayerState.LOBBY;
         this.game = game;
         this.flightBoard = this.game.getBoard();
         this.ship = new Ship(game.getLevel(), this.color);
@@ -54,7 +55,7 @@ public class Player {
     /**
      * @return the {@code PlayerState} of the player.
      */
-    public PlayerState getState() {
+    public ExPlayerState getState() {
         return state;
     }
 
@@ -63,7 +64,7 @@ public class Player {
      *
      * @param state the new {@code PlayerState} to set for the player.
      */
-    public void setState(PlayerState state) {
+    public void setState(ExPlayerState state) {
         this.state = state;
     }
 
@@ -314,7 +315,7 @@ public class Player {
     public void choosePlanet(int i){
         if (!this.game.getCurrentAdventureCard().getIsOccupied().get(i)) {
             this.game.getCurrentAdventureCard().getIsOccupied().set(i, true);
-            this.setState(PlayerState.HANDLE_RESOURCES);
+            this.setState(ExPlayerState.HANDLE_RESOURCES);
         }
         else {
             throw new RuntimeException("This planet is occupied");
@@ -337,7 +338,7 @@ public class Player {
         return activity;
     }
 
-    public void setCurrState(it.polimi.ingsw.cg04.model.PlayerStates.PlayerState state) {
+    public void setCurrState(PlayerState state) {
         currState = state;
         return;
     }

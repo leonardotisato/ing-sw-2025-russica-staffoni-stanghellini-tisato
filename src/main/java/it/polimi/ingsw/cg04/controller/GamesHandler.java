@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 
 import java.util.List;
 import java.util.Map;
@@ -84,7 +84,7 @@ public class GamesHandler {
         game.movePlayer(player, steps);
     }
 
-    public void setPlayerState(Game game, Player player, PlayerState state) {
+    public void setPlayerState(Game game, Player player, ExPlayerState state) {
         game.setPlayerState(player, state);
     }
 
