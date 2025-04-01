@@ -126,7 +126,7 @@ public class HousingTile extends Tile {
         Tile[][] tilesMatrix = ship.getTilesMatrix();
         for (int i = 0; i < tilesMatrix[0].length - 1; i++) {
             for (int j = 0; j < tilesMatrix.length - 1; j++) {
-                if (tilesMatrix[i][j] != null && tilesMatrix[i][j] instanceof AlienSupportTile && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
+                if (tilesMatrix[i][j] != null && tilesMatrix[i][j].getSupportedAlienColor()!= null && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
                     tilesMatrix[i][j].removeAdjacentHousingTile(this);
                 }
             }
@@ -152,13 +152,7 @@ public class HousingTile extends Tile {
         // every HousingTile supports humans
         this.addSupportedCrewType(CrewType.HUMAN);
 
-        // initially add 2 humans, remove them if there is a LifeSupportTile adjacent and leave the choice of hostedCrewType to the player
-        //this.addCrew(CrewType.HUMAN);
         ship.addCrew(CrewType.HUMAN, x, y); // adds crew members both in this tile and ship
-        /*
-        ship.addCrewByType(CrewType.HUMAN);
-        ship.addCrewByType(CrewType.HUMAN);
-         */
 
         int shipHeight = ship.getTilesMatrix().length;
         int shipWidth = ship.getTilesMatrix()[0].length;
@@ -168,58 +162,50 @@ public class HousingTile extends Tile {
                 if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
 
                     // look UP -> check tile type and connection
-                    if (i > 0 && tilesMatrix[i - 1][j] instanceof AlienSupportTile
+                    if (i > 0 /*&& tilesMatrix[i - 1][j] instanceof AlienSupportTile*/
+                            && tilesMatrix[i - 1][j] != null
+                            && tilesMatrix[i - 1][j].getSupportedAlienColor() != null
                             && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        //this.removeCrewMember();
-                        //this.removeCrewMember();
                         ship.removeCrew(CrewType.HUMAN, x, y, 2); // removes humans in both ship and tile attributes
-                        //ship.removeCrewByType(CrewType.HUMAN);
-                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i - 1][j].getSupportedAlienColor());
                     }
 
                     // look LEFT -> check tile type and connection
-                    if (j > 0 && tilesMatrix[i][j - 1] instanceof AlienSupportTile
+                    if (j > 0 /*&& tilesMatrix[i][j - 1] instanceof AlienSupportTile*/
+                            && tilesMatrix[i][j - 1] != null
+                            && tilesMatrix[i][j -1].getSupportedAlienColor() != null
                             && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        //this.removeCrewMember();
-                        //this.removeCrewMember();
                         ship.removeCrew(CrewType.HUMAN, x, y, 2);
-                        //ship.removeCrewByType(CrewType.HUMAN);
-                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i][j - 1].getSupportedAlienColor());
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if (j < shipWidth - 1 && tilesMatrix[i][j + 1] instanceof AlienSupportTile
+                    if (j < shipWidth - 1 /*&& tilesMatrix[i][j + 1] instanceof AlienSupportTile*/
+                            && tilesMatrix[i][j + 1] != null
+                            && tilesMatrix[i][j + 1].getSupportedAlienColor() != null
                             && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        //this.removeCrewMember();
-                        //this.removeCrewMember();
                         ship.removeCrew(CrewType.HUMAN, x, y, 2);
-                        //ship.removeCrewByType(CrewType.HUMAN);
-                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i][j + 1].getSupportedAlienColor());
                     }
 
                     // look DOWN -> check tile type and connection
-                    if (i < shipHeight - 1 && tilesMatrix[i + 1][j] instanceof AlienSupportTile
+                    if (i < shipHeight - 1 /*&& tilesMatrix[i + 1][j] instanceof AlienSupportTile*/
+                            && tilesMatrix[i + 1][j] != null
+                            && tilesMatrix[i + 1][j].getSupportedAlienColor() != null
                             && this.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
-                        //this.removeCrewMember();
-                        //this.removeCrewMember();
                         ship.removeCrew(CrewType.HUMAN, x, y, 2);
-                        //ship.removeCrewByType(CrewType.HUMAN);
-                        //ship.removeCrewByType(CrewType.HUMAN);
                         this.addSupportedCrewType(tilesMatrix[i + 1][j].getSupportedAlienColor());
                     }
                     return;

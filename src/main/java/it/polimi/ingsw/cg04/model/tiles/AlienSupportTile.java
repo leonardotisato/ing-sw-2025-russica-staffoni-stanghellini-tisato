@@ -89,7 +89,9 @@ public class AlienSupportTile extends Tile {
                 if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)){
 
                     // look UP -> check tile type and connection
-                    if(i>0 && tilesMatrix[i-1][j] instanceof HousingTile
+                    if(i>0 /*&& tilesMatrix[i-1][j] instanceof HousingTile*/
+                            && tilesMatrix[i-1][j] != null
+                            && tilesMatrix[i-1][j].isCentralTile() != null
                             && this.isValidConnection(Direction.UP, tilesMatrix[i-1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i-1][j]);
@@ -103,7 +105,9 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look LEFT -> check tile type and connection
-                    if(j>0 && tilesMatrix[i][j-1] instanceof HousingTile
+                    if(j>0 /*&& tilesMatrix[i][j-1] instanceof HousingTile*/
+                            && tilesMatrix[i][j-1] != null
+                            && tilesMatrix[i][j-1].isCentralTile() != null
                             && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j-1])
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i][j-1]);
@@ -117,7 +121,9 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if(j<shipWidth-1 && tilesMatrix[i][j+1] instanceof HousingTile
+                    if(j<shipWidth-1 /*&& tilesMatrix[i][j+1] instanceof HousingTile*/
+                            && tilesMatrix[i][j+1] != null
+                            && tilesMatrix[i][j+1].isCentralTile() != null
                             && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j+1])
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i][j+1]);
@@ -131,7 +137,9 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look DOWN -> check tile type and connection
-                    if(i<shipHeight-1 && tilesMatrix[i+1][j] instanceof HousingTile
+                    if(i<shipHeight-1 /*&& tilesMatrix[i+1][j] instanceof HousingTile*/
+                            && tilesMatrix[i+1][j] != null
+                            && tilesMatrix[i+1][j].isCentralTile() != null
                             && this.isValidConnection(Direction.DOWN, tilesMatrix[i+1][j])
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i+1][j]);
