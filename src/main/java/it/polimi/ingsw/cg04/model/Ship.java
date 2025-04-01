@@ -235,7 +235,7 @@ public class Ship {
     public void breakTile(int x, int y) {
         if (isOutOfBounds(x, y)) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
         if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
-        if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is not a valid slot!"); }
+        if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is already empty!"); }
 
         this.getTile(x, y).broken(this, x, y);
         this.tilesMatrix[x][y] = null;
@@ -643,19 +643,19 @@ public class Ship {
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
 
-                    if (i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
+                    if (currTile != null && i != 0 &&!currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;
                     }
 
-                    if (j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
+                    if (currTile!= null && j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
                         return false;
                     }
 
-                    if (i != shipHeight - 1 && !currTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
+                    if (currTile != null && i != shipHeight - 1 && !currTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
                         return false;
                     }
 
-                    if (j != shipWidth - 1 && !currTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
+                    if (currTile != null && j != shipWidth - 1 && !currTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
                         return false;
                     }
                 }
