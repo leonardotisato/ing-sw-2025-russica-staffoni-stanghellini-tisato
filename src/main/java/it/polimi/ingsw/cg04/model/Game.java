@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.GameState;
@@ -505,6 +506,10 @@ public class Game {
 
     public void setPlayerState(Player player, PlayerState state) {
         player.setState(state);
+    }
+
+    public void handleAction(Player player, PlayerAction action){
+        player.handleAction(action);
     }
 
 }

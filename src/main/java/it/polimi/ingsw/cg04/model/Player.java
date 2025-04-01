@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -7,6 +8,8 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+
+import java.util.List;
 
 public class Player {
 
@@ -77,6 +80,16 @@ public class Player {
      */
     public int getPosition() {
         return currentCell + (flightBoard.getPathSize() * loopsCompleted);
+    }
+
+    public Integer getRanking(){
+        List<Player> sortedPlayers = this.game.getSortedPlayers();
+        for (int i = 0; i < sortedPlayers.size(); i++) {
+            if (sortedPlayers.get(i).getColor() == this.color) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -304,5 +317,8 @@ public class Player {
         else {
             throw new RuntimeException("This planet is occupied");
         }
+    }
+    public void handleAction(PlayerAction action) {
+        state.handleAction(this, action);
     }
 }
