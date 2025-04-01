@@ -67,6 +67,10 @@ public class HousingTile extends Tile {
             throw new RuntimeException("Crew type:" + type + " is not supported");
         }
 
+        if((hostedCrewType == CrewType.HUMAN && numCrew == 2) || numCrew == 1) {
+            throw new RuntimeException("housing tile already filled");
+        }
+
         hostedCrewType = type;
         if (hostedCrewType == CrewType.HUMAN) {
             numCrew = 2;
@@ -96,9 +100,6 @@ public class HousingTile extends Tile {
         return removed;
     }
 
-
-    // remove all the crewMembers and remove this from all the AlienSupportTiles Adjacent list
-
     /**
      * removes aliens from ship's {@code crewMap} attribute
      * removes this tile from connected AlienSupportTile's list {@code adjacentHousingTiles}
@@ -112,14 +113,6 @@ public class HousingTile extends Tile {
         // may occur that HousingTile is empty when this methode is called
         if(hostedCrewType != null) {
             ship.removeCrew(hostedCrewType, x, y, numCrew);
-            /*
-            if (hostedCrewType == CrewType.HUMAN) {
-                for (int i = numCrew; i > 0; i--) {
-                    ship.removeCrewByType(CrewType.HUMAN);
-                    this.removeCrewMember();
-                }
-            } else ship.removeCrewByType(hostedCrewType);
-             */
         }
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile

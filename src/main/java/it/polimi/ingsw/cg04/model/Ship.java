@@ -178,49 +178,21 @@ public class Ship {
             return false;
         }
 
-        /*
-        // check that placed tile neighbours another tile. let pass any connection, "punish" illegal behaviours later in isShipLegal()
-        boolean connectionExists = false;
-        Connection currConnection, otherConnection = null;
-        if (x != 0) {
-            currConnection = tile.getConnection(Direction.UP);
-            otherConnection = tile.getConnection(Direction.DOWN);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (y != 0) {
-            currConnection = tile.getConnection(Direction.LEFT);
-            otherConnection = tile.getConnection(Direction.RIGHT);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (x != this.shipHeight - 1) {
-            currConnection = tile.getConnection(Direction.DOWN);
-            otherConnection = tile.getConnection(Direction.UP);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-        if (y != this.shipWidth - 1) {
-            currConnection = tile.getConnection(Direction.RIGHT);
-            otherConnection = tile.getConnection(Direction.LEFT);
-            if (connectors.contains(currConnection) && connectors.contains(otherConnection)) {
-                connectionExists = true;
-            }
-        }
-
-        if (!connectionExists) {
-            return false;
-        }
-        */
-
         tilesMatrix[x][y] = tile;   // place tile in the ship
         tile.place(this, x, y);   // update resources and tiles params
         updateExposedConnectors();  // update exposedConnectors attribute
 
         return true;
+    }
+
+    public void breakAllTiles(){
+        for (int i = 0; i < tilesMatrix.length; i++) {
+            for (int j = 0; j < tilesMatrix[i].length; j++) {
+                if(tilesMatrix[i][j] != null){
+                    breakTile(i, j);
+                }
+            }
+        }
     }
 
     /**
@@ -412,10 +384,6 @@ public class Ship {
     public void setBoxes(Map<BoxType, Integer> newBoxes, int x, int y) {
         Tile currTile = getTile(x, y);
 
-        if (!(currTile instanceof StorageTile)) {
-            throw new RuntimeException("not a StorageTile!");
-        }
-
         Map <BoxType, Integer> oldBoxes;
         oldBoxes = currTile.getBoxes();
 
@@ -434,22 +402,6 @@ public class Ship {
                 this.boxes.put(type, this.boxes.get(type) + delta);
             }
         }
-
-        /*
-        for(BoxType type : BoxType.values()) {
-            if(newBoxes.get(type) > oldBoxes.get(type)) {
-                int delta = newBoxes.get(type) - oldBoxes.get(type);
-                currTile.addBox(type, delta);
-                this.boxes.put(type, this.boxes.get(type) + delta);
-            }
-
-            if(newBoxes.get(type) < oldBoxes.get(type)) {
-                int delta = oldBoxes.get(type) - newBoxes.get(type);
-                currTile.removeBox(type, delta);
-                this.boxes.put(type, this.boxes.get(type) - delta);
-            }
-        }
-        */
     }
 
     /**
