@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.ChoosePropuslsorAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.PlayerStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
@@ -125,6 +128,22 @@ public class AdventureCardsTest {
         assertEquals(8, p.getCurrentCell());
         assertEquals(2, p.getShip().getNumBatteries());
         assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
+    }
+
+    @Test
+    void testOpenSpacePattern(){
+        p.setCurrState(new OpenSpaceState());
+        List<Integer> usedBatteries = new ArrayList<>();
+        List<List<Integer>> coordinates = new ArrayList<>();
+        usedBatteries.add(1);
+        coordinates.add(List.of(2, 1));
+        PlayerAction action = new ChoosePropuslsorAction(coordinates, usedBatteries);
+        p.handleAction(action);
+        assertEquals(7, p.getCurrentCell());
+        assertEquals(2, p.getShip().getNumBatteries());
+        assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
+        assertEquals(0, p.getActivity());
+
     }
 
     @Test

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -7,9 +8,13 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
+    private int activity;
+    private it.polimi.ingsw.cg04.model.PlayerStates.PlayerState currState;
     private final String name;
     private final PlayerColor color;
     private PlayerState state;
@@ -77,6 +82,16 @@ public class Player {
      */
     public int getPosition() {
         return currentCell + (flightBoard.getPathSize() * loopsCompleted);
+    }
+
+    public Integer getRanking(){
+        List<Player> sortedPlayers = this.game.getSortedPlayers();
+        for (int i = 0; i < sortedPlayers.size(); i++) {
+            if (sortedPlayers.get(i).getColor() == this.color) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -306,7 +321,24 @@ public class Player {
         }
     }
 
+    public void handleAction(PlayerAction action) {
+        currState.handleAction(this, action);
+    }
+
     public Game getGame() {
         return game;
+    }
+
+    public void setActivity(int i){
+        activity = i;
+    }
+
+    public int getActivity(){
+        return activity;
+    }
+
+    public void setCurrState(it.polimi.ingsw.cg04.model.PlayerStates.PlayerState state) {
+        currState = state;
+        return;
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,14 @@ public class ChoosePropuslsorAction implements PlayerAction {
     public void endAction(Player player) {
         player.setActivity(0);
         int position = player.getRanking();
+
         if (player.getGame().getPlayers().size() == position){
             // porto tutti a flight
-        }
+            player.getGame().getPlayers().stream().
+                    forEach(p -> p.setState(PlayerState.FLIGHT));
 
+            return;
+        }
         player.getGame().getSortedPlayers().get(position +1).setActivity(1);
     }
 
