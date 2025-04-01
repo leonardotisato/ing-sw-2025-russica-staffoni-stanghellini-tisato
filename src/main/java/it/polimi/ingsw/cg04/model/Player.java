@@ -305,4 +305,8 @@ public class Player {
             throw new RuntimeException("This planet is occupied");
         }
     }
+
+    public Game getGame() {
+        return game;
+    }
 }
