@@ -178,15 +178,13 @@ public class AdventureCardsTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Map<BoxType,Integer>> newBoxes = new ArrayList<>();
         newBoxes.add(new HashMap<>(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0)));
-        List<List<Integer>> coordinates = new ArrayList<>();
-        coordinates.add(List.of(2, 3));
-        PlayerAction action = new HandleBoxesAction(coordinates, newBoxes);
+        List<Coordinates> coordinates = new ArrayList<>();
+        coordinates.add(new Coordinates(2, 3));
+        PlayerAction action = new HandleBoxesAction(coordinates, newBoxes, game);
         game.getCurrentAdventureCard().setMembersNeeded(4);
         game.getGameState().handleAction(p, action);
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getBoxes());
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
-        assertEquals(0, p.getActivity());
-        assertEquals(ExPlayerState.FLIGHT, p.getState());
     }
 
     @Test

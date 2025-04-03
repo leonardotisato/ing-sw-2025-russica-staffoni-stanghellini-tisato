@@ -1,4 +1,5 @@
 package it.polimi.ingsw.cg04.model.utils;
+import java.util.List;
 import java.util.Objects;
 
 public class Coordinates {
@@ -18,9 +19,15 @@ public class Coordinates {
         return this.x == other.x && this.y == other.y;
     }
 
-
     public boolean equals(int x, int y) {
         return this.x == x && this.y == y;
+    }
+
+    public boolean isIn(List<Coordinates> coordinates) {
+        for (Coordinates c : coordinates) {
+            if (equals(c)) return true;
+        }
+        return false;
     }
 
     @Override

@@ -33,14 +33,14 @@ public class HandleCrewAction implements PlayerAction{
         }
         else {
             for (int i = 0; i < numCrewMembersLost.size(); i++) {
-                if (coordinates.get(i).isIn(getShip().getTilesMap().get("HousingTile"))) {
+                if (coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))) {
                     player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
                 }
                 else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
             }
             gameState.getPlayed().replaceAll(ignored -> 1);
-            player.updateCredits(player.getGame().getCurrentAdventureCard().getEarnedCredits());
-            player.move(-player.getGame().getCurrentAdventureCard().getDaysLost());
+            player.updateCredits(game.getCurrentAdventureCard().getEarnedCredits());
+            player.move(-game.getCurrentAdventureCard().getDaysLost());
             return;
         }
     }
