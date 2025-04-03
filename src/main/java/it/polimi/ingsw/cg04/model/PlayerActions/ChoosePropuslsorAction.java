@@ -16,13 +16,10 @@ public class ChoosePropuslsorAction implements PlayerAction {
     }
 
     public void execute(Player player) {
-        for(int i = 0; i < usedBatteries.size(); i++){
-            player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
-        }
+            for (int i = 0; i < usedBatteries.size(); i++) {
+                player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
+            }
         player.move(player.getShip().getBasePropulsionPower() + usedBatteries.size() * 2);
-
-        //position = player.getRanking();
-        endAction(player);
     }
 
     public void endAction(Player player) {

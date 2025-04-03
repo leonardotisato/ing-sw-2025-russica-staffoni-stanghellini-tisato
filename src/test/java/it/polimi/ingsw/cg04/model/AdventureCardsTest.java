@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.GameStates.FlightState;
 import it.polimi.ingsw.cg04.model.PlayerActions.ChoosePropuslsorAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.HandleBoxesAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.HandleCrewAction;
@@ -142,7 +143,9 @@ public class AdventureCardsTest {
         assertEquals(7, p.getCurrentCell());
         assertEquals(2, p.getShip().getNumBatteries());
         assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
-        assertEquals(0, p.getActivity());
+        assertInstanceOf(FlightState.class, game.getGameState());
+        assertNull(game.getCurrentAdventureCard());
+        
 
     }
 
