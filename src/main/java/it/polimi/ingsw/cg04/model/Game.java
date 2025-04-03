@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.GameState;
+import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -20,7 +20,7 @@ public class Game {
     private final int level;
     private final List<Player> players;
     private FlightBoard board;
-    private GameState gameState;
+    private ExGameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
     private List<List<Integer>> preFlightPiles;
@@ -52,7 +52,7 @@ public class Game {
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
-        this.gameState = GameState.START;
+        this.gameState = ExGameState.START;
     }
 
     /**
@@ -215,7 +215,7 @@ public class Game {
      *
      * @return the {@code GameState} representing the current state of the game.
      */
-    public GameState getGameState() {
+    public ExGameState getGameState() {
         return gameState;
     }
 
@@ -224,7 +224,7 @@ public class Game {
      *
      * @param state the new {@code GameState} to set.
      */
-    public void setGameState(GameState state) {
+    public void setGameState(ExGameState state) {
         this.gameState = state;
     }
 
@@ -237,7 +237,7 @@ public class Game {
      * state to `BUILDING`.
      */
     public void startBuildPhase() {
-        this.setGameState(GameState.BUILDING);
+        this.setGameState(ExGameState.BUILDING);
         for (Player p : players) {
             p.setState(ExPlayerState.BUILDING);
         }
@@ -252,7 +252,7 @@ public class Game {
      */
 
     public void startFlightPhase() {
-        this.setGameState(GameState.FLIGHT);
+        this.setGameState(ExGameState.FLIGHT);
         for (Player p : players) {
             p.setState(ExPlayerState.FLIGHT);
         }
@@ -268,11 +268,11 @@ public class Game {
 
     // ridondante! esiste già startBuildPhase...
     public void beginGame() {
-        this.setGameState(GameState.BUILDING);
+        this.setGameState(ExGameState.BUILDING);
     }
 
     public void endGame() {
-        this.setGameState(GameState.END);
+        this.setGameState(ExGameState.END);
     }
 
 

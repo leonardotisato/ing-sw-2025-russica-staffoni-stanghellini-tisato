@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerStates.PlayerState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -15,7 +15,7 @@ import java.util.List;
 public class Player {
 
     private int activity;
-    private PlayerState currState;
+    private GameState currState;
     private final String name;
     private final PlayerColor color;
     private ExPlayerState state;
@@ -338,7 +338,7 @@ public class Player {
         return activity;
     }
 
-    public void setCurrState(PlayerState state) {
+    public void setCurrState(GameState state) {
         currState = state;
         return;
     }

@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 
 import it.polimi.ingsw.cg04.model.Game;
 import com.google.gson.annotations.Expose;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
@@ -57,4 +59,19 @@ public abstract class AdventureCard {
     }
 
 
+    public int getEarnedCredits() {
+        return 0;
+    }
+
+    public int getMembersNeeded() {
+        return 0;
+    }
+
+    public void setMembersNeeded(int i) {
+        return;
+    }
+
+    public AdventureCardState createGameState(Game game){
+        return null;
+    }
 }

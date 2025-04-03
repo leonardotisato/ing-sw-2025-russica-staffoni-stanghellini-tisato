@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg04.controller;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.GameState;
+import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 
@@ -88,7 +88,7 @@ public class GamesHandler {
         game.setPlayerState(player, state);
     }
 
-    public void setGameState(Game game, GameState state) {
+    public void setGameState(Game game, ExGameState state) {
         game.setGameState(state);
     }
 
