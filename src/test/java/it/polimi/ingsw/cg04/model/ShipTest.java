@@ -794,6 +794,49 @@ class ShipTest {
     }
 
     @Test
+    void checkMeteorTest2() {
+        Tile batteryTile14 = tiles.get(14);
+        batteryTile14.rotate90dx();
+        lev2Ship.placeTile(batteryTile14, 1, 2);
+        Tile laserTile136 = tiles.get(136);
+        lev2Ship.placeTile(laserTile136, 1, 3);
+        Tile storageTile68 = tiles.get(68);
+        storageTile68.rotate90dx();
+        storageTile68.rotate90dx();
+        lev2Ship.placeTile(storageTile68, 2, 1);
+        Tile shieldTile149 = tiles.get(149);
+        lev2Ship.placeTile(shieldTile149, 2, 2);
+        Tile housingTile34 = tiles.get(34);
+        lev2Ship.placeTile(housingTile34, 2, 3);
+        Tile housingTile37 = tiles.get(37);
+        lev2Ship.placeTile(housingTile37, 2, 4);
+        Tile laserTile118 = tiles.get(118); // when propulsor74 is not placed, questa non c'è nella matrice visited
+        lev2Ship.placeTile(laserTile118, 2, 5);
+        Tile propulsorTile99 = tiles.get(99);
+        lev2Ship.placeTile(propulsorTile99, 3, 1);
+        Tile batteryTile15 = tiles.get(15);
+        batteryTile15.rotate90dx();
+        batteryTile15.rotate90dx();
+        batteryTile15.rotate90dx();
+        lev2Ship.placeTile(batteryTile15, 3, 2);
+        Tile storageTile30 = tiles.get(30);
+        lev2Ship.placeTile(storageTile30, 3, 3);
+        Tile structuralTile57 = tiles.get(57);
+        structuralTile57.rotate90dx();
+        lev2Ship.placeTile(structuralTile57, 3, 4);
+        Tile propulsorTile74 = tiles.get(74);
+        lev2Ship.placeTile(propulsorTile74, 4, 4); // this  causes Index 5 out of bounds for length 5 in BFS
+
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 2));
+        assertEquals(1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 3));
+        assertEquals(0, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 4));
+    }
+
+    @Test
     void handleMeteor() {
     }
 

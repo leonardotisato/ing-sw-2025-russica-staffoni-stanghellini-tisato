@@ -708,7 +708,7 @@ public class Ship {
                     case RIGHT -> newY++;
                 }
 
-                if(newX >= 0 && newX < shipWidth && newY >= 0 && newY < shipHeight) {
+                if(newX >= 0 && newX < shipHeight && newY >= 0 && newY < shipWidth) {
                     if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
                         list.add(new int[]{newX, newY});
                         visited[newX][newY] = true;
@@ -730,7 +730,8 @@ public class Ship {
             for (int i = 0; i < shipHeight; i++) {
                 // CASE 1: non ti fa nulla
                 if(tilesMatrix[i][k] != null && (!exposed.contains(tilesMatrix[i][k].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
-                    || tilesMatrix[i][k].getConnection(dir) == Connection.GUN && !tilesMatrix[i][k].isDoublePropulsor())) {
+                    || tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
+                        && !tilesMatrix[i][k].isDoubleLaser())) {
                     return -1;
                 }
                 // CASE 2: puoi usare scudo
@@ -738,7 +739,7 @@ public class Ship {
                     return 1;
                 }
                 // CASE 3: puoi usare doppio cannone
-                if(tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                if(tilesMatrix[i][k] != null && tilesMatrix[i][k].isDoubleLaser() != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() && meteor == Meteor.HEAVYMETEOR){
                     return 0;
                 }
             }
@@ -747,14 +748,15 @@ public class Ship {
             for (int i = 0; i < shipWidth; i++) {
                 // case 1:
                 if(tilesMatrix[k][i] != null && (!exposed.contains(tilesMatrix[k][i].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
-                    || tilesMatrix[k][i].getConnection(dir) == Connection.GUN && !tilesMatrix[k][i].isDoublePropulsor())) {
+                    || tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
+                        && !tilesMatrix[k][i].isDoubleLaser())) {
                     return -1;
                 }
-                if(tilesMatrix[k][i] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[k][i].getConnection(dir)) && getProtectedDirections().contains(dir)) {
+                if(tilesMatrix[k][i] != null  && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[k][i].getConnection(dir)) && getProtectedDirections().contains(dir)) {
                     return 1;
                 }
 
-                if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                if(tilesMatrix[k][i] != null && tilesMatrix[k][i].isDoubleLaser() != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() && meteor == Meteor.HEAVYMETEOR){
                     return 0;
                 }
             }
@@ -762,13 +764,14 @@ public class Ship {
         if (dir == Direction.RIGHT) {
             for (int i = 0; i < shipWidth; i++) {
                 if(tilesMatrix[k][shipWidth-1-i] != null && (!exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
-                    || tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && !tilesMatrix[k][shipWidth-1-i].isDoublePropulsor())) {
+                    || tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
+                        && !tilesMatrix[k][shipWidth-1-i].isDoubleLaser())) {
                     return -1;
                 }
                 if(tilesMatrix[k][shipWidth-1-i] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && getProtectedDirections().contains(dir)) {
                     return 1;
                 }
-                if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() && meteor == Meteor.HEAVYMETEOR){
                     return 0;
                 }
             }
@@ -776,13 +779,14 @@ public class Ship {
         if (dir == Direction.DOWN) {
             for (int i = 0; i < shipHeight; i++) {
                 if(tilesMatrix[shipHeight-1-i][k] != null && (!exposed.contains(tilesMatrix[shipHeight-1-i][k].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
-                    || tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && !tilesMatrix[shipHeight-1-i][k].isDoublePropulsor())) {
+                    || tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoubleLaser() != null
+                    && !tilesMatrix[shipHeight-1-i][k].isDoubleLaser())) {
                     return -1;
                 }
                 if(tilesMatrix[shipHeight-1-i][k] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[shipHeight-1-i][k].getConnection(dir)) && getProtectedDirections().contains(dir)) {
                     return 1;
                 }
-                if(tilesMatrix[shipHeight-1-i][k] != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                if(tilesMatrix[shipHeight-1-i][k] != null &&  tilesMatrix[shipHeight-1-i][k].isDoubleLaser() != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoubleLaser() && meteor == Meteor.HEAVYMETEOR){
                     return 0;
                 }
             }
