@@ -134,7 +134,7 @@ public abstract class Tile {
     // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
-        if(this instanceof PropulsorTile && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
+        if(/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
             return false;
         }
 
