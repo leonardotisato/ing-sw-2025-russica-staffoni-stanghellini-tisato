@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.Expose;
-import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 

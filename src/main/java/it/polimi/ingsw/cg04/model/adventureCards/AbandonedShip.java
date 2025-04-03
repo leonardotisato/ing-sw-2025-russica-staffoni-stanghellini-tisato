@@ -1,16 +1,12 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
-import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AbandonedShip extends AdventureCard {
     @Expose

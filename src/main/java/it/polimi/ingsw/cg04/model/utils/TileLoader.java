@@ -5,11 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.cg04.model.adventureCards.*;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
 import it.polimi.ingsw.cg04.model.tiles.*;
 
 import java.io.FileReader;

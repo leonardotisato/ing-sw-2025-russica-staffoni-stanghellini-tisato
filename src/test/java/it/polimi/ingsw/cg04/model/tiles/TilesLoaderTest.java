@@ -2,13 +2,7 @@ package it.polimi.ingsw.cg04.model.tiles;
 
 
 
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;

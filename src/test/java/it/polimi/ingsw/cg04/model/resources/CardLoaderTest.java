@@ -1,15 +1,7 @@
 package it.polimi.ingsw.cg04.model.resources;
 
 import it.polimi.ingsw.cg04.model.adventureCards.*;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Connection;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
-import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
-import it.polimi.ingsw.cg04.model.utils.TileLoader;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;

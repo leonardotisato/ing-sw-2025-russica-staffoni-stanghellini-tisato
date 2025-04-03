@@ -1,10 +1,14 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.HandleBoxesAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 
-public class AbandonedStationState extends AdventureCardState {
+import java.util.List;
+
+public class PiratesState extends AdventureCardState {
+    List<Player> defeatedPlayers;
+    Integer dice;
+
     public void handleAction(Player player, PlayerAction action) {
         action.execute(player);
     }

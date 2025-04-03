@@ -3,7 +3,6 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.util.List;
 

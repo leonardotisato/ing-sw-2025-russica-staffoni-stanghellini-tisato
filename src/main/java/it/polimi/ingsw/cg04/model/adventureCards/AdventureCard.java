@@ -3,13 +3,8 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import it.polimi.ingsw.cg04.model.Game;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.GameState;
-import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class AdventureCard {
 
