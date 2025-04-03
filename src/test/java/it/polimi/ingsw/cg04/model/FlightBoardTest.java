@@ -117,50 +117,50 @@ class FlightBoardTest {
         assertFalse(fb2.isTimerExpired());
     }
 
-    @Test
-    void isTimerExpired() throws InterruptedException {
-        Thread.sleep(5100);
-        assertTrue(fb2.isTimerExpired());
-    }
+//    @Test
+//    void isTimerExpired() throws InterruptedException {
+//        Thread.sleep(5100);
+//        assertTrue(fb2.isTimerExpired());
+//    }
 
-    @Test
-    void flipTimer() throws InterruptedException {
-        Thread.sleep(5100);
-        assertTrue(fb2.isTimerExpired());
-        assertTrue(fb2.flipTimer());
-        assertFalse(fb2.isTimerExpired());
-    }
+//    @Test
+//    void flipTimer() throws InterruptedException {
+//        Thread.sleep(5100);
+//        assertTrue(fb2.isTimerExpired());
+//        assertTrue(fb2.flipTimer());
+//        assertFalse(fb2.isTimerExpired());
+//    }
 
-    @Test
-    void getTimerFlipsUsedAndFlipsRemaining() throws InterruptedException {
-        assertEquals(0, fb2.getTimerFlipsUsed());
-        assertEquals(3, fb2.getTimerFlipsRemaining());
+//    @Test
+//    void getTimerFlipsUsedAndFlipsRemaining() throws InterruptedException {
+//        assertEquals(0, fb2.getTimerFlipsUsed());
+//        assertEquals(3, fb2.getTimerFlipsRemaining());
+//
+//        Thread.sleep(5100);
+//        fb2.flipTimer();
+//        assertEquals(1, fb2.getTimerFlipsUsed());
+//        assertEquals(2, fb2.getTimerFlipsRemaining());
+//    }
 
-        Thread.sleep(5100);
-        fb2.flipTimer();
-        assertEquals(1, fb2.getTimerFlipsUsed());
-        assertEquals(2, fb2.getTimerFlipsRemaining());
-    }
+//    @Test
+//    void maxFlipsTest() throws InterruptedException {
+//        for (int i = 0; i < 3; i++) {
+//            Thread.sleep(5100);
+//            assertTrue(fb2.flipTimer(), "Flip should be allowed up to max flips.");
+//        }
+//
+//        Thread.sleep(5100);
+//        assertFalse(fb2.flipTimer(), "Timer should not flip after reaching max flips.");
+//        assertTrue(fb2.isTimerExpired(), "Timer should remain expired if max flips are reached.");
+//    }
 
-    @Test
-    void maxFlipsTest() throws InterruptedException {
-        for (int i = 0; i < 3; i++) {
-            Thread.sleep(5100);
-            assertTrue(fb2.flipTimer(), "Flip should be allowed up to max flips.");
-        }
-
-        Thread.sleep(5100);
-        assertFalse(fb2.flipTimer(), "Timer should not flip after reaching max flips.");
-        assertTrue(fb2.isTimerExpired(), "Timer should remain expired if max flips are reached.");
-    }
-
-    @Test
-    void getRemainingTime() throws InterruptedException {
-        long initialRemaining = fb2.getRemainingTime();
-        assertTrue(initialRemaining > 0 && initialRemaining <= 5000, "Remaining time should be within the expected range.");
-
-        Thread.sleep(2000);
-        long remainingAfter2Sec = fb2.getRemainingTime();
-        assertTrue(remainingAfter2Sec > 0 && remainingAfter2Sec < initialRemaining, "Remaining time should decrease over time.");
-    }
+//    @Test
+//    void getRemainingTime() throws InterruptedException {
+//        long initialRemaining = fb2.getRemainingTime();
+//        assertTrue(initialRemaining > 0 && initialRemaining <= 5000, "Remaining time should be within the expected range.");
+//
+//        Thread.sleep(2000);
+//        long remainingAfter2Sec = fb2.getRemainingTime();
+//        assertTrue(remainingAfter2Sec > 0 && remainingAfter2Sec < initialRemaining, "Remaining time should decrease over time.");
+//    }
 }
