@@ -732,6 +732,21 @@ class ShipTest {
     }
 
     @Test
+    void checkMeteor(){
+        lev1Ship.placeTile(housingTile33, 2, 2);
+        lev1Ship.placeTile(structuralTile53, 4, 3);
+        lev1Ship.placeTile(propulsorTile76, 3, 0);
+        lev1Ship.placeTile(propulsorTile94, 3, 1);
+        lev1Ship.placeTile(housingTile46, 3, 3);
+        lev1Ship.placeTile(alienSupportTile141, 3, 4);
+        lev1Ship.placeTile(laserTile106, 2, 0);
+        lev1Ship.placeTile(storageTile19, 2, 1);
+        lev1Ship.placeTile(laserTile125, 2, 3);
+        lev1Ship.placeTile(storageTile18, 1, 2);
+        assertTrue(lev1Ship.isShipLegal());
+    }
+
+    @Test
     void handleMeteor() {
     }
 

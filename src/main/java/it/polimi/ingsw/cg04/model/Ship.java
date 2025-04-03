@@ -719,6 +719,82 @@ public class Ship {
         return visitedTiles == totalTiles;
     }
 
+    public int checkMeteor(Direction dir, Meteor meteor, int k) {
+        Set<Connection> exposed = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
+
+        if(k < 0 || k > shipWidth){
+            return 2;
+        }
+
+        if (dir == Direction.UP) {
+            for (int i = 0; i < shipHeight; i++) {
+                // CASE 1: non ti fa nulla
+                if(tilesMatrix[i][k] != null && (!exposed.contains(tilesMatrix[i][k].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
+                    || tilesMatrix[i][k].getConnection(dir) == Connection.GUN && !tilesMatrix[i][k].isDoublePropulsor())) {
+                    return -1;
+                }
+                // CASE 2: puoi usare scudo
+                if(tilesMatrix[i][k] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[i][k].getConnection(dir)) && getProtectedDirections().contains(dir)) {
+                    return 1;
+                }
+                // CASE 3: puoi usare doppio cannone
+                if(tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                    return 0;
+                }
+            }
+        }
+        if (dir == Direction.LEFT) {
+            for (int i = 0; i < shipWidth; i++) {
+                // case 1:
+                if(tilesMatrix[k][i] != null && (!exposed.contains(tilesMatrix[k][i].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
+                    || tilesMatrix[k][i].getConnection(dir) == Connection.GUN && !tilesMatrix[k][i].isDoublePropulsor())) {
+                    return -1;
+                }
+                if(tilesMatrix[k][i] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[k][i].getConnection(dir)) && getProtectedDirections().contains(dir)) {
+                    return 1;
+                }
+
+                if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                    return 0;
+                }
+            }
+        }
+        if (dir == Direction.RIGHT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if(tilesMatrix[k][shipWidth-1-i] != null && (!exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
+                    || tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && !tilesMatrix[k][shipWidth-1-i].isDoublePropulsor())) {
+                    return -1;
+                }
+                if(tilesMatrix[k][shipWidth-1-i] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && getProtectedDirections().contains(dir)) {
+                    return 1;
+                }
+                if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                    return 0;
+                }
+            }
+        }
+        if (dir == Direction.DOWN) {
+            for (int i = 0; i < shipHeight; i++) {
+                if(tilesMatrix[shipHeight-1-i][k] != null && (!exposed.contains(tilesMatrix[shipHeight-1-i][k].getConnection(dir)) && meteor != Meteor.HEAVYMETEOR
+                    || tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && !tilesMatrix[shipHeight-1-i][k].isDoublePropulsor())) {
+                    return -1;
+                }
+                if(tilesMatrix[shipHeight-1-i][k] != null && meteor != Meteor.HEAVYMETEOR && exposed.contains(tilesMatrix[shipHeight-1-i][k].getConnection(dir)) && getProtectedDirections().contains(dir)) {
+                    return 1;
+                }
+                if(tilesMatrix[shipHeight-1-i][k] != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoublePropulsor() && meteor == Meteor.HEAVYMETEOR){
+                    return 0;
+                }
+            }
+        }
+
+        return -1;
+
+        // return -1 se non puoi farci nulla o se non ti fa nulla
+        // return 0 se puoi salvarti con cannone doppio
+        // return 1 se puoi salvarti con shield
+    }
+
     // // todo: metodo non finito, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
@@ -760,7 +836,6 @@ public class Ship {
             }
         }
 
-        // todo: non penso serva ritornare valori visto come abbiamo implementato breakTile
         return false;
     }
 
