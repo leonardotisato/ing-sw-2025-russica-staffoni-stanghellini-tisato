@@ -331,7 +331,7 @@ public abstract class Tile {
             sb.append(", maxBoxes=").append(getMaxBoxes());
 
         if (isSpecialStorageTile() != null)
-            sb.append(", specialStorageTile=true");
+            sb.append(", specialStorageTile=").append(isSpecialStorageTile());
 
         if (isDoublePropulsor() != null)
             sb.append(", doublePropulsor=true");

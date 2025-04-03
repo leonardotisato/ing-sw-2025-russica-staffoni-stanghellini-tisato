@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -731,8 +732,8 @@ class ShipTest {
         // try placing
     }
 
-    // todo: fix me
-    // @Test
+
+    @Test
     void isShipLegal3() {
         Tile batteryTile14 = tiles.get(14);
         batteryTile14.rotate90dx();
@@ -749,7 +750,7 @@ class ShipTest {
         lev2Ship.placeTile(housingTile34, 2, 3);
         Tile housingTile37 = tiles.get(37);
         lev2Ship.placeTile(housingTile37, 2, 4);
-        Tile laserTile118 = tiles.get(118); // when propulsor74 is not placed, questa non c'è nella matrice visited
+        Tile laserTile118 = tiles.get(118);
         lev2Ship.placeTile(laserTile118, 2, 5);
         Tile propulsorTile99 = tiles.get(99);
         lev2Ship.placeTile(propulsorTile99, 3, 1);
@@ -764,11 +765,15 @@ class ShipTest {
         structuralTile57.rotate90dx();
         lev2Ship.placeTile(structuralTile57, 3, 4);
         Tile propulsorTile74 = tiles.get(74);
-        lev2Ship.placeTile(propulsorTile74, 4, 4); // this  causes Index 5 out of bounds for length 5 in BFS
+        lev2Ship.placeTile(propulsorTile74, 4, 4);
 
         System.out.println(lev2Ship);
+        assertTrue(laserTile118.isValidConnection(Direction.LEFT, housingTile37));
+        assertTrue(lev2Ship.isShipConnectedBFS());
         assertTrue(lev2Ship.isShipLegal());
         assertEquals(4, lev2Ship.getNumExposedConnectors());
+        assertEquals(6, lev2Ship.getNumBatteries());
+        assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT)));
     }
 
     @Test
