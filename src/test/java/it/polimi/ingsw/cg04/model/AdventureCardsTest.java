@@ -13,6 +13,7 @@ import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -145,7 +146,7 @@ public class AdventureCardsTest {
         assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
-        
+
 
     }
 
@@ -156,18 +157,19 @@ public class AdventureCardsTest {
         List<Integer> numCrewMembersLost = new ArrayList<>();
         numCrewMembersLost.add(2);
         numCrewMembersLost.add(2);
-        List<List<Integer>> coordinates = new ArrayList<>();
-        coordinates.add(List.of(2, 2));
-        coordinates.add(List.of(3, 2));
-        PlayerAction action = new HandleCrewAction(coordinates, numCrewMembersLost);
+        List<Coordinates> coordinates = new ArrayList<>();
+        coordinates.add(new Coordinates(2, 2));
+        coordinates.add(new Coordinates(3, 2));
+        PlayerAction action = new HandleCrewAction(coordinates, numCrewMembersLost, game);
         game.getGameState().handleAction(p,action);
         assertEquals(6, p.getNumCredits());
         assertEquals(0, p.getShip().getNumCrew());
         assertEquals(0, p.getShip().getTile(2,2).getNumCrew());
         assertEquals(0, p.getShip().getTile(3,2).getNumCrew());
         assertEquals(3, p.getCurrentCell());
-        assertEquals(0, p.getActivity());
-        assertEquals(ExPlayerState.FLIGHT, p.getState());
+        assertInstanceOf(FlightState.class, game.getGameState());
+        assertNull(game.getCurrentAdventureCard());
+
     }
 
     @Test

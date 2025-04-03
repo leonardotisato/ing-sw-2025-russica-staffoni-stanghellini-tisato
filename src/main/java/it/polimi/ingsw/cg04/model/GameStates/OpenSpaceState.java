@@ -26,9 +26,4 @@ public class OpenSpaceState extends AdventureCardState {
         }
     }
 
-    @Override
-    public void triggerNextState() {
-        context.setGameState(new FlightState());
-        context.setCurrentAdventureCard(null);
-    }
 }

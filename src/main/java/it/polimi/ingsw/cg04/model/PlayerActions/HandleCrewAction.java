@@ -1,57 +1,48 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
+import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HandleCrewAction implements PlayerAction{
     List<Integer> numCrewMembersLost;
-    List<List<Integer>> coordinates;
+    List<Coordinates> coordinates;
+    Game game;
 
-    public HandleCrewAction(List<List<Integer>> coordinates, List<Integer> numCrewMembersLost) {
+    public HandleCrewAction(List<Coordinates> coordinates, List<Integer> numCrewMembersLost, Game context) {
         this.coordinates = new ArrayList<>(coordinates);
         this.numCrewMembersLost = new ArrayList<>(numCrewMembersLost);
+        this.game = context;
     }
 
     public void execute(Player player) {
+        AdventureCardState gameState = (AdventureCardState)game.getGameState();
         if (numCrewMembersLost == null) {
-            endAction(player);
+            gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
+            gameState.setCurrPlayerIdx(gameState.getCurrPlayerIdx() + 1);
             return;
         }
-        Tile currTile;
-        for (int i = 0; i < numCrewMembersLost.size(); i++) {
-            currTile = player.getShip().getTile(coordinates.get(i).get(0), coordinates.get(i).get(1));
-            if (currTile instanceof HousingTile) {
-                player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).get(0), coordinates.get(i).get(1), numCrewMembersLost.get(i));
-            }
-            else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
-        }
-        endAction(player);
-    }
-
-    public void endAction(Player player) {
-        int position = player.getRanking();
-        player.setActivity(0);
-        if (numCrewMembersLost == null) {
-            if (player.getGame().getPlayers().size() == position) {
-                // porto tutti a flight
-                player.getGame().getPlayers().stream().
-                        forEach(p -> p.setState(ExPlayerState.FLIGHT));
-            }
-            else {
-                player.getGame().getSortedPlayers().get(position + 1).setActivity(1);
-            }
-        }
         else {
+            for (int i = 0; i < numCrewMembersLost.size(); i++) {
+                int finali = i;
+                if (player.getShip().getTilesMap().get("HousingTile").stream().anyMatch(t -> t.equals(new Coordinates(coordinates.get(finali).getX(), coordinates.get(finali).getY())))) {
+                    player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
+                }
+                else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
+            }
+            gameState.getPlayed().replaceAll(ignored -> 1);
             player.updateCredits(player.getGame().getCurrentAdventureCard().getEarnedCredits());
             player.move(-player.getGame().getCurrentAdventureCard().getDaysLost());
-            player.getGame().getPlayers().stream().
-                    forEach(p -> p.setState(ExPlayerState.FLIGHT));
+            return;
         }
     }
 }

@@ -25,5 +25,47 @@ public abstract class AdventureCardState implements GameState {
     }
 
     public abstract void handleAction(Player player, PlayerAction action);
-    public void triggerNextState() {return;}
+    public void triggerNextState() {
+        context.setGameState(new FlightState());
+        context.setCurrentAdventureCard(null);
+    }
+    public List<Player> getSortedPlayers() {
+        return sortedPlayers;
+    }
+
+    public List<Integer> getPlayed() {
+        return played;
+    }
+
+    public Integer getCurrPlayerIdx() {
+        return currPlayerIdx;
+    }
+
+    public AdventureCard getCard() {
+        return card;
+    }
+
+    public Game getContext() {
+        return context;
+    }
+
+    public void setSortedPlayers(List<Player> sortedPlayers) {
+        this.sortedPlayers = sortedPlayers;
+    }
+
+    public void setPlayed(List<Integer> played) {
+        this.played = played;
+    }
+
+    public void setCurrPlayerIdx(Integer currPlayerIdx) {
+        this.currPlayerIdx = currPlayerIdx;
+    }
+
+    public void setCard(AdventureCard card) {
+        this.card = card;
+    }
+
+    public void setContext(Game context) {
+        this.context = context;
+    }
 }

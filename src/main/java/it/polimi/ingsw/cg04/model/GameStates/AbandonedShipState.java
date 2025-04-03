@@ -16,5 +16,8 @@ public class AbandonedShipState extends AdventureCardState {
     }
     public void handleAction(Player player, PlayerAction action) {
         action.execute(player);
+        if (!played.contains(0)) {
+            triggerNextState();
+        }
     }
 }
