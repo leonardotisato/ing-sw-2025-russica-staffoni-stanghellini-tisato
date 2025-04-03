@@ -117,9 +117,14 @@ public class HousingTile extends Tile {
 
         // remove this tile from adjacentHousingTile in relative AlienSupportTile
         Tile[][] tilesMatrix = ship.getTilesMatrix();
+        List<int[]> alienSupportTilesIdx = ship.getTilesMap().get("AlienSupportTile");
+
         for (int i = 0; i < tilesMatrix[0].length - 1; i++) {
             for (int j = 0; j < tilesMatrix.length - 1; j++) {
-                if (tilesMatrix[i][j] != null && tilesMatrix[i][j].getSupportedAlienColor()!= null && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
+                int finalI = i;
+                int finalJ = j;
+                if (alienSupportTilesIdx.stream().anyMatch(t -> t[0] == finalI && t[1] == finalJ)
+                    && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
                     tilesMatrix[i][j].removeAdjacentHousingTile(this);
                 }
             }
@@ -150,14 +155,16 @@ public class HousingTile extends Tile {
         int shipHeight = ship.getTilesMatrix().length;
         int shipWidth = ship.getTilesMatrix()[0].length;
         Tile[][] tilesMatrix = ship.getTilesMatrix();
+        List<int[]> alienSupportTilesIdx = ship.getTilesMap().get("AlienSupportTile");
+
         for(int i=0; i<shipHeight; i++){
             for(int j=0; j<shipWidth; j++){
                 if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
 
+                    int finalI = i;
+                    int finalJ = j;
                     // look UP -> check tile type and connection
-                    if (i > 0 /*&& tilesMatrix[i - 1][j] instanceof AlienSupportTile*/
-                            && tilesMatrix[i - 1][j] != null
-                            && tilesMatrix[i - 1][j].getSupportedAlienColor() != null
+                    if (i > 0 && alienSupportTilesIdx.stream().anyMatch(t -> t[0] == finalI -1 && t[1] == finalJ)
                             && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
@@ -167,9 +174,7 @@ public class HousingTile extends Tile {
                     }
 
                     // look LEFT -> check tile type and connection
-                    if (j > 0 /*&& tilesMatrix[i][j - 1] instanceof AlienSupportTile*/
-                            && tilesMatrix[i][j - 1] != null
-                            && tilesMatrix[i][j -1].getSupportedAlienColor() != null
+                    if (j > 0 && alienSupportTilesIdx.stream().anyMatch(t -> t[0] == finalI && t[1] == finalJ - 1)
                             && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
@@ -179,9 +184,7 @@ public class HousingTile extends Tile {
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if (j < shipWidth - 1 /*&& tilesMatrix[i][j + 1] instanceof AlienSupportTile*/
-                            && tilesMatrix[i][j + 1] != null
-                            && tilesMatrix[i][j + 1].getSupportedAlienColor() != null
+                    if (j < shipWidth - 1 && alienSupportTilesIdx.stream().anyMatch(t -> t[0] == finalI && t[1] == finalJ + 1)
                             && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
@@ -191,9 +194,7 @@ public class HousingTile extends Tile {
                     }
 
                     // look DOWN -> check tile type and connection
-                    if (i < shipHeight - 1 /*&& tilesMatrix[i + 1][j] instanceof AlienSupportTile*/
-                            && tilesMatrix[i + 1][j] != null
-                            && tilesMatrix[i + 1][j].getSupportedAlienColor() != null
+                    if (i < shipHeight - 1 && alienSupportTilesIdx.stream().anyMatch(t -> t[0] == finalI + 1 && t[1] == finalJ)
                             && this.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
