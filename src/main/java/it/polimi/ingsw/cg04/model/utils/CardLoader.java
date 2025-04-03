@@ -3,10 +3,6 @@ package it.polimi.ingsw.cg04.model.utils;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.io.FileReader;
 import java.io.IOException;

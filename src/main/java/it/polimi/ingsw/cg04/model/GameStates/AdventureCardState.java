@@ -11,5 +11,6 @@ public abstract class AdventureCardState implements GameState {
     private List<Integer> played;
     private Integer  currPlayerIdx;
     private AdventureCard card;
+
     public abstract void handleAction(Player player, PlayerAction action);
 }
