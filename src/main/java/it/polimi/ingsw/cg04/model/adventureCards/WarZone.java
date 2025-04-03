@@ -2,6 +2,9 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.StardustState;
+import it.polimi.ingsw.cg04.model.GameStates.WarZoneState;
 import it.polimi.ingsw.cg04.model.Player;
 
 import java.util.List;
@@ -84,5 +87,9 @@ public class WarZone extends AdventureCard {
                     throw new IllegalArgumentException("Illegal parameter");
             }
         }
+    }
+
+    public AdventureCardState createState(Game game) {
+        return new WarZoneState(game.getSortedPlayers(), this);
     }
 }

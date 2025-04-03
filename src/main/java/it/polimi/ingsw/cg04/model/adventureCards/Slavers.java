@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.GameStates.SlaversState;
 
 public class Slavers extends AdventureCard{
     @Expose

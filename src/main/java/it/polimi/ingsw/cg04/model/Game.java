@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
@@ -20,7 +21,7 @@ public class Game {
     private final int level;
     private final List<Player> players;
     private FlightBoard board;
-    private ExGameState gameState;
+    private GameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
     private List<List<Integer>> preFlightPiles;
@@ -52,7 +53,7 @@ public class Game {
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
-        this.gameState = ExGameState.START;
+        this.gameState = new LobbyState();
     }
 
     /**
@@ -224,7 +225,7 @@ public class Game {
      *
      * @param state the new {@code GameState} to set.
      */
-    public void setGameState(ExGameState state) {
+    public void setGameState(GameState state) {
         this.gameState = state;
     }
 

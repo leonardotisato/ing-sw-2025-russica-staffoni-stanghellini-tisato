@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.GameStates.StardustState;
 
 public class Stardust extends AdventureCard {
 
@@ -16,11 +17,6 @@ public class Stardust extends AdventureCard {
         for(int i = game.getPlayers().size() - 1; i>= 0; i--) {
             game.getPlayer(i).move(-(game.getPlayer(i).getShip().getNumExposedConnectors()));
         }
-    }
-
-    @Override
-    public AdventureCardState createState(Game game) {
-        return new OpenSpaceState(game.getSortedPlayers(), this);
     }
 
     @Override
