@@ -6,6 +6,9 @@ import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AbandonedShipState;
+import it.polimi.ingsw.cg04.model.GameStates.AbandonedStationState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
@@ -42,5 +45,10 @@ public class AbandonedStation extends AdventureCard {
             }
         }
         else throw new RuntimeException("not enough crew");
+    }
+
+    @Override
+    public AdventureCardState createState(Game game) {
+        return new AbandonedStationState(game.getSortedPlayers(), this);
     }
 }

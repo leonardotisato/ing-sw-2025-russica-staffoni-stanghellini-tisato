@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
 
 public class Slavers extends AdventureCard{
     @Expose
@@ -37,6 +39,10 @@ public class Slavers extends AdventureCard{
     }
 
     public void solveEffect(Game game){
-        // add effect
+    }
+
+    @Override
+    public AdventureCardState createState(Game game) {
+        return new SlaversState(game.getSortedPlayers(), this);
     }
 }
