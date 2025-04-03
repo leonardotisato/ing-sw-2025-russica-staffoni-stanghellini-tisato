@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 
 public class GetNextAdventureCardAction implements PlayerAction {
-    Game game;
+    private Game game;
     public GetNextAdventureCardAction (Game game) {
         this.game = game;
     }
