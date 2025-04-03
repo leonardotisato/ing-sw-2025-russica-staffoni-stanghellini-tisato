@@ -25,6 +25,7 @@ public class Ship {
     private double baseFirePower = 0;
     private int basePropulsionPower = 0;
 
+    private final Map<String, List<int[]>> tilesMap;
     private final Map<CrewType, Integer> crewMap;
     private final Map<BoxType, Integer> boxes;
     private final List<Direction> protectedDirections;
@@ -35,6 +36,16 @@ public class Ship {
         this.level = lev;
         this.color = playerColor;
         assert (level == 1 || level == 2);
+
+        tilesMap = new HashMap<>();
+        tilesMap.put("AlienSupportTile", new ArrayList<>());
+        tilesMap.put("BatteryTile", new ArrayList<>());
+        tilesMap.put("HousingTile", new ArrayList<>());
+        tilesMap.put("LaserTile", new ArrayList<>());
+        tilesMap.put("PropulsorTile", new ArrayList<>());
+        tilesMap.put("ShieldTile", new ArrayList<>());
+        tilesMap.put("StorageTile", new ArrayList<>());
+        tilesMap.put("StructuralTile", new ArrayList<>());
 
         protectedDirections = new ArrayList<>();
         tilesBuffer = new ArrayList<>();
@@ -114,6 +125,10 @@ public class Ship {
         return shipHeight;
     }
 
+    public Map<String, List<int[]>> getTilesMap(){
+        return tilesMap;
+    }
+
     /**
      * checks if the indexes are inside the matrix
      *
@@ -180,6 +195,7 @@ public class Ship {
 
         tilesMatrix[x][y] = tile;   // place tile in the ship
         tile.place(this, x, y);   // update resources and tiles params
+        this.addTileToMap(tile.getType(), x, y); // adds tile to tile's map
         updateExposedConnectors();  // update exposedConnectors attribute
 
         return true;
@@ -210,6 +226,7 @@ public class Ship {
         if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is already empty!"); }
 
         this.getTile(x, y).broken(this, x, y);
+        this.removeTileFromMap(getTile(x, y).getType(), x, y);
         this.tilesMatrix[x][y] = null;
         this.updateExposedConnectors();
         this.numBrokenTiles++;
@@ -262,6 +279,29 @@ public class Ship {
         return boxes.get(type);
     }
 
+    /**
+     * adds tile's coordinates of a  specific type to the specific list
+     *
+     * @param type key of the {@code tilesMap} Map
+     * @param x row
+     * @param y column
+     */
+    public void addTileToMap(String type, int x, int y) {
+        // add coords to correct list
+        tilesMap.get(type).add(new int[]{x, y});
+    }
+
+    /**
+     * removes tile's coordinates of a specific type to the specific list
+     *
+     * @param type key of the {@code tilesMap} Map
+     * @param x row
+     * @param y column
+     */
+    public void removeTileFromMap(String type, int x, int y) {
+        List<int[]> list = tilesMap.get(type);
+        list.removeIf(tile -> tile[0] == x && tile[1] == y);
+    }
     /**
      * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
      *

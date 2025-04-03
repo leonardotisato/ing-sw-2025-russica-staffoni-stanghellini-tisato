@@ -87,19 +87,6 @@ public class StorageTile extends Tile {
         emptyStorage.put(BoxType.GREEN, 0);
 
         ship.setBoxes(emptyStorage, x, y);
-        /*
-        for(BoxType boxType : BoxType.values()) {
-
-            //if(boxes.get(boxType) > 0) {
-            //    ship.removeBoxes(boxType, boxes.get(boxType));
-            //}
-
-            while (boxes.get(boxType) > 0) {
-                ship.removeBox(boxType, x, y);
-            }
-            boxes.put(boxType, 0);
-        }
-        */
     }
 
     // no need to override place methode
