@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.Player;
 
 import java.util.List;
@@ -16,5 +18,10 @@ public class OpenSpace extends AdventureCard {
             player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
         }
         player.move(player.getShip().getBasePropulsionPower() + usedBatteries.size() * 2);
+    }
+
+    @Override
+    public AdventureCardState createState(Game game) {
+        return new OpenSpaceState(game);
     }
 }

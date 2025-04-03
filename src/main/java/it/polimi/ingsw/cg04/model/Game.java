@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
+import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
@@ -20,7 +22,7 @@ public class Game {
     private final int level;
     private final List<Player> players;
     private FlightBoard board;
-    private ExGameState gameState;
+    private GameState gameState;
     private AdventureCard currentAdventureCard;
     private Bank bank;
     private List<List<Integer>> preFlightPiles;
@@ -52,7 +54,7 @@ public class Game {
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
-        this.gameState = ExGameState.START;
+        this.gameState = new LobbyState();
     }
 
     /**
@@ -215,7 +217,7 @@ public class Game {
      *
      * @return the {@code GameState} representing the current state of the game.
      */
-    public ExGameState getGameState() {
+    public GameState getGameState() {
         return gameState;
     }
 
@@ -224,7 +226,7 @@ public class Game {
      *
      * @param state the new {@code GameState} to set.
      */
-    public void setGameState(ExGameState state) {
+    public void setGameState(GameState state) {
         this.gameState = state;
     }
 
@@ -236,27 +238,28 @@ public class Game {
      * This method sets the game's state to `BUILDING` and updates each player's
      * state to `BUILDING`.
      */
-    public void startBuildPhase() {
-        this.setGameState(ExGameState.BUILDING);
-        for (Player p : players) {
-            p.setState(ExPlayerState.BUILDING);
-        }
-    }
+    @Deprecated
+//    public void startBuildPhase() {
+//        this.setGameState(ExGameState.BUILDING);
+//        for (Player p : players) {
+//            p.setState(ExPlayerState.BUILDING);
+//        }
+//    }
 
-    /**
-     * Initiates the flight phase of the game.
-     * <p>
-     * This method sets the game's state to `FLIGHT` and updates each player's
-     * state to `FLIGHT`, transitioning them from the building phase to the
-     * flight phase.
-     */
+//    /**
+//     * Initiates the flight phase of the game.
+//     * <p>
+//     * This method sets the game's state to `FLIGHT` and updates each player's
+//     * state to `FLIGHT`, transitioning them from the building phase to the
+//     * flight phase.
+//     */
 
-    public void startFlightPhase() {
-        this.setGameState(ExGameState.FLIGHT);
-        for (Player p : players) {
-            p.setState(ExPlayerState.FLIGHT);
-        }
-    }
+//    public void startFlightPhase() {
+//        this.setGameState(ExGameState.FLIGHT);
+//        for (Player p : players) {
+//            p.setState(ExPlayerState.FLIGHT);
+//        }
+//    }
 
     // todo: test
     public void checkShips() {
@@ -267,13 +270,14 @@ public class Game {
     }
 
     // ridondante! esiste già startBuildPhase...
-    public void beginGame() {
-        this.setGameState(ExGameState.BUILDING);
-    }
-
-    public void endGame() {
-        this.setGameState(ExGameState.END);
-    }
+    @Deprecated
+//    public void beginGame() {
+//        this.setGameState(ExGameState.BUILDING);
+//    }
+//
+//    public void endGame() {
+//        this.setGameState(ExGameState.END);
+//    }
 
 
     // cards and tiles handling

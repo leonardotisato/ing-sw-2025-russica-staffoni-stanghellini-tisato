@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
@@ -88,17 +89,17 @@ public class GamesHandler {
         game.setPlayerState(player, state);
     }
 
-    public void setGameState(Game game, ExGameState state) {
+    public void setGameState(Game game, GameState state) {
         game.setGameState(state);
     }
-
-    public void beginGame(Game game) {
-        game.beginGame();
-    }
-
-    public void endGame(Game game) {
-        game.endGame();
-    }
+@Deprecated
+//    public void beginGame(Game game) {
+//        game.beginGame();
+//    }
+//
+//    public void endGame(Game game) {
+//        game.endGame();
+//    }
 
 
     public void createGame(int level) {

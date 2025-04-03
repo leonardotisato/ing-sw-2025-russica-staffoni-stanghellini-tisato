@@ -66,7 +66,5 @@ public abstract class AdventureCard {
         return;
     }
 
-    public AdventureCardState createGameState(Game game){
-        return null;
-    }
+    public abstract AdventureCardState createState(Game game);
 }

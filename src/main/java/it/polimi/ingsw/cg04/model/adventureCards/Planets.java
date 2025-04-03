@@ -1,6 +1,9 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
+import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.PlanetsState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
@@ -53,5 +56,10 @@ public class Planets extends AdventureCard {
             player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
         }
         // in the controller we must call movePlayer for each player who landed in reverse order
+    }
+
+    @Override
+    public AdventureCardState createState(Game game) {
+        return new PlanetsState(game);
     }
 }

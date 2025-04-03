@@ -131,13 +131,14 @@ public class AdventureCardsTest {
 
     @Test
     void testOpenSpacePattern(){
-        p.setCurrState(new OpenSpaceState());
+        game.setCurrentAdventureCard(game.getCardById(5));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Integer> usedBatteries = new ArrayList<>();
         List<List<Integer>> coordinates = new ArrayList<>();
         usedBatteries.add(1);
         coordinates.add(List.of(2, 1));
         PlayerAction action = new ChoosePropuslsorAction(coordinates, usedBatteries);
-        p.handleAction(action);
+        game.getGameState().handleAction(p, action);
         assertEquals(7, p.getCurrentCell());
         assertEquals(2, p.getShip().getNumBatteries());
         assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
@@ -147,8 +148,8 @@ public class AdventureCardsTest {
 
     @Test
     void testAbandonedShipPattern(){
-        p.setCurrState(new AbandonedShipState());
-        p.getGame().setCurrentAdventureCard(game.getCardById(37));
+        game.setCurrentAdventureCard(game.getCardById(37));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Integer> numCrewMembersLost = new ArrayList<>();
         numCrewMembersLost.add(2);
         numCrewMembersLost.add(2);
@@ -156,7 +157,7 @@ public class AdventureCardsTest {
         coordinates.add(List.of(2, 2));
         coordinates.add(List.of(3, 2));
         PlayerAction action = new HandleCrewAction(coordinates, numCrewMembersLost);
-        p.handleAction(action);
+        game.getGameState().handleAction(p,action);
         assertEquals(6, p.getNumCredits());
         assertEquals(0, p.getShip().getNumCrew());
         assertEquals(0, p.getShip().getTile(2,2).getNumCrew());
@@ -168,15 +169,15 @@ public class AdventureCardsTest {
 
     @Test
     void testAbandonedStationPattern(){
-        p.setCurrState(new AbandonedStationState());
-        p.getGame().setCurrentAdventureCard(game.getCardById(39));
+        game.setCurrentAdventureCard(game.getCardById(39));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Map<BoxType,Integer>> newBoxes = new ArrayList<>();
         newBoxes.add(new HashMap<>(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0)));
         List<List<Integer>> coordinates = new ArrayList<>();
         coordinates.add(List.of(2, 3));
         PlayerAction action = new HandleBoxesAction(coordinates, newBoxes);
-        p.getGame().getCurrentAdventureCard().setMembersNeeded(4);
-        p.handleAction(action);
+        game.getCurrentAdventureCard().setMembersNeeded(4);
+        game.getGameState().handleAction(p, action);
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getBoxes());
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
         assertEquals(0, p.getActivity());

@@ -17,5 +17,6 @@ module it.polimi.ingsw.cg04 {
     opens it.polimi.ingsw.cg04.model.tiles to com.google.gson;
     exports it.polimi.ingsw.cg04.controller;
     exports it.polimi.ingsw.cg04.model.GameStates;
+    exports it.polimi.ingsw.cg04.model.PlayerActions;
     opens it.polimi.ingsw.cg04.controller to javafx.fxml;
 }
