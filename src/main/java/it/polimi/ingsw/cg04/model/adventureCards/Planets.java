@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

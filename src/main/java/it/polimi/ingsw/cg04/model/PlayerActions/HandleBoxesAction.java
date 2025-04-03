@@ -2,10 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
-import it.polimi.ingsw.cg04.model.tiles.HousingTile;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {

@@ -3,12 +3,16 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.ChoosePropuslsorAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 
-public class OpenSpaceState implements GameState {
+import java.util.List;
+
+public class OpenSpaceState extends AdventureCardState {
+
+    public OpenSpaceState(List<Player> players, AdventureCard adventureCard) {
+        super(players, adventureCard);
+    }
     public void handleAction(Player player, PlayerAction action) {
-        if(!(action instanceof ChoosePropuslsorAction)){
-            throw new IllegalArgumentException("Illegal action");
-        }
         action.execute(player);
     }
 }
