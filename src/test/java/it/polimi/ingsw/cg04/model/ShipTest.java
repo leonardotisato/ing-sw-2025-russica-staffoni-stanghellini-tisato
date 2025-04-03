@@ -48,13 +48,14 @@ class ShipTest {
     private Tile laserTile125;
     private Tile laserTile126;
 
+    Map<Integer, Tile> tiles;
 
 
     @BeforeEach
     void setUp() {
         // new tests using the tileLoader
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
 
         assertNotNull(tiles);
         assertFalse(tiles.isEmpty());
@@ -128,12 +129,12 @@ class ShipTest {
         // check central tile is correct
         assertInstanceOf(HousingTile.class, lev1Ship.getTile(2, 2));
         assertTrue(lev1Ship.getTile(2, 2).isCentralTile());
-        assertEquals(33, lev1Ship.getTile(2,2).getId());
+        assertEquals(33, lev1Ship.getTile(2, 2).getId());
 
         // check central tile is correct
         assertInstanceOf(HousingTile.class, lev2Ship.getTile(2, 3));
         assertTrue(lev2Ship.getTile(2, 3).isCentralTile());
-        assertEquals(52, lev2Ship.getTile(2,3).getId());
+        assertEquals(52, lev2Ship.getTile(2, 3).getId());
 
     }
 
@@ -153,7 +154,7 @@ class ShipTest {
     void placeTile() {
 
         assertFalse(lev1Ship.placeTile(storageTile26, 2, 2), "Tile cannot be placed in the center where the central housing tile should be!");
-        assertFalse(lev2Ship.placeTile(storageTile26, 2,3), "Tile cannot be placed in the center where the central housing tile should be!");
+        assertFalse(lev2Ship.placeTile(storageTile26, 2, 3), "Tile cannot be placed in the center where the central housing tile should be!");
         assertFalse(lev1Ship.placeTile(null, 3, 2), "Null tile cannot be placed!");
         assertFalse(lev1Ship.placeTile(storageTile26, 0, 0));
         assertFalse(lev1Ship.placeTile(storageTile26, 1, 0));
@@ -451,7 +452,7 @@ class ShipTest {
     }
 
     @Test
-    void breakTile2(){
+    void breakTile2() {
         // new ship formation
         lev1Ship.placeTile(housingTile33, 2, 2);
         lev1Ship.placeTile(structuralTile53, 4, 3);
@@ -605,7 +606,7 @@ class ShipTest {
         assertTrue(lev1Ship.getProtectedDirections().containsAll(List.of(Direction.UP, Direction.RIGHT, Direction.RIGHT, Direction.DOWN)));
 
         // remove a shieldTile, make sure protectedDirections are updated
-        lev1Ship.breakTile(2,1);
+        lev1Ship.breakTile(2, 1);
         assertEquals(2, lev1Ship.getProtectedDirections().size());
         assertTrue(lev1Ship.getProtectedDirections().containsAll(List.of(Direction.DOWN, Direction.RIGHT)));
     }
@@ -650,7 +651,7 @@ class ShipTest {
         lev1Ship.breakTile(3, 2);
 
 
-        lev1Ship.placeTile(alienSupportTile141, 2,3);
+        lev1Ship.placeTile(alienSupportTile141, 2, 3);
         assertEquals(4, lev1Ship.getNumExposedConnectors());
         lev1Ship.placeTile(alienSupportTile142, 2, 4);
         assertEquals(4, lev1Ship.getNumExposedConnectors());
@@ -730,8 +731,48 @@ class ShipTest {
         // try placing
     }
 
+    // todo: fix me
+    // @Test
+    void isShipLegal3() {
+        Tile batteryTile14 = tiles.get(14);
+        batteryTile14.rotate90dx();
+        lev2Ship.placeTile(batteryTile14, 1, 2);
+        Tile laserTile136 = tiles.get(136);
+        lev2Ship.placeTile(laserTile136, 1, 3);
+        Tile storageTile68 = tiles.get(68);
+        storageTile68.rotate90dx();
+        storageTile68.rotate90dx();
+        lev2Ship.placeTile(storageTile68, 2, 1);
+        Tile shieldTile149 = tiles.get(149);
+        lev2Ship.placeTile(shieldTile149, 2, 2);
+        Tile housingTile34 = tiles.get(34);
+        lev2Ship.placeTile(housingTile34, 2, 3);
+        Tile housingTile37 = tiles.get(37);
+        lev2Ship.placeTile(housingTile37, 2, 4);
+        Tile laserTile118 = tiles.get(118); // when propulsor74 is not placed, questa non c'è nella matrice visited
+        lev2Ship.placeTile(laserTile118, 2, 5);
+        Tile propulsorTile99 = tiles.get(99);
+        lev2Ship.placeTile(propulsorTile99, 3, 1);
+        Tile batteryTile15 = tiles.get(15);
+        batteryTile15.rotate90dx();
+        batteryTile15.rotate90dx();
+        batteryTile15.rotate90dx();
+        lev2Ship.placeTile(batteryTile15, 3, 2);
+        Tile storageTile30 = tiles.get(30);
+        lev2Ship.placeTile(storageTile30, 3, 3);
+        Tile structuralTile57 = tiles.get(57);
+        structuralTile57.rotate90dx();
+        lev2Ship.placeTile(structuralTile57, 3, 4);
+        Tile propulsorTile74 = tiles.get(74);
+        lev2Ship.placeTile(propulsorTile74, 4, 4); // this  causes Index 5 out of bounds for length 5 in BFS
+
+        System.out.println(lev2Ship);
+        assertTrue(lev2Ship.isShipLegal());
+        assertEquals(4, lev2Ship.getNumExposedConnectors());
+    }
+
     @Test
-    void checkMeteorTest(){
+    void checkMeteorTest() {
         lev1Ship.placeTile(housingTile33, 2, 2);
         lev1Ship.placeTile(structuralTile53, 4, 3);
         lev1Ship.placeTile(propulsorTile76, 3, 0);

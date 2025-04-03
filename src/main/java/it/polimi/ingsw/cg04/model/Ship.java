@@ -83,7 +83,7 @@ public class Ship {
         validSlots[1][0] = false;
 
         validSlots[0][shipWidth - 1] = false;
-        validSlots[0][shipHeight - 2] = false;
+        validSlots[0][shipWidth - 2] = false;
         validSlots[1][shipWidth - 1] = false;
 
         validSlots[shipHeight - 1][shipWidth / 2] = false;
@@ -890,11 +890,13 @@ public class Ship {
         StringBuilder tilesMatrixGrid = new StringBuilder();
         tilesMatrixGrid.append("TilesMatrix Grid:\n");
 
+
+
         // print the coordinate grid
-        for (int y = 0; y < tilesMatrix.length; y++) {
-            for (int x = 0; x < tilesMatrix[y].length; x++) {
+        for (int y = 0; y < shipHeight; y++) {
+            for (int x = 0; x < shipWidth; x++) {
                 if (this.validSlots[y][x]) {
-                    tilesMatrixGrid.append(String.format("(%d,%d) ", x, y));
+                    tilesMatrixGrid.append(String.format("(%d,%d) ", y, x));
                 }
                 else {
                     tilesMatrixGrid.append("(X,X) ");
@@ -908,7 +910,7 @@ public class Ship {
         for (int y = 0; y < tilesMatrix.length; y++) {
             for (int x = 0; x < tilesMatrix[y].length; x++) {
                 if (tilesMatrix[y][x] != null) {
-                    tilesMatrixGrid.append(String.format("(%d,%d): %s\n", x, y, tilesMatrix[y][x]));
+                    tilesMatrixGrid.append(String.format("(%d,%d): %s\n", y, x, tilesMatrix[y][x]));
                 }
             }
         }
