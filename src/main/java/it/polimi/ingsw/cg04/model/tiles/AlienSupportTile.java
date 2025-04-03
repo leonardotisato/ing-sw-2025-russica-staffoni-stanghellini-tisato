@@ -87,10 +87,8 @@ public class AlienSupportTile extends Tile {
         for(int i=0; i<shipHeight; i++){
             for(int j=0; j<shipWidth; j++){
                 if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)){
-                    int finalI = i;
-                    int finalJ = j;
                     // look UP -> check tile type and connection
-                    if(i>0 && housingTilesIdx.stream().anyMatch(t -> t.equals(new Coordinates(finalI - 1, finalJ)))
+                    if(i>0 && new Coordinates(i-1, j).isIn(housingTilesIdx)
                             && this.isValidConnection(Direction.UP, tilesMatrix[i-1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i-1][j]);
@@ -100,7 +98,7 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look LEFT -> check tile type and connection
-                    if(j>0 && housingTilesIdx.stream().anyMatch(t -> t.equals(new Coordinates(finalI, finalJ - 1)))
+                    if(j>0 && new Coordinates(i, j-1).isIn(housingTilesIdx)
                             && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j-1])
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i][j-1]);
@@ -110,7 +108,7 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if(j<shipWidth-1 && housingTilesIdx.stream().anyMatch(t -> t.equals(new Coordinates(finalI, finalJ + 1)))
+                    if(j<shipWidth-1 && new Coordinates(i, j+1).isIn(housingTilesIdx)
                             && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j+1])
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i][j+1]);
@@ -120,7 +118,7 @@ public class AlienSupportTile extends Tile {
                     }
 
                     // look DOWN -> check tile type and connection
-                    if(i<shipHeight-1 && housingTilesIdx.stream().anyMatch(t -> t.equals(new Coordinates(finalI + 1, finalJ)))
+                    if(i<shipHeight-1 && new Coordinates(i+1, j).isIn(housingTilesIdx)
                             && this.isValidConnection(Direction.DOWN, tilesMatrix[i+1][j])
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         addAdjacentHousingTile(tilesMatrix[i+1][j]);
