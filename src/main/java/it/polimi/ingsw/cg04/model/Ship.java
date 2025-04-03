@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 
 import it.polimi.ingsw.cg04.model.tiles.*;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.HashSet;
 
@@ -25,7 +26,7 @@ public class Ship {
     private double baseFirePower = 0;
     private int basePropulsionPower = 0;
 
-    private final Map<String, List<int[]>> tilesMap;
+    private final Map<String, List<Coordinates>> tilesMap;
     private final Map<CrewType, Integer> crewMap;
     private final Map<BoxType, Integer> boxes;
     private final List<Direction> protectedDirections;
@@ -125,7 +126,7 @@ public class Ship {
         return shipHeight;
     }
 
-    public Map<String, List<int[]>> getTilesMap(){
+    public Map<String, List<Coordinates>> getTilesMap(){
         return tilesMap;
     }
 
@@ -288,7 +289,7 @@ public class Ship {
      */
     public void addTileToMap(String type, int x, int y) {
         // add coords to correct list
-        tilesMap.get(type).add(new int[]{x, y});
+        tilesMap.get(type).add(new Coordinates(x, y));
     }
 
     /**
@@ -299,8 +300,8 @@ public class Ship {
      * @param y column
      */
     public void removeTileFromMap(String type, int x, int y) {
-        List<int[]> list = tilesMap.get(type);
-        list.removeIf(tile -> tile[0] == x && tile[1] == y);
+        List<Coordinates> list = tilesMap.get(type);
+        list.removeIf(tile -> tile.equals(new Coordinates(x, y)));
     }
     /**
      * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
