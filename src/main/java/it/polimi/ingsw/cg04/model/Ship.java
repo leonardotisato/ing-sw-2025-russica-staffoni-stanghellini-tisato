@@ -708,7 +708,7 @@ public class Ship {
                     case RIGHT -> newY++;
                 }
 
-                if(newX >= 0 && newX < shipWidth && newY >= 0 && newY < shipHeight) {
+                if(newX >= 0 && newX < shipHeight && newY >= 0 && newY < shipWidth) {
                     if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
                         list.add(new int[]{newX, newY});
                         visited[newX][newY] = true;
