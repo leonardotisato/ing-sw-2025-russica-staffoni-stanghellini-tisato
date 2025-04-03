@@ -1,9 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
@@ -49,6 +46,7 @@ class ShipTest {
     private Tile storageTile19;
     private Tile storageTile18;
     private Tile laserTile125;
+    private Tile laserTile126;
 
 
 
@@ -64,6 +62,7 @@ class ShipTest {
         lev1Ship = new Ship(1, PlayerColor.BLUE);
         lev2Ship = new Ship(2, PlayerColor.RED);
 
+        laserTile126 = tiles.get(126);
         storageTile18 = tiles.get(18);
         structuralTile53 = tiles.get(53);
         propulsorTile76 = tiles.get(76);
@@ -732,7 +731,7 @@ class ShipTest {
     }
 
     @Test
-    void checkMeteor(){
+    void checkMeteorTest(){
         lev1Ship.placeTile(housingTile33, 2, 2);
         lev1Ship.placeTile(structuralTile53, 4, 3);
         lev1Ship.placeTile(propulsorTile76, 3, 0);
@@ -741,9 +740,16 @@ class ShipTest {
         lev1Ship.placeTile(alienSupportTile141, 3, 4);
         lev1Ship.placeTile(laserTile106, 2, 0);
         lev1Ship.placeTile(storageTile19, 2, 1);
-        lev1Ship.placeTile(laserTile125, 2, 3);
+        lev1Ship.placeTile(laserTile125, 2, 3); // different!!!!
         lev1Ship.placeTile(storageTile18, 1, 2);
         assertTrue(lev1Ship.isShipLegal());
+
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 3));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 2));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 1));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 0));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 4));
+
     }
 
     @Test
