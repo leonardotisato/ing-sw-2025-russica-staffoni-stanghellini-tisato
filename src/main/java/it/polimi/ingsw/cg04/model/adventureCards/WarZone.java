@@ -90,6 +90,6 @@ public class WarZone extends AdventureCard {
     }
 
     public AdventureCardState createState(Game game) {
-        return new WarZoneState(game.getSortedPlayers(), this);
+        return new WarZoneState(game);
     }
 }

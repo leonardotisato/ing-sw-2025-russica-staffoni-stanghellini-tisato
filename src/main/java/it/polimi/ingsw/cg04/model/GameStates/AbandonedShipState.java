@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AbandonedShipState extends AdventureCardState {
-    public AbandonedShipState(List<Player> players, AdventureCard adventureCard) {
-        super(players, adventureCard);
+    public AbandonedShipState(Game game) {
+        super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
         action.execute(player);

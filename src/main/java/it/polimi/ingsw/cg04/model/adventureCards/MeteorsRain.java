@@ -66,6 +66,7 @@ public class MeteorsRain extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new MeteorsRainState(game.getSortedPlayers(), this);
+       // return new MeteorsRainState(game.getSortedPlayers(), this);
+        return null;
     }
 }

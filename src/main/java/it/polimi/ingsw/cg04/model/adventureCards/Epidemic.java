@@ -65,6 +65,6 @@ public class Epidemic extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new EpidemicState(game.getSortedPlayers(), this);
+        return new EpidemicState(game);
     }
 }

@@ -77,6 +77,6 @@ public class Pirates extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new OpenSpaceState(game.getSortedPlayers(), this);
+        return new OpenSpaceState(game);
     }
 }

@@ -49,6 +49,6 @@ public class AbandonedShip extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new AbandonedShipState(game.getSortedPlayers(), this);
+        return new AbandonedShipState(game);
     }
 }

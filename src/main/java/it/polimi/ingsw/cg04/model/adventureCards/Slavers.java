@@ -44,6 +44,6 @@ public class Slavers extends AdventureCard{
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new SlaversState(game.getSortedPlayers(), this);
+        return new SlaversState(game);
     }
 }

@@ -21,6 +21,6 @@ public class Stardust extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new StardustState(game.getSortedPlayers(), this);
+        return new StardustState(game);
     }
 }

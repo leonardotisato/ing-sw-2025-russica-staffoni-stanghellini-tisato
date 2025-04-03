@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
@@ -13,10 +14,13 @@ public abstract class AdventureCardState implements GameState {
     protected List<Integer> played;
     protected Integer  currPlayerIdx;
     protected AdventureCard card;
-    public AdventureCardState(List<Player> players, AdventureCard adventureCard) {
-        this.sortedPlayers = players;
-        this.card = adventureCard;
-        this.played = new ArrayList<>(Collections.nCopies(players.size(), 0));
+    protected Game context;
+
+    public AdventureCardState(Game game) {
+        this.context = game;
+        this.sortedPlayers = game.getSortedPlayers();
+        this.card = game.getCurrentAdventureCard();
+        this.played = new ArrayList<>(Collections.nCopies(this.sortedPlayers.size(), 0));
         this.currPlayerIdx = 0;
     }
 

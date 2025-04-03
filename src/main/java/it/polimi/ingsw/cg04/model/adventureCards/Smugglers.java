@@ -66,6 +66,6 @@ public class Smugglers extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new SmugglersState(game.getSortedPlayers(), this);
+        return new SmugglersState(game);
     }
 }

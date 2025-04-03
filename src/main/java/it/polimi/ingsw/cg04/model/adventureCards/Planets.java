@@ -60,6 +60,6 @@ public class Planets extends AdventureCard {
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new PlanetsState(game.getSortedPlayers(), this);
+        return new PlanetsState(game);
     }
 }
