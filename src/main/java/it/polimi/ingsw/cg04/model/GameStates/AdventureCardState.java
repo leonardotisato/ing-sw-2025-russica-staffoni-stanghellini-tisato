@@ -25,4 +25,5 @@ public abstract class AdventureCardState implements GameState {
     }
 
     public abstract void handleAction(Player player, PlayerAction action);
+    public void triggerNextState() {return;}
 }
