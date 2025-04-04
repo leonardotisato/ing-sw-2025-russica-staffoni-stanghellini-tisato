@@ -115,21 +115,22 @@ class StardustStateTest {
         game.setCurrentAdventureCard(game.getCardById(24));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
 
-        PlayerAction action1 = new StardustAction(game);
 
+        PlayerAction action1 = new StardustAction(game);
         int expPlayer1 = players.get(0).getShip().getNumExposedConnectors();
 
+        assertInstanceOf(StardustState.class, game.getGameState());
         game.getGameState().handleAction(players.get(0), action1);
         assertEquals(4, players.get(0).getCurrentCell());
-        assertInstanceOf(StardustState.class, game.getGameState());
+
 
         PlayerAction action2 = new StardustAction(game);
-
         int expPlayer2 = players.get(1).getShip().getNumExposedConnectors();
 
+        assertInstanceOf(StardustState.class, game.getGameState());
         game.getGameState().handleAction(players.get(1), action2);
         assertEquals(2, players.get(1).getCurrentCell());
-        assertInstanceOf(StardustState.class, game.getGameState());
+
 
     }
 }
