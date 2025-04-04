@@ -63,12 +63,31 @@
   },
   "10": { "type": "Stardust",
     "cardLevel": 2,
-    "daysLost": 1
+    "daysLost": 0
   },
   "11": {
     "type": "WarZone",
-    "cardLevel": 2,
-    "daysLost": 70,
-    "critPenalty": []
+    "cardLevel": 1,
+    "checkParameter": [
+      "CREW",
+      "PROPULSORS",
+      "CANNONS"
+    ],
+    "penaltyType": [
+      "GOBACK",
+      "LOSECREW",
+      "HANDLESHOTS"
+    ],
+    "daysLost": 3,
+    "lostMembers": 2,
+    "lostGoods": 0,
+    "shots": [
+      "LIGHTSHOT",
+      "HEAVYSHOT"
+    ],
+    "directions": [
+      "DOWN",
+      "DOWN"
+    ]
   }
 }

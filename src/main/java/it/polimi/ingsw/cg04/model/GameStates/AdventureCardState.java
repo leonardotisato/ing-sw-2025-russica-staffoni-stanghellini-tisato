@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class AdventureCardState implements GameState {
     protected List <Player> sortedPlayers;
     protected List<Integer> played;
-    protected Integer  currPlayerIdx;
+    protected Integer currPlayerIdx;
     protected AdventureCard card;
     protected Game context;
 

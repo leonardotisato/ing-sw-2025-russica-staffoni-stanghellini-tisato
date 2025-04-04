@@ -39,7 +39,7 @@
   "4": {
     "type": "Stardust",
     "cardLevel": 1,
-    "daysLost": 1
+    "daysLost": 0
   },
   "5": {
     "type": "OpenSpace",
@@ -110,6 +110,137 @@
       "HEAVYMETEOR"
     ]
   },
+  "12": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "RED": 1,
+        "GREEN": 1,
+        "BLUE": 3
+      },
+      {
+        "RED": 1,
+        "YELLOW": 1,
+        "BLUE": 1
+      },
+      {
+        "RED": 1,
+        "BLU": 3
+      },
+      {
+        "RED": 1,
+        "GREEN": 1
+      }
+    ]
+  },
+  "13": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 2,
+    "planetReward": [
+      {
+        "RED": 2
+      },
+      {
+        "RED": 1,
+        "BLUE": 2
+      },
+      {
+        "YELLOW": 1
+      }
+    ]
+  },
+  "14": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "YELLOW": 1,
+        "GREEN": 1,
+        "BLUE": 2
+      },
+      {
+        "YELLOW": 2
+      }
+    ]
+  },
+  "15": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "planetReward": [
+      {
+        "GREEN": 2
+      },
+      {
+        "YELLOW": 1
+      },
+      {
+        "BLU": 3
+      }
+    ]
+  },
+  "16": {
+    "type": "WarZone",
+    "cardLevel": 1,
+    "checkParameter": [
+      "CREW",
+      "PROPULSORS",
+      "CANNONS"
+    ],
+    "penaltyType": [
+      "GOBACK",
+      "LOSECREW",
+      "HANDLESHOTS"
+    ],
+    "daysLost": 3,
+    "lostMembers": 2,
+    "lostGoods": 0,
+    "shots": [
+      "LIGHTSHOT",
+      "HEAVYSHOT"
+    ],
+    "directions": [
+      "DOWN",
+      "DOWN"
+    ]
+  },
+  "17": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "lostMembers": 2,
+    "earnedCredits": 3
+  },
+  "18": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "lostMembers": 3,
+    "earnedCredits": 4
+  },
+  "19": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "membersNeeded": 5,
+    "obtainedResources": {
+      "YELLOW": 1,
+      "GREEN": 1
+    }
+  },
+  "20": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "membersNeeded": 6,
+    "obtainedResources": {
+      "RED": 2
+    }
+  },
   "21": {
     "type": "Slavers",
     "cardLevel": 2,
@@ -149,7 +280,7 @@
   "24": {
     "type": "Stardust",
     "cardLevel": 2,
-    "daysLost": 1
+    "daysLost": 0
   },
   "25": {
     "type": "Epidemic",
@@ -298,9 +429,32 @@
   },
   "36": {
     "type": "WarZone",
-    "cardLevel": 50,
-    "daysLost": 70,
-    "critPenalty": []
+    "cardLevel": 2,
+    "checkParameter": [
+      "CANNONS",
+      "PROPULSORS",
+      "CREW"
+    ],
+    "penaltyType": [
+      "GOBACK",
+      "LOSEBOX",
+      "HANDLESHOTS"
+    ],
+    "daysLost": 4,
+    "lostMembers": 0,
+    "lostGoods": 2,
+    "shots": [
+      "LIGHTSHOT",
+      "LIGHTSHOT",
+      "LIGHTSHOT",
+      "HEAVYSHOT"
+    ],
+    "directions": [
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ]
   },
   "37": {
     "type": "AbandonedShip",

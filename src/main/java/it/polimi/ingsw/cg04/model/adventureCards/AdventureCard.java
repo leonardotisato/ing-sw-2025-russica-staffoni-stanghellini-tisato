@@ -11,7 +11,7 @@ public abstract class AdventureCard {
     @Expose private String type;
     @Expose private int cardLevel;
     @Expose private int daysLost;
-    @Expose private boolean solved = false;
+    // @Expose private boolean solved = false;
 
     public AdventureCard(){
     }
@@ -39,16 +39,18 @@ public abstract class AdventureCard {
         this.daysLost = daysLost;
     }
 
-    public boolean getSolved() { return solved; }
-    public void setSolved(boolean solved) { this.solved = solved; }
+    // public boolean getSolved() { return solved; }
+
+    // public void setSolved(boolean solved) { this.solved = solved; }
 
     public int getFirePower() {
         return 0;
     }
 
-    public int getLostGoods() {
-        return 0;
-    }
+    // public int getLostGoods() { return 0; }
+
+    // public int getLostMembers() { return 0; }
+
     public List<Boolean> getIsOccupied() {
         return null;
     }

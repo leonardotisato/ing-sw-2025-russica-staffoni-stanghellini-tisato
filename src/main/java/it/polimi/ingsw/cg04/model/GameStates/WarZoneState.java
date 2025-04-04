@@ -5,11 +5,18 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WarZoneState extends AdventureCardState {
+    private List<Integer> firePower;
+    private List<Integer> propulsionPower;
+    private List<Integer> crewSize;
+
     public WarZoneState(Game game) {
         super(game);
+        firePower = new ArrayList<Integer>();
+        propulsionPower = new ArrayList<Integer>();
     }
     public void handleAction(Player player, PlayerAction action) {
         action.execute(player);
