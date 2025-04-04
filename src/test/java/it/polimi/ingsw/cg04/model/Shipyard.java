@@ -12,7 +12,6 @@ public class Shipyard {
     private Map<Integer, Tile> tiles;
 
     /**
-     *
      * @return a level 1 ship
      */
     public Ship createShip2() {
@@ -36,7 +35,6 @@ public class Shipyard {
     }
 
     /**
-     *
      * @return a level 2 ship
      */
     public Ship createShip3() {
@@ -46,14 +44,14 @@ public class Shipyard {
         Ship ship3 = new Ship(2, PlayerColor.BLUE);
 
         tiles.get(14).rotate90dx();
-        ship3.placeTile(tiles.get(14), 1,2);
+        ship3.placeTile(tiles.get(14), 1, 2);
 
-        ship3.placeTile(tiles.get(136), 1,3);
+        ship3.placeTile(tiles.get(136), 1, 3);
 
         tiles.get(68).rotate90dx();
         tiles.get(68).rotate90dx();
         ship3.placeTile(tiles.get(68), 2, 1);
-        
+
         tiles.get(149);
         ship3.placeTile(tiles.get(149), 2, 2);
 
@@ -74,10 +72,30 @@ public class Shipyard {
 
         tiles.get(57).rotate90dx();
         ship3.placeTile(tiles.get(57), 3, 4);
-        
+
         tiles.get(74);
         ship3.placeTile(tiles.get(74), 4, 4);
 
         return ship3;
+    }
+
+    public Ship createShip4() {
+
+        ArrayList<Integer> faceDownTiles = new ArrayList<>();
+        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+
+        Ship ship4 = new Ship(2, PlayerColor.RED);
+
+        ship4.placeTile(tiles.get(149), 1, 4);
+        ship4.placeTile(tiles.get(141), 2, 1);
+        ship4.placeTile(tiles.get(41), 2, 2);
+        ship4.placeTile(tiles.get(52), 2, 3);
+        ship4.placeTile(tiles.get(59), 2, 4);
+        ship4.placeTile(tiles.get(10), 2, 5);
+        ship4.placeTile(tiles.get(114), 2, 6);
+        ship4.placeTile(tiles.get(98), 3, 2);
+        ship4.placeTile(tiles.get(20), 3, 6);
+
+        return ship4;
     }
 }

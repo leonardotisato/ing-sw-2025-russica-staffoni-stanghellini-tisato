@@ -752,6 +752,21 @@ class ShipTest {
     }
 
     @Test
+    void isShipLegal4() {
+
+        lev2Ship = shipyard.createShip4();
+
+        assertTrue(lev2Ship.isShipConnectedBFS());
+        assertTrue(lev2Ship.isShipLegal());
+        assertEquals(8, lev2Ship.getNumExposedConnectors());
+        assertEquals(2, lev2Ship.getNumBatteries());
+        assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT)));
+        assertEquals(1, lev2Ship.getBaseFirePower());
+    }
+
+
+
+    @Test
     void checkMeteorTest2() {
         lev1Ship = shipyard.createShip2();
         assertTrue(lev1Ship.isShipLegal());
