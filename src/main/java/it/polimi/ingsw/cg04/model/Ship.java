@@ -722,8 +722,12 @@ public class Ship {
     public int checkMeteor(Direction dir, Meteor meteor, int k) {
         Set<Connection> exposed = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
 
-        if(k < 0 || k > shipWidth){
-            return 2;
+        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+            return -1;
+        }
+
+        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
+            return -1;
         }
 
         if (dir == Direction.UP) {
@@ -803,7 +807,11 @@ public class Ship {
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleMeteor(Direction dir, Meteor meteor, int k) {
-        if(k < 0 || k > shipWidth){
+        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+            return false;
+        }
+
+        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
             return false;
         }
 
