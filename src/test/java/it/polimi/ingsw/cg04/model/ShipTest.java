@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {
 
+    Shipyard shipyard = new Shipyard();
+
     Ship lev1Ship;
     Ship lev2Ship;
 
@@ -577,11 +579,11 @@ class ShipTest {
     }
 
     @Test
-    void addBoxTest(){
+    void addBoxTest() {
     }
 
     @Test
-    void setBoxesTest(){
+    void setBoxesTest() {
     }
 
     @Test
@@ -724,59 +726,23 @@ class ShipTest {
 
     @Test
     void isShipLegal2() {
-        lev1Ship.placeTile(housingTile33, 2, 2);
-        lev1Ship.placeTile(structuralTile53, 4, 3);
-        lev1Ship.placeTile(propulsorTile76, 3, 0);
-        lev1Ship.placeTile(propulsorTile94, 3, 1);
-        lev1Ship.placeTile(housingTile46, 3, 3);
-        lev1Ship.placeTile(alienSupportTile141, 3, 4);
-        lev1Ship.placeTile(laserTile106, 2, 0);
-        lev1Ship.placeTile(storageTile19, 2, 1);
-        lev1Ship.placeTile(laserTile125, 2, 3);
-        lev1Ship.placeTile(storageTile18, 1, 2);
+
+        lev1Ship = shipyard.createShip2();
+
         assertTrue(lev1Ship.isShipLegal());
 
-        assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
+
+        assertTrue(lev1Ship.getTile(3, 3).getSupportedCrewType().contains(lev1Ship.getTile(3, 4).getSupportedAlienColor()));
         // try placing
     }
 
 
     @Test
     void isShipLegal3() {
-        Tile batteryTile14 = tiles.get(14);
-        batteryTile14.rotate90dx();
-        lev2Ship.placeTile(batteryTile14, 1, 2);
-        Tile laserTile136 = tiles.get(136);
-        lev2Ship.placeTile(laserTile136, 1, 3);
-        Tile storageTile68 = tiles.get(68);
-        storageTile68.rotate90dx();
-        storageTile68.rotate90dx();
-        lev2Ship.placeTile(storageTile68, 2, 1);
-        Tile shieldTile149 = tiles.get(149);
-        lev2Ship.placeTile(shieldTile149, 2, 2);
-        Tile housingTile34 = tiles.get(34);
-        lev2Ship.placeTile(housingTile34, 2, 3);
-        Tile housingTile37 = tiles.get(37);
-        lev2Ship.placeTile(housingTile37, 2, 4);
-        Tile laserTile118 = tiles.get(118);
-        lev2Ship.placeTile(laserTile118, 2, 5);
-        Tile propulsorTile99 = tiles.get(99);
-        lev2Ship.placeTile(propulsorTile99, 3, 1);
-        Tile batteryTile15 = tiles.get(15);
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        lev2Ship.placeTile(batteryTile15, 3, 2);
-        Tile storageTile30 = tiles.get(30);
-        lev2Ship.placeTile(storageTile30, 3, 3);
-        Tile structuralTile57 = tiles.get(57);
-        structuralTile57.rotate90dx();
-        lev2Ship.placeTile(structuralTile57, 3, 4);
-        Tile propulsorTile74 = tiles.get(74);
-        lev2Ship.placeTile(propulsorTile74, 4, 4);
+
+        lev2Ship = shipyard.createShip3();
 
         System.out.println(lev2Ship);
-        assertTrue(laserTile118.isValidConnection(Direction.LEFT, housingTile37));
         assertTrue(lev2Ship.isShipConnectedBFS());
         assertTrue(lev2Ship.isShipLegal());
         assertEquals(4, lev2Ship.getNumExposedConnectors());
@@ -786,16 +752,7 @@ class ShipTest {
 
     @Test
     void checkMeteorTest2() {
-        lev1Ship.placeTile(housingTile33, 2, 2);
-        lev1Ship.placeTile(structuralTile53, 4, 3);
-        lev1Ship.placeTile(propulsorTile76, 3, 0);
-        lev1Ship.placeTile(propulsorTile94, 3, 1);
-        lev1Ship.placeTile(housingTile46, 3, 3);
-        lev1Ship.placeTile(alienSupportTile141, 3, 4);
-        lev1Ship.placeTile(laserTile106, 2, 0);
-        lev1Ship.placeTile(storageTile19, 2, 1);
-        lev1Ship.placeTile(laserTile125, 2, 3);
-        lev1Ship.placeTile(storageTile18, 1, 2);
+        lev1Ship = shipyard.createShip2();
         assertTrue(lev1Ship.isShipLegal());
 
         // not a great ship...
@@ -859,37 +816,7 @@ class ShipTest {
     @Test
     void checkMeteorTest3() {
 
-        Tile batteryTile14 = tiles.get(14);
-        batteryTile14.rotate90dx();
-        lev2Ship.placeTile(batteryTile14, 1, 2);
-        Tile laserTile136 = tiles.get(136);
-        lev2Ship.placeTile(laserTile136, 1, 3);
-        Tile storageTile68 = tiles.get(68);
-        storageTile68.rotate90dx();
-        storageTile68.rotate90dx();
-        lev2Ship.placeTile(storageTile68, 2, 1);
-        Tile shieldTile149 = tiles.get(149);
-        lev2Ship.placeTile(shieldTile149, 2, 2);
-        Tile housingTile34 = tiles.get(34);
-        lev2Ship.placeTile(housingTile34, 2, 3);
-        Tile housingTile37 = tiles.get(37);
-        lev2Ship.placeTile(housingTile37, 2, 4);
-        Tile laserTile118 = tiles.get(118);
-        lev2Ship.placeTile(laserTile118, 2, 5);
-        Tile propulsorTile99 = tiles.get(99);
-        lev2Ship.placeTile(propulsorTile99, 3, 1);
-        Tile batteryTile15 = tiles.get(15);
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        lev2Ship.placeTile(batteryTile15, 3, 2);
-        Tile storageTile30 = tiles.get(30);
-        lev2Ship.placeTile(storageTile30, 3, 3);
-        Tile structuralTile57 = tiles.get(57);
-        structuralTile57.rotate90dx();
-        lev2Ship.placeTile(structuralTile57, 3, 4);
-        Tile propulsorTile74 = tiles.get(74);
-        lev2Ship.placeTile(propulsorTile74, 4, 4);
+        lev2Ship = shipyard.createShip3();
 
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 0));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 0));
@@ -979,37 +906,7 @@ class ShipTest {
 
     @Test
     void handleMeteor3() {
-        Tile batteryTile14 = tiles.get(14);
-        batteryTile14.rotate90dx();
-        lev2Ship.placeTile(batteryTile14, 1, 2);
-        Tile laserTile136 = tiles.get(136);
-        lev2Ship.placeTile(laserTile136, 1, 3);
-        Tile storageTile68 = tiles.get(68);
-        storageTile68.rotate90dx();
-        storageTile68.rotate90dx();
-        lev2Ship.placeTile(storageTile68, 2, 1);
-        Tile shieldTile149 = tiles.get(149);
-        lev2Ship.placeTile(shieldTile149, 2, 2);
-        Tile housingTile34 = tiles.get(34);
-        lev2Ship.placeTile(housingTile34, 2, 3);
-        Tile housingTile37 = tiles.get(37);
-        lev2Ship.placeTile(housingTile37, 2, 4);
-        Tile laserTile118 = tiles.get(118);
-        lev2Ship.placeTile(laserTile118, 2, 5);
-        Tile propulsorTile99 = tiles.get(99);
-        lev2Ship.placeTile(propulsorTile99, 3, 1);
-        Tile batteryTile15 = tiles.get(15);
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        batteryTile15.rotate90dx();
-        lev2Ship.placeTile(batteryTile15, 3, 2);
-        Tile storageTile30 = tiles.get(30);
-        lev2Ship.placeTile(storageTile30, 3, 3);
-        Tile structuralTile57 = tiles.get(57);
-        structuralTile57.rotate90dx();
-        lev2Ship.placeTile(structuralTile57, 3, 4);
-        Tile propulsorTile74 = tiles.get(74);
-        lev2Ship.placeTile(propulsorTile74, 4, 4);
+        lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
 
         assertFalse(lev2Ship.handleMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 6));
