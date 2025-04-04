@@ -143,14 +143,21 @@ class ShipTest {
 
     @Test
     void getNumBrokenTiles() {
-        assertEquals(0, lev1Ship.getNumBrokenTiles());
         assertEquals(0, lev2Ship.getNumBrokenTiles());
 
-        // BatteryTile
-        lev1Ship.placeTile(batteryTile5, 0, 2);
-        assertEquals(batteryTile5.getMaxBatteryCapacity(), lev1Ship.getNumBatteries());
-        lev1Ship.breakTile(0, 2);
-        assertEquals(1, lev1Ship.getNumBrokenTiles());
+        lev2Ship = shipyard.createShip3();
+
+        assertEquals(0, lev2Ship.getNumBrokenTiles());
+
+        lev2Ship.breakTile(1,3);
+        assertEquals(1, lev2Ship.getNumBrokenTiles());
+        lev2Ship.breakTile(3,1);
+        assertEquals(2, lev2Ship.getNumBrokenTiles());
+        lev2Ship.breakTile(1,2);
+        assertEquals(3, lev2Ship.getNumBrokenTiles());
+        assertEquals(3, lev2Ship.getNumBatteries());
+        assertEquals(5, lev2Ship.getNumExposedConnectors());
+
     }
 
     @Test
@@ -457,16 +464,9 @@ class ShipTest {
     @Test
     void breakTile2() {
         // new ship formation
-        lev1Ship.placeTile(housingTile33, 2, 2);
-        lev1Ship.placeTile(structuralTile53, 4, 3);
-        lev1Ship.placeTile(propulsorTile76, 3, 0);
-        lev1Ship.placeTile(propulsorTile94, 3, 1);
-        lev1Ship.placeTile(housingTile46, 3, 3);
-        lev1Ship.placeTile(alienSupportTile141, 3, 4);
-        lev1Ship.placeTile(laserTile106, 2, 0);
-        lev1Ship.placeTile(storageTile19, 2, 1);
-        lev1Ship.placeTile(laserTile125, 2, 3);
-        lev1Ship.placeTile(storageTile18, 1, 2);
+        lev1Ship = shipyard.createShip2();
+        housingTile46 = lev1Ship.getTile(3, 3);
+        alienSupportTile141 = lev1Ship.getTile(3, 4);
 
         // add random resources to simulate batter
         lev1Ship.addBox(BoxType.BLUE, 1, 2);
@@ -517,10 +517,11 @@ class ShipTest {
         assertEquals(0, lev1Ship.getNumBatteries());
         assertEquals(0, lev2Ship.getNumBatteries());
 
-        lev2Ship.placeTile(batteryTile5, 1, 2);
-        assertEquals(2, lev2Ship.getNumBatteries());
-        lev2Ship.placeTile(batteryTile5, 3, 3);
-        assertEquals(4, lev2Ship.getNumBatteries());
+        lev2Ship = shipyard.createShip3();
+
+        assertEquals(6, lev2Ship.getNumBatteries());
+        lev2Ship.breakTile(1, 2);
+        assertEquals(3, lev2Ship.getNumBatteries());
     }
 
     @Test
