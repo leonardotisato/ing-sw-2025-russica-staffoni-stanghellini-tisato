@@ -30,6 +30,7 @@ public class HandleBoxesAction implements PlayerAction{
             return;
         }
         else {
+            //TODO sposta check crew member nella handleAction
             if (player.getShip().getNumCrew() >= game.getCurrentAdventureCard().getMembersNeeded()) {
                 for (int i = 0; i < coordinates.size(); i++) {
                     player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
@@ -44,6 +45,7 @@ public class HandleBoxesAction implements PlayerAction{
 
     public boolean checkAction(Player player) {
         AdventureCardState gameState = (AdventureCardState) game.getGameState();
+        if (!gameState.checkAction(player)) return false;
         if(!player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) return false;
         List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));

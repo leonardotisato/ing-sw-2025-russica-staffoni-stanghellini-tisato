@@ -18,4 +18,8 @@ public class AbandonedStationState extends AdventureCardState {
             triggerNextState();
         }
     }
+
+    public boolean checkAction(Player player) {
+        return player.getShip().getNumCrew() > getCard().getMembersNeeded();
+    }
 }

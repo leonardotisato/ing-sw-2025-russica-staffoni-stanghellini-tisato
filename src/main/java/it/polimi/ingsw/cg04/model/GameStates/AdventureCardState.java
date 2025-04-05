@@ -68,4 +68,8 @@ public abstract class AdventureCardState implements GameState {
     public void setContext(Game context) {
         this.context = context;
     }
+
+    public boolean checkAction(Player player) {
+        return true;
+    }
 }
