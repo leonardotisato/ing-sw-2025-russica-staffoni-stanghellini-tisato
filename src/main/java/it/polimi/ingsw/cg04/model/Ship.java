@@ -202,6 +202,9 @@ public class Ship {
         return true;
     }
 
+    /**
+     * breaks all the tiles of the ship, done for simplify testing
+     */
     public void breakAllTiles(){
         for (int i = 0; i < tilesMatrix.length; i++) {
             for (int j = 0; j < tilesMatrix[i].length; j++) {
@@ -721,14 +724,30 @@ public class Ship {
 
     // attackType = 1 -> shot
     // attackType = 0 -> meteor
+
+    /**
+     * calls checkMeteor or checkAttack depending on {@code attackType} argument
+     *
+     * @param dir direction of attack
+     * @param attack LIGHT or HEAVY
+     * @param k dices result (shifted to match matrix indexing)
+     * @param attackType 0 for Meteor, 1 for Attack
+     * @return see return values of checkMeteor and checkAttack
+     */
     public int checkHit(Direction dir, Attack attack, int k, int attackType){
         return attackType == 0 ? checkMeteor(dir, attack, k) : checkAttack(dir, attack, k);
     }
 
-    // todo testing
-    // return -1 se non fa nulla
-    // return 0 se puoi difenderti con shield
-    // return 2 se non puoi farci nulla
+    /**
+     * this methode checks if the ship is hit by an attack and if the player can defend the ship through shields
+     *
+     * @param dir attack direction
+     * @param attack HEAVY or LIGHT
+     * @param k dices result (shifted to match matrix indexing)
+     * @return {@code -1} if the attack does not hit the ship<br>
+     *            {@code 0} if player can defend the ship with a shield<br>
+     *            {@code 2} if the ship is hit and the player can not do anything about it
+     */
     public int checkAttack(Direction dir, Attack attack, int k){
         boolean flag = false;
         if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
@@ -797,10 +816,17 @@ public class Ship {
         return flag ? 2 : -1;
     }
 
-    // return -1 se non ti fa nulla
-    // return 0 se puoi salvarti con shield
-    // return 1 se puoi salvarti con cannone doppio
-    // return 2 se non puoi farci nulla
+    /**
+     * this methode checks if the ship is hit by a meteorite and if the player can use cannons or shields to defend teh ship
+     *
+     * @param dir attack direction
+     * @param meteor HEAVY or LIGHT
+     * @param k dices result (shifted to match matrix indexing)
+     * @return {@code -1} if the attack does not hit the ship<br>
+     *            {@code 0} if player can defend the ship with a shield<br>
+     *            {@code 1} if the player can defend the ship with a double cannon<br>
+     *            {@code 2} if the ship is hit and the player can not do anything about it
+     */
     public int checkMeteor(Direction dir, Attack meteor, int k) {
         Set<Connection> exposed = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
         boolean flag = false;
@@ -940,9 +966,17 @@ public class Ship {
         return flag ? 2 : -1;
     }
 
-    // // todo: metodo non finito, fare distinzioni tra LIGHT e HEAVY e tipo di GAME
-    // the method should return true if tile was broken, so state of the ship can be updated
-    // k is height/width of the attack depending on dir
+    /**
+     * if the ship is hit destroy the target tile <br>
+     * IMPORTANT!!! this methode does not check if the player can use batteries to defend the ship
+     * or if the hit causes the tile to break therefore it should only be called after {@code checkHit}
+     * if and only if a tile would actually be broken
+     *
+     * @param dir direction of the attack
+     * @param meteor attack type, LIGHT or HEAVY
+     * @param k dices result (shifted to match matrix indexing)
+     * @return {@code true} if hit<br>{@code false} if not hit
+     */
     public boolean handleMeteor(Direction dir, Attack meteor, int k) {
         if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return false;
@@ -988,7 +1022,7 @@ public class Ship {
         return false;
     }
 
-    // todo: metodo non finito, fare distinzioni tra LIGHT e HEAVY
+    // todo serve???
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
     public boolean handleShot(Direction dir, Shot shot, int k) {
