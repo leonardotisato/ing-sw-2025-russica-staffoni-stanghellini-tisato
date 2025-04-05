@@ -778,10 +778,10 @@ class ShipTest {
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 2));
         assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 3));
         assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(-2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 1));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(-2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
 
         assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 0));
@@ -835,7 +835,7 @@ class ShipTest {
         assertEquals(0, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
         assertEquals(2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 5));
+        assertEquals(-2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 5));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 6));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 6));
 

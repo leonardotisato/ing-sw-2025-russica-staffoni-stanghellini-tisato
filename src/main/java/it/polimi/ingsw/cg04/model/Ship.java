@@ -822,7 +822,8 @@ public class Ship {
      * @param dir attack direction
      * @param meteor HEAVY or LIGHT
      * @param k dices result (shifted to match matrix indexing)
-     * @return {@code -1} if the attack does not hit the ship<br>
+     * @return {@code -2} if the attacked in neutralized by a single cannon<br>
+     *            {@code -1} if the attack does not hit the ship<br>
      *            {@code 0} if player can defend the ship with a shield<br>
      *            {@code 1} if the player can defend the ship with a double cannon<br>
      *            {@code 2} if the ship is hit and the player can not do anything about it
@@ -852,7 +853,7 @@ public class Ship {
             for(int i = 0; i<shipHeight; i++) {
                 if(tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
                         && !tilesMatrix[i][k].isDoubleLaser()) {
-                    return -1;
+                    return -2;
                 }
             }
             // shield ti salva
@@ -883,7 +884,7 @@ public class Ship {
             for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
                         && !tilesMatrix[k][i].isDoubleLaser()) {
-                    return -1;
+                    return -2;
                 }
             }
             // shield ti salva
@@ -914,7 +915,7 @@ public class Ship {
             for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
                         && !tilesMatrix[k][shipWidth-1-i].isDoubleLaser()) {
-                    return -1;
+                    return -2;
                 }
             }
             // shield ti salva
@@ -946,7 +947,7 @@ public class Ship {
             for(int i = 0; i<shipHeight; i++) {
                 if(tilesMatrix[shipHeight-1-i][k] != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoubleLaser() != null
                         && !tilesMatrix[shipHeight-1-i][k].isDoubleLaser()) {
-                    return -1;
+                    return -2;
                 }
             }
             // shield ti salva
