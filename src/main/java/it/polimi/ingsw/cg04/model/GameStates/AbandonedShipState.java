@@ -15,7 +15,10 @@ public class AbandonedShipState extends AdventureCardState {
         super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
+        if (player.equals(this.sortedPlayers.get(this.currPlayerIdx))) {
+            action.execute(player);
+        }
+        else throw new RuntimeException("Player " + player.getName() + ", is not your turn!");
         if (!played.contains(0)) {
             triggerNextState();
         }
