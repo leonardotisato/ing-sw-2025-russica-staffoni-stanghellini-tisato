@@ -2,11 +2,10 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.AbandonedShipState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Meteor;
+import it.polimi.ingsw.cg04.model.enumerations.Attack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,21 +14,21 @@ public class MeteorsRain extends AdventureCard {
     @Expose
     private List<Direction> directions;
     @Expose
-    private List<Meteor> meteors;
+    private List<Attack> meteors;
 
     public MeteorsRain() {
         super();
         directions = new ArrayList<Direction>();
-        meteors = new ArrayList<Meteor>();
+        meteors = new ArrayList<Attack>();
     }
 
-    public void addMeteorAttack(Direction direction, Meteor meteor) {
+    public void addMeteorAttack(Direction direction, Attack meteor) {
         directions.add(direction);
         meteors.add(meteor);
     }
 
-    public List<Meteor> getMeteors() { return meteors; }
-    public void setMeteors(List<Meteor> meteors) {
+    public List<Attack> getMeteors() { return meteors; }
+    public void setMeteors(List<Attack> meteors) {
         this.meteors = meteors;
     }
 
@@ -40,7 +39,7 @@ public class MeteorsRain extends AdventureCard {
 
     public Direction getDirection(int i) { return directions.get(i); }
 
-    public Meteor getMeteor(int i) { return meteors.get(i); }
+    public Attack getMeteor(int i) { return meteors.get(i); }
 
     public void solveEffect(Game game) {
         int dice = 0;

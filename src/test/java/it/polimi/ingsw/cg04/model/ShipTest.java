@@ -773,59 +773,49 @@ class ShipTest {
 
         // not a great ship...
 
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 2));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 3));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 2));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 2));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 0));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 1));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 2));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 4));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 4));
-
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, -1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 5));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, -1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 5));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, -1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 5));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, -1));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 5));
-
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 0));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 2));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 3));
+        assertEquals(-1, lev1Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 4));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 4));
 
     }
 
@@ -834,56 +824,57 @@ class ShipTest {
 
         lev2Ship = shipyard.createShip3();
 
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 3));
-        assertEquals(0, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 3));
-        assertEquals(1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 4));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.LIGHTMETEOR, 6));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Meteor.HEAVYMETEOR, 6));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 1));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 2));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 3));
+        assertEquals(1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(0, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 5));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 5));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 6));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 6));
 
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 4));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 6));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Meteor.HEAVYMETEOR, 6));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 1));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 3));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 4));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 4));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 5));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 5));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.LIGHT, 6));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.DOWN, Attack.HEAVY, 6));
 
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.LIGHTMETEOR, 4));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 4));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 1));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 3));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.LEFT, Attack.LIGHT, 4));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.LEFT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 0));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 1));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 2));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 2));
-        assertEquals(1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 3));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 4));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 0));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 1));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 2));
+        assertEquals(0, lev2Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 3));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 3));
+        assertEquals(-1, lev2Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 4));
+        assertEquals(2, lev2Ship.checkMeteor(Direction.RIGHT, Attack.HEAVY, 4));
     }
 
     @Test
@@ -905,18 +896,18 @@ class ShipTest {
         lev1Ship.placeTile(storageTile18, 1, 2);
         assertTrue(lev1Ship.isShipLegal());
 
-        lev1Ship.handleMeteor(Direction.UP, Meteor.HEAVYMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.DOWN, Meteor.LIGHTMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.UP, Meteor.HEAVYMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Meteor.HEAVYMETEOR, 2);
+        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
+        lev1Ship.handleMeteor(Direction.DOWN, Attack.LIGHT, 2);
+        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
+        lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 2);
+        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
+        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
+        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
         assertFalse(lev1Ship.isShipLegal());
 
-        assertFalse(lev1Ship.handleMeteor(Direction.RIGHT, Meteor.LIGHTMETEOR, 1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Meteor.HEAVYMETEOR, -1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Meteor.HEAVYMETEOR, 5));
+        assertFalse(lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 1));
+        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, -1));
+        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 5));
 
     }
 
@@ -925,7 +916,7 @@ class ShipTest {
         lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
 
-        assertFalse(lev2Ship.handleMeteor(Direction.RIGHT, Meteor.HEAVYMETEOR, 6));
+        assertFalse(lev2Ship.handleMeteor(Direction.RIGHT, Attack.HEAVY, 6));
     }
 
     @Test
