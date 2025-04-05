@@ -4,4 +4,9 @@ import it.polimi.ingsw.cg04.model.Player;
 
 public class PickPileAction implements PlayerAction {
     public void execute(Player player) {}
+
+    @Override
+    public boolean checkAction(Player player) {
+        return false;
+    }
 }

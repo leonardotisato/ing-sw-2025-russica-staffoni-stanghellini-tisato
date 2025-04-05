@@ -44,4 +44,24 @@ public class HandleCrewAction implements PlayerAction{
             return;
         }
     }
+
+    public boolean checkAction(Player player) {
+        AdventureCardState gameState = (AdventureCardState) game.getGameState();
+        List<Coordinates> propulsorCoordinates = player.getShip().getTilesMap().get("PropulsorTile");
+        int numberOfCrewLost = numCrewMembersLost.stream().mapToInt( b -> b).sum();
+        if(numberOfCrewLost >= player.getShip().getNumCrew()) return false;
+        if(player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) {
+            for (int i = 0; i < numCrewMembersLost.size(); i++) {
+                if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))){
+                    return false;
+                }
+                if(numCrewMembersLost.get(i) > player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY()).getNumCrew()){
+                    return false;
+                }
+            }
+        }
+        else return false;
+        return true;
+    }
 }
+

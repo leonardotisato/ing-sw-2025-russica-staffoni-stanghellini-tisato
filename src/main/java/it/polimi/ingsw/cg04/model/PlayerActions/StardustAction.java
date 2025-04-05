@@ -20,4 +20,9 @@ public class StardustAction implements PlayerAction {
 
         // gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
     }
+
+    @Override
+    public boolean checkAction(Player player) {
+        return false;
+    }
 }
