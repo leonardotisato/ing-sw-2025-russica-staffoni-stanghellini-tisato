@@ -51,6 +51,7 @@ public class Game {
             preFlightPiles.add(new ArrayList<>());
         }
         this.adventureCardsDeck = new ArrayList<>();
+        createAdventureDeck();
         this.faceDownTiles = new ArrayList<>();
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
