@@ -30,6 +30,20 @@ public class Coordinates {
         return false;
     }
 
+    public boolean XisIn(List<Coordinates> coordinates) {
+        for (Coordinates c : coordinates) {
+            if (this.getX() == c.getX()) return true;
+        }
+        return false;
+    }
+
+    public boolean YisIn(List<Coordinates> coordinates) {
+        for (Coordinates c : coordinates) {
+            if (this.getY() == c.getY()) return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
