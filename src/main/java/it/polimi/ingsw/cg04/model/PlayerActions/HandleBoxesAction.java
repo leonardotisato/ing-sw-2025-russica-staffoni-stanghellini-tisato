@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,40 @@ public class HandleBoxesAction implements PlayerAction{
             player.move(-game.getCurrentAdventureCard().getDaysLost());
             return;
         }
+    }
+
+    public boolean checkAction(Player player) {
+        AdventureCardState gameState = (AdventureCardState) game.getGameState();
+        if(!player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) return false;
+        List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");
+        Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
+        for (int i = 0; i < coordinates.size(); i++) {
+            if(!coordinates.get(i).isIn(storageCoordinates)){
+                return false;
+            }
+            Coordinates coord = coordinates.get(i);
+            Map<BoxType, Integer> boxesAtCoord = boxes.get(i);
+            if(boxesAtCoord.values().stream().mapToInt(Integer::intValue).sum() > player.getShip().getTile(coord.getX(), coord.getY()).getMaxBoxes()){
+                return false;
+            }
+            if(boxesAtCoord.get(BoxType.RED) > 0 && !player.getShip().getTile(coord.getX(), coord.getY()).isSpecialStorageTile()){
+                return false;
+            }
+            for (Map.Entry<BoxType, Integer> entry : boxesAtCoord.entrySet()) {
+                BoxType type = entry.getKey();
+                Integer count = entry.getValue();
+
+                newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
+            }
+        }
+
+        for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
+            BoxType type = entry.getKey();
+            Integer count = entry.getValue();
+            if (count > player.getShip().getBoxes(type) + gameState.getCard().getObtainedResourcesByType(type)) {
+                return false;
+            }
+        }
+         return true;
     }
 }

@@ -13,4 +13,9 @@ public class GetNextAdventureCardAction implements PlayerAction {
         game.getNextAdventureCard();
         game.setGameState(game.getCurrentAdventureCard().createState(game));
     }
+
+    @Override
+    public boolean checkAction(Player player) {
+        return false;
+    }
 }

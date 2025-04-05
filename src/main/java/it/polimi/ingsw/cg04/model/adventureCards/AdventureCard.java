@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import it.polimi.ingsw.cg04.model.Game;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
 import java.util.List;
 
@@ -69,4 +70,8 @@ public abstract class AdventureCard {
     }
 
     public abstract AdventureCardState createState(Game game);
+
+    public int getObtainedResourcesByType(BoxType type) {
+        return 0;
+    }
 }
