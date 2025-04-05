@@ -1026,7 +1026,7 @@ public class Ship {
     // todo serve???
     // the method should return true if tile was broken, so state of the ship can be updated
     // k is height/width of the attack depending on dir
-    public boolean handleShot(Direction dir, Shot shot, int k) {
+    public boolean handleShot(Direction dir, Attack shot, int k) {
         if(k < 0 || k > shipWidth){
             return false;
         }
