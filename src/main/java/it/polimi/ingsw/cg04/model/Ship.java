@@ -725,9 +725,76 @@ public class Ship {
         return attackType == 0 ? checkMeteor(dir, attack, k) : checkAttack(dir, attack, k);
     }
 
-    // todo
-    public int checkAttack(Direction dir, Attack meteor, int k){
-        return 0;
+    // todo testing
+    // return -1 se non fa nulla
+    // return 0 se puoi difenderti con shield
+    // return 2 se non puoi farci nulla
+    public int checkAttack(Direction dir, Attack attack, int k){
+        boolean flag = false;
+        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+            return -1;
+        }
+        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
+            return -1;
+        }
+
+        if(dir == Direction.UP) {
+            for(int i = 0; i<shipHeight; i++) {
+                if (tilesMatrix[i][k] != null) {
+                    flag = true;
+                    if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
+                        return 0;
+                    }
+                    if (attack == Attack.HEAVY){
+                        return 2;
+                    }
+                }
+            }
+        }
+
+        if(dir == Direction.LEFT) {
+            for(int i = 0; i<shipWidth; i++) {
+                if (tilesMatrix[k][i] != null) {
+                    flag = true;
+                    if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
+                        return 0;
+                    }
+                    if (attack == Attack.HEAVY){
+                        return 2;
+                    }
+                }
+            }
+        }
+
+        if(dir == Direction.RIGHT) {
+            for(int i = 0; i<shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth-i-1] != null) {
+                    flag = true;
+                    if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
+                        return 0;
+                    }
+                    if (attack == Attack.HEAVY){
+                        return 2;
+                    }
+                }
+            }
+        }
+
+        if(dir == Direction.DOWN) {
+            for(int i = 0; i<shipHeight; i++) {
+                if (tilesMatrix[shipHeight-i-1][k] != null) {
+                    flag = true;
+                    if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
+                        return 0;
+                    }
+                    if (attack == Attack.HEAVY){
+                        return 2;
+                    }
+                }
+            }
+        }
+
+        return flag ? 2 : -1;
     }
 
     // return -1 se non ti fa nulla
@@ -777,7 +844,7 @@ public class Ship {
             }
         }
         if(dir == Direction.LEFT){
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if (tilesMatrix[k][i] != null) {
                     flag = true;
                     if ((!exposed.contains(tilesMatrix[k][i].getConnection(dir)) && meteor != Attack.HEAVY)) {
@@ -787,20 +854,20 @@ public class Ship {
             }
             if(!flag){ return -1;}
             // cannone singolo ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
                         && !tilesMatrix[k][i].isDoubleLaser()) {
                     return -1;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
                         && tilesMatrix[k][i].isDoubleLaser()){
                     return 1;
@@ -808,7 +875,7 @@ public class Ship {
             }
         }
         if(dir == Direction.RIGHT){
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if (tilesMatrix[k][shipWidth-1-i] != null) {
                     flag = true;
                     if ((!exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && meteor != Attack.HEAVY)) {
@@ -818,20 +885,20 @@ public class Ship {
             }
             if(!flag){ return -1;}
             // cannone singolo ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
                         && !tilesMatrix[k][shipWidth-1-i].isDoubleLaser()) {
                     return -1;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][shipWidth-1-i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipHeight; i++) {
+            for(int i = 0; i<shipWidth; i++) {
                 if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
                         && tilesMatrix[k][shipWidth-1-i].isDoubleLaser()){
                     return 1;
