@@ -26,7 +26,7 @@ public class HandleCrewAction implements PlayerAction{
 
     public void execute(Player player) {
         AdventureCardState gameState = (AdventureCardState)game.getGameState();
-        if (numCrewMembersLost == null) {
+        if (numCrewMembersLost.isEmpty()) {
             gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
             gameState.setCurrPlayerIdx(gameState.getCurrPlayerIdx() + 1);
             return;

@@ -19,7 +19,7 @@ public class Player {
     private final String name;
     private final PlayerColor color;
     private ExPlayerState state;
-    private final Ship ship;
+    private Ship ship;
     private final Game game;
     private final FlightBoard flightBoard;
 
@@ -36,6 +36,10 @@ public class Player {
         this.game = game;
         this.flightBoard = this.game.getBoard();
         this.ship = new Ship(game.getLevel(), this.color);
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 
     /**

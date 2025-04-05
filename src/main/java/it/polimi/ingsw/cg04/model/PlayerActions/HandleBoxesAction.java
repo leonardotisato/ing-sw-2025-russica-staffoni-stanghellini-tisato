@@ -23,7 +23,7 @@ public class HandleBoxesAction implements PlayerAction{
 
     public void execute(Player player) {
         AdventureCardState gameState = (AdventureCardState)game.getGameState();
-        if (boxes == null) {
+        if (boxes.isEmpty()) {
             gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
             gameState.setCurrPlayerIdx(gameState.getCurrPlayerIdx() + 1);
             return;
