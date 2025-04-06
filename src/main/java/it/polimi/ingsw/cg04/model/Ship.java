@@ -731,11 +731,13 @@ public class Ship {
      * @param dir direction of attack
      * @param attack LIGHT or HEAVY
      * @param k dices result (shifted to match matrix indexing)
-     * @param attackType 0 for Meteor, 1 for Attack
+     * @param attackType meteor or shot, case-insensitive
      * @return see return values of checkMeteor and checkAttack
      */
-    public int checkHit(Direction dir, Attack attack, int k, int attackType){
-        return attackType == 0 ? checkMeteor(dir, attack, k) : checkAttack(dir, attack, k);
+    public int checkHit(Direction dir, Attack attack, int k, String attackType) {
+        if("meteor".equalsIgnoreCase(attackType)) return checkMeteor(dir, attack, k);
+        if("shot".equalsIgnoreCase(attackType)) return checkAttack(dir, attack, k);
+        throw new IllegalArgumentException("no such argument as" + attackType + "for checkHit methode");
     }
 
     /**
