@@ -21,8 +21,6 @@ public class FlightBoardLev2 extends FlightBoard {
         this.startingPosition.put(3, 1);
         this.startingPosition.put(4, 0);
 
-        this.bank = new Bank(9999, 9999, 9999, 9999, null);
-
         this.endGameCredits = new HashMap<>();
         this.endGameCredits.put(1, 8);
         this.endGameCredits.put(2, 6);

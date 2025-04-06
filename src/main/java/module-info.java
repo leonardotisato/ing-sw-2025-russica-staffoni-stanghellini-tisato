@@ -18,5 +18,6 @@ module it.polimi.ingsw.cg04 {
     exports it.polimi.ingsw.cg04.controller;
     exports it.polimi.ingsw.cg04.model.GameStates;
     exports it.polimi.ingsw.cg04.model.PlayerActions;
+    exports it.polimi.ingsw.cg04.model.utils;
     opens it.polimi.ingsw.cg04.controller to javafx.fxml;
 }

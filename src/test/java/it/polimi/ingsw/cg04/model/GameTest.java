@@ -245,14 +245,6 @@ class GameTest {
     }
 
     @Test
-    void rollDices() {
-        for (int i = 0; i < 10; i++) {
-           assertTrue(gameLev2.rollDices() <= 12);
-           assertTrue(gameLev2.rollDices() >= 2);
-        }
-    }
-
-    @Test
     void startBuildPhase() {
 
         Player alice = gameLev2.addPlayer("Alice", PlayerColor.RED);

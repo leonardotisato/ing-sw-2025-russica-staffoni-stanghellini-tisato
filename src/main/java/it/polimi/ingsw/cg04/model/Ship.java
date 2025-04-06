@@ -306,15 +306,6 @@ public class Ship {
         List<Coordinates> list = tilesMap.get(type);
         list.removeIf(tile -> tile.equals(new Coordinates(x, y)));
     }
-    /**
-     * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
-     *
-     * @param lostBatteries number of batteries to remove
-     */
-    public void removeBatteries(int lostBatteries) {
-        assert this.getNumBatteries() - lostBatteries >= 0;
-        numBatteries -= lostBatteries;
-    }
 
     /**
      * removes {@code int lostBatteries} from ship attribute {@code numBatteries}
@@ -340,23 +331,6 @@ public class Ship {
     public void addBatteries(int newBatteries) {
         assert this.getNumBatteries() + newBatteries >= 0;
         numBatteries += newBatteries;
-    }
-
-    // this method remove 'lostBoxes' boxes, prioritizing high value boxes, then removes battery. As stated in the game rules
-    // todo: this method only updates the new boxes map, does not remove box from a storageTile!!
-    public void removeBoxes(int lostBoxes) {
-        int yetToRemove = lostBoxes;
-        List<BoxType> sortedTypes = this.boxes.keySet().stream().sorted(Comparator.comparing(BoxType::getPriority).reversed()).toList();
-
-        for (BoxType type : sortedTypes) {
-            if (yetToRemove > 0) {
-                yetToRemove -= this.removeBoxes(type, yetToRemove);
-            }
-        }
-
-        if (yetToRemove > 0) {
-            this.removeBatteries(yetToRemove);
-        }
     }
 
     /**

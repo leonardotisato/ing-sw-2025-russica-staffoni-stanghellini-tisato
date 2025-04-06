@@ -326,24 +326,13 @@ public class Player {
         }
     }
 
-    public void handleAction(PlayerAction action) {
-        currState.handleAction(this, action);
-    }
+    // todo: delete me, vecchio playerState pattern
+//    public void handleAction(PlayerAction action) {
+//        currState.handleAction(this, action);
+//    }
 
     public Game getGame() {
         return game;
     }
 
-    public void setActivity(int i){
-        activity = i;
-    }
-
-    public int getActivity(){
-        return activity;
-    }
-
-    public void setCurrState(GameState state) {
-        currState = state;
-        return;
-    }
 }
