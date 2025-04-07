@@ -3,11 +3,9 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.StardustState;
 import it.polimi.ingsw.cg04.model.GameStates.WarZoneState;
-import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,7 @@ public class WarZone extends AdventureCard {
 
     @Expose private List<String> checkParameter;
     @Expose private List<String> penaltyType;
-    @Expose private List<Shot> shots;
+    @Expose private List<Attack> shots;
     @Expose private List<Direction> directions;
     @Expose private int lostGoods;
     @Expose private int lostMembers;
@@ -25,7 +23,7 @@ public class WarZone extends AdventureCard {
         super();
         this.checkParameter = new ArrayList<String>();
         this.penaltyType = new ArrayList<String>();
-        this.shots = new ArrayList<Shot>();
+        this.shots = new ArrayList<Attack>();
         this.directions = new ArrayList<Direction>();
     }
 
@@ -45,11 +43,11 @@ public class WarZone extends AdventureCard {
         this.penaltyType = penaltyType;
     }
 
-    public List<Shot> getShots() {
+    public List<Attack> getShots() {
         return shots;
     }
 
-    public void setShots(List<Shot> shots) {
+    public void setShots(List<Attack> shots) {
         this.shots = shots;
     }
 

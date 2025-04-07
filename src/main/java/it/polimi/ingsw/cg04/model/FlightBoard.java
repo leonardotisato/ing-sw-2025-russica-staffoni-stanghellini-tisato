@@ -10,9 +10,10 @@ public abstract class FlightBoard {
     protected Player[] path;
     protected int pathSize;
     protected Map<Integer, Integer> startingPosition;
-    protected Bank bank;
     protected Map<Integer, Integer> endGameCredits;
     protected int mostBeautifulShipCredits;
+    protected Integer dices = null;
+
     // for testing purposes
     protected final Random rand = new Random();
 
@@ -157,6 +158,19 @@ public abstract class FlightBoard {
         return mostBeautifulShipCredits;
     }
 
+    /**
+     * @return sum of 2 rolled dices
+     */
+    public void rollDices() {
+        int dice1 = rand.nextInt(1, 7);
+        int dice2 = rand.nextInt(1, 7);
+        dices = dice1 + dice2;
+    }
+
+    public int getDice() {
+        return dices;
+    }
+
     // timer methods for lev2 board
 
     /**
@@ -210,7 +224,9 @@ public abstract class FlightBoard {
         return 0;
     }
 
-    public List<Integer> createAdventureCardsDeck(Game game) { return null; }
+    public List<Integer> createAdventureCardsDeck(Game game) {
+        return null;
+    }
 
     @Override
     public String toString() {

@@ -778,10 +778,10 @@ class ShipTest {
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 2));
         assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 3));
         assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(-2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 0));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 1));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 2));
-        assertEquals(-1, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(-2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 3));
         assertEquals(2, lev1Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
 
         assertEquals(-1, lev1Ship.checkMeteor(Direction.RIGHT, Attack.LIGHT, 0));
@@ -835,7 +835,7 @@ class ShipTest {
         assertEquals(0, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 4));
         assertEquals(2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 4));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 5));
-        assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 5));
+        assertEquals(-2, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 5));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.LIGHT, 6));
         assertEquals(-1, lev2Ship.checkMeteor(Direction.UP, Attack.HEAVY, 6));
 
@@ -881,106 +881,106 @@ class ShipTest {
     void checkAttack2(){
         lev1Ship = shipyard.createShip2();
 
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.LIGHT, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.LIGHT, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.LIGHT, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.LIGHT, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.LIGHT, 4));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.HEAVY, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.HEAVY, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.HEAVY, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.HEAVY, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.UP, Attack.HEAVY, 4));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 4));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev1Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 4));
-        assertEquals(-1, lev1Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 4));
+        assertEquals(-1, lev1Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 4));
+        assertEquals(-1, lev1Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev1Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 4));
-        assertEquals(-1, lev1Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 4));
+        assertEquals(-1, lev1Ship.checkShot(Direction.LEFT, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.LIGHT, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.LIGHT, 4));
+        assertEquals(-1, lev1Ship.checkShot(Direction.LEFT, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.LEFT, Attack.HEAVY, 4));
 
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 4));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 0));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 1));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 2));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 3));
-        assertEquals(2, lev1Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 4));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.LIGHT, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.LIGHT, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.LIGHT, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.LIGHT, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.LIGHT, 4));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.HEAVY, 0));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.HEAVY, 1));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.HEAVY, 2));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.HEAVY, 3));
+        assertEquals(2, lev1Ship.checkShot(Direction.DOWN, Attack.HEAVY, 4));
     }
 
     @Test
     void checkAttack3() {
         lev2Ship = shipyard.createShip3();
 
-        assertEquals(-1, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 0));
-        assertEquals(0, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 1));
-        assertEquals(0, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 2));
-        assertEquals(0, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 3));
-        assertEquals(0, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 4));
-        assertEquals(0, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 5));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.UP, Attack.LIGHT, 6));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 4));
-        assertEquals(2, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 5));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.UP, Attack.HEAVY, 6));
+        assertEquals(-1, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 0));
+        assertEquals(0, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 1));
+        assertEquals(0, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 2));
+        assertEquals(0, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 3));
+        assertEquals(0, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 4));
+        assertEquals(0, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 5));
+        assertEquals(-1, lev2Ship.checkShot(Direction.UP, Attack.LIGHT, 6));
+        assertEquals(-1, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 4));
+        assertEquals(2, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 5));
+        assertEquals(-1, lev2Ship.checkShot(Direction.UP, Attack.HEAVY, 6));
 
-        assertEquals(-1, lev2Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 0));
-        assertEquals(0, lev2Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 1));
-        assertEquals(0, lev2Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 2));
-        assertEquals(0, lev2Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 3));
-        assertEquals(0, lev2Ship.checkAttack(Direction.RIGHT, Attack.LIGHT, 4));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.RIGHT, Attack.HEAVY, 4));
+        assertEquals(-1, lev2Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 0));
+        assertEquals(0, lev2Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 1));
+        assertEquals(0, lev2Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 2));
+        assertEquals(0, lev2Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 3));
+        assertEquals(0, lev2Ship.checkShot(Direction.RIGHT, Attack.LIGHT, 4));
+        assertEquals(-1, lev2Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.RIGHT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev2Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.LIGHT, 4));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.LEFT, Attack.HEAVY, 4));
+        assertEquals(-1, lev2Ship.checkShot(Direction.LEFT, Attack.LIGHT, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.LIGHT, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.LIGHT, 4));
+        assertEquals(-1, lev2Ship.checkShot(Direction.LEFT, Attack.HEAVY, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.HEAVY, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.HEAVY, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.LEFT, Attack.HEAVY, 4));
 
-        assertEquals(-1, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 4));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 5));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.DOWN, Attack.LIGHT, 6));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 0));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 1));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 2));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 3));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 4));
-        assertEquals(2, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 5));
-        assertEquals(-1, lev2Ship.checkAttack(Direction.DOWN, Attack.HEAVY, 6));
+        assertEquals(-1, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 4));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 5));
+        assertEquals(-1, lev2Ship.checkShot(Direction.DOWN, Attack.LIGHT, 6));
+        assertEquals(-1, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 0));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 1));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 2));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 3));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 4));
+        assertEquals(2, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 5));
+        assertEquals(-1, lev2Ship.checkShot(Direction.DOWN, Attack.HEAVY, 6));
     }
 
     @Test
@@ -1002,18 +1002,18 @@ class ShipTest {
         lev1Ship.placeTile(storageTile18, 1, 2);
         assertTrue(lev1Ship.isShipLegal());
 
-        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.DOWN, Attack.LIGHT, 2);
-        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
+        lev1Ship.handleHit(Direction.UP, 2);
+        lev1Ship.handleHit(Direction.DOWN, 2);
+        lev1Ship.handleHit(Direction.UP, 2);
+        lev1Ship.handleHit(Direction.RIGHT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
         assertFalse(lev1Ship.isShipLegal());
 
-        assertFalse(lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, -1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 5));
+        assertFalse(lev1Ship.handleHit(Direction.RIGHT, 1));
+        assertFalse(lev1Ship.handleHit(Direction.UP, -1));
+        assertFalse(lev1Ship.handleHit(Direction.UP, 5));
 
     }
 
@@ -1022,7 +1022,7 @@ class ShipTest {
         lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
 
-        assertFalse(lev2Ship.handleMeteor(Direction.RIGHT, Attack.HEAVY, 6));
+        assertFalse(lev2Ship.handleHit(Direction.RIGHT, 6));
     }
 
     @Test

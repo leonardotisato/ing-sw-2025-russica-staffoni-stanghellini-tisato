@@ -14,22 +14,22 @@ public class MeteorsRain extends AdventureCard {
     @Expose
     private List<Direction> directions;
     @Expose
-    private List<Attack> meteors;
+    private List<Attack> attacks;
 
     public MeteorsRain() {
         super();
         directions = new ArrayList<Direction>();
-        meteors = new ArrayList<Attack>();
+        attacks = new ArrayList<Attack>();
     }
 
     public void addMeteorAttack(Direction direction, Attack meteor) {
         directions.add(direction);
-        meteors.add(meteor);
+        attacks.add(meteor);
     }
 
-    public List<Attack> getMeteors() { return meteors; }
-    public void setMeteors(List<Attack> meteors) {
-        this.meteors = meteors;
+    public List<Attack> getAttacks() { return attacks; }
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = attacks;
     }
 
     public List<Direction> getDirections() { return directions; }
@@ -39,29 +39,7 @@ public class MeteorsRain extends AdventureCard {
 
     public Direction getDirection(int i) { return directions.get(i); }
 
-    public Attack getMeteor(int i) { return meteors.get(i); }
-
-    public void solveEffect(Game game) {
-        int dice = 0;
-        for (int i = 0; i < meteors.size(); i++) {
-            dice = game.rollDices();
-            if(dice < 4 || ((this.getDirection(i) == Direction.UP || this.getDirection(i) == Direction.DOWN) && dice > 10) ||
-                    ((this.getDirection(i) == Direction.LEFT || this.getDirection(i) == Direction.RIGHT) && dice > 9)){
-                continue;
-            }
-            else {
-                if(this.getDirection(i) == Direction.UP || this.getDirection(i) == Direction.DOWN){
-                    dice = dice - 4;
-                }
-                else if(this.getDirection(i) == Direction.LEFT || this.getDirection(i) == Direction.RIGHT){
-                    dice = dice - 5;
-                }
-                for (Player player : game.getPlayers()) {
-                    player.getShip().handleMeteor(this.getDirection(i), this.getMeteor(i), dice);
-                }
-            }
-        }
-    }
+    public Attack getAttack(int i) { return attacks.get(i); }
 
     @Override
     public AdventureCardState createState(Game game) {

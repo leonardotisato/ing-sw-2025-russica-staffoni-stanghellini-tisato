@@ -24,7 +24,6 @@ public class Game {
     private FlightBoard board;
     private GameState gameState;
     private AdventureCard currentAdventureCard;
-    private Bank bank;
     private List<List<Integer>> preFlightPiles;
     private final List<Integer> level1Cards;
     private final List<Integer> level2Cards;
@@ -200,17 +199,6 @@ public class Game {
         }
 
         return playersByPosition.get(ranking);
-    }
-
-    /**
-     * Rolls two six-sided dice and returns their sum.
-     *
-     * @return the sum of two randomly rolled dice (2 to 12).
-     */
-    public int rollDices() {
-        int dice1 = rand.nextInt(1, 7);
-        int dice2 = rand.nextInt(1, 7);
-        return dice1 + dice2;
     }
 
     /**
@@ -444,77 +432,77 @@ public class Game {
         this.calculateBestShip();
     }
 
-    // tutti metodi da controller?
+    // todo: delete me?
+//    public void movePlayer(Player player, int steps) {
+//        player.move(steps);
+//    }
+//
+//    public void placeTile(Player player, int x, int y) {
+//        player.placeTile(x, y);
+//    }
+//
+//    public void chooseFaceUpTile(Player player, int index) {
+//        Tile selectedTile = this.removeFaceUpTile(index);
+//        player.setHeldTile(selectedTile);
+//    }
+//
+//    public void pickFaceDownTile(Player player) {
+//        Tile tile = this.drawFaceDownTile();
+//        player.setHeldTile(tile);
+//    }
+//
+//    public void updateCredits(Player player, int delta) {
+//        player.updateCredits(delta);
+//    }
+//
+//    public void bookTile(Player player) {
+//        player.bookTile();
+//    }
+//
+//    public void returnTile(Player player) {
+//        Integer collectedTileId = player.returnTile();
+//        faceUpTiles.add(collectedTileId);
+//    }
 
-    public void movePlayer(Player player, int steps) {
-        player.move(steps);
-    }
+//    public void chooseBookedTile(Player player, int idx) {
+//        player.chooseBookedTile(idx);
+//    }
+//
+//    public void showFaceUpTiles(Player player) {
+//        player.showFaceUpTiles();
+//    }
+//
+//    public void showPile(Player player, int idx) {
+//        player.showPile(idx);
+//    }
+//
+//    public void returnPile(Player player) {
+//        player.returnPile();
+//    }
+//
+//    public void loadResource(Player player, int x, int y, BoxType box) {
+//        player.loadResource(x, y, box);
+//    }
+//
+//    public void removeResource(Player player, int x, int y, BoxType box) {
+//        player.removeResource(x, y, box);
+//    }
+//
+//    public void removeCrew(Player player, int x, int y) {
+//        player.removeCrew(x, y);
+//    }
+//
+//    public void useBattery(Player player, int x, int y) {
+//        player.useBattery(x, y);
+//    }
+//
+//    public void setPlayerState(Player player, ExPlayerState state) {
+//        player.setState(state);
+//    }
 
-    public void placeTile(Player player, int x, int y) {
-        player.placeTile(x, y);
-    }
-
-    public void chooseFaceUpTile(Player player, int index) {
-        Tile selectedTile = this.removeFaceUpTile(index);
-        player.setHeldTile(selectedTile);
-    }
-
-    public void pickFaceDownTile(Player player) {
-        Tile tile = this.drawFaceDownTile();
-        player.setHeldTile(tile);
-    }
-
-    public void updateCredits(Player player, int delta) {
-        player.updateCredits(delta);
-    }
-
-    public void bookTile(Player player) {
-        player.bookTile();
-    }
-
-    public void returnTile(Player player) {
-        Integer collectedTileId = player.returnTile();
-        faceUpTiles.add(collectedTileId);
-    }
-
-    public void chooseBookedTile(Player player, int idx) {
-        player.chooseBookedTile(idx);
-    }
-
-    public void showFaceUpTiles(Player player) {
-        player.showFaceUpTiles();
-    }
-
-    public void showPile(Player player, int idx) {
-        player.showPile(idx);
-    }
-
-    public void returnPile(Player player) {
-        player.returnPile();
-    }
-
-    public void loadResource(Player player, int x, int y, BoxType box) {
-        player.loadResource(x, y, box);
-    }
-
-    public void removeResource(Player player, int x, int y, BoxType box) {
-        player.removeResource(x, y, box);
-    }
-
-    public void removeCrew(Player player, int x, int y) {
-        player.removeCrew(x, y);
-    }
-
-    public void useBattery(Player player, int x, int y) {
-        player.useBattery(x, y);
-    }
-
-    public void setPlayerState(Player player, ExPlayerState state) {
-        player.setState(state);
-    }
-
-    public void handleAction(Player player, PlayerAction action){
-        player.handleAction(action);
-    }
+    // todo: delete me, vecchio playerState pattern
+//    public void handleAction(Player player, PlayerAction action){
+//        player.handleAction(action);
+//    }
 
 }

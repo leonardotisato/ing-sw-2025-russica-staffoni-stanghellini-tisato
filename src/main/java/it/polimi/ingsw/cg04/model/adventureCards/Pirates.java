@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
-import it.polimi.ingsw.cg04.model.enumerations.Shot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +18,15 @@ public class Pirates extends AdventureCard {
     @Expose
     private List<Direction> directions;
     @Expose
-    private List<Shot> shots;
+    private List<Attack> shots;
 
     public Pirates() {
         super();
         directions = new ArrayList<Direction>();
-        shots = new ArrayList<Shot>();
+        shots = new ArrayList<Attack>();
     }
 
-    public void addCannonAttack(Direction direction, Shot shot) {
+    public void addCannonAttack(Direction direction, Attack shot) {
         directions.add(direction);
         shots.add(shot);
     }
@@ -42,14 +42,14 @@ public class Pirates extends AdventureCard {
         this.directions = new ArrayList<>(directions);
     }
 
-    public List<Shot> getShots() { return shots; }
-    public void setShots(List<Shot> shots) {
+    public List<Attack> getShots() { return shots; }
+    public void setShots(List<Attack> shots) {
         this.shots = new ArrayList<>(shots);
     }
 
     public Direction getDirection(int i) { return directions.get(i); }
 
-    public Shot getShot(int i) { return shots.get(i); }
+    public Attack getShot(int i) { return shots.get(i); }
 
     public void solveEffect(Game game) {
 
