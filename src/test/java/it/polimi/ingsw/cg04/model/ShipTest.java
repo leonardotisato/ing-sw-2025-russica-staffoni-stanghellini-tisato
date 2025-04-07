@@ -1002,18 +1002,18 @@ class ShipTest {
         lev1Ship.placeTile(storageTile18, 1, 2);
         assertTrue(lev1Ship.isShipLegal());
 
-        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.DOWN, Attack.LIGHT, 2);
-        lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
-        lev1Ship.handleMeteor(Direction.LEFT, Attack.HEAVY, 2);
+        lev1Ship.handleHit(Direction.UP, 2);
+        lev1Ship.handleHit(Direction.DOWN, 2);
+        lev1Ship.handleHit(Direction.UP, 2);
+        lev1Ship.handleHit(Direction.RIGHT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
         assertFalse(lev1Ship.isShipLegal());
 
-        assertFalse(lev1Ship.handleMeteor(Direction.RIGHT, Attack.LIGHT, 1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, -1));
-        assertFalse(lev1Ship.handleMeteor(Direction.UP, Attack.HEAVY, 5));
+        assertFalse(lev1Ship.handleHit(Direction.RIGHT, 1));
+        assertFalse(lev1Ship.handleHit(Direction.UP, -1));
+        assertFalse(lev1Ship.handleHit(Direction.UP, 5));
 
     }
 
@@ -1022,7 +1022,7 @@ class ShipTest {
         lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
 
-        assertFalse(lev2Ship.handleMeteor(Direction.RIGHT, Attack.HEAVY, 6));
+        assertFalse(lev2Ship.handleHit(Direction.RIGHT, 6));
     }
 
     @Test

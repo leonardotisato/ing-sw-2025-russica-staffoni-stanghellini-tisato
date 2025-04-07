@@ -635,7 +635,8 @@ public class Ship {
     }
 
     /**
-     * @return {@code true} if the ship is connected, {@code false} otherwise
+     * @return {@code true} if the ship is connected<br>
+     *         {@code false} otherwise
      *
      */
     public boolean isShipConnectedBFS(){
@@ -947,60 +948,16 @@ public class Ship {
      * if and only if a tile would actually be broken
      *
      * @param dir direction of the attack
-     * @param meteor attack type, LIGHT or HEAVY
      * @param k dices result (shifted to match matrix indexing)
-     * @return {@code true} if hit<br>{@code false} if not hit
+     * @return {@code true} if hit<br>
+     *         {@code false} if not hit
      */
-    public boolean handleMeteor(Direction dir, Attack meteor, int k) {
+    public boolean handleHit(Direction dir, int k) {
         if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return false;
         }
 
         if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
-            return false;
-        }
-
-        if (dir == Direction.UP) {
-            for (int i = 0; i < shipHeight; i++) {
-                if(tilesMatrix[i][k] != null) {
-                    breakTile(i, k);
-                    return true;
-                }
-            }
-        }
-        if (dir == Direction.LEFT) {
-            for (int i = 0; i < shipWidth; i++) {
-                if(tilesMatrix[k][i] != null) {
-                    breakTile(k, i);
-                    return true;
-                }
-            }
-        }
-        if (dir == Direction.RIGHT) {
-            for (int i = 0; i < shipWidth; i++) {
-                if(tilesMatrix[k][shipWidth-1-i] != null) {
-                    breakTile(k, shipWidth-1-i);
-                    return true;
-                }
-            }
-        }
-        if (dir == Direction.DOWN) {
-            for (int i = 0; i < shipHeight; i++) {
-                if(tilesMatrix[shipHeight-1-i][k] != null) {
-                    breakTile(shipHeight-1-i, k);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // todo serve???
-    // the method should return true if tile was broken, so state of the ship can be updated
-    // k is height/width of the attack depending on dir
-    public boolean handleShot(Direction dir, Attack shot, int k) {
-        if(k < 0 || k > shipWidth){
             return false;
         }
 
