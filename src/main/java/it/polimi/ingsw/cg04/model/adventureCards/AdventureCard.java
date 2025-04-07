@@ -3,7 +3,9 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import it.polimi.ingsw.cg04.model.Game;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.Direction;
 
 import java.util.List;
 
@@ -73,5 +75,21 @@ public abstract class AdventureCard {
 
     public int getObtainedResourcesByType(BoxType type) {
         return 0;
+    }
+
+    public Direction getDirection(int i) {
+        return null;
+    }
+
+    public List<Attack> getAttacks() {
+        return null;
+    }
+
+    public Attack getAttack(int i) {
+        return null;
+    }
+
+    public AdventureCardState createGameState(Game game) {
+        return null;
     }
 }
