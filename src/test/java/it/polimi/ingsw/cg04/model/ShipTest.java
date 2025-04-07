@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.GetRewardsAction;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -303,12 +304,12 @@ class ShipTest {
         lev1Ship.placeTile(storageTile26, 0, 2);
         lev1Ship.addBox(BoxType.YELLOW, 0, 2);
         lev1Ship.addBox(BoxType.GREEN, 0, 2);
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.YELLOW));// todo: non viene aggiunto param alla ship
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(1, lev1Ship.getBoxes(BoxType.YELLOW));// todo: non viene aggiunto param alla ship
+        assertEquals(1, lev1Ship.getBoxes(BoxType.GREEN));
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 0, 2)); // 26 is not special
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 0, 2));   // is full
         lev1Ship.breakTile(0, 2);
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN)); // resources are removed
+        assertEquals(0, lev1Ship.getBoxes(BoxType.GREEN)); // resources are removed
         assertNull(lev1Ship.getTile(0, 2)); // tile is removed from matrix
 
         // shield
@@ -471,8 +472,8 @@ class ShipTest {
         // add random resources to simulate batter
         lev1Ship.addBox(BoxType.BLUE, 1, 2);
         lev1Ship.addBox(BoxType.GREEN, 1, 2);
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.BLUE));
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(1, lev1Ship.getBoxes(BoxType.BLUE));
+        assertEquals(1, lev1Ship.getBoxes(BoxType.GREEN));
         assertThrows(RuntimeException.class, () -> storageTile18.addBox(BoxType.RED, 1));
         lev1Ship.addBox(BoxType.YELLOW, 2, 1);
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
@@ -486,8 +487,8 @@ class ShipTest {
 
         // remove every single one and check if something weird happens
         lev1Ship.breakTile(1, 2);
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.BLUE));
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(0, lev1Ship.getBoxes(BoxType.BLUE));
+        assertEquals(0, lev1Ship.getBoxes(BoxType.GREEN));
         assertEquals(8, lev1Ship.getNumExposedConnectors());
 
         lev1Ship.breakTile(2, 2);
@@ -564,14 +565,14 @@ class ShipTest {
         lev1Ship.addBox(BoxType.GREEN, 3, 2);
         lev1Ship.addBox(BoxType.GREEN, 3, 2);
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 3, 2));
-        assertEquals(2, lev1Ship.getBoxes().get(BoxType.GREEN));
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.BLUE));
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.RED));
-        assertEquals(0, lev2Ship.getBoxes().get(BoxType.YELLOW));
+        assertEquals(2, lev1Ship.getBoxes(BoxType.GREEN));
+        assertEquals(0, lev1Ship.getBoxes(BoxType.BLUE));
+        assertEquals(0, lev1Ship.getBoxes(BoxType.RED));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.YELLOW));
         lev1Ship.removeBox(BoxType.GREEN, 3, 2);
-        assertEquals(1, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(1, lev1Ship.getBoxes(BoxType.GREEN));
         lev1Ship.removeBox(BoxType.GREEN, 3, 2);
-        assertEquals(0, lev1Ship.getBoxes().get(BoxType.GREEN));
+        assertEquals(0, lev1Ship.getBoxes(BoxType.GREEN));
         assertThrows(RuntimeException.class, () -> lev1Ship.removeBox(BoxType.GREEN, 3, 2));
         assertThrows(RuntimeException.class, () -> lev1Ship.removeBox(BoxType.RED, 3, 2));
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 3, 2));
@@ -584,7 +585,64 @@ class ShipTest {
     }
 
     @Test
-    void setBoxesTest() {
+    void setBoxesTest3() {
+        lev2Ship = shipyard.createShip3();
+        lev2Ship.addBox(BoxType.GREEN, 2, 1);
+        lev2Ship.addBox(BoxType.RED, 2, 1);
+        lev2Ship.addBox(BoxType.YELLOW, 3, 3);
+        lev2Ship.addBox(BoxType.YELLOW, 3, 3);
+        lev2Ship.addBox(BoxType.BLUE, 3, 3);
+
+        // 1 red in (2, 1)
+        // 1 green in (2, 1)
+        // 2 yellow in (3, 3)
+        // 1 blue in (3, 3)
+
+        assertEquals(6, lev2Ship.getNumBatteries()); // 6 batteries
+
+        lev2Ship.removeBestBoxes(2);
+        assertEquals(0, lev2Ship.getTile(2, 1).getBoxes().get(BoxType.RED));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.RED));
+
+        assertEquals(1, lev2Ship.getTile(3, 3).getBoxes().get(BoxType.YELLOW));
+        assertEquals(1, lev2Ship.getBoxes(BoxType.YELLOW));
+
+        assertEquals(1, lev2Ship.getBoxes(BoxType.BLUE));
+        assertEquals(1, lev2Ship.getBoxes(BoxType.GREEN));
+
+        // 1 green in (2, 1)
+        // 1 yellow in (3, 3)
+        // 1 blue in (3, 3)
+        // 6 batteries
+
+        lev2Ship.removeBestBoxes(2);
+        assertEquals(0, lev2Ship.getTile(3, 3).getBoxes().get(BoxType.YELLOW));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.YELLOW));
+
+        assertEquals(0, lev2Ship.getTile(2, 1).getBoxes().get(BoxType.GREEN));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.GREEN));
+
+        assertEquals(0, lev2Ship.getBoxes(BoxType.RED));
+        assertEquals(1, lev2Ship.getBoxes(BoxType.BLUE));
+
+        // 1 blue in (3, 3)
+        // 6 batteries
+
+        lev2Ship.removeBestBoxes(4);
+        assertEquals(0, lev2Ship.getTile(3, 3).getBoxes().get(BoxType.BLUE));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.BLUE));
+
+        assertEquals(0, lev2Ship.getBoxes(BoxType.RED));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.YELLOW));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.GREEN));
+        assertEquals(0, lev2Ship.getBoxes(BoxType.BLUE));
+
+        assertEquals(3, lev2Ship.getNumBatteries());
+    }
+
+    @Test
+    void removeBestBoxesTest() {
+
     }
 
     @Test
