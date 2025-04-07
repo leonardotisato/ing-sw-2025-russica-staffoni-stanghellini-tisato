@@ -31,9 +31,9 @@
       "UP"
     ],
     "shots": [
-      "LIGHTSHOT",
-      "HEAVYSHOT",
-      "LIGHTSHOT"
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
     ]
   },
   "4": {
@@ -71,9 +71,9 @@
       "RIGHT"
     ],
     "meteors": [
-      "HEAVYMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR"
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
     ]
   },
   "10": {
@@ -88,11 +88,11 @@
       "DOWN"
     ],
     "meteors": [
-      "LIGHTMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR"
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
     ]
   },
   "11": {
@@ -105,9 +105,9 @@
       "UP"
     ],
     "meteors": [
-      "HEAVYMETEOR",
-      "LIGHTMETEOR",
-      "HEAVYMETEOR"
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
     ]
   },
   "12": {
@@ -200,8 +200,8 @@
     "lostMembers": 2,
     "lostGoods": 0,
     "shots": [
-      "LIGHTSHOT",
-      "HEAVYSHOT"
+      "LIGHT",
+      "HEAVY"
     ],
     "directions": [
       "DOWN",
@@ -272,9 +272,9 @@
       "UP"
     ],
     "shots": [
-      "HEAVYSHOT",
-      "LIGHTSHOT",
-      "HEAVYSHOT"
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
     ]
   },
   "24": {
@@ -314,11 +314,11 @@
       "LEFT"
     ],
     "meteors": [
-      "LIGHTMETEOR",
-      "LIGHTMETEOR",
-      "HEAVYMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR"
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
     ]
   },
   "30": {
@@ -332,10 +332,10 @@
       "DOWN"
     ],
     "meteors": [
-      "HEAVYMETEOR",
-      "HEAVYMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR"
+      "HEAVY",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
     ]
   },
   "31": {
@@ -350,11 +350,11 @@
       "RIGHT"
     ],
     "meteors": [
-      "LIGHTMETEOR",
-      "LIGHTMETEOR",
-      "HEAVYMETEOR",
-      "LIGHTMETEOR",
-      "LIGHTMETEOR"
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
     ]
   },
   "32": {
@@ -444,10 +444,10 @@
     "lostMembers": 0,
     "lostGoods": 2,
     "shots": [
-      "LIGHTSHOT",
-      "LIGHTSHOT",
-      "LIGHTSHOT",
-      "HEAVYSHOT"
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "HEAVY"
     ],
     "directions": [
       "UP",
