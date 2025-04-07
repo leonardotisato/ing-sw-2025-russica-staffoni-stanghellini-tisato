@@ -696,9 +696,6 @@ public class Ship {
         return visitedTiles == totalTiles;
     }
 
-    // attackType = 1 -> shot
-    // attackType = 0 -> meteor
-
     /**
      * calls checkMeteor or checkAttack depending on {@code attackType} argument
      *
@@ -710,7 +707,7 @@ public class Ship {
      */
     public int checkHit(Direction dir, Attack attack, int k, String attackType) {
         if("meteor".equalsIgnoreCase(attackType)) return checkMeteor(dir, attack, k);
-        if("shot".equalsIgnoreCase(attackType)) return checkAttack(dir, attack, k);
+        if("shot".equalsIgnoreCase(attackType)) return checkShot(dir, attack, k);
         throw new IllegalArgumentException("no such argument as" + attackType + "for checkHit methode");
     }
 
@@ -721,10 +718,10 @@ public class Ship {
      * @param attack HEAVY or LIGHT
      * @param k dices result (shifted to match matrix indexing)
      * @return {@code -1} if the attack does not hit the ship<br>
-     *            {@code 0} if player can defend the ship with a shield<br>
-     *            {@code 2} if the ship is hit and the player can not do anything about it
+     *         {@code  0} if player can defend the ship with a shield<br>
+     *         {@code  2} if the ship is hit and the player can not do anything about it
      */
-    public int checkAttack(Direction dir, Attack attack, int k){
+    public int checkShot(Direction dir, Attack attack, int k){
         boolean flag = false;
         if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return -1;
@@ -799,10 +796,10 @@ public class Ship {
      * @param meteor HEAVY or LIGHT
      * @param k dices result (shifted to match matrix indexing)
      * @return {@code -2} if the attacked in neutralized by a single cannon<br>
-     *            {@code -1} if the attack does not hit the ship<br>
-     *            {@code 0} if player can defend the ship with a shield<br>
-     *            {@code 1} if the player can defend the ship with a double cannon<br>
-     *            {@code 2} if the ship is hit and the player can not do anything about it
+     *         {@code -1} if the attack does not hit the ship<br>
+     *         {@code  0} if player can defend the ship with a shield<br>
+     *         {@code  1} if the player can defend the ship with a double cannon<br>
+     *         {@code  2} if the ship is hit and the player can not do anything about it
      */
     public int checkMeteor(Direction dir, Attack meteor, int k) {
         Set<Connection> exposed = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
