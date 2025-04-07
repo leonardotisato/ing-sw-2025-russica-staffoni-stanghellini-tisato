@@ -14,15 +14,11 @@ public class OpenSpaceState extends AdventureCardState {
         super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
-        if (player.equals(sortedPlayers.get(currPlayerIdx))) {
-            action.execute(player);
-            this.played.set(currPlayerIdx, 1);
-            this.currPlayerIdx++;
-            if (currPlayerIdx == sortedPlayers.size()) {
-                triggerNextState();
-            }
-        } else {
-            throw new RuntimeException("Not your turn!");
+        action.execute(player);
+        this.played.set(currPlayerIdx, 1);
+        this.currPlayerIdx++;
+        if (currPlayerIdx == sortedPlayers.size()) {
+            triggerNextState();
         }
     }
 

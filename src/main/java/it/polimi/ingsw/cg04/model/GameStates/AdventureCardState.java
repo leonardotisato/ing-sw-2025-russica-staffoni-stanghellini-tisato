@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AdventureCardState implements GameState {
     protected List <Player> sortedPlayers;
@@ -15,6 +16,7 @@ public abstract class AdventureCardState implements GameState {
     protected Integer currPlayerIdx;
     protected AdventureCard card;
     protected Game context;
+    protected List<Player> currPlayers;
 
     public AdventureCardState(Game game) {
         this.context = game;
@@ -71,5 +73,22 @@ public abstract class AdventureCardState implements GameState {
 
     public boolean checkAction(Player player) {
         return true;
+    }
+    public Map<Player, Integer> getChosenPlanets() {
+        return null;
+    }
+
+    public Boolean getAllPlanetsChosen() {
+        return false;
+    }
+    public void setAllPlanetsChosen(Boolean allPlanetsChosen) {
+        return;
+    }
+    public void setPlayerToBeMovedIdx(Integer playerToBeMovedIdx) {
+        return;
+    }
+
+    public List<Player> getCurrPlayers() {
+        return currPlayers;
     }
 }

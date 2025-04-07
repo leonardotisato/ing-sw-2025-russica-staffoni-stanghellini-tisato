@@ -15,9 +15,10 @@ public class ChoosePropuslsorAction implements PlayerAction {
     List<Integer> usedBatteries;
     Game game;
 
-    public ChoosePropuslsorAction(List<Coordinates> coordinates, List<Integer> usedBatteries) {
+    public ChoosePropuslsorAction(List<Coordinates> coordinates, List<Integer> usedBatteries, Game game) {
         this.coordinates = new ArrayList<>(coordinates);
         this.usedBatteries = new ArrayList<>(usedBatteries);
+        this.game = game;
     }
 
     public void execute(Player player) {

@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class AdventureCard {
 
@@ -73,5 +74,12 @@ public abstract class AdventureCard {
 
     public int getObtainedResourcesByType(BoxType type) {
         return 0;
+    }
+    public List<Map<BoxType, Integer>> getPlanetReward() {
+        return null;
+    }
+
+    public Map<BoxType, Integer> getObtainedResources() {
+        return null;
     }
 }

@@ -1,13 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.GameStates.FlightState;
-import it.polimi.ingsw.cg04.model.PlayerActions.ChoosePropuslsorAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.HandleBoxesAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.HandleCrewAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.GameStates.AbandonedShipState;
-import it.polimi.ingsw.cg04.model.GameStates.AbandonedStationState;
-import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.GameStates.*;
+import it.polimi.ingsw.cg04.model.PlayerActions.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
@@ -94,10 +88,10 @@ public class AdventureCardsTest {
         coordinates1.add(new Coordinates(2, 1));
         usedBatteries2.add(2);
         coordinates2.add(new Coordinates(1, 2));
-        PlayerAction action = new ChoosePropuslsorAction(coordinates1, usedBatteries1);
-        PlayerAction action2 = new ChoosePropuslsorAction(coordinates2, usedBatteries2);
-        PlayerAction action3 = new ChoosePropuslsorAction(coordinates3, usedBatteries3);
-        assertThrows(RuntimeException.class,() -> game.getGameState().handleAction(p2, action2));
+        PlayerAction action = new ChoosePropuslsorAction(coordinates1, usedBatteries1, game);
+        PlayerAction action2 = new ChoosePropuslsorAction(coordinates2, usedBatteries2, game);
+        PlayerAction action3 = new ChoosePropuslsorAction(coordinates3, usedBatteries3, game);
+        assertFalse(action2.checkAction(p2));
         game.getGameState().handleAction(p, action);
         assertEquals(15, p.getCurrentCell());
         assertEquals(2, p.getShip().getNumBatteries());
@@ -129,7 +123,7 @@ public class AdventureCardsTest {
         coordinates2.add(new Coordinates(2, 3));
         PlayerAction action1 = new HandleCrewAction(coordinates1, numCrewMembersLost1, game);
         PlayerAction action2 = new HandleCrewAction(coordinates2, numCrewMembersLost2, game);
-        assertThrows(RuntimeException.class, () -> game.getGameState().handleAction(p3,action1));
+        assertFalse(action1.checkAction(p3));
         game.getGameState().handleAction(p, action1);
         assertInstanceOf(AbandonedShipState.class, game.getGameState());
         assertEquals(0, p.getNumCredits());
@@ -183,5 +177,37 @@ public class AdventureCardsTest {
         assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getBoxes());
         assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
         assertThrows(RuntimeException.class, () -> p.choosePlanet(1));
+    }
+
+    @Test
+    void PlanetsPattern(){
+        game.setCurrentAdventureCard(game.getCardById(13));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        PlanetsState gameState = (PlanetsState)game.getGameState();
+        Integer planetIdx1 =  0;
+        Integer planetIdx2 = null;
+        Integer planetIdx3 = 2;
+        List<Map<BoxType,Integer>> boxes1 = new ArrayList<>();
+        List<Map<BoxType,Integer>> boxes2 = new ArrayList<>();
+        boxes1.add(new HashMap<>(Map.of(BoxType.YELLOW, 0, BoxType.GREEN, 0, BoxType.BLUE, 0, BoxType.RED, 0)));
+        boxes2.add(new HashMap<>(Map.of(BoxType.YELLOW, 1, BoxType.GREEN, 0, BoxType.BLUE, 0, BoxType.RED, 0)));
+        List<Coordinates> coordinates1 = new ArrayList<>();
+        List<Coordinates> coordinates2 = new ArrayList<>();
+        coordinates1.add(new Coordinates(2, 3));
+        coordinates2.add(new Coordinates(3, 6));
+        PlayerAction action = new PlanetsAction(planetIdx1, coordinates1, boxes1, game);
+        PlayerAction action2 = new PlanetsAction(null, null, null, game);
+        PlayerAction action3 = new PlanetsAction(planetIdx3, coordinates2, boxes2, game);
+        assertTrue(action.checkAction(p));
+        gameState.handleAction(p, action);
+        assertFalse(action.checkAction(p3));
+        assertTrue(action2.checkAction(p2));
+        gameState.handleAction(p2, action2);
+        assertTrue(action3.checkAction(p3));
+        gameState.handleAction(p3, action3);
+        assertEquals(6, p3.getCurrentCell());
+        assertEquals(9, p.getCurrentCell());
+        assertInstanceOf(FlightState.class, game.getGameState());
+        assertNull(game.getCurrentAdventureCard());
     }
 }
