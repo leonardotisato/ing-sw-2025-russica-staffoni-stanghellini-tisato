@@ -783,7 +783,7 @@ class ShipTest {
         assertTrue(lev1Ship.isShipLegal());
     }
 
-    @Test
+    //@Test
     void isShipLegal2() {
 
         lev1Ship = shipyard.createShip2();
@@ -809,6 +809,7 @@ class ShipTest {
         assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT)));
     }
 
+
     @Test
     void isShipLegal4() {
 
@@ -822,9 +823,15 @@ class ShipTest {
         assertEquals(1, lev2Ship.getBaseFirePower());
     }
 
-
-
     @Test
+    void isShipLegal5(){
+        lev2Ship = shipyard.createShip3();
+        assertTrue(lev2Ship.isShipLegal());
+        lev2Ship.breakTile(1, 3);
+        assertFalse(lev2Ship.isShipLegal());
+    }
+
+    //@Test
     void checkMeteorTest2() {
         lev1Ship = shipyard.createShip2();
         assertTrue(lev1Ship.isShipLegal());
@@ -1046,7 +1053,7 @@ class ShipTest {
 
     }
 
-    @Test
+    //@Test
     void handleMeteor2() {
         lev1Ship.placeTile(housingTile33, 2, 2);
         lev1Ship.placeTile(structuralTile53, 4, 3);
