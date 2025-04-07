@@ -78,5 +78,15 @@ public class PlanetsAction implements PlayerAction {
         }
         return true;
     }
+
+    @Override
+    public String getPlayerNickname() {
+        return "";
+    }
+
+    @Override
+    public String getType() {
+        return "PLANETS_ACTION";
+    }
 }
 

@@ -116,6 +116,14 @@ public class Ship {
         return validSlots;
     }
 
+    public boolean isSlotValid(int x, int y) {
+        if (x < 0 || x >= shipHeight || y < 0 || y >= shipWidth) {
+            return false;
+        } else {
+            return validSlots[x][y];
+        }
+    }
+
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
@@ -648,7 +656,6 @@ public class Ship {
      *
      */
     public boolean isShipConnectedBFS(){
-        System.out.println("isShipConnectedBFS");
         int totalTiles = 0;
         int visitedTiles = 0;
         boolean[][] visited = new boolean[shipHeight][shipWidth];

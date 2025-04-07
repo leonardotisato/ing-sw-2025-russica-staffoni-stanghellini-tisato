@@ -9,4 +9,14 @@ public class ReturnPileAction implements PlayerAction {
     public boolean checkAction(Player player) {
         return false;
     }
+
+    @Override
+    public String getPlayerNickname() {
+        return "";
+    }
+
+    @Override
+    public String getType() {
+        return "RETURN_PILE";
+    }
 }

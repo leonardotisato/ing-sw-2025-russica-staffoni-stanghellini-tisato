@@ -807,6 +807,10 @@ class ShipTest {
         assertEquals(4, lev2Ship.getNumExposedConnectors());
         assertEquals(6, lev2Ship.getNumBatteries());
         assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT)));
+
+        lev2Ship.breakTile(1,3);
+        System.out.println(lev2Ship);
+        assertFalse(lev2Ship.isShipLegal());
     }
 
 
@@ -1110,5 +1114,17 @@ class ShipTest {
     void getColor() {
         assertEquals(PlayerColor.BLUE, lev1Ship.getColor());
         assertEquals(PlayerColor.RED, lev2Ship.getColor());
+    }
+
+    @Test
+    void isSlotValid() {
+        lev2Ship = shipyard.createShip3();
+        assertFalse(lev2Ship.isSlotValid(4,3));
+        assertFalse(lev2Ship.isSlotValid(0,5));
+        assertFalse(lev2Ship.isSlotValid(0,3));
+        assertFalse(lev2Ship.isSlotValid(1,6));
+
+        assertTrue(lev2Ship.isSlotValid(1,5));
+        assertTrue(lev2Ship.isSlotValid(4,6));
     }
 }

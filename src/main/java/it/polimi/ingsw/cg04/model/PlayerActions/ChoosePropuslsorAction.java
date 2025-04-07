@@ -51,4 +51,14 @@ public class ChoosePropuslsorAction implements PlayerAction {
         else return false;
         return true;
     }
+
+    @Override
+    public String getPlayerNickname() {
+        return "";
+    }
+
+    @Override
+    public String getType() {
+        return "CHOOSE_PROPULSOR";
+    }
 }

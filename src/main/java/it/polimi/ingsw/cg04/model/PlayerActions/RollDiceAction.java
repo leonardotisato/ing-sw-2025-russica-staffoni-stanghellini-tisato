@@ -1,0 +1,33 @@
+package it.polimi.ingsw.cg04.model.PlayerActions;
+
+import it.polimi.ingsw.cg04.model.Player;
+
+public class RollDiceAction implements PlayerAction {
+
+    private final String playerNick;
+
+    public RollDiceAction(String playerNick) {
+        this.playerNick = playerNick;
+    }
+
+    @Override
+    public void execute(Player player) {
+        player.getGame().getBoard().rollDices();
+        System.out.println(playerNick + " rolled dice! Dice result: " + player.getGame().getBoard().getDice());
+    }
+
+    @Override
+    public boolean checkAction(Player player) {
+        return true;
+    }
+
+    @Override
+    public String getPlayerNickname() {
+        return playerNick;
+    }
+
+    @Override
+    public String getType() {
+        return "ROLL_DICE";
+    }
+}
