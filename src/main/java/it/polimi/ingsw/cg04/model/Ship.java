@@ -5,9 +5,12 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.*;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import javax.swing.*;
 import java.util.HashSet;
 
 import java.util.*;
+
+import static java.util.stream.Collectors.toList;
 
 public class Ship {
 
@@ -64,11 +67,10 @@ public class Ship {
 
         if (level == 1) {
             shipWidth = 5;
-            shipHeight = 5;
         } else {
             shipWidth = 7;
-            shipHeight = 5;
         }
+        shipHeight = 5;
 
         validSlots = new boolean[shipHeight][shipWidth];
         for (int i = 0; i < shipHeight; i++) {
@@ -274,7 +276,6 @@ public class Ship {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
 
-    // do we need this?
     public Map<BoxType, Integer> getBoxes() {
         return boxes;
     }
@@ -331,29 +332,6 @@ public class Ship {
     public void addBatteries(int newBatteries) {
         assert this.getNumBatteries() + newBatteries >= 0;
         numBatteries += newBatteries;
-    }
-
-    /**
-     * remove {@code int lostBoxes} boxes of type {@code type} from ship attribute {@code boxes}
-     *
-     * @param type the type of box to remove
-     * @param lostBoxes the number of boxes to remove
-     * @return the number of boxes removed
-     */
-    public int removeBoxes(BoxType type, int lostBoxes) {
-        Integer currentCount = this.boxes.get(type);
-
-        if (currentCount == null) {
-            return 0;
-        }
-
-        if (currentCount >= lostBoxes) {
-            this.boxes.put(type, currentCount - lostBoxes);
-            return lostBoxes;
-        }
-
-        this.boxes.put(type, 0);
-        return currentCount;
     }
 
     /**
@@ -418,6 +396,36 @@ public class Ship {
                 int delta = newBoxes.get(type) - oldBoxes.get(type);
                 currTile.addBox(type, delta);
                 this.boxes.put(type, this.boxes.get(type) + delta);
+            }
+        }
+    }
+
+    /**
+     * this methode removes {@code int lostBoxes} boxes from ship prioritizing high value boxes
+     * if the ship has not enough boxes batteries are removed
+     *
+     * @param lostBoxes number of boxes/batteries to remove
+     */
+    public void removeBestBoxes(int lostBoxes){
+        List<BoxType> priorityList = Arrays.stream(BoxType.values())
+                .sorted(Comparator.comparingInt(BoxType::getPriority))
+                .toList();
+
+        for(BoxType type : priorityList) {
+            for(Coordinates coords : tilesMap.get("StorageTile")){
+                while(getTile(coords.getX(), coords.getY()).getBoxes().get(type) > 0) {
+                    removeBox(type, coords.getX(), coords.getY());
+                    lostBoxes--;
+                    if (lostBoxes == 0) {return;}
+                }
+            }
+        }
+
+        for(Coordinates coords : tilesMap.get("BatteryTile")) {
+            while(getTile(coords.getX(), coords.getY()).getNumBatteries() > 0) {
+                removeBatteries(1, coords.getX(), coords.getY());
+                lostBoxes--;
+                if (lostBoxes == 0) {return;}
             }
         }
     }

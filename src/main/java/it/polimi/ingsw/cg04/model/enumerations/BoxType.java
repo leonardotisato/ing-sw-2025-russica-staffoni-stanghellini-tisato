@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg04.model.enumerations;
 
 public enum BoxType {
-    RED(4),
-    YELLOW(3),
-    GREEN(2),
-    BLUE(1);
+    RED(1),
+    YELLOW(2),
+    GREEN(3),
+    BLUE(4);
 
     private final int priority;
 

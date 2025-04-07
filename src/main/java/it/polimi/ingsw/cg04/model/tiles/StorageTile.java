@@ -28,10 +28,6 @@ public class StorageTile extends Tile {
         this.isSpecialStorageTile = isSpecialStorageTile;
     }
 
-
-
-
-
     @Override
     public Integer getMaxBoxes() {
         return maxBoxes;
