@@ -30,7 +30,7 @@
       "UP",
       "UP"
     ],
-    "shots": [
+    "attacks": [
       "LIGHT",
       "HEAVY",
       "LIGHT"
@@ -70,7 +70,7 @@
       "LEFT",
       "RIGHT"
     ],
-    "meteors": [
+    "attacks": [
       "HEAVY",
       "LIGHT",
       "LIGHT"
@@ -87,7 +87,7 @@
       "RIGHT",
       "DOWN"
     ],
-    "meteors": [
+    "attacks": [
       "LIGHT",
       "LIGHT",
       "LIGHT",
@@ -104,7 +104,7 @@
       "UP",
       "UP"
     ],
-    "meteors": [
+    "attacks": [
       "HEAVY",
       "LIGHT",
       "HEAVY"
@@ -199,7 +199,7 @@
     "daysLost": 3,
     "lostMembers": 2,
     "lostGoods": 0,
-    "shots": [
+    "attacks": [
       "LIGHT",
       "HEAVY"
     ],
@@ -271,7 +271,7 @@
       "UP",
       "UP"
     ],
-    "shots": [
+    "attacks": [
       "HEAVY",
       "LIGHT",
       "HEAVY"
@@ -313,7 +313,7 @@
       "LEFT",
       "LEFT"
     ],
-    "meteors": [
+    "attacks": [
       "LIGHT",
       "LIGHT",
       "HEAVY",
@@ -331,7 +331,7 @@
       "DOWN",
       "DOWN"
     ],
-    "meteors": [
+    "attacks": [
       "HEAVY",
       "HEAVY",
       "LIGHT",
@@ -349,7 +349,7 @@
       "RIGHT",
       "RIGHT"
     ],
-    "meteors": [
+    "attacks": [
       "LIGHT",
       "LIGHT",
       "HEAVY",
@@ -443,7 +443,7 @@
     "daysLost": 4,
     "lostMembers": 0,
     "lostGoods": 2,
-    "shots": [
+    "attacks": [
       "LIGHT",
       "LIGHT",
       "LIGHT",

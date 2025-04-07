@@ -23,7 +23,7 @@
     "cardLevel": 2,
     "daysLost": 0,
     "directions":  ["UP", "UP", "DOWN", "DOWN"],
-    "meteors": ["HEAVYMETEOR", "HEAVYMETEOR", "LIGHTMETEOR", "LIGHTMETEOR"]
+    "attacks": ["HEAVY", "HEAVY", "LIGHT", "LIGHT"]
   },
   "5": {
     "type": "OpenSpace",
@@ -37,7 +37,7 @@
     "firePower": 5,
     "reward" : 4,
     "directions": ["UP", "UP", "UP"],
-    "shots": ["LIGHTSHOT", "HEAVYSHOT", "LIGHTSHOT"]
+    "attacks": ["LIGHT", "HEAVY", "LIGHT"]
   },
   "7": {
     "type": "Planets",
@@ -81,9 +81,9 @@
     "daysLost": 3,
     "lostMembers": 2,
     "lostGoods": 0,
-    "shots": [
-      "LIGHTSHOT",
-      "HEAVYSHOT"
+    "attacks": [
+      "LIGHT",
+      "HEAVY"
     ],
     "directions": [
       "DOWN",
