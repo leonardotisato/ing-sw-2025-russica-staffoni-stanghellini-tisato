@@ -16,57 +16,37 @@ import java.util.List;
 public class HandleCrewAction implements PlayerAction{
     List<Integer> numCrewMembersLost;
     List<Coordinates> coordinates;
-    Game game;
+    String nickname;
 
-    public HandleCrewAction(List<Coordinates> coordinates, List<Integer> numCrewMembersLost, Game context) {
+    public HandleCrewAction(String nickname, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
         this.coordinates = new ArrayList<>(coordinates);
         this.numCrewMembersLost = new ArrayList<>(numCrewMembersLost);
-        this.game = context;
+        this.nickname = nickname;
     }
 
     public void execute(Player player) {
-        AdventureCardState gameState = (AdventureCardState)game.getGameState();
-        if (numCrewMembersLost.isEmpty()) {
-            gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
-            gameState.setCurrPlayerIdx(gameState.getCurrPlayerIdx() + 1);
-            return;
-        }
-        else {
-            for (int i = 0; i < numCrewMembersLost.size(); i++) {
-                if (coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))) {
-                    player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
-                }
-                else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
-            }
-            gameState.getPlayed().replaceAll(ignored -> 1);
-            player.updateCredits(game.getCurrentAdventureCard().getEarnedCredits());
-            player.move(-game.getCurrentAdventureCard().getDaysLost());
-            return;
-        }
+        GameState state = player.getGame().getGameState();
+        state.handleCrew(player, coordinates, numCrewMembersLost);
     }
 
     public boolean checkAction(Player player) {
-        AdventureCardState gameState = (AdventureCardState) game.getGameState();
-        List<Coordinates> propulsorCoordinates = player.getShip().getTilesMap().get("PropulsorTile");
+        GameState gameState = player.getGame().getGameState();
         int numberOfCrewLost = numCrewMembersLost.stream().mapToInt( b -> b).sum();
         if(numberOfCrewLost >= player.getShip().getNumCrew()) return false;
-        if(player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) {
-            for (int i = 0; i < numCrewMembersLost.size(); i++) {
-                if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))){
-                    return false;
-                }
-                if(numCrewMembersLost.get(i) > player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY()).getNumCrew()){
-                    return false;
-                }
+        for (int i = 0; i < numCrewMembersLost.size(); i++) {
+            if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))){
+                return false;
+            }
+            if(numCrewMembersLost.get(i) > player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY()).getNumCrew()){
+                return false;
             }
         }
-        else return false;
         return true;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return this.nickname;
     }
 }
 

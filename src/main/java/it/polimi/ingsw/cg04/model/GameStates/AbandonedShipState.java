@@ -5,6 +5,8 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.HandleCrewAction;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,12 +17,27 @@ public class AbandonedShipState extends AdventureCardState {
         super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
-        if (player.equals(this.sortedPlayers.get(this.currPlayerIdx))) {
-            action.execute(player);
+        return;
+    }
+
+    public void handleCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
+        if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new RuntimeException("Not curr player");
+        if (numCrewMembersLost.isEmpty()) {
+            played.set(currPlayerIdx, 1);
+            currPlayerIdx++;
         }
-        else throw new RuntimeException("Player " + player.getName() + ", is not your turn!");
-        if (!played.contains(0)) {
+        else {
+            for (int i = 0; i < numCrewMembersLost.size(); i++) {
+                player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
+            }
+            played.replaceAll(ignored -> 1);
+            player.updateCredits(card.getEarnedCredits());
+            player.move(-card.getDaysLost());
+        }
+        if (!played.contains(0)){
             triggerNextState();
         }
+        return;
     }
 }
+
