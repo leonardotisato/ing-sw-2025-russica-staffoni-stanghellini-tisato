@@ -161,10 +161,12 @@ public abstract class FlightBoard {
     /**
      * @return sum of 2 rolled dices
      */
-    public void rollDices() {
+    public int rollDices() {
         int dice1 = rand.nextInt(1, 7);
         int dice2 = rand.nextInt(1, 7);
         dices = dice1 + dice2;
+
+        return dices;
     }
 
     public int getDice() {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -17,9 +18,8 @@ public class FixShipAction implements PlayerAction {
     }
 
     public void execute(Player player) {
-        for (Coordinates coordinates : coordinatesList) {
-            player.getShip().breakTile(coordinates.getX(), coordinates.getY());
-        }
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.fixShip(player, coordinatesList);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class FixShipAction implements PlayerAction {
         // check that all tiles selected are not null in the ship matrix
         for (Coordinates coordinates : coordinatesList) {
 
-            // if coord is out of bound return false
+            // if coords is out of bound return false
             if (!player.getShip().isSlotValid(coordinates.getX(), coordinates.getY())) {
                 return false;
             }

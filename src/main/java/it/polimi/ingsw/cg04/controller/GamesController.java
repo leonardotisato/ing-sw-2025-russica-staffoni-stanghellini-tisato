@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class GamesController {
 
-    private List<Game> games;
-    private Map<Game, List<Player>> connectedPlayers;
-    private Map<Game, List<Player>> disconnectedPlayers;
-    private Map<String, Game> nickToGame;
+    private final List<Game> games;
+    private final Map<Game, List<Player>> connectedPlayers;
+    private final Map<Game, List<Player>> disconnectedPlayers;
+    private final Map<String, Game> nickToGame;
 
     public GamesController() {
         games = new ArrayList<>();
@@ -31,7 +31,10 @@ public class GamesController {
         if (action.checkAction(p)){
             action.execute(p);
         }
-        else throw new RuntimeException("Wrong parameters!");
+        else {
+            // this makes controller hard fail! ideally if check fails user should be warned
+            throw new RuntimeException("Wrong parameters!");
+        }
     }
 
     public void addGame(Game game) {

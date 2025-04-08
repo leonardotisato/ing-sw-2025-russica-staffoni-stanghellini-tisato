@@ -93,7 +93,24 @@ public abstract class AdventureCardState extends GameState {
         return currPlayers;
     }
 
+    // Allowed in: OpenSpaceState
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws RuntimeException {
         throw new RuntimeException("invalid action");
     }
+
+    // Allowed in: MeteorRainState,
+    public void rollDice(Player player) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in: MeteorRainState,
+    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in: MeteorRainState,
+    public void chooseBattery(Player player, int x, int y) {
+        throw new RuntimeException("invalid action");
+    }
+
 }

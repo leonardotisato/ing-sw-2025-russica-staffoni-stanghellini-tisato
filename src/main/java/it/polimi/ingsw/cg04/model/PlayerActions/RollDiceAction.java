@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 
 public class RollDiceAction implements PlayerAction {
@@ -12,8 +13,8 @@ public class RollDiceAction implements PlayerAction {
 
     @Override
     public void execute(Player player) {
-        player.getGame().getBoard().rollDices();
-        System.out.println(playerNick + " rolled dice! Dice result: " + player.getGame().getBoard().getDice());
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.rollDice(player);
     }
 
     @Override

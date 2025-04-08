@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
+import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.ChooseBatteryAction;
@@ -20,9 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MeteorsRainStateTest {
 
+    private GamesController controller;
     private Game game;
     private Player p1, p2, p3;
-    private Shipyard shipyard = new Shipyard();
+    private final Shipyard shipyard = new Shipyard();
 
     @BeforeEach
     void setUp() {
@@ -48,7 +50,8 @@ class MeteorsRainStateTest {
         assertEquals(p2, game.getBoard().getCell(3));
         assertEquals(p3, game.getBoard().getCell(2));
 
-
+        controller = new GamesController();
+        controller.addGame(game);
     }
 
     @AfterEach
@@ -68,10 +71,9 @@ class MeteorsRainStateTest {
         PlayerAction aliceRolls1 = new RollDiceAction("Alice");
 
         // controller handles the action
-        Player actionCreator = game.getPlayer(aliceRolls1.getPlayerNickname());
-        game.getGameState().handleAction(actionCreator, aliceRolls1);
+        controller.onActionReceived(aliceRolls1);
 
-        // assumes random seed in flightboard=42
+        // assumes random seed in flight-board=42
         System.out.println(p1.getShip().isShipLegal());
         System.out.println(p2.getShip().isShipLegal());
         System.out.println(p3.getShip().isShipLegal());
@@ -80,77 +82,62 @@ class MeteorsRainStateTest {
 
         // bob (p2) needs to remove several tiles from his ship
         List<Coordinates> removeTiles1 = new ArrayList<>();
-        removeTiles1.add(new Coordinates(2,1));
-        removeTiles1.add(new Coordinates(2,2));
-        removeTiles1.add(new Coordinates(3,2));
+        removeTiles1.add(new Coordinates(2, 1));
+        removeTiles1.add(new Coordinates(2, 2));
+        removeTiles1.add(new Coordinates(3, 2));
 
         PlayerAction bobNastyFix = new FixShipAction("Bob", removeTiles1);
 
         // simulate controller behaviour
-        actionCreator = game.getPlayer(bobNastyFix.getPlayerNickname());
-        if(bobNastyFix.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, bobNastyFix);
-
-        }
+        controller.onActionReceived(bobNastyFix);
         System.out.println(currAdventureCardState.getPlayed());
 
         // alice decides to use a battery save her tile
-
         // first she inputs a tile where there are no batteries
         PlayerAction aliceWrongCoords = new ChooseBatteryAction("Alice", 1, 3);
-        // simulate controller behaviour
-        actionCreator = game.getPlayer(aliceWrongCoords.getPlayerNickname());
-        if(aliceWrongCoords.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, aliceWrongCoords);
 
-        }
+        // simulate controller behaviour
+        assertThrows(RuntimeException.class, () -> controller.onActionReceived(aliceWrongCoords));
         System.out.println(currAdventureCardState.getPlayed());
 
         // first she inputs a tile where there are no batteries
         PlayerAction aliceCorrectedCoords = new ChooseBatteryAction("Alice", 1, 2);
-        // simulate controller behaviour
-        actionCreator = game.getPlayer(aliceCorrectedCoords.getPlayerNickname());
-        if(aliceCorrectedCoords.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, aliceCorrectedCoords);
 
-        }
+        // simulate controller behaviour
+        controller.onActionReceived(aliceCorrectedCoords);
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie decides to lose the tile
         PlayerAction charlieYoloAction = new ChooseBatteryAction("Charlie", -1, -1);
-        actionCreator = game.getPlayer(charlieYoloAction.getPlayerNickname());
-        if(charlieYoloAction.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, charlieYoloAction);
-        }
+
+        // simulate controller behaviour
+        controller.onActionReceived(charlieYoloAction);
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie tries to use battery
         PlayerAction charlieTryUseBattery = new ChooseBatteryAction("Charlie", -3, 5);
-        actionCreator = game.getPlayer(charlieTryUseBattery.getPlayerNickname());
-        if(charlieTryUseBattery.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, charlieTryUseBattery);
-        }
+
+        // simulate controller behaviour
+        assertThrows(RuntimeException.class, () -> controller.onActionReceived(charlieTryUseBattery));
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie tries to fix a ship removing wierd index
         List<Coordinates> removeTiles2 = new ArrayList<>();
-        removeTiles2.add(new Coordinates(-4,5));
-        removeTiles2.add(new Coordinates(16,4));
+        removeTiles2.add(new Coordinates(-4, 5));
+        removeTiles2.add(new Coordinates(16, 4));
         PlayerAction charlieWierdFix = new FixShipAction("Charlie", removeTiles2);
-        actionCreator = game.getPlayer(charlieWierdFix.getPlayerNickname());
-        if(charlieWierdFix.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, charlieWierdFix);
-        }
+
+        // simulate controller behaviour
+        assertThrows(RuntimeException.class, () -> controller.onActionReceived(charlieWierdFix));
         System.out.println(currAdventureCardState.getPlayed());
 
         //charlie fixes his ship
         List<Coordinates> removeTiles3 = new ArrayList<>();
-        removeTiles3.add(new Coordinates(1,2));
+        removeTiles3.add(new Coordinates(1, 2));
         PlayerAction charlieFix = new FixShipAction("Charlie", removeTiles3);
-        actionCreator = game.getPlayer(charlieFix.getPlayerNickname());
-        if(charlieFix.checkAction(actionCreator)) {
-            game.getGameState().handleAction(actionCreator, charlieFix);
-        }
+
+        // simulate controller behaviour
+        controller.onActionReceived(charlieFix);
         System.out.println(currAdventureCardState.getPlayed());
 
 
@@ -160,7 +147,6 @@ class MeteorsRainStateTest {
         aliceRolls1 = new RollDiceAction("Alice");
 
         // controller handles the action
-        actionCreator = game.getPlayer(aliceRolls1.getPlayerNickname());
-        game.getGameState().handleAction(actionCreator, aliceRolls1);
+        controller.onActionReceived(aliceRolls1);
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 
 // todo: test me
@@ -15,9 +16,8 @@ public class ChooseBatteryAction implements PlayerAction {
     }
 
     public void execute(Player player) {
-        if (x >= 0 && y >= 0) {
-            player.getShip().removeBatteries(1, x, y);
-        }
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.chooseBattery(player, x, y);
     }
 
     public boolean checkAction(Player player) {
