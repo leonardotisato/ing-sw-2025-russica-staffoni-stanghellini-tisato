@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AdventureCardState implements GameState {
+public abstract class AdventureCardState extends GameState {
     protected List <Player> sortedPlayers;
     protected List<Integer> played;
     protected Integer currPlayerIdx;
