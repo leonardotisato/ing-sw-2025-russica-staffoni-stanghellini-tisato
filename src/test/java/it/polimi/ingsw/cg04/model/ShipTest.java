@@ -1,6 +1,5 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.PlayerActions.GetRewardsAction;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -828,7 +827,22 @@ class ShipTest {
     }
 
     @Test
-    void isShipLegal5(){
+    void isShipLegal5() {
+
+        lev2Ship = shipyard.createShip5();
+        System.out.println(lev2Ship);
+        assertTrue(lev2Ship.isShipConnectedBFS());
+        assertTrue(lev2Ship.isShipLegal());
+        assertEquals(5, lev2Ship.getNumExposedConnectors());
+        assertEquals(7, lev2Ship.getNumBatteries());
+        assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT, Direction.LEFT)));
+        assertEquals(1.5, lev2Ship.getBaseFirePower());
+    }
+
+
+
+    @Test
+    void isShipLegal6(){
         lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
         lev2Ship.breakTile(1, 3);

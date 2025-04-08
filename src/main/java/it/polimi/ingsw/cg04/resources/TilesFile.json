@@ -113,8 +113,8 @@
     "type": "BatteryTile",
     "connections": {
       "UP": "UNIVERSAL",
-      "RIGHT": "RIGHT",
-      "DOWN": "RIGHT",
+      "RIGHT": "EMPTY",
+      "DOWN": "EMPTY",
       "LEFT": "UNIVERSAL"
     },
     "maxBatteryCapacity": "2",
