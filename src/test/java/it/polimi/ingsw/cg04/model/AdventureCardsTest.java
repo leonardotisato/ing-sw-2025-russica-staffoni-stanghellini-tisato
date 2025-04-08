@@ -120,9 +120,9 @@ public class AdventureCardsTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Integer> numCrewMembersLost1 = new ArrayList<>();
         List<Coordinates> coordinates1 = new ArrayList<>();
-        PlayerAction action1 = new HandleCrewAction(p.getName(),coordinates1, numCrewMembersLost1);
-        PlayerAction action2 = new HandleCrewAction(p2.getName(),new ArrayList<>(), new ArrayList<>());
-        PlayerAction action3 = new HandleCrewAction(p3.getName(),new ArrayList<>(), new ArrayList<>());
+        PlayerAction action1 = new RemoveCrewAction(p.getName(),coordinates1, numCrewMembersLost1);
+        PlayerAction action2 = new RemoveCrewAction(p2.getName(),new ArrayList<>(), new ArrayList<>());
+        PlayerAction action3 = new RemoveCrewAction(p3.getName(),new ArrayList<>(), new ArrayList<>());
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action2));
         controller.onActionReceived(action1);
         assertInstanceOf(AbandonedShipState.class, game.getGameState());

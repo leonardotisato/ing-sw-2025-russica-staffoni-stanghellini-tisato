@@ -1,24 +1,18 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
-import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
-import it.polimi.ingsw.cg04.model.tiles.HousingTile;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandleCrewAction implements PlayerAction{
+public class RemoveCrewAction implements PlayerAction{
     List<Integer> numCrewMembersLost;
     List<Coordinates> coordinates;
     String nickname;
 
-    public HandleCrewAction(String nickname, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
+    public RemoveCrewAction(String nickname, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
         this.coordinates = new ArrayList<>(coordinates);
         this.numCrewMembersLost = new ArrayList<>(numCrewMembersLost);
         this.nickname = nickname;
@@ -26,7 +20,7 @@ public class HandleCrewAction implements PlayerAction{
 
     public void execute(Player player) {
         GameState state = player.getGame().getGameState();
-        state.handleCrew(player, coordinates, numCrewMembersLost);
+        state.removeCrew(player, coordinates, numCrewMembersLost);
     }
 
     public boolean checkAction(Player player) {

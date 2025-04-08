@@ -3,13 +3,9 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.HandleCrewAction;
-import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AbandonedShipState extends AdventureCardState {
@@ -20,15 +16,17 @@ public class AbandonedShipState extends AdventureCardState {
         return;
     }
 
-    public void handleCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
+    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
         if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new RuntimeException("Not curr player");
+        if(numCrewMembersLost.stream().mapToInt(Integer::intValue).sum() != card.getLostMembers() && !numCrewMembersLost.isEmpty()) throw new RuntimeException("wrong number of crew members");
         if (numCrewMembersLost.isEmpty()) {
             played.set(currPlayerIdx, 1);
             currPlayerIdx++;
         }
         else {
             for (int i = 0; i < numCrewMembersLost.size(); i++) {
-                player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
+                Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
+                player.getShip().removeCrew(currTile.getHostedCrewType(), coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
             }
             played.replaceAll(ignored -> 1);
             player.updateCredits(card.getEarnedCredits());
