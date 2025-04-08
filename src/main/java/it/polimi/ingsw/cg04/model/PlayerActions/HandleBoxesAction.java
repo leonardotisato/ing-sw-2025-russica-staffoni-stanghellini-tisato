@@ -87,9 +87,4 @@ public class HandleBoxesAction implements PlayerAction{
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "HANDLE_BOXES";
-    }
 }

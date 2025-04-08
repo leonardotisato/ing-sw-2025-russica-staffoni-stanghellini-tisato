@@ -15,8 +15,4 @@ public class GetRewardsAction implements PlayerAction {
         return "";
     }
 
-    @Override
-    public String getType() {
-        return "GET_REWARDS";
-    }
 }

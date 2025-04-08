@@ -42,9 +42,4 @@ public class PlaceAction implements PlayerAction {
     public String getPlayerNickname() {
         return playerNickname;
     }
-
-    @Override
-    public String getType() {
-        return "PLACE_ACTION";
-    }
 }

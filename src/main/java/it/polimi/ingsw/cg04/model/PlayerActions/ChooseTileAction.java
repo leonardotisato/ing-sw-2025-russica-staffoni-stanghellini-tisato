@@ -14,9 +14,4 @@ public class ChooseTileAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "CHOOSE_TILE";
-    }
 }

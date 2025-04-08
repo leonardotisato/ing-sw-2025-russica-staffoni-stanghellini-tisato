@@ -68,10 +68,5 @@ public class HandleCrewAction implements PlayerAction{
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "HANDLE_CREW";
-    }
 }
 

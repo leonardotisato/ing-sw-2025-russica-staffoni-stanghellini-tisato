@@ -51,9 +51,4 @@ public class ChoosePropuslsorAction implements PlayerAction {
     public String getPlayerNickname() {
         return this.nickname;
     }
-
-    @Override
-    public String getType() {
-        return "CHOOSE_PROPULSOR";
-    }
 }

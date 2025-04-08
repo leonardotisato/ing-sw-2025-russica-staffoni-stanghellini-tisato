@@ -14,9 +14,4 @@ public class ShowFaceUpAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "SHOW_FACE_UP";
-    }
 }

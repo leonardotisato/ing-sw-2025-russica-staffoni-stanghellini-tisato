@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AdventureCardState extends GameState {
-    protected List <Player> sortedPlayers;
+    protected List<Player> sortedPlayers;
     protected List<Integer> played;
     protected Integer currPlayerIdx;
     protected AdventureCard card;
@@ -28,10 +28,12 @@ public abstract class AdventureCardState extends GameState {
     }
 
     public abstract void handleAction(Player player, PlayerAction action);
+
     public void triggerNextState() {
         context.setGameState(new FlightState());
         context.setCurrentAdventureCard(null);
     }
+
     public List<Player> getSortedPlayers() {
         return sortedPlayers;
     }
@@ -75,6 +77,7 @@ public abstract class AdventureCardState extends GameState {
     public boolean checkAction(Player player) {
         return true;
     }
+
     public Map<Player, Integer> getChosenPlanets() {
         return null;
     }
@@ -82,9 +85,11 @@ public abstract class AdventureCardState extends GameState {
     public Boolean getAllPlanetsChosen() {
         return false;
     }
+
     public void setAllPlanetsChosen(Boolean allPlanetsChosen) {
         return;
     }
+
     public void setPlayerToBeMovedIdx(Integer playerToBeMovedIdx) {
         return;
     }

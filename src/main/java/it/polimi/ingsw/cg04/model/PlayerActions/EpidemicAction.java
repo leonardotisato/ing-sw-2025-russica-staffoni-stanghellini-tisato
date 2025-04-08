@@ -14,9 +14,4 @@ public class EpidemicAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "EPIDEMIC_ACTION";
-    }
 }

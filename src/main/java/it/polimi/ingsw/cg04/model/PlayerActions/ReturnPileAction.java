@@ -14,9 +14,4 @@ public class ReturnPileAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "RETURN_PILE";
-    }
 }

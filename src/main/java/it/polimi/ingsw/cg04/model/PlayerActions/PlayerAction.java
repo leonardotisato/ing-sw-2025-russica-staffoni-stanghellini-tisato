@@ -6,5 +6,4 @@ public interface PlayerAction {
     void execute(Player player);
     boolean checkAction(Player player);
     String getPlayerNickname();
-    String getType();
 }
