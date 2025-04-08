@@ -116,6 +116,14 @@ public class Ship {
         return validSlots;
     }
 
+    public boolean isSlotValid(int x, int y) {
+        if (x < 0 || x >= shipHeight || y < 0 || y >= shipWidth) {
+            return false;
+        } else {
+            return validSlots[x][y];
+        }
+    }
+
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
@@ -693,9 +701,9 @@ public class Ship {
                     case LEFT -> newY--;
                     case RIGHT -> newY++;
                 }
-
+                // check che la connection non sia empty<->empty
                 if(newX >= 0 && newX < shipHeight && newY >= 0 && newY < shipWidth) {
-                    if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
+                    if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.getConnection(direction) != Connection.EMPTY && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
                         list.add(new int[]{newX, newY});
                         visited[newX][newY] = true;
                     }

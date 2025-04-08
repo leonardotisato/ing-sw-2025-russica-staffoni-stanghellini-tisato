@@ -15,12 +15,8 @@ public class OpenSpaceState extends AdventureCardState {
         super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
-        this.played.set(currPlayerIdx, 1);
-        this.currPlayerIdx++;
-        if (currPlayerIdx == sortedPlayers.size()) {
-            triggerNextState();
-        }
+        return;
+        //delete
     }
 
     @Override

@@ -18,4 +18,14 @@ public class GetNextAdventureCardAction implements PlayerAction {
     public boolean checkAction(Player player) {
         return false;
     }
+
+    @Override
+    public String getPlayerNickname() {
+        return "";
+    }
+
+    @Override
+    public String getType() {
+        return "GET_NEXT_ADVENTURE_CARD";
+    }
 }

@@ -13,24 +13,22 @@ import java.util.List;
 public class ChoosePropuslsorAction implements PlayerAction {
     List<Coordinates> coordinates;
     List<Integer> usedBatteries;
-    Game game;
+    String nickname;
 
-    public ChoosePropuslsorAction(List<Coordinates> coordinates, List<Integer> usedBatteries, Game game) {
+    public ChoosePropuslsorAction(String nickname, List<Coordinates> coordinates, List<Integer> usedBatteries) {
         this.coordinates = new ArrayList<>(coordinates);
         this.usedBatteries = new ArrayList<>(usedBatteries);
-        this.game = game;
+        this.nickname = nickname;
     }
 
     public void execute(Player player) {
-            for (int i = 0; i < usedBatteries.size(); i++) {
-                player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
-            }
-        player.move(player.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.usePropulsors(player, coordinates, usedBatteries);
     }
 
     @Override
     public boolean checkAction(Player player) {
-        AdventureCardState gameState = (AdventureCardState) game.getGameState();
+        AdventureCardState gameState = (AdventureCardState) player.getGame().getGameState();
         List<Coordinates> propulsorCoordinates = player.getShip().getTilesMap().get("PropulsorTile");
         int numberOfBatteries = usedBatteries.stream().mapToInt( b -> b.intValue()).sum();
         int totDoublePropulsor = (int)propulsorCoordinates.stream()
@@ -47,5 +45,15 @@ public class ChoosePropuslsorAction implements PlayerAction {
             }
         }
         return true;
+    }
+
+    @Override
+    public String getPlayerNickname() {
+        return this.nickname;
+    }
+
+    @Override
+    public String getType() {
+        return "CHOOSE_PROPULSOR";
     }
 }

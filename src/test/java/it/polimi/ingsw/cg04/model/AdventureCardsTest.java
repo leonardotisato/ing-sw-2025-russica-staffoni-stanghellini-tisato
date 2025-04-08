@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.GameStates.*;
 import it.polimi.ingsw.cg04.model.PlayerActions.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AdventureCardsTest {
 
+    private GamesController controller;
     private Game game;
     private Player p, p2, p3;
     private Shipyard shipyard;
@@ -33,10 +34,13 @@ public class AdventureCardsTest {
     @BeforeEach
     void setUp() {
         shipyard = new Shipyard();
+
+        controller = new GamesController();
         game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
         game.addPlayer("Filippo", PlayerColor.BLUE);
         game.addPlayer("Martin", PlayerColor.RED);
         game.addPlayer("Joseph", PlayerColor.GREEN);
+        controller.addGame(game);
         p = game.getPlayer("Filippo");
         p2 = game.getPlayer("Martin");
         p3 = game.getPlayer("Joseph");
@@ -84,29 +88,30 @@ public class AdventureCardsTest {
         List<Coordinates> coordinates1 = new ArrayList<>();
         List<Coordinates> coordinates2 = new ArrayList<>();
         List<Coordinates> coordinates3 = new ArrayList<>();
-        usedBatteries1.add(1);
-        coordinates1.add(new Coordinates(2, 1));
-        usedBatteries2.add(2);
+//        usedBatteries1.add(1);
+//        coordinates1.add(new Coordinates(2, 1));
+        usedBatteries2.add(1);
         coordinates2.add(new Coordinates(1, 2));
-        PlayerAction action = new ChoosePropuslsorAction(coordinates1, usedBatteries1, game);
-        PlayerAction action2 = new ChoosePropuslsorAction(coordinates2, usedBatteries2, game);
-        PlayerAction action3 = new ChoosePropuslsorAction(coordinates3, usedBatteries3, game);
-        assertFalse(action2.checkAction(p2));
-        game.getGameState().handleAction(p, action);
-        assertEquals(15, p.getCurrentCell());
-        assertEquals(2, p.getShip().getNumBatteries());
-        assertEquals(2, p.getShip().getTile(2,1).getNumBatteries());
+        PlayerAction action = new ChoosePropuslsorAction(p.getName(),coordinates1, usedBatteries1);
+        PlayerAction action2 = new ChoosePropuslsorAction(p2.getName() ,coordinates2, usedBatteries2);
+        PlayerAction action3 = new ChoosePropuslsorAction(p3.getName() ,coordinates3, usedBatteries3);
+        controller.onActionReceived(action);
+        assertEquals(13, p.getCurrentCell());
+        assertEquals(3, p.getShip().getNumBatteries());
+        assertEquals(3, p.getShip().getTile(2,1).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
-        game.getGameState().handleAction(p2, action2);
-        assertEquals(16, p2.getCurrentCell());
-        assertEquals(4, p2.getShip().getNumBatteries());
-        assertEquals(1, p2.getShip().getTile(1,2).getNumBatteries());
+        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action3));
+        controller.onActionReceived(action2);
+        assertEquals(14, p2.getCurrentCell());
+        assertEquals(5, p2.getShip().getNumBatteries());
+        assertEquals(2, p2.getShip().getTile(1,2).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
-        game.getGameState().handleAction(p3, action3);
+        controller.onActionReceived(action3);
         assertEquals(8, p3.getCurrentCell());
         assertEquals(2, p3.getShip().getNumBatteries());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
+        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action));
     }
 
     @Test

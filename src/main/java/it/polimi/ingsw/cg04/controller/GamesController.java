@@ -1,30 +1,44 @@
 package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
-import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GamesHandler {
+public class GamesController {
 
     private List<Game> games;
     private Map<Game, List<Player>> connectedPlayers;
     private Map<Game, List<Player>> disconnectedPlayers;
     private Map<String, Game> nickToGame;
 
-    public GamesHandler() {}
+    public GamesController() {
+        games = new ArrayList<>();
+        connectedPlayers = new HashMap<>();
+        disconnectedPlayers = new HashMap<>();
+        nickToGame = new HashMap<>();
+    }
 
     public List<Game> getGames() { return games; }
 
     public void onActionReceived(PlayerAction action) {
-        Game g = nickToGame(action.getPlayerNickname());
+        Game g = nickToGame.get(action.getPlayerNickname());
+        Player p = g.getPlayer(action.getPlayerNickname());
+        if (action.checkAction(p)){
+            action.execute(p);
+        }
+        else throw new RuntimeException("Wrong parameters!");
+    }
+
+    public void addGame(Game game) {
+        games.add(game);
+        for (Player p : game.getPlayers()) {
+            nickToGame.put(p.getName(), game);
+        }
     }
 
     // todo: delete me?

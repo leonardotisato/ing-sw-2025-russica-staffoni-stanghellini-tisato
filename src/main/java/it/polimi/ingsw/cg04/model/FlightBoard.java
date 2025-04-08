@@ -15,7 +15,7 @@ public abstract class FlightBoard {
     protected Integer dices = null;
 
     // for testing purposes
-    protected final Random rand = new Random();
+    protected final Random rand = new Random(42);
 
     public FlightBoard() {
     }
