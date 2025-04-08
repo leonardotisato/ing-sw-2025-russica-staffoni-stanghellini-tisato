@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,5 +91,9 @@ public abstract class AdventureCardState implements GameState {
 
     public List<Player> getCurrPlayers() {
         return currPlayers;
+    }
+
+    public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws RuntimeException {
+        throw new RuntimeException("invalid action");
     }
 }

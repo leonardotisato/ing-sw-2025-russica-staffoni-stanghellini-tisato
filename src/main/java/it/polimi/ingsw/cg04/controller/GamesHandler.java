@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.controller;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -16,11 +17,15 @@ public class GamesHandler {
     private List<Game> games;
     private Map<Game, List<Player>> connectedPlayers;
     private Map<Game, List<Player>> disconnectedPlayers;
+    private Map<String, Game> nickToGame;
 
     public GamesHandler() {}
 
     public List<Game> getGames() { return games; }
 
+    public void onActionReceived(PlayerAction action) {
+        Game g = nickToGame(action.getPlayerNickname());
+    }
 
     // todo: delete me?
 //    public void updateCredits(Game game, Player player, int credits) {
