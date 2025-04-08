@@ -103,18 +103,23 @@ public abstract class AdventureCardState extends GameState {
         throw new RuntimeException("invalid action");
     }
 
-    // Allowed in: MeteorRainState,
+    // Allowed in: MeteorRainState, ...
     public void rollDice(Player player) {
         throw new RuntimeException("invalid action");
     }
 
-    // Allowed in: MeteorRainState,
+    // Allowed in: MeteorRainState, ...
     public void fixShip(Player player, List<Coordinates> coordinatesList) {
         throw new RuntimeException("invalid action");
     }
 
-    // Allowed in: MeteorRainState,
+    // Allowed in: MeteorRainState, ...
     public void chooseBattery(Player player, int x, int y) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in Smugglers, Pirates, Slavers, ...
+    public void getReward(Player player, boolean acceptReward) {
         throw new RuntimeException("invalid action");
     }
 
