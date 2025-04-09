@@ -3,15 +3,26 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 import it.polimi.ingsw.cg04.model.Player;
 
 public class ReturnTileAction implements PlayerAction {
-    public void execute(Player player) {}
+    String playerNickname;
+
+    public ReturnTileAction(String playerNickname) {
+        this.playerNickname = playerNickname;
+    }
+    public void execute(Player player) {
+        player.getGame().getGameState().returnTile(player);
+    }
 
     @Override
     public boolean checkAction(Player player) {
-        return false;
+        // cant return heldTile if you dont have one
+        if(player.getHeldTile() == null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return playerNickname;
     }
 }

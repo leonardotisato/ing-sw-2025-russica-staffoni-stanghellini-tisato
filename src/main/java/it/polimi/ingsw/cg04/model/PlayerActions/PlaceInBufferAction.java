@@ -9,6 +9,8 @@ public class PlaceInBufferAction implements PlayerAction {
     public PlaceInBufferAction(String playerNickname) {
         this.playerNickname = playerNickname;
     }
+
+    @Override
     public void execute(Player player) {
         Game game = player.getGame();
         game.getGameState().placeInBuffer(player);

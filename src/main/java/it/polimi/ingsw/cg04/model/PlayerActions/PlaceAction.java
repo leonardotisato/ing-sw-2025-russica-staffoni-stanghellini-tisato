@@ -34,7 +34,6 @@ public class PlaceAction implements PlayerAction {
         if(tiles[coordinates.getX()][coordinates.getY()]!=null) {
             return false;
         }
-
         return true;
     }
 
