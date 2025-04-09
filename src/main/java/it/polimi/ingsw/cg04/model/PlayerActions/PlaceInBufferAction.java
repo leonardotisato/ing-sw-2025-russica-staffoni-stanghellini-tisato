@@ -9,6 +9,8 @@ public class PlaceInBufferAction implements PlayerAction {
     public PlaceInBufferAction(String playerNickname) {
         this.playerNickname = playerNickname;
     }
+
+    @Override
     public void execute(Player player) {
         Game game = player.getGame();
         game.getGameState().placeInBuffer(player);
@@ -22,11 +24,7 @@ public class PlaceInBufferAction implements PlayerAction {
         }
 
         // check if buffer is already full
-        if(player.getShip().getTilesBuffer().size() >= 2) {
-            return false;
-        }
-
-        return true;
+        return player.getShip().getTilesBuffer().size() < 2;
     }
 
     @Override

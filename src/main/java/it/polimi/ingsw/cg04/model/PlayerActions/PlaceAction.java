@@ -31,11 +31,7 @@ public class PlaceAction implements PlayerAction {
 
         // check if the slot is already taken
         Tile[][] tiles = player.getShip().getTilesMatrix();
-        if(tiles[coordinates.getX()][coordinates.getY()]!=null) {
-            return false;
-        }
-
-        return true;
+        return tiles[coordinates.getX()][coordinates.getY()] == null;
     }
 
     @Override
