@@ -42,7 +42,7 @@ public class BuildState extends GameState {
 
     @Override
     public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
+        //todo: delete me
     }
 
     @Override

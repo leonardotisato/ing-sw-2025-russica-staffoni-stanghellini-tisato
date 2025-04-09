@@ -11,13 +11,14 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class SlaversState extends AdventureCardState {
 
 
     private boolean isOpponentDead = false;
 
-    private final int opponentFirePower;
+    private int opponentFirePower;
     private final int reward;
     private final int delta;
     private final int crewLost;
@@ -54,7 +55,11 @@ public class SlaversState extends AdventureCardState {
     public void getReward(Player player, boolean acceptReward) {
         int playerIdx = sortedPlayers.indexOf(player);
 
-        if (playerStates.get(playerIdx) == DECIDE_REWARD && isOpponentDead) {
+        if (playerStates.get(playerIdx) == DECIDE_REWARD &&
+                isOpponentDead &&
+                IntStream.range(0, playerStates.size())
+                        .filter(i -> i != playerIdx)
+                        .allMatch(i -> playerStates.get(i) == DONE)) {
             if (acceptReward) {
                 // give reward to winner
                 player.updateCredits(reward);
@@ -79,22 +84,24 @@ public class SlaversState extends AdventureCardState {
         Ship ship = player.getShip();
 
         if (playerStates.get(playerIdx) == ACTIVATE_CANNONS) {
-
-            // remove batteries used
-            for (Coordinates c : batteries) {
-                ship.removeBatteries(1, c.getX(), c.getY());
-            }
-
-            // increase firePower adding new double cannons based on orientation
             double firePower = ship.getBaseFirePower();
 
-            for (Coordinates c : doubleCannons) {
-                // if laser is up bonus is 2
-                if (ship.getTile(c.getX(), c.getY()).getConnection(Direction.UP) == Connection.GUN) {
-                    firePower += 2;
-                } else {
-                    //else bonus is 1
-                    firePower += 1;
+            // activate double cannons if played provided them
+            if (batteries != null && doubleCannons != null) {
+                // remove batteries used
+                for (Coordinates c : batteries) {
+                    ship.removeBatteries(1, c.getX(), c.getY());
+                }
+
+                // increase firePower adding new double cannons based on orientation
+                for (Coordinates c : doubleCannons) {
+                    // if laser is up bonus is 2
+                    if (ship.getTile(c.getX(), c.getY()).getConnection(Direction.UP) == Connection.GUN) {
+                        firePower += 2;
+                    } else {
+                        //else bonus is 1
+                        firePower += 1;
+                    }
                 }
             }
 
@@ -113,6 +120,11 @@ public class SlaversState extends AdventureCardState {
             // tie, player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
+
+                // now playerIdx+1 needs to activate his cannons
+                if (playerIdx + 1 < playerStates.size()) {
+                    playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
+                }
             }
 
             if (firePower > opponentFirePower) {
@@ -132,6 +144,8 @@ public class SlaversState extends AdventureCardState {
                 // transition to next adventure card
                 triggerNextState();
             }
+        } else {
+            System.out.println("Player " + player.getName() + " performed wrong action or not his turn");
         }
     }
 
@@ -143,6 +157,7 @@ public class SlaversState extends AdventureCardState {
             // if invalid input do nothing
             if (coordinates == null && numCrewMembersLost == null) {
                 System.out.println("Remove crew is mandatory!");
+                return;
             }
 
             // check that total sacrificed is <= to crewLost
@@ -170,6 +185,10 @@ public class SlaversState extends AdventureCardState {
         }
     }
 
+    // for testing purposes only!
+    public void FORCE_OPPONENT_FIREPOWER(int val) {
+        this.opponentFirePower = val;
+    }
 
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {

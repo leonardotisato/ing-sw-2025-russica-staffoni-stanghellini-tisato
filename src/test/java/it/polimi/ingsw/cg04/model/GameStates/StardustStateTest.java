@@ -23,6 +23,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StardustStateTest {
+
     private Game game;
     private List<Player> players;
     private Integer currPlayerIdx;

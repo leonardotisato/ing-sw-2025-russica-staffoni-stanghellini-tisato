@@ -24,21 +24,18 @@ public class Slavers extends AdventureCard{
         this.firePower = firePower;
     }
 
-    public int getMembersLost() {
+    public Integer getLostMembers() {
         return membersLost;
     }
     public void setMembersLost(int membersLost) {
         this.membersLost = membersLost;
     }
 
-    public int getCreditsEarned() {
+    public Integer getEarnedCredits() {
         return creditsEarned;
     }
     public void setCreditsEarned(int creditsEarned) {
         this.creditsEarned = creditsEarned;
-    }
-
-    public void solveEffect(Game game){
     }
 
     @Override

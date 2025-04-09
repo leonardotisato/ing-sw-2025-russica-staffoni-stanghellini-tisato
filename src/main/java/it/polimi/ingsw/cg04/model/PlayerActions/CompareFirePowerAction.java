@@ -33,6 +33,11 @@ public class CompareFirePowerAction implements PlayerAction{
     @Override
     public boolean checkAction(Player player) {
 
+        // if both lists are null, player does not want to activate any double cannon
+        if(batteryCoordsList == null && cannonCoordsList == null) {
+            return true;
+        }
+
         // format checks
         if(batteryCoordsList == null || cannonCoordsList == null){
             return false;
