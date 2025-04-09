@@ -25,19 +25,26 @@ public class RemoveCrewAction implements PlayerAction{
 
     public boolean checkAction(Player player) {
         GameState gameState = player.getGame().getGameState();
+        // if both null, the player doesn't want to play
         if(coordinates == null && numCrewMembersLost == null) return true;
+        //if just one of them is null, it's an error
         if (coordinates == null || numCrewMembersLost == null) return false;
         int numberOfCrewLost = numCrewMembersLost.stream().mapToInt( b -> b).sum();
+        //number of crew members lost by the player should not be >= crew members on the ship
         if(numberOfCrewLost >= player.getShip().getNumCrew()) return false;
+        //mismatch error
         if (numCrewMembersLost.size() != coordinates.size()) return false;
         for (int i = 0; i < numCrewMembersLost.size(); i++) {
+            //the tile in these coordinates is not a HousingTile
             if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))){
                 return false;
             }
+            //not enough crew members in this tile!
             if(numCrewMembersLost.get(i) > player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY()).getNumCrew()){
                 return false;
             }
         }
+        //the action is legal!
         return true;
     }
 

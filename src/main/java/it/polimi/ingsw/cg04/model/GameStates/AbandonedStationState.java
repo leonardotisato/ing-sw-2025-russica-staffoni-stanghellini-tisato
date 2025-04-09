@@ -34,6 +34,7 @@ public class AbandonedStationState extends AdventureCardState {
     }
 
     public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
+        //the player doesn't want to play this card
         if(coordinates == null && boxes == null) return true;
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
         for (int i = 0; i < coordinates.size(); i++) {
@@ -45,15 +46,18 @@ public class AbandonedStationState extends AdventureCardState {
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
+        //newTotBoxes contains the updated amount of boxes type-wise
         for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
             BoxType type = entry.getKey();
             Integer count = entry.getValue();
             if (card.getObtainedResources().containsKey(type)) {
+                //number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getObtainedResourcesByType(type)) {
                     return false;
                 }
             }
             else {
+                //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
                     return false;
                 }

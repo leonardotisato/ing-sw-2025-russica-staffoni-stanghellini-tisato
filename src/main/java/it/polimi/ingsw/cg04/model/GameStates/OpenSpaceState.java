@@ -21,7 +21,6 @@ public class OpenSpaceState extends AdventureCardState {
     @Override
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries){
         if (!p.equals(sortedPlayers.get(currPlayerIdx))) throw new RuntimeException("Not curr player");
-        if(usedBatteries == null) usedBatteries = new ArrayList<>();
         for (int i = 0; i < usedBatteries.size(); i++) {
             p.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
         }

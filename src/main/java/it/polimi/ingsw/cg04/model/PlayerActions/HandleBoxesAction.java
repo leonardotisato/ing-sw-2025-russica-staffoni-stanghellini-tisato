@@ -31,20 +31,26 @@ public class HandleBoxesAction implements PlayerAction{
 
     public boolean checkAction(Player player) {
         GameState gameState = player.getGame().getGameState();
+        // if both null, the player doesn't want to play
         if(coordinates == null && boxes == null) return true;
+        //if just one of them is null, it's an error
         if (coordinates == null || boxes == null) return false;
         List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
+        //mismatch error
         if(boxes.size() != coordinates.size()) return false;
         for (int i = 0; i < coordinates.size(); i++) {
+            //the tile in these coordinates is not a storageTile
             if(!coordinates.get(i).isIn(storageCoordinates)){
                 return false;
             }
             Coordinates coord = coordinates.get(i);
             Map<BoxType, Integer> boxesAtCoord = boxes.get(i);
+            //more boxes than the max number allowed in this storage tile
             if(boxesAtCoord.values().stream().mapToInt(Integer::intValue).sum() > player.getShip().getTile(coord.getX(), coord.getY()).getMaxBoxes()){
                 return false;
             }
+            //special box in a no-special tile
             if(boxesAtCoord.get(BoxType.RED) > 0 && !player.getShip().getTile(coord.getX(), coord.getY()).isSpecialStorageTile()){
                 return false;
             }
@@ -55,6 +61,7 @@ public class HandleBoxesAction implements PlayerAction{
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
+        //the action is legal!
          return true;
     }
 
