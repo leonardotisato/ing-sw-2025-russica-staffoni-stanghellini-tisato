@@ -14,9 +14,9 @@ public abstract class GameState {
         return;
     }
 
-    public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) {
-        throw new RuntimeException("Invalid action!");
-    }
+
+
+    // AdventureCardState methods
 
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
         throw new RuntimeException("Invalid action!");
@@ -24,6 +24,36 @@ public abstract class GameState {
 
     public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes){
         throw new RuntimeException("Invalid action!");
+    }
+
+    // Allowed in: OpenSpaceState
+    public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws RuntimeException {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in: MeteorRainState, ...
+    public void rollDice(Player player) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in: MeteorRainState, ...
+    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in: MeteorRainState, ...
+    public void chooseBattery(Player player, int x, int y) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in Smugglers, Pirates, Slavers, ...
+    public void getReward(Player player, boolean acceptReward) {
+        throw new RuntimeException("invalid action");
+    }
+
+    // Allowed in Smugglers, Pirates, Slavers, Warzone, ...
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+        throw new RuntimeException("invalid action");
     }
 
 
