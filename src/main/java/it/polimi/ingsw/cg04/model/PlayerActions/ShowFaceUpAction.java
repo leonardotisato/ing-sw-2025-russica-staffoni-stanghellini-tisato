@@ -1,10 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowFaceUpAction implements PlayerAction {
     String playerNickname;
@@ -20,10 +16,7 @@ public class ShowFaceUpAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        if(player.getHeldTile()!=null) {
-            return false;
-        }
-        return true;
+        return player.getHeldTile() == null;
     }
 
     @Override

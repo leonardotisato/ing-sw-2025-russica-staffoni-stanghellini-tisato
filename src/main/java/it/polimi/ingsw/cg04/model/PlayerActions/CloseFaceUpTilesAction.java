@@ -14,10 +14,7 @@ public class CloseFaceUpTilesAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        if(player.getHeldTile()!=null) {
-            return false;
-        }
-        return true;
+        return player.getHeldTile() == null;
     }
 
     @Override

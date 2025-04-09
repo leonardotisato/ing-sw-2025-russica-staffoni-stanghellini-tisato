@@ -18,11 +18,7 @@ public class PickPileAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player){
-        if(pileIndex < 0 || pileIndex >= 2) {
-            return false;
-        }
-
-        return true;
+        return pileIndex >= 0 && pileIndex < 2;
     }
 
     @Override

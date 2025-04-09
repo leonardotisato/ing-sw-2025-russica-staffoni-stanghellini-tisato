@@ -8,7 +8,6 @@ import it.polimi.ingsw.cg04.model.tiles.Tile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class BuildState extends GameState {
     // players states are stored in a map
@@ -20,24 +19,24 @@ public class BuildState extends GameState {
     // FixShip
     // ShipReady
     // AddingCrew
-    Map<Player, String> playerState;
+    Map<String, String> playerState;
     Game game;
-    Map<Player, Boolean> isInShowFaceUp;
-    Map<Player, Integer> isLookingPile;
+    Map<String, Boolean> isInShowFaceUp;
+    Map<String, Integer> isLookingPile;
 
     public BuildState(Game game) {
         playerState = new HashMap<>();
         this.game = game;
         for (Player player : game.getPlayers()) {
-            playerState.put(player, "Building");
+            playerState.put(player.getName(), "Building");
         }
         this.isInShowFaceUp = new HashMap<>();
         for (Player player : game.getPlayers()) {
-            isInShowFaceUp.put(player, false);
+            isInShowFaceUp.put(player.getName(), false);
         }
         this.isLookingPile = new HashMap<>();
         for (Player player : game.getPlayers()) {
-            isLookingPile.put(player, null);
+            isLookingPile.put(player.getName(), null);
         }
     }
 
@@ -49,7 +48,7 @@ public class BuildState extends GameState {
     @Override
     public void placeTile(Player player, int x, int y) {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
-        if (!playerState.get(player).equals("Building") || isInShowFaceUp.get(player) || isLookingPile.get(player) != null) {
+        if (!playerState.get(player.getName()).equals("Building") || isInShowFaceUp.get(player.getName()) || isLookingPile.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant place tile now");
         }
         player.placeTile(x, y);
@@ -58,16 +57,17 @@ public class BuildState extends GameState {
     @Override
     public void placeInBuffer(Player player) {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
-        if (!playerState.get(player).equals("Building") || isInShowFaceUp.get(player) || isLookingPile.get(player) != null){
+        if (!playerState.get(player.getName()).equals("Building") || isInShowFaceUp.get(player.getName()) || isLookingPile.get(player.getName()) != null){
             throw new IllegalArgumentException("cant place tile in buffer now");
         }
         player.getShip().addTileInBuffer(player.getHeldTile());
+        player.setHeldTile(null);
     }
 
     @Override
     public void chooseTile(Player player, Tile tile) {
         // player is not in building phase or is looking a pile
-        if (!playerState.get(player).equals("Building") || isLookingPile.get(player) != null) {
+        if (!playerState.get(player.getName()).equals("Building") || isLookingPile.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant choose tile now");
         }
         player.setHeldTile(tile);
@@ -76,32 +76,32 @@ public class BuildState extends GameState {
     @Override
     public void showFaceUp(Player player) {
         // player is not in building phase or is looking a pile
-        if (!playerState.get(player).equals("Building") || isLookingPile.get(player) != null) {
+        if (!playerState.get(player.getName()).equals("Building") || isLookingPile.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant show face up now");
         }
         // player is already in show face-up
-        if(isInShowFaceUp.get(player)) {
+        if(isInShowFaceUp.get(player.getName())) {
             throw new IllegalArgumentException("already in show face up");
         }
         int j = 1;
         System.out.println("list of face up tiles\n");
         for(Integer i : player.getGame().getFaceUpTiles()){
-            System.out.println("j" + player.getGame().getTileById(i).toString()+ "\n");
+            System.out.println(j + player.getGame().getTileById(i).toString()+ "\n");
             j++;
         }
-        isInShowFaceUp.put(player, true);
+        isInShowFaceUp.put(player.getName(), true);
     }
 
     @Override
     public void closeFaceUpTiles(Player player) {
         // player is not in building phase or is looking a pile
-        if(!playerState.get(player).equals("Building") || isLookingPile.get(player) != null) {
+        if(!playerState.get(player.getName()).equals("Building") || isLookingPile.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant close face up tiles now");
         }
-        if(!isInShowFaceUp.get(player)) {
+        if(!isInShowFaceUp.get(player.getName())) {
             throw new IllegalArgumentException("not in show face up");
         }
-        isInShowFaceUp.put(player, false);
+        isInShowFaceUp.put(player.getName(), false);
 
         //todo: what to do here???
     }
@@ -109,7 +109,7 @@ public class BuildState extends GameState {
     @Override
     public void drawFaceDown(Player player) {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
-        if(!playerState.get(player).equals("Building") || isLookingPile.get(player) != null || isInShowFaceUp.get(player) != null) {
+        if(!playerState.get(player.getName()).equals("Building") || isLookingPile.get(player.getName()) != null || isInShowFaceUp.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant draw face down now");
         }
         Tile drawnTile = player.getGame().drawFaceDownTile();
@@ -120,7 +120,7 @@ public class BuildState extends GameState {
     @Override
     public void returnTile(Player player) {
         // player is not in building phase or is looking a pile
-        if(!playerState.get(player).equals("Building") || isLookingPile.get(player) != null) {
+        if(!playerState.get(player.getName()).equals("Building") || isLookingPile.get(player.getName()) != null) {
             throw new IllegalArgumentException("cant return tile now");
         }
         Tile currTile = player.getHeldTile();
@@ -130,7 +130,7 @@ public class BuildState extends GameState {
 
     @Override
     public void pickPile(Player player, Integer pileIndex) {
-        for(Player p : isLookingPile.keySet()) {
+        for(String p : isLookingPile.keySet()) {
             // player is not in building phase or is in show face-up
             if(!playerState.get(p).equals("Building") || isInShowFaceUp.get(p)) {
                 throw new IllegalArgumentException("cant pick pile now");
@@ -140,12 +140,12 @@ public class BuildState extends GameState {
                 throw new IllegalArgumentException("someone is already looking pile" + pileIndex+1);
             }
             // if player is already looking at another pile
-            if(isLookingPile.get(player) != null) {
+            if(isLookingPile.get(player.getName()) != null) {
                 throw new IllegalArgumentException("you are already looking at another pile");
             }
 
             // update isLookingPile
-            isLookingPile.put(player, pileIndex);
+            isLookingPile.put(player.getName(), pileIndex);
 
             // print out pile
             List<Integer> pile = game.getPreFlightPiles().get(pileIndex);
@@ -159,14 +159,14 @@ public class BuildState extends GameState {
     @Override
     public void returnPile(Player player, Integer pileIndex) {
         // player is not in building phase or is in show face-up
-        if(!playerState.get(player).equals("Building") || isInShowFaceUp.get(player) != null) {
+        if(!playerState.get(player.getName()).equals("Building") || isInShowFaceUp.get(player.getName()) != null) {
             throw new IllegalArgumentException("can't return pile now");
         }
-        if(!isLookingPile.get(player).equals(pileIndex)) {
+        if(!isLookingPile.get(player.getName()).equals(pileIndex)) {
             throw new IllegalArgumentException("can not return a pile you are not looking");
         }
 
-        isLookingPile.put(player, null);
+        isLookingPile.put(player.getName(), null);
 
     }
 
