@@ -183,6 +183,7 @@ public class MeteorsRainState extends AdventureCardState {
                     played.set(playerIdx, CORRECT_SHIP);
                 }
             } else { // player used battery and he is done for the round
+                player.getShip().removeBatteries(1, x, y);
                 played.set(playerIdx, DONE);
             }
         }
