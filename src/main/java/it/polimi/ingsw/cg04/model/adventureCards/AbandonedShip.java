@@ -6,13 +6,10 @@ import it.polimi.ingsw.cg04.model.GameStates.AbandonedShipState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
-import it.polimi.ingsw.cg04.model.tiles.AlienSupportTile;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AbandonedShip extends AdventureCard {
     @Expose
@@ -24,12 +21,12 @@ public class AbandonedShip extends AdventureCard {
         super();
     }
 
-    public int getLostMembers() { return lostMembers; }
+    public Integer getLostMembers() { return lostMembers; }
     public void setLostMembers(int lostMembers) {
         this.lostMembers = lostMembers;
     }
 
-    public int getEarnedCredits() { return earnedCredits; }
+    public Integer getEarnedCredits() { return earnedCredits; }
     public void setEarnedCredits(int earnedCredits) {
         this.earnedCredits = earnedCredits;
     }
