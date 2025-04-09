@@ -28,12 +28,14 @@ public class ChoosePropulsorAction implements PlayerAction {
     public boolean checkAction(Player player) {
         GameState gameState =  player.getGame().getGameState();
         List<Coordinates> propulsorCoordinates = player.getShip().getTilesMap().get("PropulsorTile");
+        if(usedBatteries == null || coordinates == null) return false;
         int numberOfBatteries = usedBatteries.stream().mapToInt( b -> b.intValue()).sum();
         int totDoublePropulsor = (int)propulsorCoordinates.stream()
                 .map(coord -> player.getShip().getTile(coord.getX(), coord.getY()))
                 .filter(t -> t.isDoublePropulsor())
                 .count();
         if(numberOfBatteries > totDoublePropulsor) return false;
+        if(usedBatteries.size() != coordinates.size()) return false;
         for (int i = 0; i < usedBatteries.size(); i++) {
             if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("BatteryTile"))){
                 return false;

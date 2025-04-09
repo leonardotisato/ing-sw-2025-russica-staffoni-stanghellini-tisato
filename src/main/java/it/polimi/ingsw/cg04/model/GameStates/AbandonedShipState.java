@@ -18,8 +18,8 @@ public class AbandonedShipState extends AdventureCardState {
 
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
         if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new RuntimeException("Not curr player");
-        if(numCrewMembersLost.stream().mapToInt(Integer::intValue).sum() != card.getLostMembers() && !numCrewMembersLost.isEmpty()) throw new RuntimeException("wrong number of crew members");
-        if (numCrewMembersLost.isEmpty()) {
+        if(numCrewMembersLost != null && numCrewMembersLost.stream().mapToInt(Integer::intValue).sum() != card.getLostMembers()) throw new RuntimeException("wrong number of crew members");
+        if (numCrewMembersLost == null) {
             played.set(currPlayerIdx, 1);
             currPlayerIdx++;
         }

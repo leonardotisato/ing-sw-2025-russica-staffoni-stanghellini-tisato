@@ -13,8 +13,8 @@ public class RemoveCrewAction implements PlayerAction{
     String nickname;
 
     public RemoveCrewAction(String nickname, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
-        this.coordinates = new ArrayList<>(coordinates);
-        this.numCrewMembersLost = new ArrayList<>(numCrewMembersLost);
+        this.coordinates = coordinates;
+        this.numCrewMembersLost = numCrewMembersLost;
         this.nickname = nickname;
     }
 
@@ -25,8 +25,11 @@ public class RemoveCrewAction implements PlayerAction{
 
     public boolean checkAction(Player player) {
         GameState gameState = player.getGame().getGameState();
+        if(coordinates == null && numCrewMembersLost == null) return true;
+        if (coordinates == null || numCrewMembersLost == null) return false;
         int numberOfCrewLost = numCrewMembersLost.stream().mapToInt( b -> b).sum();
         if(numberOfCrewLost >= player.getShip().getNumCrew()) return false;
+        if (numCrewMembersLost.size() != coordinates.size()) return false;
         for (int i = 0; i < numCrewMembersLost.size(); i++) {
             if(!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))){
                 return false;

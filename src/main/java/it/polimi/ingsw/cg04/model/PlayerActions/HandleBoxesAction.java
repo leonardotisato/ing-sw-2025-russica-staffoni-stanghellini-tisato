@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
@@ -16,36 +17,25 @@ public class HandleBoxesAction implements PlayerAction{
     private Game game;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType,Integer>> boxes;
-    public HandleBoxesAction(List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes, Game game) {
+    private String nickname;
+    public HandleBoxesAction(String nickname, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
         this.coordinates = coordinates;
         this.boxes = boxes;
-        this.game = game;
+        this.nickname = nickname;
     }
 
     public void execute(Player player) {
-        AdventureCardState gameState = (AdventureCardState)game.getGameState();
-        if (boxes.isEmpty()) {
-//            gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
-//            gameState.setCurrPlayerIdx(gameState.getCurrPlayerIdx() + 1);
-            return;
-        }
-        else {
-            for (int i = 0; i < coordinates.size(); i++) {
-                player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
-                gameState.setPlayerToBeMovedIdx(gameState.getCurrPlayerIdx());
-            }
-        }
-//        gameState.getPlayed().replaceAll(ignored -> 1);
-//        player.move(-game.getCurrentAdventureCard().getDaysLost());
-        return;
+        GameState state = player.getGame().getGameState();
+        state.handleBoxes(player, coordinates, boxes);
         }
 
     public boolean checkAction(Player player) {
-        AdventureCardState gameState = (AdventureCardState) game.getGameState();
-        if (!gameState.checkAction(player)) return false;
-        if(!player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) return false;
+        GameState gameState = player.getGame().getGameState();
+        if(coordinates == null && boxes == null) return true;
+        if (coordinates == null || boxes == null) return false;
         List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
+        if(boxes.size() != coordinates.size()) return false;
         for (int i = 0; i < coordinates.size(); i++) {
             if(!coordinates.get(i).isIn(storageCoordinates)){
                 return false;
@@ -65,26 +55,11 @@ public class HandleBoxesAction implements PlayerAction{
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
-
-        for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
-            BoxType type = entry.getKey();
-            Integer count = entry.getValue();
-            if (gameState.getCard().getObtainedResources().containsKey(type)) {
-                if (count > player.getShip().getBoxes(type) + gameState.getCard().getObtainedResourcesByType(type)) {
-                    return false;
-                }
-            }
-            else {
-                if (count > player.getShip().getBoxes(type)) {
-                    return false;
-                }
-            }
-        }
          return true;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return this.nickname;
     }
 }

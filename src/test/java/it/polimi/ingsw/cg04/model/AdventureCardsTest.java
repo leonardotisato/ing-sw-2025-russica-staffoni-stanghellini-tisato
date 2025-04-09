@@ -120,9 +120,9 @@ public class AdventureCardsTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Integer> numCrewMembersLost1 = new ArrayList<>();
         List<Coordinates> coordinates1 = new ArrayList<>();
-        PlayerAction action1 = new RemoveCrewAction(p.getName(),coordinates1, numCrewMembersLost1);
-        PlayerAction action2 = new RemoveCrewAction(p2.getName(),new ArrayList<>(), new ArrayList<>());
-        PlayerAction action3 = new RemoveCrewAction(p3.getName(),new ArrayList<>(), new ArrayList<>());
+        PlayerAction action1 = new RemoveCrewAction(p.getName(),null, null);
+        PlayerAction action2 = new RemoveCrewAction(p2.getName(),null, null);
+        PlayerAction action3 = new RemoveCrewAction(p3.getName(),null, null);
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action2));
         controller.onActionReceived(action1);
         assertInstanceOf(AbandonedShipState.class, game.getGameState());
@@ -153,16 +153,20 @@ public class AdventureCardsTest {
         List<Coordinates> coordinates1 = new ArrayList<>();
         List<Coordinates> coordinates2 = new ArrayList<>();
         coordinates2.add(new Coordinates(2, 1));
-        PlayerAction action1 = new HandleBoxesAction(coordinates1, newBoxes1, game);
-        PlayerAction action2 = new HandleBoxesAction(coordinates2, newBoxes2, game);
-        game.getCurrentAdventureCard().setMembersNeeded(4);
-        game.getGameState().handleAction(p, action1);
+        PlayerAction action1 = new HandleBoxesAction(p.getName(), coordinates1, newBoxes2);
+        PlayerAction action2 = new HandleBoxesAction(p2.getName(), coordinates2, newBoxes2);
+        game.getCurrentAdventureCard().setMembersNeeded(3);
+        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
         assertInstanceOf(AbandonedStationState.class, game.getGameState());
-        game.getGameState().handleAction(p2, action2);
+        PlayerAction action3 = new HandleBoxesAction(p.getName(), null, null);
+        controller.onActionReceived(action3);
+        controller.onActionReceived(action2);
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p2.getShip().getBoxes());
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p2.getShip().getTile(2,1).getBoxes());
         assertEquals(9, p2.getCurrentCell());
         assertInstanceOf(FlightState.class, game.getGameState());
+        assertNull(game.getCurrentAdventureCard());
+        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
     }
 
     @Test
