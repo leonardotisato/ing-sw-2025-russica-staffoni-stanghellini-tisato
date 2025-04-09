@@ -11,4 +11,8 @@ public class BuildState extends GameState {
     public void placeTile(Player player, int x, int y) {
         player.placeTile(x, y);
     }
+
+    public void placeInBuffer(Player player) {
+        player.getShip().addTileInBuffer(player.getHeldTile());
+    }
 }

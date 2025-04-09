@@ -15,7 +15,7 @@ public class PlaceAction implements PlayerAction {
     }
     public void execute(Player player) {
         Game game = player.getGame();
-        //game.getGameState().placeTile(player, coordinates.getX(), coordinates.getY());
+        game.getGameState().placeTile(player, coordinates.getX(), coordinates.getY());
     }
 
     @Override

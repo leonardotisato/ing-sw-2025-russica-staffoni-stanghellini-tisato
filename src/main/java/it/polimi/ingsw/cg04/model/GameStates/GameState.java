@@ -7,4 +7,12 @@ public abstract class GameState {
     public void handleAction(Player player, PlayerAction action){
         return;
     }
+
+    public void placeTile(Player player, int x, int y) {
+        throw new IllegalArgumentException("cant place tile in this game state");
+    }
+
+    public void placeInBuffer(Player player) {
+        throw new IllegalArgumentException("cant place tile in buffer in this game state");
+    }
 }

@@ -11,6 +11,7 @@ public class PlaceInBufferAction implements PlayerAction {
     }
     public void execute(Player player) {
         Game game = player.getGame();
+        game.getGameState().placeInBuffer(player);
     }
 
     @Override
