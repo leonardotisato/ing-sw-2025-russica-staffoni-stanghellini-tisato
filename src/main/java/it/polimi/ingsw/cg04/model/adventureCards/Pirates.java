@@ -31,7 +31,7 @@ public class Pirates extends AdventureCard {
         shots.add(shot);
     }
 
-    public int getFirePower() { return firePower; }
+    public Integer getFirePower() { return firePower; }
     public void setFirePower(int firePower) { this.firePower = firePower; }
 
     public int getReward() { return reward; }

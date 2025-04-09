@@ -3,7 +3,6 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.GameStates.SmugglersState;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 
@@ -23,7 +22,7 @@ public class Smugglers extends AdventureCard {
         this.rewards = new HashMap<BoxType, Integer>();
     }
 
-    public int getFirePower() { return firePower; }
+    public Integer getFirePower() { return firePower; }
     public void setFirePower(int firePower) { this.firePower = firePower; }
 
     public int getLostGoods() { return lostGoods; }

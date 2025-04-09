@@ -17,6 +17,7 @@ public abstract class GameState {
     public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) {
         throw new RuntimeException("Invalid action!");
     }
+
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
         throw new RuntimeException("Invalid action!");
     }

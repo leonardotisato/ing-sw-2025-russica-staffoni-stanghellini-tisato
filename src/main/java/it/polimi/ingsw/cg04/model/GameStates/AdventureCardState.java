@@ -123,4 +123,8 @@ public abstract class AdventureCardState extends GameState {
         throw new RuntimeException("invalid action");
     }
 
+    // Allowed in Smugglers, Pirates, Slavers, Warzone, ...
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+        throw new RuntimeException("invalid action");
+    }
 }
