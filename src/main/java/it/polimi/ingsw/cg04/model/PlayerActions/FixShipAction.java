@@ -44,9 +44,4 @@ public class FixShipAction implements PlayerAction {
     public String getPlayerNickname() {
         return playerNickname;
     }
-
-    @Override
-    public String getType() {
-        return "FIX_SHIP";
-    }
 }

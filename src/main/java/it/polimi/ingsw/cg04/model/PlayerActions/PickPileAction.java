@@ -14,9 +14,4 @@ public class PickPileAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "PICK_PILE";
-    }
 }

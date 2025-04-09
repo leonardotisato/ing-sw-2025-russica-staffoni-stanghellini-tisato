@@ -83,10 +83,5 @@ public class PlanetsAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "PLANETS_ACTION";
-    }
 }
 

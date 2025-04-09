@@ -14,9 +14,4 @@ public class CloseFaceUpTilesAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "CLOSE_FACE_UP";
-    }
 }

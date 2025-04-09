@@ -26,9 +26,4 @@ public class RollDiceAction implements PlayerAction {
     public String getPlayerNickname() {
         return playerNick;
     }
-
-    @Override
-    public String getType() {
-        return "ROLL_DICE";
-    }
 }

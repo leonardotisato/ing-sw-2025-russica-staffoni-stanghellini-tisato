@@ -14,9 +14,4 @@ public class DrawFaceDownAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "DRAW_FACE_DOWN";
-    }
 }

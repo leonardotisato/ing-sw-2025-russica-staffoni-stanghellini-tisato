@@ -2,11 +2,10 @@ package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.ChoosePropuslsorAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OpenSpaceState extends AdventureCardState {

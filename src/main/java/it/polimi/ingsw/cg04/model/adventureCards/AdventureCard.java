@@ -97,6 +97,8 @@ public abstract class AdventureCard {
         return null;
     }
 
+    public int getLostMembers() { return 0; }
+
     public AdventureCardState createGameState(Game game) {
         return null;
     }

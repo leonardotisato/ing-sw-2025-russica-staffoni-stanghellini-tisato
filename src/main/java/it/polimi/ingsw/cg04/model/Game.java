@@ -258,17 +258,6 @@ public class Game {
         }
     }
 
-    // ridondante! esiste già startBuildPhase...
-    @Deprecated
-//    public void beginGame() {
-//        this.setGameState(ExGameState.BUILDING);
-//    }
-//
-//    public void endGame() {
-//        this.setGameState(ExGameState.END);
-//    }
-
-
     // cards and tiles handling
 
     /**
@@ -431,78 +420,4 @@ public class Game {
         this.giveEndCredits();
         this.calculateBestShip();
     }
-
-    // todo: delete me?
-//    public void movePlayer(Player player, int steps) {
-//        player.move(steps);
-//    }
-//
-//    public void placeTile(Player player, int x, int y) {
-//        player.placeTile(x, y);
-//    }
-//
-//    public void chooseFaceUpTile(Player player, int index) {
-//        Tile selectedTile = this.removeFaceUpTile(index);
-//        player.setHeldTile(selectedTile);
-//    }
-//
-//    public void pickFaceDownTile(Player player) {
-//        Tile tile = this.drawFaceDownTile();
-//        player.setHeldTile(tile);
-//    }
-//
-//    public void updateCredits(Player player, int delta) {
-//        player.updateCredits(delta);
-//    }
-//
-//    public void bookTile(Player player) {
-//        player.bookTile();
-//    }
-//
-//    public void returnTile(Player player) {
-//        Integer collectedTileId = player.returnTile();
-//        faceUpTiles.add(collectedTileId);
-//    }
-
-//    public void chooseBookedTile(Player player, int idx) {
-//        player.chooseBookedTile(idx);
-//    }
-//
-//    public void showFaceUpTiles(Player player) {
-//        player.showFaceUpTiles();
-//    }
-//
-//    public void showPile(Player player, int idx) {
-//        player.showPile(idx);
-//    }
-//
-//    public void returnPile(Player player) {
-//        player.returnPile();
-//    }
-//
-//    public void loadResource(Player player, int x, int y, BoxType box) {
-//        player.loadResource(x, y, box);
-//    }
-//
-//    public void removeResource(Player player, int x, int y, BoxType box) {
-//        player.removeResource(x, y, box);
-//    }
-//
-//    public void removeCrew(Player player, int x, int y) {
-//        player.removeCrew(x, y);
-//    }
-//
-//    public void useBattery(Player player, int x, int y) {
-//        player.useBattery(x, y);
-//    }
-//
-//    public void setPlayerState(Player player, ExPlayerState state) {
-//        player.setState(state);
-//    }
-
-    // todo: delete me, vecchio playerState pattern
-//    public void handleAction(Player player, PlayerAction action){
-//        player.handleAction(action);
-//    }
-
 }

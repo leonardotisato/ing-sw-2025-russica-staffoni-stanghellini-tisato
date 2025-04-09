@@ -13,9 +13,4 @@ public class StartTimerAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "START_TIMER";
-    }
 }

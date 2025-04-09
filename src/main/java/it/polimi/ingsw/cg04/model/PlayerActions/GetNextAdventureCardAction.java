@@ -24,8 +24,4 @@ public class GetNextAdventureCardAction implements PlayerAction {
         return "";
     }
 
-    @Override
-    public String getType() {
-        return "GET_NEXT_ADVENTURE_CARD";
-    }
 }

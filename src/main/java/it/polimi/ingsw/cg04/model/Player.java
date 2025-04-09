@@ -262,15 +262,6 @@ public class Player {
 
     // todo: secondo me non vanno nel model
 
-    public void showFaceUpTiles() {
-    }
-
-    public void showPile(int idx) {
-    }
-
-    public void returnPile() {
-    }
-
     public void loadResource(int x, int y, BoxType box) {
         if (!(ship.getTile(x, y) instanceof StorageTile)) {
             throw new RuntimeException("Illegal Operation! Not a StorageTile!");
@@ -304,9 +295,6 @@ public class Player {
         ship.addCrewByType(crewType);
     }
 
-    public void useBattery(int x, int y) {
-
-    }
 
     /**
      * Chooses the planet where the player wants to land.
@@ -325,11 +313,6 @@ public class Player {
             throw new RuntimeException("This planet is occupied");
         }
     }
-
-    // todo: delete me, vecchio playerState pattern
-//    public void handleAction(PlayerAction action) {
-//        currState.handleAction(this, action);
-//    }
 
     public Game getGame() {
         return game;

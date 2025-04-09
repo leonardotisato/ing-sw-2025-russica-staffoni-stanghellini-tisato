@@ -52,9 +52,4 @@ public class ChooseBatteryAction implements PlayerAction {
     public String getPlayerNickname() {
         return playerNickname;
     }
-
-    @Override
-    public String getType() {
-        return "CHOOSE_BATTERY";
-    }
 }

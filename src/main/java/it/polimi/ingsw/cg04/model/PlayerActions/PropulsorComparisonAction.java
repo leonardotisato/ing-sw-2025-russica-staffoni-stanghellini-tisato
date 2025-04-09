@@ -14,10 +14,5 @@ public class PropulsorComparisonAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "PROPULSOR_COMPARISON";
-    }
 }
 

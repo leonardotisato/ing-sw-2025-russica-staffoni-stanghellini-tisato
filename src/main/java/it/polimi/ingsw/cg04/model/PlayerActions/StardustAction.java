@@ -30,9 +30,4 @@ public class StardustAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "STARDUST_ACTION";
-    }
 }

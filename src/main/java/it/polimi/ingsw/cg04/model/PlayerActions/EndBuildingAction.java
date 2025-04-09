@@ -14,9 +14,4 @@ public class EndBuildingAction implements PlayerAction {
     public String getPlayerNickname() {
         return "";
     }
-
-    @Override
-    public String getType() {
-        return "END_BUILDING";
-    }
 }
