@@ -166,6 +166,9 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
+
+                        // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
+                        // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, x, y, 2); // removes humans in both ship and tile attributes
                         this.addSupportedCrewType(tilesMatrix[i - 1][j].getSupportedAlienColor());
                     }
@@ -176,6 +179,9 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         tilesMatrix[i][j - 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
+
+                        // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
+                        // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, x, y, 2);
                         this.addSupportedCrewType(tilesMatrix[i][j - 1].getSupportedAlienColor());
                     }
@@ -186,6 +192,9 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         tilesMatrix[i][j + 1].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
+
+                        // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
+                        // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, x, y, 2);
                         this.addSupportedCrewType(tilesMatrix[i][j + 1].getSupportedAlienColor());
                     }
@@ -196,6 +205,9 @@ public class HousingTile extends Tile {
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         tilesMatrix[i + 1][j].addAdjacentHousingTile(this);
                         // remove humans, leave the choice to the player
+
+                        // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
+                        // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, x, y, 2);
                         this.addSupportedCrewType(tilesMatrix[i + 1][j].getSupportedAlienColor());
                     }
