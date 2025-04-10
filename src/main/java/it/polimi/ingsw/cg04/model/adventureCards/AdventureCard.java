@@ -106,6 +106,16 @@ public abstract class AdventureCard {
         return null;
     }
 
+    public List<String> getParameterCheck() {
+        return null;
+    }
+
+    public List<String> getPenaltyType() {
+        return null;
+    }
+
+    public int getLostGoods() { return 0; }
+
     // Duplicate method...
 //    public int getLostMembers() { return 0; }
 

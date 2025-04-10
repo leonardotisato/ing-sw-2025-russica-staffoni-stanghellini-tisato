@@ -102,4 +102,13 @@ public abstract class GameState {
     public void spreadEpidemic(Player player) {
         throw new IllegalArgumentException("cant return pile in this game state");
     }
+
+    // allowed in WarZone ...
+    public void countCrewMembers(Player player) {
+        throw new IllegalArgumentException("Invalid action in this game state!");
+    }
+
+    public void starDust(Player player) {
+        throw new IllegalArgumentException("Invalid action in this game state!");
+    }
 }
