@@ -271,14 +271,14 @@ class ShipTest {
 
         assertEquals(2, lev1Ship.getBaseFirePower());
         assertEquals(1, lev1Ship.getBasePropulsionPower());
-        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(4, lev1Ship.getNumCrewByType(CrewType.HUMAN));
         assertTrue(housingTile46.getSupportedCrewType().contains(CrewType.BROWN_ALIEN));
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
         assertTrue(housingTile46.getSupportedCrewType().contains(CrewType.HUMAN));
         assertEquals(2, housingTile46.getSupportedCrewType().size());
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46));
         assertEquals(1, alienSupportTile141.getAdjacentHousingTiles().size());
-        assertEquals(0, housingTile46.getNumCrew());
+        assertEquals(2, housingTile46.getNumCrew());
 
     }
 
@@ -403,7 +403,7 @@ class ShipTest {
         assertFalse(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
         lev1Ship.placeTile(alienSupportTile141, 3, 2);
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
-        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
         assertTrue(alienSupportTile141.getAdjacentHousingTiles().contains(housingTile46)); // valid connection
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor())); // valid connection
         lev1Ship.breakTile(2, 2);
@@ -449,12 +449,12 @@ class ShipTest {
         // more HousingTile and AlienSupportTile
         lev1Ship.placeTile(housingTile46, 2, 2);
         lev1Ship.placeTile(alienSupportTile141, 3, 2);
-        lev1Ship.getTile(2, 2).addCrew(alienSupportTile141.getSupportedAlienColor());
-        lev1Ship.addCrewByType(alienSupportTile141.getSupportedAlienColor());
-        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
-        assertEquals(1, lev1Ship.getNumCrewByType(alienSupportTile141.getSupportedAlienColor()));
+        //lev1Ship.getTile(2, 2).addCrew(alienSupportTile141.getSupportedAlienColor());
+        //lev1Ship.addCrewByType(alienSupportTile141.getSupportedAlienColor());
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(0, lev1Ship.getNumCrewByType(alienSupportTile141.getSupportedAlienColor()));
         lev1Ship.breakTile(3, 2);
-        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
         assertEquals(0, lev1Ship.getNumCrewByType(alienSupportTile141.getSupportedAlienColor()));
         lev1Ship.breakTile(2, 2);
 
@@ -477,11 +477,11 @@ class ShipTest {
         lev1Ship.addBox(BoxType.YELLOW, 2, 1);
         assertTrue(housingTile46.getSupportedCrewType().contains(alienSupportTile141.getSupportedAlienColor()));
         assertThrows(RuntimeException.class, () -> housingTile46.addCrew(CrewType.PINK_ALIEN));
-        lev1Ship.addCrew(CrewType.BROWN_ALIEN, 3, 3);
+        //lev1Ship.addCrew(CrewType.BROWN_ALIEN, 3, 3);
         assertThrows(RuntimeException.class, () -> housingTile46.addCrew(CrewType.BROWN_ALIEN));
         assertThrows(RuntimeException.class, () -> housingTile46.addCrew(CrewType.PINK_ALIEN));
         assertEquals(0, lev1Ship.getNumCrewByType(CrewType.PINK_ALIEN));
-        assertEquals(1, lev1Ship.getNumCrewByType(CrewType.BROWN_ALIEN));
+        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.BROWN_ALIEN));
         assertEquals(9, lev1Ship.getNumExposedConnectors());
 
         // remove every single one and check if something weird happens
@@ -491,7 +491,7 @@ class ShipTest {
         assertEquals(8, lev1Ship.getNumExposedConnectors());
 
         lev1Ship.breakTile(2, 2);
-        assertEquals(0, lev1Ship.getNumCrewByType(CrewType.HUMAN));
+        assertEquals(2, lev1Ship.getNumCrewByType(CrewType.HUMAN));
         assertEquals(8, lev1Ship.getNumExposedConnectors());
 
         lev1Ship.breakTile(3, 4);

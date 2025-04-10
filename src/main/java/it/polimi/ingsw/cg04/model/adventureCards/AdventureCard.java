@@ -12,12 +12,15 @@ import java.util.Map;
 
 public abstract class AdventureCard {
 
-    @Expose private String type;
-    @Expose private int cardLevel;
-    @Expose private int daysLost;
+    @Expose
+    private String type;
+    @Expose
+    private int cardLevel;
+    @Expose
+    private int daysLost;
     // @Expose private boolean solved = false;
 
-    public AdventureCard(){
+    public AdventureCard() {
     }
 
     //public abstract void solveEffect(Game game);
@@ -25,6 +28,7 @@ public abstract class AdventureCard {
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -32,6 +36,7 @@ public abstract class AdventureCard {
     public int getCardLevel() {
         return cardLevel;
     }
+
     public void setCardLevel(int cardLevel) {
         this.cardLevel = cardLevel;
     }
@@ -39,6 +44,7 @@ public abstract class AdventureCard {
     public int getDaysLost() {
         return daysLost;
     }
+
     public void setDaysLost(int daysLost) {
         this.daysLost = daysLost;
     }
@@ -47,21 +53,23 @@ public abstract class AdventureCard {
 
     // public void setSolved(boolean solved) { this.solved = solved; }
 
-    public int getFirePower() {
-        return 0;
+    public Integer getFirePower() {
+        return null;
     }
 
     // public int getLostGoods() { return 0; }
 
-    // public int getLostMembers() { return 0; }
+    public Integer getLostMembers() {
+        return null;
+    }
 
     public List<Boolean> getIsOccupied() {
         return null;
     }
 
 
-    public int getEarnedCredits() {
-        return 0;
+    public Integer getEarnedCredits() {
+        return null;
     }
 
     public int getMembersNeeded() {
@@ -77,6 +85,7 @@ public abstract class AdventureCard {
     public int getObtainedResourcesByType(BoxType type) {
         return 0;
     }
+
     public List<Map<BoxType, Integer>> getPlanetReward() {
         return null;
     }
@@ -97,7 +106,8 @@ public abstract class AdventureCard {
         return null;
     }
 
-    public int getLostMembers() { return 0; }
+    // Duplicate method...
+//    public int getLostMembers() { return 0; }
 
     public AdventureCardState createGameState(Game game) {
         return null;

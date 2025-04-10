@@ -5,12 +5,9 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.*;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
-import javax.swing.*;
 import java.util.HashSet;
 
 import java.util.*;
-
-import static java.util.stream.Collectors.toList;
 
 public class Ship {
 

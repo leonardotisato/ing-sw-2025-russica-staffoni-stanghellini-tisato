@@ -67,7 +67,7 @@ public class MeteorsRainState extends AdventureCardState {
         return true;
     }
 
-    private void triggerNextRound() {
+    private void checkTriggerNextRound() {
         if (isAllDone(played)) {
             rolled = false;
             currMeteorIdx++;
@@ -167,7 +167,7 @@ public class MeteorsRainState extends AdventureCardState {
             played.set(playerIdx, DONE);
         }
 
-        triggerNextRound();
+        checkTriggerNextRound();
     }
 
     public void chooseBattery(Player player, int x, int y) {
@@ -183,10 +183,11 @@ public class MeteorsRainState extends AdventureCardState {
                     played.set(playerIdx, CORRECT_SHIP);
                 }
             } else { // player used battery and he is done for the round
+                player.getShip().removeBatteries(1, x, y);
                 played.set(playerIdx, DONE);
             }
         }
 
-        triggerNextRound();
+        checkTriggerNextRound();
     }
 }

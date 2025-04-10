@@ -3,7 +3,6 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.GameStates.SlaversState;
 
 public class Slavers extends AdventureCard{
@@ -18,28 +17,25 @@ public class Slavers extends AdventureCard{
         super();
     }
 
-    public int getFirePower() {
+    public Integer getFirePower() {
         return firePower;
     }
     public void setFirePower(int firePower) {
         this.firePower = firePower;
     }
 
-    public int getMembersLost() {
+    public Integer getLostMembers() {
         return membersLost;
     }
     public void setMembersLost(int membersLost) {
         this.membersLost = membersLost;
     }
 
-    public int getCreditsEarned() {
+    public Integer getEarnedCredits() {
         return creditsEarned;
     }
     public void setCreditsEarned(int creditsEarned) {
         this.creditsEarned = creditsEarned;
-    }
-
-    public void solveEffect(Game game){
     }
 
     @Override

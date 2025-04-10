@@ -67,7 +67,7 @@ public class WarZone extends AdventureCard {
         this.lostGoods = lostGoods;
     }
 
-    public int getLostMembers() {
+    public Integer getLostMembers() {
         return lostMembers;
     }
 
