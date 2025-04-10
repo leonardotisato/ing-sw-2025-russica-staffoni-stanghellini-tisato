@@ -25,7 +25,7 @@ public class WarZoneState extends AdventureCardState {
     private Integer penaltyIdx;
 
     private boolean rolled = false;
-    private int currShotIdx = 0;
+    private int currShotIdx;
     private int dice;
     private Direction direction;
     private Attack attack;
@@ -60,6 +60,7 @@ public class WarZoneState extends AdventureCardState {
         crewSize = new ArrayList<Integer>();
         penaltyIdx = 0;
         currPlayerIdx = 0;
+        worstPlayerState = F_INIT;
         worstPlayerIdx = 0;
         currShotIdx = -1;
 
@@ -154,10 +155,9 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
-        int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
 
-        if (played.get(playerIdx) == INIT) {
+        if (player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
             double fire = ship.getBaseFirePower();
 
             if(fire > 0) {
@@ -268,7 +268,7 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void chooseBattery(Player player, int x, int y) {
-        if (rolled && worstPlayerState == F_PROVIDE_BATTERY && worstPlayerIdx == sortedPlayers.indexOf(player)) {
+        if (rolled && worstPlayerState == F_PROVIDE_BATTERY && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
 
             // handle case where player decide to take the hit
             if (x == -1 && y == -1) {
@@ -290,7 +290,7 @@ public class WarZoneState extends AdventureCardState {
     @Override
     public void fixShip(Player player, List<Coordinates> coordinatesList) {
         // check if player actually needs to fix his ship
-        if (rolled && worstPlayerState == F_CORRECT_SHIP && worstPlayerIdx == sortedPlayers.indexOf(player)) {
+        if (rolled && worstPlayerState == F_CORRECT_SHIP && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             for (Coordinates coordinates : coordinatesList) {
                 player.getShip().breakTile(coordinates.getX(), coordinates.getY());
             }
