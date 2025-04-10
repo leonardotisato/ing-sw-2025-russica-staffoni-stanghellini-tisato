@@ -17,7 +17,7 @@ public class HandleBoxesAction implements PlayerAction{
     private Game game;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType,Integer>> boxes;
-    private String nickname;
+    private final String nickname;
     public HandleBoxesAction(String nickname, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
         this.coordinates = coordinates;
         this.boxes = boxes;

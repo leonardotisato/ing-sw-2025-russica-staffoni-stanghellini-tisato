@@ -98,4 +98,8 @@ public abstract class GameState {
     public void returnPile(Player player, Integer pileIndex) {
         throw new IllegalArgumentException("cant return pile in this game state");
     }
+
+    public void spreadEpidemic(Player player) {
+        throw new IllegalArgumentException("cant return pile in this game state");
+    }
 }

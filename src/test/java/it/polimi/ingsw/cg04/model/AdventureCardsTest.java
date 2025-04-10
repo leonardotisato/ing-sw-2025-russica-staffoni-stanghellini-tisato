@@ -170,22 +170,6 @@ public class AdventureCardsTest {
     }
 
     @Test
-    void testPlanets(){
-        List<Map<BoxType,Integer>> newBoxes = new ArrayList<>();
-        newBoxes.add(new HashMap<>(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0)));
-        List<List<Integer>> coordinates = new ArrayList<>();
-        coordinates.add(List.of(2, 3));
-        game.setCurrentAdventureCard(game.getCardById(32));
-        Planets card = (Planets) game.getCurrentAdventureCard();
-        card.createListIsOccupied();
-        p.choosePlanet(1);
-        card.solveEffect(p, coordinates, newBoxes);
-        assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getBoxes());
-        assertEquals(Map.of(BoxType.RED, 2, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0), p.getShip().getTile(2,3).getBoxes());
-        assertThrows(RuntimeException.class, () -> p.choosePlanet(1));
-    }
-
-    @Test
     void PlanetsPattern(){
         game.setCurrentAdventureCard(game.getCardById(13));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
@@ -213,6 +197,29 @@ public class AdventureCardsTest {
         controller.onActionReceived(action3);
         assertEquals(6, p3.getCurrentCell());
         assertEquals(9, p.getCurrentCell());
+        assertInstanceOf(FlightState.class, game.getGameState());
+        assertNull(game.getCurrentAdventureCard());
+    }
+
+    @Test
+    void EpidemicPattern(){
+        game.setCurrentAdventureCard(game.getCardById(25));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        List<Coordinates> coordinates1 = new ArrayList<>();
+        List<Coordinates> coordinates2 = new ArrayList<>();
+        PlayerAction action = new EpidemicAction(p.getName());
+        PlayerAction action2 = new EpidemicAction(p2.getName());
+        PlayerAction action3 = new EpidemicAction(p3.getName());
+        assertTrue(action.checkAction(p));
+        controller.onActionReceived(action);
+        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action));
+        assertTrue(action2.checkAction(p2));
+        controller.onActionReceived(action2);
+        assertTrue(action3.checkAction(p3));
+        controller.onActionReceived(action3);
+        assertEquals(2, p.getShip().getNumCrew());
+        assertEquals(2, p.getShip().getNumCrew());
+        assertEquals(2, p.getShip().getNumCrew());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
     }
