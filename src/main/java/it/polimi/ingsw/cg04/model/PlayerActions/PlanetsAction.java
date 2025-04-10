@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -11,38 +12,32 @@ import java.util.List;
 import java.util.Map;
 
 public class PlanetsAction implements PlayerAction {
-    private Integer planetIdx;
+    private final Integer planetIdx;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType, Integer>> boxes;
-    private final Game game;
+    private final String nickname;
      //boxes should contain the complete storage tiles map
-    public PlanetsAction(Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes, Game game) {
+    public PlanetsAction(String nickname, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
         this.planetIdx = planetIdx;
         this.coordinates = coordinates;
         this.boxes = boxes;
-        this.game = game;
+        this.nickname = nickname;
     }
 
     public void execute(Player player) {
-        AdventureCardState gameState = (AdventureCardState) game.getGameState();
-        if (planetIdx == null) {
-            return;
-        } else {
-            gameState.getChosenPlanets().put(player, planetIdx);
-            for (int i = 0; i < coordinates.size(); i++) {
-                player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
-            }
-        }
+        GameState state = player.getGame().getGameState();
+        state.landToPlanet(player, planetIdx, coordinates, boxes);
     }
 
     public boolean checkAction(Player player) {
-        AdventureCardState gameState = (AdventureCardState) game.getGameState();
-        if(!player.equals(gameState.getSortedPlayers().get(gameState.getCurrPlayerIdx()))) return false;
-        if(planetIdx != null && (planetIdx < 0 || planetIdx > game.getCurrentAdventureCard().getPlanetReward().size() - 1)) return false;
-        if(gameState.getChosenPlanets().containsValue(planetIdx)) return false;
         if(planetIdx == null) return true;
         List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
+        if(coordinates == null && boxes == null) return true;
+        //if just one of them is null, it's an error
+        if (coordinates == null || boxes == null) return false;
+        //mismatch error
+        if(boxes.size() != coordinates.size()) return false;
         for (int i = 0; i < coordinates.size(); i++) {
             if(!coordinates.get(i).isIn(storageCoordinates)){
                 return false;
@@ -62,26 +57,12 @@ public class PlanetsAction implements PlayerAction {
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
-
-
-        for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
-            BoxType type = entry.getKey();
-            Integer count = entry.getValue();
-            if(gameState.getCard().getPlanetReward().get(planetIdx).containsKey(type)){
-                if (count > player.getShip().getBoxes(type) + gameState.getCard().getPlanetReward().get(planetIdx).get(type)) {
-                    return false;
-                }
-            }
-            else {
-                if (count > player.getShip().getBoxes(type)) return false;
-            }
-        }
         return true;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return this.nickname;
     }
 }
 

@@ -23,4 +23,8 @@ public abstract class GameState {
     public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes){
         throw new RuntimeException("Invalid action!");
     }
+
+    public void landToPlanet(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
+        throw new RuntimeException("Invalid action!");
+    }
 }
