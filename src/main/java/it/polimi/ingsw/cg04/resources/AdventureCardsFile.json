@@ -13,7 +13,7 @@
     "daysLost": 1,
     "firePower": 4,
     "lostGoods": 2,
-    "rewards": {
+    "boxes": {
       "YELLOW": 1,
       "GREEN": 1,
       "BLUE": 1
@@ -255,7 +255,7 @@
     "daysLost": 1,
     "firePower": 8,
     "lostGoods": "3",
-    "rewards": {
+    "boxes": {
       "RED": 1,
       "YELLOW": 2
     }

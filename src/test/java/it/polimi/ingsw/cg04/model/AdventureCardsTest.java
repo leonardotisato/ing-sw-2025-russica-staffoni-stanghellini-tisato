@@ -223,4 +223,5 @@ public class AdventureCardsTest {
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
     }
+
 }

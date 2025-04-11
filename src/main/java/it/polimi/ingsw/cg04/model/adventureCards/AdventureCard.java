@@ -106,6 +106,10 @@ public abstract class AdventureCard {
         return null;
     }
 
+    public int getLostGoods() { return 0; }
+
+    public Map<BoxType, Integer> getBoxes() { return null; }
+
     // Duplicate method...
 //    public int getLostMembers() { return 0; }
 

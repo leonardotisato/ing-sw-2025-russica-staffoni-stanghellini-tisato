@@ -15,11 +15,11 @@ public class Smugglers extends AdventureCard {
     @Expose
     private int lostGoods;
     @Expose
-    private Map<BoxType, Integer> rewards;
+    private Map<BoxType, Integer> boxes;
 
     public Smugglers() {
         super();
-        this.rewards = new HashMap<BoxType, Integer>();
+        this.boxes = new HashMap<BoxType, Integer>();
     }
 
     public Integer getFirePower() { return firePower; }
@@ -30,17 +30,17 @@ public class Smugglers extends AdventureCard {
         this.lostGoods = lostGoods;
     }
 
-    public Map<BoxType, Integer> getReward() { return rewards; }
-    public void setReward(Map<BoxType, Integer> rewards) {
-        this.rewards = rewards;
+    public Map<BoxType, Integer> getBoxes() { return boxes; }
+    public void setReward(Map<BoxType, Integer> boxes) {
+        this.boxes = boxes;
     }
 
     public void addReward(BoxType boxType, int quantity) {
-        rewards.put(boxType, quantity);
+        boxes.put(boxType, quantity);
     }
 
-    public int getRewardQuantity(BoxType boxType) {
-        return rewards.get(boxType);
+    public int getObtainedResourcesByType(BoxType boxType) {
+        return boxes.get(boxType);
     }
 
     public void solveEffect(Game game) {
