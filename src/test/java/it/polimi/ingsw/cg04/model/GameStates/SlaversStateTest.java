@@ -62,8 +62,6 @@ class SlaversStateTest {
 
     @Test
     void testSlaversState() {
-
-
         // controller forces state of the game
         game.setCurrentAdventureCard(game.getCardById(1));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
