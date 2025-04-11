@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
 public class Game {
+
     private final int maxPlayers;
     private final int level;
     private final List<Player> players;
@@ -32,6 +33,9 @@ public class Game {
     private final Map<Integer, Tile> tilesDeckMap;
     private final List<Integer> faceDownTiles;
     private final List<Integer> faceUpTiles;
+
+    private boolean hasStarted = false;
+    private int id;
 
     // for testing purposes
     private final Random rand = new Random();

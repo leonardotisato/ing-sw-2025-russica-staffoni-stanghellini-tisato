@@ -18,12 +18,12 @@ public class Pirates extends AdventureCard {
     @Expose
     private List<Direction> directions;
     @Expose
-    private List<Attack> shots;
+    private List<Attack> attacks;
 
     public Pirates() {
         super();
         directions = new ArrayList<>();
-        shots = new ArrayList<>();
+        attacks = new ArrayList<>();
     }
 
     public Integer getFirePower() {
@@ -40,8 +40,8 @@ public class Pirates extends AdventureCard {
     }
 
     // todo: figure out who needs to use this setter
-    public void setShots(List<Attack> shots) {
-        this.shots = new ArrayList<>(shots);
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = new ArrayList<>(attacks);
     }
 
     public Direction getDirection(int i) {
@@ -49,11 +49,11 @@ public class Pirates extends AdventureCard {
     }
 
     public Attack getAttack(int i) {
-        return shots.get(i);
+        return attacks.get(i);
     }
 
     public List<Attack> getAttacks() {
-        return shots;
+        return attacks;
     }
 
     @Override
