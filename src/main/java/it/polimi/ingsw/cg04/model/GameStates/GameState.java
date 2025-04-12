@@ -40,7 +40,7 @@ public abstract class GameState {
         throw new RuntimeException("invalid action");
     }
 
-    // Allowed in: MeteorRainState, ...
+    // Allowed in: MeteorRainState, BuildState, ...
     public void fixShip(Player player, List<Coordinates> coordinatesList) {
         throw new RuntimeException("invalid action");
     }
@@ -55,7 +55,7 @@ public abstract class GameState {
         throw new RuntimeException("invalid action");
     }
 
-    // Allowed in Smugglers, Pirates, Slavers, Warzone, ...
+    // Allowed in Smugglers, Pirates, Slavers, War zone, ...
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
         throw new RuntimeException("invalid action");
     }
@@ -91,12 +91,20 @@ public abstract class GameState {
         throw new IllegalArgumentException("cant close face up tile in this game state");
     }
 
-    public void pickPile(Player player, Integer pileIndex) {
+    public void pickPile(Player player, int pileIndex) {
         throw new IllegalArgumentException("cant pick pile in this game state");
     }
 
-    public void returnPile(Player player, Integer pileIndex) {
+    public void returnPile(Player player) {
         throw new IllegalArgumentException("cant return pile in this game state");
+    }
+
+    public void endBuilding(Player player, int position) {
+        throw new IllegalArgumentException("cant end building tile in this game state");
+    }
+
+    public void startTimer(Player player) {
+        throw new IllegalArgumentException("cant start timer in this game state");
     }
 
     public void spreadEpidemic(Player player) {
