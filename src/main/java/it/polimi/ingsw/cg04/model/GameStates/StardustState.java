@@ -12,21 +12,25 @@ public class StardustState extends AdventureCardState {
 
     public StardustState(Game game) {
         super(game);
-        this.currPlayerIdx = sortedPlayers.size() - 1;
     }
 
+    @Override
     public void handleAction(Player player, PlayerAction action) {
-        if(player == sortedPlayers.get(currPlayerIdx)) {
-            action.execute(player);
-            if(currPlayerIdx == 0) {
-                triggerNextState();
+
+    }
+
+    public void starDust(Player player) {
+        if(player.getName().equals(sortedPlayers.getFirst().getName())) {
+            for(int i = sortedPlayers.size() - 1; i >= 0; i--) {
+                sortedPlayers.get(i).move(-sortedPlayers.get(i).getShip().getNumExposedConnectors());
+                System.out.println("Player " + sortedPlayers.get(i).getName() + " perde " + sortedPlayers.get(i).getShip().getNumExposedConnectors() + " giorni di volo.");
             }
-            else {
-                currPlayerIdx--;
-            }
+            triggerNextState();
         }
         else {
-            throw new RuntimeException("It's not " + player + " turn.");
+            System.out.println("It's not " + player.getName() + "turn.");
         }
     }
+
+
 }

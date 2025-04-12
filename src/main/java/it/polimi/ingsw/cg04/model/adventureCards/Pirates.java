@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg04.model.adventureCards;
 import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.GameStates.PiratesState;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 
@@ -18,65 +18,46 @@ public class Pirates extends AdventureCard {
     @Expose
     private List<Direction> directions;
     @Expose
-    private List<Attack> shots;
+    private List<Attack> attacks;
 
     public Pirates() {
         super();
-        directions = new ArrayList<Direction>();
-        shots = new ArrayList<Attack>();
+        directions = new ArrayList<>();
+        attacks = new ArrayList<>();
     }
 
-    public void addCannonAttack(Direction direction, Attack shot) {
-        directions.add(direction);
-        shots.add(shot);
+    public Integer getFirePower() {
+        return firePower;
     }
 
-    public Integer getFirePower() { return firePower; }
-    public void setFirePower(int firePower) { this.firePower = firePower; }
-
-    public int getReward() { return reward; }
-    public void setReward(int reward) { this.reward = reward; }
-
-    public List<Direction> getDirections() { return directions; }
-    public void setDirections(List<Direction> directions) {
-        this.directions = new ArrayList<>(directions);
+    // todo: figure out who needs to use this setter
+    public void setFirePower(int firePower) {
+        this.firePower = firePower;
     }
 
-    public List<Attack> getShots() { return shots; }
-    public void setShots(List<Attack> shots) {
-        this.shots = new ArrayList<>(shots);
+    public Integer getEarnedCredits() {
+        return reward;
     }
 
-    public Direction getDirection(int i) { return directions.get(i); }
+    // todo: figure out who needs to use this setter
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = new ArrayList<>(attacks);
+    }
 
-    public Attack getShot(int i) { return shots.get(i); }
+    public Direction getDirection(int i) {
+        return directions.get(i);
+    }
 
-    public void solveEffect(Game game) {
+    public Attack getAttack(int i) {
+        return attacks.get(i);
+    }
 
-        /*
-         * list defeated_players
-         * for each player
-         *   player.calc_fire_power
-         *   if(fire_power > pirates_fire_power)
-         *       player.lose_days
-         *       player.add_credits
-         *       break
-         *   if(fire_power == smuggler_fire_power)
-         *       continue
-         *   if(fire_power < smuggler_fire_power)
-         *       defeated_players.add(player)
-         *
-         * for each shot
-         *   defeated_players.get(0).roll_dices
-         *   for each player in defeated_players
-         *      player.handle_shot
-         *
-         */
-
+    public List<Attack> getAttacks() {
+        return attacks;
     }
 
     @Override
     public AdventureCardState createState(Game game) {
-        return new OpenSpaceState(game);
+        return new PiratesState(game);
     }
 }

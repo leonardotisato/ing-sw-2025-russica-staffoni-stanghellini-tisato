@@ -7,27 +7,24 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 
 public class StardustAction implements PlayerAction {
-    private Game game;
+    String playerNickname;
 
-    public StardustAction(Game game) {
-        this.game = game;
+    public StardustAction(String playerNickname) {
+        this.playerNickname = playerNickname;
     }
 
     public void execute(Player player) {
-        // AdventureCardState gameState = (AdventureCardState)game.getGameState();
-
-        player.move(-player.getShip().getNumExposedConnectors());
-
-        // gameState.getPlayed().set(gameState.getCurrPlayerIdx(), 1);
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.starDust(player);
     }
 
     @Override
     public boolean checkAction(Player player) {
-        return false;
+        return true;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return this.playerNickname;
     }
 }

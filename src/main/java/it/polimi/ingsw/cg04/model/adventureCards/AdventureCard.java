@@ -110,6 +110,14 @@ public abstract class AdventureCard {
 
     public Map<BoxType, Integer> getBoxes() { return null; }
 
+    public List<String> getParameterCheck() {
+        return null;
+    }
+
+    public List<String> getPenaltyType() {
+        return null;
+    }
+
     // Duplicate method...
 //    public int getLostMembers() { return 0; }
 
