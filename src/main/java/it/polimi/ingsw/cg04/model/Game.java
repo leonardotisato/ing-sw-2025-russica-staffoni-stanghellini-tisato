@@ -61,6 +61,23 @@ public class Game {
         this.gameState = new LobbyState();
     }
 
+
+    public boolean hasStarted() {
+        return hasStarted;
+    }
+
+    public void setHasStarted(boolean hasStarted) {
+        this.hasStarted = hasStarted;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     /**
      * @return the level of the game.
      */
@@ -424,4 +441,10 @@ public class Game {
         this.giveEndCredits();
         this.calculateBestShip();
     }
+
+    // check that player can still flight
+
+    // check no player is lapped
+
+    // check crew is positive
 }
