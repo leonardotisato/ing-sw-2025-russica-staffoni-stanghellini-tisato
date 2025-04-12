@@ -529,16 +529,16 @@ public class Ship {
         return basePropulsionPower;
     }
 
-    public int calcTotalPropulsionPower(int usedBatteries) {
-        return -1;
-    }
-
-    public int calcTotalFirePower(int usedBatteries) {
-        return -1;
-    }
-
+    // public int calcTotalPropulsionPower(int usedBatteries) {
+    //     return -1;
+    // }
+    //
+    // public int calcTotalFirePower(int usedBatteries) {
+    //     return -1;
+    // }
+    //
     public void updateBaseFirePower(double i) {
-        baseFirePower = baseFirePower + i;
+         baseFirePower = baseFirePower + i;
     }
 
     public void updateBasePropulsionPower(int i) {

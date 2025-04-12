@@ -4,9 +4,9 @@ import it.polimi.ingsw.cg04.model.Player;
 
 public class PickPileAction implements PlayerAction {
     String playerNickname;
-    Integer pileIndex;
+    int pileIndex;
 
-    public PickPileAction(String playerNickname, Integer pileIndex) {
+    public PickPileAction(String playerNickname, int pileIndex) {
         this.playerNickname = playerNickname;
         this.pileIndex = pileIndex;
     }

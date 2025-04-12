@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
-import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -18,7 +18,7 @@ public class FixShipAction implements PlayerAction {
     }
 
     public void execute(Player player) {
-        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        GameState state = player.getGame().getGameState();
         state.fixShip(player, coordinatesList);
     }
 

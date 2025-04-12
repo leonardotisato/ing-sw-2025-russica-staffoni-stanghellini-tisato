@@ -16,6 +16,7 @@ public class ShowFaceUpAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
+        //todo: is this check correct??
         return player.getHeldTile() == null;
     }
 
