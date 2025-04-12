@@ -39,6 +39,8 @@ public class HandleBoxesAction implements PlayerAction{
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
         //mismatch error
         if(boxes.size() != coordinates.size()) return false;
+        //the player should send the new boxes map for each storage tile in his ship
+        if(storageCoordinates.size() != boxes.size()) return false;
         for (int i = 0; i < coordinates.size(); i++) {
             //the tile in these coordinates is not a storageTile
             if(!coordinates.get(i).isIn(storageCoordinates)){

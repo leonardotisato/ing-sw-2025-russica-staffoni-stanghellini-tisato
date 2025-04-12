@@ -38,6 +38,7 @@ public class PlanetsAction implements PlayerAction {
         if (coordinates == null || boxes == null) return false;
         //mismatch error
         if(boxes.size() != coordinates.size()) return false;
+        if(storageCoordinates.size() != boxes.size()) return false;
         for (int i = 0; i < coordinates.size(); i++) {
             if(!coordinates.get(i).isIn(storageCoordinates)){
                 return false;

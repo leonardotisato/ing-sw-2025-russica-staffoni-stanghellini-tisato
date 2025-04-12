@@ -148,21 +148,27 @@ public class AdventureCardsTest {
         game.setCurrentAdventureCard(game.getCardById(39));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Map<BoxType,Integer>> newBoxes1 = new ArrayList<>();
+
+        List<Coordinates> storageTilesCoordinates2 = p2.getShip().getTilesMap().get("StorageTile");
         List<Map<BoxType,Integer>> newBoxes2 = new ArrayList<>();
         newBoxes2.add(new HashMap<>(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0)));
+        while (newBoxes2.size() < storageTilesCoordinates2.size()) {
+            newBoxes2.add(new HashMap<>(Map.of(BoxType.RED, 0, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0)));
+        }
         List<Coordinates> coordinates1 = new ArrayList<>();
-        List<Coordinates> coordinates2 = new ArrayList<>();
-        coordinates2.add(new Coordinates(2, 1));
+
         PlayerAction action1 = new HandleBoxesAction(p.getName(), coordinates1, newBoxes2);
-        PlayerAction action2 = new HandleBoxesAction(p2.getName(), coordinates2, newBoxes2);
+        PlayerAction action2 = new HandleBoxesAction(p2.getName(), storageTilesCoordinates2, newBoxes2);
+
         game.getCurrentAdventureCard().setMembersNeeded(3);
         assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
         assertInstanceOf(AbandonedStationState.class, game.getGameState());
         PlayerAction action3 = new HandleBoxesAction(p.getName(), null, null);
+
         controller.onActionReceived(action3);
         controller.onActionReceived(action2);
+
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p2.getShip().getBoxes());
-        assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p2.getShip().getTile(2,1).getBoxes());
         assertEquals(9, p2.getCurrentCell());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
@@ -177,17 +183,27 @@ public class AdventureCardsTest {
         Integer planetIdx1 =  0;
         Integer planetIdx2 = null;
         Integer planetIdx3 = 2;
+
+        List<Coordinates> storageTilesCoordinates1 = p.getShip().getTilesMap().get("StorageTile");
+        List<Coordinates> storageTilesCoordinates2 = p2.getShip().getTilesMap().get("StorageTile");
+        List<Coordinates> storageTilesCoordinates3 = p3.getShip().getTilesMap().get("StorageTile");
+
         List<Map<BoxType,Integer>> boxes1 = new ArrayList<>();
-        List<Map<BoxType,Integer>> boxes2 = new ArrayList<>();
-        boxes1.add(new HashMap<>(Map.of(BoxType.YELLOW, 0, BoxType.GREEN, 0, BoxType.BLUE, 0, BoxType.RED, 0)));
-        boxes2.add(new HashMap<>(Map.of(BoxType.YELLOW, 1, BoxType.GREEN, 0, BoxType.BLUE, 0, BoxType.RED, 0)));
-        List<Coordinates> coordinates1 = new ArrayList<>();
-        List<Coordinates> coordinates2 = new ArrayList<>();
-        coordinates1.add(new Coordinates(2, 3));
-        coordinates2.add(new Coordinates(3, 6));
-        PlayerAction action = new PlanetsAction(p.getName(), planetIdx1, coordinates1, boxes1);
+
+        while (boxes1.size() < storageTilesCoordinates1.size()) {
+            boxes1.add(new HashMap<>(Map.of(BoxType.RED, 0, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0)));
+        }
+
+        List<Map<BoxType,Integer>> boxes3 = new ArrayList<>();
+
+        boxes3.add(new HashMap<>(Map.of(BoxType.YELLOW, 1, BoxType.GREEN, 0, BoxType.BLUE, 0, BoxType.RED, 0)));
+        while (boxes3.size() < storageTilesCoordinates3.size()) {
+            boxes3.add(new HashMap<>(Map.of(BoxType.RED, 0, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 0)));
+        }
+
+        PlayerAction action = new PlanetsAction(p.getName(), planetIdx1, storageTilesCoordinates1, boxes1);
         PlayerAction action2 = new PlanetsAction(p2.getName(), null, null, null);
-        PlayerAction action3 = new PlanetsAction(p3.getName(),planetIdx3, coordinates2, boxes2);
+        PlayerAction action3 = new PlanetsAction(p3.getName(),planetIdx3, storageTilesCoordinates3, boxes3);
         assertTrue(action.checkAction(p));
         controller.onActionReceived(action);
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action3));
