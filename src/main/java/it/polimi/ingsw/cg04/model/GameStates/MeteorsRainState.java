@@ -67,17 +67,16 @@ public class MeteorsRainState extends AdventureCardState {
         return true;
     }
 
-    private void checkTriggerNextRound() {
-        if (isAllDone(played)) {
-            rolled = false;
-            currMeteorIdx++;
 
-            if (currMeteorIdx >= numMeteors) {
-                triggerNextState();
-            } else {
-                played.replaceAll(ignored -> INIT);
-                System.out.println("New meteor incoming! Current meteor: " + currMeteorIdx + 1 + " out of " + numMeteors);
-            }
+    private void triggerNextRound() {
+        rolled = false;
+        currMeteorIdx++;
+
+        if (currMeteorIdx >= numMeteors) {
+            triggerNextState();
+        } else {
+            played.replaceAll(ignored -> INIT);
+            System.out.println("New meteor incoming! Current meteor: " + currMeteorIdx + 1 + " out of " + numMeteors);
         }
     }
 
@@ -95,19 +94,19 @@ public class MeteorsRainState extends AdventureCardState {
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
-                if (dice < upBoundary || dice > downBoundary) {
+                if (dice < leftBoundary || dice > rightBoundary) {
                     System.out.println("No ship was hit");
-                    rolled = false;
-                    currMeteorIdx++;
+                    triggerNextRound();
+                    return;
                 } else {
                     dice -= upBoundary - 1;
                 }
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
-                if (dice < leftBoundary || dice > rightBoundary) {
+                if (dice < upBoundary || dice > downBoundary) {
                     System.out.println("No ship was hit");
-                    rolled = false;
-                    currMeteorIdx++;
+                    triggerNextRound();
+                    return;
                 } else {
                     dice -= leftBoundary - 1;
                 }
@@ -149,6 +148,9 @@ public class MeteorsRainState extends AdventureCardState {
                 }
             }
 
+            if (isAllDone(played)) {
+                triggerNextRound();
+            }
         }
     }
 
@@ -167,7 +169,9 @@ public class MeteorsRainState extends AdventureCardState {
             played.set(playerIdx, DONE);
         }
 
-        checkTriggerNextRound();
+        if (isAllDone(played)) {
+            triggerNextRound();
+        }
     }
 
     public void chooseBattery(Player player, int x, int y) {
@@ -188,6 +192,8 @@ public class MeteorsRainState extends AdventureCardState {
             }
         }
 
-        checkTriggerNextRound();
+        if (isAllDone(played)) {
+            triggerNextRound();
+        }
     }
 }

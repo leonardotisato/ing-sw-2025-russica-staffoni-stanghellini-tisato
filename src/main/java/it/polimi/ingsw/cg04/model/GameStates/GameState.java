@@ -26,6 +26,10 @@ public abstract class GameState {
         throw new RuntimeException("Invalid action!");
     }
 
+    public void landToPlanet(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
+        throw new RuntimeException("Invalid action!");
+    }
+
     // Allowed in: OpenSpaceState
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws RuntimeException {
         throw new RuntimeException("invalid action");
@@ -101,5 +105,18 @@ public abstract class GameState {
 
     public void startTimer(Player player) {
         throw new IllegalArgumentException("cant start timer in this game state");
+    }
+
+    public void spreadEpidemic(Player player) {
+        throw new IllegalArgumentException("cant return pile in this game state");
+    }
+
+    // allowed in WarZone ...
+    public void countCrewMembers(Player player) {
+        throw new IllegalArgumentException("Invalid action in this game state!");
+    }
+
+    public void starDust(Player player) {
+        throw new IllegalArgumentException("Invalid action in this game state!");
     }
 }

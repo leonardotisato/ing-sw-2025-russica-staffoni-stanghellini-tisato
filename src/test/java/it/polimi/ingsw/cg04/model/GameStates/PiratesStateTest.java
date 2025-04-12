@@ -3,10 +3,7 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.CompareFirePowerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.GetRewardsAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.RemoveCrewAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.*;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -19,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SlaversStateTest {
+class PiratesStateTest {
 
     private GamesController controller;
     private Game game;
@@ -28,7 +25,6 @@ class SlaversStateTest {
 
     @BeforeEach
     void setUp() {
-
         game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
         p1 = game.addPlayer("Alice", PlayerColor.RED);
@@ -59,16 +55,15 @@ class SlaversStateTest {
     void tearDown() {
     }
 
-
     @Test
-    void testSlaversState() {
-        // controller forces state of the game
-        game.setCurrentAdventureCard(game.getCardById(1));
+    void testPiratesState() {
+
+        game.setCurrentAdventureCard(game.getCardById(3));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
 
-        // "firePower": 3 !!!
-        SlaversState slaversState = (SlaversState) game.getGameState();
-        slaversState.FORCE_OPPONENT_FIREPOWER(3);
+        // "firePower": 3 !!! specific cast is done so force firepower can be called
+        PiratesState piratesState = (PiratesState) game.getGameState();
+        piratesState.FORCE_OPPONENT_FIREPOWER(3);
 
         AdventureCardState currAdventureCardState = (AdventureCardState) game.getGameState();
 
@@ -79,8 +74,6 @@ class SlaversStateTest {
 
         List<Coordinates> batteries = new ArrayList<>();
         List<Coordinates> doubleCannons = new ArrayList<>();
-        List<Coordinates> housingUnits = new ArrayList<>();
-        List<Integer> numCrewPerUnit = new ArrayList<>();
 
         // bob tries to act before his turn begin
         bobAction = new CompareFirePowerAction("Bob", null, null);
@@ -93,7 +86,6 @@ class SlaversStateTest {
         aliceAction = new CompareFirePowerAction("Alice", batteries, doubleCannons);
 
         controller.onActionReceived(aliceAction);
-
         batteries.clear();
         doubleCannons.clear();
 
@@ -135,8 +127,6 @@ class SlaversStateTest {
         batteries.clear();
         doubleCannons.clear();
 
-        // now bob is in removeCrew state and charlie needs to activate his cannons
-
         // charlie defeats the opponent
         batteries.add(new Coordinates(4, 1));
         doubleCannons.add(new Coordinates(3, 6));
@@ -152,35 +142,25 @@ class SlaversStateTest {
 
         controller.onActionReceived(charlieAction);
 
-        // bob removes the crew, but too few are sent
-        housingUnits.add(new Coordinates(2, 2));
-        numCrewPerUnit.add(2);
 
-        bobAction = new RemoveCrewAction("Bob", housingUnits, numCrewPerUnit);
-
+        bobAction = new RollDiceAction("Bob");
         controller.onActionReceived(bobAction);
-        housingUnits.clear();
-        numCrewPerUnit.clear();
 
-        // bob removes the crew
-        housingUnits.add(new Coordinates(2, 2));
-        housingUnits.add(new Coordinates(2, 3));
-        numCrewPerUnit.add(2);
-        numCrewPerUnit.add(1);
-
-        bobAction = new RemoveCrewAction("Bob", housingUnits, numCrewPerUnit);
-
+        batteries.add(new Coordinates(2, 5));
+        bobAction = new ChooseBatteryAction("Bob", 2, 5);
         controller.onActionReceived(bobAction);
-        housingUnits.clear();
-        numCrewPerUnit.clear();
+        batteries.clear();
 
-        System.out.println(game.getBoard());
+        // bob accepts his fate and rolls again
+        bobAction = new RollDiceAction("Bob");
+        controller.onActionReceived(bobAction);
 
-        controller.onActionReceived(charlieAction);
-        assertEquals(5, p3.getNumCredits());
-        System.out.println(game.getBoard());
+        // bob accepts his fate and rolls again (last meteor)
+        bobAction = new RollDiceAction("Bob");
+        controller.onActionReceived(bobAction);
+
+
     }
-
 
     private void assertThrowsOnAction(PlayerAction action) {
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action));

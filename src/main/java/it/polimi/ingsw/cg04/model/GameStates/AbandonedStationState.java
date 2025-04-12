@@ -19,18 +19,7 @@ public class AbandonedStationState extends AdventureCardState {
         super(game);
     }
     public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
-        played.set(currPlayerIdx, 1);
-        if (playerToBeMovedIdx != null) {
-            sortedPlayers.get(playerToBeMovedIdx).move(-card.getDaysLost());
-            triggerNextState();
-            return;
-        }
-        currPlayerIdx++;
-        if (currPlayerIdx == sortedPlayers.size()) {
-            triggerNextState();
-        }
-        else currPlayers.set(0, sortedPlayers.get(currPlayerIdx));
+        return;
     }
 
     public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
