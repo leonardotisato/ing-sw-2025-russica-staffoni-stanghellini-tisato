@@ -2,10 +2,7 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.ExGameState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -19,13 +16,16 @@ import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
 public class Game {
 
+    private final String PATH_TO_CARDS = "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json";
+    private final String PATH_TO_TILES = "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json";
+
     private final int maxPlayers;
     private final int level;
     private final List<Player> players;
     private FlightBoard board;
     private GameState gameState;
     private AdventureCard currentAdventureCard;
-    private List<List<Integer>> preFlightPiles;
+    private final List<List<Integer>> preFlightPiles;
     private final List<Integer> level1Cards;
     private final List<Integer> level2Cards;
     private final Map<Integer, AdventureCard> adventureCardsMap;
@@ -35,15 +35,52 @@ public class Game {
     private final List<Integer> faceUpTiles;
 
     private boolean hasStarted = false;
-    private int id;
+    private final int id;
 
     // for testing purposes
     private final Random rand = new Random();
 
+    public Game(int level, int maxPlayers, int id, String playerNickName, PlayerColor playerColor) {
+        this.level = level;
+        this.maxPlayers = maxPlayers;
+        this.id = id;
+
+        this.players = new ArrayList<>();
+
+        if (level == 1) {
+            this.board = new FlightBoardLev1();
+        }
+        else if (level == 2) {
+            this.board = new FlightBoardLev2();
+        }
+
+        // set up adventure cards
+        this.level1Cards = new ArrayList<>();
+        this.level2Cards = new ArrayList<>();
+        this.adventureCardsMap = CardLoader.loadCardsFromJson(PATH_TO_CARDS, this.level1Cards, this.level2Cards);
+        this.preFlightPiles = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            preFlightPiles.add(new ArrayList<>());
+        }
+        this.adventureCardsDeck = new ArrayList<>();
+        createAdventureDeck();
+
+        // set up tiles
+        this.faceDownTiles = new ArrayList<>();
+        this.faceUpTiles = new ArrayList<>();
+        this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
+
+        // set initial gameState
+        this.gameState = new LobbyState();
+
+        // add first player
+        this.addPlayer(playerNickName, playerColor);
+    }
+
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 4;
         this.level = level;
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         if (level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
         this.level1Cards = new ArrayList<>();
@@ -59,6 +96,7 @@ public class Game {
         this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = new LobbyState();
+        this.id = 0;
     }
 
 

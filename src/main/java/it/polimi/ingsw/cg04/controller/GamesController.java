@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.PlayerActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 
 import java.util.ArrayList;
@@ -23,15 +24,30 @@ public class GamesController {
         nickToGame = new HashMap<>();
     }
 
-    public List<Game> getGames() { return games; }
+    public List<Game> getGames() {
+        return games;
+    }
 
     public void onActionReceived(PlayerAction action) {
+
         Game g = nickToGame.get(action.getPlayerNickname());
-        Player p = g.getPlayer(action.getPlayerNickname());
-        if (action.checkAction(p)){
-            action.execute(p);
+
+        // handle unknown players
+        if (g == null) {
+            if (((InitAction) action).checkAction(this)) {
+                ((InitAction) action).execute(this);
+                return;
+            } else {
+                // this makes controller hard fail! ideally if check fails user should be warned
+                throw new RuntimeException("Wrong parameters!");
+            }
         }
-        else {
+
+        // handle known players
+        Player p = g.getPlayer(action.getPlayerNickname());
+        if (action.checkAction(p)) {
+            action.execute(p);
+        } else {
             // this makes controller hard fail! ideally if check fails user should be warned
             throw new RuntimeException("Wrong parameters!");
         }
@@ -39,9 +55,36 @@ public class GamesController {
 
     public void addGame(Game game) {
         games.add(game);
+        connectedPlayers.put(game, new ArrayList<>());
         for (Player p : game.getPlayers()) {
             nickToGame.put(p.getName(), game);
+            connectedPlayers.get(game).add(p);
         }
+    }
+
+    public List<Integer> getJoinableGames() {
+        List<Integer> joinableGames = new ArrayList<>();
+
+        for (Game g : games) {
+            if (!g.hasStarted() && connectedPlayers.get(g).size() < g.getMaxPlayers()) {
+                joinableGames.add(g.getId());
+            }
+        }
+
+        return joinableGames;
+    }
+
+
+    public boolean isNickNameTaken(String nickname) {
+        return nickToGame.containsKey(nickname);
+    }
+
+    public void addConnectedPlayer(Game game, Player player) {
+        connectedPlayers.get(game).add(player);
+    }
+
+    public void addNicktoGame(String nickname, Game game) {
+        nickToGame.put(nickname, game);
     }
 
 //    public void beginGame(Game game) {
