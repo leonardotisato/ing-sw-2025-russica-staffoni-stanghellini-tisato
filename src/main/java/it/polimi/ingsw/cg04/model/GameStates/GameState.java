@@ -11,12 +11,15 @@ import java.util.Map;
 
 public abstract class GameState {
     public void handleAction(Player player, PlayerAction action){
-        return;
     }
 
 
 
     // AdventureCardState methods
+
+    public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) {
+        throw new RuntimeException("Invalid action!");
+    }
 
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
         throw new RuntimeException("Invalid action!");

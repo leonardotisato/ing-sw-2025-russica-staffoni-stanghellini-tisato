@@ -32,6 +32,7 @@ public class HousingTile extends Tile {
     public Boolean isCentralTile() {
         return isCentralTile;
     }
+
     public void setIsCentralTile(boolean isCentralTile) {
         this.isCentralTile = isCentralTile;
     }
@@ -39,6 +40,7 @@ public class HousingTile extends Tile {
     public PlayerColor getColor() {
         return color;
     }
+
     public void setColor(PlayerColor color) {
         this.color = color;
     }
@@ -47,8 +49,11 @@ public class HousingTile extends Tile {
         // if (!isCentralTile || no supports) { supportedCrewType = set(HUMANS)
         // else supportedCrewType can host some aliens...
     }
+
     public void addSupportedCrewType(CrewType crewType) {
-        supportedCrewType.add(crewType);
+        if (crewType == CrewType.HUMAN || !isCentralTile) {
+            supportedCrewType.add(crewType);
+        }
     }
 
     public void removeSupportedCrewType(CrewType crewType) {
@@ -68,7 +73,7 @@ public class HousingTile extends Tile {
             throw new RuntimeException("Crew type:" + type + " is not supported");
         }
 
-        if((hostedCrewType == CrewType.HUMAN && numCrew == 2) || numCrew == 1) {
+        if ((hostedCrewType == CrewType.HUMAN && numCrew == 2) || numCrew == 1) {
             throw new RuntimeException("housing tile already filled");
         }
 
@@ -89,7 +94,7 @@ public class HousingTile extends Tile {
         return hostedCrewType;
     }
 
-    public CrewType removeCrewMember(){
+    public CrewType removeCrewMember() {
         if (numCrew <= 0) {
             throw new RuntimeException("Not enough crew members");
         }
@@ -106,13 +111,13 @@ public class HousingTile extends Tile {
      * removes this tile from connected AlienSupportTile's list {@code adjacentHousingTiles}
      *
      * @param ship
-     * @param x
-     * @param y
+     * @param x int
+     * @param y int
      */
     @Override
     public void broken(Ship ship, int x, int y) {
         // may occur that HousingTile is empty when this methode is called
-        if(hostedCrewType != null) {
+        if (hostedCrewType != null) {
             ship.removeCrew(hostedCrewType, x, y, numCrew);
         }
 
@@ -123,7 +128,7 @@ public class HousingTile extends Tile {
         for (int i = 0; i < tilesMatrix[0].length - 1; i++) {
             for (int j = 0; j < tilesMatrix.length - 1; j++) {
                 if (new Coordinates(i, j).isIn(alienSupportTilesIdx)
-                    && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
+                        && tilesMatrix[i][j].getAdjacentHousingTiles().contains(this)) {
                     tilesMatrix[i][j].removeAdjacentHousingTile(this);
                 }
             }
@@ -141,8 +146,8 @@ public class HousingTile extends Tile {
      * adds this tile to the connected {@code AlienSupportTile} list {@code adjacentHousingTiles}
      *
      * @param ship
-     * @param x
-     * @param y
+     * @param x int
+     * @param y int
      */
     @Override
     public void place(Ship ship, int x, int y) {
@@ -156,12 +161,12 @@ public class HousingTile extends Tile {
         Tile[][] tilesMatrix = ship.getTilesMatrix();
         List<Coordinates> alienSupportTilesIdx = ship.getTilesMap().get("AlienSupportTile");
 
-        for(int i=0; i<shipHeight; i++){
-            for(int j=0; j<shipWidth; j++){
-                if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+                if (tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
 
                     // look UP -> check tile type and connection
-                    if (i > 0 && new Coordinates(i-1, j).isIn(alienSupportTilesIdx)
+                    if (i > 0 && new Coordinates(i - 1, j).isIn(alienSupportTilesIdx)
                             && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
                         tilesMatrix[i - 1][j].addAdjacentHousingTile(this);
