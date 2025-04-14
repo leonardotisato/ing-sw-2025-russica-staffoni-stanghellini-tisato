@@ -27,6 +27,9 @@ class PiratesStateTest {
     void setUp() {
         game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
+        // set seed for controlled testing environment
+        game.getBoard().setRandSeed(42);
+
         p1 = game.addPlayer("Alice", PlayerColor.RED);
         p2 = game.addPlayer("Bob", PlayerColor.BLUE);
         p3 = game.addPlayer("Charlie", PlayerColor.GREEN);
