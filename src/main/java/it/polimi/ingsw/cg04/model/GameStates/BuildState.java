@@ -34,12 +34,12 @@ public class BuildState extends GameState {
         }
         isLookingPile = new HashMap<>();
         for (Player player : game.getPlayers()) {
-            isLookingPile.put(player.getName(), null);
+            isLookingPile.put(player.getName(), 0);
         }
     }
 
     public void triggerNextState() {
-        game.setGameState(new FlightState());
+        game.setGameState(new LoadCrewState(game));
         game.setCurrentAdventureCard(null);
     }
 
@@ -71,7 +71,7 @@ public class BuildState extends GameState {
     @Override
     public void chooseTile(Player player, Tile tile) {
         // the only states in which a player can choose a tile are BUILDING and SHOWING_FACE_UP
-        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING  && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
             throw new IllegalArgumentException("cant choose tile now");
         }
 
@@ -136,9 +136,7 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new IllegalArgumentException("cant pick pile now");
         }
-        if (playerState.get(player.getName()) != BuildPlayerState.SHOWING_PILE) {
-            throw new IllegalArgumentException("already looking at a pile");
-        }
+
         // if someone is already looking at that pile
         for(int i : isLookingPile.values()){
             if(i == pileIndex){
@@ -150,7 +148,7 @@ public class BuildState extends GameState {
         playerState.put(player.getName(), BuildPlayerState.SHOWING_PILE);
         // print out pile
         List<Integer> pile = game.getPreFlightPiles().get(pileIndex);
-        System.out.println("Pile " + pileIndex + 1 + "\n");
+        System.out.println("Pile " + pileIndex + "\n");
         for(Integer i : pile) {
             System.out.println(game.getCardById(i).toString() + "\n");
         }
@@ -164,7 +162,7 @@ public class BuildState extends GameState {
             throw new IllegalArgumentException("cant return a pile if you are not looking at one");
         }
 
-        isLookingPile.put(player.getName(), null);
+        isLookingPile.put(player.getName(), 0);
         playerState.put(player.getName(), BuildPlayerState.BUILDING);
     }
 
@@ -213,5 +211,14 @@ public class BuildState extends GameState {
             throw new IllegalArgumentException("cant start timer in a game of level " + game.getLevel());
         }
         game.getBoard().startTimer();
+    }
+
+    // getters needed to simplify testing
+    public Map<String, Integer> getIsLookingPile() {
+        return isLookingPile;
+    }
+
+    public Map<String, BuildPlayerState> getPlayerState() {
+        return playerState;
     }
 }

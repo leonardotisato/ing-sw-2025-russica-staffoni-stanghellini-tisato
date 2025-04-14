@@ -18,11 +18,11 @@ public class PickPileAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player){
-        return pileIndex >= 0 && pileIndex < 2;
+        return pileIndex > 0 && pileIndex < 4;
     }
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return playerNickname;
     }
 }

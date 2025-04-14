@@ -4,11 +4,9 @@ import it.polimi.ingsw.cg04.model.Player;
 
 public class ReturnPileAction implements PlayerAction {
     String playerNickname;
-    int pileIndex;
 
-    public ReturnPileAction(String playerNickname, int pileIndex) {
+    public ReturnPileAction(String playerNickname) {
         this.playerNickname = playerNickname;
-        this.pileIndex = pileIndex;
     }
 
     public void execute(Player player) {
@@ -17,7 +15,7 @@ public class ReturnPileAction implements PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        return pileIndex >= 0 && pileIndex < 2;
+        return true;
     }
 
     @Override
