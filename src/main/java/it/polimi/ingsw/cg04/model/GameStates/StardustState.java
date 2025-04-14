@@ -28,7 +28,7 @@ public class StardustState extends AdventureCardState {
             triggerNextState();
         }
         else {
-            System.out.println("It's not " + player.getName() + "turn.");
+            System.out.println("It's not " + player.getName() + " turn.");
         }
     }
 
