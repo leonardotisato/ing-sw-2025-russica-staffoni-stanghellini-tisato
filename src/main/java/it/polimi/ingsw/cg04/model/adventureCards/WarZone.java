@@ -14,7 +14,7 @@ public class WarZone extends AdventureCard {
 
     @Expose private List<String> checkParameter;
     @Expose private List<String> penaltyType;
-    @Expose private List<Attack> shots;
+    @Expose private List<Attack> attacks;
     @Expose private List<Direction> directions;
     @Expose private int lostGoods;
     @Expose private int lostMembers;
@@ -23,7 +23,7 @@ public class WarZone extends AdventureCard {
         super();
         this.checkParameter = new ArrayList<String>();
         this.penaltyType = new ArrayList<String>();
-        this.shots = new ArrayList<Attack>();
+        this.attacks = new ArrayList<Attack>();
         this.directions = new ArrayList<Direction>();
     }
 
@@ -43,12 +43,16 @@ public class WarZone extends AdventureCard {
         this.penaltyType = penaltyType;
     }
 
-    public List<Attack> getShots() {
-        return shots;
+    public List<Attack> getAttacks() {
+        return attacks;
     }
 
-    public void setShots(List<Attack> shots) {
-        this.shots = shots;
+    public Attack getAttack(int i) { return attacks.get(i); }
+
+    public Direction getDirection(int i) { return directions.get(i); }
+
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = attacks;
     }
 
     public List<Direction> getDirections() {

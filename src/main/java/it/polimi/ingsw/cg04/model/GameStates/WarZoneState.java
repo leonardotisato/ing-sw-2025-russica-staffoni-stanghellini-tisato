@@ -46,8 +46,6 @@ public class WarZoneState extends AdventureCardState {
     private final int leftBoundary, rightBoundary;
     private final int upBoundary, downBoundary;
 
-    // promemoria: aggiorna sortedPlayers con game.getPlayers() dopo ogni penalty -> l'ordine potrebbe essere cambiato
-
     // todo: remove
     public void handleAction(Player player, PlayerAction action) {
         return;
@@ -63,10 +61,6 @@ public class WarZoneState extends AdventureCardState {
         worstPlayerState = F_INIT;
         worstPlayerIdx = 0;
         currShotIdx = -1;
-
-        for (int i = 0; i < sortedPlayers.size(); i++) {
-            played.add(INIT);
-        }
 
         upBoundary = 5;
         downBoundary = 9;
@@ -90,15 +84,17 @@ public class WarZoneState extends AdventureCardState {
     }
 
     private void triggerNextRound() {
-        rolled = false;
-        currShotIdx++;
+        if(played.get(worstPlayerIdx) == WILL_FIGHT && worstPlayerState == F_DONE) {
+            rolled = false;
+            currShotIdx++;
 
-        if (currShotIdx >= card.getAttacks().size()) {
-            played.set(worstPlayerIdx, DONE);
-            triggerNextPenalty();
-        } else {
-            worstPlayerState = F_INIT;
-            System.out.println("Nuovo colpo in arrivo!");
+            if (currShotIdx >= card.getAttacks().size()) {
+                played.set(worstPlayerIdx, DONE);
+                triggerNextPenalty();
+            } else {
+                worstPlayerState = F_INIT;
+                System.out.println("Colpo in arrivo!");
+            }
         }
     }
 
@@ -112,14 +108,14 @@ public class WarZoneState extends AdventureCardState {
             }
             else {
                 played.replaceAll(ignored -> INIT);
-                System.out.println("Nuovo round di WarZone! Round numero: " + penaltyIdx + 1);
+                System.out.println("Nuovo round di WarZone! Round numero: " + (penaltyIdx + 1));
             }
         }
     }
 
     @Override
     public void countCrewMembers(Player player) {
-        if(player.getName().equals(sortedPlayers.getFirst().getName())) {
+        if(card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())) {
 
             for(int i = 0; i < sortedPlayers.size(); i++) {
                 crewSize.add(sortedPlayers.get(i).getShip().getNumCrew());
@@ -145,11 +141,12 @@ public class WarZoneState extends AdventureCardState {
             else if(card.getPenaltyType().get(penaltyIdx).equals("HANDLESHOTS")) {
                 System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
                 played.set(worstPlayerIdx, WILL_FIGHT);
+                worstPlayerState = F_DONE;
                 triggerNextRound();
             }
         }
         else {
-            System.out.println("It's not " + player.getName() + "turn.");
+            System.out.println("It's not " + player.getName() + " turn.");
         }
     }
 
@@ -157,7 +154,7 @@ public class WarZoneState extends AdventureCardState {
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
         Ship ship = player.getShip();
 
-        if (player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
+        if (card.getParameterCheck().get(penaltyIdx).equals("CANNONS") &&  player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
             double fire = ship.getBaseFirePower();
 
             if(fire > 0) {
@@ -188,24 +185,25 @@ public class WarZoneState extends AdventureCardState {
             currPlayerIdx++;
             if(isAllDone(played)) {
                 for(int i = 1; i < firePower.size(); i++) {
-                    if(firePower.get(i) < firePower.get(worstPlayerIdx)) {
+                    if (firePower.get(i) < firePower.get(worstPlayerIdx)) {
                         worstPlayerIdx = i;
                     }
-                    System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza di fuoco di tutti.");
-                    played.set(worstPlayerIdx, WORST);
-                    if(card.getPenaltyType().get(penaltyIdx).equals("GOBACK")) {
-                        System.out.println("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
-                        sortedPlayers.get(worstPlayerIdx).move(-card.getDaysLost());
-                        played.set(worstPlayerIdx, DONE);
+                }
+                System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza di fuoco di tutti.");
+                played.set(worstPlayerIdx, WORST);
+                if(card.getPenaltyType().get(penaltyIdx).equals("GOBACK")) {
+                    System.out.println("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
+                    sortedPlayers.get(worstPlayerIdx).move(-card.getDaysLost());
+                    played.set(worstPlayerIdx, DONE);
 
-                        sortedPlayers = context.getSortedPlayers();
-                        triggerNextPenalty();
-                    }
-                    else if(card.getPenaltyType().get(penaltyIdx).equals("HANDLESHOTS")) {
-                        System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
-                        played.set(worstPlayerIdx, WILL_FIGHT);
-                        triggerNextRound();
-                    }
+                    sortedPlayers = context.getSortedPlayers();
+                    triggerNextPenalty();
+                }
+                else if(card.getPenaltyType().get(penaltyIdx).equals("HANDLESHOTS")) {
+                    System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
+                    played.set(worstPlayerIdx, WILL_FIGHT);
+                    worstPlayerState = F_DONE;
+                    triggerNextRound();
                 }
             }
         }
@@ -214,11 +212,12 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
-        if (player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
+        if (played.get(worstPlayerIdx).equals(WORST) &&  player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             for (int i = 0; i < numCrewMembersLost.size(); i++) {
                 Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
                 player.getShip().removeCrew(currTile.getHostedCrewType(), coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
             }
+            System.out.println("Player " + player.getName() + " ha rimosso i membri dall'equipaggio.");
             played.set(worstPlayerIdx, DONE);
             triggerNextPenalty();
         }
@@ -230,7 +229,7 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) {
-        if (player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
+        if (card.getParameterCheck().get(penaltyIdx).equals("PROPULSORS") && player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
             int deltaPropPower = 0;
             for(int i = 0; i < usedBatteries.size(); i++) {
                 player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
@@ -245,19 +244,19 @@ public class WarZoneState extends AdventureCardState {
             currPlayerIdx++;
             if(isAllDone(played)) {
                 for(int i = 1; i < propulsionPower.size(); i++) {
-                    if(propulsionPower.get(i) < propulsionPower.get(worstPlayerIdx)) {
+                    if (propulsionPower.get(i) < propulsionPower.get(worstPlayerIdx)) {
                         worstPlayerIdx = i;
                     }
-                    System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza dei propulsori di tutti.");
-                    played.set(worstPlayerIdx, WORST);
-                    if(card.getPenaltyType().get(penaltyIdx).equals("LOSEBOX")) {
-                        player.getShip().removeBestBoxes(card.getLostGoods());
-                        played.set(worstPlayerIdx, DONE);
-                        System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getLostGoods() + " risorse.");
-                        triggerNextPenalty();
-                    } else if (card.getPenaltyType().get(penaltyIdx).equals("LOSECREW")) {
-                        System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " deve rimuovere " + card.getLostMembers() + " membri dell'equipaggio.");
-                    }
+                }
+                System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza dei propulsori di tutti.");
+                played.set(worstPlayerIdx, WORST);
+                if(card.getPenaltyType().get(penaltyIdx).equals("LOSEBOX")) {
+                    player.getShip().removeBestBoxes(card.getLostGoods());
+                    played.set(worstPlayerIdx, DONE);
+                    System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getLostGoods() + " risorse.");
+                    triggerNextPenalty();
+                } else if (card.getPenaltyType().get(penaltyIdx).equals("LOSECREW")) {
+                    System.out.println("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " deve rimuovere " + card.getLostMembers() + " membri dell'equipaggio.");
                 }
             }
         }
@@ -275,6 +274,10 @@ public class WarZoneState extends AdventureCardState {
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
                     worstPlayerState = F_CORRECT_SHIP;
+                }
+                else {
+                    worstPlayerState = F_DONE;
+                    triggerNextRound();
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
@@ -307,61 +310,66 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void rollDice(Player player) {
+
         if (!rolled && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName()) && worstPlayerState == F_INIT) {
             dice = context.getBoard().rollDices();
             rolled = true;
 
 
-            // check if shot misses completely
+            // check if meteor misses completely
             direction = context.getCurrentAdventureCard().getDirection(currShotIdx);
             attack = context.getCurrentAdventureCard().getAttack(currShotIdx);
 
-            System.out.println("Attack type is: " + attack + " shot, direction is: " + direction + ". Dice result is: " + dice + ".");
+            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
-                if (dice < upBoundary || dice > downBoundary) {
+                if (dice < leftBoundary || dice > rightBoundary) {
                     System.out.println("Ship wasn't hit.");
                     triggerNextRound();
+                    return;
                 } else {
                     dice -= upBoundary - 1;
                 }
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
-                if (dice < leftBoundary || dice > rightBoundary) {
-                    System.out.println("Ship wasn't hit.");
+                if (dice < upBoundary || dice > downBoundary) {
+                    System.out.println("Ship wasn't hit");
                     triggerNextRound();
+                    return;
                 } else {
                     dice -= leftBoundary - 1;
                 }
             }
 
-            Player p = sortedPlayers.get(worstPlayerIdx);
-            int hitState = p.getShip().checkHit(direction, attack, dice, "shot");
+            // create list that maps player with what he needs to do
+
+            int hitState = player.getShip().checkHit(direction, attack, dice, "shot");
 
             // if player is safe set its state to done for this attack
             if (hitState == -1) {
-                System.out.println("Player: " + p.getName() + " was not hit");
+                System.out.println("Player: " + player.getName() + " was not hit");
+                worstPlayerState = F_INIT;
                 triggerNextRound();
             }
-
             // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
-            if (hitState == 2) {
-                System.out.println("Player: " + p.getName() + " was hit");
-                p.getShip().handleHit(direction, dice);
+            else if (hitState == 2) {
+                System.out.println("Player " + player.getName() + " was hit");
+                player.getShip().handleHit(direction, dice);
 
                 // if ship is legal, player is done for this attack
-                if (p.getShip().isShipLegal()) {
+                if (player.getShip().isShipLegal()) {
                     worstPlayerState = F_DONE;
                     triggerNextRound();
                 } else {
                     // player needs to correct his ship
+                    System.out.println("Player " + player.getName() + " deve correggere la nave.");
                     worstPlayerState = F_CORRECT_SHIP;
                 }
             }
             // player can decide to use batteries to defend his ship
-            if (hitState == 0) {
-                System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
+            else if (hitState == 0) {
+                System.out.println("Player: " + player.getName() + " can use a battery to save his ship!");
                 worstPlayerState = F_PROVIDE_BATTERY;
             }
         }
