@@ -15,9 +15,16 @@ public abstract class FlightBoard {
     protected Integer dices = null;
 
     // for testing purposes
-    protected final Random rand = new Random(42);
+    protected Random rand = new Random();
 
     public FlightBoard() {
+    }
+
+    /**
+     *     SET SEED FOR TESTING PURPOSES ONLY
+     */
+    public void setRandSeed(long seed) {
+        rand.setSeed(seed);
     }
 
     /**
