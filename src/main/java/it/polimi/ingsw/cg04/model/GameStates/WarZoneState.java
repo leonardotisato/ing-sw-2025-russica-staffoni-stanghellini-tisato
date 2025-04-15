@@ -46,10 +46,6 @@ public class WarZoneState extends AdventureCardState {
     private final int leftBoundary, rightBoundary;
     private final int upBoundary, downBoundary;
 
-    // todo: remove
-    public void handleAction(Player player, PlayerAction action) {
-        return;
-    }
 
     public WarZoneState(Game game) {
         super(game);

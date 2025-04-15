@@ -14,9 +14,6 @@ public class AbandonedShipState extends AdventureCardState {
         super(game);
     }
 
-    public void handleAction(Player player, PlayerAction action) {
-        // todo: delete me
-    }
 
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
         if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new RuntimeException("Not curr player");

@@ -48,9 +48,6 @@ public class SlaversState extends AdventureCardState {
         playerStates.set(0, ACTIVATE_CANNONS);
     }
 
-    public void handleAction(Player player, PlayerAction action) {
-        // todo: delete me!
-    }
 
     public void getReward(Player player, boolean acceptReward) {
         int playerIdx = sortedPlayers.indexOf(player);

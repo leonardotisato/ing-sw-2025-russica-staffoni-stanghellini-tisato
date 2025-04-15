@@ -9,14 +9,8 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 public class LoadCrewState extends AdventureCardState{
 
-
     public LoadCrewState(Game game) {
         super(game);
-    }
-
-    @Override
-    public void handleAction(Player player, PlayerAction action) {
-        // todo: delete me!!
     }
 
     public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) {

@@ -52,11 +52,6 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
-    @Override
-    public void handleAction(Player player, PlayerAction action) {
-        // todo: delete me!
-    }
-
 
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {

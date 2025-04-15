@@ -4,7 +4,5 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 
 public class LobbyState extends GameState {
-    public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
-    }
+
 }

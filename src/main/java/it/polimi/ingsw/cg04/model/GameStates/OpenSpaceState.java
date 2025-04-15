@@ -13,10 +13,6 @@ public class OpenSpaceState extends AdventureCardState {
     public OpenSpaceState(Game game) {
         super(game);
     }
-    public void handleAction(Player player, PlayerAction action) {
-        return;
-        //delete
-    }
 
     @Override
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries){

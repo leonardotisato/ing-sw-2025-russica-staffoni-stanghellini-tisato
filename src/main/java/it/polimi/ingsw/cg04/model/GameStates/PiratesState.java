@@ -71,10 +71,6 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
-    public void handleAction(Player player, PlayerAction action) {
-        // todo: delete me!!
-    }
-
     // pre-attack phase
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
         int playerIdx = sortedPlayers.indexOf(player);

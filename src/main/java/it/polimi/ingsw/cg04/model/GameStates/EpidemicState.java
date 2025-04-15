@@ -18,9 +18,7 @@ public class EpidemicState extends AdventureCardState {
     public EpidemicState(Game game) {
         super(game);
     }
-    public void handleAction(Player player, PlayerAction action) {
-        action.execute(player);
-    }
+
 
     public void spreadEpidemic(Player player){
         if (played.get(sortedPlayers.indexOf(player)) == 1) throw new RuntimeException("you've already spread epidemic");
