@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,42 +28,50 @@ class CreateGameActionTest {
 
         // valid action
         createAction = new CreateGameAction(2, 2, "Alice", PlayerColor.BLUE);
-        assertTrue(createAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(createAction);
 
         // valid action
         createAction = new CreateGameAction(1, 3, "Bob", PlayerColor.RED);
-        assertTrue(createAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(createAction);
 
         // valid action
         createAction = new CreateGameAction(2, 4, "Alice", PlayerColor.YELLOW);
-        assertTrue(createAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(createAction);
 
         // valid action
         createAction = new CreateGameAction(1, 2, "=^.^=", PlayerColor.BLUE);
-        assertTrue(createAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(createAction);
 
         // wrong level
         createAction = new CreateGameAction(3, 2, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // wrong level
         createAction = new CreateGameAction(0, 2, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // wrong num players
         createAction = new CreateGameAction(2, 1, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // wrong num players
         createAction = new CreateGameAction(2, 0, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // wrong num players
         createAction = new CreateGameAction(2, 16, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // wrong num players
         createAction = new CreateGameAction(2, 5, "Alice", PlayerColor.BLUE);
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
+    }
+
+    private void assertThrowsOnAction(InitAction action) {
+        assertThrows(InvalidActionException.class, () -> action.checkAction(controller));
+    }
+
+    private void assertDoesNotThrowsOnAction(InitAction action) {
+        assertDoesNotThrow(() -> action.checkAction(controller));
     }
 }

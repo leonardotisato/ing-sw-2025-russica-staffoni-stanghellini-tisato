@@ -43,26 +43,6 @@ public class Smugglers extends AdventureCard {
         return boxes.get(boxType);
     }
 
-    public void solveEffect(Game game) {
-
-        /*
-        *
-        * for each player
-        *   player.calc_fire_power
-        *   if(fire_power > smuggler_fire_power)
-        *       if(player.wants_to_redeem)
-        *           player.lose_days
-        *           player.load_resources
-        *       break
-        *   if(fire_power == smuggler_fire_power)
-        *       continue
-        *   if(fire_power < smuggler_fire_power)
-        *       player.lose_resources
-        *
-        */
-
-    }
-
     @Override
     public AdventureCardState createState(Game game) {
         return new SmugglersState(game);

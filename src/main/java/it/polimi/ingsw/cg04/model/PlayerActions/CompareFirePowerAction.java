@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.HashSet;
@@ -31,7 +32,7 @@ public class CompareFirePowerAction implements PlayerAction{
     }
 
     @Override
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException {
 
         // if both lists are null, player does not want to activate any double cannon
         if(batteryCoordsList == null && cannonCoordsList == null) {
@@ -40,10 +41,10 @@ public class CompareFirePowerAction implements PlayerAction{
 
         // format checks
         if(batteryCoordsList == null || cannonCoordsList == null){
-            return false;
+            throw new InvalidActionException("Wrong inputs format!");
         }
         if(batteryCoordsList.size() != cannonCoordsList.size()){
-            return false;
+            throw new InvalidActionException("batteryCoordsList size does not match cannonCoordsList size!");
         }
 
         Ship ship = player.getShip();
@@ -54,13 +55,13 @@ public class CompareFirePowerAction implements PlayerAction{
 
             // check that batteryCoords is a batteryTile
             if(!batteryCoords.isIn(ship.getTilesMap().get("BatteryTile"))){
-                return false;
+                throw new InvalidActionException("Tile in (" + batteryCoords.getX() + ", " + batteryCoords.getY() + ") is not a BatteryTile!");
             }
 
             // if it's a batteryTile then check that occurrences in batteryCoordsList is not bigger than batteries available in that tile
             int occurrences = (int) batteryCoordsList.stream().filter(c -> c.equals(batteryCoords)).count();
             if( occurrences > ship.getTile(batteryCoords.getX(), batteryCoords.getY()).getNumBatteries()) {
-                return false;
+                throw new InvalidActionException("There are not enough batteries in (" + batteryCoords.getX() + ", " + batteryCoords.getY() + ")");
             }
         }
 
@@ -70,12 +71,12 @@ public class CompareFirePowerAction implements PlayerAction{
 
             // check that cannonCoords is a laserTile
             if(!cannonCoords.isIn(ship.getTilesMap().get("LaserTile"))){
-                return false;
+                throw new InvalidActionException("Tile in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not a LaserTile!");
             }
 
             // check that cannon isDouble
             if(!ship.getTile(cannonCoords.getX(), cannonCoords.getY()).isDoubleLaser()) {
-                return false;
+                throw new InvalidActionException("Cannon in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not double-laser!");
             }
         }
 

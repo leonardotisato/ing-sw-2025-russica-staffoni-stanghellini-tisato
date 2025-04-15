@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class RemoveCrewAction implements PlayerAction {
         state.removeCrew(player, coordinates, numCrewMembersLost);
     }
 
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException{
 
         GameState gameState = player.getGame().getGameState();
 
@@ -31,25 +32,25 @@ public class RemoveCrewAction implements PlayerAction {
         if (coordinates == null && numCrewMembersLost == null) return true;
 
         //if just one of them is null, it's an error
-        if (coordinates == null || numCrewMembersLost == null) return false;
+        if (coordinates == null || numCrewMembersLost == null) throw new InvalidActionException("Wrong inputs format!");
 
         //number of crew members lost by the player should not be >= crew members on the ship
         int numberOfCrewLost = numCrewMembersLost.stream().mapToInt(b -> b).sum();
-        if (numberOfCrewLost >= player.getShip().getNumCrew()) return false;
+        if (numberOfCrewLost > player.getShip().getNumCrew()) throw new InvalidActionException("You don't have enough crew members in your ship!");
 
         //mismatch error
-        if (numCrewMembersLost.size() != coordinates.size()) return false;
+        if (numCrewMembersLost.size() != coordinates.size()) throw new InvalidActionException("numCrewMembersLost size does not match coordinates size!");
 
         // check if coordinates are HousingTile and crew in that HousingTile is enough
         for (int i = 0; i < numCrewMembersLost.size(); i++) {
             //the tile in these coordinates is not a HousingTile
             if (!coordinates.get(i).isIn(player.getShip().getTilesMap().get("HousingTile"))) {
-                return false;
+                throw new InvalidActionException("Tile in " + coordinates.get(i).getX() + ", " + coordinates.get(i).getY() + " is not a HousingTile!");
             }
 
             //not enough crew members in this tile!
             if (numCrewMembersLost.get(i) > player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY()).getNumCrew()) {
-                return false;
+                throw new InvalidActionException("HousingTile in " + coordinates.get(i).getX() + ", " + coordinates.get(i).getY() + " has not enough crew members!");
             }
         }
 

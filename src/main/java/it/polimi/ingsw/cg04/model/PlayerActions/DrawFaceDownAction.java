@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class DrawFaceDownAction implements PlayerAction {
     String playerNickname;
@@ -14,8 +15,10 @@ public class DrawFaceDownAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player) {
-        return player.getHeldTile() == null;
+    public boolean checkAction(Player player) throws InvalidActionException {
+        // player is already holding a tile
+        if (player.getHeldTile() != null) throw new InvalidActionException("Already holding a tile!");
+        return true;
     }
 
     @Override

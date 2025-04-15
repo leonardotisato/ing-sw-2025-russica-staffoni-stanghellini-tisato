@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
@@ -26,13 +27,13 @@ public class LoadCrewAction implements PlayerAction {
 
 
     @Override
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException {
 
         List<Coordinates> housingTileList = player.getShip().getTilesMap().get("HousingTile");
 
         // if both not null and the same coords case
         if (pinkAlienCoords != null && brownAlienCoords != null && pinkAlienCoords.equals(brownAlienCoords)) {
-            return false;
+            throw new InvalidActionException("Same housingTile can't host two different aliens");
         }
 
         // pink alien check
@@ -55,7 +56,8 @@ public class LoadCrewAction implements PlayerAction {
             brownCheck = true;
         }
 
-        return brownCheck && pinkCheck;
+        if (!(pinkCheck && brownCheck)) throw new InvalidActionException("Not HousingTile or cannot host aliens");
+        return true;
     }
 
     @Override

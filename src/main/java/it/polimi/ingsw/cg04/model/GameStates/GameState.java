@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameState {
-    public void handleAction(Player player, PlayerAction action){
-    }
+
 
 
 
@@ -122,4 +121,6 @@ public abstract class GameState {
     public void starDust(Player player) {
         throw new IllegalArgumentException("Invalid action in this game state!");
     }
+
+    public void getNextAdventureCard(Player player){ throw new IllegalArgumentException("Invalid action in this game state!");}
 }

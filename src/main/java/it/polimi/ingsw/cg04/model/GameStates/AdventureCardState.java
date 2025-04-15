@@ -27,8 +27,6 @@ public abstract class AdventureCardState extends GameState {
         this.currPlayerIdx = 0;
     }
 
-    public abstract void handleAction(Player player, PlayerAction action);
-
     public void triggerNextState() {
         if(card != null) {
             System.out.println(card.getType() + " è stata risolta!");

@@ -20,10 +20,6 @@ public class PlanetsState extends AdventureCardState {
         this.chosenPlanets = new HashMap<>();
     }
 
-    public void handleAction(Player player, PlayerAction action) {
-        return;
-    }
-
     public Map<Player, Integer> getChosenPlanets() {
         return chosenPlanets;
     }

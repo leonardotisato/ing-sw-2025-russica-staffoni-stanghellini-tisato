@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class ReturnTileAction implements PlayerAction {
     String playerNickname;
@@ -13,9 +14,10 @@ public class ReturnTileAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException {
         // cant return heldTile if you dont have one
-        return player.getHeldTile() != null;
+        if (player.getHeldTile() == null) throw new InvalidActionException("You can't return a tile if you're not holding one");
+        return true;
     }
 
     @Override

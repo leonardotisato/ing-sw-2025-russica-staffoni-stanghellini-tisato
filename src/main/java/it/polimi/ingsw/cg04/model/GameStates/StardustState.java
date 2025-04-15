@@ -14,10 +14,6 @@ public class StardustState extends AdventureCardState {
         super(game);
     }
 
-    @Override
-    public void handleAction(Player player, PlayerAction action) {
-
-    }
 
     public void starDust(Player player) {
         if(player.getName().equals(sortedPlayers.getFirst().getName())) {

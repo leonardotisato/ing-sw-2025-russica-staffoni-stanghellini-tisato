@@ -19,50 +19,6 @@ public class Epidemic extends AdventureCard {
         super();
     }
 
-    public void solveEffect(Player player) {
-        Ship ship = player.getShip();
-        Tile[][] tilesMatrix = ship.getTilesMatrix();
-        Tile currentTile;
-        for (int i = 0; i < ship.getShipHeight(); i++) {
-            for (int j = 0; j < ship.getShipWidth(); j++) {
-                if (tilesMatrix[i][j] != null && tilesMatrix[i][j] instanceof HousingTile && tilesMatrix[i][j].getNumCrew() > 0) {
-                    currentTile = tilesMatrix[i][j];
-                    // look UP -> check tile type and connection
-                    if (i > 0 && tilesMatrix[i - 1][j] instanceof HousingTile
-                            && tilesMatrix[i - 1][j].getNumCrew() > 0
-                            && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
-                            && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                    }
-                    // look LEFT -> check tile type and connection
-                    else if (j > 0 && tilesMatrix[i][j - 1] instanceof HousingTile
-                            && tilesMatrix[i][j - 1].getNumCrew() > 0
-                            && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
-                            && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                    }
-
-                    // look RIGHT -> check tile type and connection
-                    else if (j < ship.getShipWidth() - 1 && tilesMatrix[i][j + 1] instanceof HousingTile
-                            && tilesMatrix[i][j + 1].getNumCrew() > 0
-                            && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
-                            && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                    }
-
-                    // look DOWN -> check tile type and connection
-                    else if (i < ship.getShipHeight() - 1 && tilesMatrix[i + 1][j] instanceof HousingTile
-                            && tilesMatrix[i + 1][j].getNumCrew() > 0
-                            && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
-                            && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                    }
-
-                }
-            }
-        }
-    }
-
     @Override
     public AdventureCardState createState(Game game) {
         return new EpidemicState(game);

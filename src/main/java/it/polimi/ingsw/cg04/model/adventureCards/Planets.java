@@ -51,12 +51,6 @@ public class Planets extends AdventureCard {
         }
     }
 
-    public void solveEffect(Player player, List<List<Integer>> coordinates, List<Map<BoxType, Integer>> boxes) {
-        for (int i = 0; i < coordinates.size(); i++) {
-            player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
-        }
-        // in the controller we must call movePlayer for each player who landed in reverse order
-    }
 
     @Override
     public AdventureCardState createState(Game game) {

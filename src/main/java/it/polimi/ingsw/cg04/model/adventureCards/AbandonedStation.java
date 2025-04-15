@@ -38,14 +38,6 @@ public class AbandonedStation extends AdventureCard {
     public int getObtainedResourcesByType(BoxType boxType) {
         return obtainedResources.get(boxType);
     }
-    public void solveEffect(Player player, List<List<Integer>> coordinates, List<Map<BoxType,Integer>> boxes) {
-        if (player.getShip().getNumCrew() >= this.getMembersNeeded()) {
-            for (int i = 0; i < coordinates.size(); i++) {
-                player.getShip().setBoxes(boxes.get(i), coordinates.get(i).get(0), coordinates.get(i).get(1));
-            }
-        }
-        else throw new RuntimeException("not enough crew");
-    }
 
     @Override
     public AdventureCardState createState(Game game) {

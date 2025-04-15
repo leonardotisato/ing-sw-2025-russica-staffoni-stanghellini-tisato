@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class EndBuildingAction implements PlayerAction {
     String playerNickname;
@@ -16,8 +17,9 @@ public class EndBuildingAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player) {
-        return position >= 1 && position <= 4;
+    public boolean checkAction(Player player) throws InvalidActionException {
+        if (position < 1 || position > 4) throw new InvalidActionException("Position must be between 1 and 4!");
+        return true;
     }
 
     @Override

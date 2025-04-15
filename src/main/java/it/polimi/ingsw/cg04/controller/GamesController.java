@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,22 +35,24 @@ public class GamesController {
 
         // handle unknown players
         if (g == null) {
-            if (((InitAction) action).checkAction(this)) {
+            try{
+                ((InitAction) action).checkAction(this);
                 ((InitAction) action).execute(this);
                 return;
-            } else {
-                // this makes controller hard fail! ideally if check fails user should be warned
-                throw new RuntimeException("Wrong parameters!");
+            }
+            catch (InvalidActionException e) {
+                System.out.println(e.getReason());
             }
         }
 
         // handle known players
         Player p = g.getPlayer(action.getPlayerNickname());
-        if (action.checkAction(p)) {
+        try {
+            action.checkAction(p);
             action.execute(p);
-        } else {
-            // this makes controller hard fail! ideally if check fails user should be warned
-            throw new RuntimeException("Wrong parameters!");
+        }
+        catch (InvalidActionException e){
+            System.out.println(e.getReason());
         }
     }
 

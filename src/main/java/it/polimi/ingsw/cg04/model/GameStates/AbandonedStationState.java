@@ -18,9 +18,6 @@ public class AbandonedStationState extends AdventureCardState {
     public AbandonedStationState(Game game) {
         super(game);
     }
-    public void handleAction(Player player, PlayerAction action) {
-        return;
-    }
 
     public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
         //the player doesn't want to play this card

@@ -23,10 +23,6 @@ public class SmugglersState extends AdventureCardState {
         super(game);
     }
 
-    public void handleAction(Player player, PlayerAction action) {
-        return;
-    }
-
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
