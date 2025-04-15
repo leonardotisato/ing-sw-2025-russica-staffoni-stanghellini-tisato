@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,26 +30,34 @@ class JoinGameActionTest {
 
         // valid action
         joinAction = new JoinGameAction(0, "Carl", PlayerColor.RED);
-        assertTrue(joinAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(joinAction);
 
         // valid action
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.YELLOW);
-        assertTrue(joinAction.checkAction(controller));
+        assertDoesNotThrowsOnAction(joinAction);
 
         // nick collision
         joinAction = new JoinGameAction(0, "Alice", PlayerColor.RED);
-        assertFalse(joinAction.checkAction(controller));
+        assertThrowsOnAction(joinAction);
 
         // color collision
         joinAction = new JoinGameAction(0, "Carl", PlayerColor.BLUE);
-        assertFalse(joinAction.checkAction(controller));
+        assertThrowsOnAction(joinAction);
 
         // game not found
         joinAction = new JoinGameAction(1, "Carl", PlayerColor.YELLOW);
-        assertFalse(joinAction.checkAction(controller));
+        assertThrowsOnAction(joinAction);
 
         // game not found
         joinAction = new JoinGameAction(-1, "Alice", PlayerColor.RED);
-        assertFalse(joinAction.checkAction(controller));
+        assertThrowsOnAction(joinAction);
+    }
+
+    private void assertThrowsOnAction(InitAction action) {
+        assertThrows(InvalidActionException.class, () -> action.checkAction(controller));
+    }
+
+    private void assertDoesNotThrowsOnAction(InitAction action) {
+        assertDoesNotThrow(() -> action.checkAction(controller));
     }
 }

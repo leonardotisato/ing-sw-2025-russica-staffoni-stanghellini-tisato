@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class PlaceInBufferAction implements PlayerAction {
     private final String playerNickname;
@@ -17,14 +18,15 @@ public class PlaceInBufferAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException {
         // check if player is holding a tile
         if(player.getHeldTile()==null) {
-            return false;
+            throw new InvalidActionException("You are not holding a tile!");
         }
 
         // check if buffer is already full
-        return player.getShip().getTilesBuffer().size() < 2;
+        if (player.getShip().getTilesBuffer().size() == 2) throw new InvalidActionException("Buffer is full!");
+        return true;
     }
 
     @Override

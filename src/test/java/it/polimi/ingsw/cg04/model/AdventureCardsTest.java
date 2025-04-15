@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.*;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
@@ -161,7 +162,7 @@ public class AdventureCardsTest {
         PlayerAction action2 = new HandleBoxesAction(p2.getName(), storageTilesCoordinates2, newBoxes2);
 
         game.getCurrentAdventureCard().setMembersNeeded(3);
-        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
+        assertThrows(InvalidActionException.class, () ->  action1.checkAction(p));
         assertInstanceOf(AbandonedStationState.class, game.getGameState());
         PlayerAction action3 = new HandleBoxesAction(p.getName(), null, null);
 
@@ -172,7 +173,6 @@ public class AdventureCardsTest {
         assertEquals(9, p2.getCurrentCell());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
-        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
     }
 
     @Test
@@ -204,12 +204,9 @@ public class AdventureCardsTest {
         PlayerAction action = new PlanetsAction(p.getName(), planetIdx1, storageTilesCoordinates1, boxes1);
         PlayerAction action2 = new PlanetsAction(p2.getName(), null, null, null);
         PlayerAction action3 = new PlanetsAction(p3.getName(),planetIdx3, storageTilesCoordinates3, boxes3);
-        assertTrue(action.checkAction(p));
         controller.onActionReceived(action);
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action3));
-        assertTrue(action2.checkAction(p2));
         controller.onActionReceived(action2);
-        assertTrue(action3.checkAction(p3));
         controller.onActionReceived(action3);
         assertEquals(6, p3.getCurrentCell());
         assertEquals(9, p.getCurrentCell());
@@ -226,12 +223,9 @@ public class AdventureCardsTest {
         PlayerAction action = new EpidemicAction(p.getName());
         PlayerAction action2 = new EpidemicAction(p2.getName());
         PlayerAction action3 = new EpidemicAction(p3.getName());
-        assertTrue(action.checkAction(p));
         controller.onActionReceived(action);
         assertThrows(RuntimeException.class, () -> controller.onActionReceived(action));
-        assertTrue(action2.checkAction(p2));
         controller.onActionReceived(action2);
-        assertTrue(action3.checkAction(p3));
         controller.onActionReceived(action3);
         assertEquals(2, p.getShip().getNumCrew());
         assertEquals(2, p.getShip().getNumCrew());

@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.RemoveCrewAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,7 +108,7 @@ class SlaversStateTest {
         doubleCannons.add(new Coordinates(88, 23));
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction);
+        assertThrowsOnAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -117,7 +118,7 @@ class SlaversStateTest {
 
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction);
+        assertThrowsOnAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -127,7 +128,7 @@ class SlaversStateTest {
 
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction);
+        assertThrowsOnAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -185,7 +186,7 @@ class SlaversStateTest {
     }
 
 
-    private void assertThrowsOnAction(PlayerAction action) {
-        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action));
+    private void assertThrowsOnAction(PlayerAction action, Player p) {
+        assertThrows(InvalidActionException.class, () -> action.checkAction(p));
     }
 }

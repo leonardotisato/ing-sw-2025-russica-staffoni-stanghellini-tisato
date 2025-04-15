@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class PickPileAction implements PlayerAction {
     String playerNickname;
@@ -17,8 +18,9 @@ public class PickPileAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player){
-        return pileIndex > 0 && pileIndex < 4;
+    public boolean checkAction(Player player) throws InvalidActionException {
+        if (pileIndex < 0 || pileIndex > 3) throw new InvalidActionException("Invalid pile index!");
+        return true;
     }
 
     @Override

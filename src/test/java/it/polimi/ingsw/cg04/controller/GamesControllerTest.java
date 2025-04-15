@@ -4,7 +4,9 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.CreateGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.JoinGameAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +46,7 @@ class GamesControllerTest {
         assertEquals(4, g.getMaxPlayers());
 
         // check that same nickname cannot be taken
-        assertFalse(createAction.checkAction(controller));
+        assertThrowsOnAction(createAction);
 
         // todo: if another Charlie tries to createGame, controller handles him as the other charlie...
     }
@@ -74,7 +76,7 @@ class GamesControllerTest {
 
         // check that no other player can join since maxPlayer = 2
         joinAction = new JoinGameAction(0, "David", PlayerColor.YELLOW);
-        assertFalse(joinAction.checkAction(controller));
+        assertThrowsOnAction(joinAction);
 
     }
 
@@ -82,4 +84,12 @@ class GamesControllerTest {
     void testGetJoinableGames() {
         assertEquals(1, controller.getJoinableGames().size());
     }
+
+    private void assertThrowsOnAction(InitAction action) {
+        assertThrows(InvalidActionException.class, () -> action.checkAction(controller));
+    }
+
+    private void assertDoesNotThrowsOnAction(InitAction action) {
+        assertDoesNotThrow(() -> action.checkAction(controller));
+}
 }

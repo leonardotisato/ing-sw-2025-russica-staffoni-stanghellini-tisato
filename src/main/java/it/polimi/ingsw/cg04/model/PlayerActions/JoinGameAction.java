@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class JoinGameAction implements InitAction {
 
@@ -27,31 +28,30 @@ public class JoinGameAction implements InitAction {
     }
 
     @Override
-    public boolean checkAction(GamesController controller) {
+    public boolean checkAction(GamesController controller) throws InvalidActionException {
 
         // check that game exists
         if (gameId < 0 || gameId >= controller.getGames().size() || controller.getGames().get(gameId) == null || controller.getGames().get(gameId).getId() != gameId) {
-            return false;
+            throw new InvalidActionException("Game id " + gameId + " is not valid");
         }
 
         // check nick availability
         if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
-            return false;
+            throw new InvalidActionException("Player name " + playerName + " is not already taken");
         }
 
         // check that the color is available
         Game g = controller.getGames().get(gameId);
         for (Player p : g.getPlayers()) {
             if (p.getColor() == playerColor) {
-                return false;
+                throw new InvalidActionException("Color " + playerColor + " is already taken");
             }
         }
 
         // check that game is not full
         if (g.getNumPlayers() >= g.getMaxPlayers()) {
-            return false;
+            throw new InvalidActionException("Game chosen is full");
         }
-
         return true;
     }
 

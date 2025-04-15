@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class CreateGameAction implements InitAction {
 
@@ -28,18 +29,18 @@ public class CreateGameAction implements InitAction {
     }
 
     @Override
-    public boolean checkAction(GamesController controller) {
+    public boolean checkAction(GamesController controller) throws InvalidActionException {
 
         if (gameLevel != 1 && gameLevel != 2) {
-            return false;
+            throw new InvalidActionException("Invalid game level");
         }
 
         if (maxPlayers < 2 || maxPlayers > 4) {
-            return false;
+            throw new InvalidActionException("Invalid number of players");
         }
 
         if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
-            return false;
+            throw new InvalidActionException("Name already taken or empty or null");
         }
 
         return true;

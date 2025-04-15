@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions;
 
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class ChooseTileAction implements PlayerAction {
@@ -17,9 +18,10 @@ public class ChooseTileAction implements PlayerAction {
     }
 
     @Override
-    public boolean checkAction(Player player) {
+    public boolean checkAction(Player player) throws InvalidActionException {
         // player is already holding a tile
-        return player.getHeldTile() == null;
+        if (player.getHeldTile() != null) throw new InvalidActionException("Already holding a tile!");
+        return true;
     }
 
     @Override

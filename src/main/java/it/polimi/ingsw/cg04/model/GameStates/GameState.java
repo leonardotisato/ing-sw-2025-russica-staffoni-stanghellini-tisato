@@ -122,4 +122,6 @@ public abstract class GameState {
     public void starDust(Player player) {
         throw new IllegalArgumentException("Invalid action in this game state!");
     }
+
+    public void getNextAdventureCard(Player player){ throw new IllegalArgumentException("Invalid action in this game state!");}
 }
