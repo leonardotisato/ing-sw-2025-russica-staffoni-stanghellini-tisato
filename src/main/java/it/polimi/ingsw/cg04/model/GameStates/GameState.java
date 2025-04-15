@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameState {
-    public void handleAction(Player player, PlayerAction action){
-    }
+
 
 
 

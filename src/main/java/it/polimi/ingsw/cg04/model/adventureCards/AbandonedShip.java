@@ -31,19 +31,6 @@ public class AbandonedShip extends AdventureCard {
         this.earnedCredits = earnedCredits;
     }
 
-    public void solveEffect(Player player, List<Integer> numCrewMembersLost, List<List<Integer>> coordinates) {
-        Tile currTile;
-        for (int i = 0; i < numCrewMembersLost.size(); i++) {
-            currTile = player.getShip().getTile(coordinates.get(i).get(0), coordinates.get(i).get(1));
-            if (currTile instanceof HousingTile) {
-                player.getShip().removeCrew(CrewType.HUMAN, coordinates.get(i).get(0), coordinates.get(i).get(1), numCrewMembersLost.get(i));
-            }
-            else throw new RuntimeException("you can't remove crew members here, not an HousingTile!");
-        }
-        player.updateCredits(this.getEarnedCredits());
-        player.move(-this.getDaysLost());
-    }
-
     @Override
     public AdventureCardState createState(Game game) {
         return new AbandonedShipState(game);
