@@ -118,9 +118,6 @@ public abstract class AdventureCard {
         return null;
     }
 
-    // Duplicate method...
-//    public int getLostMembers() { return 0; }
-
     public AdventureCardState createGameState(Game game) {
         return null;
     }
