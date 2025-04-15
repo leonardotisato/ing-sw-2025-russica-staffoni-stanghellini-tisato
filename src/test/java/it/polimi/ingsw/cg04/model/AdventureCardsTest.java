@@ -2,8 +2,12 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.GameStates.*;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState;
 import it.polimi.ingsw.cg04.model.PlayerActions.*;
-import it.polimi.ingsw.cg04.model.adventureCards.*;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;

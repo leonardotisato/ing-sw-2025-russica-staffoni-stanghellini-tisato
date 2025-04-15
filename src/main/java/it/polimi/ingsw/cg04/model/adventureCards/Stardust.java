@@ -1,9 +1,8 @@
 package it.polimi.ingsw.cg04.model.adventureCards;
 
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.AdventureCardState;
-import it.polimi.ingsw.cg04.model.GameStates.OpenSpaceState;
-import it.polimi.ingsw.cg04.model.GameStates.StardustState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.StardustState;
 
 public class Stardust extends AdventureCard {
 

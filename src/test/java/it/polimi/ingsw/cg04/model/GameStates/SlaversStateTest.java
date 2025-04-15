@@ -2,11 +2,13 @@ package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.CompareFirePowerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.GetRewardsAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.CompareFirePowerAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.GetRewardsAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.RemoveCrewAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RemoveCrewAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;

@@ -1,13 +1,13 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
-public class LoadCrewState extends AdventureCardState{
+public class LoadCrewState extends AdventureCardState {
 
     public LoadCrewState(Game game) {
         super(game);

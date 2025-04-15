@@ -1,0 +1,30 @@
+package it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
+
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+
+public class RollDiceAction implements PlayerAction {
+
+    private final String playerNick;
+
+    public RollDiceAction(String playerNick) {
+        this.playerNick = playerNick;
+    }
+
+    @Override
+    public void execute(Player player) {
+        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        state.rollDice(player);
+    }
+
+    @Override
+    public boolean checkAction(Player player) {
+        return true;
+    }
+
+    @Override
+    public String getPlayerNickname() {
+        return playerNick;
+    }
+}

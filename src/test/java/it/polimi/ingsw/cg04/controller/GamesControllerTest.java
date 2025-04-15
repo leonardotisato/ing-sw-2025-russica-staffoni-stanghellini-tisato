@@ -1,10 +1,9 @@
 package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.PlayerActions.CreateGameAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.InitAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.JoinGameAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;

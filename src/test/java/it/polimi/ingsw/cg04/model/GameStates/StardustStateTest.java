@@ -2,26 +2,15 @@ package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.CompareCrewAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.HandleBoxesAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.StardustAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.StardustAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
-import it.polimi.ingsw.cg04.model.adventureCards.AbandonedStation;
-import it.polimi.ingsw.cg04.model.adventureCards.Stardust;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
-import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.InitAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
@@ -17,12 +17,14 @@ public class GamesController {
     private final Map<Game, List<Player>> connectedPlayers;
     private final Map<Game, List<Player>> disconnectedPlayers;
     private final Map<String, Game> nickToGame;
+    private final List<Player> connectedPlayersList;
 
     public GamesController() {
         games = new ArrayList<>();
         connectedPlayers = new HashMap<>();
         disconnectedPlayers = new HashMap<>();
         nickToGame = new HashMap<>();
+        connectedPlayersList = new ArrayList<>();
     }
 
     public List<Game> getGames() {

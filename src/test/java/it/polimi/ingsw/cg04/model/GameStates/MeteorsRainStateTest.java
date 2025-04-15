@@ -2,11 +2,12 @@ package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.ChooseBatteryAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.ChooseBatteryAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.RollDiceAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RollDiceAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
