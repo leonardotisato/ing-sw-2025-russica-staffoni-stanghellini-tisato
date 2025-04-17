@@ -1,0 +1,30 @@
+package it.polimi.ingsw.cg04.network.Server;
+
+import it.polimi.ingsw.cg04.controller.GamesController;
+
+public abstract class ClientHandler {
+
+    final String nickName;
+    final GamesController controller;
+    final Server server;
+
+    public ClientHandler(GamesController controller, Server server) {
+        this.nickName = null;
+        this.controller = controller;
+        this.server = server;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public GamesController getController() {
+        return controller;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+
+}

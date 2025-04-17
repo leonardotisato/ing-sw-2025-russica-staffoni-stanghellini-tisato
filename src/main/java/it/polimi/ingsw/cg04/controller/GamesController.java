@@ -33,16 +33,17 @@ public class GamesController {
 
     public void onActionReceived(PlayerAction action) {
 
+        // System.out.println("Handling action");
+
         Game g = nickToGame.get(action.getPlayerNickname());
 
         // handle unknown players
         if (g == null) {
-            try{
+            try {
                 ((InitAction) action).checkAction(this);
                 ((InitAction) action).execute(this);
                 return;
-            }
-            catch (InvalidActionException e) {
+            } catch (InvalidActionException e) {
                 System.out.println(e.getReason());
             }
         }
@@ -52,8 +53,7 @@ public class GamesController {
         try {
             action.checkAction(p);
             action.execute(p);
-        }
-        catch (InvalidActionException e){
+        } catch (InvalidActionException e) {
             System.out.println(e.getReason());
         }
     }

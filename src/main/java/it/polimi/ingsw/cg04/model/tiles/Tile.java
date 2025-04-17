@@ -231,17 +231,11 @@ public abstract class Tile {
     }
 
     public void addBox(BoxType boxType, int num) {
-        if (!(this instanceof StorageTile)) {
-            System.out.println("Illegal Operation!");
-            throw new RuntimeException("Illegal Operation!");
-        }
+        throw new RuntimeException("Illegal Operation!");
     }
 
     public void removeBox(BoxType boxType, int num) {
-        if (!(this instanceof StorageTile)) {
-            System.out.println("Illegal Operation!");
-            throw new RuntimeException("Illegal Operation!");
-        }
+        throw new RuntimeException("Illegal Operation!");
     }
 
     // propulsorTile methods
