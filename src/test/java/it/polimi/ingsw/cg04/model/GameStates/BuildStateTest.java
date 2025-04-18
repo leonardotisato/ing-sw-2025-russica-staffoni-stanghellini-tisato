@@ -87,8 +87,9 @@ class BuildStateTest {
     @Test
     void showFaceUpTest(){
         controller.onActionReceived(new ShowFaceUpAction("Alice"));
-        //TODO aggiustare con InvalidStateException
-        //assertThrows(InvalidActionException.class,() -> (new ShowFaceUpAction("Alice")).checkAction(p1));
+        controller.onActionReceived(new CloseFaceUpTilesAction("Alice"));
+        controller.onActionReceived(new DrawFaceDownAction("Alice"));
+        assertThrows(InvalidActionException.class,() -> (new ShowFaceUpAction("Alice")).checkAction(p1));
         controller.onActionReceived(new CloseFaceUpTilesAction("Alice"));
         controller.onActionReceived(new ShowFaceUpAction("Alice"));
     }
@@ -103,8 +104,7 @@ class BuildStateTest {
         assertNull(p1.getHeldTile());
         controller.onActionReceived(new DrawFaceDownAction("Alice"));
         assertNotNull(p1.getHeldTile());
-        //TODO aggiustare con InvalidStateException
-        //assertThrows(RuntimeException.class, () -> controller.onActionReceived(new DrawFaceDownAction("Alice")));
+        assertThrows(InvalidActionException.class, () -> (new DrawFaceDownAction("Alice")).checkAction(p1));
     }
 
     @Test
