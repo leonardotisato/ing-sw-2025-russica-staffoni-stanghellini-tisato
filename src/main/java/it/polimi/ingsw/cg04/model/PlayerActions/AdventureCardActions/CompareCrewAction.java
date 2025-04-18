@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class CompareCrewAction implements PlayerAction {
     private String nickname;
@@ -11,7 +12,7 @@ public class CompareCrewAction implements PlayerAction {
         this.nickname = nickname;
     }
 
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException  {
         GameState state = player.getGame().getGameState();
         state.countCrewMembers(player);
     }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class StardustState extends AdventureCardState {
 
@@ -10,7 +11,7 @@ public class StardustState extends AdventureCardState {
     }
 
 
-    public void starDust(Player player) {
+    public void starDust(Player player) throws InvalidStateException {
         if(player.getName().equals(sortedPlayers.getFirst().getName())) {
             for(int i = sortedPlayers.size() - 1; i >= 0; i--) {
                 sortedPlayers.get(i).move(-sortedPlayers.get(i).getShip().getNumExposedConnectors());
@@ -19,7 +20,7 @@ public class StardustState extends AdventureCardState {
             triggerNextState();
         }
         else {
-            System.out.println("It's not " + player.getName() + " turn.");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
