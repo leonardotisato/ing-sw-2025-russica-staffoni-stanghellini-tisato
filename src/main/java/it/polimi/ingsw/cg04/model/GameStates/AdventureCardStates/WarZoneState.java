@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -107,7 +108,7 @@ public class WarZoneState extends AdventureCardState {
     }
 
     @Override
-    public void countCrewMembers(Player player) {
+    public void countCrewMembers(Player player) throws InvalidStateException {
         if(card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())) {
 
             for(int i = 0; i < sortedPlayers.size(); i++) {
@@ -139,12 +140,12 @@ public class WarZoneState extends AdventureCardState {
             }
         }
         else {
-            System.out.println("It's not " + player.getName() + " turn.");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
     @Override
-    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         Ship ship = player.getShip();
 
         if (card.getParameterCheck().get(penaltyIdx).equals("CANNONS") &&  player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
@@ -200,11 +201,14 @@ public class WarZoneState extends AdventureCardState {
                 }
             }
         }
+        else {
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
+        }
     }
 
 
     @Override
-    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
+    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         if (played.get(worstPlayerIdx).equals(WORST) &&  player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             for (int i = 0; i < numCrewMembersLost.size(); i++) {
                 Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
@@ -215,13 +219,13 @@ public class WarZoneState extends AdventureCardState {
             triggerNextPenalty();
         }
         else {
-            System.out.println("It's not " + player.getName() + " turn.");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
 
     @Override
-    public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) {
+    public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
         if (card.getParameterCheck().get(penaltyIdx).equals("PROPULSORS") && player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
             int deltaPropPower = 0;
             for(int i = 0; i < usedBatteries.size(); i++) {
@@ -254,12 +258,12 @@ public class WarZoneState extends AdventureCardState {
             }
         }
         else {
-            System.out.println("It's not " + player.getName() + " turn.");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
     @Override
-    public void chooseBattery(Player player, int x, int y) {
+    public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         if (rolled && worstPlayerState == F_PROVIDE_BATTERY && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
 
             // handle case where player decide to take the hit
@@ -279,12 +283,12 @@ public class WarZoneState extends AdventureCardState {
             }
         }
         else {
-            System.out.println("Wrong action or player!.");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
     @Override
-    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+    public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         // check if player actually needs to fix his ship
         if (rolled && worstPlayerState == F_CORRECT_SHIP && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             for (Coordinates coordinates : coordinatesList) {
@@ -297,12 +301,12 @@ public class WarZoneState extends AdventureCardState {
             }
         }
         else {
-            System.out.println("Wrong action or player!");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 
     @Override
-    public void rollDice(Player player) {
+    public void rollDice(Player player) throws InvalidStateException {
 
         if (!rolled && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName()) && worstPlayerState == F_INIT) {
             dice = context.getBoard().rollDices();
@@ -367,7 +371,7 @@ public class WarZoneState extends AdventureCardState {
             }
         }
         else {
-            System.out.println("Wrong action or player!");
+            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
 }

@@ -116,11 +116,11 @@ public abstract class GameState {
     }
 
     // allowed in WarZone ...
-    public void countCrewMembers(Player player) {
+    public void countCrewMembers(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("Invalid action in this game state!");
     }
 
-    public void starDust(Player player) {
+    public void starDust(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("Invalid action in this game state!");
     }
 
