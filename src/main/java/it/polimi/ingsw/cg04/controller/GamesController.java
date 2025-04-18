@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,9 @@ public class GamesController {
             action.checkAction(p);
             action.execute(p);
         } catch (InvalidActionException e) {
+            System.out.println(e.getReason());
+        }
+        catch (InvalidStateException e){
             System.out.println(e.getReason());
         }
     }

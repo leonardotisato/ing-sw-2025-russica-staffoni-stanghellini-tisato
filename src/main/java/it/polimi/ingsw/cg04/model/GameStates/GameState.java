@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -33,7 +35,7 @@ public abstract class GameState {
     }
 
     // Allowed in: OpenSpaceState
-    public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws RuntimeException {
+    public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 
