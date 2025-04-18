@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -113,18 +114,18 @@ class BuildStateTest {
 
     @Test
     void pickPileTest(){
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new ReturnPileAction("Alice")));
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new ReturnPileAction("Alice")));
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new ReturnPileAction("Alice")));
+        assertThrows(InvalidStateException.class, () -> new ReturnPileAction("Alice").execute(p1));
+        assertThrows(InvalidStateException.class, () -> new ReturnPileAction("Alice").execute(p1));
+        assertThrows(InvalidStateException.class, () -> new ReturnPileAction("Alice").execute(p1));
         controller.onActionReceived(new PickPileAction("Alice", 2));
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new PickPileAction("Alice", 1)));
+        assertThrows(InvalidStateException.class, () -> new PickPileAction("Alice", 1).execute(p1));
     }
 
     @Test
     void returnPileTest(){
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new ReturnPileAction("Alice")));
+        assertThrows(InvalidStateException.class, () -> new ReturnPileAction("Alice").execute(p1));
         controller.onActionReceived(new PickPileAction("Alice", 1));
-        assertThrows(IllegalArgumentException.class, () -> controller.onActionReceived(new PickPileAction("Alice", 1)));
+        assertThrows(InvalidStateException.class, () -> new PickPileAction("Alice", 1).execute(p1));
         controller.onActionReceived(new ReturnPileAction("Alice"));
     }
 

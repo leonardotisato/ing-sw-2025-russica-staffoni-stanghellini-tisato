@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.FlightBoard;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -44,24 +45,24 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void placeTile(Player player, int x, int y) {
+    public void placeTile(Player player, int x, int y) throws InvalidStateException {
         // the only state in which a player can place a tile is BUILDING
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant place tile now");
+            throw new InvalidStateException("cant place tile now");
         }
 
         player.placeTile(x, y);
     }
 
     @Override
-    public void placeInBuffer(Player player) {
+    public void placeInBuffer(Player player) throws InvalidStateException {
         // the only state in which a player can place a tile in the buffer is BUILDING
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING){
-            throw new IllegalArgumentException("cant place tile in buffer now");
+            throw new InvalidStateException("cant place tile in buffer now");
         }
         // player can use tiles buffer only in games of level 2
         if(game.getLevel() != 2){
-            throw new IllegalArgumentException("cant place tile in buffer in a game of level " + game.getLevel());
+            throw new InvalidStateException("cant place tile in buffer in a game of level " + game.getLevel());
         }
 
         player.getShip().addTileInBuffer(player.getHeldTile());
@@ -69,20 +70,20 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void chooseTile(Player player, Tile tile) {
+    public void chooseTile(Player player, Tile tile) throws InvalidStateException {
         // the only states in which a player can choose a tile are BUILDING and SHOWING_FACE_UP
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
-            throw new IllegalArgumentException("cant choose tile now");
+            throw new InvalidStateException("cant choose tile now");
         }
 
         player.setHeldTile(tile);
     }
 
     @Override
-    public void showFaceUp(Player player) {
+    public void showFaceUp(Player player) throws InvalidStateException {
         // the only state in which a player can see face-up tiles is BUILDING
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant show face up now");
+            throw new InvalidStateException("cant show face up now");
         }
 
         playerState.put(player.getName(), BuildPlayerState.SHOWING_FACE_UP);
@@ -95,10 +96,10 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void closeFaceUpTiles(Player player) {
+    public void closeFaceUpTiles(Player player) throws InvalidStateException {
         // the only state in which a player can close face-up tiles is SHOWING_FACE_UP
         if(playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
-            throw new IllegalArgumentException("cant close face up tiles now");
+            throw new InvalidStateException("cant close face up tiles now");
         }
 
         playerState.put(player.getName(), BuildPlayerState.BUILDING);
@@ -107,10 +108,10 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void drawFaceDown(Player player) {
+    public void drawFaceDown(Player player) throws InvalidStateException {
         // the only state in which a player can draw faced down tiles is BUILDING
         if(playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant draw face down now");
+            throw new InvalidStateException("cant draw face down now");
         }
 
         Tile drawnTile = player.getGame().drawFaceDownTile();
@@ -119,10 +120,10 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void returnTile(Player player) {
+    public void returnTile(Player player) throws InvalidStateException {
         // the only state in which a player can return tiles is BUILDING
         if(playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant return tile now");
+            throw new InvalidStateException("cant return tile now");
         }
 
         Tile currTile = player.getHeldTile();
@@ -131,16 +132,16 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void pickPile(Player player, int pileIndex) {
+    public void pickPile(Player player, int pileIndex) throws InvalidStateException {
         // if player is not in BUILDING state
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant pick pile now");
+            throw new InvalidStateException("cant pick pile now");
         }
 
         // if someone is already looking at that pile
         for(int i : isLookingPile.values()){
             if(i == pileIndex){
-                throw new IllegalArgumentException("someone is already looking at pile" + pileIndex);
+                throw new InvalidStateException("someone is already looking at pile" + pileIndex);
             }
         }
 
@@ -156,10 +157,10 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void returnPile(Player player) {
+    public void returnPile(Player player) throws InvalidStateException {
         // player is not in building phase or is in show face-up
         if(playerState.get(player.getName()) != BuildPlayerState.SHOWING_PILE) {
-            throw new IllegalArgumentException("cant return a pile if you are not looking at one");
+            throw new InvalidStateException("cant return a pile if you are not looking at one");
         }
 
         isLookingPile.put(player.getName(), 0);
@@ -167,17 +168,17 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void endBuilding(Player player, int position) {
+    public void endBuilding(Player player, int position) throws InvalidStateException {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
         if(playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
-            throw new IllegalArgumentException("cant end building now");
+            throw new InvalidStateException("cant end building now");
         }
         if(position > playerState.size()) {
-            throw new IllegalArgumentException("there are " + playerState.size() + "cant choose position " + position);
+            throw new InvalidStateException("there are " + playerState.size() + "cant choose position " + position);
         }
         FlightBoard board = game.getBoard();
         if(board.getCell(board.getStartingPosition(position)) != null){
-            throw new IllegalArgumentException("already a player in position " + position);
+            throw new InvalidStateException("already a player in position " + position);
         }
 
         player.move(board.getStartingPosition(position));
@@ -185,9 +186,9 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+    public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         if(playerState.get(player.getName()) != BuildPlayerState.FIXING) {
-            throw new IllegalArgumentException("cant fix ship now");
+            throw new InvalidStateException("cant fix ship now");
         }
 
         for(Coordinates coordinates : coordinatesList) {
@@ -202,13 +203,13 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void startTimer(Player player) {
+    public void startTimer(Player player) throws InvalidStateException {
         if(playerState.get(player.getName()) == BuildPlayerState.BUILDING) {
-            throw new IllegalArgumentException("cant start timer now");
+            throw new InvalidStateException("cant start timer now");
         }
 
         if(game.getLevel() != 2){
-            throw new IllegalArgumentException("cant start timer in a game of level " + game.getLevel());
+            throw new InvalidStateException("cant start timer in a game of level " + game.getLevel());
         }
         game.getBoard().startTimer();
     }

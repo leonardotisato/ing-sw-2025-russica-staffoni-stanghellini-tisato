@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class CloseFaceUpTilesAction implements PlayerAction {
     String playerNickname;
@@ -9,7 +10,7 @@ public class CloseFaceUpTilesAction implements PlayerAction {
     public CloseFaceUpTilesAction(String playerNickname){
         this.playerNickname = playerNickname;
     }
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException {
         player.getGame().getGameState().closeFaceUpTiles(player);
     }
 

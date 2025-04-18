@@ -67,47 +67,47 @@ public abstract class GameState {
 
 
     // BuildState Methods
-    public void placeTile(Player player, int x, int y) {
+    public void placeTile(Player player, int x, int y) throws InvalidStateException {
         throw new IllegalArgumentException("cant place tile in this game state");
     }
 
-    public void placeInBuffer(Player player) {
+    public void placeInBuffer(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant place tile in buffer in this game state");
     }
 
-    public void chooseTile(Player player, Tile tile) {
+    public void chooseTile(Player player, Tile tile) throws InvalidStateException {
         throw new IllegalArgumentException("cant choose tile in this game state");
     }
 
-    public void showFaceUp(Player player) {
+    public void showFaceUp(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant show face up tile in this game state");
     }
 
-    public void drawFaceDown(Player player) {
+    public void drawFaceDown(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant draw face down tile in this game state");
     }
 
-    public void returnTile(Player player) {
+    public void returnTile(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant return tile in this game state");
     }
 
-    public void closeFaceUpTiles(Player player) {
+    public void closeFaceUpTiles(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant close face up tile in this game state");
     }
 
-    public void pickPile(Player player, int pileIndex) {
+    public void pickPile(Player player, int pileIndex) throws InvalidStateException {
         throw new IllegalArgumentException("cant pick pile in this game state");
     }
 
-    public void returnPile(Player player) {
+    public void returnPile(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant return pile in this game state");
     }
 
-    public void endBuilding(Player player, int position) {
+    public void endBuilding(Player player, int position) throws InvalidStateException {
         throw new IllegalArgumentException("cant end building tile in this game state");
     }
 
-    public void startTimer(Player player) {
+    public void startTimer(Player player) throws InvalidStateException {
         throw new IllegalArgumentException("cant start timer in this game state");
     }
 
