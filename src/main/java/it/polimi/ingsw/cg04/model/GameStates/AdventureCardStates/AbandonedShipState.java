@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RemoveCrewAction;
 
 import java.util.List;
 

@@ -6,11 +6,12 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipSt
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState;
-import it.polimi.ingsw.cg04.model.PlayerActions.*;
+import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,7 +106,7 @@ public class AdventureCardsTest {
         assertEquals(3, p.getShip().getNumBatteries());
         assertEquals(3, p.getShip().getTile(2,1).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
-        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action3));
+        assertThrows(InvalidStateException.class, () -> action3.execute(p3));
         controller.onActionReceived(action2);
         assertEquals(14, p2.getCurrentCell());
         assertEquals(5, p2.getShip().getNumBatteries());
