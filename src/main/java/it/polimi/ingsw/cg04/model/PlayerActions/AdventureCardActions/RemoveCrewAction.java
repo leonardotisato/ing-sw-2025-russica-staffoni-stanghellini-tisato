@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class RemoveCrewAction implements PlayerAction {
         this.nickname = nickname;
     }
 
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.removeCrew(player, coordinates, numCrewMembersLost);
     }

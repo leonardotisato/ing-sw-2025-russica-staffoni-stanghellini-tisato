@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg04.model.exceptions;
 
 public class InvalidActionException extends Exception {
-    private String reason;
+    private final String reason;
     public InvalidActionException(String reason) {
         this.reason = reason;
     }

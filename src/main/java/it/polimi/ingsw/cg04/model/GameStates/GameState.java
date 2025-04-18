@@ -18,11 +18,11 @@ public abstract class GameState {
 
     // AdventureCardState methods
 
-    public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) {
+    public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) throws InvalidStateException {
         throw new RuntimeException("Invalid action!");
     }
 
-    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost){
+    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         throw new RuntimeException("Invalid action!");
     }
 
@@ -40,27 +40,27 @@ public abstract class GameState {
     }
 
     // Allowed in: MeteorRainState, ...
-    public void rollDice(Player player) {
+    public void rollDice(Player player) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 
     // Allowed in: MeteorRainState, BuildState, ...
-    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+    public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 
     // Allowed in: MeteorRainState, ...
-    public void chooseBattery(Player player, int x, int y) {
+    public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 
     // Allowed in Smugglers, Pirates, Slavers, ...
-    public void getReward(Player player, boolean acceptReward) {
+    public void getReward(Player player, boolean acceptReward) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 
     // Allowed in Smugglers, Pirates, Slavers, War zone, ...
-    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         throw new RuntimeException("invalid action");
     }
 

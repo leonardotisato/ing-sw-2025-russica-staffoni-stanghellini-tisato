@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class GetRewardsAction implements PlayerAction {
 
@@ -14,7 +15,7 @@ public class GetRewardsAction implements PlayerAction {
         this.acceptReward = acceptReward;
     }
 
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.getReward(player, acceptReward);
     }

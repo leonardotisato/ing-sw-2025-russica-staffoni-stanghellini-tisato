@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardSt
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 public class LoadCrewState extends AdventureCardState {
@@ -13,7 +14,7 @@ public class LoadCrewState extends AdventureCardState {
         super(game);
     }
 
-    public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) {
+    public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) throws InvalidStateException {
         if (sortedPlayers.get(currPlayerIdx).equals(player)) {
 
             Ship ship = player.getShip();
@@ -28,17 +29,6 @@ public class LoadCrewState extends AdventureCardState {
                 ship.addCrew(CrewType.BROWN_ALIEN, brownAlienCoords.getX(), brownAlienCoords.getY());
             }
 
-            // for all other housing tiles (except center), load humans
-//            List<Coordinates> housingTilesCoords = ship.getTilesMap().get("HousingTile");
-//            housingTilesCoords.remove(pinkAlienCoords);
-//            housingTilesCoords.remove(brownAlienCoords);
-//
-//            for (Coordinates c : housingTilesCoords) {
-//                if (!ship.getTile(c.getX(), c.getY()).isCentralTile()) {
-//                    ship.addCrew(CrewType.HUMAN, c.getX(), c.getY());
-//                }
-//            }
-
             currPlayerIdx++;
 
             // when all player loaded their ships the flight can begin
@@ -47,7 +37,7 @@ public class LoadCrewState extends AdventureCardState {
             }
 
         } else {
-            System.out.println("Player " + player.getName() + " is acted, but not his/her turn!");
+            throw new InvalidStateException("Load crew not allowed for player: " + player.getName());
         }
     }
 

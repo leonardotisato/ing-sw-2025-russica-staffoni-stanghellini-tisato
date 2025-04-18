@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class PiratesState extends AdventureCardState {
     }
 
     // pre-attack phase
-    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
 
@@ -136,12 +137,12 @@ public class PiratesState extends AdventureCardState {
                 triggerNextState();
             }
         } else {
-            System.out.println("Player " + player.getName() + " performed wrong action or not his turn");
+            throw new InvalidStateException("Compare fire power are not allowed for player: " + player.getName());
         }
     }
 
     // attack phase
-    public void rollDice(Player player) {
+    public void rollDice(Player player) throws InvalidStateException {
 
         // roll dice must be performed only when everybody left the wait stage
         // roll dice must be performed by the leader of the losers subset
@@ -216,10 +217,12 @@ public class PiratesState extends AdventureCardState {
             if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY)) {
                 triggerNextRound();
             }
+        } else {
+            throw new InvalidStateException("Roll dices are not allowed for player: " + player.getName());
         }
     }
 
-    public void chooseBattery(Player player, int x, int y) {
+    public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         // check if player actually needs to fix his ship
@@ -235,6 +238,8 @@ public class PiratesState extends AdventureCardState {
                 player.getShip().removeBatteries(1, x, y);
                 playerStates.set(playerIdx, SHOT_DONE);
             }
+        } else {
+            throw new InvalidStateException("Choose battery are not allowed for player: " + player.getName());
         }
 
         if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY)) {
@@ -242,7 +247,7 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
-    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+    public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         // check if player actually needs to fix his ship
@@ -250,6 +255,8 @@ public class PiratesState extends AdventureCardState {
             for (Coordinates coordinates : coordinatesList) {
                 player.getShip().breakTile(coordinates.getX(), coordinates.getY());
             }
+        } else {
+            throw new InvalidStateException("Fix ship are not allowed for player: " + player.getName());
         }
 
         // if fixes make the ship legal player is done for this round
@@ -262,19 +269,7 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
-    private void triggerNextRound() {
-        rolled = false;
-        currMeteorIdx++;
-
-        if (currMeteorIdx >= numMeteors) {
-            triggerNextState();
-        } else {
-            playerStates.replaceAll(state -> state == SHOT_DONE ? WAIT_FOR_SHOT : state);
-            System.out.println("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
-        }
-    }
-
-    public void getReward(Player player, boolean acceptReward) {
+    public void getReward(Player player, boolean acceptReward) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         if (playerStates.get(playerIdx) == DECIDE_REWARD &&
@@ -297,8 +292,21 @@ public class PiratesState extends AdventureCardState {
                 // transition to next adventure card
                 triggerNextState();
             }
+        } else {
+            throw new InvalidStateException("Get reward not allowed for player: " + player.getName());
         }
+    }
 
+    private void triggerNextRound() {
+        rolled = false;
+        currMeteorIdx++;
+
+        if (currMeteorIdx >= numMeteors) {
+            triggerNextState();
+        } else {
+            playerStates.replaceAll(state -> state == SHOT_DONE ? WAIT_FOR_SHOT : state);
+            System.out.println("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
+        }
     }
 
     private boolean isAll(int state, List<Integer> list) {

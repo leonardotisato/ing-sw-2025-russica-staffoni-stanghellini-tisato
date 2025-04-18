@@ -25,4 +25,5 @@ module it.polimi.ingsw.cg04 {
     exports it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
     exports it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
     exports it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
+    exports it.polimi.ingsw.cg04.model.exceptions;
 }

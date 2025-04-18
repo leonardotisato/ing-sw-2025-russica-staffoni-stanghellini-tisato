@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -48,7 +49,7 @@ public class SlaversState extends AdventureCardState {
     }
 
 
-    public void getReward(Player player, boolean acceptReward) {
+    public void getReward(Player player, boolean acceptReward) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         if (playerStates.get(playerIdx) == DECIDE_REWARD &&
@@ -71,11 +72,13 @@ public class SlaversState extends AdventureCardState {
                 // transition to next adventure card
                 triggerNextState();
             }
+        } else {
+            throw new InvalidStateException("Get reward not allowed for player: " + player.getName());
         }
 
     }
 
-    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
 
@@ -141,11 +144,11 @@ public class SlaversState extends AdventureCardState {
                 triggerNextState();
             }
         } else {
-            System.out.println("Player " + player.getName() + " performed wrong action or not his turn");
+            throw new InvalidStateException("Compare fire power not allowed for player: " + player.getName());
         }
     }
 
-    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
+    public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         if (playerStates.get(playerIdx) == REMOVE_CREW) {
@@ -178,6 +181,8 @@ public class SlaversState extends AdventureCardState {
                 // transition to next adventure card
                 triggerNextState();
             }
+        } else {
+            throw new InvalidStateException("Remove crew not allowed for player: " + player.getName());
         }
     }
 

@@ -13,6 +13,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RollDiceAct
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,7 +88,7 @@ class PiratesStateTest {
 
         // bob tries to act before his turn begin
         bobAction = new CompareFirePowerAction("Bob", null, null);
-        controller.onActionReceived(bobAction);
+        assertInvalidState(bobAction, p2);
 
         // alice activate her double cannon and achieves tie
         batteries.add(new Coordinates(1, 2));
@@ -106,7 +107,7 @@ class PiratesStateTest {
         doubleCannons.add(new Coordinates(88, 23));
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction, p2);
+        assertInvalidAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -116,7 +117,7 @@ class PiratesStateTest {
 
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction, p2);
+        assertInvalidAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -126,7 +127,7 @@ class PiratesStateTest {
 
         bobAction = new CompareFirePowerAction("Bob", batteries, doubleCannons);
 
-        assertThrowsOnAction(bobAction, p2);
+        assertInvalidAction(bobAction, p2);
         batteries.clear();
         doubleCannons.clear();
 
@@ -172,7 +173,11 @@ class PiratesStateTest {
 
     }
 
-    private void assertThrowsOnAction(PlayerAction action, Player p) {
+    private void assertInvalidAction(PlayerAction action, Player p) {
         assertThrows(InvalidActionException.class, () -> action.checkAction(p));
+    }
+
+    private void assertInvalidState(PlayerAction action, Player p) {
+        assertThrows(InvalidStateException.class, () -> action.execute(p));
     }
 }

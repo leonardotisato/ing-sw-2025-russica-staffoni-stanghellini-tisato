@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardSt
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 // todo: test me
 public class ChooseBatteryAction implements PlayerAction {
@@ -17,7 +18,7 @@ public class ChooseBatteryAction implements PlayerAction {
         this.y = y;
     }
 
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.chooseBattery(player, x, y);
     }

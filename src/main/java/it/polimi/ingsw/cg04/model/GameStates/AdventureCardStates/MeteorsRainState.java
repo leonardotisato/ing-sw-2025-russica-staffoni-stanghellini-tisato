@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.ArrayList;
@@ -70,11 +71,11 @@ public class MeteorsRainState extends AdventureCardState {
             triggerNextState();
         } else {
             played.replaceAll(ignored -> INIT);
-            System.out.println("New meteor incoming! Current meteor: " + currMeteorIdx + 1 + " out of " + numMeteors);
+            System.out.println("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
         }
     }
 
-    public void rollDice(Player player) {
+    public void rollDice(Player player) throws InvalidStateException {
         if (!rolled && player.equals(sortedPlayers.getFirst())) {
             dice = context.getBoard().rollDices();
             rolled = true;
@@ -145,10 +146,12 @@ public class MeteorsRainState extends AdventureCardState {
             if (isAllDone(played)) {
                 triggerNextRound();
             }
+        } else {
+            throw new InvalidStateException("Roll dices are not allowed for player: " + player.getName());
         }
     }
 
-    public void fixShip(Player player, List<Coordinates> coordinatesList) {
+    public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         // check if player actually needs to fix his ship
@@ -156,6 +159,8 @@ public class MeteorsRainState extends AdventureCardState {
             for (Coordinates coordinates : coordinatesList) {
                 player.getShip().breakTile(coordinates.getX(), coordinates.getY());
             }
+        } else {
+            throw new InvalidStateException("Fix ship not allowed for player: " + player.getName());
         }
 
         // if fixes make the ship legal player is done for this round
@@ -168,7 +173,7 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
-    public void chooseBattery(Player player, int x, int y) {
+    public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
         // check if player actually needs to fix his ship
@@ -184,6 +189,8 @@ public class MeteorsRainState extends AdventureCardState {
                 player.getShip().removeBatteries(1, x, y);
                 played.set(playerIdx, DONE);
             }
+        } else {
+            throw new InvalidStateException("Choose battery not allowed for player: " + player.getName());
         }
 
         if (isAllDone(played)) {

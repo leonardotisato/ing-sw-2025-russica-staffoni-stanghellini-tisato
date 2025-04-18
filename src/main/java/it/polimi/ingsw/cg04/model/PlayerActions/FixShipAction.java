@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.PlayerActions;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class FixShipAction implements PlayerAction {
         this.coordinatesList = coordinatesList;
     }
 
-    public void execute(Player player) {
+    public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.fixShip(player, coordinatesList);
     }

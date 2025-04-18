@@ -56,8 +56,7 @@ public class GamesController {
             action.execute(p);
         } catch (InvalidActionException e) {
             System.out.println(e.getReason());
-        }
-        catch (InvalidStateException e){
+        } catch (InvalidStateException e){
             System.out.println(e.getReason());
         }
     }

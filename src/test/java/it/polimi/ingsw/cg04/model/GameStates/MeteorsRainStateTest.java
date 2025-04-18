@@ -11,6 +11,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RollDiceAct
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -123,8 +124,7 @@ class MeteorsRainStateTest {
         PlayerAction charlieTryUseBattery = new ChooseBatteryAction("Charlie", -3, 5);
 
         // simulate controller behaviour
-        //TODO fix with InvalidStateException
-        //assertThrows(RuntimeException.class, () -> controller.onActionReceived(charlieTryUseBattery));
+        assertInvalidState(charlieTryUseBattery, p3);
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie tries to fix a ship removing wierd index
@@ -154,5 +154,13 @@ class MeteorsRainStateTest {
 
         // controller handles the action
         controller.onActionReceived(aliceRolls1);
+    }
+
+    private void assertInvalidAction(PlayerAction action, Player p) {
+        assertThrows(InvalidActionException.class, () -> action.checkAction(p));
+    }
+
+    private void assertInvalidState(PlayerAction action, Player p) {
+        assertThrows(InvalidStateException.class, () -> action.execute(p));
     }
 }
