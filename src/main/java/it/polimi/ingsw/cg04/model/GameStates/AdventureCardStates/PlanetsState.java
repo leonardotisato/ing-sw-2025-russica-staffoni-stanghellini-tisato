@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.*;
@@ -39,13 +40,13 @@ public class PlanetsState extends AdventureCardState {
         return allPlanetsChosen;
     }
 
-    public void landToPlanet(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
-        if (!player.equals(sortedPlayers.get(currPlayerIdx))) throw new RuntimeException("Not curr player");
-        if (chosenPlanets.containsValue(planetIdx)) throw new RuntimeException("Planet already chosen");
+    public void landToPlanet(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
+        if (!player.equals(sortedPlayers.get(currPlayerIdx))) throw new InvalidStateException("Player" + player.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
+        if (chosenPlanets.containsValue(planetIdx)) throw new InvalidStateException("Planet" + planetIdx + " is already chosen");
         if (planetIdx != null && (planetIdx < 0 || planetIdx >= card.getPlanetReward().size()))
-            throw new RuntimeException("Planet index out of range");
+            throw new InvalidStateException("Planet index" + planetIdx + " is out of range, it should be in range [0, " + (card.getPlanetReward().size() - 1) + "]");
         if (planetIdx != null) {
-            if (!checkRightBoxesAfterReward(player, planetIdx, coordinates, boxes)) throw new RuntimeException("wrong amount of boxes after reward");
+            checkRightBoxesAfterReward(player, planetIdx, coordinates, boxes);
             chosenPlanets.put(player, planetIdx);
             for (int i = 0; i < coordinates.size(); i++) {
                 player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
@@ -63,7 +64,7 @@ public class PlanetsState extends AdventureCardState {
         }
     }
 
-    public boolean checkRightBoxesAfterReward(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
+    public boolean checkRightBoxesAfterReward(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
         //the player doesn't want to play this card
         if(coordinates == null && boxes == null) return true;
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
@@ -83,13 +84,13 @@ public class PlanetsState extends AdventureCardState {
             if (card.getPlanetReward().get(planetIdx).containsKey(type)) {
                 //number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getPlanetReward().get(planetIdx).get(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
             else {
                 //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
         }

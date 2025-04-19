@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -16,8 +17,8 @@ public class EpidemicState extends AdventureCardState {
     }
 
 
-    public void spreadEpidemic(Player player){
-        if (played.get(sortedPlayers.indexOf(player)) == 1) throw new RuntimeException("you've already spread epidemic");
+    public void spreadEpidemic(Player player) throws InvalidStateException {
+        if (played.get(sortedPlayers.indexOf(player)) == 1) throw new InvalidStateException("Player " + player.getName() + " has already spread epidemic");
         Ship ship = player.getShip();
         Tile[][] tilesMatrix = ship.getTilesMatrix();
         Tile currentTile;

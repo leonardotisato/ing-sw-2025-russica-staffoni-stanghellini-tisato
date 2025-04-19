@@ -10,6 +10,7 @@ import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.adventureCards.Smugglers;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -111,8 +112,7 @@ public class SmugglersStateTest {
         // wrong number of boxes after reward
         boxes3.add(new HashMap<>(Map.of(BoxType.RED, 0, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 2)));
         PlayerAction action4 = new HandleBoxesAction(p3.getName(), storageTilesCoordinates3, boxes3);
-        //TODO fix with InvalidStateException
-        //assertThrows(RuntimeException.class, () -> controller.onActionReceived(action4));
+        assertThrows(InvalidStateException.class, () -> action4.execute(p3));
 
 
         //now p3 sends the right list of box maps

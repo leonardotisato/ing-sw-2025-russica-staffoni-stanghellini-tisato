@@ -88,36 +88,44 @@ public class AdventureCardsTest {
     void testOpenSpacePattern(){
         game.setCurrentAdventureCard(game.getCardById(5));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
+
         List<Integer> usedBatteries1 = new ArrayList<>();
         List<Integer> usedBatteries2 = new ArrayList<>();
         List<Integer> usedBatteries3 = new ArrayList<>();
         List<Coordinates> coordinates1 = new ArrayList<>();
         List<Coordinates> coordinates2 = new ArrayList<>();
         List<Coordinates> coordinates3 = new ArrayList<>();
-//        usedBatteries1.add(1);
-//        coordinates1.add(new Coordinates(2, 1));
+
         usedBatteries2.add(1);
         coordinates2.add(new Coordinates(1, 2));
+
         PlayerAction action = new ChoosePropulsorAction(p.getName(),coordinates1, usedBatteries1);
         PlayerAction action2 = new ChoosePropulsorAction(p2.getName() ,coordinates2, usedBatteries2);
         PlayerAction action3 = new ChoosePropulsorAction(p3.getName() ,coordinates3, usedBatteries3);
+
         controller.onActionReceived(action);
+
         assertEquals(13, p.getCurrentCell());
         assertEquals(3, p.getShip().getNumBatteries());
         assertEquals(3, p.getShip().getTile(2,1).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
         assertThrows(InvalidStateException.class, () -> action3.execute(p3));
+
         controller.onActionReceived(action2);
+
         assertEquals(14, p2.getCurrentCell());
         assertEquals(5, p2.getShip().getNumBatteries());
         assertEquals(2, p2.getShip().getTile(1,2).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
+
         controller.onActionReceived(action3);
+
         assertEquals(8, p3.getCurrentCell());
         assertEquals(2, p3.getShip().getNumBatteries());
+
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
-        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action));
+        assertThrows(InvalidStateException.class, () ->  action.execute(p));
     }
 
     @Test
@@ -126,27 +134,35 @@ public class AdventureCardsTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         List<Integer> numCrewMembersLost1 = new ArrayList<>();
         List<Coordinates> coordinates1 = new ArrayList<>();
+
         PlayerAction action1 = new RemoveCrewAction(p.getName(),null, null);
         PlayerAction action2 = new RemoveCrewAction(p2.getName(),null, null);
         PlayerAction action3 = new RemoveCrewAction(p3.getName(),null, null);
-        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action2));
+
+        assertThrows(InvalidStateException.class, () -> action2.execute(p2));
+
         controller.onActionReceived(action1);
+
         assertInstanceOf(AbandonedShipState.class, game.getGameState());
         assertEquals(0, p.getNumCredits());
         assertEquals(4, p.getShip().getNumCrew());
         assertEquals(2, p.getShip().getTile(2,2).getNumCrew());
         assertEquals(2, p.getShip().getTile(3,2).getNumCrew());
         assertEquals(12, p.getCurrentCell());
+
         controller.onActionReceived(action2);
+
         assertEquals(0, p2.getNumCredits());
         assertEquals(4, p2.getShip().getNumCrew());
         assertEquals(2, p2.getShip().getTile(2,4).getNumCrew());
         assertEquals(2, p2.getShip().getTile(2,3).getNumCrew());
         assertEquals(10, p2.getCurrentCell());
+
         controller.onActionReceived(action3);
+
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
-        assertThrows(RuntimeException.class, () ->  controller.onActionReceived(action1));
+        assertThrows(InvalidStateException.class, () ->  action1.execute(p));
     }
 
     @Test
@@ -210,7 +226,7 @@ public class AdventureCardsTest {
         PlayerAction action2 = new PlanetsAction(p2.getName(), null, null, null);
         PlayerAction action3 = new PlanetsAction(p3.getName(),planetIdx3, storageTilesCoordinates3, boxes3);
         controller.onActionReceived(action);
-        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action3));
+        assertThrows(InvalidStateException.class, () -> action3.execute(p3));
         controller.onActionReceived(action2);
         controller.onActionReceived(action3);
         assertEquals(6, p3.getCurrentCell());
@@ -229,7 +245,7 @@ public class AdventureCardsTest {
         PlayerAction action2 = new EpidemicAction(p2.getName());
         PlayerAction action3 = new EpidemicAction(p3.getName());
         controller.onActionReceived(action);
-        assertThrows(RuntimeException.class, () -> controller.onActionReceived(action));
+        assertThrows(InvalidStateException.class, () -> action.execute(p));
         controller.onActionReceived(action2);
         controller.onActionReceived(action3);
         assertEquals(2, p.getShip().getNumCrew());

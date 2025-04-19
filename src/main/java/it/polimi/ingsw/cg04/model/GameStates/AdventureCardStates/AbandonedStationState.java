@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.HashMap;
@@ -15,7 +17,7 @@ public class AbandonedStationState extends AdventureCardState {
         super(game);
     }
 
-    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
+    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
         //the player doesn't want to play this card
         if(coordinates == null && boxes == null) return true;
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
@@ -35,13 +37,13 @@ public class AbandonedStationState extends AdventureCardState {
             if (card.getObtainedResources().containsKey(type)) {
                 //number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getObtainedResourcesByType(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
             else {
                 //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
         }
@@ -49,10 +51,10 @@ public class AbandonedStationState extends AdventureCardState {
     }
 
 
-    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes){
-        if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new RuntimeException("Not curr player");
-        if(player.getShip().getNumCrew() <= getCard().getMembersNeeded()) throw new RuntimeException("Not enough crew members");
-        if (!checkRightBoxesAfterReward(player, coordinates, boxes)) throw new RuntimeException("wrong amount of boxes after reward");
+    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException{
+        if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new InvalidStateException("Player" + player.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
+        if(player.getShip().getNumCrew() <= getCard().getMembersNeeded()) throw new InvalidStateException("Player " + player.getName() + " has not enough crew members");
+        checkRightBoxesAfterReward(player, coordinates, boxes);
         if (coordinates == null && boxes == null){
             played.set(currPlayerIdx, 1);
             currPlayerIdx++;

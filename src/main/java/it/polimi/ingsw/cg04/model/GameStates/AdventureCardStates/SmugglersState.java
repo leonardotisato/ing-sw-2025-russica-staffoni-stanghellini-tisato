@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class SmugglersState extends AdventureCardState {
         super(game);
     }
 
-    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) {
+    public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
 
@@ -68,14 +69,14 @@ public class SmugglersState extends AdventureCardState {
                 triggerNextState();
             }
         } else {
-            System.out.println("Player " + player.getName() + " performed wrong action or not his turn");
+            throw new InvalidStateException("Player " + player.getName() + " performed wrong action or not his turn");
         }
     }
 
-    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes){
+    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
-        if (played.get(playerIdx) != HANDLE_BOXES) throw new RuntimeException("you can't handle boxes now!");
-        if (!checkRightBoxesAfterReward(player, coordinates, boxes)) throw new RuntimeException("wrong amount of boxes after reward");
+        if (played.get(playerIdx) != HANDLE_BOXES) throw new InvalidStateException("Player " + player.getName() + " can't handle boxes");
+        checkRightBoxesAfterReward(player, coordinates, boxes);
         if (coordinates == null && boxes == null){
             played.set(playerIdx, DONE);
         }
@@ -91,7 +92,7 @@ public class SmugglersState extends AdventureCardState {
         };
     }
 
-    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
+    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
         //the player doesn't want to play this card
         if(coordinates == null && boxes == null) return true;
         Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
@@ -111,13 +112,13 @@ public class SmugglersState extends AdventureCardState {
             if (card.getBoxes().containsKey(type)) {
                 //number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getObtainedResourcesByType(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
             else {
                 //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
-                    return false;
+                    throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             }
         }
