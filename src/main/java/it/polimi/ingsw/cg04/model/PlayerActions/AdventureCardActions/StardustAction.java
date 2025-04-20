@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class StardustAction implements PlayerAction {
+public class StardustAction extends PlayerAction {
     String playerNickname;
 
     public StardustAction(String playerNickname) {

@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CompareFirePowerAction implements PlayerAction {
+public class CompareFirePowerAction extends PlayerAction {
 
     private final String playerNickName;
     private final List<Coordinates> batteryCoordsList;

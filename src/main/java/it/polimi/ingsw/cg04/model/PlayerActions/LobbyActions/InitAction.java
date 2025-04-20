@@ -1,12 +1,19 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
-public interface InitAction extends PlayerAction {
+public abstract class InitAction implements Action {
 
-    void execute(GamesController controller);
+    public abstract void execute(GamesController controller);
 
-    boolean checkAction(GamesController controller) throws InvalidActionException;
+    public abstract boolean checkAction(GamesController controller) throws InvalidActionException;
+
+    public abstract String getPlayerNickname();
+
+    public void dispatchTo(GamesController controller){
+        controller.onInitActionReceived(this);
+    }
 }

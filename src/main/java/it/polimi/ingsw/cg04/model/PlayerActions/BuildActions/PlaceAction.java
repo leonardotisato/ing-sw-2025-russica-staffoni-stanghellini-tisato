@@ -8,7 +8,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
-public class PlaceAction implements PlayerAction {
+public class PlaceAction extends PlayerAction {
     private final String playerNickname;
     private final Coordinates coordinates;
 

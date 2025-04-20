@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class ReturnTileAction implements PlayerAction {
+public class ReturnTileAction extends PlayerAction {
     String playerNickname;
 
     public ReturnTileAction(String playerNickname) {

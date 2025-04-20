@@ -20,7 +20,7 @@ class JoinGameActionTest {
     void setUp() {
         InitAction createAction;
         createAction = new CreateGameAction(2, 2, "Alice", PlayerColor.BLUE);
-        controller.onActionReceived(createAction);
+        controller.onInitActionReceived(createAction);
     }
 
     @AfterEach

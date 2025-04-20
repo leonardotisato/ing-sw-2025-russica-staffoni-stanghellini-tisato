@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class StartTimerAction implements PlayerAction {
+public class StartTimerAction extends PlayerAction {
     String playerNickname;
 
     public StartTimerAction(String playerNickname) {

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 
 import java.io.IOException;
@@ -34,10 +35,10 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
         while (true) {
             try {
-                PlayerAction action = (PlayerAction) in.readObject();
+                Action action = (Action) in.readObject();
 
                 // let the controller handle the action... naive, but make it work first!
-                controller.onActionReceived(action);
+                action.dispatchTo(controller);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

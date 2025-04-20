@@ -10,7 +10,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChoosePropulsorAction implements PlayerAction {
+public class ChoosePropulsorAction extends PlayerAction {
     List<Coordinates> coordinates;
     List<Integer> usedBatteries;
     String nickname;

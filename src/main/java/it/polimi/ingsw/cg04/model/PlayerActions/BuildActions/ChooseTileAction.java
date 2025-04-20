@@ -6,7 +6,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
-public class ChooseTileAction implements PlayerAction {
+public class ChooseTileAction extends PlayerAction {
     String playerNickname;
     Tile tile;
 

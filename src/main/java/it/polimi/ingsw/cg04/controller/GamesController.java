@@ -39,15 +39,15 @@ public class GamesController {
         Game g = nickToGame.get(action.getPlayerNickname());
 
         // handle unknown players
-        if (g == null) {
-            try {
-                ((InitAction) action).checkAction(this);
-                ((InitAction) action).execute(this);
-                return;
-            } catch (InvalidActionException e) {
-                System.out.println(e.getReason());
-            }
-        }
+//        if (g == null) {
+//            try {
+//                ((InitAction) action).checkAction(this);
+//                ((InitAction) action).execute(this);
+//                return;
+//            } catch (InvalidActionException e) {
+//                System.out.println(e.getReason());
+//            }
+//        }
 
         // handle known players
         Player p = g.getPlayer(action.getPlayerNickname());
@@ -57,6 +57,16 @@ public class GamesController {
         } catch (InvalidActionException e) {
             System.out.println(e.getReason());
         } catch (InvalidStateException e){
+            System.out.println(e.getReason());
+        }
+    }
+
+    public void onInitActionReceived(InitAction action){
+        try {
+            action.checkAction(this);
+            action.execute(this);
+            return;
+        } catch (InvalidActionException e) {
             System.out.println(e.getReason());
         }
     }

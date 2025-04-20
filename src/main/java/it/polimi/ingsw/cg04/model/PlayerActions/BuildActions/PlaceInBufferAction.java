@@ -6,7 +6,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class PlaceInBufferAction implements PlayerAction {
+public class PlaceInBufferAction extends PlayerAction {
     private final String playerNickname;
 
     public PlaceInBufferAction(String playerNickname) {

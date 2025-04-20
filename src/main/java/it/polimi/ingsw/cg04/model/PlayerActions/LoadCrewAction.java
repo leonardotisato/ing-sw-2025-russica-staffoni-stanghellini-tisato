@@ -9,7 +9,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
 
-public class LoadCrewAction implements PlayerAction {
+public class LoadCrewAction extends PlayerAction {
 
     private final String playerNickname;
     private final Coordinates pinkAlienCoords, brownAlienCoords;

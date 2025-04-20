@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class PickPileAction implements PlayerAction {
+public class PickPileAction extends PlayerAction {
     String playerNickname;
     int pileIndex;
 

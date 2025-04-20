@@ -9,7 +9,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
 
-public class RemoveCrewAction implements PlayerAction {
+public class RemoveCrewAction extends PlayerAction {
     List<Integer> numCrewMembersLost;
     List<Coordinates> coordinates;
     String nickname;

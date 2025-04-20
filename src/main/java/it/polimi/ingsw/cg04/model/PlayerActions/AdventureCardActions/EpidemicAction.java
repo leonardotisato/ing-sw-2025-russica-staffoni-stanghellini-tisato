@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class EpidemicAction implements PlayerAction {
+public class EpidemicAction extends PlayerAction {
     private final String nickname;
     public EpidemicAction(String nickname) {
         this.nickname = nickname;

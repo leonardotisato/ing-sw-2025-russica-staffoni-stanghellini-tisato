@@ -8,7 +8,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.util.List;
 
-public class FixShipAction implements PlayerAction {
+public class FixShipAction extends PlayerAction {
 
     private final String playerNickname;
     private final List<Coordinates> coordinatesList;

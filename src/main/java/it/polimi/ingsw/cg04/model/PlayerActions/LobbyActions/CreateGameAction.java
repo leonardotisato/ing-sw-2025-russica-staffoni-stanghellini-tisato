@@ -6,7 +6,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
-public class CreateGameAction implements InitAction {
+public class CreateGameAction extends InitAction {
 
 
     private final int gameLevel;

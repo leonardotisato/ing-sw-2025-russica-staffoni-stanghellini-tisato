@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HandleBoxesAction implements PlayerAction {
+public class HandleBoxesAction extends PlayerAction {
     private Game game;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType,Integer>> boxes;

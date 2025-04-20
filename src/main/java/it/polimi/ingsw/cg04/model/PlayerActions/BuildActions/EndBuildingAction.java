@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class EndBuildingAction implements PlayerAction {
+public class EndBuildingAction extends PlayerAction {
     String playerNickname;
     int position;
     public EndBuildingAction(String playerNickname, int position) {

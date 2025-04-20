@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class CompareCrewAction implements PlayerAction {
+public class CompareCrewAction extends PlayerAction {
     private String nickname;
 
     public CompareCrewAction(String nickname) {

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlanetsAction implements PlayerAction {
+public class PlanetsAction extends PlayerAction {
     private final Integer planetIdx;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType, Integer>> boxes;

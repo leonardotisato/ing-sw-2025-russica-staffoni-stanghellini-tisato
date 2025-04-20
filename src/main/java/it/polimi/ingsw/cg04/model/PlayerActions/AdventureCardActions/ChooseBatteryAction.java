@@ -7,7 +7,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 // todo: test me
-public class ChooseBatteryAction implements PlayerAction {
+public class ChooseBatteryAction extends PlayerAction {
 
     private final String playerNickname;
     private final int x, y;

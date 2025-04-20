@@ -22,7 +22,7 @@ class GamesControllerTest {
         // add a game
         InitAction createAction;
         createAction = new CreateGameAction(2, 2, "Charlie", PlayerColor.BLUE);
-        controller.onActionReceived(createAction);
+        controller.onInitActionReceived(createAction);
     }
 
     @AfterEach
@@ -32,7 +32,7 @@ class GamesControllerTest {
     @Test
     void testCreateGame() {
         CreateGameAction createAction = new CreateGameAction(2,4, "Alice", PlayerColor.BLUE);
-        controller.onActionReceived(createAction);
+        controller.onInitActionReceived(createAction);
 
         // check controller has the game and game was initialized correctly
         assertEquals(2, controller.getGames().size());
@@ -57,7 +57,7 @@ class GamesControllerTest {
         InitAction joinAction;
 
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.RED);
-        controller.onActionReceived(joinAction);
+        controller.onInitActionReceived(joinAction);
 
         assertEquals(1, controller.getGames().size());
 

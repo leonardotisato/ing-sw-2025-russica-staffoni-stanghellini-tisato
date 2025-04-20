@@ -4,7 +4,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class ReturnPileAction implements PlayerAction {
+public class ReturnPileAction extends PlayerAction {
     String playerNickname;
 
     public ReturnPileAction(String playerNickname) {
