@@ -31,9 +31,9 @@ public class Server {
         // Define a fixed pool of threads to handle clients connections
         final ExecutorService threadPool = Executors.newFixedThreadPool(8);
 
-        // Create server socket to accept connections from client
+        // Create a server socket to accept connections from client
         try {
-            serverSocket = new ServerSocket(420);
+            serverSocket = new ServerSocket(4200);
         } catch (IOException e) {
             System.out.println("Server could not be created");
         }

@@ -8,7 +8,6 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class CreateGameAction extends InitAction {
 
-
     private final int gameLevel;
     private final int maxPlayers;
     private final String playerName;
@@ -39,8 +38,8 @@ public class CreateGameAction extends InitAction {
             throw new InvalidActionException("Invalid number of players");
         }
 
-        if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
-            throw new InvalidActionException("Name already taken or empty or null");
+        if (playerName == null) {
+            throw new InvalidActionException("Set a name for your player first!");
         }
 
         return true;
@@ -60,6 +59,5 @@ public class CreateGameAction extends InitAction {
     public String getPlayerNickname() {
         return playerName;
     }
-
 
 }

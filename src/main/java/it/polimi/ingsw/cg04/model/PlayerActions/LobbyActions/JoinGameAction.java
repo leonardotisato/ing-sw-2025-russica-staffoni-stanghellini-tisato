@@ -35,9 +35,9 @@ public class JoinGameAction extends InitAction {
             throw new InvalidActionException("Game id " + gameId + " is not valid");
         }
 
-        // check nick availability
-        if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
-            throw new InvalidActionException("Player name " + playerName + " is not already taken");
+        // check nickname was set correctly
+        if (playerName == null) {
+            throw new InvalidActionException("Set a name for your player first!");
         }
 
         // check that the color is available
