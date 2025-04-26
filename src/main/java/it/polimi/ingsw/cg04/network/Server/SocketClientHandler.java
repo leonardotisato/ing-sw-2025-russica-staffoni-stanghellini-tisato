@@ -39,13 +39,14 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             try {
                 Action action = (Action) in.readObject();
 
-                inputHandler.submit(() -> handleInput(action));
+                inputHandler.submit(() -> handleAction(action));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
+    // todo: delete me
     public void handleInput(Action action) {
         action.dispatchTo(controller);
     }
