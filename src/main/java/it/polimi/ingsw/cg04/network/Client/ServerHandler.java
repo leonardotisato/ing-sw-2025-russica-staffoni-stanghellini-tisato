@@ -1,9 +1,9 @@
 package it.polimi.ingsw.cg04.network.Client;
 
-public abstract class ServerHandler implements VirtualServer{
-    private String nickname;
-    //private final ClientModel clientModel;
-    //private View view;
+public abstract class ServerHandler implements VirtualServer {
+    protected String nickname;
+    // private final ClientModel clientModel;
+    // private View view;
 
     protected final String serverIP;
     protected final String serverPort;
@@ -11,7 +11,7 @@ public abstract class ServerHandler implements VirtualServer{
     protected ServerHandler(String serverIP, String serverPort, String viewType) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
-        //clientModel = new ClientModel();
+        // clientModel = new ClientModel();
 
 //        if(viewType.equals("GUI"))
 //            view = new GUIRoot(clientModel, this);
@@ -27,8 +27,4 @@ public abstract class ServerHandler implements VirtualServer{
         return nickname;
     }
 
-//    public View getView()
-//    {
-//        return this.view;
-//    }
 }
