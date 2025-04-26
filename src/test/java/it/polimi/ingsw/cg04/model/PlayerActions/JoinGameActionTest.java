@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
@@ -18,8 +19,11 @@ class JoinGameActionTest {
 
     @BeforeEach
     void setUp() {
+
         InitAction createAction;
         createAction = new CreateGameAction(2, 2, "Alice", PlayerColor.BLUE);
+
+        controller.onInitActionReceived(new SetNicknameAction("Alice"));
         controller.onInitActionReceived(createAction);
     }
 
@@ -38,10 +42,6 @@ class JoinGameActionTest {
         // valid action
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.YELLOW);
         assertDoesNotThrowsOnAction(joinAction);
-
-        // nick collision
-        joinAction = new JoinGameAction(0, "Alice", PlayerColor.RED);
-        assertThrowsOnAction(joinAction);
 
         // color collision
         joinAction = new JoinGameAction(0, "Carl", PlayerColor.BLUE);

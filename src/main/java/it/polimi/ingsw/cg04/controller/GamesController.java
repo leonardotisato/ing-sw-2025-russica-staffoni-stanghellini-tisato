@@ -18,14 +18,12 @@ public class GamesController {
     private final Map<Game, List<Player>> connectedPlayers;
     private final Map<Game, List<Player>> disconnectedPlayers;
     private final Map<String, Game> nickToGame;
-    private final List<Player> connectedPlayersList;
 
     public GamesController() {
         games = new ArrayList<>();
         connectedPlayers = new HashMap<>();
         disconnectedPlayers = new HashMap<>();
         nickToGame = new HashMap<>();
-        connectedPlayersList = new ArrayList<>();
     }
 
     public List<Game> getGames() {
@@ -34,38 +32,24 @@ public class GamesController {
 
     public void onActionReceived(PlayerAction action) {
 
-        // System.out.println("Handling action");
-
-        Game g = nickToGame.get(action.getPlayerNickname());
-
-        // handle unknown players
-//        if (g == null) {
-//            try {
-//                ((InitAction) action).checkAction(this);
-//                ((InitAction) action).execute(this);
-//                return;
-//            } catch (InvalidActionException e) {
-//                System.out.println(e.getReason());
-//            }
-//        }
-
-        // handle known players
-        Player p = g.getPlayer(action.getPlayerNickname());
         try {
+            Game g = nickToGame.get(action.getPlayerNickname());
+            Player p = g.getPlayer(action.getPlayerNickname());
             action.checkAction(p);
             action.execute(p);
+        } catch (NullPointerException e) {
+            System.out.println("Player not in a game");
         } catch (InvalidActionException e) {
             System.out.println(e.getReason());
-        } catch (InvalidStateException e){
+        } catch (InvalidStateException e) {
             System.out.println(e.getReason());
         }
     }
 
-    public void onInitActionReceived(InitAction action){
+    public void onInitActionReceived(InitAction action) {
         try {
             action.checkAction(this);
             action.execute(this);
-            return;
         } catch (InvalidActionException e) {
             System.out.println(e.getReason());
         }
@@ -104,27 +88,5 @@ public class GamesController {
     public void addNicktoGame(String nickname, Game game) {
         nickToGame.put(nickname, game);
     }
-
-//    public void beginGame(Game game) {
-//        game.beginGame();
-//    }
-//
-//    public void endGame(Game game) {
-//        game.endGame();
-//    }
-//
-//
-//    public void createGame(int level) {
-//    }
-//
-//    public void reconnect(Game game, Player player) {
-//    }
-//
-//    public void disconnect(Game game, Player player) {
-//    }
-//
-//    public void addPlayer(Game game, String playerName, Player player, PlayerColor color) {
-//        game.addPlayer(playerName, color);
-//    }
 
 }

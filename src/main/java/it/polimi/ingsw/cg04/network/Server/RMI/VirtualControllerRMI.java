@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.network.Server.RMI;
 
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.rmi.Remote;
@@ -11,11 +12,11 @@ import java.util.Map;
 public interface VirtualControllerRMI extends Remote {
     // initActions
     public void setNicknameRMI(String nickname) throws RemoteException;
-    public void createGameRMI(int gameLevel, int maxPlayers) throws RemoteException;
-    public void joinGameRMI(int gameId) throws RemoteException;
+    public void createGameRMI(int gameLevel, int maxPlayers, String playerName, PlayerColor playerColor) throws RemoteException;
+    public void joinGameRMI(int gameId, String playerName, PlayerColor playerColor) throws RemoteException;
 
     // buildActions
-    public void chooseTileRMI(int tileIdx) throws RemoteException;
+    public void chooseTileRMI(String playerName, int tileIdx) throws RemoteException;
     public void closeFaceUpTilesRMI() throws RemoteException;
     public void drawFaceDownRMI() throws RemoteException;
     public void endBuildingRMI(int position) throws RemoteException;

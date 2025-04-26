@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
@@ -32,6 +33,7 @@ class GamesControllerTest {
     @Test
     void testCreateGame() {
         CreateGameAction createAction = new CreateGameAction(2,4, "Alice", PlayerColor.BLUE);
+        controller.onInitActionReceived(new SetNicknameAction("Alice"));
         controller.onInitActionReceived(createAction);
 
         // check controller has the game and game was initialized correctly
@@ -45,9 +47,7 @@ class GamesControllerTest {
         assertEquals(4, g.getMaxPlayers());
 
         // check that same nickname cannot be taken
-        assertThrowsOnAction(createAction);
-
-        // todo: if another Charlie tries to createGame, controller handles him as the other charlie...
+        assertThrowsOnAction(new SetNicknameAction("Alice"));
     }
 
     @Test
@@ -57,6 +57,7 @@ class GamesControllerTest {
         InitAction joinAction;
 
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.RED);
+        controller.onInitActionReceived(new SetNicknameAction("Bob"));
         controller.onInitActionReceived(joinAction);
 
         assertEquals(1, controller.getGames().size());
