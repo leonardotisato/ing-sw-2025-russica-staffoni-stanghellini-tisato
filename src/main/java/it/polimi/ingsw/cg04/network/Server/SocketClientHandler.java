@@ -31,7 +31,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         try {
             in = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
-            System.out.println("Could not get input stream for player: " + nickName);
+            System.out.println("Could not get input stream for player: " + nickname);
             return;
         }
 

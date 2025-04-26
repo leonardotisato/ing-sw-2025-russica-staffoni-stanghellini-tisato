@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp;
+import it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderRMI;
 import it.polimi.ingsw.cg04.network.Server.RMI.VirtualControllerImp;
 
 import java.io.IOException;
@@ -59,11 +61,11 @@ public class Server {
     }
 
     private void startRMI() throws RemoteException {
-        VirtualControllerImp virtualController = new VirtualControllerImp(controller);
+        HandlersProviderRMI handlersProvider = new HandlersProviderImp(controller, this);
         Registry registry = null;
         try {
             registry = LocateRegistry.createRegistry(9696);
-            registry.bind("RmiVirtualController", virtualController);
+            registry.bind("handlersProvider", handlersProvider);
             System.out.println("RMI Server bound and ready on port: 9696");
         } catch (RemoteException | AlreadyBoundException e) {
             System.out.println("Failed to start RMI server");

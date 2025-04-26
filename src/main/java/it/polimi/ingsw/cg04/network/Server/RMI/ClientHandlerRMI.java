@@ -1,16 +1,14 @@
 package it.polimi.ingsw.cg04.network.Server.RMI;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI;
 import it.polimi.ingsw.cg04.network.Server.ClientHandler;
 import it.polimi.ingsw.cg04.network.Server.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class ClientHandlerRMI extends ClientHandler {
     private final VirtualClientRMI virtualClient;
@@ -34,7 +32,7 @@ public class ClientHandlerRMI extends ClientHandler {
     public ClientHandlerRMI(GamesController controller, Server server, VirtualClientRMI virtualClient) throws RemoteException {
         super(controller, server);
         this.virtualClient = virtualClient;
-        this.virtualController = new VirtualControllerImp();
+        this.virtualController = new VirtualControllerImp(this);
 
         connectionDemon.scheduleAtFixedRate(new ClientCheckerRMI(), 1, 4, TimeUnit.SECONDS);
     }
@@ -42,6 +40,15 @@ public class ClientHandlerRMI extends ClientHandler {
     // This getter is needed to give the Client an object that implements the RmiVirtualController interface
     public VirtualControllerRMI getRmiVirtualController() {
         return virtualController;
+    }
+
+    public static class DeamonThreadFactory implements ThreadFactory {
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r);
+            thread.setDaemon(true);
+            return thread;
+        }
     }
 
 
