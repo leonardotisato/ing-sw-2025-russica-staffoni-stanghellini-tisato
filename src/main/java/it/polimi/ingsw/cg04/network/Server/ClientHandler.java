@@ -41,7 +41,8 @@ public abstract class ClientHandler {
         //server.unsubscribe(this);
     }
 
-    public void handleAction(Action action) throws RemoteException {
+    public void handleAction(Action action) {
+        System.out.println("Ricevuta azione RMI: " + action.getClass().getSimpleName());
         action.dispatchTo(controller);
     }
 

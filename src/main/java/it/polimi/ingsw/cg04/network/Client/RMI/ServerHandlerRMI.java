@@ -31,10 +31,20 @@ public class ServerHandlerRMI extends ServerHandler {
         super(serverIP, serverPort, viewType);
         virtualClient = new VirtualClientImp();
 //
-//        startConnection();
+        startConnection();
 //
-//        System.out.println("Connection to server established");
+        System.out.println("Connection to server established");
     }
+
+    public static void main(String[] args) {
+        try {
+            new ServerHandlerRMI("localhost", "9696", "GUI");
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
     public void startConnection() throws RemoteException {
         // Try connecting to the server

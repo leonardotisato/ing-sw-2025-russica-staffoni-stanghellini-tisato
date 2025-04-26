@@ -26,4 +26,6 @@ module it.polimi.ingsw.cg04 {
     exports it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
     exports it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
     exports it.polimi.ingsw.cg04.model.exceptions;
+    exports it.polimi.ingsw.cg04.network.Server.RMI to java.rmi;
+    exports it.polimi.ingsw.cg04.network.Client.RMI to java.rmi;
 }

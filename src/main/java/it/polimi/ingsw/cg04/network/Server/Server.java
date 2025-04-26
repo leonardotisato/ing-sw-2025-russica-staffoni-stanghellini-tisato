@@ -27,8 +27,21 @@ public class Server {
         this.clientHandlers = new ArrayList<ClientHandler>();
     }
 
+    public static void main(String[] args) {
+        GamesController controller = new GamesController();
+        Server server = new Server(controller);
+        try {
+            server.start();
+        } catch (RemoteException e) {
+            System.out.println("Failed to start the server: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
     public void start() throws RemoteException {
         new Thread(this::startSocket).start();
+        startRMI();
     }
 
     private void startSocket() {
@@ -65,11 +78,10 @@ public class Server {
         Registry registry = null;
         try {
             registry = LocateRegistry.createRegistry(9696);
-            registry.bind("handlersProvider", handlersProvider);
+            registry.bind("RmiHandlerProvider", handlersProvider);
             System.out.println("RMI Server bound and ready on port: 9696");
         } catch (RemoteException | AlreadyBoundException e) {
             System.out.println("Failed to start RMI server");
         }
     }
-
 }
