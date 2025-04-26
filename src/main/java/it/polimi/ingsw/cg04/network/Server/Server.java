@@ -1,11 +1,15 @@
 package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.network.Server.RMI.VirtualControllerImp;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -52,6 +56,18 @@ public class Server {
 
         System.out.println("Shutting down thread pool");
         threadPool.shutdown();
+    }
+
+    private void startRMI() throws RemoteException {
+        VirtualControllerImp virtualController = new VirtualControllerImp(controller);
+        Registry registry = null;
+        try {
+            registry = LocateRegistry.createRegistry(9696);
+            registry.bind("RmiVirtualController", virtualController);
+            System.out.println("RMI Server bound and ready on port: 9696");
+        } catch (RemoteException | AlreadyBoundException e) {
+            System.out.println("Failed to start RMI server");
+        }
     }
 
 }

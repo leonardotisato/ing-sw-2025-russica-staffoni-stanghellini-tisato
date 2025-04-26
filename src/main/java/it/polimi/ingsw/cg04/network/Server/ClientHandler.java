@@ -4,18 +4,18 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 
 public abstract class ClientHandler {
 
-    final String nickName;
+    final String nickname;
     final GamesController controller;
     final Server server;
 
     public ClientHandler(GamesController controller, Server server) {
-        this.nickName = null;
+        this.nickname = null;
         this.controller = controller;
         this.server = server;
     }
 
     public String getNickName() {
-        return nickName;
+        return nickname;
     }
 
     public GamesController getController() {
@@ -24,6 +24,18 @@ public abstract class ClientHandler {
 
     public Server getServer() {
         return server;
+    }
+
+    protected void disconnect() {
+        try {
+            if(nickname != null)
+                //controller.disconnect(nickname);
+                System.out.println("Disconnecting " + nickname);
+        } catch (Exception e) {
+            //addLog(e.getMessage());
+        }
+
+        //server.unsubscribe(this);
     }
 
 
