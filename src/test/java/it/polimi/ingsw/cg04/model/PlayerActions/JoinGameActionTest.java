@@ -23,8 +23,13 @@ class JoinGameActionTest {
         InitAction createAction;
         createAction = new CreateGameAction(2, 2, "Alice", PlayerColor.BLUE);
 
-        controller.onInitActionReceived(new SetNicknameAction("Alice"));
-        controller.onInitActionReceived(createAction);
+        try {
+            controller.onInitActionReceived(new SetNicknameAction("Alice"));
+        } catch (InvalidActionException ignored) {}
+        try {
+            controller.onInitActionReceived(createAction);
+        } catch (InvalidActionException ignored) {}
+
     }
 
     @AfterEach

@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipSt
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState;
+import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
@@ -103,7 +104,9 @@ public class AdventureCardsTest {
         PlayerAction action2 = new ChoosePropulsorAction(p2.getName() ,coordinates2, usedBatteries2);
         PlayerAction action3 = new ChoosePropulsorAction(p3.getName() ,coordinates3, usedBatteries3);
 
-        controller.onActionReceived(action);
+        try {
+            controller.onActionReceived(action);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(13, p.getCurrentCell());
         assertEquals(3, p.getShip().getNumBatteries());
@@ -111,14 +114,19 @@ public class AdventureCardsTest {
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
         assertThrows(InvalidStateException.class, () -> action3.execute(p3));
 
-        controller.onActionReceived(action2);
+
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(14, p2.getCurrentCell());
         assertEquals(5, p2.getShip().getNumBatteries());
         assertEquals(2, p2.getShip().getTile(1,2).getNumBatteries());
         assertInstanceOf(OpenSpaceState.class, game.getGameState());
 
-        controller.onActionReceived(action3);
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(8, p3.getCurrentCell());
         assertEquals(2, p3.getShip().getNumBatteries());
@@ -141,7 +149,9 @@ public class AdventureCardsTest {
 
         assertThrows(InvalidStateException.class, () -> action2.execute(p2));
 
-        controller.onActionReceived(action1);
+        try {
+            controller.onActionReceived(action1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertInstanceOf(AbandonedShipState.class, game.getGameState());
         assertEquals(0, p.getNumCredits());
@@ -150,7 +160,9 @@ public class AdventureCardsTest {
         assertEquals(2, p.getShip().getTile(3,2).getNumCrew());
         assertEquals(12, p.getCurrentCell());
 
-        controller.onActionReceived(action2);
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(0, p2.getNumCredits());
         assertEquals(4, p2.getShip().getNumCrew());
@@ -158,7 +170,9 @@ public class AdventureCardsTest {
         assertEquals(2, p2.getShip().getTile(2,3).getNumCrew());
         assertEquals(10, p2.getCurrentCell());
 
-        controller.onActionReceived(action3);
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
@@ -187,8 +201,12 @@ public class AdventureCardsTest {
         assertInstanceOf(AbandonedStationState.class, game.getGameState());
         PlayerAction action3 = new HandleBoxesAction(p.getName(), null, null);
 
-        controller.onActionReceived(action3);
-        controller.onActionReceived(action2);
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(Map.of(BoxType.RED, 1, BoxType.GREEN, 0, BoxType.YELLOW, 1, BoxType.BLUE, 0), p2.getShip().getBoxes());
         assertEquals(9, p2.getCurrentCell());
@@ -225,10 +243,16 @@ public class AdventureCardsTest {
         PlayerAction action = new PlanetsAction(p.getName(), planetIdx1, storageTilesCoordinates1, boxes1);
         PlayerAction action2 = new PlanetsAction(p2.getName(), null, null, null);
         PlayerAction action3 = new PlanetsAction(p3.getName(),planetIdx3, storageTilesCoordinates3, boxes3);
-        controller.onActionReceived(action);
+        try {
+            controller.onActionReceived(action);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
         assertThrows(InvalidStateException.class, () -> action3.execute(p3));
-        controller.onActionReceived(action2);
-        controller.onActionReceived(action3);
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
         assertEquals(6, p3.getCurrentCell());
         assertEquals(9, p.getCurrentCell());
         assertInstanceOf(FlightState.class, game.getGameState());
@@ -244,10 +268,16 @@ public class AdventureCardsTest {
         PlayerAction action = new EpidemicAction(p.getName());
         PlayerAction action2 = new EpidemicAction(p2.getName());
         PlayerAction action3 = new EpidemicAction(p3.getName());
-        controller.onActionReceived(action);
+        try {
+            controller.onActionReceived(action);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
         assertThrows(InvalidStateException.class, () -> action.execute(p));
-        controller.onActionReceived(action2);
-        controller.onActionReceived(action3);
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
         assertEquals(2, p.getShip().getNumCrew());
         assertEquals(2, p.getShip().getNumCrew());
         assertEquals(2, p.getShip().getNumCrew());

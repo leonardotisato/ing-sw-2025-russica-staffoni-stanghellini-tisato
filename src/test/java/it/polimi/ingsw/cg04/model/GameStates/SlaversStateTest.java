@@ -98,8 +98,10 @@ class SlaversStateTest {
         doubleCannons.add(new Coordinates(1, 3));
 
         aliceAction = new CompareFirePowerAction("Alice", batteries, doubleCannons);
+        try {
+            controller.onActionReceived(aliceAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(aliceAction);
 
         batteries.clear();
         doubleCannons.clear();
@@ -137,8 +139,10 @@ class SlaversStateTest {
 
         // now bob realizes he is screwed, he WILL lose and there is nothing he can do
         bobAction = new CompareFirePowerAction("Bob", null, null);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(bobAction);
         batteries.clear();
         doubleCannons.clear();
 
@@ -149,23 +153,29 @@ class SlaversStateTest {
         doubleCannons.add(new Coordinates(3, 6));
 
         charlieAction = new CompareFirePowerAction("Charlie", batteries, doubleCannons);
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(charlieAction);
         batteries.clear();
         doubleCannons.clear();
 
         // charlie accepts the reward too soon
         charlieAction = new GetRewardsAction("Charlie", true);
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(charlieAction);
 
         // bob removes the crew, but too few are sent
         housingUnits.add(new Coordinates(2, 2));
         numCrewPerUnit.add(2);
 
         bobAction = new RemoveCrewAction("Bob", housingUnits, numCrewPerUnit);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(bobAction);
         housingUnits.clear();
         numCrewPerUnit.clear();
 
@@ -176,14 +186,18 @@ class SlaversStateTest {
         numCrewPerUnit.add(1);
 
         bobAction = new RemoveCrewAction("Bob", housingUnits, numCrewPerUnit);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(bobAction);
         housingUnits.clear();
         numCrewPerUnit.clear();
 
         System.out.println(game.getBoard());
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(charlieAction);
         assertEquals(5, p3.getNumCredits());
         System.out.println(game.getBoard());
     }

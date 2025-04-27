@@ -11,7 +11,7 @@ public abstract class PlayerAction implements Action {
     public abstract void execute(Player player) throws InvalidStateException;
     public abstract boolean checkAction(Player player) throws InvalidActionException;
     public abstract String getPlayerNickname();
-    public void dispatchTo(GamesController controller){
+    public void dispatchTo(GamesController controller) throws InvalidActionException, InvalidStateException {
         controller.onActionReceived(this);
     }
 }

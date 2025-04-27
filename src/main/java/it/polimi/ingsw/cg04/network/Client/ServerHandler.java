@@ -27,4 +27,7 @@ public abstract class ServerHandler implements VirtualServer {
         return nickname;
     }
 
+    public void addLog(String message){
+        System.out.println(message);
+    }
 }

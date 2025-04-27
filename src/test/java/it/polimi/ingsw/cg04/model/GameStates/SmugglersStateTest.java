@@ -10,6 +10,7 @@ import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.adventureCards.Smugglers;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,7 +81,10 @@ public class SmugglersStateTest {
 
         //not enough firepower, p1 decides not to use batteries
         PlayerAction action1 = new CompareFirePowerAction(p1.getName(), null, null);
-        controller.onActionReceived(action1);
+        try {
+            controller.onActionReceived(action1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         //smugglers steal all the boxes
         assertEquals(0, p1.getShip().getBoxes().values().stream().mapToInt(i -> i).sum());
@@ -88,7 +92,10 @@ public class SmugglersStateTest {
 
         //also the second player can't defend himself
         PlayerAction action2 = new CompareFirePowerAction(p2.getName(), null, null);
-        controller.onActionReceived(action2);
+        try {
+            controller.onActionReceived(action2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         //he loses a box and a battery
         assertEquals(0, p2.getShip().getBoxes().values().stream().mapToInt(i -> i).sum());
@@ -99,8 +106,10 @@ public class SmugglersStateTest {
         batteries.add(new Coordinates(4, 1));
         doubleCannons.add(new Coordinates(3, 6));
         PlayerAction action3 = new CompareFirePowerAction(p3.getName(), batteries, doubleCannons);
+        try {
+            controller.onActionReceived(action3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(action3);
 
         //now the third player should send the new boxes map
         List<Coordinates> storageTilesCoordinates3 = p3.getShip().getTilesMap().get("StorageTile");
@@ -119,7 +128,10 @@ public class SmugglersStateTest {
         boxes3.removeLast();
         boxes3.add(new HashMap<>(Map.of(BoxType.RED, 0, BoxType.GREEN, 0, BoxType.YELLOW, 0, BoxType.BLUE, 1)));
         PlayerAction action5 = new HandleBoxesAction(p3.getName(), storageTilesCoordinates3, boxes3);
-        controller.onActionReceived(action5);
+        try {
+            controller.onActionReceived(action5);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
     }

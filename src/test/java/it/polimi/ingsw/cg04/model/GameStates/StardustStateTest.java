@@ -8,6 +8,8 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.StardustAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,7 +75,10 @@ class StardustStateTest {
         AdventureCardState currAdventureCardState = (AdventureCardState) game.getGameState();
 
         PlayerAction leaderStardustAction = new StardustAction("Alice");
-        controller.onActionReceived(leaderStardustAction);
+        try {
+            controller.onActionReceived(leaderStardustAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
 //        PlayerAction notLeaderStarDustAction = new StardustAction("Bob");
 //        controller.onActionReceived(notLeaderStarDustAction);

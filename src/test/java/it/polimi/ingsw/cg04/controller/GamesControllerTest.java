@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.rmi.RemoteException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GamesControllerTest {
@@ -23,7 +25,10 @@ class GamesControllerTest {
         // add a game
         InitAction createAction;
         createAction = new CreateGameAction(2, 2, "Charlie", PlayerColor.BLUE);
-        controller.onInitActionReceived(createAction);
+        try {
+            controller.onInitActionReceived(createAction);
+        } catch (InvalidActionException ignored) {}
+
     }
 
     @AfterEach
@@ -33,8 +38,13 @@ class GamesControllerTest {
     @Test
     void testCreateGame() {
         CreateGameAction createAction = new CreateGameAction(2,4, "Alice", PlayerColor.BLUE);
-        controller.onInitActionReceived(new SetNicknameAction("Alice"));
-        controller.onInitActionReceived(createAction);
+        try {
+            controller.onInitActionReceived(new SetNicknameAction("Alice"));
+        } catch (InvalidActionException ignored) {}
+        try {
+            controller.onInitActionReceived(createAction);
+        } catch (InvalidActionException ignored) {}
+
 
         // check controller has the game and game was initialized correctly
         assertEquals(2, controller.getGames().size());
@@ -57,8 +67,14 @@ class GamesControllerTest {
         InitAction joinAction;
 
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.RED);
-        controller.onInitActionReceived(new SetNicknameAction("Bob"));
-        controller.onInitActionReceived(joinAction);
+
+        try {
+            controller.onInitActionReceived(new SetNicknameAction("Bob"));
+        } catch (InvalidActionException ignored) {}
+        try {
+            controller.onInitActionReceived(joinAction);
+        } catch (InvalidActionException ignored) {}
+
 
         assertEquals(1, controller.getGames().size());
 

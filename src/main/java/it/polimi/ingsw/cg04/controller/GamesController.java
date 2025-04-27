@@ -30,7 +30,7 @@ public class GamesController {
         return games;
     }
 
-    public void onActionReceived(PlayerAction action) {
+    public void onActionReceived(PlayerAction action) throws InvalidActionException, InvalidStateException {
 
         try {
             Game g = nickToGame.get(action.getPlayerNickname());
@@ -39,20 +39,12 @@ public class GamesController {
             action.execute(p);
         } catch (NullPointerException e) {
             System.out.println("Player not in a game");
-        } catch (InvalidActionException e) {
-            System.out.println(e.getReason());
-        } catch (InvalidStateException e) {
-            System.out.println(e.getReason());
         }
     }
 
-    public void onInitActionReceived(InitAction action) {
-        try {
+    public void onInitActionReceived(InitAction action) throws InvalidActionException {
             action.checkAction(this);
             action.execute(this);
-        } catch (InvalidActionException e) {
-            System.out.println(e.getReason());
-        }
     }
 
     public void addGame(Game game) {

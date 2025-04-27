@@ -14,7 +14,9 @@ class SetNicknameActionTest {
 
     @BeforeEach
     void setUp() {
-        controller.onInitActionReceived(new SetNicknameAction("Alice"));
+        try {
+            controller.onInitActionReceived(new SetNicknameAction("Alice"));
+        } catch (InvalidActionException ignored) {}
     }
 
     @AfterEach

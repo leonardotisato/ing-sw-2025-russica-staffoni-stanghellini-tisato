@@ -10,5 +10,5 @@ public interface Action extends Serializable {
     void execute(Player player) throws InvalidStateException;
     boolean checkAction(Player player) throws InvalidActionException;
     String getPlayerNickname();
-    void dispatchTo(GamesController controller);
+    void dispatchTo(GamesController controller) throws InvalidActionException, InvalidStateException;
 }

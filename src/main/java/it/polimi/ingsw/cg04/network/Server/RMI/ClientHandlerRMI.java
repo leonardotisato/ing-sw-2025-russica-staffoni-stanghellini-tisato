@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.network.Server.RMI;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI;
 import it.polimi.ingsw.cg04.network.Server.ClientHandler;
 import it.polimi.ingsw.cg04.network.Server.Server;
@@ -19,7 +21,7 @@ public class ClientHandlerRMI extends ClientHandler {
     private final ExecutorService rmiExecutor = Executors.newSingleThreadExecutor(new DeamonThreadFactory());
 
     // variables needed for connection check
-    protected volatile String lastHeartBeat = "Manuel";
+    protected volatile String lastHeartBeat = "Andrea Diprè";
     private final ScheduledExecutorService connectionDemon = Executors.newSingleThreadScheduledExecutor();
 
     /**
@@ -32,7 +34,7 @@ public class ClientHandlerRMI extends ClientHandler {
     public ClientHandlerRMI(GamesController controller, Server server, VirtualClientRMI virtualClient) throws RemoteException {
         super(controller, server);
         this.virtualClient = virtualClient;
-        this.virtualController = new VirtualControllerImp(this);
+        this.virtualController = new VirtualControllerImp();
 
         connectionDemon.scheduleAtFixedRate(new ClientCheckerRMI(), 1, 4, TimeUnit.SECONDS);
     }
@@ -42,12 +44,56 @@ public class ClientHandlerRMI extends ClientHandler {
         return virtualController;
     }
 
+    // Methods invoked by the Server, needed to notify the client of some events
+    // FROM SERVER TO CLIENT
+
+
+    @Override
+    public void setGame(Game game) {
+        rmiExecutor.submit(() -> {
+            try {
+                virtualClient.setGameRMI(game);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
+    @Override
+    public void addLog(String log) {
+        rmiExecutor.submit(() -> {
+            try {
+                virtualClient.addLogRMI(log);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
     public static class DeamonThreadFactory implements ThreadFactory {
         @Override
         public Thread newThread(Runnable r) {
             Thread thread = new Thread(r);
             thread.setDaemon(true);
             return thread;
+        }
+    }
+
+    class VirtualControllerImp extends UnicastRemoteObject implements VirtualControllerRMI {
+
+        public VirtualControllerImp() throws RemoteException { }
+
+        @Override
+        public void handleActionRMI(Action action) throws RemoteException {
+            handleAction(action);
+        }
+
+
+        @Override
+        public void pingRMI(String key) throws RemoteException {
+            virtualClient.pongRMI(key);
+        }
+
+        @Override
+        public void pongRMI(String key) throws RemoteException {
+            lastHeartBeat = key;
+            System.out.println("Received: " + key);
         }
     }
 

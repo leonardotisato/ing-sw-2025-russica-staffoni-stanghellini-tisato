@@ -13,7 +13,7 @@ public abstract class InitAction implements Action {
 
     public abstract String getPlayerNickname();
 
-    public void dispatchTo(GamesController controller){
+    public void dispatchTo(GamesController controller) throws InvalidActionException {
         controller.onInitActionReceived(this);
     }
 }

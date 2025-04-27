@@ -9,6 +9,8 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +78,10 @@ class WarZoneStateTest {
         // First penalty test
 
         PlayerAction leaderCompareCrew = new CompareCrewAction("Alice");
-        controller.onActionReceived(leaderCompareCrew);
+        try {
+            controller.onActionReceived(leaderCompareCrew);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 //        PlayerAction notLeaderCompareCrew = new CompareCrewAction("Bob");
 //        controller.onActionReceived(notLeaderCompareCrew);
 
@@ -87,17 +92,26 @@ class WarZoneStateTest {
         p1Coords.add(new Coordinates(1, 2));
         p1Num.add(1);
         PlayerAction usePropAction1 = new ChoosePropulsorAction("Alice", p1Coords, p1Num);
-        controller.onActionReceived(usePropAction1);
+        try {
+            controller.onActionReceived(usePropAction1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         List<Coordinates> p2Coords = new ArrayList<>();
         List<Integer> p2Num = new ArrayList<>();
         PlayerAction usePropAction2 = new ChoosePropulsorAction("Bob", p2Coords, p2Num);
-        controller.onActionReceived(usePropAction2);
+        try {
+            controller.onActionReceived(usePropAction2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         List<Coordinates> p3Coords = new ArrayList<>();
         List<Integer> p3Num = new ArrayList<>();
         PlayerAction usePropAction3 = new ChoosePropulsorAction("Charlie", p2Coords, p2Num);
-        controller.onActionReceived(usePropAction3);
+        try {
+            controller.onActionReceived(usePropAction3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         List<Coordinates> worstPCoords = new ArrayList<>();
         List<Integer> crewNum = new ArrayList<>();
@@ -106,32 +120,50 @@ class WarZoneStateTest {
         worstPCoords.add(new Coordinates(2, 3));
         crewNum.add(1);
         PlayerAction removeCrew = new RemoveCrewAction("Bob", worstPCoords, crewNum);
-        controller.onActionReceived(removeCrew);
+        try {
+            controller.onActionReceived(removeCrew);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         // Third penalty test
 
         List<Coordinates> p1Batteries = new ArrayList<>();
         List<Coordinates> p1Cannons = new ArrayList<>();
         PlayerAction useCannonAction1 = new CompareFirePowerAction("Alice", p1Batteries, p1Cannons);
-        controller.onActionReceived(useCannonAction1);
+        try {
+            controller.onActionReceived(useCannonAction1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
 
         List<Coordinates> p2Batteries = new ArrayList<>();
         List<Coordinates> p2Cannons = new ArrayList<>();
         PlayerAction useCannonAction2 = new CompareFirePowerAction("Bob", p2Batteries, p2Cannons);
-        controller.onActionReceived(useCannonAction2);
+        try {
+            controller.onActionReceived(useCannonAction2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         List<Coordinates> p3Batteries = new ArrayList<>();
         List<Coordinates> p3Cannons = new ArrayList<>();
         PlayerAction useCannonAction3 = new CompareFirePowerAction("Charlie", p3Batteries, p3Cannons);
-        controller.onActionReceived(useCannonAction3);
+        try {
+            controller.onActionReceived(useCannonAction3);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         PlayerAction aliceRolls1 = new RollDiceAction("Alice");
-        controller.onActionReceived(aliceRolls1);
+        try {
+            controller.onActionReceived(aliceRolls1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         PlayerAction aliceUse1 = new ChooseBatteryAction("Alice", -1, -1);
         // PlayerAction aliceUse1 = new ChooseBatteryAction("Alice", -1, -1);
-        controller.onActionReceived(aliceUse1);
+        try {
+            controller.onActionReceived(aliceUse1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
 //        List<Coordinates> tileCoords = new ArrayList<>();
 //        tileCoords.add(new Coordinates(3, 1));
@@ -139,7 +171,10 @@ class WarZoneStateTest {
 //        controller.onActionReceived(aliceRemove1);
 
         PlayerAction aliceRolls2 = new RollDiceAction("Alice");
-        controller.onActionReceived(aliceRolls2);
+        try {
+            controller.onActionReceived(aliceRolls2);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
 
         

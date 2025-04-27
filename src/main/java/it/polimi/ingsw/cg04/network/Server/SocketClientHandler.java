@@ -1,7 +1,10 @@
 package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,7 +50,13 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
     // todo: delete me
-    public void handleInput(Action action) {
+    public void handleInput(Action action) throws InvalidActionException, InvalidStateException {
         action.dispatchTo(controller);
     }
+
+    @Override
+    public void setGame(Game game) {    }
+
+    @Override
+    public void addLog(String log) {    }
 }

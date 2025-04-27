@@ -11,5 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface VirtualControllerRMI extends Remote {
-    public void handleActionRMI(Action action) throws RemoteException;
+    void handleActionRMI(Action action) throws RemoteException;
+
+    void pingRMI(String key) throws RemoteException;
+    void pongRMI(String key) throws RemoteException;
 }

@@ -77,7 +77,10 @@ class MeteorsRainStateTest {
         PlayerAction aliceRolls1 = new RollDiceAction("Alice");
 
         // controller handles the action
-        controller.onActionReceived(aliceRolls1);
+        try {
+            controller.onActionReceived(aliceRolls1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         // assumes random seed in flight-board=42
         System.out.println(p1.getShip().isShipLegal());
@@ -95,7 +98,10 @@ class MeteorsRainStateTest {
         PlayerAction bobNastyFix = new FixShipAction("Bob", removeTiles1);
 
         // simulate controller behaviour
-        controller.onActionReceived(bobNastyFix);
+        try {
+            controller.onActionReceived(bobNastyFix);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         System.out.println(currAdventureCardState.getPlayed());
 
         // alice decides to use a battery save her tile
@@ -110,14 +116,20 @@ class MeteorsRainStateTest {
         PlayerAction aliceCorrectedCoords = new ChooseBatteryAction("Alice", 1, 2);
 
         // simulate controller behaviour
-        controller.onActionReceived(aliceCorrectedCoords);
+        try {
+            controller.onActionReceived(aliceCorrectedCoords);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie decides to lose the tile
         PlayerAction charlieYoloAction = new ChooseBatteryAction("Charlie", -1, -1);
 
         // simulate controller behaviour
-        controller.onActionReceived(charlieYoloAction);
+        try {
+            controller.onActionReceived(charlieYoloAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         System.out.println(currAdventureCardState.getPlayed());
 
         // charlie tries to use battery
@@ -143,7 +155,10 @@ class MeteorsRainStateTest {
         PlayerAction charlieFix = new FixShipAction("Charlie", removeTiles3);
 
         // simulate controller behaviour
-        controller.onActionReceived(charlieFix);
+        try {
+            controller.onActionReceived(charlieFix);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         System.out.println(currAdventureCardState.getPlayed());
 
 
@@ -153,7 +168,10 @@ class MeteorsRainStateTest {
         aliceRolls1 = new RollDiceAction("Alice");
 
         // controller handles the action
-        controller.onActionReceived(aliceRolls1);
+        try {
+            controller.onActionReceived(aliceRolls1);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
     }
 
     private void assertInvalidAction(PlayerAction action, Player p) {

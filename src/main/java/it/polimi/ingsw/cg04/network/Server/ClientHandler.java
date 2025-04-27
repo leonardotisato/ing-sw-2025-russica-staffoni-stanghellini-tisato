@@ -2,10 +2,13 @@ package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
+import it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI;
 
 import java.rmi.RemoteException;
 
-public abstract class ClientHandler {
+public abstract class ClientHandler implements VirtualClient {
 
     final String nickname;
     final GamesController controller;
@@ -42,8 +45,14 @@ public abstract class ClientHandler {
     }
 
     public void handleAction(Action action) {
-        System.out.println("Ricevuta azione RMI: " + action.getClass().getSimpleName());
-        action.dispatchTo(controller);
+        try {
+            System.out.println("Ricevuta azione RMI: " + action.getClass().getSimpleName());
+            action.dispatchTo(controller);
+        } catch (InvalidActionException e) {
+            addLog(e.getReason());
+        } catch (InvalidStateException e) {
+            addLog(e.getReason());
+        }
     }
 
 

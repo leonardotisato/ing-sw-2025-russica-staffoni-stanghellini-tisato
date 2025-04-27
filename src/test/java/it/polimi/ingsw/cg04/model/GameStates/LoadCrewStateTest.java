@@ -8,6 +8,8 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,11 +70,17 @@ class LoadCrewStateTest {
 
         // bob try to load before alice
         bobAction = new LoadCrewAction("Bob", null, null);
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         // alice loads her crew
         aliceAction = new LoadCrewAction("Alice", null, null);
-        controller.onActionReceived(aliceAction);
+        try {
+            controller.onActionReceived(aliceAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         // make sure her ship has the right number of crew per type
         assertEquals(4, p1.getShip().getNumCrewByType(CrewType.HUMAN));
@@ -82,7 +90,10 @@ class LoadCrewStateTest {
         // bob loads his crew
         brownAlienCoords = new Coordinates(2,2);
         bobAction = new LoadCrewAction("Bob", null, brownAlienCoords);
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         assertEquals(2, p2.getShip().getNumCrewByType(CrewType.HUMAN));
         assertEquals(1, p2.getShip().getNumCrewByType(CrewType.BROWN_ALIEN));
 
@@ -90,7 +101,10 @@ class LoadCrewStateTest {
         pinkAlienCoords = new Coordinates(3,4);
         brownAlienCoords = new Coordinates(1,2);
         charlieAction = new LoadCrewAction("Charlie", pinkAlienCoords, brownAlienCoords);
-        controller.onActionReceived(charlieAction);
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         assertEquals(8, p3.getShip().getNumCrewByType(CrewType.HUMAN));
         assertEquals(1, p3.getShip().getNumCrewByType(CrewType.BROWN_ALIEN));
         assertEquals(1, p3.getShip().getNumCrewByType(CrewType.PINK_ALIEN));

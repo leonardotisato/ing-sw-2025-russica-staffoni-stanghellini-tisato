@@ -95,8 +95,10 @@ class PiratesStateTest {
         doubleCannons.add(new Coordinates(1, 3));
 
         aliceAction = new CompareFirePowerAction("Alice", batteries, doubleCannons);
+        try {
+            controller.onActionReceived(aliceAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(aliceAction);
         batteries.clear();
         doubleCannons.clear();
 
@@ -133,8 +135,10 @@ class PiratesStateTest {
 
         // now bob realizes he is screwed, he WILL lose and there is nothing he can do
         bobAction = new CompareFirePowerAction("Bob", null, null);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(bobAction);
         batteries.clear();
         doubleCannons.clear();
 
@@ -143,32 +147,48 @@ class PiratesStateTest {
         doubleCannons.add(new Coordinates(3, 6));
 
         charlieAction = new CompareFirePowerAction("Charlie", batteries, doubleCannons);
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(charlieAction);
         batteries.clear();
         doubleCannons.clear();
 
         // charlie accepts the reward too soon
         charlieAction = new GetRewardsAction("Charlie", true);
+        try {
+            controller.onActionReceived(charlieAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        controller.onActionReceived(charlieAction);
 
 
         bobAction = new RollDiceAction("Bob");
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         batteries.add(new Coordinates(2, 5));
         bobAction = new ChooseBatteryAction("Bob", 2, 5);
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         batteries.clear();
 
         // bob accepts his fate and rolls again
         bobAction = new RollDiceAction("Bob");
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
         // bob accepts his fate and rolls again (last meteor)
         bobAction = new RollDiceAction("Bob");
-        controller.onActionReceived(bobAction);
+        try {
+            controller.onActionReceived(bobAction);
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
 
 
     }
