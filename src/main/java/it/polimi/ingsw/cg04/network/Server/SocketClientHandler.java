@@ -58,10 +58,24 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 Message message = (Message) in.readObject();
 
                 switch (message.messageType()) {
+                    case "SETNICKNAME" -> {
+                        // check if the nickname is unique
+                        if(controller.isNickNameTaken( (String) message.payload())) {
+                            send(new Message("NICK-ACK", null));
+                        } else {
+                            send(new Message("NICK-ACK", (String) message.payload()));
+                            // add nickname to list, don't know how atm
+                        }
+                    }
                     case "ACTION" -> {
                         inputHandler.submit(() -> {
                             try {
-                                handleAction((Action) message.payload());
+                                Action a = (Action) message.payload();
+                                if (a.getPlayerNickname() == null){
+                                    addLog("Player " + nickname + " tried to perform an action without specifying the player nickname");
+                                } else {
+                                    handleAction(a);
+                                }
                             } catch (Exception e) {
                                 addLog(e.getMessage());
                             }
