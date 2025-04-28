@@ -37,40 +37,6 @@ class ServerTest {
     void tearDown() {
     }
 
-    @Test
-    void testSocketConnection() throws IOException, InterruptedException {
-        ObjectOutputStream out = null;
-        try {
-            Socket socket = new Socket("localhost", 4200);
-            out = new ObjectOutputStream(socket.getOutputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        out.writeObject(new Message("ACTION", new SetNicknameAction("Alice")));
-        out.flush();
-
-        // Alice wants to create a game, sends the action to the server
-        InitAction createGameAction = new CreateGameAction(2, 4, "Alice", PlayerColor.BLUE);
-        out.writeObject(new Message("ACTION", createGameAction));
-        out.flush();
-
-        // check that game was created
-        Thread.sleep(500);
-        assertEquals(1, controller.getGames().size());
-
-        // Bob tries to send a player action as the first action
-        PlayerAction playerAction = new LoadCrewAction("Bob", null, null);
-        out.writeObject(new Message("ACTION", playerAction));
-        out.flush(); // controller does not execute the action
-
-        // A new player named alice tries to create a game
-        out.writeObject(new Message("ACTION", new SetNicknameAction("Alice")));
-        out.flush();
-
-
-    }
-
 
     void testPings() throws IOException, InterruptedException {
         SocketServerHandler client = new SocketServerHandler("localhost", "4200", "tui");

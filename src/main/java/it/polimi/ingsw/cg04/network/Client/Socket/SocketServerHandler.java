@@ -224,7 +224,7 @@ public class SocketServerHandler extends ServerHandler {
                     handleMessage(message);
                 }
             } catch (Exception e) {
-                System.out.println("Server -> Client communication error: " + e.getMessage());
+                // System.out.println("Server -> Client communication error: " + e.getMessage());
                 connectionChecker.shutdown();
                 inputHandler.shutdown();
             }

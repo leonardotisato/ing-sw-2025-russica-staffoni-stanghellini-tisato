@@ -67,6 +67,6 @@ public class JoinGameAction extends InitAction {
 
     @Override
     public String getPlayerNickname() {
-        return "";
+        return playerName;
     }
 }

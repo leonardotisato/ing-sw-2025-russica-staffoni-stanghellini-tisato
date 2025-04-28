@@ -24,11 +24,10 @@ class JoinGameActionTest {
         createAction = new CreateGameAction(2, 2, "Alice", PlayerColor.BLUE);
 
         try {
-            controller.onInitActionReceived(new SetNicknameAction("Alice"));
-        } catch (InvalidActionException ignored) {}
-        try {
             controller.onInitActionReceived(createAction);
-        } catch (InvalidActionException ignored) {}
+        } catch (InvalidActionException ignored) {
+            System.out.println("Game not created");
+        }
 
     }
 

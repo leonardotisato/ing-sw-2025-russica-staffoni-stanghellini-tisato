@@ -39,9 +39,6 @@ class GamesControllerTest {
     void testCreateGame() {
         CreateGameAction createAction = new CreateGameAction(2,4, "Alice", PlayerColor.BLUE);
         try {
-            controller.onInitActionReceived(new SetNicknameAction("Alice"));
-        } catch (InvalidActionException ignored) {}
-        try {
             controller.onInitActionReceived(createAction);
         } catch (InvalidActionException ignored) {}
 
@@ -67,10 +64,6 @@ class GamesControllerTest {
         InitAction joinAction;
 
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.RED);
-
-        try {
-            controller.onInitActionReceived(new SetNicknameAction("Bob"));
-        } catch (InvalidActionException ignored) {}
         try {
             controller.onInitActionReceived(joinAction);
         } catch (InvalidActionException ignored) {}

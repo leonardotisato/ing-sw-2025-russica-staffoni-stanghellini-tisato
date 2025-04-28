@@ -46,7 +46,7 @@ public abstract class ClientHandler implements VirtualClient {
 
     public void handleAction(Action action) {
         try {
-            System.out.println("Received action: " + action.getClass().getSimpleName() + " from " + nickname);
+            System.out.println("Received action: " + action.getClass().getSimpleName() + " from " + action.getPlayerNickname());
             action.dispatchTo(controller);
         } catch (InvalidActionException e) {
             addLog(e.getReason());
