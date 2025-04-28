@@ -63,13 +63,6 @@ public class SocketServerHandler extends ServerHandler {
     }
 
 
-
-    @Override
-    public void setNickname(String nickname) {
-        Action a = new SetNicknameAction(nickname);
-        send(new Message("SETNICKNAME", a));
-    }
-
     @Override
     public void createGame(int gameLevel, int maxPlayers, PlayerColor color) {
         Action a = new CreateGameAction(gameLevel, maxPlayers, nickname, color);
@@ -78,10 +71,6 @@ public class SocketServerHandler extends ServerHandler {
 
     @Override
     public void joinGame(int gameId, PlayerColor color) {
-        if (nickname == null) {
-            System.out.println("Nickname not set");
-            return;
-        }
         Action a = new JoinGameAction(gameId, nickname, color);
         send(new Message("ACTION", a));
     }
@@ -252,14 +241,6 @@ public class SocketServerHandler extends ServerHandler {
                 case "LOG" -> {
                     socketServerHandler.addLog((String) message.payload());
                 }
-                case "NICK-ACK" -> {
-                    if ((String) message.payload() != null) {
-                        System.out.println("Nickname accepted");
-                        nickname = (String) message.payload();
-                    } else {
-                        System.out.println("Nickname already in use");
-                    }
-                }
                 default -> {
                     System.out.println("Unknown message type: " + message.messageType());
                 }
@@ -279,7 +260,7 @@ public class SocketServerHandler extends ServerHandler {
         public void run() {
             String heartBeat = UUID.randomUUID().toString();
 
-            System.out.println("Sending heartbeat: " + heartBeat);
+            // System.out.println("Sending heartbeat: " + heartBeat);
             send(new Message("PING", heartBeat));
 
             // Wait for server response

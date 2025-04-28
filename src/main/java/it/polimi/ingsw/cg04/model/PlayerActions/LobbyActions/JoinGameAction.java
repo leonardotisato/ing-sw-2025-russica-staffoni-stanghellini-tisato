@@ -36,8 +36,8 @@ public class JoinGameAction extends InitAction {
         }
 
         // check nickname was set correctly
-        if (playerName == null) {
-            throw new InvalidActionException("Set a name for your player first!");
+        if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
+            throw new InvalidActionException("Invalid nickname");
         }
 
         // check that the color is available

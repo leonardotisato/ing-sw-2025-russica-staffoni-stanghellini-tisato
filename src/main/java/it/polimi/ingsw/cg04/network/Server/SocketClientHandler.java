@@ -58,15 +58,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 Message message = (Message) in.readObject();
 
                 switch (message.messageType()) {
-                    case "SETNICKNAME" -> {
-                        // check if the nickname is unique
-                        if(controller.isNickNameTaken( (String) message.payload())) {
-                            send(new Message("NICK-ACK", null));
-                        } else {
-                            send(new Message("NICK-ACK", (String) message.payload()));
-                            // add nickname to list, don't know how atm
-                        }
-                    }
                     case "ACTION" -> {
                         inputHandler.submit(() -> {
                             try {
@@ -125,7 +116,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         public void run() {
             String heartBeat = UUID.randomUUID().toString();
 
-            System.out.println("Sending heartbeat: " + heartBeat);
+            // System.out.println("Sending heartbeat: " + heartBeat);
             send(new Message("PING", heartBeat));
 
             // Wait for server response
