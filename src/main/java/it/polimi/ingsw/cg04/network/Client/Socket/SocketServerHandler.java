@@ -9,12 +9,19 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
+import it.polimi.ingsw.cg04.network.Message;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SocketServerHandler extends ServerHandler {
 
@@ -34,8 +41,8 @@ public class SocketServerHandler extends ServerHandler {
             throw new IOException("Socket connection to server failed");
         }
 
-        // set up a thread that handles a message received from the server?
-        // new Thread(new SocketServerReader(this, socket)).start();
+        // set up a thread that handles a message received from the server
+        new Thread(new SocketServerReader(this, socket)).start();
 
         System.out.println("Connected to server");
     }
@@ -43,34 +50,34 @@ public class SocketServerHandler extends ServerHandler {
     /**
      * Send an action to the server via the socket
      *
-     * @param action player generated action
+     * @param message that contains the action the player wants to perform
      */
-    public synchronized void send(Action action) {
+    public synchronized void send(Message message) {
         try {
-            outputStream.writeObject(action);
+            outputStream.writeObject(message);
             outputStream.flush();
         } catch (IOException e) {
-            System.out.println("Failed to send action to server.");
+            System.out.println("Failed to send message to server.");
             System.out.println(e.getMessage());
         }
     }
 
+
+
     @Override
     public void setNickname(String nickname) {
-        send(new SetNicknameAction(nickname));
-
-        // Set the nickname of the player... but we need to make sure the server has received the action and nick is available...
-        this.nickname = nickname;
     }
 
     @Override
     public void createGame(int gameLevel, int maxPlayers, PlayerColor color) {
-        send(new CreateGameAction(gameLevel, maxPlayers, nickname, color));
+        Action a = new CreateGameAction(gameLevel, maxPlayers, nickname, color);
+        send(new Message("ACTION", a));
     }
 
     @Override
     public void joinGame(int gameId, PlayerColor color) {
-        send(new JoinGameAction(gameId, nickname, color));
+        Action a = new JoinGameAction(gameId, nickname, color);
+        send(new Message("ACTION", a));
     }
 
     @Override
@@ -196,5 +203,82 @@ public class SocketServerHandler extends ServerHandler {
     @Override
     public void loadCrew(Coordinates pinkCoords, Coordinates brownCoords) {
 
+    }
+
+
+    public class SocketServerReader implements Runnable {
+
+        private final SocketServerHandler socketServerHandler;
+        private final Socket socket;
+        private final ExecutorService inputHandler = Executors.newSingleThreadExecutor();
+        private final ScheduledExecutorService connectionChecker = Executors.newSingleThreadScheduledExecutor();
+
+        public SocketServerReader(SocketServerHandler socketServerHandler, Socket socket) {
+            this.socketServerHandler = socketServerHandler;
+            this.socket = socket;
+
+            connectionChecker.scheduleAtFixedRate(new ConnectionChecker(this.socket), 1, 4, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void run() {
+            try {
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+                while (true) {
+                    Message message = (Message) inputStream.readObject();
+                    handleMessage(message);
+                }
+            } catch (Exception e) {
+                System.out.println("Server -> Client communication error: " + e.getMessage());
+                connectionChecker.shutdown();
+                inputHandler.shutdown();
+            }
+        }
+
+        private void handleMessage(Message message) {
+            switch (message.messageType()) {
+                case "PING" -> {
+                    send(new Message("PONG", message.payload()));
+                }
+                case "PONG" -> {
+                    lastHeartBeat = (String) message.payload();
+                }
+                case "LOG" -> {
+                    socketServerHandler.addLog((String) message.payload());
+                }
+                default -> {
+                    System.out.println("Unknown message type: " + message.messageType());
+                }
+            }
+        }
+    }
+
+    public class ConnectionChecker implements Runnable {
+        private final Socket socket;
+
+        public ConnectionChecker(Socket socket) {
+            this.socket = socket;
+        }
+
+
+        @Override
+        public void run() {
+            String heartBeat = UUID.randomUUID().toString();
+
+            System.out.println("Sending heartbeat: " + heartBeat);
+            send(new Message("PING", heartBeat));
+
+            // Wait for server response
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ignored) {}
+
+            if (!heartBeat.equals(lastHeartBeat)) {
+                try {
+                    socket.close();
+                    System.out.println("Connection to server lost");
+                } catch (IOException ignored) {}
+            }
+        }
     }
 }

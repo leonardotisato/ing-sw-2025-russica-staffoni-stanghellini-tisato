@@ -3,27 +3,41 @@ package it.polimi.ingsw.cg04.network.Server;
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
-import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
-import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.network.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SocketClientHandler extends ClientHandler implements Runnable {
 
     private final Socket socket;
     private final ObjectOutputStream outputStream;
     private final ExecutorService inputHandler = Executors.newSingleThreadExecutor();
+    private final ScheduledExecutorService connectionChecker = Executors.newSingleThreadScheduledExecutor();
+    protected String lastHeartBeat = "trallala";
 
     public SocketClientHandler(GamesController controller, Server server, Socket socket) throws IOException {
         super(controller, server);
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
+        this.connectionChecker.scheduleAtFixedRate(new ConnectionChecker(this.socket), 1, 4, TimeUnit.SECONDS);
+    }
+
+    private void send(Message message) {
+        try {
+            outputStream.writeObject(message);
+            outputStream.flush();
+        } catch (IOException e) {
+            System.out.println("Failed to send message to client.");
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -54,16 +68,15 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                         });
                     }
                     case "PING" -> {
-                        // handle ping
+                        send(new Message("PONG", message.payload()));
                     }
                     case "PONG" -> {
-                        // handle pong
+                        lastHeartBeat = (String) message.payload();
                     }
                     default -> {
                         System.out.println("Unknown message type: " + message.messageType());
                     }
                 }
-
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -83,6 +96,35 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         } catch (IOException e) {
             System.out.println("Failed to send action to server.");
             System.out.println(e.getMessage());
+        }
+    }
+
+    public class ConnectionChecker implements Runnable {
+        private final Socket socket;
+
+        public ConnectionChecker(Socket socket) {
+            this.socket = socket;
+        }
+
+
+        @Override
+        public void run() {
+            String heartBeat = UUID.randomUUID().toString();
+
+            System.out.println("Sending heartbeat: " + heartBeat);
+            send(new Message("PING", heartBeat));
+
+            // Wait for server response
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ignored) {}
+
+            if (!heartBeat.equals(lastHeartBeat)) {
+                try {
+                    socket.close();
+                    System.out.println("Connection with client lost");
+                } catch (IOException ignored) {}
+            }
         }
     }
 }
