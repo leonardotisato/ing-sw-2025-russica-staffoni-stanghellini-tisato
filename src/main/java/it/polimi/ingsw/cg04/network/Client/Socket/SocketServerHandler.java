@@ -79,11 +79,6 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
-    public void chooseTile(Tile tile) {
-
-    }
-
-    @Override
     public void closeFaceUpTiles() {
 
     }

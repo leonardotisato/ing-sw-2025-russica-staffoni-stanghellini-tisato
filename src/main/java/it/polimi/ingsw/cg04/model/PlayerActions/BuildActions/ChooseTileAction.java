@@ -8,15 +8,15 @@ import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class ChooseTileAction extends PlayerAction {
     String playerNickname;
-    Tile tile;
+    int tileID;
 
-    public ChooseTileAction(String playerNickname, Tile tile) {
+    public ChooseTileAction(String playerNickname, int tileID) {
         this.playerNickname = playerNickname;
-        this.tile = tile;
+        this.tileID = tileID;
     }
 
     public void execute(Player player) throws InvalidStateException {
-        player.getGame().getGameState().chooseTile(player, tile);
+        player.getGame().getGameState().chooseTile(player, tileID);
     }
 
     @Override

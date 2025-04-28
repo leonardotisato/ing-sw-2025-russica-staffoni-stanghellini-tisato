@@ -129,12 +129,9 @@ public class ServerHandlerRMI extends ServerHandler {
 
     // buildActions
 
-    // todo: fix this
-    public void chooseTile(int tileIdx) { return; }
-
-    public void chooseTile(/*int tileIdx,*/ Tile tile) {
+    public void chooseTile(int tileIdx) {
         // Action chooseTileAction = new ChooseTileAction(nickname, tileIdx);
-        Action chooseTileAction = new ChooseTileAction(nickname, tile);
+        Action chooseTileAction = new ChooseTileAction(nickname, tileIdx);
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(chooseTileAction);

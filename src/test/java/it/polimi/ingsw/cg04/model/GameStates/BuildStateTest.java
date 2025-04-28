@@ -49,7 +49,7 @@ class BuildStateTest {
     @Test
     void placeTileTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(21)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 21));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(game.getTileById(21), p1.getHeldTile());
@@ -64,7 +64,7 @@ class BuildStateTest {
     @Test
     void placeInBufferTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(21)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 21));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(game.getTileById(21), p1.getHeldTile());
@@ -77,7 +77,7 @@ class BuildStateTest {
         assertEquals(1, p1.getShip().getTilesBuffer().size());
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(22)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 22));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(game.getTileById(22), p1.getHeldTile());
@@ -90,7 +90,7 @@ class BuildStateTest {
         assertEquals(2, p1.getShip().getTilesBuffer().size());
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(23)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 23));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertEquals(game.getTileById(23), p1.getHeldTile());
@@ -103,10 +103,10 @@ class BuildStateTest {
     @Test
     void chooseTileTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(22)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 22));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertThrows(InvalidActionException.class, () -> (new ChooseTileAction("Alice", game.getTileById(21))).checkAction(p1));
+        assertThrows(InvalidActionException.class, () -> (new ChooseTileAction("Alice", 21)).checkAction(p1));
 
         try {
             controller.onActionReceived(new PlaceAction("Alice", 3, 2));
@@ -114,7 +114,7 @@ class BuildStateTest {
 
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", game.getTileById(21)));
+            controller.onActionReceived(new ChooseTileAction("Alice", 21));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
     }

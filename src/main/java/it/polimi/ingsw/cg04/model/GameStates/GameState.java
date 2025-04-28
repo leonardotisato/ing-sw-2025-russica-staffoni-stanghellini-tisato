@@ -75,7 +75,7 @@ public abstract class GameState {
         throw new InvalidStateException("cant place tile in buffer in this game state");
     }
 
-    public void chooseTile(Player player, Tile tile) throws InvalidStateException {
+    public void chooseTile(Player player, int tileID) throws InvalidStateException {
         throw new InvalidStateException("cant choose tile in this game state");
     }
 

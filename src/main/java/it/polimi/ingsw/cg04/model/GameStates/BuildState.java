@@ -70,13 +70,13 @@ public class BuildState extends GameState {
     }
 
     @Override
-    public void chooseTile(Player player, Tile tile) throws InvalidStateException {
+    public void chooseTile(Player player, int tileID) throws InvalidStateException {
         // the only states in which a player can choose a tile are BUILDING and SHOWING_FACE_UP
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
             throw new InvalidStateException("cant choose tile now");
         }
 
-        player.setHeldTile(tile);
+        player.setHeldTile(game.getTileById(tileID));
     }
 
     @Override
