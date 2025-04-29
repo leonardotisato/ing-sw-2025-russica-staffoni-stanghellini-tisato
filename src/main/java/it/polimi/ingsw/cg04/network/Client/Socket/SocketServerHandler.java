@@ -76,6 +76,12 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
+    public void setNickname(String nickname) {
+        Action a = new SetNicknameAction(nickname);
+        send(new Message("SUBSCRIPTION-REQUEST", a));
+    }
+
+    @Override
     public void chooseTile(int tileIdx) {
 
     }
@@ -232,6 +238,16 @@ public class SocketServerHandler extends ServerHandler {
 
         private void handleMessage(Message message) {
             switch (message.messageType()) {
+                case "SUBSCRIPTION-RESPONSE" -> {
+                    inputHandler.submit(() -> {
+                        String response = (String) message.payload();
+                        if(response != null){
+                            nickname = response;
+                        } else {
+                            addLog("Nickname already taken");
+                        }
+                    });
+                }
                 case "PING" -> {
                     send(new Message("PONG", message.payload()));
                 }

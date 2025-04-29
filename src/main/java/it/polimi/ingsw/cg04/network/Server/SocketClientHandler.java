@@ -72,6 +72,21 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                             }
                         });
                     }
+                    case "SUBSCRIPTION-REQUEST" -> {
+                        inputHandler.submit(() -> {
+                            try {
+                                Action a = (Action) message.payload();
+                                if(handleSubscription(a)){
+                                    String response = a.getPlayerNickname();
+                                    send(new Message("SUBSCRIPTION-RESPONSE", response));
+                                } else{
+                                    send(new Message("SUBSCRIPTION-RESPONSE", null));
+                                }
+                            } catch (Exception e) {
+                                addLog(e.getMessage());
+                            }
+                        });
+                    }
                     case "PING" -> {
                         send(new Message("PONG", message.payload()));
                     }

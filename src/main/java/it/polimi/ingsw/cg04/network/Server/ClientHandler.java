@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 
 public abstract class ClientHandler implements VirtualClient {
 
-    final String nickname;
+    String nickname;
     final GamesController controller;
     final Server server;
 
@@ -55,5 +55,19 @@ public abstract class ClientHandler implements VirtualClient {
         }
     }
 
-
+    public boolean handleSubscription(Action action){
+        try {
+            System.out.println("Received subscription request as " + action.getPlayerNickname() + " from a new client");
+            action.dispatchTo(controller);
+            //server.subscribe(this);
+            nickname = action.getPlayerNickname();
+            return true;
+        } catch (InvalidActionException e) {
+            addLog(e.getReason());
+            return false;
+        } catch (InvalidStateException e) {
+            addLog(e.getReason());
+            return false;
+        }
+    }
 }
