@@ -98,11 +98,14 @@ public class ServerHandlerRMI extends ServerHandler {
 
     @Override
     public void setNickname(String nickname) {
-        super.nickname = nickname;
+        if (super.nickname != null) {
+            return;
+        }
         Action setNicknameAction = new SetNicknameAction(nickname);
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(setNicknameAction);
+                super.nickname = nickname;
             } catch (RemoteException ignored) {
                 super.nickname = null;
             }
