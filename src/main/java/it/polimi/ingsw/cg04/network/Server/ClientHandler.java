@@ -56,6 +56,10 @@ public abstract class ClientHandler implements VirtualClient {
     }
 
     public boolean handleSubscription(Action action){
+        if(nickname != null) {
+            addLog("You are already connected as " + nickname);
+            return false;
+        }
         try {
             System.out.println("Received subscription request as " + action.getPlayerNickname() + " from a new client");
             action.dispatchTo(controller);

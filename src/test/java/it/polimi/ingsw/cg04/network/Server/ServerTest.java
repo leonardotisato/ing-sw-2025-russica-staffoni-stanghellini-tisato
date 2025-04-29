@@ -81,9 +81,11 @@ class ServerTest {
         assertNull(client2.getNickname());
         client3.setNickname("Alice");
         Thread.sleep(500);
-        client4.setNickname("Trent");
+        client1.setNickname("Trent");
         Thread.sleep(500);
         client2.setNickname("Brr Brr Patapim");
+        Thread.sleep(500);
+        client4.setNickname("Trent");
         Thread.sleep(500);
 
         System.out.println("Client 1: " + client1.getNickname());
