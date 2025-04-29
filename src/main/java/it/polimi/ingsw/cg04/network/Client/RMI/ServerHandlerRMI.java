@@ -62,9 +62,6 @@ public class ServerHandlerRMI extends ServerHandler {
 
         System.out.println("Connection to server established");
 
-        setNickname("Gigi");
-        createGame(2, 3, PlayerColor.RED);
-
     }
 
 
@@ -104,10 +101,13 @@ public class ServerHandlerRMI extends ServerHandler {
         Action setNicknameAction = new SetNicknameAction(nickname);
         rmiExecutor.submit(() -> {
             try {
-                virtualController.handleActionRMI(setNicknameAction);
-                super.nickname = nickname;
+                if(virtualController.handleSubscriptionRMI(setNicknameAction)) {
+                    super.nickname = nickname;
+                }
+                else {
+                    super.nickname = null;
+                }
             } catch (RemoteException ignored) {
-                super.nickname = null;
             }
         });
     }

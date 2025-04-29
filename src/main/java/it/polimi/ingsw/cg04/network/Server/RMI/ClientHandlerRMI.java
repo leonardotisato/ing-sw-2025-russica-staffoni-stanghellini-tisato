@@ -84,6 +84,10 @@ public class ClientHandlerRMI extends ClientHandler {
             handleAction(action);
         }
 
+        @Override
+        public boolean handleSubscriptionRMI(Action action) throws RemoteException{
+            return handleSubscription(action);
+        }
 
         @Override
         public void pingRMI(String key) throws RemoteException {
