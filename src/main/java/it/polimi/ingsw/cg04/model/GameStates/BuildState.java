@@ -57,16 +57,15 @@ public class BuildState extends GameState {
     @Override
     public void placeInBuffer(Player player) throws InvalidStateException {
         // the only state in which a player can place a tile in the buffer is BUILDING
-        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING){
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new InvalidStateException("cant place tile in buffer now");
         }
         // player can use tiles buffer only in games of level 2
-        if(game.getLevel() != 2){
+        if (game.getLevel() != 2) {
             throw new InvalidStateException("cant place tile in buffer in a game of level " + game.getLevel());
         }
 
-        player.getShip().addTileInBuffer(player.getHeldTile());
-        player.setHeldTile(null);
+        player.addTileInBuffer();
     }
 
     @Override
@@ -89,8 +88,8 @@ public class BuildState extends GameState {
         playerState.put(player.getName(), BuildPlayerState.SHOWING_FACE_UP);
         int j = 1;
         System.out.println("list of face up tiles\n");
-        for(Integer i : player.getGame().getFaceUpTiles()){
-            System.out.println(j + player.getGame().getTileById(i).toString()+ "\n");
+        for (Integer i : player.getGame().getFaceUpTiles()) {
+            System.out.println(j + player.getGame().getTileById(i).toString() + "\n");
             j++;
         }
     }
@@ -98,7 +97,7 @@ public class BuildState extends GameState {
     @Override
     public void closeFaceUpTiles(Player player) throws InvalidStateException {
         // the only state in which a player can close face-up tiles is SHOWING_FACE_UP
-        if(playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
+        if (playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
             throw new InvalidStateException("cant close face up tiles now");
         }
 
@@ -110,7 +109,7 @@ public class BuildState extends GameState {
     @Override
     public void drawFaceDown(Player player) throws InvalidStateException {
         // the only state in which a player can draw faced down tiles is BUILDING
-        if(playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new InvalidStateException("cant draw face down now");
         }
 
@@ -122,7 +121,7 @@ public class BuildState extends GameState {
     @Override
     public void returnTile(Player player) throws InvalidStateException {
         // the only state in which a player can return tiles is BUILDING
-        if(playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new InvalidStateException("cant return tile now");
         }
 
@@ -139,8 +138,8 @@ public class BuildState extends GameState {
         }
 
         // if someone is already looking at that pile
-        for(int i : isLookingPile.values()){
-            if(i == pileIndex){
+        for (int i : isLookingPile.values()) {
+            if (i == pileIndex) {
                 throw new InvalidStateException("someone is already looking at pile" + pileIndex);
             }
         }
@@ -150,7 +149,7 @@ public class BuildState extends GameState {
         // print out pile
         List<Integer> pile = game.getPreFlightPiles().get(pileIndex);
         System.out.println("Pile " + pileIndex + "\n");
-        for(Integer i : pile) {
+        for (Integer i : pile) {
             System.out.println(game.getCardById(i).toString() + "\n");
         }
 
@@ -159,7 +158,7 @@ public class BuildState extends GameState {
     @Override
     public void returnPile(Player player) throws InvalidStateException {
         // player is not in building phase or is in show face-up
-        if(playerState.get(player.getName()) != BuildPlayerState.SHOWING_PILE) {
+        if (playerState.get(player.getName()) != BuildPlayerState.SHOWING_PILE) {
             throw new InvalidStateException("cant return a pile if you are not looking at one");
         }
 
@@ -170,14 +169,14 @@ public class BuildState extends GameState {
     @Override
     public void endBuilding(Player player, int position) throws InvalidStateException {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
-        if(playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
+        if (playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
             throw new InvalidStateException("cant end building now");
         }
-        if(position > playerState.size()) {
+        if (position > playerState.size()) {
             throw new InvalidStateException("there are " + playerState.size() + "cant choose position " + position);
         }
         FlightBoard board = game.getBoard();
-        if(board.getCell(board.getStartingPosition(position)) != null){
+        if (board.getCell(board.getStartingPosition(position)) != null) {
             throw new InvalidStateException("already a player in position " + position);
         }
 
@@ -187,28 +186,28 @@ public class BuildState extends GameState {
 
     @Override
     public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
-        if(playerState.get(player.getName()) != BuildPlayerState.FIXING) {
+        if (playerState.get(player.getName()) != BuildPlayerState.FIXING) {
             throw new InvalidStateException("cant fix ship now");
         }
 
-        for(Coordinates coordinates : coordinatesList) {
+        for (Coordinates coordinates : coordinatesList) {
             player.getShip().breakTile(coordinates.getX(), coordinates.getY());
         }
-        if(player.getShip().isShipLegal()){
+        if (player.getShip().isShipLegal()) {
             playerState.put(player.getName(), BuildPlayerState.READY);
         }
-        if(playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
+        if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
             triggerNextState();
         }
     }
 
     @Override
     public void startTimer(Player player) throws InvalidStateException {
-        if(playerState.get(player.getName()) == BuildPlayerState.BUILDING) {
+        if (playerState.get(player.getName()) == BuildPlayerState.BUILDING) {
             throw new InvalidStateException("cant start timer now");
         }
 
-        if(game.getLevel() != 2){
+        if (game.getLevel() != 2) {
             throw new InvalidStateException("cant start timer in a game of level " + game.getLevel());
         }
         game.getBoard().startTimer();

@@ -4,7 +4,6 @@ import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
@@ -21,18 +20,19 @@ public class Game {
 
     private final int maxPlayers;
     private final int level;
-    private final List<Player> players;
+    private final List<Player> players = new ArrayList<>();
+    private final List<String> eliminated = new ArrayList<>();
     private FlightBoard board;
     private GameState gameState;
     private AdventureCard currentAdventureCard;
     private final List<List<Integer>> preFlightPiles;
-    private final List<Integer> level1Cards;
-    private final List<Integer> level2Cards;
+    private final List<Integer> level1Cards = new ArrayList<>();
+    private final List<Integer> level2Cards = new ArrayList<>();
     private final Map<Integer, AdventureCard> adventureCardsMap;
-    private List<Integer> adventureCardsDeck;
+    private List<Integer> adventureCardsDeck = new ArrayList<>();
     private final Map<Integer, Tile> tilesDeckMap;
-    private final List<Integer> faceDownTiles;
-    private final List<Integer> faceUpTiles;
+    private final List<Integer> faceDownTiles = new ArrayList<>();
+    private final List<Integer> faceUpTiles = new ArrayList<>();
 
     private boolean hasStarted = false;
     private final int id;
@@ -45,8 +45,6 @@ public class Game {
         this.maxPlayers = maxPlayers;
         this.id = id;
 
-        this.players = new ArrayList<>();
-
         if (level == 1) {
             this.board = new FlightBoardLev1();
         }
@@ -55,19 +53,15 @@ public class Game {
         }
 
         // set up adventure cards
-        this.level1Cards = new ArrayList<>();
-        this.level2Cards = new ArrayList<>();
         this.adventureCardsMap = CardLoader.loadCardsFromJson(PATH_TO_CARDS, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             preFlightPiles.add(new ArrayList<>());
         }
-        this.adventureCardsDeck = new ArrayList<>();
+
         createAdventureDeck();
 
         // set up tiles
-        this.faceDownTiles = new ArrayList<>();
-        this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
 
         // set initial gameState
@@ -80,11 +74,8 @@ public class Game {
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 4;
         this.level = level;
-        this.players = new ArrayList<>();
         if (level == 1) this.board = new FlightBoardLev1();
         else if (level == 2) this.board = new FlightBoardLev2();
-        this.level1Cards = new ArrayList<>();
-        this.level2Cards = new ArrayList<>();
         this.adventureCardsMap = CardLoader.loadCardsFromJson(jsonFilePathCards, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -92,8 +83,6 @@ public class Game {
         }
         this.adventureCardsDeck = new ArrayList<>();
         createAdventureDeck();
-        this.faceDownTiles = new ArrayList<>();
-        this.faceUpTiles = new ArrayList<>();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.gameState = new LobbyState();
         this.id = 0;
@@ -218,6 +207,10 @@ public class Game {
         return players.size();
     }
 
+    public List<String> getEliminated() {
+        return eliminated;
+    }
+
     /**
      * Retrieves the game board.
      *
@@ -310,12 +303,12 @@ public class Game {
 //    }
 
     // todo: test
-    public void checkShips() {
-        for (Player p : players) {
-            if (!p.getShip().isShipLegal()) p.setState(ExPlayerState.FIX_SHIP);
-            else p.setState(ExPlayerState.FLIGHT);
-        }
-    }
+//    public void checkShips() {
+//        for (Player p : players) {
+//            if (!p.getShip().isShipLegal()) p.setState(ExPlayerState.FIX_SHIP);
+//            else p.setState(ExPlayerState.FLIGHT);
+//        }
+//    }
 
     // cards and tiles handling
 
@@ -435,13 +428,13 @@ public class Game {
         // assumes state of players that are still "alive" is PlayerState.FLIGHT
 
         int minConnectors = players.stream()
-                .filter(p -> p.getState() == ExPlayerState.FLIGHT)
+                // .filter(p -> p.getState() == ExPlayerState.FLIGHT) TODO: FIXME
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
                 .min()
                 .orElse(0);
 
         List<Player> minPlayers = players.stream()
-                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == ExPlayerState.FLIGHT)
+                // .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == ExPlayerState.FLIGHT) TODO: FIXME
                 .toList();
 
         for (Player p : minPlayers) {
@@ -466,7 +459,7 @@ public class Game {
         // assumes state of players that are still "alive" is PlayerState.FLIGHT
 
         List<Player> survivedPlayersByPosition = this.getSortedPlayers().stream().
-                filter(p -> p.getState() == ExPlayerState.FLIGHT).
+                //filter(p -> p.getState() == ExPlayerState.FLIGHT). TODO: FIX ME
                 sorted(Comparator.comparingInt(Player::getPosition).reversed()).
                 toList();
 
@@ -480,9 +473,23 @@ public class Game {
         this.calculateBestShip();
     }
 
-    // check that player can still flight
-
-    // check no player is lapped
+    // check no player is lapped, lapped players are removed from players and put only their nick is stored in eliminated
+    public void flagLapped() {
+        for (Player p : players) {
+            if (p.wasLapped()) {
+                eliminated.add(p.getName());
+                players.remove(p);
+            }
+        }
+    }
 
     // check crew is positive
+    public void flagNoHumans() {
+        for (Player p : players) {
+            if (!p.getShip().hasEnoughHumans()) {
+                eliminated.add(p.getName());
+                players.remove(p);
+            }
+        }
+    }
 }

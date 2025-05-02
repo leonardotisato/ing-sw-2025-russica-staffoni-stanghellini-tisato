@@ -1,24 +1,17 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.enumerations.ExPlayerState;
-import it.polimi.ingsw.cg04.model.tiles.HousingTile;
-import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import java.util.List;
 
 public class Player {
 
-    private int activity;
-    private GameState currState;
+    private int activity; // todo: what is this???
+    private GameState currState; // todo: what is this???
     private final String name;
     private final PlayerColor color;
-    private ExPlayerState state;
     private Ship ship;
     private final Game game;
     private final FlightBoard flightBoard;
@@ -32,7 +25,6 @@ public class Player {
     public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
-        this.state = ExPlayerState.LOBBY;
         this.game = game;
         this.flightBoard = this.game.getBoard();
         this.ship = new Ship(game.getLevel(), this.color);
@@ -54,22 +46,6 @@ public class Player {
      */
     public PlayerColor getColor() {
         return color;
-    }
-
-    /**
-     * @return the {@code PlayerState} of the player.
-     */
-    public ExPlayerState getState() {
-        return state;
-    }
-
-    /**
-     * Sets the current state of the player.
-     *
-     * @param state the new {@code PlayerState} to set for the player.
-     */
-    public void setState(ExPlayerState state) {
-        this.state = state;
     }
 
     /**
@@ -210,10 +186,9 @@ public class Player {
      * If the ship's tile buffer is full (contains 2 tiles), an exception is thrown.
      * The held tile is added to the buffer and removed from the player's possession.
      *
-     * @return {@code true} if the tile is successfully booked; otherwise, an exception is thrown.
      * @throws RuntimeException if the ship's tile buffer is full.
      */
-    public boolean bookTile() {
+    public void addTileInBuffer() {
 
         if (ship.getTilesBuffer().size() >= 2) {
             throw new RuntimeException("Buffer is full!");
@@ -221,7 +196,6 @@ public class Player {
 
         ship.addTileInBuffer(heldTile);
         heldTile = null;
-        return true;
     }
 
 
@@ -261,61 +235,25 @@ public class Player {
     }
 
     // todo: secondo me non vanno nel model
-
-    public void loadResource(int x, int y, BoxType box) {
-        if (!(ship.getTile(x, y) instanceof StorageTile)) {
-            throw new RuntimeException("Illegal Operation! Not a StorageTile!");
-        }
-        ship.addBox(box, x, y);
-    }
-
-    public void removeResource(int x, int y, BoxType box) {
-        if (!(ship.getTile(x, y) instanceof StorageTile)) {
-            throw new RuntimeException("Illegal Operation! Not a StorageTile!");
-        }
-        ship.removeBox(box, x, y);
-    }
-
-    public void removeCrew(int x, int y) {
-        if (!(ship.getTile(x, y) instanceof HousingTile)) {
-            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
-        }
-
-        // removes crew member from ship and tile
-        ship.removeCrewByType(ship.getTile(x, y).removeCrewMember());
-    }
-
-    public void addCrewByType(CrewType crewType, int x, int y) {
-        if (!(ship.getTile(x, y) instanceof HousingTile)) {
-            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
-        }
-
-        // removes crew member from ship and tile
-        ship.getTile(x, y).addCrew(crewType);
-        ship.addCrewByType(crewType);
-    }
-
-
-    /**
-     * Chooses the planet where the player wants to land.
-     * <p>
-     * The method takes the index of the planet, the list IsOccupied and the playerState are updated.
-     *
-     * @param i the index of the chosen planet.
-     * @throws RuntimeException if the chosen planet is already occupied.
-     */
-    public void choosePlanet(int i){
-        if (!this.game.getCurrentAdventureCard().getIsOccupied().get(i)) {
-            this.game.getCurrentAdventureCard().getIsOccupied().set(i, true);
-            this.setState(ExPlayerState.HANDLE_RESOURCES);
-        }
-        else {
-            throw new RuntimeException("This planet is occupied");
-        }
-    }
+//    public void removeCrew(int x, int y) {
+//        if (!(ship.getTile(x, y) instanceof HousingTile)) {
+//            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
+//        }
+//
+//        // removes crew member from ship and tile
+//        ship.removeCrewByType(ship.getTile(x, y).removeCrewMember());
+//    }
 
     public Game getGame() {
         return game;
     }
 
+    // check if player was lapped by the leader
+    public boolean wasLapped() {
+        int leaderLoops = game.getPlayer(0).getLoops();
+        int leaderCell = game.getPlayer(0).getCurrentCell();
+
+        // lapped condition
+        return leaderLoops > getLoops() && leaderCell > getCurrentCell();
+    }
 }

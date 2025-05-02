@@ -125,15 +125,15 @@ public class Ship {
         return numBrokenTiles;
     }
 
-    public int getShipWidth(){
+    public int getShipWidth() {
         return shipWidth;
     }
 
-    public int getShipHeight(){
+    public int getShipHeight() {
         return shipHeight;
     }
 
-    public Map<String, List<Coordinates>> getTilesMap(){
+    public Map<String, List<Coordinates>> getTilesMap() {
         return tilesMap;
     }
 
@@ -174,13 +174,12 @@ public class Ship {
      * which takes care of updating ship and tile attributes
      * lastly it updates exposedConnectors
      *
-     *
      * @param tile tile to place
-     * @param x row
-     * @param y column
+     * @param x    row
+     * @param y    column
      * @return {@code true} if the slot {@code x, y} is valid and empty and the tile is not {@code null},
      * @throws IllegalArgumentException if the {@code x, y} indexes are out of bounds
-     * {@code false} if slot is invalid or already taken or the selected tile is {@code null}
+     *                                  {@code false} if slot is invalid or already taken or the selected tile is {@code null}
      */
     public boolean placeTile(Tile tile, int x, int y) {
         if (isOutOfBounds(x, y)) {
@@ -212,10 +211,10 @@ public class Ship {
     /**
      * breaks all the tiles of the ship, done for simplify testing
      */
-    public void breakAllTiles(){
+    public void breakAllTiles() {
         for (int i = 0; i < tilesMatrix.length; i++) {
             for (int j = 0; j < tilesMatrix[i].length; j++) {
-                if(tilesMatrix[i][j] != null){
+                if (tilesMatrix[i][j] != null) {
                     breakTile(i, j);
                 }
             }
@@ -232,9 +231,15 @@ public class Ship {
      * @throws IllegalArgumentException if hte slot is not valid or if there is not a tile in the slot
      */
     public void breakTile(int x, int y) {
-        if (isOutOfBounds(x, y)) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
-        if (!validSlots[x][y]) { throw new IllegalArgumentException("Requested slot is out of bounds!"); }
-        if(tilesMatrix[x][y] == null) { throw new IllegalArgumentException("Requested slot is already empty!"); }
+        if (isOutOfBounds(x, y)) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+        if (!validSlots[x][y]) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+        if (tilesMatrix[x][y] == null) {
+            throw new IllegalArgumentException("Requested slot is already empty!");
+        }
 
         this.getTile(x, y).broken(this, x, y);
         this.removeTileFromMap(getTile(x, y).getType(), x, y);
@@ -293,8 +298,8 @@ public class Ship {
      * adds tile's coordinates of a  specific type to the specific list
      *
      * @param type key of the {@code tilesMap} Map
-     * @param x row
-     * @param y column
+     * @param x    row
+     * @param y    column
      */
     public void addTileToMap(String type, int x, int y) {
         // add coords to correct list
@@ -305,8 +310,8 @@ public class Ship {
      * removes tile's coordinates of a specific type to the specific list
      *
      * @param type key of the {@code tilesMap} Map
-     * @param x row
-     * @param y column
+     * @param x    row
+     * @param y    column
      */
     public void removeTileFromMap(String type, int x, int y) {
         List<Coordinates> list = tilesMap.get(type);
@@ -318,8 +323,8 @@ public class Ship {
      * and from tile attribute {@code numBatteries}
      *
      * @param usedBatteries number of batteries to remove
-     * @param x row
-     * @param y column
+     * @param x             row
+     * @param y             column
      */
     public void removeBatteries(int usedBatteries, int x, int y) {
         if (numBatteries < usedBatteries) {
@@ -344,15 +349,15 @@ public class Ship {
      * and from tile attribute {@code boxes}
      *
      * @param boxType type of the box to remove
-     * @param x row
-     * @param y column
+     * @param x       row
+     * @param y       column
      * @throws RuntimeException if there are no boxes to be removed from {@code ship.boxes}
      */
     public void removeBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
         getTile(x, y).removeBox(boxType, 1);   // remove box from tile's map
 
-        if(boxes.get(boxType) <= 0) {
+        if (boxes.get(boxType) <= 0) {
             throw new RuntimeException("Illegal Operation! No boxes to remove!");
         }
         boxes.put(boxType, boxes.get(boxType) - 1); // remove from ship's map
@@ -363,8 +368,8 @@ public class Ship {
      * and to tile attribute {@code boxes}
      *
      * @param boxType type of the box to add
-     * @param x row
-     * @param y column
+     * @param x       row
+     * @param y       column
      */
     public void addBox(BoxType boxType, int x, int y) {
         // exception are already in tile methode
@@ -378,26 +383,26 @@ public class Ship {
      * to new configuration in the specific tile in position {@code x, y}
      *
      * @param newBoxes map of the new StorageTile configuration
-     * @param x row
-     * @param y columns
+     * @param x        row
+     * @param y        columns
      * @throws RuntimeException if the selected tile is not a StorageTile
      */
     public void setBoxes(Map<BoxType, Integer> newBoxes, int x, int y) {
         Tile currTile = getTile(x, y);
 
-        Map <BoxType, Integer> oldBoxes;
+        Map<BoxType, Integer> oldBoxes;
         oldBoxes = currTile.getBoxes();
 
-        for(BoxType type : BoxType.values()) {
-            if(newBoxes.get(type) < oldBoxes.get(type)) {
+        for (BoxType type : BoxType.values()) {
+            if (newBoxes.get(type) < oldBoxes.get(type)) {
                 int delta = oldBoxes.get(type) - newBoxes.get(type);
                 currTile.removeBox(type, delta);
                 this.boxes.put(type, this.boxes.get(type) - delta);
             }
         }
 
-        for(BoxType type : BoxType.values()) {
-            if(newBoxes.get(type) > oldBoxes.get(type)) {
+        for (BoxType type : BoxType.values()) {
+            if (newBoxes.get(type) > oldBoxes.get(type)) {
                 int delta = newBoxes.get(type) - oldBoxes.get(type);
                 currTile.addBox(type, delta);
                 this.boxes.put(type, this.boxes.get(type) + delta);
@@ -411,26 +416,30 @@ public class Ship {
      *
      * @param lostBoxes number of boxes/batteries to remove
      */
-    public void removeBestBoxes(int lostBoxes){
+    public void removeBestBoxes(int lostBoxes) {
         List<BoxType> priorityList = Arrays.stream(BoxType.values())
                 .sorted(Comparator.comparingInt(BoxType::getPriority))
                 .toList();
 
-        for(BoxType type : priorityList) {
-            for(Coordinates coords : tilesMap.get("StorageTile")){
-                while(getTile(coords.getX(), coords.getY()).getBoxes().get(type) > 0) {
+        for (BoxType type : priorityList) {
+            for (Coordinates coords : tilesMap.get("StorageTile")) {
+                while (getTile(coords.getX(), coords.getY()).getBoxes().get(type) > 0) {
                     removeBox(type, coords.getX(), coords.getY());
                     lostBoxes--;
-                    if (lostBoxes == 0) {return;}
+                    if (lostBoxes == 0) {
+                        return;
+                    }
                 }
             }
         }
 
-        for(Coordinates coords : tilesMap.get("BatteryTile")) {
-            while(getTile(coords.getX(), coords.getY()).getNumBatteries() > 0) {
+        for (Coordinates coords : tilesMap.get("BatteryTile")) {
+            while (getTile(coords.getX(), coords.getY()).getNumBatteries() > 0) {
                 removeBatteries(1, coords.getX(), coords.getY());
                 lostBoxes--;
-                if (lostBoxes == 0) {return;}
+                if (lostBoxes == 0) {
+                    return;
+                }
             }
         }
     }
@@ -443,7 +452,9 @@ public class Ship {
     public void removeCrewByType(CrewType type) {
 
         // non bellissimo ma potrebbe dover essere necessario in caso di rimozione tile
-        if(type == null) { return; }
+        if (type == null) {
+            return;
+        }
 
         // todo: handle this gracefully
         assert crewMap.containsKey(type);
@@ -457,17 +468,19 @@ public class Ship {
      * and from {@code this.crewMap}
      *
      * @param type type of crewMembers to be removed
-     * @param x row
-     * @param y column
-     * @param num number of crewMembers to be removed
+     * @param x    row
+     * @param y    column
+     * @param num  number of crewMembers to be removed
      * @throws RuntimeException if there are not enough members to be removed in {@code this.crewMap}
      */
     public void removeCrew(CrewType type, int x, int y, int num) {
 
-        if(type == null) { return; }
+        if (type == null) {
+            return;
+        }
 
         // remove crewMembers from tile
-        for(int i = 0; i<num; i++) {
+        for (int i = 0; i < num; i++) {
             getTile(x, y).removeCrewMember();
         }
 
@@ -492,19 +505,19 @@ public class Ship {
      * if the type is {@code HUMAN} adds 2, otherwise adds 1
      *
      * @param type type of crewMember to be added
-     * @param x row
-     * @param y column
+     * @param x    row
+     * @param y    column
      * @throws RuntimeException if the argument type is not support by the specific HousingTile
      */
     public void addCrew(CrewType type, int x, int y) {
-        if(type == CrewType.HUMAN){
+        if (type == CrewType.HUMAN) {
             crewMap.put(type, this.getNumCrewByType(type) + 2);
             getTile(x, y).addCrew(type);
             //getTile(x, y).addCrew(type);
             return;
         }
 
-        if(!getTile(x, y).getSupportedCrewType().contains(type)) {
+        if (!getTile(x, y).getSupportedCrewType().contains(type)) {
             throw new RuntimeException("this alien type is not supported in tile:" + x + y);
         }
         crewMap.put(type, this.getNumCrewByType(type) + 1);
@@ -530,7 +543,7 @@ public class Ship {
     }
 
     public void updateBaseFirePower(double i) {
-         baseFirePower = baseFirePower + i;
+        baseFirePower = baseFirePower + i;
     }
 
     public void updateBasePropulsionPower(int i) {
@@ -540,39 +553,51 @@ public class Ship {
     /**
      * updates {@code this.numExposedConnectors}
      * it's called after each placeTile and BreakTile
-     *
      */
-    public void updateExposedConnectors(){
+    public void updateExposedConnectors() {
         int cont = 0;
-        for(int i = 0; i<shipHeight; i++) {
-            for(int j = 0; j<shipWidth; j++) {
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
                 if (tilesMatrix[i][j] != null) {
 
                     if (i == 0) {
-                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))){cont++;}
-                    }
-                    else {
-                        if (tilesMatrix[i-1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))){cont++;}
+                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))) {
+                            cont++;
+                        }
+                    } else {
+                        if (tilesMatrix[i - 1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.UP))) {
+                            cont++;
+                        }
                     }
 
                     if (i == shipHeight - 1) {
-                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))){cont++;}
-                    }
-                    else {
-                        if(tilesMatrix[i+1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))){cont++;}
+                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))) {
+                            cont++;
+                        }
+                    } else {
+                        if (tilesMatrix[i + 1][j] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.DOWN))) {
+                            cont++;
+                        }
                     }
 
                     if (j == 0) {
-                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))){cont++;}
-                    }
-                    else {
-                        if(tilesMatrix[i][j-1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))){ cont++; }
+                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))) {
+                            cont++;
+                        }
+                    } else {
+                        if (tilesMatrix[i][j - 1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.LEFT))) {
+                            cont++;
+                        }
                     }
 
                     if (j == shipWidth - 1) {
-                        if(connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))) { cont++; }
+                        if (connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))) {
+                            cont++;
+                        }
                     } else {
-                        if(tilesMatrix[i][j+1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))){ cont++; }
+                        if (tilesMatrix[i][j + 1] == null && connectors.contains(tilesMatrix[i][j].getConnection(Direction.RIGHT))) {
+                            cont++;
+                        }
                     }
                 }
             }
@@ -607,22 +632,21 @@ public class Ship {
 
     /**
      * @return {@code true} if the ship is legal and connected, {@code false} otherwise
-     *
      */
     public boolean isShipLegal() {
 
-        // for all tiles, existing neighbouring tiles must have matching connector
+        // for all tiles, existing neighboring tiles must have matching connector
         for (int i = 0; i < shipHeight; i++) {
             for (int j = 0; j < shipWidth; j++) {
 
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
 
-                    if (currTile != null && i != 0 &&!currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
+                    if (currTile != null && i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;
                     }
 
-                    if (currTile!= null && j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
+                    if (currTile != null && j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
                         return false;
                     }
 
@@ -641,10 +665,9 @@ public class Ship {
 
     /**
      * @return {@code true} if the ship is connected<br>
-     *         {@code false} otherwise
-     *
+     * {@code false} otherwise
      */
-    public boolean isShipConnectedBFS(){
+    public boolean isShipConnectedBFS() {
         int totalTiles = 0;
         int visitedTiles = 0;
         boolean[][] visited = new boolean[shipHeight][shipWidth];
@@ -652,11 +675,11 @@ public class Ship {
         // find a tile to start
         int startX = -1;
         int startY = -1;
-        for(int i = 0; i<shipHeight; i++) {
-            for(int j = 0; j<shipWidth; j++) {
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
                 if (tilesMatrix[i][j] != null) {
                     totalTiles++;
-                    if(startX == -1) {
+                    if (startX == -1) {
                         startX = i;
                         startY = j;
                     }
@@ -665,7 +688,9 @@ public class Ship {
         }
 
         // il bro ha una nave con zero componenti e non si è ancora ritirato
-        if (totalTiles == 0) { return true; }
+        if (totalTiles == 0) {
+            return true;
+        }
 
         // count reachable tiles
         List<int[]> list = new ArrayList<>();
@@ -680,19 +705,19 @@ public class Ship {
 
             Tile currTile = tilesMatrix[x][y];
 
-            for(Direction direction: Direction.values()) {
+            for (Direction direction : Direction.values()) {
                 int newX = x;
                 int newY = y;
 
-                switch(direction) {
+                switch (direction) {
                     case UP -> newX--;
                     case DOWN -> newX++;
                     case LEFT -> newY--;
                     case RIGHT -> newY++;
                 }
                 // check che la connection non sia empty<->empty
-                if(newX >= 0 && newX < shipHeight && newY >= 0 && newY < shipWidth) {
-                    if(!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.getConnection(direction) != Connection.EMPTY && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
+                if (newX >= 0 && newX < shipHeight && newY >= 0 && newY < shipWidth) {
+                    if (!visited[newX][newY] && tilesMatrix[newX][newY] != null && currTile.getConnection(direction) != Connection.EMPTY && currTile.isValidConnection(direction, tilesMatrix[newX][newY])) {
                         list.add(new int[]{newX, newY});
                         visited[newX][newY] = true;
                     }
@@ -705,87 +730,87 @@ public class Ship {
     /**
      * calls checkMeteor or checkAttack depending on {@code attackType} argument
      *
-     * @param dir direction of attack
-     * @param attack LIGHT or HEAVY
-     * @param k dices result (shifted to match matrix indexing)
+     * @param dir        direction of attack
+     * @param attack     LIGHT or HEAVY
+     * @param k          dices result (shifted to match matrix indexing)
      * @param attackType meteor or shot, case-insensitive
      * @return see return values of checkMeteor and checkAttack
      */
     public int checkHit(Direction dir, Attack attack, int k, String attackType) {
-        if("meteor".equalsIgnoreCase(attackType)) return checkMeteor(dir, attack, k);
-        if("shot".equalsIgnoreCase(attackType)) return checkShot(dir, attack, k);
+        if ("meteor".equalsIgnoreCase(attackType)) return checkMeteor(dir, attack, k);
+        if ("shot".equalsIgnoreCase(attackType)) return checkShot(dir, attack, k);
         throw new IllegalArgumentException("no such argument as" + attackType + "for checkHit methode");
     }
 
     /**
      * this methode checks if the ship is hit by an attack and if the player can defend the ship through shields
      *
-     * @param dir attack direction
+     * @param dir    attack direction
      * @param attack HEAVY or LIGHT
-     * @param k dices result (shifted to match matrix indexing)
+     * @param k      dices result (shifted to match matrix indexing)
      * @return {@code -1} if the attack does not hit the ship<br>
-     *         {@code  0} if player can defend the ship with a shield<br>
-     *         {@code  2} if the ship is hit and the player can not do anything about it
+     * {@code  0} if player can defend the ship with a shield<br>
+     * {@code  2} if the ship is hit and the player can not do anything about it
      */
-    public int checkShot(Direction dir, Attack attack, int k){
+    public int checkShot(Direction dir, Attack attack, int k) {
         boolean flag = false;
-        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+        if ((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return -1;
         }
-        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
+        if ((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
             return -1;
         }
 
-        if(dir == Direction.UP) {
-            for(int i = 0; i<shipHeight; i++) {
+        if (dir == Direction.UP) {
+            for (int i = 0; i < shipHeight; i++) {
                 if (tilesMatrix[i][k] != null) {
                     flag = true;
                     if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
                         return 0;
                     }
-                    if (attack == Attack.HEAVY){
+                    if (attack == Attack.HEAVY) {
                         return 2;
                     }
                 }
             }
         }
 
-        if(dir == Direction.LEFT) {
-            for(int i = 0; i<shipWidth; i++) {
+        if (dir == Direction.LEFT) {
+            for (int i = 0; i < shipWidth; i++) {
                 if (tilesMatrix[k][i] != null) {
                     flag = true;
                     if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
                         return 0;
                     }
-                    if (attack == Attack.HEAVY){
+                    if (attack == Attack.HEAVY) {
                         return 2;
                     }
                 }
             }
         }
 
-        if(dir == Direction.RIGHT) {
-            for(int i = 0; i<shipWidth; i++) {
-                if (tilesMatrix[k][shipWidth-i-1] != null) {
+        if (dir == Direction.RIGHT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth - i - 1] != null) {
                     flag = true;
                     if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
                         return 0;
                     }
-                    if (attack == Attack.HEAVY){
+                    if (attack == Attack.HEAVY) {
                         return 2;
                     }
                 }
             }
         }
 
-        if(dir == Direction.DOWN) {
-            for(int i = 0; i<shipHeight; i++) {
-                if (tilesMatrix[shipHeight-i-1][k] != null) {
+        if (dir == Direction.DOWN) {
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[shipHeight - i - 1][k] != null) {
                     flag = true;
                     if (attack == Attack.LIGHT && getProtectedDirections().contains(dir)) {
                         return 0;
                     }
-                    if (attack == Attack.HEAVY){
+                    if (attack == Attack.HEAVY) {
                         return 2;
                     }
                 }
@@ -798,147 +823,159 @@ public class Ship {
     /**
      * this methode checks if the ship is hit by a meteorite and if the player can use cannons or shields to defend teh ship
      *
-     * @param dir attack direction
+     * @param dir    attack direction
      * @param meteor HEAVY or LIGHT
-     * @param k dices result (shifted to match matrix indexing)
+     * @param k      dices result (shifted to match matrix indexing)
      * @return {@code -2} if the attacked in neutralized by a single cannon<br>
-     *         {@code -1} if the attack does not hit the ship<br>
-     *         {@code  0} if player can defend the ship with a shield<br>
-     *         {@code  1} if the player can defend the ship with a double cannon<br>
-     *         {@code  2} if the ship is hit and the player can not do anything about it
+     * {@code -1} if the attack does not hit the ship<br>
+     * {@code  0} if player can defend the ship with a shield<br>
+     * {@code  1} if the player can defend the ship with a double cannon<br>
+     * {@code  2} if the ship is hit and the player can not do anything about it
      */
     public int checkMeteor(Direction dir, Attack meteor, int k) {
         Set<Connection> exposed = new HashSet<>(Set.of(Connection.SINGLE, Connection.DOUBLE, Connection.UNIVERSAL));
         boolean flag = false;
 
-        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+        if ((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return -1;
         }
-        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
+        if ((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
             return -1;
         }
-        if(dir == Direction.UP){
+        if (dir == Direction.UP) {
             // not exposed connection
-            for(int i = 0; i<shipHeight; i++) {
+            for (int i = 0; i < shipHeight; i++) {
                 if (tilesMatrix[i][k] != null) {
                     flag = true;
                     if ((!exposed.contains(tilesMatrix[i][k].getConnection(dir)) && meteor != Attack.HEAVY)) {
                         return -1; // non fa nulla
-                    }break;
+                    }
+                    break;
                 }
             }
-            if(!flag){ return -1;}
+            if (!flag) {
+                return -1;
+            }
             // cannone singolo ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
                         && !tilesMatrix[i][k].isDoubleLaser()) {
                     return -2;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[i][k] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[i][k] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
-                        && tilesMatrix[i][k].isDoubleLaser()){
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[i][k] != null && tilesMatrix[i][k].getConnection(dir) == Connection.GUN && tilesMatrix[i][k].isDoubleLaser() != null
+                        && tilesMatrix[i][k].isDoubleLaser()) {
                     return 1;
                 }
             }
         }
-        if(dir == Direction.LEFT){
-            for(int i = 0; i<shipWidth; i++) {
+        if (dir == Direction.LEFT) {
+            for (int i = 0; i < shipWidth; i++) {
                 if (tilesMatrix[k][i] != null) {
                     flag = true;
                     if ((!exposed.contains(tilesMatrix[k][i].getConnection(dir)) && meteor != Attack.HEAVY)) {
                         return -1; // non fa nulla
-                    }break;
+                    }
+                    break;
                 }
             }
-            if(!flag){ return -1;}
+            if (!flag) {
+                return -1;
+            }
             // cannone singolo ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
                         && !tilesMatrix[k][i].isDoubleLaser()) {
                     return -2;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
-                        && tilesMatrix[k][i].isDoubleLaser()){
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][i] != null && tilesMatrix[k][i].getConnection(dir) == Connection.GUN && tilesMatrix[k][i].isDoubleLaser() != null
+                        && tilesMatrix[k][i].isDoubleLaser()) {
                     return 1;
                 }
             }
         }
-        if(dir == Direction.RIGHT){
-            for(int i = 0; i<shipWidth; i++) {
-                if (tilesMatrix[k][shipWidth-1-i] != null) {
+        if (dir == Direction.RIGHT) {
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth - 1 - i] != null) {
                     flag = true;
-                    if ((!exposed.contains(tilesMatrix[k][shipWidth-1-i].getConnection(dir)) && meteor != Attack.HEAVY)) {
+                    if ((!exposed.contains(tilesMatrix[k][shipWidth - 1 - i].getConnection(dir)) && meteor != Attack.HEAVY)) {
                         return -1; // non fa nulla
-                    }break;
+                    }
+                    break;
                 }
             }
-            if(!flag){ return -1;}
+            if (!flag) {
+                return -1;
+            }
             // cannone singolo ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
-                        && !tilesMatrix[k][shipWidth-1-i].isDoubleLaser()) {
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth - 1 - i] != null && tilesMatrix[k][shipWidth - 1 - i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth - 1 - i].isDoubleLaser() != null
+                        && !tilesMatrix[k][shipWidth - 1 - i].isDoubleLaser()) {
                     return -2;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][shipWidth-1-i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth - 1 - i] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipWidth; i++) {
-                if(tilesMatrix[k][shipWidth-1-i] != null && tilesMatrix[k][shipWidth-1-i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth-1-i].isDoubleLaser() != null
-                        && tilesMatrix[k][shipWidth-1-i].isDoubleLaser()){
+            for (int i = 0; i < shipWidth; i++) {
+                if (tilesMatrix[k][shipWidth - 1 - i] != null && tilesMatrix[k][shipWidth - 1 - i].getConnection(dir) == Connection.GUN && tilesMatrix[k][shipWidth - 1 - i].isDoubleLaser() != null
+                        && tilesMatrix[k][shipWidth - 1 - i].isDoubleLaser()) {
                     return 1;
                 }
             }
         }
-        if(dir == Direction.DOWN){
+        if (dir == Direction.DOWN) {
             // not exposed connection
-            for(int i = 0; i<shipHeight; i++) {
-                if (tilesMatrix[shipHeight-1-i][k] != null) {
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[shipHeight - 1 - i][k] != null) {
                     flag = true;
-                    if ((!exposed.contains(tilesMatrix[shipHeight-1-i][k].getConnection(dir)) && meteor != Attack.HEAVY)) {
+                    if ((!exposed.contains(tilesMatrix[shipHeight - 1 - i][k].getConnection(dir)) && meteor != Attack.HEAVY)) {
                         return -1; // non fa nulla
-                    }break;
+                    }
+                    break;
                 }
             }
-            if(!flag){ return -1;}
+            if (!flag) {
+                return -1;
+            }
             // cannone singolo ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[shipHeight-1-i][k] != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoubleLaser() != null
-                        && !tilesMatrix[shipHeight-1-i][k].isDoubleLaser()) {
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[shipHeight - 1 - i][k] != null && tilesMatrix[shipHeight - 1 - i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight - 1 - i][k].isDoubleLaser() != null
+                        && !tilesMatrix[shipHeight - 1 - i][k].isDoubleLaser()) {
                     return -2;
                 }
             }
             // shield ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[shipHeight-1-i][k] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[shipHeight - 1 - i][k] != null && meteor != Attack.HEAVY && getProtectedDirections().contains(dir)) {
                     return 0;
                 }
             }
             // cannone doppio ti salva
-            for(int i = 0; i<shipHeight; i++) {
-                if(tilesMatrix[shipHeight-1-i][k] != null && tilesMatrix[shipHeight-1-i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight-1-i][k].isDoubleLaser() != null
-                        && tilesMatrix[shipHeight-1-i][k].isDoubleLaser()){
+            for (int i = 0; i < shipHeight; i++) {
+                if (tilesMatrix[shipHeight - 1 - i][k] != null && tilesMatrix[shipHeight - 1 - i][k].getConnection(dir) == Connection.GUN && tilesMatrix[shipHeight - 1 - i][k].isDoubleLaser() != null
+                        && tilesMatrix[shipHeight - 1 - i][k].isDoubleLaser()) {
                     return 1;
                 }
             }
@@ -953,22 +990,22 @@ public class Ship {
      * if and only if a tile would actually be broken
      *
      * @param dir direction of the attack
-     * @param k dices result (shifted to match matrix indexing)
+     * @param k   dices result (shifted to match matrix indexing)
      * @return {@code true} if hit<br>
-     *         {@code false} if not hit
+     * {@code false} if not hit
      */
     public boolean handleHit(Direction dir, int k) {
-        if((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
+        if ((k < 0 || k >= shipWidth) && (dir == Direction.UP || dir == Direction.DOWN)) {
             return false;
         }
 
-        if((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
+        if ((k < 0 || k >= shipHeight) && (dir == Direction.LEFT || dir == Direction.RIGHT)) {
             return false;
         }
 
         if (dir == Direction.UP) {
             for (int i = 0; i < shipHeight; i++) {
-                if(tilesMatrix[i][k] != null) {
+                if (tilesMatrix[i][k] != null) {
                     breakTile(i, k);
                     return true;
                 }
@@ -976,7 +1013,7 @@ public class Ship {
         }
         if (dir == Direction.LEFT) {
             for (int i = 0; i < shipWidth; i++) {
-                if(tilesMatrix[k][i] != null) {
+                if (tilesMatrix[k][i] != null) {
                     breakTile(k, i);
                     return true;
                 }
@@ -984,16 +1021,16 @@ public class Ship {
         }
         if (dir == Direction.RIGHT) {
             for (int i = 0; i < shipWidth; i++) {
-                if(tilesMatrix[k][shipWidth-1-i] != null) {
-                    breakTile(k, shipWidth-1-i);
+                if (tilesMatrix[k][shipWidth - 1 - i] != null) {
+                    breakTile(k, shipWidth - 1 - i);
                     return true;
                 }
             }
         }
         if (dir == Direction.DOWN) {
             for (int i = 0; i < shipHeight; i++) {
-                if(tilesMatrix[shipHeight-1-i][k] != null) {
-                    breakTile(shipHeight-1-i, k);
+                if (tilesMatrix[shipHeight - 1 - i][k] != null) {
+                    breakTile(shipHeight - 1 - i, k);
                     return true;
                 }
             }
@@ -1001,6 +1038,13 @@ public class Ship {
 
         return false;
     }
+
+    // check that the crew has enough crew members (>0)
+    public boolean hasEnoughHumans() {
+        return crewMap.get(CrewType.HUMAN) > 0;
+    }
+
+    // check that the ship has propulsors
 
     @Override
     public String toString() {
@@ -1010,14 +1054,12 @@ public class Ship {
         tilesMatrixGrid.append("TilesMatrix Grid:\n");
 
 
-
         // print the coordinate grid
         for (int y = 0; y < shipHeight; y++) {
             for (int x = 0; x < shipWidth; x++) {
                 if (this.validSlots[y][x]) {
                     tilesMatrixGrid.append(String.format("(%d,%d) ", y, x));
-                }
-                else {
+                } else {
                     tilesMatrixGrid.append("(X,X) ");
                 }
             }
