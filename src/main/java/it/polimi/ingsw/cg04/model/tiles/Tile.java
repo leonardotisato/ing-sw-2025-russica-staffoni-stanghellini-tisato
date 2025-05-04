@@ -14,15 +14,18 @@ import java.util.Set;
 public abstract class Tile {
     @Expose
     String type;
+    String shortName;
     @Expose
     Map<Direction, Connection> connections;
     @Expose
     int id;
+    final int boxWidth = 17;
 
     // Tile generic methods
-    public Tile() {}
+    public Tile() {
+    }
 
-
+    // constructor for the central housingTile
     public Tile(PlayerColor playerColor) {
         this.type = "HousingTile";
 
@@ -52,10 +55,6 @@ public abstract class Tile {
         return type;
     }
 
-    // serve???
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public Integer getId() {
         return id;
@@ -120,21 +119,16 @@ public abstract class Tile {
      *
      * @param dir The direction for which the connection is to be retrieved.
      *            Must be one of the valid directions defined in the {@link Direction} enum.
-     *
      * @return The {@link Connection} associated with the specified direction.
      */
     public Connection getConnection(Direction dir) {
         return connections.get(dir);
     }
 
-//    public void setConnections(Map<Direction, Connection> connections) {
-//        this.connections = connections;
-//    }
-
     // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
-        if(/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
+        if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
             return false;
         }
 
@@ -260,11 +254,16 @@ public abstract class Tile {
         return null;
     }
 
-    public void addAdjacentHousingTile(Tile tile){ }
+    public void addAdjacentHousingTile(Tile tile) {
+    }
 
-    public void removeAdjacentHousingTile(Tile tile){ }
+    public void removeAdjacentHousingTile(Tile tile) {
+    }
 
-    public Set<Tile> getAdjacentHousingTiles(){ return null; }
+    public Set<Tile> getAdjacentHousingTiles() {
+        return null;
+    }
+
     // housingTile methods
     // this one is tricky... housingUnit can be central, and if so have a specific color
     // and can host only humans if its central, and host aliens of a specific color only if a alienSupportTile is neighbouring...
@@ -351,6 +350,148 @@ public abstract class Tile {
         sb.append("}");
 
         return sb.toString();
+    }
+
+    public String draw() {
+        StringBuilder sb = new StringBuilder();
+
+        drawUpBoundary(sb);
+        drawHorizonalConnections(sb, connections.get(Direction.UP));
+
+        drawHorizontalShields(sb, Direction.UP);
+
+        drawEmptyRow(sb);
+
+        drawShortName(sb);
+        drawContent(sb);
+        drawEmptyRow(sb);
+
+        drawHorizontalShields(sb, Direction.DOWN);
+
+        drawHorizonalConnections(sb, connections.get(Direction.DOWN));
+
+        drawDownBoundary(sb);
+
+        // draw vertical connections and shields
+        drawVerticalShields(sb);
+        drawVerticalConnections(sb, Direction.LEFT);
+        drawVerticalConnections(sb, Direction.RIGHT);
+
+        return sb.toString();
+    }
+
+    // helper method to draw tile on TUI
+    String centerText(String text, int width) {
+        if (text.length() >= width) return text.substring(0, width);
+        int padding = (width - text.length()) / 2;
+        return " ".repeat(padding) + text + " ".repeat(width - text.length() - padding);
+    }
+
+    private void drawHorizonalConnections(StringBuilder sb, Connection c) {
+
+        switch (c) {
+            case Connection.EMPTY:
+                sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
+                break;
+            case Connection.SINGLE:
+                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
+                break;
+            case Connection.DOUBLE:
+                sb.append("│ ").append(centerText("oo", boxWidth - 4)).append(" │").append("\n");
+                break;
+            case Connection.UNIVERSAL:
+                sb.append("│ ").append(centerText("ooo", boxWidth - 4)).append(" │").append("\n");
+                break;
+            case Connection.PROPULSOR:
+                sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
+                break;
+            case Connection.GUN:
+                sb.append("│ ").append(centerText("AAA", boxWidth - 4)).append(" │").append("\n");
+                break;
+        }
+    }
+
+    private void drawEmptyRow(StringBuilder sb) {
+        sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
+    }
+
+    private void drawHorizontalShields(StringBuilder sb, Direction protectedDir) {
+        if (getProtectedDirections() != null && getProtectedDirections().contains(protectedDir)) {
+            sb.append("│ ").append(centerText("────", boxWidth - 4)).append(" │").append("\n");
+        } else {
+            sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
+        }
+    }
+
+    private void drawUpBoundary(StringBuilder sb) {
+        sb.append("┌").append("─".repeat(boxWidth - 2)).append("┐").append("\n");
+    }
+
+    void drawDownBoundary(StringBuilder sb) {
+        sb.append("└").append("─".repeat(boxWidth - 2)).append("┘");
+    }
+
+    private void drawShortName(StringBuilder sb) {
+        sb.append("│ ").append(centerText(shortName, boxWidth - 4)).append(" │").append("\n");
+    }
+
+    // this method is overrided where content needs to be displayed
+    void drawContent(StringBuilder sb) {
+        sb.append("│ ").append(centerText("", boxWidth - 4)).append(" │").append("\n");
+    }
+
+    private void drawVerticalShields(StringBuilder sb) {
+
+        int[] rows = {3, 4, 5};
+        if (getProtectedDirections() != null && getProtectedDirections().contains(Direction.LEFT)) {
+            for (int row : rows) {
+                int index = row * (boxWidth + 1) + 4;
+                sb.setCharAt(index, '│');
+            }
+        }
+
+        if (getProtectedDirections() != null && getProtectedDirections().contains(Direction.RIGHT)) {
+            for (int row : rows) {
+                int index = row * (boxWidth + 1) + (boxWidth - 5);
+                sb.setCharAt(index, '│');
+            }
+        }
+    }
+
+    private void drawVerticalConnections(StringBuilder sb, Direction dir) {
+
+        int padding = (dir.equals(Direction.LEFT)) ? 2 : boxWidth - 3;
+
+        int[] rows = new int[0];
+        char symbol = ' ';
+
+        switch (connections.get(dir)) {
+            case EMPTY:
+                break;
+            case SINGLE:
+                rows = new int[]{4};
+                symbol = 'o';
+                break;
+            case DOUBLE:
+                rows = new int[]{3, 4};
+                symbol = 'o';
+                break;
+            case UNIVERSAL:
+                rows = new int[]{3, 4, 5};
+                symbol = 'o';
+                break;
+            case GUN:
+                rows = new int[]{3, 4, 5};
+                symbol = 'A';
+            case PROPULSOR:
+                rows = new int[]{3, 4, 5};
+                symbol = 'M';
+        }
+
+        for (int row : rows) {
+            int index = row * (boxWidth + 1) + padding;
+            sb.setCharAt(index, symbol);
+        }
     }
 
 }

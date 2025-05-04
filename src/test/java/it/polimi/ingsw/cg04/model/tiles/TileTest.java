@@ -20,6 +20,7 @@ class TileTest {
     private Tile laserTile134;
     private Tile laserTile123;
     private Tile propulsorTile71;
+    private Tile strucutralTile56;
 
     @BeforeEach
     void setUp() {
@@ -37,6 +38,7 @@ class TileTest {
         laserTile134 = tiles.get(134);
         laserTile123 = tiles.get(123);
         propulsorTile71 = tiles.get(71);
+        strucutralTile56 = tiles.get(56);
     }
 
     @AfterEach
@@ -251,7 +253,7 @@ class TileTest {
     @Test
     void testToString() {
 
-        // not real tests. just making sure it prints all & correct info.
+        // not real tests. just making sure it prints all and correct info.
         System.out.println(shieldTile151.toString());
         System.out.println(batteryTile5.toString());
         System.out.println(storageTile26.toString());
@@ -266,5 +268,21 @@ class TileTest {
         assertEquals(5, batteryTile5.getId());
         assertEquals(26, storageTile26.getId());
         assertEquals(123, laserTile123.getId());
+    }
+
+    @Test
+    void drawTest() {
+        System.out.println(strucutralTile56.draw());
+        System.out.println(batteryTile5.draw());
+        System.out.println(storageTile26.draw());
+        storageTile26.rotate90dx();
+        storageTile26.addBox(BoxType.BLUE, 1);
+        storageTile26.addBox(BoxType.GREEN, 1);
+        System.out.println(storageTile26.draw());
+        System.out.println(laserTile134.draw());
+        System.out.println(propulsorTile71.draw());
+        propulsorTile71.rotate90dx();
+        System.out.println(propulsorTile71.draw());
+        System.out.println(shieldTile151.draw());
     }
 }

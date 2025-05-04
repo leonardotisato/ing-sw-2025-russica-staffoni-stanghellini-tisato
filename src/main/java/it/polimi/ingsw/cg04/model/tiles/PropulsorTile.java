@@ -10,14 +10,17 @@ public class PropulsorTile extends Tile {
 
     public PropulsorTile() {
         super();
+        if (isDoublePropulsor) {
+            this.shortName = "DP";
+        } else {
+            this.shortName = "SP";
+        }
+
     }
 
     @Override
     public Boolean isDoublePropulsor() {
         return isDoublePropulsor;
-    }
-    public void setDoublePropulsor(boolean isDoublePropulsor) {
-        this.isDoublePropulsor = isDoublePropulsor;
     }
 
     /**

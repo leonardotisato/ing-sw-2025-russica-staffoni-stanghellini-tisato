@@ -13,12 +13,14 @@ public class ShieldTile extends Tile {
 
     public ShieldTile() {
         super();
+        this.shortName = "ST";
     }
 
     @Override
     public Set<Direction> getProtectedDirections() {
         return protectedDirections;
     }
+
     public void setProtectedDirections(Set<Direction> protectedDirections) {
         this.protectedDirections = protectedDirections;
     }

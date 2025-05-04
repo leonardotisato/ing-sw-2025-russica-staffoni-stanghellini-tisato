@@ -21,12 +21,14 @@ public class HousingTile extends Tile {
 
     public HousingTile() {
         super();
+        this.shortName = "HT";
     }
 
     public HousingTile(PlayerColor playerColor) {
         super(playerColor);
         color = playerColor;
         isCentralTile = true;
+        this.shortName = "HT";
     }
 
     public Boolean isCentralTile() {
@@ -111,8 +113,8 @@ public class HousingTile extends Tile {
      * removes this tile from connected AlienSupportTile's list {@code adjacentHousingTiles}
      *
      * @param ship
-     * @param x int
-     * @param y int
+     * @param x    int
+     * @param y    int
      */
     @Override
     public void broken(Ship ship, int x, int y) {
@@ -146,8 +148,8 @@ public class HousingTile extends Tile {
      * adds this tile to the connected {@code AlienSupportTile} list {@code adjacentHousingTiles}
      *
      * @param ship
-     * @param x int
-     * @param y int
+     * @param x    int
+     * @param y    int
      */
     @Override
     public void place(Ship ship, int x, int y) {
