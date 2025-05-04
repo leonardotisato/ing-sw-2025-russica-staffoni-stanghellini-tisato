@@ -19,7 +19,9 @@ public abstract class Tile {
     Map<Direction, Connection> connections;
     @Expose
     int id;
-    final int boxWidth = 17;
+    final int boxWidth = 25;
+    String tileColor = "";
+    final String RESET_COLOR = "\u001B[0m";
 
     // Tile generic methods
     public Tile() {
@@ -125,7 +127,7 @@ public abstract class Tile {
         return connections.get(dir);
     }
 
-    // return true if connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
+    // return true if the connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
         if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
@@ -355,6 +357,8 @@ public abstract class Tile {
     public String draw() {
         StringBuilder sb = new StringBuilder();
 
+        sb.append(tileColor);
+
         drawUpBoundary(sb);
         drawHorizonalConnections(sb, connections.get(Direction.UP));
 
@@ -376,6 +380,8 @@ public abstract class Tile {
         drawVerticalShields(sb);
         drawVerticalConnections(sb, Direction.LEFT);
         drawVerticalConnections(sb, Direction.RIGHT);
+
+        sb.append(RESET_COLOR);
 
         return sb.toString();
     }
@@ -489,7 +495,7 @@ public abstract class Tile {
         }
 
         for (int row : rows) {
-            int index = row * (boxWidth + 1) + padding;
+            int index = row * (boxWidth + 1) + padding + tileColor.length();
             sb.setCharAt(index, symbol);
         }
     }

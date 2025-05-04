@@ -21,6 +21,7 @@ class TileTest {
     private Tile laserTile123;
     private Tile propulsorTile71;
     private Tile strucutralTile56;
+    private Tile batteryTile13;
 
     @BeforeEach
     void setUp() {
@@ -39,6 +40,7 @@ class TileTest {
         laserTile123 = tiles.get(123);
         propulsorTile71 = tiles.get(71);
         strucutralTile56 = tiles.get(56);
+        batteryTile13 = tiles.get(13);
     }
 
     @AfterEach
@@ -284,5 +286,6 @@ class TileTest {
         propulsorTile71.rotate90dx();
         System.out.println(propulsorTile71.draw());
         System.out.println(shieldTile151.draw());
+        System.out.println(batteryTile13.draw());
     }
 }

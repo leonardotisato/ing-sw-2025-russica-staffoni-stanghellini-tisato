@@ -11,7 +11,8 @@ public class BatteryTile extends Tile {
 
     public BatteryTile() {
         super();
-        this.shortName = "BT";
+        this.shortName = "Battery";
+        this.tileColor = "\u001B[32m";
     }
 
     public Integer getMaxBatteryCapacity() {
