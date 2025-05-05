@@ -20,9 +20,11 @@ public class StorageTile extends Tile {
         boxes.put(BoxType.GREEN, 0);
 
         if (isSpecialStorageTile) {
-            this.shortName = "SS";
+            this.shortName = "S. Storage";
+            this.tileColor = "\u001B[31m";
         } else {
-            this.shortName = "NS";
+            this.shortName = "N. Storage";
+            this.tileColor = "\u001B[36m";
         }
     }
 

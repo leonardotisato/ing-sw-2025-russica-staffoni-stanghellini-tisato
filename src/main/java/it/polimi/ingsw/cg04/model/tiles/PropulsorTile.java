@@ -10,17 +10,21 @@ public class PropulsorTile extends Tile {
 
     public PropulsorTile() {
         super();
-        if (isDoublePropulsor) {
-            this.shortName = "DP";
-        } else {
-            this.shortName = "SP";
-        }
-
+        this.tileColor = "\u001B[38;5;220m";
     }
 
     @Override
     public Boolean isDoublePropulsor() {
         return isDoublePropulsor;
+    }
+
+    @Override
+    String getName() {
+        if (isDoublePropulsor) {
+            return "D. Propulsor";
+        } else {
+            return "S. Propulsor";
+        }
     }
 
     /**

@@ -18,7 +18,13 @@ public class AlienSupportTile extends Tile {
 
     public AlienSupportTile() {
         this.adjacentHousingTiles = new HashSet<>();
-        this.shortName = "AS";
+        this.shortName = "A. Support";
+
+        if (supportedAlienColor == CrewType.BROWN_ALIEN) {
+            this.tileColor = "\u001B[33m";
+        } else {
+            this.tileColor = "\u001B[38;5;205m";
+        }
     }
 
     public Set<Tile> getAdjacentHousingTiles() {

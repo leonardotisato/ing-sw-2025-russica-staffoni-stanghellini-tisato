@@ -12,16 +12,21 @@ public class LaserTile extends Tile {
 
     public LaserTile() {
         super();
-        if (isDoubleLaser) {
-            this.shortName = "DC";
-        } else {
-            this.shortName = "SC";
-        }
+        this.tileColor = "\u001B[35m";
     }
 
     @Override
     public Boolean isDoubleLaser() {
         return isDoubleLaser;
+    }
+
+    @Override
+    String getName() {
+        if (isDoubleLaser) {
+            return "D. Laser";
+        } else {
+            return "S. Laser";
+        }
     }
 
     public void setDoubleLaser(boolean isDoubleLaser) {

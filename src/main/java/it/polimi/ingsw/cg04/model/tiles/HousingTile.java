@@ -21,14 +21,14 @@ public class HousingTile extends Tile {
 
     public HousingTile() {
         super();
-        this.shortName = "HT";
+        this.shortName = "Housing";
     }
 
     public HousingTile(PlayerColor playerColor) {
         super(playerColor);
         color = playerColor;
         isCentralTile = true;
-        this.shortName = "HT";
+        this.shortName = "Housing";
     }
 
     public Boolean isCentralTile() {

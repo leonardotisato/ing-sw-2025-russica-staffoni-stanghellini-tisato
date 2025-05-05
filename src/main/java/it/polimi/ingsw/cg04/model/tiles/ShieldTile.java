@@ -13,7 +13,8 @@ public class ShieldTile extends Tile {
 
     public ShieldTile() {
         super();
-        this.shortName = "ST";
+        this.shortName = "Shield";
+        this.tileColor = "\u001B[34m";
     }
 
     @Override

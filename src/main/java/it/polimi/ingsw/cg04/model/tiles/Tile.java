@@ -62,6 +62,10 @@ public abstract class Tile {
         return id;
     }
 
+    String getName() {
+        return shortName;
+    }
+
     public void place(Ship ship, int x, int y) {
         // todo: implement each tile with specific tile-ship attributes updates
     }
@@ -356,32 +360,27 @@ public abstract class Tile {
 
     public String draw() {
         StringBuilder sb = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
 
-        sb.append(tileColor);
+        // Draw into temp, then wrap each line
+        drawUpBoundary(temp);
+        drawHorizonalConnections(temp, connections.get(Direction.UP));
+        drawHorizontalShields(temp, Direction.UP);
+        drawEmptyRow(temp);
+        drawShortName(temp);
+        drawContent(temp);
+        drawEmptyRow(temp);
+        drawHorizontalShields(temp, Direction.DOWN);
+        drawHorizonalConnections(temp, connections.get(Direction.DOWN));
+        drawDownBoundary(temp);
+        drawVerticalShields(temp);
+        drawVerticalConnections(temp, Direction.LEFT);
+        drawVerticalConnections(temp, Direction.RIGHT);
 
-        drawUpBoundary(sb);
-        drawHorizonalConnections(sb, connections.get(Direction.UP));
-
-        drawHorizontalShields(sb, Direction.UP);
-
-        drawEmptyRow(sb);
-
-        drawShortName(sb);
-        drawContent(sb);
-        drawEmptyRow(sb);
-
-        drawHorizontalShields(sb, Direction.DOWN);
-
-        drawHorizonalConnections(sb, connections.get(Direction.DOWN));
-
-        drawDownBoundary(sb);
-
-        // draw vertical connections and shields
-        drawVerticalShields(sb);
-        drawVerticalConnections(sb, Direction.LEFT);
-        drawVerticalConnections(sb, Direction.RIGHT);
-
-        sb.append(RESET_COLOR);
+        // Wrap each line with tileColor and RESET_COLOR
+        for (String line : temp.toString().split("\n")) {
+            sb.append(tileColor).append(line).append(RESET_COLOR).append('\n');
+        }
 
         return sb.toString();
     }
@@ -438,7 +437,7 @@ public abstract class Tile {
     }
 
     private void drawShortName(StringBuilder sb) {
-        sb.append("│ ").append(centerText(shortName, boxWidth - 4)).append(" │").append("\n");
+        sb.append("│ ").append(centerText(getName(), boxWidth - 4)).append(" │").append("\n");
     }
 
     // this method is overrided where content needs to be displayed
@@ -495,7 +494,7 @@ public abstract class Tile {
         }
 
         for (int row : rows) {
-            int index = row * (boxWidth + 1) + padding + tileColor.length();
+            int index = row * (boxWidth + 1) + padding;
             sb.setCharAt(index, symbol);
         }
     }

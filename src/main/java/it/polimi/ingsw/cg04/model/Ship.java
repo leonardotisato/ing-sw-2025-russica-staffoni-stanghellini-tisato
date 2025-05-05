@@ -1094,4 +1094,58 @@ public class Ship {
                 ", protectedDirections=" + protectedDirections +
                 '}';
     }
+
+    public String draw() {
+        StringBuilder fullShip = new StringBuilder();
+
+        int tileHeight = -1;
+        int tileWidth = -1;
+
+        // Prepare tile line representations
+        List<String>[][] tileLines = (List<String>[][]) new List[shipHeight][shipWidth];
+
+        for (int row = 0; row < shipHeight; row++) {
+            for (int col = 0; col < shipWidth; col++) {
+                if (validSlots[row][col]) {
+                    String[] lines = (tilesMatrix[row][col] != null) ? tilesMatrix[row][col].draw().split("\n") : new EmptyTile(row, col).draw().split("\n");
+
+                    tileLines[row][col] = Arrays.asList(lines);
+
+                    // Save dimensions
+                    if (tileHeight == -1) {
+                        tileHeight = lines.length;
+                        tileWidth = lines[0].length();
+                    }
+
+                } else {
+                    // Fill with blank lines or placeholder for empty or invalid cells
+                    if (tileHeight == -1) {
+                        // Default placeholder size if no tile drawn yet
+                        tileHeight = 10;
+                        tileWidth = 25;
+                    }
+
+                    List<String> blank = new ArrayList<>();
+                    for (int i = 0; i < tileHeight; i++) {
+                        blank.add(" ".repeat(tileWidth));
+                    }
+                    tileLines[row][col] = blank;
+                }
+            }
+        }
+
+        // Now print the matrix line by line
+        for (int row = 0; row < shipHeight; row++) {
+            for (int line = 0; line < tileHeight; line++) {
+                for (int col = 0; col < shipWidth; col++) {
+                    fullShip.append(tileLines[row][col].get(line));
+                }
+                fullShip.append("\n");
+            }
+        }
+
+        return fullShip.toString();
+    }
+
+
 }
