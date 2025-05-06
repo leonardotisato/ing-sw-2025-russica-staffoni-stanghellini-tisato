@@ -335,6 +335,11 @@ public class Game {
     public List<List<Integer>> getPreFlightPiles() {
         return this.preFlightPiles;
     }
+
+    public Map<Integer, AdventureCard> getAdventureCardsMap() { return this.adventureCardsMap; }
+
+    public List<Integer> getAdventureCardsDeck() { return this.adventureCardsDeck; }
+
     public AdventureCard getCardById(Integer id) {
         return adventureCardsMap.get(id);
     }
