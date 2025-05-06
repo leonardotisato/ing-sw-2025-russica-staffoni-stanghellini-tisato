@@ -62,38 +62,12 @@ public class FlightBoardLev2 extends FlightBoard {
     }
 
     public List<Integer> createAdventureCardsDeck(Game game) {
-        createPreFlightPiles(game);
         List<Integer> adventureCardsDeck = new ArrayList<>();
+        game.buildPiles();
         for (List<Integer> pile : game.getPreFlightPiles()) {
             adventureCardsDeck.addAll(pile);
         }
         Collections.shuffle(adventureCardsDeck, rand);
         return adventureCardsDeck;
-    }
-
-    public void createPreFlightPiles(Game game) {
-        Map<Integer, AdventureCard> cardMap = game.getAdventureCardsMap();
-
-        for (int i = 0; i < 4; i++) {
-            List<Integer> level2Keys = cardMap.entrySet().stream()
-                    .filter(entry -> entry.getValue().getCardLevel() == 2)
-                    .map(Map.Entry::getKey)
-                    .collect(Collectors.toList());
-
-            List<Integer> level1Keys = cardMap.entrySet().stream()
-                    .filter(entry -> entry.getValue().getCardLevel() == 1)
-                    .map(Map.Entry::getKey)
-                    .collect(Collectors.toList());
-
-            Collections.shuffle(level2Keys, rand);
-            Collections.shuffle(level1Keys, rand);
-
-            List<Integer> selectedKeys = new ArrayList<>();
-            selectedKeys.add(level2Keys.get(0));
-            selectedKeys.add(level2Keys.get(1));
-            selectedKeys.add(level1Keys.get(0));
-
-            game.getPreFlightPiles().get(i).addAll(selectedKeys);
-        }
     }
 }
