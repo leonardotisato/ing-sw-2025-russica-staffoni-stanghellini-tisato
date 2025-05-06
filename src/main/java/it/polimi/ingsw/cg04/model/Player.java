@@ -1,9 +1,11 @@
 package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
+import javax.swing.*;
 import java.util.List;
 
 public class Player {
@@ -18,7 +20,7 @@ public class Player {
 
     private Integer currentCell = 0;
     private int loopsCompleted = 0;
-    private int numCredits = 0;
+    private double numCredits = 0;
 
     private Tile heldTile;
 
@@ -30,6 +32,9 @@ public class Player {
         this.ship = new Ship(game.getLevel(), this.color);
     }
 
+    /**
+     * To be only used for TESTING PURPOSES
+     */
     public void setShip(Ship ship) {
         this.ship = ship;
     }
@@ -65,7 +70,7 @@ public class Player {
         return currentCell + (flightBoard.getPathSize() * loopsCompleted);
     }
 
-    public Integer getRanking(){
+    public Integer getRanking() {
         List<Player> sortedPlayers = this.game.getSortedPlayers();
         for (int i = 0; i < sortedPlayers.size(); i++) {
             if (sortedPlayers.get(i).getColor() == this.color) {
@@ -126,7 +131,7 @@ public class Player {
     /**
      * @return the number of credits currently possessed by the player
      */
-    public int getNumCredits() {
+    public double getNumCredits() {
         return numCredits;
     }
 
@@ -136,12 +141,44 @@ public class Player {
      *
      * @param delta the amount to modify the player's credits by (can be positive or negative).
      */
-    public void updateCredits(int delta) {
+    public void updateCredits(double delta) {
         if (numCredits + delta < 0) {
             numCredits = 0;
         } else {
             numCredits += delta;
         }
+    }
+
+
+    /**
+     * Exchanges the boxes owned by the player's ship for credits.
+     * The total credits are calculated based on the value of each box type, multiplied by
+     * the number of occurrences of that box type in the ship. If the player is retired,
+     * the total credit amount is halved before being added to their credit balance.
+     *
+     * @param isRetired a boolean flag indicating whether the player is retired.
+     *                  If true, the player gains only half the calculated credits.
+     */
+    public void exchangeBoxForCredits(boolean isRetired) {
+        int acc = 0;
+
+        for (BoxType boxType : BoxType.values()) {
+            int occurrences = this.ship.getBoxes(boxType);
+            acc += occurrences * boxType.getValue();
+        }
+
+        if (isRetired) {
+            this.updateCredits(0.5 * acc);
+        } else {
+            this.updateCredits(acc);
+        }
+    }
+
+    /**
+     * Deducts the player's credits based on the number of broken tiles on their ship.
+     */
+    public void payForLostTiles() {
+        updateCredits(-ship.getNumBrokenTiles());
     }
 
     /**
