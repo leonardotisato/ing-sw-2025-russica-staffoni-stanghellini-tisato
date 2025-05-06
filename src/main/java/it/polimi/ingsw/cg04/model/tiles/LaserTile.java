@@ -12,16 +12,28 @@ public class LaserTile extends Tile {
 
     public LaserTile() {
         super();
+        this.tileColor = "\u001B[35m";
     }
 
     @Override
     public Boolean isDoubleLaser() {
         return isDoubleLaser;
     }
+
+    @Override
+    String getName() {
+        if (isDoubleLaser) {
+            return "D. Laser";
+        } else {
+            return "S. Laser";
+        }
+    }
+
     public void setDoubleLaser(boolean isDoubleLaser) {
         this.isDoubleLaser = isDoubleLaser;
     }
-    @ Override
+
+    @Override
     public Direction getShootingDirection() {
         for (Direction dir : connections.keySet()) {
             if (connections.get(dir) == Connection.GUN) {
@@ -29,7 +41,7 @@ public class LaserTile extends Tile {
             }
         }
 
-        assert(false);
+        assert (false);
         return null;
     }
 
@@ -42,8 +54,8 @@ public class LaserTile extends Tile {
      */
     @Override
     public void broken(Ship ship, int x, int y) {
-        if(!isDoubleLaser){
-            if(getShootingDirection() == Direction.UP){
+        if (!isDoubleLaser) {
+            if (getShootingDirection() == Direction.UP) {
                 ship.updateBaseFirePower(-1);
             } else ship.updateBaseFirePower(-0.5);
         }
@@ -58,8 +70,8 @@ public class LaserTile extends Tile {
      */
     @Override
     public void place(Ship ship, int x, int y) {
-        if(!isDoubleLaser){
-            if(getShootingDirection() == Direction.UP) {
+        if (!isDoubleLaser) {
+            if (getShootingDirection() == Direction.UP) {
                 ship.updateBaseFirePower(1);
             } else ship.updateBaseFirePower(0.5);
         }

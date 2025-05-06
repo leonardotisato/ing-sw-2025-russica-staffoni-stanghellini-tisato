@@ -18,17 +18,24 @@ public class AlienSupportTile extends Tile {
 
     public AlienSupportTile() {
         this.adjacentHousingTiles = new HashSet<>();
+        this.shortName = "A. Support";
+
+        if (supportedAlienColor == CrewType.BROWN_ALIEN) {
+            this.tileColor = "\u001B[33m";
+        } else {
+            this.tileColor = "\u001B[38;5;205m";
+        }
     }
 
     public Set<Tile> getAdjacentHousingTiles() {
         return adjacentHousingTiles;
     }
 
-    public void addAdjacentHousingTile(Tile tile){
+    public void addAdjacentHousingTile(Tile tile) {
         adjacentHousingTiles.add(tile);
     }
 
-    public void removeAdjacentHousingTile(Tile tile){
+    public void removeAdjacentHousingTile(Tile tile) {
         adjacentHousingTiles.remove(tile);
     }
 
@@ -52,13 +59,13 @@ public class AlienSupportTile extends Tile {
     @Override
     public void broken(Ship ship, int x, int y) {
         // remove supported crewType
-        for(Tile adj : adjacentHousingTiles) {
-            if(adj.getSupportedCrewType().contains(getSupportedAlienColor())) {
+        for (Tile adj : adjacentHousingTiles) {
+            if (adj.getSupportedCrewType().contains(getSupportedAlienColor())) {
                 adj.removeSupportedCrewType(getSupportedAlienColor());
             }
 
             // if alien no longer supported remove it
-            if(adj.getHostedCrewType() != null && !adj.getSupportedCrewType().contains(adj.getHostedCrewType())) {
+            if (adj.getHostedCrewType() != null && !adj.getSupportedCrewType().contains(adj.getHostedCrewType())) {
                 ship.removeCrewByType(adj.getHostedCrewType());
                 //ship.removeCrew(adj.getHostedCrewType(), ?, ?, adj.getNumCrew());
                 adj.removeCrewMember();
@@ -84,59 +91,59 @@ public class AlienSupportTile extends Tile {
         int shipWidth = ship.getTilesMatrix()[0].length;
         Tile[][] tilesMatrix = ship.getTilesMatrix();
         List<Coordinates> housingTilesIdx = ship.getTilesMap().get("HousingTile");
-        for(int i=0; i<shipHeight; i++){
-            for(int j=0; j<shipWidth; j++){
-                if(tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)){
+        for (int i = 0; i < shipHeight; i++) {
+            for (int j = 0; j < shipWidth; j++) {
+                if (tilesMatrix[i][j] != null && tilesMatrix[i][j].equals(this)) {
                     // look UP -> check tile type and connection
-                    if(i>0 && new Coordinates(i-1, j).isIn(housingTilesIdx)
-                            && this.isValidConnection(Direction.UP, tilesMatrix[i-1][j])
+                    if (i > 0 && new Coordinates(i - 1, j).isIn(housingTilesIdx)
+                            && this.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && this.getConnection(Direction.UP) != Connection.EMPTY) {
-                        addAdjacentHousingTile(tilesMatrix[i-1][j]);
+                        addAdjacentHousingTile(tilesMatrix[i - 1][j]);
                         // if this is adjacent to a housing tile than remove crew members and leave the choice to the player
 
                         // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
                         // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, i-1, j, 2);
-                        tilesMatrix[i-1][j].addSupportedCrewType(getSupportedAlienColor());
+                        tilesMatrix[i - 1][j].addSupportedCrewType(getSupportedAlienColor());
                     }
 
                     // look LEFT -> check tile type and connection
-                    if(j>0 && new Coordinates(i, j-1).isIn(housingTilesIdx)
-                            && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j-1])
+                    if (j > 0 && new Coordinates(i, j - 1).isIn(housingTilesIdx)
+                            && this.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && this.getConnection(Direction.LEFT) != Connection.EMPTY) {
-                        addAdjacentHousingTile(tilesMatrix[i][j-1]);
+                        addAdjacentHousingTile(tilesMatrix[i][j - 1]);
                         // if this is adjacent to a housing tile than remove crew members and leave the choice to the player
 
                         // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
                         // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, i, j-1, 2);
-                        tilesMatrix[i][j-1].addSupportedCrewType(getSupportedAlienColor());
+                        tilesMatrix[i][j - 1].addSupportedCrewType(getSupportedAlienColor());
                     }
 
                     // look RIGHT -> check tile type and connection
-                    if(j<shipWidth-1 && new Coordinates(i, j+1).isIn(housingTilesIdx)
-                            && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j+1])
+                    if (j < shipWidth - 1 && new Coordinates(i, j + 1).isIn(housingTilesIdx)
+                            && this.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && this.getConnection(Direction.RIGHT) != Connection.EMPTY) {
-                        addAdjacentHousingTile(tilesMatrix[i][j+1]);
+                        addAdjacentHousingTile(tilesMatrix[i][j + 1]);
                         // if this is adjacent to a housing tile than remove crew members and leave the choice to the player
 
                         // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
                         // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, i, j+1, 2);
-                        tilesMatrix[i][j+1].addSupportedCrewType(getSupportedAlienColor());
+                        tilesMatrix[i][j + 1].addSupportedCrewType(getSupportedAlienColor());
                     }
 
                     // look DOWN -> check tile type and connection
-                    if(i<shipHeight-1 && new Coordinates(i+1, j).isIn(housingTilesIdx)
-                            && this.isValidConnection(Direction.DOWN, tilesMatrix[i+1][j])
+                    if (i < shipHeight - 1 && new Coordinates(i + 1, j).isIn(housingTilesIdx)
+                            && this.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && this.getConnection(Direction.DOWN) != Connection.EMPTY) {
-                        addAdjacentHousingTile(tilesMatrix[i+1][j]);
+                        addAdjacentHousingTile(tilesMatrix[i + 1][j]);
                         // if this is adjacent to a housing tile than remove crew members and leave the choice to the player
 
                         // UNCOMMENT THE FOLLOWING LINE TO APLY THE LOGGIC THAT REMOVES HUMANS
                         // IN CASE A HOUSING SUPPORT TILE SUPPORTS ONE OR MORE ALIEN TYPES
                         //ship.removeCrew(CrewType.HUMAN, i+1, j, 2);
-                        tilesMatrix[i+1][j].addSupportedCrewType(getSupportedAlienColor());
+                        tilesMatrix[i + 1][j].addSupportedCrewType(getSupportedAlienColor());
                     }
                     break;
                 }

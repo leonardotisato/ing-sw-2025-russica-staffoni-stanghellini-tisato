@@ -11,11 +11,14 @@ public class BatteryTile extends Tile {
 
     public BatteryTile() {
         super();
+        this.shortName = "Battery";
+        this.tileColor = "\u001B[32m";
     }
 
     public Integer getMaxBatteryCapacity() {
         return this.maxBatteryCapacity;
     }
+
     public void setMaxBatteryCapacity(Integer maxBatteryCapacity) {
         this.maxBatteryCapacity = maxBatteryCapacity;
     }
@@ -23,6 +26,7 @@ public class BatteryTile extends Tile {
     public Integer getNumBatteries() {
         return numBatteries;
     }
+
     public void setNumBatteries(Integer numBatteries) {
         this.numBatteries = numBatteries;
     }
@@ -61,8 +65,14 @@ public class BatteryTile extends Tile {
      * @param y
      */
     @Override
-    public void place(Ship ship, int x, int y){
+    public void place(Ship ship, int x, int y) {
         this.numBatteries = this.maxBatteryCapacity;
         ship.addBatteries(numBatteries);
+    }
+
+    @Override
+    void drawContent(StringBuilder sb) {
+        String availBatteries = String.format("%d/%d", numBatteries, maxBatteryCapacity);
+        sb.append("│ ").append(centerText(availBatteries, boxWidth - 4)).append(" │").append("\n");
     }
 }

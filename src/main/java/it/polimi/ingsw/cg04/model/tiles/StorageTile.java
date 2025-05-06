@@ -18,12 +18,21 @@ public class StorageTile extends Tile {
         boxes.put(BoxType.RED, 0);
         boxes.put(BoxType.YELLOW, 0);
         boxes.put(BoxType.GREEN, 0);
+
+        if (isSpecialStorageTile) {
+            this.shortName = "S. Storage";
+            this.tileColor = "\u001B[31m";
+        } else {
+            this.shortName = "N. Storage";
+            this.tileColor = "\u001B[36m";
+        }
     }
 
     @Override
     public Boolean isSpecialStorageTile() {
         return isSpecialStorageTile;
     }
+
     public void setSpecialStorageTile(boolean isSpecialStorageTile) {
         this.isSpecialStorageTile = isSpecialStorageTile;
     }
@@ -85,5 +94,15 @@ public class StorageTile extends Tile {
         ship.setBoxes(emptyStorage, x, y);
     }
 
-    // no need to override place methode
+    @Override
+    void drawContent(StringBuilder sb) {
+        StringBuilder storage = new StringBuilder();
+        storage.append("r".repeat(boxes.get(BoxType.RED)));
+        storage.append("y".repeat(boxes.get(BoxType.YELLOW)));
+        storage.append("b".repeat(boxes.get(BoxType.BLUE)));
+        storage.append("g".repeat(boxes.get(BoxType.GREEN)));
+        storage.append("-".repeat(maxBoxes - boxes.values().stream().mapToInt(Integer::intValue).sum()));
+
+        sb.append("│ ").append(centerText(storage.toString(), boxWidth - 4)).append(" │").append("\n");
+    }
 }

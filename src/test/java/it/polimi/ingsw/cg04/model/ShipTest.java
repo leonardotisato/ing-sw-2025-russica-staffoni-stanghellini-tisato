@@ -1141,4 +1141,10 @@ class ShipTest {
         assertTrue(lev2Ship.isSlotValid(1,5));
         assertTrue(lev2Ship.isSlotValid(4,6));
     }
+
+    @Test
+    void testDraw() {
+        System.out.println(shipyard.createShip3().draw());
+        System.out.println(shipyard.createShip3().getTile(3,1).isDoublePropulsor());
+    }
 }
