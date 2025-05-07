@@ -247,4 +247,23 @@ public abstract class FlightBoard {
                 .collect(Collectors.joining(", ", "[", "]")) +
                 '}';
     }
+
+    public String draw(){
+        return null;
+    }
+
+    /**
+     * Centers a given string within a specified width by adding leading and trailing spaces.
+     * If the string's length is greater than or equal to the specified width, it will be truncated.
+     *
+     * @param s     the input string to be centered; if null, an empty string will be used
+     * @param width the total width within which the string will be centered
+     * @return the centered string, padded with spaces if necessary, or truncated if the input exceeds the specified width
+     */
+    public String center(String s, int width) {
+        if (s == null) s = "";
+        if (s.length() >= width) return s.substring(0, width);
+        int left = (width - s.length()) / 2;
+        return " ".repeat(left) + s + " ".repeat(width - s.length() - left);
+    }
 }

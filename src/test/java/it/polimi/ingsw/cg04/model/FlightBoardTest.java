@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlightBoardTest {
@@ -24,7 +26,7 @@ class FlightBoardTest {
         p1 = new Player("Alice", PlayerColor.RED, game);
         p2 = new Player("Bob", PlayerColor.BLUE, game);
         p3 = new Player("Charlie", PlayerColor.GREEN, game);
-        p4 = new Player("David", PlayerColor.GREEN, game);
+        p4 = new Player("David", PlayerColor.YELLOW, game);
 
         // occupy/free cells and check that players are correctly placed
         startPositionOfFirst = fb1.getStartingPosition(1);
@@ -115,6 +117,48 @@ class FlightBoardTest {
     @Test
     void startTimer() {
         assertFalse(fb2.isTimerExpired());
+    }
+
+    @Test
+    void drawTestLev1(){
+        fb1.move(p1, 6);
+        fb1.move(p2, 6);
+        //fb1.move(p3, 6);
+        //fb1.move(p4, 6);
+        System.out.println(fb1.draw());
+    }
+
+    @Test
+    void drawTestLev2(){
+        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+
+        fb2 = new FlightBoardLev2();
+
+        p1 = new Player("Alice", PlayerColor.RED, game);
+        p2 = new Player("Bob", PlayerColor.BLUE, game);
+        p3 = new Player("Charlie", PlayerColor.GREEN, game);
+        p4 = new Player("David", PlayerColor.YELLOW, game);
+
+        // occupy/free cells and check that players are correctly placed
+        startPositionOfFirst = fb2.getStartingPosition(1);
+        startPositionOfSecond = fb2.getStartingPosition(2);
+        startPositionOfThird = fb2.getStartingPosition(3);
+        startPositionOfFourth = fb2.getStartingPosition(4);
+
+        fb2.occupyCell(startPositionOfFirst, p1);
+        fb2.occupyCell(startPositionOfSecond, p2);
+        fb2.occupyCell(startPositionOfThird, p3);
+        fb2.occupyCell(startPositionOfFourth, p4);
+        System.out.println(fb2.draw());
+
+        fb2.move(p1, 6);
+        fb2.move(p2, 2);
+        fb2.move(p3, 1);
+        fb2.move(p4, -10);
+
+        System.out.println(fb2.draw());
+
+
     }
 
 //    @Test

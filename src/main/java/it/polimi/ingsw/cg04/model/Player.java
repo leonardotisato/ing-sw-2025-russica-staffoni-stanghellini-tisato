@@ -54,6 +54,29 @@ public class Player {
     }
 
     /**
+     * Returns the Unicode escape sequence for the player's color.
+     * Each color is represented by a specific Unicode value for console text formatting:
+     * - BLUE corresponds to "\u001B[34m"
+     * - GREEN corresponds to "\u001B[32m"
+     * - RED corresponds to "\u001B[31m"
+     * - Other colors (default case) correspond to "\u001B[33m".
+     *
+     * @return a string representing the Unicode escape sequence for the player's color.
+     */
+    public String getColorUnicode() {
+        if (color == PlayerColor.BLUE) {
+            return "\u001B[34m";
+        }
+        if (color == PlayerColor.GREEN) {
+            return "\u001B[32m";
+        }
+        if (color == PlayerColor.RED) {
+            return "\u001B[31m";
+        }
+        return "\u001B[33m";
+    }
+
+    /**
      * @return the {@code Ship} object associated with the player.
      */
     public Ship getShip() {
@@ -285,7 +308,7 @@ public class Player {
         return game;
     }
 
-    // check if player was lapped by the leader
+    // check if the leader lapped player
     public boolean wasLapped() {
         int leaderLoops = game.getPlayer(0).getLoops();
         int leaderCell = game.getPlayer(0).getCurrentCell();
