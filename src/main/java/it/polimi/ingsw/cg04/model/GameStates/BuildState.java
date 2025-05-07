@@ -9,10 +9,7 @@ import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BuildState extends GameState {
     // players states are stored in a map
@@ -222,14 +219,14 @@ public class BuildState extends GameState {
             stringBuilder.append("player: ").append(p.getName()).append("\n");
             stringBuilder.append("Color: ").append(p.getColor()).append("\n");
             stringBuilder.append("Build state: ").append(playerState.get(p.getName())).append("\n");
-            stringBuilder.append("Position: ").append(p.getRanking() == null ? "/ " : p.getRanking()).append("\n").append("\n");
+            stringBuilder.append("Position: ").append(playerState.get(p.getName()) != BuildPlayerState.READY ? "/ " : p.getRanking()).append("\n").append("\n");
         }
         stringBuilder.append(renderPiles(12, 7)).append("\n").append("\n");
         stringBuilder.append("Your ship:").append("\n").append("\n");
-        stringBuilder.append(game.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
-        stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n");
-
-
+        stringBuilder.append(game.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
+        stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
+        stringBuilder.append("Face up tiles: send x to show more tiles!").append("\n").append("\n");
+        stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFaceUpTiles()).append("\n").append("\n");
 
         return stringBuilder.toString();
     }
@@ -247,8 +244,8 @@ public class BuildState extends GameState {
             }
 
             // Riga con ID e stato
-            singlePile.add(TuiDrawer.drawCenteredRow("#pile: " + i, width));
-            singlePile.add(TuiDrawer.drawCenteredRow(isLookingPile.containsValue(i) ? "Held" : "Free", width));
+            singlePile.add(TuiDrawer.drawCenteredRow("#pile: " + (i + 1), width));
+            singlePile.add(TuiDrawer.drawCenteredRow(isLookingPile.containsValue(i + 1) ? "Held" : "Free", width));
 
             for (int j = 0; j < paddingLines - paddingLines / 2; j++) {
                 singlePile.add(TuiDrawer.drawEmptyRow(width));
@@ -265,6 +262,29 @@ public class BuildState extends GameState {
                 if (p < pileLines.size() - 1) {
                     sb.append("  "); // spazio tra pile
                 }
+            }
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
+    public String renderKFaceUpTiles(){
+        List<List<String>> tileLines = new ArrayList<>();
+        int k = 7;
+        List<Integer> faceUpTiles = game.getFaceUpTiles();
+        for (int i = 0; i < k && i < faceUpTiles.size(); i++) {
+            String[] lines = game.getTileById(faceUpTiles.get(i)).draw().split("\n");
+            tileLines.add(Arrays.asList(lines));
+        }
+
+        int numRows = tileLines.getFirst().size();
+
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < numRows; row++) {
+            for (int i = 0; i < tileLines.size(); i++) {
+                sb.append(tileLines.get(i).get(row));
+                if (i < tileLines.size() - 1) sb.append("  "); // spazio tra tile
             }
             sb.append('\n');
         }

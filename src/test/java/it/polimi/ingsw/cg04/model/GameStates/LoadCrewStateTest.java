@@ -11,6 +11,7 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -112,5 +113,12 @@ class LoadCrewStateTest {
         // assert state of the game has changed
         assertInstanceOf(FlightState.class, game.getGameState());
 
+    }
+
+    @Test
+    void renderLoadCrewStateTest() throws InterruptedException, InvalidStateException {
+        game.setGameState(new LoadCrewState(game));
+        LoadCrewState state = (LoadCrewState) game.getGameState();
+        System.out.println(state.render("Alice"));
     }
 }

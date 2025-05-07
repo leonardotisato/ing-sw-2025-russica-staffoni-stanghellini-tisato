@@ -180,6 +180,14 @@ public class AdventureCardsTest {
     }
 
     @Test
+    public void renderAbandonedShipState(){
+        game.setCurrentAdventureCard(game.getCardById(37));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Filippo"));
+    }
+
+    @Test
     void testAbandonedStationPattern(){
         game.setCurrentAdventureCard(game.getCardById(39));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
@@ -212,6 +220,14 @@ public class AdventureCardsTest {
         assertEquals(9, p2.getCurrentCell());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
+    }
+
+    @Test
+    public void renderAbandonedStationState(){
+        game.setCurrentAdventureCard(game.getCardById(39));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Filippo"));
     }
 
     @Test
@@ -283,6 +299,14 @@ public class AdventureCardsTest {
         assertEquals(2, p.getShip().getNumCrew());
         assertInstanceOf(FlightState.class, game.getGameState());
         assertNull(game.getCurrentAdventureCard());
+    }
+
+    @Test
+    public void renderEpidemicState(){
+        game.setCurrentAdventureCard(game.getCardById(25));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Martin"));
     }
 
 }

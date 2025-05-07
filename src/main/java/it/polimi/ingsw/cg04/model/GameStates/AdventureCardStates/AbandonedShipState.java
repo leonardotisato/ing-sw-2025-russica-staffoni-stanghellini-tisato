@@ -36,5 +36,17 @@ public class AbandonedShipState extends AdventureCardState {
             triggerNextState();
         }
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        stringBuilder.append(super.render(playerName));
+        stringBuilder.append("It's ").append(currPlayerIdx == (context.getPlayer(playerName).getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n").append("\n");
+        if (currPlayerIdx == (context.getPlayer(playerName).getRanking() - 1)){
+            stringBuilder.append("You have ").append(context.getPlayer(playerName).getShip().getNumCrew()).append(" crew members.").append("\n");
+            stringBuilder.append("send x if you want to give up ").append(card.getLostMembers()).append(" crew members in exchange for ").append(card.getEarnedCredits()).append(" credits.\n");
+            stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
 

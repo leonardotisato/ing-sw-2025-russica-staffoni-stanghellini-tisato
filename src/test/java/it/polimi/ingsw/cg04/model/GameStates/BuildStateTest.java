@@ -12,7 +12,6 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
-import org.fusesource.jansi.AnsiConsole;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -273,12 +272,22 @@ class BuildStateTest {
     }
 
     @Test
-    void renderBuildStateTest() throws InterruptedException {
+    void renderBuildStateTest() throws InterruptedException, InvalidStateException {
         BuildState state = (BuildState) game.getGameState();
         System.out.println(state.render("Alice"));
-        Thread.sleep(10000);
-        p1.setHeldTile(game.drawFaceDownTile());
+        Thread.sleep(5000);
+        state.drawFaceDown(p1);
         TuiDrawer.clear();
+        System.out.println(state.render("Alice"));
+        Thread.sleep(5000);
+        state.returnTile(p1);
+        System.out.println(state.render("Alice"));
+        Thread.sleep(5000);
+        state.drawFaceDown(p1);
+        TuiDrawer.clear();
+        System.out.println(state.render("Alice"));
+        Thread.sleep(5000);
+        state.returnTile(p1);
         System.out.println(state.render("Alice"));
     }
 

@@ -98,4 +98,18 @@ public abstract class AdventureCardState extends GameState {
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        stringBuilder.append("Current card: ").append(card.getType()).append("\n").append("\n");
+        for (Player p : context.getSortedPlayers()) {
+            stringBuilder.append("player: ").append(p.getName()).append("\n");
+            stringBuilder.append("Color: ").append(p.getColor()).append("\n");
+            stringBuilder.append("Position: ").append(p.getRanking()).append("\n");
+            stringBuilder.append("Credits: ").append(p.getNumCredits()).append("\n").append("\n");
+        }
+        stringBuilder.append("Your ship:").append("\n").append("\n");
+        stringBuilder.append(context.getPlayer(playerName).getShip().draw()).append("\n").append("\n");
+        return stringBuilder.toString();
+    }
 }

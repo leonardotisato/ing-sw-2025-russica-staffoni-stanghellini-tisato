@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
+import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -41,4 +42,19 @@ public class LoadCrewState extends AdventureCardState {
         }
     }
 
-}
+        public String render (String nickname){
+            StringBuilder stringBuilder = new StringBuilder("\n");
+            stringBuilder.append("State: Load crew").append("\n").append("\n");
+            for (Player p : context.getPlayers()) {
+                stringBuilder.append("player: ").append(p.getName()).append("\n");
+                stringBuilder.append("Color: ").append(p.getColor()).append("\n");
+                stringBuilder.append("Position: ").append(p.getRanking()).append("\n").append("\n");
+            }
+            stringBuilder.append("Your ship:").append("\n").append("\n");
+            stringBuilder.append(context.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
+            stringBuilder.append("It's time to load crew!");
+            stringBuilder.append("\n");
+            return stringBuilder.toString();
+        }
+    }
+
