@@ -6,9 +6,19 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import java.util.HashMap;
 
 public class EmptyTile extends Tile {
+
     public EmptyTile(int row, int column) {
         super();
         this.shortName = row + " " + column;
+        this.connections = new HashMap<>();
+        for (Direction d : Direction.values()) {
+            connections.put(d, Connection.EMPTY);
+        }
+    }
+
+    public EmptyTile(int index) {
+        super();
+        this.shortName = "Buff: " + index;
         this.connections = new HashMap<>();
         for (Direction d : Direction.values()) {
             connections.put(d, Connection.EMPTY);

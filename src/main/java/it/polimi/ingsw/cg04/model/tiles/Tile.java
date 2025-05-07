@@ -19,7 +19,7 @@ public abstract class Tile {
     Map<Direction, Connection> connections;
     @Expose
     int id;
-    final int boxWidth = 25;
+    final int boxWidth = 17;
     String tileColor = "";
     final String RESET_COLOR = "\u001B[0m";
 
@@ -399,13 +399,13 @@ public abstract class Tile {
                 sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
                 break;
             case Connection.SINGLE:
-                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("○", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.DOUBLE:
-                sb.append("│ ").append(centerText("oo", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("○ ○", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.UNIVERSAL:
-                sb.append("│ ").append(centerText("ooo", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("○ ○ ○", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.PROPULSOR:
                 sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
@@ -475,15 +475,15 @@ public abstract class Tile {
                 break;
             case SINGLE:
                 rows = new int[]{4};
-                symbol = 'o';
+                symbol = '○';
                 break;
             case DOUBLE:
                 rows = new int[]{3, 4};
-                symbol = 'o';
+                symbol = '○';
                 break;
             case UNIVERSAL:
                 rows = new int[]{3, 4, 5};
-                symbol = 'o';
+                symbol = '○';
                 break;
             case GUN:
                 rows = new int[]{3, 4, 5};

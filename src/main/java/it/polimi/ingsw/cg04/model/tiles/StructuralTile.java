@@ -7,7 +7,7 @@ public class StructuralTile extends Tile {
 
     public StructuralTile() {
         super();
-        this.shortName = "Structural";
+        this.shortName = "Struct.";
     }
 
 
