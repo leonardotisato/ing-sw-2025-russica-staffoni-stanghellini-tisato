@@ -19,12 +19,24 @@ public class StorageTile extends Tile {
         boxes.put(BoxType.YELLOW, 0);
         boxes.put(BoxType.GREEN, 0);
 
+
+    }
+
+    @Override
+    String getName() {
         if (isSpecialStorageTile) {
-            this.shortName = "S. Storage";
-            this.tileColor = "\u001B[31m";
+            return "S. Storage";
         } else {
-            this.shortName = "N. Storage";
-            this.tileColor = "\u001B[36m";
+            return "N. Storage";
+        }
+    }
+
+    @Override
+    String getTileColor() {
+        if (isSpecialStorageTile) {
+            return "\u001B[31m";
+        } else {
+            return "\u001B[36m";
         }
     }
 
