@@ -1146,5 +1146,6 @@ class ShipTest {
     void testDraw() {
         System.out.println(shipyard.createShip3().draw());
         System.out.println(shipyard.createShip3().getTile(3,1).isDoublePropulsor());
+        System.out.println(shipyard.createShip3().drawWithBuffer());
     }
 }

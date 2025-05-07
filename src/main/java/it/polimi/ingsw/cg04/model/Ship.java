@@ -30,7 +30,7 @@ public class Ship {
     private final Map<CrewType, Integer> crewMap;
     private final Map<BoxType, Integer> boxes;
     private final List<Direction> protectedDirections;
-    private final List<Tile> tilesBuffer;
+    private final List<Tile> tilesBuffer = new ArrayList<>();
 
 
     public Ship(int lev, PlayerColor playerColor) {
@@ -49,7 +49,6 @@ public class Ship {
         tilesMap.put("StructuralTile", new ArrayList<>());
 
         protectedDirections = new ArrayList<>();
-        tilesBuffer = new ArrayList<>();
 
         crewMap = new HashMap<>();
         crewMap.put(CrewType.HUMAN, 0);
@@ -1122,7 +1121,7 @@ public class Ship {
                     if (tileHeight == -1) {
                         // Default placeholder size if no tile drawn yet
                         tileHeight = 10;
-                        tileWidth = 25;
+                        tileWidth = 17;
                     }
 
                     List<String> blank = new ArrayList<>();
@@ -1147,5 +1146,34 @@ public class Ship {
         return fullShip.toString();
     }
 
+    public String drawWithBuffer() {
+        String[] shipLines = draw().split("\n");
+
+        String[] topLines = tilesBuffer.isEmpty()
+                ? new EmptyTile(0).draw().split("\n")
+                : tilesBuffer.get(0).draw().split("\n");
+        String[] botLines = tilesBuffer.size() < 2
+                ? new EmptyTile(1).draw().split("\n")
+                : tilesBuffer.get(1).draw().split("\n");
+
+        int tileH = topLines.length;
+        int tileW = topLines[0].length();
+        String blank = " ".repeat(tileW);
+
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < shipLines.length; i++) {
+            String line = shipLines[i];
+
+            if (i < tileH) {
+                line += " " + topLines[i] + " " + botLines[i];
+            } else {
+                line += " " + blank + " " + blank;
+            }
+
+            out.append(line).append("\n");
+        }
+
+        return out.toString();
+    }
 
 }
