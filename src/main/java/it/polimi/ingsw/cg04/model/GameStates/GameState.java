@@ -126,4 +126,8 @@ public abstract class GameState {
 
     public void getNextAdventureCard(Player player) throws InvalidStateException {
         throw new InvalidStateException("Invalid action in this game state!");}
+
+    public String render(String nickname) {
+        return null;
+    }
 }

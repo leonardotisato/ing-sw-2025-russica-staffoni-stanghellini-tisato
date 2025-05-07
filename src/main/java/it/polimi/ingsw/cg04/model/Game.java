@@ -64,11 +64,11 @@ public class Game {
         // set up tiles
         this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
 
-        // set initial gameState
-        this.gameState = new LobbyState();
 
         // add first player
         this.addPlayer(playerNickName, playerColor);
+        // set initial gameState
+        this.gameState = new LobbyState(this);
     }
 
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
@@ -84,8 +84,8 @@ public class Game {
         this.adventureCardsDeck = new ArrayList<>();
         createAdventureDeck();
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
-        this.gameState = new LobbyState();
         this.id = 0;
+        this.gameState = new LobbyState(this);
     }
 
 
@@ -496,5 +496,9 @@ public class Game {
                 players.remove(p);
             }
         }
+    }
+
+    public String render(String nickname){
+        return this.gameState.render(nickname);
     }
 }

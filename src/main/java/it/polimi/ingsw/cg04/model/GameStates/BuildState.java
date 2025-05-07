@@ -7,7 +7,9 @@ import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -212,6 +214,64 @@ public class BuildState extends GameState {
         }
         game.getBoard().startTimer();
     }
+
+    @Override
+    public String render(String nickname) {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        for (Player p : game.getPlayers()) {
+            stringBuilder.append("player: ").append(p.getName()).append("\n");
+            stringBuilder.append("Color: ").append(p.getColor()).append("\n");
+            stringBuilder.append("Build state: ").append(playerState.get(p.getName())).append("\n");
+            stringBuilder.append("Position: ").append(p.getRanking() == null ? "/ " : p.getRanking()).append("\n").append("\n");
+        }
+        stringBuilder.append(renderPiles(12, 7)).append("\n").append("\n");
+        stringBuilder.append("Your ship:").append("\n").append("\n");
+        stringBuilder.append(game.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
+        stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n");
+
+
+
+        return stringBuilder.toString();
+    }
+
+    public String renderPiles(int width, int height){
+        List<List<String>> pileLines = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            List<String> singlePile = new ArrayList<>();
+            singlePile.add(TuiDrawer.drawTopBoundary(width));
+
+            int paddingLines = height - 3;
+            for (int j = 0; j < paddingLines / 2; j++) {
+                singlePile.add(TuiDrawer.drawEmptyRow(width));
+            }
+
+            // Riga con ID e stato
+            singlePile.add(TuiDrawer.drawCenteredRow("#pile: " + i, width));
+            singlePile.add(TuiDrawer.drawCenteredRow(isLookingPile.containsValue(i) ? "Held" : "Free", width));
+
+            for (int j = 0; j < paddingLines - paddingLines / 2; j++) {
+                singlePile.add(TuiDrawer.drawEmptyRow(width));
+            }
+
+            singlePile.add(TuiDrawer.drawBottomBoundary(width));
+            pileLines.add(singlePile);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < height + 1; row++) {
+            for (int p = 0; p < pileLines.size(); p++) {
+                sb.append(pileLines.get(p).get(row));
+                if (p < pileLines.size() - 1) {
+                    sb.append("  "); // spazio tra pile
+                }
+            }
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
 
     // getters needed to simplify testing
     public Map<String, Integer> getIsLookingPile() {
