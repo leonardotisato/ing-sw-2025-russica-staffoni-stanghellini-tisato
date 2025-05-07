@@ -83,4 +83,12 @@ class StardustStateTest {
 //        PlayerAction notLeaderStarDustAction = new StardustAction("Bob");
 //        controller.onActionReceived(notLeaderStarDustAction);
     }
+
+    @Test
+    void renderStardustState(){
+        game.setCurrentAdventureCard(game.getCardById(4));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Alice"));
+    }
 }

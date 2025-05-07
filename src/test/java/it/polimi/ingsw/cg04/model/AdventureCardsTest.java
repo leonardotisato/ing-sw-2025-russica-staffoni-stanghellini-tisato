@@ -136,6 +136,15 @@ public class AdventureCardsTest {
         assertThrows(InvalidStateException.class, () ->  action.execute(p));
     }
 
+
+    @Test
+    public void renderOpenSpaceState(){
+        game.setCurrentAdventureCard(game.getCardById(5));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Filippo"));
+    }
+
     @Test
     void testAbandonedShipPattern(){
         game.setCurrentAdventureCard(game.getCardById(37));

@@ -26,4 +26,22 @@ public class OpenSpaceState extends AdventureCardState {
             triggerNextState();
         }
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        stringBuilder.append(super.render(playerName));
+        Player p = context.getPlayer(playerName);
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
+            int totDoublePropulsor = (int)propulsorCoordinates.stream()
+                    .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                    .filter(t -> t.isDoublePropulsor())
+                    .count();
+            stringBuilder.append("You have ").append(p.getShip().getNumBatteries()).append(" batteries").append("\n");
+            stringBuilder.append("Your base propulsion power is ").append(p.getShip().getBasePropulsionPower()).append(" and you have ").append(totDoublePropulsor).append(" double propulsors.\n");
+            stringBuilder.append("Send the batteries you want to use to increase your propulsion power").append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
