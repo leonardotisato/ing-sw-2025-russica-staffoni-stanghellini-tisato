@@ -31,7 +31,7 @@ public abstract class AdventureCardState extends GameState {
         if(card != null) {
             System.out.println(card.getType() + " è stata risolta!");
         }
-        context.setGameState(new FlightState());
+        context.setGameState(new FlightState(context));
         context.setCurrentAdventureCard(null);
     }
 

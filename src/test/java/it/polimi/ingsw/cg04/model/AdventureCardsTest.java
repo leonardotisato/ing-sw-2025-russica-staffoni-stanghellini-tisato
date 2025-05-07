@@ -86,6 +86,13 @@ public class AdventureCardsTest {
     }
 
     @Test
+    void flightStateRender(){
+        game.setGameState(new FlightState(game));
+        GameState state = game.getGameState();
+        System.out.println(state.render("Martin"));
+    }
+
+    @Test
     void testOpenSpacePattern(){
         game.setCurrentAdventureCard(game.getCardById(5));
         game.setGameState(game.getCurrentAdventureCard().createState(game));
