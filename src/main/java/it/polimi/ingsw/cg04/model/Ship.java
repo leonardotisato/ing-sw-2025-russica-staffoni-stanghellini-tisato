@@ -1097,11 +1097,10 @@ public class Ship {
     public String draw() {
         StringBuilder fullShip = new StringBuilder();
 
-        int tileHeight = -1;
-        int tileWidth = -1;
-
         // Prepare tile line representations
         List<String>[][] tileLines = (List<String>[][]) new List[shipHeight][shipWidth];
+        int tileWidth = new EmptyTile(0).getBoxWidth();
+        int tileHeight = new EmptyTile(0).getBoxHeight();
 
         for (int row = 0; row < shipHeight; row++) {
             for (int col = 0; col < shipWidth; col++) {
@@ -1110,19 +1109,7 @@ public class Ship {
 
                     tileLines[row][col] = Arrays.asList(lines);
 
-                    // Save dimensions
-                    if (tileHeight == -1) {
-                        tileHeight = lines.length;
-                        tileWidth = lines[0].length();
-                    }
-
                 } else {
-                    // Fill with blank lines or placeholder for empty or invalid cells
-                    if (tileHeight == -1) {
-                        // Default placeholder size if no tile drawn yet
-                        tileHeight = 10;
-                        tileWidth = 17;
-                    }
 
                     List<String> blank = new ArrayList<>();
                     for (int i = 0; i < tileHeight; i++) {

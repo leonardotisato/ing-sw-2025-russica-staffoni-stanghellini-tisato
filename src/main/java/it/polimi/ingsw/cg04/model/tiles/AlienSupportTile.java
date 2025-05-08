@@ -27,6 +27,24 @@ public class AlienSupportTile extends Tile {
         }
     }
 
+    @Override
+    String getName() {
+        if (supportedAlienColor == CrewType.BROWN_ALIEN) {
+            return "B. Support";
+        } else {
+            return "P. Support";
+        }
+    }
+
+    @Override
+    String getTileColor() {
+        if (supportedAlienColor == CrewType.BROWN_ALIEN) {
+            return "\u001B[33m";
+        } else {
+            return "\u001B[38;5;205m";
+        }
+    }
+
     public Set<Tile> getAdjacentHousingTiles() {
         return adjacentHousingTiles;
     }

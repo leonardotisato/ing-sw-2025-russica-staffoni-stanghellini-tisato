@@ -19,7 +19,11 @@ public abstract class Tile {
     Map<Direction, Connection> connections;
     @Expose
     int id;
-    final int boxWidth = 17;
+
+
+
+    final int boxWidth = 14;
+    final int boxHeight = 6;
     String tileColor = "";
     final String RESET_COLOR = "\u001B[0m";
 
@@ -64,6 +68,10 @@ public abstract class Tile {
 
     String getName() {
         return shortName;
+    }
+
+    String getTileColor() {
+        return tileColor;
     }
 
     public void place(Ship ship, int x, int y) {
@@ -363,23 +371,20 @@ public abstract class Tile {
         StringBuilder temp = new StringBuilder();
 
         // Draw into temp, then wrap each line
-        drawUpBoundary(temp);
-        drawHorizonalConnections(temp, connections.get(Direction.UP));
+        drawUpBoundary(temp, connections.get(Direction.UP));
         drawHorizontalShields(temp, Direction.UP);
-        drawEmptyRow(temp);
         drawShortName(temp);
         drawContent(temp);
-        drawEmptyRow(temp);
         drawHorizontalShields(temp, Direction.DOWN);
-        drawHorizonalConnections(temp, connections.get(Direction.DOWN));
-        drawDownBoundary(temp);
+        //drawHorizonalConnections(temp, connections.get(Direction.DOWN));
+        drawDownBoundary(temp, connections.get(Direction.DOWN));
         drawVerticalShields(temp);
         drawVerticalConnections(temp, Direction.LEFT);
         drawVerticalConnections(temp, Direction.RIGHT);
 
         // Wrap each line with tileColor and RESET_COLOR
         for (String line : temp.toString().split("\n")) {
-            sb.append(tileColor).append(line).append(RESET_COLOR).append('\n');
+            sb.append(getTileColor()).append(line).append(RESET_COLOR).append('\n');
         }
 
         return sb.toString();
@@ -422,18 +427,54 @@ public abstract class Tile {
 
     private void drawHorizontalShields(StringBuilder sb, Direction protectedDir) {
         if (getProtectedDirections() != null && getProtectedDirections().contains(protectedDir)) {
-            sb.append("│ ").append(centerText("────", boxWidth - 4)).append(" │").append("\n");
+            sb.append("│ ").append(centerText("──────", boxWidth - 4)).append(" │").append("\n");
         } else {
             sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
         }
     }
 
-    private void drawUpBoundary(StringBuilder sb) {
-        sb.append("┌").append("─".repeat(boxWidth - 2)).append("┐").append("\n");
+    private void drawUpBoundary(StringBuilder sb, Connection c) {
+        String text = switch (c) {
+            case Connection.EMPTY -> "    ";
+            case Connection.SINGLE -> "  ○  ";
+            case Connection.DOUBLE -> "○  ○";
+            case Connection.UNIVERSAL -> "○ ○ ○";
+            case Connection.PROPULSOR -> "M M M";
+            case Connection.GUN -> "A A A";
+        };
+
+        int innerWidth = boxWidth - 2;
+        int textLength = text.length();
+        int paddingLeft = (innerWidth - textLength) / 2;
+        int paddingRight = innerWidth - textLength - paddingLeft;
+
+        sb.append("┌");
+        sb.append("─".repeat(paddingLeft));
+        sb.append(text);
+        sb.append("─".repeat(paddingRight));
+        sb.append("┐\n");
     }
 
-    void drawDownBoundary(StringBuilder sb) {
-        sb.append("└").append("─".repeat(boxWidth - 2)).append("┘");
+    void drawDownBoundary(StringBuilder sb, Connection c) {
+        String text = switch (c) {
+            case Connection.EMPTY -> "    ";
+            case Connection.SINGLE -> "  ○  ";
+            case Connection.DOUBLE -> "○  ○";
+            case Connection.UNIVERSAL -> " ○ ○ ○ ";
+            case Connection.PROPULSOR -> "M M M";
+            case Connection.GUN -> "A A A";
+        };
+
+        int innerWidth = boxWidth - 2;
+        int textLength = text.length();
+        int paddingLeft = (innerWidth - textLength) / 2;
+        int paddingRight = innerWidth - textLength - paddingLeft;
+
+        sb.append("└");
+        sb.append("─".repeat(paddingLeft));
+        sb.append(text);
+        sb.append("─".repeat(paddingRight));
+        sb.append("┘\n");
     }
 
     private void drawShortName(StringBuilder sb) {
@@ -447,17 +488,17 @@ public abstract class Tile {
 
     private void drawVerticalShields(StringBuilder sb) {
 
-        int[] rows = {3, 4, 5};
+        int[] rows = {2, 3};
         if (getProtectedDirections() != null && getProtectedDirections().contains(Direction.LEFT)) {
             for (int row : rows) {
-                int index = row * (boxWidth + 1) + 4;
+                int index = row * (boxWidth + 1) + 3;
                 sb.setCharAt(index, '│');
             }
         }
 
         if (getProtectedDirections() != null && getProtectedDirections().contains(Direction.RIGHT)) {
             for (int row : rows) {
-                int index = row * (boxWidth + 1) + (boxWidth - 5);
+                int index = row * (boxWidth + 1) + (boxWidth - 4);
                 sb.setCharAt(index, '│');
             }
         }
@@ -465,32 +506,36 @@ public abstract class Tile {
 
     private void drawVerticalConnections(StringBuilder sb, Direction dir) {
 
-        int padding = (dir.equals(Direction.LEFT)) ? 2 : boxWidth - 3;
+        int padding = (dir.equals(Direction.LEFT)) ? 0 : boxWidth - 1;
 
         int[] rows = new int[0];
         char symbol = ' ';
 
         switch (connections.get(dir)) {
             case EMPTY:
+                rows = new int[]{2, 3, 4};
+                symbol = ' ';
                 break;
             case SINGLE:
-                rows = new int[]{4};
+                rows = new int[]{3};
                 symbol = '○';
                 break;
             case DOUBLE:
-                rows = new int[]{3, 4};
+                rows = new int[]{2, 3};
                 symbol = '○';
                 break;
             case UNIVERSAL:
-                rows = new int[]{3, 4, 5};
+                rows = new int[]{2, 3, 4};
                 symbol = '○';
                 break;
             case GUN:
-                rows = new int[]{3, 4, 5};
+                rows = new int[]{2, 3, 4};
                 symbol = 'A';
+                break;
             case PROPULSOR:
-                rows = new int[]{3, 4, 5};
+                rows = new int[]{2, 3, 4};
                 symbol = 'M';
+                break;
         }
 
         for (int row : rows) {
@@ -499,4 +544,11 @@ public abstract class Tile {
         }
     }
 
+    public int getBoxHeight() {
+        return boxHeight;
+    }
+
+    public int getBoxWidth() {
+        return boxWidth;
+    }
 }
