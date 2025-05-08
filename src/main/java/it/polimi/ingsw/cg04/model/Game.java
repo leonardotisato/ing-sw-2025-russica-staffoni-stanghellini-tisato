@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
+
+import static java.lang.Math.ceil;
 
 public class Game {
 
@@ -430,17 +433,13 @@ public class Game {
      * - The state of players that are still "alive" is assumed to be {@code PlayerState.FLIGHT}.
      */
     public void calculateBestShip() {
-
-        // assumes state of players that are still "alive" is PlayerState.FLIGHT
-
         int minConnectors = players.stream()
-                // .filter(p -> p.getState() == ExPlayerState.FLIGHT) TODO: FIXME
                 .mapToInt(p -> p.getShip().getNumExposedConnectors())
                 .min()
                 .orElse(0);
 
         List<Player> minPlayers = players.stream()
-                // .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors && p.getState() == ExPlayerState.FLIGHT) TODO: FIXME
+                .filter(p -> p.getShip().getNumExposedConnectors() == minConnectors)
                 .toList();
 
         for (Player p : minPlayers) {
@@ -461,11 +460,7 @@ public class Game {
      * credit from the list.
      */
     public void giveEndCredits() {
-
-        // assumes state of players that are still "alive" is PlayerState.FLIGHT
-
         List<Player> survivedPlayersByPosition = this.getSortedPlayers().stream().
-                //filter(p -> p.getState() == ExPlayerState.FLIGHT). TODO: FIX ME
                 sorted(Comparator.comparingInt(Player::getPosition).reversed()).
                 toList();
 
@@ -474,7 +469,36 @@ public class Game {
         }
     }
 
+    public void sellBoxes() {
+        double delta;
+        for(Player p : players) {
+            delta = p.getShip().getBoxes().get(BoxType.RED) * 4 + p.getShip().getBoxes().get(BoxType.YELLOW) * 3
+                    + p.getShip().getBoxes().get(BoxType.GREEN) * 2 + p.getShip().getBoxes().get(BoxType.BLUE);
+            p.updateCredits(delta);
+        }
+        for (Player p : retired) {
+            delta = (p.getShip().getBoxes().get(BoxType.RED) * 4 + p.getShip().getBoxes().get(BoxType.YELLOW) * 3
+                    + p.getShip().getBoxes().get(BoxType.GREEN) * 2 + p.getShip().getBoxes().get(BoxType.BLUE));
+            delta = ceil(delta / 2);
+            p.updateCredits(delta);
+        }
+    }
+
+    public void calculateLostPieces() {
+        int lostPieces;
+        for (Player p : players) {
+            lostPieces = p.getShip().getNumBrokenTiles() + p.getShip().getTilesBuffer().size();
+            p.updateCredits(-lostPieces);
+        }
+        for (Player p : retired) {
+            lostPieces = p.getShip().getNumBrokenTiles() + p.getShip().getTilesBuffer().size();
+            p.updateCredits(-lostPieces);
+        }
+    }
+
     public void handleEndGame() {
+        this.sellBoxes();
+        this.calculateLostPieces();
         this.giveEndCredits();
         this.calculateBestShip();
     }
@@ -485,6 +509,7 @@ public class Game {
             if (p.wasLapped()) {
                 retired.add(p);
                 players.remove(p);
+                p.setRetired(true);
             }
         }
     }
@@ -495,8 +520,14 @@ public class Game {
             if (!p.getShip().hasEnoughHumans()) {
                 retired.add(p);
                 players.remove(p);
+                p.setRetired(true);
             }
         }
+    }
+
+    public void disconnect(Player p) {
+        disconnected.add(p);
+        players.remove(p);
     }
 
     public String render(String nickname){

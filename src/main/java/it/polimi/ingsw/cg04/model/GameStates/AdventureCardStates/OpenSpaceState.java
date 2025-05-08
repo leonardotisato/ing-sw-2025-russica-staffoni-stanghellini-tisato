@@ -42,6 +42,7 @@ public class OpenSpaceState extends AdventureCardState {
             if(playerDelta.get(p) == 0) {
                 context.getRetiredPlayers().add(p);
                 context.getPlayers().remove(p);
+                p.setRetired(true);
             }
         }
         playerDelta.clear();

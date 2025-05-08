@@ -141,6 +141,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
             if (!heartBeat.equals(lastHeartBeat)) {
                 try {
+                    disconnect();
                     socket.close();
                     System.out.println("Connection with client lost");
                 } catch (IOException ignored) {}

@@ -24,6 +24,8 @@ public class Player {
 
     private Tile heldTile;
 
+    private boolean retired = false;
+
     public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
@@ -160,16 +162,11 @@ public class Player {
 
     /**
      * Updates the player's credits by a specified delta value.
-     * If the resulting credit count is less than zero, the credits will be set to zero.
      *
      * @param delta the amount to modify the player's credits by (can be positive or negative).
      */
     public void updateCredits(double delta) {
-        if (numCredits + delta < 0) {
-            numCredits = 0;
-        } else {
-            numCredits += delta;
-        }
+        numCredits += delta;
     }
 
 
@@ -306,6 +303,14 @@ public class Player {
 
     public Game getGame() {
         return game;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
     }
 
     // check if the leader lapped player

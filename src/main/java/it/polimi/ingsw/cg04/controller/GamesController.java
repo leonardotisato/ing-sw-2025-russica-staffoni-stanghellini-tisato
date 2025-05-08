@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
@@ -79,6 +80,15 @@ public class GamesController {
 
     public void addNicktoGame(String nickname, Game game) {
         nickToGame.put(nickname, game);
+    }
+
+    public void disconnect(String nickname) {
+        Game g = nickToGame.get(nickname);
+        Player p = g.getPlayer(nickname);
+        if(!disconnectedPlayers.containsKey(g)) disconnectedPlayers.put(g, new ArrayList<>());
+        disconnectedPlayers.get(g).add(p);
+        connectedPlayers.get(g).remove(p);
+        g.disconnect(p);
     }
 
 }
