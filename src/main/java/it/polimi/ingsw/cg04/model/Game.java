@@ -509,6 +509,7 @@ public class Game {
             if (p.wasLapped()) {
                 retired.add(p);
                 players.remove(p);
+                p.setRetired(true);
             }
         }
     }
@@ -519,8 +520,14 @@ public class Game {
             if (!p.getShip().hasEnoughHumans()) {
                 retired.add(p);
                 players.remove(p);
+                p.setRetired(true);
             }
         }
+    }
+
+    public void disconnect(Player p) {
+        disconnected.add(p);
+        players.remove(p);
     }
 
     public String render(String nickname){

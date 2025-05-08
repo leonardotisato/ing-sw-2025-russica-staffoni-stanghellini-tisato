@@ -34,9 +34,10 @@ public abstract class ClientHandler implements VirtualClient {
 
     protected void disconnect() {
         try {
-            if(nickname != null)
-                //controller.disconnect(nickname);
+            if(nickname != null) {
+                controller.disconnect(nickname);
                 System.out.println("Disconnecting " + nickname);
+            }
         } catch (Exception e) {
             //addLog(e.getMessage());
         }

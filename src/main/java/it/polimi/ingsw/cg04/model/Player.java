@@ -24,6 +24,8 @@ public class Player {
 
     private Tile heldTile;
 
+    private boolean retired = false;
+
     public Player(String name, PlayerColor color, Game game) {
         this.name = name;
         this.color = color;
@@ -306,6 +308,14 @@ public class Player {
 
     public Game getGame() {
         return game;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
     }
 
     // check if the leader lapped player
