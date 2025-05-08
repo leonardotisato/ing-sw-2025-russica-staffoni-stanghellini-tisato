@@ -162,16 +162,11 @@ public class Player {
 
     /**
      * Updates the player's credits by a specified delta value.
-     * If the resulting credit count is less than zero, the credits will be set to zero.
      *
      * @param delta the amount to modify the player's credits by (can be positive or negative).
      */
     public void updateCredits(double delta) {
-        if (numCredits + delta < 0) {
-            numCredits = 0;
-        } else {
-            numCredits += delta;
-        }
+        numCredits += delta;
     }
 
 
