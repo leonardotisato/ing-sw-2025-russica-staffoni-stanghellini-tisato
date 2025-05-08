@@ -235,6 +235,12 @@ public class SocketServerHandler extends ServerHandler {
         send(new Message("ACTION", a));
     }
 
+    @Override
+    public void retire() {
+        Action a = new RetireAction(nickname);
+        send(new Message("ACTION", a));
+    }
+
 
     public class SocketServerReader implements Runnable {
 
