@@ -21,7 +21,8 @@ public class Game {
     private final int maxPlayers;
     private final int level;
     private final List<Player> players = new ArrayList<>();
-    private final List<String> eliminated = new ArrayList<>();
+    private final List<Player> retired = new ArrayList<>();
+    private final List<Player> disconnected = new ArrayList<>();
     private FlightBoard board;
     private GameState gameState;
     private AdventureCard currentAdventureCard;
@@ -207,8 +208,8 @@ public class Game {
         return players.size();
     }
 
-    public List<String> getEliminated() {
-        return eliminated;
+    public List<Player>getRetiredPlayers() {
+        return retired;
     }
 
     /**
@@ -482,7 +483,7 @@ public class Game {
     public void flagLapped() {
         for (Player p : players) {
             if (p.wasLapped()) {
-                eliminated.add(p.getName());
+                retired.add(p);
                 players.remove(p);
             }
         }
@@ -492,7 +493,7 @@ public class Game {
     public void flagNoHumans() {
         for (Player p : players) {
             if (!p.getShip().hasEnoughHumans()) {
-                eliminated.add(p.getName());
+                retired.add(p);
                 players.remove(p);
             }
         }

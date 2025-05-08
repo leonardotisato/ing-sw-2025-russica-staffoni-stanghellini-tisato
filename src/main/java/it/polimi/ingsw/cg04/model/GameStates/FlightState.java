@@ -11,12 +11,21 @@ public class FlightState extends GameState {
     public FlightState (Game game){
         this.game = game;
     }
+
+    @Override
     public void getNextAdventureCard(Player player){
         Game game = player.getGame();
         game.getNextAdventureCard();
         game.getCurrentAdventureCard().createState(game);
     }
 
+    @Override
+    public void retire(Player player){
+        game.getRetiredPlayers().add(player);
+        game.getPlayers().remove(player);
+    }
+
+    @Override
     public String render(String playerName) {
         StringBuilder stringBuilder = new StringBuilder("\n");
         stringBuilder.append("State: flightState\n");

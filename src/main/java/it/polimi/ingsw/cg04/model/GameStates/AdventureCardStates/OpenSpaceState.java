@@ -5,13 +5,14 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OpenSpaceState extends AdventureCardState {
+    private final Map<Player, Integer> playerDelta = new HashMap<>();;
 
-    public OpenSpaceState(Game game) {
-        super(game);
-    }
+    public OpenSpaceState(Game game) {  super(game);  }
 
     @Override
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
@@ -20,11 +21,23 @@ public class OpenSpaceState extends AdventureCardState {
             p.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
         }
         p.move(p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
+        playerDelta.put(p, p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
         this.played.set(currPlayerIdx, 1);
         this.currPlayerIdx++;
         if (currPlayerIdx == sortedPlayers.size()) {
+            flagNoPowerOpenSpace();
             triggerNextState();
         }
+    }
+
+    private void flagNoPowerOpenSpace() {
+        for(Player p : playerDelta.keySet()) {
+            if(playerDelta.get(p) == 0) {
+                context.getRetiredPlayers().add(p);
+                context.getPlayers().remove(p);
+            }
+        }
+        playerDelta.clear();
     }
 
     public String render(String playerName) {
