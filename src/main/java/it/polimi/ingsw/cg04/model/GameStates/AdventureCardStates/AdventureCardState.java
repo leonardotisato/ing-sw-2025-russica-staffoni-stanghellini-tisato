@@ -6,11 +6,13 @@ import it.polimi.ingsw.cg04.model.GameStates.FlightState;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public abstract class AdventureCardState extends GameState {
     protected List<Player> sortedPlayers;
@@ -143,6 +145,15 @@ public abstract class AdventureCardState extends GameState {
         System.out.println(sb.toString());
         System.out.println("Your ship:");
         stringBuilder.append(context.getPlayer(playerName).getShip().draw());
-        return stringBuilder.toString();
+        List<String> shipPanel = toLines(stringBuilder.toString());
+        List<String> flightBoardPanel = toLines(context.getBoard().draw());
+        List<String> adventureCardPanel = toLines(card.draw());
+        int totalH = shipPanel.size();
+        int rightWidth = Stream.concat(flightBoardPanel.stream(), adventureCardPanel.stream())
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);                  // quanto spazio assegni alla colonna destra
+        List<String> rightPanel = buildRightPanel(flightBoardPanel, adventureCardPanel, totalH, rightWidth);
+        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
     }
 }

@@ -34,20 +34,12 @@ public class StardustState extends AdventureCardState {
     }
 
     public String render(String playerName){
-        List<String> shipPanel = toLines(super.render(playerName));
-        List<String> flightBoardPanel = new ArrayList<>(Arrays.asList(context.getBoard().draw().split("\n")));
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
         stringBuilder.append("Send x to solve stardust effect and continue the game.");
         stringBuilder.append("\n");
         stringBuilder.append("You may lose some days of flight!").append("\n");
-        int totalH = shipPanel.size();
-        List<String> logsPanel = toLines(stringBuilder.toString());
-        int rightWidth = Stream.concat(flightBoardPanel.stream(), logsPanel.stream())
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);                  // quanto spazio assegni alla colonna destra
-        List<String> rightPanel = buildRightPanel(flightBoardPanel, logsPanel, totalH, rightWidth);
-        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
+        return stringBuilder.toString();
     }
 
 

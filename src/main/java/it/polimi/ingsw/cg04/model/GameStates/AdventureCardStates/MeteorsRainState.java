@@ -197,4 +197,25 @@ public class MeteorsRainState extends AdventureCardState {
             triggerNextRound();
         }
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
+        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append("\n");
+        Player p = context.getPlayer(playerName);
+        if (!rolled) {
+        stringBuilder.append(currPlayerIdx == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");
+        }
+        else{
+            if (played.get(sortedPlayers.indexOf(p)) == PROVIDE_BATTERY) {
+                stringBuilder.append("You're about to be hit by a meteor! Send a battery to save your ship!");
+            } else if (played.get(sortedPlayers.indexOf(p)) == CORRECT_SHIP) {
+                stringBuilder.append("You've been hit by a meteor! You need to fix your ship!");
+            }
+            else{
+                stringBuilder.append("You're done for this round! Wait for the other players.");
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

@@ -96,4 +96,24 @@ public class PlanetsState extends AdventureCardState {
         }
         return true;
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
+        for (int i = 0; i < card.getPlanetReward().size(); i++) {
+            if (chosenPlanets.containsValue(i)) {
+                stringBuilder.append("Planet " + i + " is already chosen").append("\n");
+            }
+            else {
+                stringBuilder.append("Planet " + i + " is free").append("\n");
+            }
+        }
+        Player p = context.getPlayer(playerName);
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            stringBuilder.append("Choose a planet (if you want) and handle your new boxes!").append("\n");
+            stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }

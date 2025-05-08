@@ -70,8 +70,8 @@ public class EpidemicState extends AdventureCardState {
     }
 
     public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder("\n");
-        stringBuilder.append(super.render(playerName));
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
         stringBuilder.append("Send x to spread the epidemic (you need to spread this epidemic to continue the game).");
         stringBuilder.append("\n");
         stringBuilder.append("You may lose some crew members!").append("\n");

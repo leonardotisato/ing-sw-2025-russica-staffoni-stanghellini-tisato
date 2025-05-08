@@ -181,4 +181,5 @@ class MeteorsRainStateTest {
     private void assertInvalidState(PlayerAction action, Player p) {
         assertThrows(InvalidStateException.class, () -> action.execute(p));
     }
+
 }

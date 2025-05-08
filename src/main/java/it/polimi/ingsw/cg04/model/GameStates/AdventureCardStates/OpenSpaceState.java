@@ -72,12 +72,11 @@ public class OpenSpaceState extends AdventureCardState {
     }
 
     public String render(String playerName) {
-        List<String> shipPanel = toLines(super.render(playerName));
-        List<String> flightBoardPanel = new ArrayList<>(Arrays.asList(context.getBoard().draw().split("\n")));
 
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
         Player p = context.getPlayer(playerName);
 
-        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
@@ -85,19 +84,12 @@ public class OpenSpaceState extends AdventureCardState {
                     .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
                     .filter(t -> t.isDoublePropulsor())
                     .count();
-            stringBuilder.append("Batteries: " + p.getShip().getNumBatteries()).append("\n");
-            stringBuilder.append("Base propulsion power: ").append(p.getShip().getBasePropulsionPower()).append("\n");
-            stringBuilder.append("Double propulsor: ").append(totDoublePropulsor).append("\n");
+            stringBuilder.append("You have: ").append("\n");
+            stringBuilder.append(p.getShip().getNumBatteries() + " batteries").append("\n");
+            stringBuilder.append("Base propulsion power of ").append(p.getShip().getBasePropulsionPower()).append("\n");
+            stringBuilder.append(totDoublePropulsor).append(" double propulsors").append("\n");
             stringBuilder.append("Send batteries to increase propulsion power").append("\n");
         }
-
-        int totalH = shipPanel.size();
-        List<String> logsPanel = toLines(stringBuilder.toString());
-        int rightWidth = Stream.concat(flightBoardPanel.stream(), logsPanel.stream())
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);                  // quanto spazio assegni alla colonna destra
-        List<String> rightPanel = buildRightPanel(flightBoardPanel, logsPanel, totalH, rightWidth);
-        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
+        return stringBuilder.toString();
     }
 }
