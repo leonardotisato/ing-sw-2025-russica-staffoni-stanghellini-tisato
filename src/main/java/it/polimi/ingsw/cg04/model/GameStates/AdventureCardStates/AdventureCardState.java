@@ -19,6 +19,7 @@ public abstract class AdventureCardState extends GameState {
     protected Game context;
     protected List<Player> currPlayers;
 
+
     public AdventureCardState(Game game) {
         this.context = game;
         this.sortedPlayers = game.getSortedPlayers();
@@ -100,16 +101,38 @@ public abstract class AdventureCardState extends GameState {
     }
 
     public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder("\n");
-        stringBuilder.append("Current card: ").append(card.getType()).append("\n").append("\n");
+        StringBuilder stringBuilder = new StringBuilder();
+        List<List<String>> playersInfo = new ArrayList<>();
         for (Player p : context.getSortedPlayers()) {
-            stringBuilder.append("player: ").append(p.getName()).append("\n");
-            stringBuilder.append("Color: ").append(p.getColor()).append("\n");
-            stringBuilder.append("Position: ").append(p.getRanking()).append("\n");
-            stringBuilder.append("Credits: ").append(p.getNumCredits()).append("\n").append("\n");
+            List<String> singlePlayer = new ArrayList<>();
+            singlePlayer.add("Player: " + p.getName());
+            singlePlayer.add("Credits: " + p.getNumCredits());
+            playersInfo.add(singlePlayer);
         }
-        stringBuilder.append("Your ship:").append("\n").append("\n");
-        stringBuilder.append(context.getPlayer(playerName).getShip().draw()).append("\n").append("\n");
+        /* ------ 1. larghezza massima per ogni colonna (player) ------ */
+        int columns = playersInfo.size();
+        int rows    = playersInfo.get(0).size();          // stesso numero di righe per tutti
+        int[] colWidth = new int[columns];
+
+        for (int c = 0; c < columns; c++) {
+            int max = 0;
+            for (int r = 0; r < rows; r++)
+                max = Math.max(max, playersInfo.get(c).get(r).length());
+            colWidth[c] = max;                            // larghezza fissa di questa colonna
+        }
+
+        /* ------ 2. stampa con colonne allineate ------ */
+        StringBuilder sb = new StringBuilder();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                sb.append(String.format("%-" + colWidth[c] + "s", playersInfo.get(c).get(r)));
+                if (c < columns - 1) sb.append("  ");     // spazi fra le colonne
+            }
+            sb.append('\n');
+        }
+        System.out.println(sb.toString());
+        System.out.println("Your ship:");
+        stringBuilder.append(context.getPlayer(playerName).getShip().draw());
         return stringBuilder.toString();
     }
 }

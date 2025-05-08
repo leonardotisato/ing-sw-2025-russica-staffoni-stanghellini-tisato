@@ -8,7 +8,12 @@ import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.centerText;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class Pirates extends AdventureCard {
     @Expose
@@ -59,5 +64,29 @@ public class Pirates extends AdventureCard {
     @Override
     public AdventureCardState createState(Game game) {
         return new PiratesState(game);
+    }
+
+    @Override
+    void drawContent(StringBuilder sb){
+        List<String> shots = renderShots();
+        for (String shot : shots) {
+            sb.append("│ ").append(centerText(shot, WIDTH - 4)).append(" │").append("\n");
+        }
+        sb.append("│ ").append(centerText("Required Fire power: " + this.firePower, WIDTH - 4)).append(" │").append("\n");
+        sb.append("│ ").append(centerText("Earned credits: " + this.getEarnedCredits(), WIDTH - 4)).append(" │").append("\n");
+        sb.append("│ ").append(centerText("Lost flight days: " + this.getDaysLost(), WIDTH - 4)).append(" │").append("\n");
+    }
+
+    public List<String> renderShots(){
+        Map<Direction, String> directionToArrow = new HashMap<>();
+        directionToArrow.put(Direction.UP, "↓");
+        directionToArrow.put(Direction.RIGHT, "←");
+        directionToArrow.put(Direction.LEFT, "→");
+        directionToArrow.put(Direction.DOWN, "↑");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.getAttacks().size(); i++) {
+            sb.append(directionToArrow.get(directions.get(i)) + " " + attacks.get(i).toString() + " " + directionToArrow.get(directions.get(i))).append("\n");
+        }
+        return toLines(sb.toString());
     }
 }

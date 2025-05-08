@@ -8,7 +8,12 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.centerText;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class MeteorsRain extends AdventureCard {
     @Expose
@@ -44,5 +49,26 @@ public class MeteorsRain extends AdventureCard {
     @Override
     public AdventureCardState createState(Game game) {
         return new MeteorsRainState(game);
+    }
+
+    @Override
+    void drawContent(StringBuilder sb){
+        List<String> meteors = renderMeteors();
+        for (String meteor : meteors) {
+            sb.append("│ ").append(centerText(meteor, WIDTH - 4)).append(" │").append("\n");
+        }
+    }
+
+    public List<String> renderMeteors(){
+        Map<Direction, String> directionToArrow = new HashMap<>();
+        directionToArrow.put(Direction.UP, "↓");
+        directionToArrow.put(Direction.RIGHT, "←");
+        directionToArrow.put(Direction.LEFT, "→");
+        directionToArrow.put(Direction.DOWN, "↑");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.getDirections().size(); i++) {
+            sb.append(directionToArrow.get(directions.get(i)) + " " + attacks.get(i).toString() + " " + directionToArrow.get(directions.get(i))).append("\n");
+        }
+        return toLines(sb.toString());
     }
 }

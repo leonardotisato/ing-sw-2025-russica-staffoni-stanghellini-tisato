@@ -3,6 +3,15 @@ package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class StardustState extends AdventureCardState {
 
@@ -25,12 +34,20 @@ public class StardustState extends AdventureCardState {
     }
 
     public String render(String playerName){
-        StringBuilder stringBuilder = new StringBuilder("\n");
-        stringBuilder.append(super.render(playerName));
-        stringBuilder.append("Send x to solve stardust effect (you need to solve the effect to continue the game).");
+        List<String> shipPanel = toLines(super.render(playerName));
+        List<String> flightBoardPanel = new ArrayList<>(Arrays.asList(context.getBoard().draw().split("\n")));
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Send x to solve stardust effect and continue the game.");
         stringBuilder.append("\n");
         stringBuilder.append("You may lose some days of flight!").append("\n");
-        return stringBuilder.toString();
+        int totalH = shipPanel.size();
+        List<String> logsPanel = toLines(stringBuilder.toString());
+        int rightWidth = Stream.concat(flightBoardPanel.stream(), logsPanel.stream())
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);                  // quanto spazio assegni alla colonna destra
+        List<String> rightPanel = buildRightPanel(flightBoardPanel, logsPanel, totalH, rightWidth);
+        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
     }
 
 

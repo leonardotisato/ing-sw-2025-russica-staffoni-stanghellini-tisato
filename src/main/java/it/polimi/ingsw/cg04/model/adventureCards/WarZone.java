@@ -8,7 +8,12 @@ import it.polimi.ingsw.cg04.model.enumerations.Attack;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.centerText;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class WarZone extends AdventureCard {
 
@@ -82,4 +87,42 @@ public class WarZone extends AdventureCard {
     public AdventureCardState createState(Game game) {
         return new WarZoneState(game);
     }
+
+    @Override
+    void drawContent(StringBuilder sb) {
+        List<String> toShow = new ArrayList<>();
+        for(int i = 0; i < checkParameter.size(); i++){
+            toShow = renderPenalties(i);
+            for(String s : toShow){
+                sb.append("│ ").append(centerText(s, WIDTH - 4)).append(" │").append("\n");
+            }
+        }
+    }
+
+    List<String> renderPenalties(int i) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("↓ " + checkParameter.get(i) + ": " + penaltyType.get(i));
+        if (penaltyType.get(i).equals("HANDLESHOTS")){
+            sb.append("\n");
+            List<String> shots = renderShots();
+            for (String s : shots) {
+                sb.append(s).append("\n");
+            }
+        }
+        return toLines(sb.toString());
+    }
+
+    List<String> renderShots(){
+        Map<Direction, String> directionToArrow = new HashMap<>();
+        directionToArrow.put(Direction.UP, "↓");
+        directionToArrow.put(Direction.RIGHT, "←");
+        directionToArrow.put(Direction.LEFT, "→");
+        directionToArrow.put(Direction.DOWN, "↑");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.getAttacks().size(); i++) {
+            sb.append(directionToArrow.get(directions.get(i)) + " " + attacks.get(i).toString() + " " + directionToArrow.get(directions.get(i))).append("\n");
+        }
+        return toLines(sb.toString());
+    }
 }
+
