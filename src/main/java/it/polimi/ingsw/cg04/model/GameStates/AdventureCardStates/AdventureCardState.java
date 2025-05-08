@@ -33,8 +33,13 @@ public abstract class AdventureCardState extends GameState {
             context.flagNoHumans();
             System.out.println(card.getType() + " è stata risolta!");
         }
-        context.setGameState(new FlightState(context));
-        context.setCurrentAdventureCard(null);
+        if(getContext().getAdventureCardsDeck().isEmpty()) {
+            getContext().handleEndGame();
+        }
+        else {
+            context.setGameState(new FlightState(context));
+            context.setCurrentAdventureCard(null);
+        }
     }
 
     public List<Player> getSortedPlayers() {
