@@ -38,7 +38,7 @@ public abstract class AdventureCardState extends GameState {
         if(getContext().getAdventureCardsDeck().isEmpty()) {
             context.setGameState(new EndGameState(context));
             context.setCurrentAdventureCard(null);
-            getContext().handleEndGame();
+            context.handleEndGame();
         }
         else {
             context.setGameState(new FlightState(context));
