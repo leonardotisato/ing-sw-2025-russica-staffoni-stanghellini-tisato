@@ -43,7 +43,7 @@ public interface VirtualServer {
     void removeCrew(List<Coordinates> coords, List<Integer> numCrewMembersLost);
     void rollDice();
     void starDust();
-
+    void retire();
     void fixShip(List<Coordinates> coords);
     void loadCrew(Coordinates pinkCoords, Coordinates brownCoords);
 

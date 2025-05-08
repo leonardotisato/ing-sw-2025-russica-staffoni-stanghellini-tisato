@@ -22,6 +22,13 @@ public class FlightState extends GameState {
         game.getCurrentAdventureCard().createState(game);
     }
 
+    @Override
+    public void retire(Player player){
+        game.getRetiredPlayers().add(player);
+        game.getPlayers().remove(player);
+    }
+
+    @Override
     public String render(String playerName) {
         List<String> leftLines = new ArrayList<>();
 

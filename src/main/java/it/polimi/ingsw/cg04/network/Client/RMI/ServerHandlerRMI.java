@@ -359,6 +359,15 @@ public class ServerHandlerRMI extends ServerHandler {
         });
     }
 
+    public void retire() {
+        Action retireAction = new RetireAction(nickname);
+        rmiExecutor.submit(() -> {
+            try {
+                virtualController.handleActionRMI(retireAction);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
     class VirtualClientImp extends UnicastRemoteObject implements VirtualClientRMI {
         protected VirtualClientImp() throws RemoteException { }
 

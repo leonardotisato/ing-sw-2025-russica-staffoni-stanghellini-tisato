@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
 import it.polimi.ingsw.cg04.model.GameStates.FlightState;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
@@ -30,10 +31,19 @@ public abstract class AdventureCardState extends GameState {
 
     public void triggerNextState() {
         if(card != null) {
+            context.flagLapped();
+            context.flagNoHumans();
             System.out.println(card.getType() + " è stata risolta!");
         }
-        context.setGameState(new FlightState(context));
-        context.setCurrentAdventureCard(null);
+        if(getContext().getAdventureCardsDeck().isEmpty()) {
+            context.setGameState(new EndGameState(context));
+            context.setCurrentAdventureCard(null);
+            getContext().handleEndGame();
+        }
+        else {
+            context.setGameState(new FlightState(context));
+            context.setCurrentAdventureCard(null);
+        }
     }
 
     public List<Player> getSortedPlayers() {
