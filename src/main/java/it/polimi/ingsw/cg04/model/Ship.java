@@ -1105,12 +1105,11 @@ public class Ship {
         for (int row = 0; row < shipHeight; row++) {
             for (int col = 0; col < shipWidth; col++) {
                 if (validSlots[row][col]) {
-                    String[] lines = (tilesMatrix[row][col] != null) ? tilesMatrix[row][col].draw().split("\n") : new EmptyTile(row, col).draw().split("\n");
-
+                    String[] lines = (tilesMatrix[row][col] != null)
+                            ? tilesMatrix[row][col].draw().split("\n")
+                            : new EmptyTile(row, col).draw().split("\n");
                     tileLines[row][col] = Arrays.asList(lines);
-
                 } else {
-
                     List<String> blank = new ArrayList<>();
                     for (int i = 0; i < tileHeight; i++) {
                         blank.add(" ".repeat(tileWidth));
@@ -1120,9 +1119,26 @@ public class Ship {
             }
         }
 
-        // Now print the matrix line by line
+        // Add top column indices
+        fullShip.append(" ".repeat(4)); // space for left row labels
+        for (int col = 0; col < shipWidth; col++) {
+            String colStr = String.valueOf(col+4); //todo: offset=4 depends on gameLevel!
+            int padding = tileWidth - colStr.length();
+            int padLeft = padding / 2;
+            int padRight = padding - padLeft;
+            fullShip.append(" ".repeat(padLeft)).append(colStr).append(" ".repeat(padRight));
+        }
+        fullShip.append("\n");
+
+        // Print the matrix line by line with row index centered
         for (int row = 0; row < shipHeight; row++) {
             for (int line = 0; line < tileHeight; line++) {
+                if (line == tileHeight / 2) {
+                    fullShip.append(String.format("%3d ", row + 5));
+                } else {
+                    fullShip.append("    ");
+                }
+
                 for (int col = 0; col < shipWidth; col++) {
                     fullShip.append(tileLines[row][col].get(line));
                 }
