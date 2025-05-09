@@ -436,7 +436,7 @@ public abstract class Tile {
     private void drawUpBoundary(StringBuilder sb, Connection c) {
         String text = switch (c) {
             case Connection.EMPTY -> "    ";
-            case Connection.SINGLE -> "  ○  ";
+            case Connection.SINGLE -> "○";
             case Connection.DOUBLE -> "○  ○";
             case Connection.UNIVERSAL -> "○ ○ ○";
             case Connection.PROPULSOR -> "M M M";
@@ -458,9 +458,9 @@ public abstract class Tile {
     void drawDownBoundary(StringBuilder sb, Connection c) {
         String text = switch (c) {
             case Connection.EMPTY -> "    ";
-            case Connection.SINGLE -> "  ○  ";
+            case Connection.SINGLE -> "○";
             case Connection.DOUBLE -> "○  ○";
-            case Connection.UNIVERSAL -> " ○ ○ ○ ";
+            case Connection.UNIVERSAL -> "○ ○ ○";
             case Connection.PROPULSOR -> "M M M";
             case Connection.GUN -> "A A A";
         };

@@ -167,6 +167,7 @@ public class Player {
      */
     public void updateCredits(double delta) {
         numCredits += delta;
+        numCredits = Math.max(0, numCredits);
     }
 
 
