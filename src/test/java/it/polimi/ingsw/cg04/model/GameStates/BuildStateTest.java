@@ -289,6 +289,9 @@ class BuildStateTest {
         Thread.sleep(5000);
         state.returnTile(p1);
         System.out.println(state.render("Alice"));
+        Thread.sleep(5000);
+        state.pickPile(p1, 1);
+        System.out.println(state.render("Alice"));
     }
 
     @AfterEach

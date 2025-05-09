@@ -199,4 +199,38 @@ public class SlaversState extends AdventureCardState {
         }
         return true;
     }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
+        Player p = context.getPlayer(playerName);
+        int playerIdx = p.getRanking() - 1;
+        int playerState = playerStates.get(playerIdx);
+        switch (playerState) {
+            case ACTIVATE_CANNONS:
+                List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
+                int totDoubleLasers = (int)lasersCoordinates.stream()
+                        .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                        .filter(t -> t.isDoubleLaser())
+                        .count();
+                stringBuilder.append("Slavers are here! Activate your double cannons and try to defeat them!").append("\n");
+                stringBuilder.append("Base fire power of your ship: " + p.getShip().getBaseFirePower()).append("\n");
+                stringBuilder.append("Number of double cannons: " + totDoubleLasers).append("\n");
+                break;
+            case WAIT:
+                stringBuilder.append("Smugglers are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
+                break;
+            case REMOVE_CREW:
+                stringBuilder.append("You lost! Remove " + card.getLostMembers() + " crew members to continue the game.").append("\n");
+                break;
+            case DECIDE_REWARD:
+                stringBuilder.append("You won! Decide if you want to earn " + card.getEarnedCredits()).append("\n");
+                stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
+                break;
+            case DONE:
+                stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
+                break;
+        }
+        return stringBuilder.toString();
+    }
 }

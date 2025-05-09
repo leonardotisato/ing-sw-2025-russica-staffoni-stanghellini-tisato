@@ -201,7 +201,7 @@ public class MeteorsRainState extends AdventureCardState {
     public String render(String playerName) {
         StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
         stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append("\n");
+        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append(rolled ? " from "+ dice : "").append("\n");
         Player p = context.getPlayer(playerName);
         if (!rolled) {
         stringBuilder.append(currPlayerIdx == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");

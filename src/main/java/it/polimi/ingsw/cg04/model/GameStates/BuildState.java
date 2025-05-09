@@ -25,6 +25,7 @@ public class BuildState extends GameState {
     Map<String, BuildPlayerState> playerState;
     Game game;
     Map<String, Integer> isLookingPile;
+    Map<String, Integer> isLookingFaceUpTiles;
 
     public BuildState(Game game) {
         playerState = new HashMap<>();
@@ -215,26 +216,37 @@ public class BuildState extends GameState {
     @Override
     public String render(String nickname) {
         StringBuilder stringBuilder = new StringBuilder("\n");
-        for (Player p : game.getPlayers()) {
-            stringBuilder.append("player: ").append(p.getName()).append("\n");
-            stringBuilder.append("Color: ").append(p.getColor()).append("\n");
-            stringBuilder.append("Build state: ").append(playerState.get(p.getName())).append("\n");
-            stringBuilder.append("Position: ").append(playerState.get(p.getName()) != BuildPlayerState.READY ? "/ " : p.getRanking()).append("\n").append("\n");
+        stringBuilder.append(TuiDrawer.renderPlayersByColumn(game.getPlayers()));
+        if (playerState.get(nickname) == BuildPlayerState.FIXING) {
+            stringBuilder.append("Your ship:").append("\n").append("\n");
+            stringBuilder.append(game.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
+            stringBuilder.append("Your ship is not legal, fix it by removing tiles until you can properly fly!");
         }
-        stringBuilder.append(renderPiles(12, 7)).append("\n").append("\n");
-        stringBuilder.append("Your ship:").append("\n").append("\n");
-        stringBuilder.append(game.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
-        stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
-        stringBuilder.append("Face up tiles: send x to show more tiles!").append("\n").append("\n");
-        stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFaceUpTiles()).append("\n").append("\n");
+        else {
+            if (playerState.get(nickname) == BuildPlayerState.SHOWING_PILE) {
+                stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname), "piles")).append("\n").append("\n");
+            } else {
+                stringBuilder.append(renderPilesBackside(29, 11)).append("\n").append("\n");
+            }
+            stringBuilder.append("Your ship:").append("\n").append("\n");
+            stringBuilder.append(game.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
+            stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
+            if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
+                stringBuilder.append("Face up tiles: send x to show more tiles!").append("\n").append("\n");
+                stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFigures(10, null, "tiles")).append("\n").append("\n");
+            } else {
+                stringBuilder.append(renderKFigures(game.getFaceUpTiles().size(), null, "tiles")).append("\n");
+            }
+        }
 
         return stringBuilder.toString();
     }
 
-    public String renderPiles(int width, int height){
+    //TODO gestisci showFaceUp, ShowPiles
+    public String renderPilesBackside(int width, int height){
         List<List<String>> pileLines = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             List<String> singlePile = new ArrayList<>();
             singlePile.add(TuiDrawer.drawTopBoundary(width));
 
@@ -269,28 +281,57 @@ public class BuildState extends GameState {
         return sb.toString();
     }
 
-    public String renderKFaceUpTiles(){
+    public String renderKFigures(int k, Integer pileId, String typeFigure) {
         List<List<String>> tileLines = new ArrayList<>();
-        int k = 7;
-        List<Integer> faceUpTiles = game.getFaceUpTiles();
-        for (int i = 0; i < k && i < faceUpTiles.size(); i++) {
-            String[] lines = game.getTileById(faceUpTiles.get(i)).draw().split("\n");
+        List<Integer> figures = typeFigure.equals("tiles") ? game.getFaceUpTiles() : game.getPreFlightPiles().get(pileId);
+
+        for (int i = 0; i < k && i < figures.size(); i++) {
+            String[] lines = typeFigure.equals("tiles") ? game.getTileById(figures.get(i)).draw().split("\n") :
+                    game.getCardById(figures.get(i)).draw().split("\n");
             tileLines.add(Arrays.asList(lines));
         }
 
-        int numRows = tileLines.getFirst().size();
+        if (tileLines.isEmpty()) return "";
+
+        int tileHeight = tileLines.getFirst().size();
+        int tilesPerRow = 10;
+        int totalTiles = tileLines.size();
+        int numRowsOfTiles = (int) Math.ceil((double) totalTiles / tilesPerRow);
 
         StringBuilder sb = new StringBuilder();
-        for (int row = 0; row < numRows; row++) {
-            for (int i = 0; i < tileLines.size(); i++) {
-                sb.append(tileLines.get(i).get(row));
-                if (i < tileLines.size() - 1) sb.append("  "); // spazio tra tile
+
+        for (int rowBlock = 0; rowBlock < numRowsOfTiles; rowBlock++) {
+            int start = rowBlock * tilesPerRow;
+            int end = Math.min(start + tilesPerRow, totalTiles);
+
+            // stampa le righe delle tile
+            for (int line = 0; line < tileHeight; line++) {
+                for (int i = start; i < end; i++) {
+                    sb.append(tileLines.get(i).get(line));
+                    if (i < end - 1) sb.append("  ");
+                }
+                sb.append('\n');
             }
-            sb.append('\n');
+
+            // stampa la riga con gli indici
+            if(typeFigure.equals("tiles")) {
+                for (int i = start; i < end; i++) {
+                    int tileWidth = 14; // larghezza della tile
+                    String label = "[" + i + "]";
+                    int padLeft = (tileWidth - label.length()) / 2;
+                    int padRight = tileWidth - label.length() - padLeft;
+                    sb.append(" ".repeat(Math.max(0, padLeft)))
+                            .append(label)
+                            .append(" ".repeat(Math.max(0, padLeft)));
+                    if (i < end - 1) sb.append("   ");
+                }
+            }
+            sb.append("\n\n");
         }
 
         return sb.toString();
     }
+
 
 
     // getters needed to simplify testing
