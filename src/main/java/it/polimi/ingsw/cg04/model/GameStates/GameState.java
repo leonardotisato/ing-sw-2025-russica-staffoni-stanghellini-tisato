@@ -79,6 +79,10 @@ public abstract class GameState {
         throw new InvalidStateException("cant choose tile in this game state");
     }
 
+    public void chooseTileFromBuffer(Player player, int idx) throws InvalidStateException {
+        throw new InvalidStateException("cant choose tile in this game state");
+    }
+
     public void showFaceUp(Player player) throws InvalidStateException {
         throw new InvalidStateException("cant show face up tile in this game state");
     }

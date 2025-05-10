@@ -257,6 +257,25 @@ class BuildStateTest {
     }
 
     @Test
+    void chooseTileFromBufferTest(){
+        try {
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        int idx = game.getPlayer("Alice").getHeldTile().getId();
+
+        try {
+            controller.onActionReceived(new PlaceInBufferAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ChooseTileFromBufferAction("Alice", 0));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        assertEquals(idx, game.getPlayer("Alice").getHeldTile().getId());
+    }
+
+    @Test
     void StartTimerTest(){
 
     }

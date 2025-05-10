@@ -74,10 +74,21 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
             throw new InvalidStateException("cant choose tile now");
         }
-        //NON VA BENE, DEVI PRENDERLO DALLA LISTA FI FACEUP
-        player.setHeldTile(game.getTileById(tileID));
+
+        player.setHeldTile(game.getTileById(game.getFaceUpTiles().get(tileID)));
+        game.getFaceUpTiles().remove(tileID);
     }
 
+    @Override
+    public void chooseTileFromBuffer(Player player, int idx) throws InvalidStateException {
+        // the only state in which a player can pick tile from buffer is BUILDING
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
+            throw new InvalidStateException("cant show face up now");
+        }
+
+        player.setHeldTile(player.getShip().getTilesBuffer().get(idx));
+        player.getShip().getTilesBuffer().remove(idx);
+    }
     @Override
     public void showFaceUp(Player player) throws InvalidStateException {
         // the only state in which a player can see face-up tiles is BUILDING
