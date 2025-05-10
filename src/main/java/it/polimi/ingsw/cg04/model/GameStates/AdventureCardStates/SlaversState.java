@@ -127,14 +127,17 @@ public class SlaversState extends AdventureCardState {
             }
 
             if (firePower > opponentFirePower) {
-                isOpponentDead = true;
-                playerStates.set(playerIdx, DECIDE_REWARD);
 
-                // set all players in WAIT state to DONE state, they won't need to face opponent
-                for (int i = 0; i < playerStates.size(); i++) {
-                    if (playerStates.get(i) == WAIT) {
-                        playerStates.set(i, DONE);
-                    }
+                if (!isOpponentDead) {
+                    isOpponentDead = true;
+                    playerStates.set(playerIdx, DECIDE_REWARD);
+                } else {
+                    playerStates.set(playerIdx, DONE);
+                }
+
+                // now playerIdx+1 needs to activate his cannons
+                if (playerIdx + 1 < playerStates.size()) {
+                    playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
                 }
             }
 

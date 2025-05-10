@@ -97,7 +97,7 @@ public class PiratesState extends AdventureCardState {
                 }
             }
 
-            // now check if player defeated the opponent
+            // now check if the player defeated the opponent
 
             // player has lost
             if (firePower < opponentFirePower) {
@@ -120,14 +120,18 @@ public class PiratesState extends AdventureCardState {
             }
 
             if (firePower > opponentFirePower) {
-                isOpponentDead = true;
-                playerStates.set(playerIdx, DECIDE_REWARD);
 
-                // set all players in WAIT state to DONE state, they won't need to face opponent
-                for (int i = 0; i < playerStates.size(); i++) {
-                    if (playerStates.get(i) == WAIT) {
-                        playerStates.set(i, DONE);
-                    }
+                // if the player is the first one to defeat the enemy, set its state to DECIDE_REWARD
+                if (!isOpponentDead) {
+                    playerStates.set(playerIdx, DECIDE_REWARD);
+                    isOpponentDead = true;
+                } else {
+                    playerStates.set(playerIdx, DONE);
+                }
+
+                // now playerIdx+1 needs to activate his cannons
+                if (playerIdx + 1 < playerStates.size()) {
+                    playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
                 }
             }
 
