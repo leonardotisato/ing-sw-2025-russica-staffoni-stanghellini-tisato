@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model.utils;
 
+import it.polimi.ingsw.cg04.model.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -138,6 +140,38 @@ public class TuiDrawer {
 
     public static String drawInnerSeparator(int width) {
         return "├" + "─".repeat(width - 2) + "┤";
+    }
+
+    public static String renderPlayersByColumn(List<Player> players) {
+        List<List<String>> playersInfo = new ArrayList<>();
+        for (Player p : players) {
+            List<String> singlePlayer = new ArrayList<>();
+            singlePlayer.add("Player: " + p.getName());
+            singlePlayer.add("Credits: " + p.getNumCredits());
+            playersInfo.add(singlePlayer);
+        }
+        /* ------ 1. larghezza massima per ogni colonna (player) ------ */
+        int columns = playersInfo.size();
+        int rows    = playersInfo.get(0).size();          // stesso numero di righe per tutti
+        int[] colWidth = new int[columns];
+
+        for (int c = 0; c < columns; c++) {
+            int max = 0;
+            for (int r = 0; r < rows; r++)
+                max = Math.max(max, playersInfo.get(c).get(r).length());
+            colWidth[c] = max;                            // larghezza fissa di questa colonna
+        }
+
+        /* ------ 2. stampa con colonne allineate ------ */
+        StringBuilder sb = new StringBuilder();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                sb.append(String.format("%-" + colWidth[c] + "s", playersInfo.get(c).get(r)));
+                if (c < columns - 1) sb.append("  ");     // spazi fra le colonne
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }
 

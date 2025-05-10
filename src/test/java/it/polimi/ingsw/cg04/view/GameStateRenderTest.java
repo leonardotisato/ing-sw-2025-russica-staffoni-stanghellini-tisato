@@ -62,4 +62,32 @@ public class GameStateRenderTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         System.out.println(game.render("Alice"));
     }
+
+    @Test
+    void testSmugglersRender(){
+        game.setCurrentAdventureCard(game.getCardById(2));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        System.out.println(game.render("Alice"));
+    }
+
+    @Test
+    void testSlaversRender(){
+        game.setCurrentAdventureCard(game.getCardById(1));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        System.out.println(game.render("Alice"));
+    }
+
+    @Test
+    void testPiratesRender(){
+        game.setCurrentAdventureCard(game.getCardById(3));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        System.out.println(game.render("Alice"));
+    }
+
+    @Test
+    void testWarzoneRender(){
+        game.setCurrentAdventureCard(game.getCardById(16));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        System.out.println(game.render("Alice"));
+    }
 }

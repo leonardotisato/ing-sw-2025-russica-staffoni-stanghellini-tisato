@@ -97,12 +97,12 @@ public class PiratesState extends AdventureCardState {
                 }
             }
 
-            // now check if the player defeated the opponent
+            // now check if player defeated the opponent
 
             // player has lost
             if (firePower < opponentFirePower) {
                 playerStates.set(playerIdx, WAIT_FOR_SHOT);
-
+                this.addLog("Player " + player.getName() + " lost against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -112,7 +112,7 @@ public class PiratesState extends AdventureCardState {
             // tie, player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
-
+                this.addLog("Player " + player.getName() + " drew against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -125,6 +125,7 @@ public class PiratesState extends AdventureCardState {
                 if (!isOpponentDead) {
                     playerStates.set(playerIdx, DECIDE_REWARD);
                     isOpponentDead = true;
+                    this.addLog("Player " + player.getName() + " won against the pirates!");
                 } else {
                     playerStates.set(playerIdx, DONE);
                 }
@@ -138,6 +139,7 @@ public class PiratesState extends AdventureCardState {
             // check if every one is done
             if (isAll(DONE, playerStates)) {
                 // transition to next adventure card
+                this.addLog("Pirates are not a problem anymore!");
                 triggerNextState();
             }
         } else {
@@ -163,7 +165,7 @@ public class PiratesState extends AdventureCardState {
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -172,7 +174,7 @@ public class PiratesState extends AdventureCardState {
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -188,17 +190,17 @@ public class PiratesState extends AdventureCardState {
 
                     // if player is safe set its state to done for this attack
                     if (hitState == -1) {
-                        System.out.println("Player: " + p.getName() + " was not hit");
+                        addLog("Player: " + p.getName() + " was not hit");
                         playerStates.set(i, SHOT_DONE);
                     }
                     if (hitState == -2) {
-                        System.out.println("Player: " + p.getName() + " used a single cannon!");
+                        addLog("Player: " + p.getName() + " used a single cannon!");
                         playerStates.set(i, SHOT_DONE);
                     }
 
                     // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                     if (hitState == 2) {
-                        System.out.println("Player: " + p.getName() + " was hit");
+                        addLog("Player: " + p.getName() + " was hit");
                         p.getShip().handleHit(direction, dice);
 
                         // if ship is legal, player is done for this attack
@@ -234,12 +236,14 @@ public class PiratesState extends AdventureCardState {
 
             // handle case where player decide to take the hit
             if (x == -1 && y == -1) {
+                this.addLog("Player " + player.getName() + " decided to take the hit.");
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
                     playerStates.set(playerIdx, PROVIDE_BATTERY);
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
+                this.addLog("Player " + player.getName() + " used a battery and neutralized the attack");
                 playerStates.set(playerIdx, SHOT_DONE);
             }
         } else {
@@ -265,6 +269,7 @@ public class PiratesState extends AdventureCardState {
 
         // if fixes make the ship legal player is done for this round
         if (player.getShip().isShipLegal()) {
+            this.addLog("Player " + player.getName() + " fixed his ship.");
             played.set(playerIdx, SHOT_DONE);
         }
 
@@ -334,5 +339,51 @@ public class PiratesState extends AdventureCardState {
     // for testing purposes only!
     public void FORCE_OPPONENT_FIREPOWER(int val) {
         this.opponentFirePower = val;
+    }
+
+    public String render(String playerName) {
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
+        Player p = context.getPlayer(playerName);
+        int playerIdx = p.getRanking() - 1;
+        int playerState = playerStates.get(playerIdx);
+        if (!rolled && isFirstWaitingForShot(p) && !playerStates.contains(WAIT)){
+            stringBuilder.append("You're the first loser! You must roll the dices").append("\n");
+        }
+        switch (playerState) {
+            case ACTIVATE_CANNONS:
+                List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
+                int totDoubleLasers = (int)lasersCoordinates.stream()
+                        .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                        .filter(t -> t.isDoubleLaser())
+                        .count();
+                stringBuilder.append("Pirates are here! Activate your double cannons and try to defeat them!").append("\n");
+                stringBuilder.append("Base fire power of your ship: " + p.getShip().getBaseFirePower()).append("\n");
+                stringBuilder.append("Number of double cannons: " + totDoubleLasers).append("\n");
+                break;
+            case WAIT:
+                stringBuilder.append("Pirates are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
+                break;
+            case DECIDE_REWARD:
+                stringBuilder.append("You won! Decide if you want to earn " + card.getEarnedCredits() + " credits").append("\n");
+                stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
+                break;
+            case WAIT_FOR_SHOT:
+                stringBuilder.append("You lost! Wait for the other players to combat the pirates. You will need to defend your ship from the attacks.").append("\n");
+                break;
+            case PROVIDE_BATTERY:
+                stringBuilder.append("You can defend your ship using a battery. Send the battery to neutralize the attack.").append("\n");
+                break;
+            case CORRECT_SHIP:
+                stringBuilder.append("You've been hit! Fix the ship by removing tiles until it becomes legal.").append("\n");
+                break;
+            case SHOT_DONE:
+                stringBuilder.append("You're finished for this ").append(currMeteorIdx == numMeteors ? "card! Wait for the next adventure." : "attack. Wait for the next one.").append("\n");
+                break;
+            case DONE:
+                stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
+                break;
+        }
+        return stringBuilder.toString();
     }
 }

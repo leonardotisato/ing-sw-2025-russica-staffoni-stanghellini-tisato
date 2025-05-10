@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameState {
-
+    protected List<String> logs;
 
 
 
@@ -79,6 +79,10 @@ public abstract class GameState {
         throw new InvalidStateException("cant choose tile in this game state");
     }
 
+    public void chooseTileFromBuffer(Player player, int idx) throws InvalidStateException {
+        throw new InvalidStateException("cant choose tile in this game state");
+    }
+
     public void showFaceUp(Player player) throws InvalidStateException {
         throw new InvalidStateException("cant show face up tile in this game state");
     }
@@ -132,5 +136,13 @@ public abstract class GameState {
 
     public String render(String nickname) {
         return null;
+    }
+
+    public List<String> getLogs(){
+        return logs;
+    }
+
+    public void addLog(String newLogs) {
+        this.logs.add(newLogs);
     }
 }

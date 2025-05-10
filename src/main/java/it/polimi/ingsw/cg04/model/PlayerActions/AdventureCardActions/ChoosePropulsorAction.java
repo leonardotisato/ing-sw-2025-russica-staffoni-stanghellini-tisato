@@ -24,6 +24,7 @@ public class ChoosePropulsorAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.usePropulsors(player, coordinates, usedBatteries);
+        this.addLogs(state.getLogs());
     }
 
     @Override

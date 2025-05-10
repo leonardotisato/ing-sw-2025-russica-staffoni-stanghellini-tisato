@@ -71,7 +71,6 @@ public class MeteorsRainState extends AdventureCardState {
             triggerNextState();
         } else {
             played.replaceAll(ignored -> INIT);
-            System.out.println("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
         }
     }
 
@@ -85,12 +84,11 @@ public class MeteorsRainState extends AdventureCardState {
             direction = context.getCurrentAdventureCard().getDirection(currMeteorIdx);
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
-            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit!");
                     triggerNextRound();
                     return;
                 } else {
@@ -99,7 +97,7 @@ public class MeteorsRainState extends AdventureCardState {
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -114,17 +112,17 @@ public class MeteorsRainState extends AdventureCardState {
 
                 // if player is safe set its state to done for this attack
                 if (hitState == -1) {
-                    System.out.println("Player: " + p.getName() + " was not hit");
+                    this.addLog("Player: " + p.getName() + " was not hit");
                     played.set(i, DONE);
                 }
                 if (hitState == -2) {
-                    System.out.println("Player: " + p.getName() + " used a single cannon!");
+                    this.addLog("Player: " + p.getName() + " used a single cannon!");
                     played.set(i, DONE);
                 }
 
                 // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                 if (hitState == 2) {
-                    System.out.println("Player: " + p.getName() + " was hit");
+                    this.addLog("Player: " + p.getName() + " was hit");
                     p.getShip().handleHit(direction, dice);
 
                     // if ship is legal, player is done for this attack
@@ -138,7 +136,6 @@ public class MeteorsRainState extends AdventureCardState {
 
                 // player can decide to use batteries to defend his ship
                 if (hitState == 0 || hitState == 1) {
-                    System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
                     played.set(i, PROVIDE_BATTERY);
                 }
             }
@@ -201,7 +198,7 @@ public class MeteorsRainState extends AdventureCardState {
     public String render(String playerName) {
         StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
         stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append("\n");
+        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append(rolled ? " from "+ dice : "").append("\n");
         Player p = context.getPlayer(playerName);
         if (!rolled) {
         stringBuilder.append(currPlayerIdx == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");
