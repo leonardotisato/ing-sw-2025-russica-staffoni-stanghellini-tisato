@@ -239,7 +239,7 @@ public class PiratesState extends AdventureCardState {
                 this.addLog("Player " + player.getName() + " decided to take the hit.");
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
-                    playerStates.set(playerIdx, PROVIDE_BATTERY);
+                    playerStates.set(playerIdx, CORRECT_SHIP);
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
