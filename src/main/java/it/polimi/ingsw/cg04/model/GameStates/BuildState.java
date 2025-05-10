@@ -74,7 +74,7 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING && playerState.get(player.getName()) != BuildPlayerState.SHOWING_FACE_UP) {
             throw new InvalidStateException("cant choose tile now");
         }
-
+        //NON VA BENE, DEVI PRENDERLO DALLA LISTA FI FACEUP
         player.setHeldTile(game.getTileById(tileID));
     }
 

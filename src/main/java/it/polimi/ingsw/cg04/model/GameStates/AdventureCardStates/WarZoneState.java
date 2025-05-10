@@ -386,4 +386,82 @@ public class WarZoneState extends AdventureCardState {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
+
+    public boolean anyWorstPlayer() {
+        for (Integer integer : played) {
+            if (integer == WORST || integer == WILL_FIGHT) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String render(String playerName) {
+        //count crew solo leader chiama per tutti;
+        //remove crew quando sei worst
+        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
+        stringBuilder.append("\n".repeat(3));
+        Player p = context.getPlayer(playerName);
+        int playerIdx = p.getRanking() - 1;
+        String challenge = card.getParameterCheck().get(penaltyIdx);
+        if (!anyWorstPlayer()) {
+            switch (challenge) {
+                case "CANNONS":
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("It's time to compare fire powers!").append("\n");
+                        stringBuilder.append("It's your turn! Send batteries to increase your fire power.").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("It's time to compare fire powers!").append("\n");
+                        stringBuilder.append("Wait for your turn to send batteries to increase your fire power.").append("\n");
+                    }
+                    break;
+                case "PROPULSORS":
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("It's time to compare propulsion powers!").append("\n");
+                        stringBuilder.append("It's your turn! Send batteries to increase your propulsion power.").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("It's time to compare propulsion powers!").append("\n");
+                        stringBuilder.append("Wait for your turn to send batteries to increase your propulsion power.").append("\n");
+                    }
+                    break;
+                case "CREW":
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("It's time to compare the number of crew members!").append("\n");
+                        stringBuilder.append("You're the leader, start the challenge!").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("It's time to compare the number of crew members!").append("\n");
+                        stringBuilder.append("Wait for the leader to start the challenge").append("\n");
+                    }
+            }
+        }
+        else{
+            if (card.getPenaltyType().get(currPlayerIdx).equals("LOSECREW")){
+                if (played.get(playerIdx) == WORST) {
+                    stringBuilder.append("You're the worst player for this challenge! Remove " + card.getLostMembers() + " crew members.").append("\n");
+                }
+                else{
+                    stringBuilder.append("You survived this challenge!").append(penaltyIdx == card.getPenaltyType().size() ? " You're done for this warzone! Wait for the next adventure." :
+                            " You're done for this challenge! Wait for the next one.").append("\n");
+                }
+            } else if (card.getPenaltyType().get(currPlayerIdx).equals("HANDLESHOTS")) {
+                if (played.get(playerIdx) == WILL_FIGHT) {
+                    switch (worstPlayerState) {
+                        case F_INIT:
+                            stringBuilder.append("You're the worst player for this challenge! Shot " + currShotIdx + " is coming, roll the dice to discover its direction").append("\n");
+                            break;
+                        case F_PROVIDE_BATTERY:
+                            stringBuilder.append("You can defend your ship! Send a bettery to destroy the shot").append("\n");
+                            break;
+                        case F_CORRECT_SHIP:
+                            stringBuilder.append("You've been hit! Fix your ship by removing tiles until it becomes legal.").append("\n");
+                            break;
+                    }
+                }
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

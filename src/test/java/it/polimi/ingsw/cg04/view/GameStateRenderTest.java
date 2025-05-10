@@ -83,4 +83,11 @@ public class GameStateRenderTest {
         game.setGameState(game.getCurrentAdventureCard().createState(game));
         System.out.println(game.render("Alice"));
     }
+
+    @Test
+    void testWarzoneRender(){
+        game.setCurrentAdventureCard(game.getCardById(16));
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
+        System.out.println(game.render("Alice"));
+    }
 }
