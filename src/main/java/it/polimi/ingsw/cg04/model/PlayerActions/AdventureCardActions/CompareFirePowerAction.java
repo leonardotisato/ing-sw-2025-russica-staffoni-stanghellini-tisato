@@ -28,6 +28,7 @@ public class CompareFirePowerAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.compareFirePower(player, batteryCoordsList, cannonCoordsList);
+        this.addLogs(state.getLogs());
     }
 
     @Override

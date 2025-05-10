@@ -29,6 +29,7 @@ public abstract class AdventureCardState extends GameState {
         this.card = game.getCurrentAdventureCard();
         this.played = new ArrayList<>(Collections.nCopies(this.sortedPlayers.size(), 0));
         this.currPlayerIdx = 0;
+        this.logs = new ArrayList<>();
     }
 
     public void triggerNextState() {

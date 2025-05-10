@@ -56,6 +56,7 @@ public class AbandonedStationState extends AdventureCardState {
         if(player.getShip().getNumCrew() <= getCard().getMembersNeeded()) throw new InvalidStateException("Player " + player.getName() + " has not enough crew members");
         checkRightBoxesAfterReward(player, coordinates, boxes);
         if (coordinates == null && boxes == null){
+            this.addLog("Player " + player.getName() + " decided not to play this card.");
             played.set(currPlayerIdx, 1);
             currPlayerIdx++;
         }
@@ -65,6 +66,7 @@ public class AbandonedStationState extends AdventureCardState {
             }
             played.replaceAll(ignored -> 1);
             player.move(-card.getDaysLost());
+            this.addLog("Player " + player.getName() + " decided to play this card. He earned the boxes, but he lost " + card.getDaysLost() + " flight days.");
         }
         if (!played.contains(0)) triggerNextState();
     }

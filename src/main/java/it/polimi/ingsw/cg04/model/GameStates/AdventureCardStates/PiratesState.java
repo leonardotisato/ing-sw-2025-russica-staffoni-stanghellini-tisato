@@ -102,7 +102,7 @@ public class PiratesState extends AdventureCardState {
             // player has lost
             if (firePower < opponentFirePower) {
                 playerStates.set(playerIdx, WAIT_FOR_SHOT);
-
+                this.addLog("Player " + player.getName() + " lost against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -112,7 +112,7 @@ public class PiratesState extends AdventureCardState {
             // tie, player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
-
+                this.addLog("Player " + player.getName() + " drew against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -122,6 +122,7 @@ public class PiratesState extends AdventureCardState {
             if (firePower > opponentFirePower) {
                 isOpponentDead = true;
                 playerStates.set(playerIdx, DECIDE_REWARD);
+                this.addLog("Player " + player.getName() + " won against the pirates!");
 
                 // set all players in WAIT state to DONE state, they won't need to face opponent
                 for (int i = 0; i < playerStates.size(); i++) {
@@ -134,6 +135,7 @@ public class PiratesState extends AdventureCardState {
             // check if every one is done
             if (isAll(DONE, playerStates)) {
                 // transition to next adventure card
+                this.addLog("Pirates are not a problem anymore!");
                 triggerNextState();
             }
         } else {
@@ -154,12 +156,11 @@ public class PiratesState extends AdventureCardState {
             direction = context.getCurrentAdventureCard().getDirection(currMeteorIdx);
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
-            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -168,7 +169,7 @@ public class PiratesState extends AdventureCardState {
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    System.out.println("No ship was hit");
+                    this.addLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -184,17 +185,17 @@ public class PiratesState extends AdventureCardState {
 
                     // if player is safe set its state to done for this attack
                     if (hitState == -1) {
-                        System.out.println("Player: " + p.getName() + " was not hit");
+                        addLog("Player: " + p.getName() + " was not hit");
                         playerStates.set(i, SHOT_DONE);
                     }
                     if (hitState == -2) {
-                        System.out.println("Player: " + p.getName() + " used a single cannon!");
+                        addLog("Player: " + p.getName() + " used a single cannon!");
                         playerStates.set(i, SHOT_DONE);
                     }
 
                     // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                     if (hitState == 2) {
-                        System.out.println("Player: " + p.getName() + " was hit");
+                        addLog("Player: " + p.getName() + " was hit");
                         p.getShip().handleHit(direction, dice);
 
                         // if ship is legal, player is done for this attack
@@ -208,7 +209,6 @@ public class PiratesState extends AdventureCardState {
 
                     // player can decide to use batteries to defend his ship
                     if (hitState == 0 || hitState == 1) {
-                        System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
                         playerStates.set(i, PROVIDE_BATTERY);
                     }
                 }
@@ -230,12 +230,14 @@ public class PiratesState extends AdventureCardState {
 
             // handle case where player decide to take the hit
             if (x == -1 && y == -1) {
+                this.addLog("Player " + player.getName() + " decided to take the hit.");
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
                     playerStates.set(playerIdx, PROVIDE_BATTERY);
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
+                this.addLog("Player " + player.getName() + " used a battery and neutralized the attack");
                 playerStates.set(playerIdx, SHOT_DONE);
             }
         } else {
@@ -261,6 +263,7 @@ public class PiratesState extends AdventureCardState {
 
         // if fixes make the ship legal player is done for this round
         if (player.getShip().isShipLegal()) {
+            this.addLog("Player " + player.getName() + " fixed his ship.");
             played.set(playerIdx, SHOT_DONE);
         }
 

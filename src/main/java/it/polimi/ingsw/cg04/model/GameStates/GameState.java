@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameState {
-
+    protected List<String> logs;
 
 
 
@@ -132,5 +132,13 @@ public abstract class GameState {
 
     public String render(String nickname) {
         return null;
+    }
+
+    public List<String> getLogs(){
+        return logs;
+    }
+
+    public void addLog(String newLogs) {
+        this.logs.add(newLogs);
     }
 }

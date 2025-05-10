@@ -21,6 +21,7 @@ public class ChooseBatteryAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.chooseBattery(player, x, y);
+        this.addLogs(state.getLogs());
     }
 
     public boolean checkAction(Player player) throws InvalidActionException {

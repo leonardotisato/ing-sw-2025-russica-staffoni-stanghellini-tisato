@@ -12,9 +12,8 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import java.util.List;
 
 public class EpidemicState extends AdventureCardState {
-    public EpidemicState(Game game) {
-        super(game);
-    }
+    private int crewMembersLost = 0;
+    public EpidemicState(Game game) {super(game);}
 
 
     public void spreadEpidemic(Player player) throws InvalidStateException {
@@ -35,6 +34,7 @@ public class EpidemicState extends AdventureCardState {
                             && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
                         ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
+                        crewMembersLost++;
                     }
                     // look LEFT -> check tile type and connection
                     else if (j > 0 && new Coordinates(i, j-1).isIn(housingTilesCoordinates)
@@ -42,6 +42,7 @@ public class EpidemicState extends AdventureCardState {
                             && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
                         ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
+                        crewMembersLost++;
                     }
 
                     // look RIGHT -> check tile type and connection
@@ -50,6 +51,7 @@ public class EpidemicState extends AdventureCardState {
                             && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
                         ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
+                        crewMembersLost++;
                     }
 
                     // look DOWN -> check tile type and connection
@@ -58,13 +60,16 @@ public class EpidemicState extends AdventureCardState {
                             && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
                         ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
+                        crewMembersLost++;
                     }
 
                 }
             }
         }
         played.set(sortedPlayers.indexOf(player), 1);
+        this.addLog("Player " + player.getName() + " has spread epidemic and he lost " + crewMembersLost + " crew members.");
         if(!played.contains(0)){
+            this.addLog("The epidemic is finished!");
             triggerNextState();
         }
     }
