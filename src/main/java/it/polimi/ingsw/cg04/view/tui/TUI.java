@@ -81,22 +81,36 @@ public class TUI extends View {
         }
 
         private void helper() {
-            System.out.println("Commands list:");
+            System.out.println("Commands list:\n");
 
-            System.out.println();
             System.out.println("LOBBY COMMANDS:");
+            System.out.println("\tSet_Nickname [String] nickname");
+            System.out.println("\tCreate_Game [int] game_level, [int] max_players, [String] player_color");
+            System.out.println("\tJoin_Game [int] game_id, [String] player_color\n");
 
+            System.out.println("BUILDING COMMANDS:");
+            System.out.println("\tChoose_Tile [int] tileID");
+            System.out.println("\tChoose_Tile_From_Buffer [int] buffer_index");
+            System.out.println("\tShow_FaceUp_Tiles");
+            System.out.println("\tCloseFAceUp_Tiles");
+            System.out.println("\tShow_Buffer_Tiles");
+            System.out.println("\tDraw_Face_Down_Tile");
+            System.out.println("\tPlace_Tile");
+            System.out.println("\tEndBuilding [int] position");
+            System.out.println("\tPick_Pile [int] pile_index");
+            System.out.println("\tPlace_In_Buffer");
+            System.out.println("\tReturn_Pile");
+            System.out.println("\tReturn_Tile");
+            System.out.println("\tStart_Timer\n");
 
-
-            System.out.println();
-            System.out.println("BUILDING COMMANDS");
-
-
-
-            System.out.println();
             System.out.println("ADVENTURE CARDS COMMANDS:");
+            System.out.println("\tChoose_Battery [int] x, [int] y");
+            System.out.println("\tChoose_Propulsor [List<int, int>] x1 y1 x2 y2 ... xn yn, [List<int, int>] used_battery_1 used_battery_2 ... used_battery_n");
+            System.out.println("\tGet_Next_Adventure_Card");
+            System.out.println("\tHandle_Boxes");
+        }
 
-
+        private void stateSpecificHelper(){
 
         }
 
