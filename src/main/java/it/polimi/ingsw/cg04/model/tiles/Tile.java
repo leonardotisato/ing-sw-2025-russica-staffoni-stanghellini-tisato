@@ -19,6 +19,7 @@ public abstract class Tile {
     Map<Direction, Connection> connections;
     @Expose
     int id;
+    boolean wasInBuffer;
 
 
 
@@ -64,6 +65,14 @@ public abstract class Tile {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean getWasInBuffer() {
+        return wasInBuffer;
+    }
+
+    public void setWasInBuffer() {
+        wasInBuffer = true;
     }
 
     String getName() {

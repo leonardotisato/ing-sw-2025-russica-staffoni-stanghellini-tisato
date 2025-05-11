@@ -50,10 +50,20 @@ class BuildStateTest {
     @Test
     void placeTileTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 21));
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertEquals(game.getTileById(21), p1.getHeldTile());
+        int id = game.getPlayer("Alice").getHeldTile().getId();
+
+        try {
+            controller.onActionReceived(new ReturnTileAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ChooseTileAction("Alice", 0));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        assertEquals(game.getTileById(id), p1.getHeldTile());
 
         try {
             controller.onActionReceived(new PlaceAction("Alice", 3,2));
@@ -65,49 +75,71 @@ class BuildStateTest {
     @Test
     void placeInBufferTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 21));
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertEquals(game.getTileById(21), p1.getHeldTile());
+        int idx = game.getPlayer("Alice").getHeldTile().getId();
+
+        assertEquals(game.getTileById(idx), p1.getHeldTile());
 
         try {
             controller.onActionReceived(new PlaceInBufferAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertTrue(p1.getShip().getTilesBuffer().contains(game.getTileById(21)));
+        assertTrue(p1.getShip().getTilesBuffer().contains(game.getTileById(idx)));
         assertEquals(1, p1.getShip().getTilesBuffer().size());
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 22));
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertEquals(game.getTileById(22), p1.getHeldTile());
+        idx = game.getPlayer("Alice").getHeldTile().getId();
+
+        assertEquals(game.getTileById(idx), p1.getHeldTile());
 
         try {
             controller.onActionReceived(new PlaceInBufferAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertTrue(p1.getShip().getTilesBuffer().contains(game.getTileById(22)));
+        assertTrue(p1.getShip().getTilesBuffer().contains(game.getTileById(idx)));
         assertEquals(2, p1.getShip().getTilesBuffer().size());
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 23));
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertEquals(game.getTileById(23), p1.getHeldTile());
+        idx = game.getPlayer("Alice").getHeldTile().getId();
+
+        assertEquals(game.getTileById(idx), p1.getHeldTile());
         assertThrows(InvalidActionException.class, () -> (new PlaceInBufferAction("Alice")).checkAction(p1));
-        assertFalse(p1.getShip().getTilesBuffer().contains(game.getTileById(23)));
+        assertFalse(p1.getShip().getTilesBuffer().contains(game.getTileById(idx)));
         assertEquals(2, p1.getShip().getTilesBuffer().size());
-        assertEquals(game.getTileById(23), p1.getHeldTile());
+        assertEquals(game.getTileById(idx), p1.getHeldTile());
     }
 
     @Test
     void chooseTileTest(){
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 22));
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
-        assertThrows(InvalidActionException.class, () -> (new ChooseTileAction("Alice", 21)).checkAction(p1));
+        try {
+            controller.onActionReceived(new ReturnTileAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ReturnTileAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ChooseTileAction("Alice", 0));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        assertThrows(InvalidActionException.class, () -> (new ChooseTileAction("Alice", 0)).checkAction(p1));
 
         try {
             controller.onActionReceived(new PlaceAction("Alice", 3, 2));
@@ -115,7 +147,7 @@ class BuildStateTest {
 
 
         try {
-            controller.onActionReceived(new ChooseTileAction("Alice", 21));
+            controller.onActionReceived(new ChooseTileAction("Alice", 0));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
     }
