@@ -7,12 +7,10 @@ import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.*;
 import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LoadCrewAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI;
@@ -389,8 +387,8 @@ public class ServerHandlerRMI extends ServerHandler {
 
         // todo: implement (now it's printing, we will modify it once implementing the view)
         @Override
-        public void addLogRMI(String log) throws RemoteException {
-            addLog(log);
+        public void addLogsRMI(List<String> logs) throws RemoteException {
+            addLogs(logs);
         }
 
         @Override

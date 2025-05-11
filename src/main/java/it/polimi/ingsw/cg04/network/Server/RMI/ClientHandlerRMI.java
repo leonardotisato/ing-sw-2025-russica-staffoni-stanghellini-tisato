@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg04.network.Server.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -58,10 +59,10 @@ public class ClientHandlerRMI extends ClientHandler {
     }
 
     @Override
-    public void addLog(String log) {
+    public void addLogs(List<String> logs) {
         rmiExecutor.submit(() -> {
             try {
-                virtualClient.addLogRMI(log);
+                virtualClient.addLogsRMI(logs);
             } catch (RemoteException ignored) {}
         });
     }

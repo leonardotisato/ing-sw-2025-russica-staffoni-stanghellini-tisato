@@ -4,6 +4,8 @@ import it.polimi.ingsw.cg04.client.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 
+import java.util.List;
+
 public abstract class ServerHandler implements VirtualServer {
     protected String nickname;
     private final ClientModel clientModel;
@@ -31,8 +33,8 @@ public abstract class ServerHandler implements VirtualServer {
         return nickname;
     }
 
-    public void addLog(String message){
-        clientModel.addLog(message);
+    public void addLogs(List<String> logs) {
+        clientModel.addLog(logs);
     }
 
     public void setGame(Game game) {

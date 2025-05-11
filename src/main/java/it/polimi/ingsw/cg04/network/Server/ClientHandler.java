@@ -4,9 +4,8 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
-import it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI;
 
-import java.rmi.RemoteException;
+import java.util.Collections;
 
 public abstract class ClientHandler implements VirtualClient {
 
@@ -39,7 +38,7 @@ public abstract class ClientHandler implements VirtualClient {
                 System.out.println("Disconnecting " + nickname);
             }
         } catch (Exception e) {
-            addLog(e.getMessage());
+            addLogs(Collections.singletonList(e.getMessage()));
         }
 
         server.unsubscribe(this);
@@ -50,15 +49,15 @@ public abstract class ClientHandler implements VirtualClient {
             System.out.println("Received action: " + action.getClass().getSimpleName() + " from " + action.getPlayerNickname());
             action.dispatchTo(controller);
         } catch (InvalidActionException e) {
-            addLog(e.getReason());
+            addLogs(Collections.singletonList(e.getReason()));
         } catch (InvalidStateException e) {
-            addLog(e.getReason());
+            addLogs(Collections.singletonList(e.getReason()));
         }
     }
 
     public boolean handleSubscription(Action action) {
         if (nickname != null) {
-            addLog("You are already connected as " + nickname);
+            addLogs(Collections.singletonList("You are already connected as " + nickname));
             return false;
         }
         try {
@@ -68,10 +67,10 @@ public abstract class ClientHandler implements VirtualClient {
             server.subscribe(this);
             return true;
         } catch (InvalidActionException e) {
-            addLog(e.getReason());
+            addLogs(Collections.singletonList(e.getReason()));
             return false;
         } catch (InvalidStateException e) {
-            addLog(e.getReason());
+            addLogs(Collections.singletonList(e.getReason()));
             return false;
         }
     }

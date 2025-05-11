@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -63,12 +65,12 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                             try {
                                 Action a = (Action) message.payload();
                                 if (a.getPlayerNickname() == null){
-                                    addLog("Player " + nickname + " tried to perform an action without specifying the player nickname");
+                                    addLogs(Collections.singletonList("Player " + nickname + " tried to perform an action without specifying the player nickname"));
                                 } else {
                                     handleAction(a);
                                 }
                             } catch (Exception e) {
-                                addLog(e.getMessage());
+                                addLogs(Collections.singletonList(e.getMessage()));
                             }
                         });
                     }
@@ -85,7 +87,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                                     send(new Message("SUBSCRIPTION-RESPONSE", null));
                                 }
                             } catch (Exception e) {
-                                addLog(e.getMessage());
+                                addLogs(Collections.singletonList(e.getMessage()));
                             }
                         });
                     }
@@ -113,8 +115,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
     // send message to client
     @Override
-    public void addLog(String log) {
-        send(new Message("LOG", log));
+    public void addLogs(List<String> logs) {
+        send(new Message("LOG", logs));
     }
 
     public class ConnectionChecker implements Runnable {

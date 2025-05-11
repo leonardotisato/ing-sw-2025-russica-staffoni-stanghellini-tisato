@@ -23,9 +23,9 @@ public class LaserTile extends Tile {
     @Override
     String getName() {
         if (isDoubleLaser) {
-            return "D. Laser";
+            return "D. Cannon";
         } else {
-            return "S. Laser";
+            return "S. Cannon";
         }
     }
 

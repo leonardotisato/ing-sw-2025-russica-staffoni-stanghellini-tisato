@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
+import it.polimi.ingsw.cg04.network.Server.Server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class GamesController {
+
+    private Server server;
 
     private final List<Game> games;
     private final Map<Game, List<Player>> connectedPlayers;
@@ -25,6 +28,10 @@ public class GamesController {
         connectedPlayers = new HashMap<>();
         disconnectedPlayers = new HashMap<>();
         nickToGame = new HashMap<>();
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
     }
 
     public List<Game> getGames() {
@@ -46,6 +53,13 @@ public class GamesController {
             Player p = g.getPlayer(action.getPlayerNickname());
             action.checkAction(p);
             action.execute(p);
+
+            // send logs collected while executing the action
+            List<String> collectedLogs = action.getLogs();
+            List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
+
+            server.broadcastLogs(recipients, collectedLogs);
+
         } catch (NullPointerException e) {
             System.out.println("Player not in a game");
         }

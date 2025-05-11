@@ -125,11 +125,11 @@ public class Server {
         }
     }
 
-    public void broadcastLog(List<String> nicknames, String log) {
+    public void broadcastLogs(List<String> nicknames, List<String> logs) {
         for (String nickname : nicknames) {
             ClientHandler clientHandler = getSubscribedClient(nickname);
             if (clientHandler != null) {
-                clientHandler.addLog(log);
+                clientHandler.addLogs(logs);
             } else {
                 System.out.println("Client " + nickname + " not found");
             }

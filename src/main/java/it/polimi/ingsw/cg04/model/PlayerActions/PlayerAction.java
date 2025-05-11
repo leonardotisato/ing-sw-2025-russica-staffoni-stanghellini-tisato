@@ -20,4 +20,7 @@ public abstract class PlayerAction implements Action {
     public void addLogs(List<String> newLogs) {
         this.logs = new ArrayList<>(newLogs);
     }
+    public List<String> getLogs() {
+        return logs;
+    }
 }

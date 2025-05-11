@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.model.Game;
 
+import java.util.List;
+
 /**
  * Output from the server to the client
  */
@@ -14,7 +16,7 @@ public interface VirtualClient {
 
     /**
      * Send a log message to the client
-     * @param log to send
+     * @param logs to send
      */
-    void addLog(String log);
+    void addLogs(List<String> logs);
 }

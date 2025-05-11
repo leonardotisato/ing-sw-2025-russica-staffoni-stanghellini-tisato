@@ -9,10 +9,8 @@ import it.polimi.ingsw.cg04.model.PlayerActions.LoadCrewAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
-import it.polimi.ingsw.cg04.model.adventureCards.Planets;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.network.Message;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -287,7 +286,7 @@ public class SocketServerHandler extends ServerHandler {
                     lastHeartBeat = (String) message.payload();
                 }
                 case "LOG" -> {
-                    inputHandler.submit(() -> socketServerHandler.addLog((String) message.payload()));
+                    inputHandler.submit(() -> socketServerHandler.addLogs((List<String>) message.payload()));
                 }
                 case "GAME" -> {
                     inputHandler.submit(() -> socketServerHandler.setGame((Game) message.payload()));
@@ -298,7 +297,7 @@ public class SocketServerHandler extends ServerHandler {
                         if(response != null){
                             nickname = response;
                         } else {
-                            addLog("Nickname already taken");
+                            addLogs(Collections.singletonList("Nickname already taken"));
                         }
                     });
                 }

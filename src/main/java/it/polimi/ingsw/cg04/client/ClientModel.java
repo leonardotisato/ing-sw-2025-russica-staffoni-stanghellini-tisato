@@ -27,8 +27,8 @@ public class ClientModel implements Observable {
         return logs;
     }
 
-    public void addLog(String log) {
-        logs.add(log);
+    public void addLog(List<String> newLogs) {
+        logs.addAll(newLogs);
         notifyObserversLogsUpdate();
     }
 
