@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -143,6 +144,9 @@ public abstract class GameState {
     }
 
     public void addLog(String newLogs) {
+        if(logs == null){
+            logs = new ArrayList<>();
+        }
         this.logs.add(newLogs);
     }
 }
