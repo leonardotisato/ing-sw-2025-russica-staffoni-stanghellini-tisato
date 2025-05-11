@@ -253,6 +253,7 @@ public class Player {
         }
 
         ship.addTileInBuffer(heldTile);
+        heldTile.setWasInBuffer();
         heldTile = null;
     }
 
