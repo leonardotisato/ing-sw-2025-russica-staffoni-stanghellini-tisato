@@ -141,30 +141,41 @@ public class TUI extends View {
             System.out.println("Commands list:\n");
 
             System.out.println("LOBBY COMMANDS:");
-            System.out.println("\tSet_Nickname [String] nickname");
-            System.out.println("\tCreate_Game [int] game_level, [int] max_players, [String] player_color");
-            System.out.println("\tJoin_Game [int] game_id, [String] player_color\n");
+            System.out.println("\tset_nickname              -choose an unique nickname");
+            System.out.println("\tcreate_game               -create a new game specifying the number of players, the type of game and your color");
+            System.out.println("\tjoin_game                 -join an existing game\n");
 
             System.out.println("BUILDING COMMANDS:");
-            System.out.println("\tChoose_Tile [int] tileID");
-            System.out.println("\tChoose_Tile_From_Buffer [int] buffer_index");
-            System.out.println("\tShow_FaceUp_Tiles");
-            System.out.println("\tCloseFAceUp_Tiles");
-            System.out.println("\tShow_Buffer_Tiles");
-            System.out.println("\tDraw_Face_Down_Tile");
-            System.out.println("\tPlace_Tile");
-            System.out.println("\tEndBuilding [int] position");
-            System.out.println("\tPick_Pile [int] pile_index");
-            System.out.println("\tPlace_In_Buffer");
-            System.out.println("\tReturn_Pile");
-            System.out.println("\tReturn_Tile");
-            System.out.println("\tStart_Timer\n");
+            System.out.println("\tchoose_tile               -chose a tile from face up tiles specifying it's index");
+            System.out.println("\tchoose_tile_from_buffe    -choose a tile from buffer tiles specifying it's index");
+            System.out.println("\tshow_faceup_tiles         -show all face up tiles");
+            System.out.println("\tclose_faceup_tiles        -close face up tiles");
+            System.out.println("\tdraw_facedown_tile        -draw a random face down tile");
+            System.out.println("\tplace_tile                -place the tile you are currently holding specifying the coordinates");
+            System.out.println("\tend_building              -finish the building phase and decide the position you want to start in");
+            System.out.println("\tpick_pile                 -show the cards in one of the piles specifying the pile index");
+            System.out.println("\tplace_in_buffer           -place the tile you are currently holding in the buffer");
+            System.out.println("\treturn_pile               -return the pile you are currently holding");
+            System.out.println("\treturn_tile               -return the tile you are currently holding");
+            System.out.println("\tstart_timer               -start the timer");
+            System.out.println("\tfix_ship                  -specify the coordinates of the tiles you want to remove to make the ship legal\n");
 
             System.out.println("ADVENTURE CARDS COMMANDS:");
-            System.out.println("\tChoose_Battery [int] x, [int] y");
-            System.out.println("\tChoose_Propulsor [List<int, int>] x1 y1 x2 y2 ... xn yn, [List<int, int>] used_battery_1 used_battery_2 ... used_battery_n");
-            System.out.println("\tGet_Next_Adventure_Card");
-            System.out.println("\tHandle_Boxes");
+            System.out.println("\tchoose_battery            -select the battery you want to use specifying it's coordinates");
+            System.out.println("\tchoose_propulsor          -select the propulsors you want to use specifying their coordinates");
+            System.out.println("\tget_next_adventure_card   -draw a new adventure card");
+            System.out.println("\thandle_boxes              -select the new boxes formation on the tiles in which you want to modify it");
+            System.out.println("\tremove_crew               -choose the crew you want to remove specifying it's coordinates");
+            System.out.println("\tretire                    -retire from the game");
+            System.out.println("\troll_dice                 -roll dices");
+            System.out.println("\tfix_ship                  -specify the coordinates of the tiles you want to remove to make the ship legal");
+            System.out.println("\tload_crew                 -load aliens specifying the coordinates of the tiles where you want to put them\n");
+
+            System.out.println("====================================================================================");
+
+            System.out.println("once you select a command it will be explained in detail the format of the arguments");
+
+            System.out.println("====================================================================================");
         }
 
         private void stateSpecificHelper(){
