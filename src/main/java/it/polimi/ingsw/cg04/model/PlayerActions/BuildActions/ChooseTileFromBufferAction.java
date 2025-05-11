@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
@@ -16,7 +17,9 @@ public class ChooseTileFromBufferAction extends PlayerAction {
 
     @Override
     public void execute(Player player) throws InvalidStateException {
-        player.getGame().getGameState().chooseTileFromBuffer(player, idx);
+        GameState state = player.getGame().getGameState();
+        state.chooseTileFromBuffer(player, idx);
+        this.addLogs(state.getLogs());
     }
 
     @Override

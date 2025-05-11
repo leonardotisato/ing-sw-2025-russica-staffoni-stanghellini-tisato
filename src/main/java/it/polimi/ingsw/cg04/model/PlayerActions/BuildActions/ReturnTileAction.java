@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
@@ -12,7 +13,9 @@ public class ReturnTileAction extends PlayerAction {
         this.playerNickname = playerNickname;
     }
     public void execute(Player player) throws InvalidStateException {
-        player.getGame().getGameState().returnTile(player);
+        GameState state = player.getGame().getGameState();
+        state.returnTile(player);
+        this.addLogs(state.getLogs());
     }
 
     @Override

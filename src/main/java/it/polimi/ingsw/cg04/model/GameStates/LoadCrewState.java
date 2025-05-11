@@ -24,16 +24,19 @@ public class LoadCrewState extends AdventureCardState {
             if (pinkAlienCoords != null) {
                 ship.removeCrew(CrewType.HUMAN, pinkAlienCoords.getX(), pinkAlienCoords.getY(), 2);
                 ship.addCrew(CrewType.PINK_ALIEN, pinkAlienCoords.getX(), pinkAlienCoords.getY());
+                this.addLog(player.getName() + " added a pink alien to his ship!");
             }
             if (brownAlienCoords != null) {
                 ship.removeCrew(CrewType.HUMAN, brownAlienCoords.getX(), brownAlienCoords.getY(), 2);
                 ship.addCrew(CrewType.BROWN_ALIEN, brownAlienCoords.getX(), brownAlienCoords.getY());
+                this.addLog(player.getName() + " added a brown alien to his ship!");
             }
 
             currPlayerIdx++;
 
             // when all player loaded their ships the flight can begin
             if (currPlayerIdx == sortedPlayers.size()) {
+                this.addLog("All the players loaded the crew. It's time to start!");
                 triggerNextState();
             }
 

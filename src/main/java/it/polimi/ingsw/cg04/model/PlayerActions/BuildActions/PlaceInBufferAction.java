@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
@@ -15,8 +16,9 @@ public class PlaceInBufferAction extends PlayerAction {
 
     @Override
     public void execute(Player player) throws InvalidStateException {
-        Game game = player.getGame();
-        game.getGameState().placeInBuffer(player);
+        GameState state = player.getGame().getGameState();
+        state.placeInBuffer(player);
+        this.addLogs(state.getLogs());
     }
 
     @Override

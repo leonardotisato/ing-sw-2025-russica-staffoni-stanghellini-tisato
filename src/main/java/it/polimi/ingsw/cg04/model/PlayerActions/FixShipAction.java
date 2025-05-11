@@ -22,6 +22,7 @@ public class FixShipAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.fixShip(player, coordinatesList);
+        this.addLogs(state.getLogs());
     }
 
     @Override

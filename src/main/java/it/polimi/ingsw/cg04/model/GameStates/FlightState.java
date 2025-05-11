@@ -20,6 +20,7 @@ public class FlightState extends GameState {
         Game game = player.getGame();
         game.getNextAdventureCard();
         game.getCurrentAdventureCard().createState(game);
+        this.addLog("The leader got the next adventure card: it's " + game.getCurrentAdventureCard().getType() + " time!");
     }
 
     @Override

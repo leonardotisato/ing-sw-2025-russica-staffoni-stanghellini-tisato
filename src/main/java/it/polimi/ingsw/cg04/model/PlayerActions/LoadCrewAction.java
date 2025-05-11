@@ -24,6 +24,7 @@ public class LoadCrewAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.loadCrew(player, pinkAlienCoords, brownAlienCoords);
+        this.addLogs(state.getLogs());
     }
 
 

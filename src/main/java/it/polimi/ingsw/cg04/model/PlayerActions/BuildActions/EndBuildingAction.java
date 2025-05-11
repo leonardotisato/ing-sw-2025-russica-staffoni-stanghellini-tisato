@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
@@ -15,7 +16,9 @@ public class EndBuildingAction extends PlayerAction {
 
     @Override
     public void execute(Player player) throws InvalidStateException {
-        player.getGame().getGameState().endBuilding(player, position);
+        GameState state = player.getGame().getGameState();
+        state.endBuilding(player, position);
+        this.addLogs(state.getLogs());
     }
 
     @Override

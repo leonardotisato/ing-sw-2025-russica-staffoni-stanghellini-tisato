@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
@@ -17,8 +18,9 @@ public class PlaceAction extends PlayerAction {
         this.coordinates = new Coordinates(x, y);
     }
     public void execute(Player player) throws InvalidStateException {
-        Game game = player.getGame();
-        game.getGameState().placeTile(player, coordinates.getX(), coordinates.getY());
+        GameState state = player.getGame().getGameState();
+        state.placeTile(player, coordinates.getX(), coordinates.getY());
+        this.addLogs(state.getLogs());
     }
 
     @Override

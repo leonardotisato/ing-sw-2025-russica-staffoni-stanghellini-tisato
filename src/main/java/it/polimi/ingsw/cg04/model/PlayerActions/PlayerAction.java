@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PlayerAction implements Action {
@@ -17,6 +18,6 @@ public abstract class PlayerAction implements Action {
         controller.onActionReceived(this);
     }
     public void addLogs(List<String> newLogs) {
-        this.logs.addAll(newLogs);
+        this.logs = new ArrayList<>(newLogs);
     }
 }

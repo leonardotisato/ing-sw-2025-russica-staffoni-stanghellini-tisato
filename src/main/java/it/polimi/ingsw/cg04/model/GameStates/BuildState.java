@@ -50,8 +50,8 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new InvalidStateException("cant place tile now");
         }
-
         player.placeTile(x, y);
+        this.addLog(player.getName() + " placed a tile in " +  x + ", " + y);
     }
 
     @Override
@@ -66,6 +66,7 @@ public class BuildState extends GameState {
         }
 
         player.addTileInBuffer();
+        this.addLog(player.getName() + " placed a tile in the buffer.");
     }
 
     @Override
@@ -76,6 +77,7 @@ public class BuildState extends GameState {
         }
 
         player.setHeldTile(game.getTileById(game.getFaceUpTiles().get(tileID)));
+        this.addLog(player.getName() + " choose tile " + tileID + " from face up tiles");
         game.getFaceUpTiles().remove(tileID);
     }
 
@@ -87,6 +89,7 @@ public class BuildState extends GameState {
         }
 
         player.setHeldTile(player.getShip().getTilesBuffer().get(idx));
+        this.addLog(player.getName() + " choose tile " + idx + " from the buffer");
         player.getShip().getTilesBuffer().remove(idx);
     }
     @Override
@@ -98,7 +101,6 @@ public class BuildState extends GameState {
 
         playerState.put(player.getName(), BuildPlayerState.SHOWING_FACE_UP);
         int j = 1;
-        System.out.println("list of face up tiles\n");
         for (Integer i : player.getGame().getFaceUpTiles()) {
             System.out.println(j + player.getGame().getTileById(i).toString() + "\n");
             j++;
@@ -125,7 +127,7 @@ public class BuildState extends GameState {
         }
 
         Tile drawnTile = player.getGame().drawFaceDownTile();
-        System.out.println("you have drawn " + drawnTile.toString() + "\n");
+        this.addLog(player.getName() + " draws a face down tile");
         player.setHeldTile(drawnTile);
     }
 
@@ -138,6 +140,7 @@ public class BuildState extends GameState {
 
         Tile currTile = player.getHeldTile();
         player.getGame().getFaceUpTiles().add(currTile.getId());
+        this.addLog(player.getName() + " returned a tile " + currTile.getId());
         player.setHeldTile(null);
     }
 
@@ -157,12 +160,7 @@ public class BuildState extends GameState {
 
         isLookingPile.put(player.getName(), pileIndex);
         playerState.put(player.getName(), BuildPlayerState.SHOWING_PILE);
-        // print out pile
-        List<Integer> pile = game.getPreFlightPiles().get(pileIndex);
-        System.out.println("Pile " + pileIndex + "\n");
-        for (Integer i : pile) {
-            System.out.println(game.getCardById(i).toString() + "\n");
-        }
+        this.addLog(player.getName() + " picked pile " + pileIndex);
 
     }
 
@@ -173,6 +171,7 @@ public class BuildState extends GameState {
             throw new InvalidStateException("cant return a pile if you are not looking at one");
         }
 
+        this.addLog(player.getName() + " returned pile " + isLookingPile.get(player.getName()));
         isLookingPile.put(player.getName(), 0);
         playerState.put(player.getName(), BuildPlayerState.BUILDING);
     }
@@ -193,6 +192,13 @@ public class BuildState extends GameState {
 
         player.move(board.getStartingPosition(position));
         playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
+        //if he needs to fix his ship, is it right to move him to the start position?
+        if (player.getShip().isShipLegal()){
+            this.addLog(player.getName() + " is done building and he choose to start at position " + position);
+        }
+        else{
+            this.addLog(player.getName() + " is done building but his ship is not legal. He will need to fix it");
+        }
     }
 
     @Override
@@ -206,6 +212,8 @@ public class BuildState extends GameState {
         }
         if (player.getShip().isShipLegal()) {
             playerState.put(player.getName(), BuildPlayerState.READY);
+            this.addLog(player.getName() + " is done fixing his ship!");
+            //where will he start?
         }
         if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
             triggerNextState();
@@ -222,6 +230,7 @@ public class BuildState extends GameState {
             throw new InvalidStateException("cant start timer in a game of level " + game.getLevel());
         }
         game.getBoard().startTimer();
+        this.addLog(player.getName() + " started the timer!");
     }
 
     @Override
@@ -253,7 +262,6 @@ public class BuildState extends GameState {
         return stringBuilder.toString();
     }
 
-    //TODO gestisci showFaceUp, ShowPiles
     public String renderPilesBackside(int width, int height){
         List<List<String>> pileLines = new ArrayList<>();
 
