@@ -127,8 +127,8 @@ public class BuildState extends GameState {
         }
 
         Tile drawnTile = player.getGame().drawFaceDownTile();
-        this.addLog(player.getName() + " draws a face down tile");
         player.setHeldTile(drawnTile);
+        this.addLog(player.getName() + " draws a face down tile");
     }
 
     @Override
