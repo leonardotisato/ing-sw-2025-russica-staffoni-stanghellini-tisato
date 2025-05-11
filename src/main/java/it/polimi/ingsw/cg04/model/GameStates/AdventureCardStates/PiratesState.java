@@ -120,15 +120,19 @@ public class PiratesState extends AdventureCardState {
             }
 
             if (firePower > opponentFirePower) {
-                isOpponentDead = true;
-                playerStates.set(playerIdx, DECIDE_REWARD);
-                this.addLog("Player " + player.getName() + " won against the pirates!");
 
-                // set all players in WAIT state to DONE state, they won't need to face opponent
-                for (int i = 0; i < playerStates.size(); i++) {
-                    if (playerStates.get(i) == WAIT) {
-                        playerStates.set(i, DONE);
-                    }
+                // if the player is the first one to defeat the enemy, set its state to DECIDE_REWARD
+                if (!isOpponentDead) {
+                    playerStates.set(playerIdx, DECIDE_REWARD);
+                    isOpponentDead = true;
+                    this.addLog("Player " + player.getName() + " won against the pirates!");
+                } else {
+                    playerStates.set(playerIdx, DONE);
+                }
+
+                // now playerIdx+1 needs to activate his cannons
+                if (playerIdx + 1 < playerStates.size()) {
+                    playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
                 }
             }
 
@@ -156,6 +160,7 @@ public class PiratesState extends AdventureCardState {
             direction = context.getCurrentAdventureCard().getDirection(currMeteorIdx);
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
+            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
@@ -209,6 +214,7 @@ public class PiratesState extends AdventureCardState {
 
                     // player can decide to use batteries to defend his ship
                     if (hitState == 0 || hitState == 1) {
+                        System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
                         playerStates.set(i, PROVIDE_BATTERY);
                     }
                 }
@@ -233,7 +239,7 @@ public class PiratesState extends AdventureCardState {
                 this.addLog("Player " + player.getName() + " decided to take the hit.");
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
-                    playerStates.set(playerIdx, PROVIDE_BATTERY);
+                    playerStates.set(playerIdx, CORRECT_SHIP);
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
