@@ -79,6 +79,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                                 if(handleSubscription(a)){
                                     String response = a.getPlayerNickname();
                                     send(new Message("SUBSCRIPTION-RESPONSE", response));
+
+                                    // nickname was
                                 } else{
                                     send(new Message("SUBSCRIPTION-RESPONSE", null));
                                 }
@@ -105,18 +107,14 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
     @Override
-    public void setGame(Game game) {    }
+    public void setGame(Game game) {
+        send(new Message("GAME", game));
+    }
 
     // send message to client
     @Override
     public void addLog(String log) {
-        try {
-            outputStream.writeObject(new Message("LOG", log));
-            outputStream.flush();
-        } catch (IOException e) {
-            System.out.println("Failed to send action to server.");
-            System.out.println(e.getMessage());
-        }
+        send(new Message("LOG", log));
     }
 
     public class ConnectionChecker implements Runnable {

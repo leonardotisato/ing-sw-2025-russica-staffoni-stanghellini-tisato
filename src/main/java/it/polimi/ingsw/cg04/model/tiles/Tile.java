@@ -5,13 +5,14 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.Ship;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
-public abstract class Tile {
+public abstract class Tile implements Serializable {
     @Expose
     String type;
     String shortName;

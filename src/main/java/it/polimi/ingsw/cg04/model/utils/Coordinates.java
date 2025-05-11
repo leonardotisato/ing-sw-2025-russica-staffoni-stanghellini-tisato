@@ -1,8 +1,9 @@
 package it.polimi.ingsw.cg04.model.utils;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Coordinates {
+public class Coordinates implements Serializable {
     private final int x;
     private final int y;
 

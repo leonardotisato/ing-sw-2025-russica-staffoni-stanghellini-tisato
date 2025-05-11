@@ -34,15 +34,15 @@ public abstract class ClientHandler implements VirtualClient {
 
     protected void disconnect() {
         try {
-            if(nickname != null) {
+            if (nickname != null) {
                 controller.disconnect(nickname);
                 System.out.println("Disconnecting " + nickname);
             }
         } catch (Exception e) {
-            //addLog(e.getMessage());
+            addLog(e.getMessage());
         }
 
-        //server.unsubscribe(this);
+        server.unsubscribe(this);
     }
 
     public void handleAction(Action action) {
@@ -56,16 +56,16 @@ public abstract class ClientHandler implements VirtualClient {
         }
     }
 
-    public boolean handleSubscription(Action action){
-        if(nickname != null) {
+    public boolean handleSubscription(Action action) {
+        if (nickname != null) {
             addLog("You are already connected as " + nickname);
             return false;
         }
         try {
             System.out.println("Received subscription request as " + action.getPlayerNickname() + " from a new client");
             action.dispatchTo(controller);
-            //server.subscribe(this);
             nickname = action.getPlayerNickname();
+            server.subscribe(this);
             return true;
         } catch (InvalidActionException e) {
             addLog(e.getReason());

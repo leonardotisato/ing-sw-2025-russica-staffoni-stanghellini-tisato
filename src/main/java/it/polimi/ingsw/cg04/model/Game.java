@@ -8,18 +8,17 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
+import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
 import static java.lang.Math.ceil;
 
-public class Game {
-
-    private final String PATH_TO_CARDS = "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json";
-    private final String PATH_TO_TILES = "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json";
+public class Game implements Serializable {
 
     private final int maxPlayers;
     private final int level;
@@ -57,6 +56,7 @@ public class Game {
         }
 
         // set up adventure cards
+        String PATH_TO_CARDS = "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json";
         this.adventureCardsMap = CardLoader.loadCardsFromJson(PATH_TO_CARDS, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -66,6 +66,7 @@ public class Game {
         createAdventureDeck();
 
         // set up tiles
+        String PATH_TO_TILES = "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json";
         this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
 
 
@@ -91,7 +92,6 @@ public class Game {
         this.id = 0;
         this.gameState = new LobbyState(this);
     }
-
 
     public boolean hasStarted() {
         return hasStarted;
@@ -469,7 +469,7 @@ public class Game {
         }
     }
 
-    public void sellBoxes() {
+    private void sellBoxes() {
         double delta;
         for(Player p : players) {
             delta = p.getShip().getBoxes().get(BoxType.RED) * 4 + p.getShip().getBoxes().get(BoxType.YELLOW) * 3
@@ -484,7 +484,7 @@ public class Game {
         }
     }
 
-    public void calculateLostPieces() {
+    private void calculateLostPieces() {
         int lostPieces;
         for (Player p : players) {
             lostPieces = p.getShip().getNumBrokenTiles() + p.getShip().getTilesBuffer().size();
@@ -532,5 +532,21 @@ public class Game {
 
     public String render(String nickname){
         return this.gameState.render(nickname);
+    }
+
+    public Game deepCopy()  {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(this);
+            oos.flush();
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bis);
+            return (Game) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

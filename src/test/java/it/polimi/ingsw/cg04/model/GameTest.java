@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameTest {
 
     Game gameLev2;
+    Shipyard shipyard = new Shipyard();
 
     @BeforeEach
     void setUp() {
@@ -382,5 +383,24 @@ class GameTest {
     @Test
     void getLevel() {
         assertEquals(2, gameLev2.getLevel());
+    }
+
+    @Test
+    void testDeepCopy() {
+        Game game = new Game(2, 4, 0, "Alice", PlayerColor.BLUE);
+        game.addPlayer("Bob", PlayerColor.RED);
+        game.addPlayer("Charlie", PlayerColor.GREEN);
+        game.addPlayer("Dave", PlayerColor.YELLOW);
+
+        game.getPlayer("Alice").move(4);
+
+        game.getPlayer("Bob").setShip(shipyard.createShip5());
+
+        Game copy = game.deepCopy();
+        assertEquals(PlayerColor.BLUE, copy.getPlayer("Alice").getColor());
+        assertEquals(PlayerColor.RED, copy.getPlayer("Bob").getColor());
+        assertEquals(1, copy.getPlayer("Alice").getRanking());
+        System.out.println(copy.getBoard());
+        System.out.println(copy.getPlayer("Bob").getShip().draw());
     }
 }

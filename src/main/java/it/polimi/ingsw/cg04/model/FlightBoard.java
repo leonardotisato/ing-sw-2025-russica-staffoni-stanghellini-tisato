@@ -1,12 +1,13 @@
 package it.polimi.ingsw.cg04.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public abstract class FlightBoard {
+public abstract class FlightBoard implements Serializable {
     protected Player[] path;
     protected int pathSize;
     protected Map<Integer, Integer> startingPosition;

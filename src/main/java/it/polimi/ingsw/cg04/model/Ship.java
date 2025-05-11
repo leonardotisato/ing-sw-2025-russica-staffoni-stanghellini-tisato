@@ -5,11 +5,12 @@ import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.*;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 import java.util.*;
 
-public class Ship {
+public class Ship implements Serializable {
 
     private final int level;
     private final PlayerColor color;

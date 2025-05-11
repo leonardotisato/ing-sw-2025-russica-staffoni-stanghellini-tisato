@@ -31,6 +31,14 @@ public class GamesController {
         return games;
     }
 
+    public Game getGame(int id) {
+        return games.stream().filter(g -> g.getId() == id).findFirst().orElse(null);
+    }
+
+    public Game getGameFromNickname(String nickname) {
+        return nickToGame.get(nickname);
+    }
+
     public void onActionReceived(PlayerAction action) throws InvalidActionException, InvalidStateException {
 
         try {

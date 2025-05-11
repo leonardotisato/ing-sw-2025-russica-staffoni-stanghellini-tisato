@@ -8,13 +8,14 @@ import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.centerText;
 import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
-public abstract class AdventureCard {
+public abstract class AdventureCard implements Serializable {
 
     @Expose
     private String type;

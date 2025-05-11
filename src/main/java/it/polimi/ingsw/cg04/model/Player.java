@@ -6,9 +6,10 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
 
     private int activity; // todo: what is this???
     private GameState currState; // todo: what is this???
@@ -168,38 +169,6 @@ public class Player {
     public void updateCredits(double delta) {
         numCredits += delta;
         numCredits = Math.max(0, numCredits);
-    }
-
-
-    /**
-     * Exchanges the boxes owned by the player's ship for credits.
-     * The total credits are calculated based on the value of each box type, multiplied by
-     * the number of occurrences of that box type in the ship. If the player is retired,
-     * the total credit amount is halved before being added to their credit balance.
-     *
-     * @param isRetired a boolean flag indicating whether the player is retired.
-     *                  If true, the player gains only half the calculated credits.
-     */
-    public void exchangeBoxForCredits(boolean isRetired) {
-        int acc = 0;
-
-        for (BoxType boxType : BoxType.values()) {
-            int occurrences = this.ship.getBoxes(boxType);
-            acc += occurrences * boxType.getValue();
-        }
-
-        if (isRetired) {
-            this.updateCredits(0.5 * acc);
-        } else {
-            this.updateCredits(acc);
-        }
-    }
-
-    /**
-     * Deducts the player's credits based on the number of broken tiles on their ship.
-     */
-    public void payForLostTiles() {
-        updateCredits(-ship.getNumBrokenTiles());
     }
 
     /**
