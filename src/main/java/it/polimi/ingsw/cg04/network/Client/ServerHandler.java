@@ -1,9 +1,13 @@
 package it.polimi.ingsw.cg04.network.Client;
 
+import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.model.Game;
+
 public abstract class ServerHandler implements VirtualServer {
     protected String nickname;
-    // private final ClientModel clientModel;
-    // private View view;
+    private final ClientModel clientModel;
+    private View view;
 
     protected final String serverIP;
     protected final String serverPort;
@@ -11,7 +15,7 @@ public abstract class ServerHandler implements VirtualServer {
     protected ServerHandler(String serverIP, String serverPort, String viewType) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
-        // clientModel = new ClientModel();
+        clientModel = new ClientModel();
 
 //        if(viewType.equals("GUI"))
 //            view = new GUIRoot(clientModel, this);
@@ -28,6 +32,10 @@ public abstract class ServerHandler implements VirtualServer {
     }
 
     public void addLog(String message){
-        System.out.println(message);
+        clientModel.addLog(message);
+    }
+
+    public void setGame(Game game) {
+        clientModel.setGame(game);
     }
 }

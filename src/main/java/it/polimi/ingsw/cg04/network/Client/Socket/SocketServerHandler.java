@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.network.Client.Socket;
 
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.*;
@@ -279,6 +280,18 @@ public class SocketServerHandler extends ServerHandler {
 
         private void handleMessage(Message message) {
             switch (message.messageType()) {
+                case "PING" -> {
+                    send(new Message("PONG", message.payload()));
+                }
+                case "PONG" -> {
+                    lastHeartBeat = (String) message.payload();
+                }
+                case "LOG" -> {
+                    inputHandler.submit(() -> socketServerHandler.addLog((String) message.payload()));
+                }
+                case "GAME" -> {
+                    inputHandler.submit(() -> socketServerHandler.setGame((Game) message.payload()));
+                }
                 case "SUBSCRIPTION-RESPONSE" -> {
                     inputHandler.submit(() -> {
                         String response = (String) message.payload();
@@ -288,15 +301,6 @@ public class SocketServerHandler extends ServerHandler {
                             addLog("Nickname already taken");
                         }
                     });
-                }
-                case "PING" -> {
-                    send(new Message("PONG", message.payload()));
-                }
-                case "PONG" -> {
-                    lastHeartBeat = (String) message.payload();
-                }
-                case "LOG" -> {
-                    socketServerHandler.addLog((String) message.payload());
                 }
                 default -> {
                     System.out.println("Unknown message type: " + message.messageType());

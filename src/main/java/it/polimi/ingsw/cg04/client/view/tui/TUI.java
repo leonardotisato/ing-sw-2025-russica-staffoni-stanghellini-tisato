@@ -1,19 +1,19 @@
-package it.polimi.ingsw.cg04.view.tui;
+package it.polimi.ingsw.cg04.client.view.tui;
 
+import it.polimi.ingsw.cg04.client.ClientModel;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
-import it.polimi.ingsw.cg04.view.View;
+import it.polimi.ingsw.cg04.client.view.View;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
 
 public class TUI extends View {
     private final InputReader input;
 
-    public TUI(ServerHandler server) {
-        super(server);
+    public TUI(ServerHandler server, ClientModel clientModel) {
+        super(server, clientModel);
 
         input = new InputReader();
         Thread t = new Thread(input);
