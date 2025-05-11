@@ -259,7 +259,16 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
+
         if (played.get(worstPlayerIdx).equals(WORST) &&  player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
+            int crewremoved = 0;
+            for (Integer integer : numCrewMembersLost) {
+                crewremoved += integer;
+            }
+            if(crewremoved != card.getLostMembers()) {
+                throw new InvalidStateException(player.getName() + " removed uncorrectly the crew members. Try again.");
+            }
+
             for (int i = 0; i < numCrewMembersLost.size(); i++) {
                 Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
                 player.getShip().removeCrew(currTile.getHostedCrewType(), coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
