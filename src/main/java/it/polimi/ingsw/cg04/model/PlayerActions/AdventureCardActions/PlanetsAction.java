@@ -29,6 +29,7 @@ public class PlanetsAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.landToPlanet(player, planetIdx, coordinates, boxes);
+        this.addLogs(state.getLogs());
     }
 
     public boolean checkAction(Player player) throws InvalidActionException {

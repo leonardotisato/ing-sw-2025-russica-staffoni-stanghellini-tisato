@@ -18,6 +18,7 @@ public class GetRewardsAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.getReward(player, acceptReward);
+        this.addLogs(state.getLogs());
     }
 
     @Override

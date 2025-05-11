@@ -15,6 +15,7 @@ public class CompareCrewAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException  {
         GameState state = player.getGame().getGameState();
         state.countCrewMembers(player);
+        this.addLogs(state.getLogs());
     }
 
     public boolean checkAction(Player player) { return true; }

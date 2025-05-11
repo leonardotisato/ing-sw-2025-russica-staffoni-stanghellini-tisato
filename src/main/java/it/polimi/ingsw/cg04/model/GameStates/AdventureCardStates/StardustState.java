@@ -24,7 +24,7 @@ public class StardustState extends AdventureCardState {
         if(player.getName().equals(sortedPlayers.getFirst().getName())) {
             for(int i = sortedPlayers.size() - 1; i >= 0; i--) {
                 sortedPlayers.get(i).move(-sortedPlayers.get(i).getShip().getNumExposedConnectors());
-                System.out.println("Player " + sortedPlayers.get(i).getName() + " perde " + sortedPlayers.get(i).getShip().getNumExposedConnectors() + " giorni di volo.");
+                this.addLog("Player " + sortedPlayers.get(i).getName() + " perde " + sortedPlayers.get(i).getShip().getNumExposedConnectors() + " giorni di volo.");
             }
             triggerNextState();
         }

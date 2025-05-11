@@ -26,6 +26,7 @@ public class FlightState extends GameState {
     public void retire(Player player){
         game.getRetiredPlayers().add(player);
         game.getPlayers().remove(player);
+        this.addLog("Player " + player.getName() + " retired");
     }
 
     @Override

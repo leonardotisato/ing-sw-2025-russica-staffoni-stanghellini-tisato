@@ -47,7 +47,9 @@ public class SmugglersState extends AdventureCardState {
                     }
                 }
             }
-
+            if(batteries != null && doubleCannons != null) {
+                this.addLog("Player " + playerIdx + " increased his fire power to " + firePower + " by using " + batteries.size() + "batteries");
+            }
             // now check if player defeated the opponent
 
             // player has lost
@@ -55,12 +57,15 @@ public class SmugglersState extends AdventureCardState {
                 player.getShip().removeBestBoxes(card.getLostGoods());
                 played.set(playerIdx, DONE);
                 currPlayerIdx++;
+                this.addLog("Player " + player.getName() + " lost against the smugglers!");
             } else if (firePower == card.getFirePower()) {
                 played.set(playerIdx, DONE);
                 currPlayerIdx++;
+                this.addLog("Player " + player.getName() + " drew against the smugglers!");
             } else {
                 played.replaceAll(i -> DONE);
                 played.set(playerIdx, HANDLE_BOXES);
+                this.addLog("Player " + player.getName() + " won against the smugglers!");
             }
 
             // check if every one is done
@@ -78,6 +83,7 @@ public class SmugglersState extends AdventureCardState {
         if (played.get(playerIdx) != HANDLE_BOXES) throw new InvalidStateException("Player " + player.getName() + " can't handle boxes");
         checkRightBoxesAfterReward(player, coordinates, boxes);
         if (coordinates == null && boxes == null){
+            this.addLog("Player " + player.getName() + " decided not to lose flight days!");
             played.set(playerIdx, DONE);
         }
         else {
@@ -86,6 +92,7 @@ public class SmugglersState extends AdventureCardState {
             }
             played.set(playerIdx, DONE);
             player.move(-card.getDaysLost());
+            this.addLog(player.getName() + " decided to handle boxes and lost " + card.getDaysLost() + " flight days!");
         }
         if (isAllDone(played)) {
             triggerNextState();

@@ -17,6 +17,7 @@ public class RollDiceAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.rollDice(player);
+        this.addLogs(state.getLogs());
     }
 
     @Override

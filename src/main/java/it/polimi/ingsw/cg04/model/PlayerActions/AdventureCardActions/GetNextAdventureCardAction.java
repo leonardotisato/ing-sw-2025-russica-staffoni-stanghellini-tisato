@@ -14,6 +14,7 @@ public class GetNextAdventureCardAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.getNextAdventureCard(player);
+        this.addLogs(state.getLogs());
     }
 
     @Override
