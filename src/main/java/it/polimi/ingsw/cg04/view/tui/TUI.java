@@ -66,10 +66,67 @@ public class TUI extends View {
                 String command = scanner.next();
 
                 switch (command) {
-                    case "1":
+                    case "setNickname":
                         break;
-
-                    case "-h":
+                    case "createGame":
+                        break;
+                    case "joinGame":
+                        break;
+                    case "chooseTile":
+                        break;
+                    case "chooseTileFromBuffer":
+                        break;
+                    case "closeFaceUp":
+                        break;
+                    case "drawFaceDown":
+                        break;
+                    case "endBuilding":
+                        break;
+                    case "pickPile":
+                        break;
+                    case "place":
+                        break;
+                    case "placeInBuffer":
+                        break;
+                    case "returnPile":
+                        break;
+                    case "returnTile":
+                        break;
+                    case "showFaceUp":
+                        break;
+                    case "startTimer":
+                        break;
+                    case "chooseBattery":
+                        break;
+                    case "choosePropulsor":
+                        break;
+                    case "compareCrew":
+                        break;
+                    case "compareFirePower":
+                        break;
+                    case "epidemic":
+                        break;
+                    case "getNextAdventureCard":
+                        break;
+                    case "getRewards":
+                        break;
+                    case "handleBoxes":
+                        break;
+                    case "planets":
+                        break;
+                    case "removeCrew":
+                        break;
+                    case "retire":
+                        break;
+                    case "rollDice":
+                        break;
+                    case "stardust":
+                        break;
+                    case "fixShip":
+                        break;
+                    case "loadCrew":
+                        break;
+                    case "helper":
                         helper();
                         break;
                     default:
