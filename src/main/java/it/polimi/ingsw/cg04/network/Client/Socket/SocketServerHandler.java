@@ -92,6 +92,12 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
+    public void chooseTileFromBuffer(int idx){
+        Action a = new ChooseTileFromBufferAction(nickname, idx);
+        send(new Message("ACTION", a));
+    }
+
+    @Override
     public void closeFaceUpTiles() {
         Action a = new CloseFaceUpTilesAction(nickname);
         send(new Message("ACTION", a));

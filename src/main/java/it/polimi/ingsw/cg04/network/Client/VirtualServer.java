@@ -16,7 +16,7 @@ public interface VirtualServer {
 
     // buildActions
     void chooseTile(int tileIdx);
-
+    void chooseTileFromBuffer(int idx);
     void closeFaceUpTiles();
     void drawFaceDown();
     void endBuilding(int position);

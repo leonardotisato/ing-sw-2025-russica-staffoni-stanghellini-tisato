@@ -142,6 +142,16 @@ public class ServerHandlerRMI extends ServerHandler {
         });
     }
 
+    public void chooseTileFromBuffer(int idx) {
+        // Action chooseTileAction = new ChooseTileAction(nickname, tileIdx);
+        Action chooseTileFromBufferAction = new ChooseTileFromBufferAction(nickname, idx);
+        rmiExecutor.submit(() -> {
+            try {
+                virtualController.handleActionRMI(chooseTileFromBufferAction);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
     public void closeFaceUpTiles() {
         Action closeFaceUpTilesAction = new CloseFaceUpTilesAction(nickname);
         rmiExecutor.submit(() -> {
