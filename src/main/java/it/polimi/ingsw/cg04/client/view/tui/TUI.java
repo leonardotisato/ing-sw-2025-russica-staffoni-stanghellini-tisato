@@ -1,13 +1,14 @@
 package it.polimi.ingsw.cg04.client.view.tui;
 
 import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.client.view.View;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import static java.lang.Integer.parseInt;
 
 public class TUI extends View {
     private final InputReader input;
@@ -57,85 +58,68 @@ public class TUI extends View {
             }
         }
 
-        private void handleInput(String input){
+        private void handleInput(String input) {
             Scanner scanner = new Scanner(input);
             scanner.useDelimiter(" ");
 
             try {
-
                 String command = scanner.next();
+                TuiParser parser = new TuiParser();
+                parser.printCommandFormat(command);
+
+                Scanner stdinScanner = new Scanner(System.in);
+                String argsLine = stdinScanner.nextLine();
+                TuiParser.ParsedArgs args = parser.parseArguments(command, argsLine);
 
                 switch (command) {
-                    case "setNickname":
-                        break;
-                    case "createGame":
-                        break;
-                    case "joinGame":
-                        break;
-                    case "chooseTile":
-                        break;
-                    case "chooseTileFromBuffer":
-                        break;
-                    case "closeFaceUp":
-                        break;
-                    case "drawFaceDown":
-                        break;
-                    case "endBuilding":
-                        break;
-                    case "pickPile":
-                        break;
-                    case "place":
-                        break;
-                    case "placeInBuffer":
-                        break;
-                    case "returnPile":
-                        break;
-                    case "returnTile":
-                        break;
-                    case "showFaceUp":
-                        break;
-                    case "startTimer":
-                        break;
-                    case "chooseBattery":
-                        break;
-                    case "choosePropulsor":
-                        break;
-                    case "compareCrew":
-                        break;
-                    case "compareFirePower":
-                        break;
-                    case "epidemic":
-                        break;
-                    case "getNextAdventureCard":
-                        break;
-                    case "getRewards":
-                        break;
-                    case "handleBoxes":
-                        break;
-                    case "planets":
-                        break;
-                    case "removeCrew":
-                        break;
-                    case "retire":
-                        break;
-                    case "rollDice":
-                        break;
-                    case "stardust":
-                        break;
-                    case "fixShip":
-                        break;
-                    case "loadCrew":
-                        break;
-                    case "helper":
-                        helper();
-                        break;
-                    default:
-                        throw new NoSuchElementException();
+                    case "setNickname" -> server.setNickname(args.string());
+                    case "createGame" -> server.createGame(args.singleInt(), args.intList().getFirst(), PlayerColor.valueOf(args.string()));
+                    case "joinGame" -> server.joinGame(args.singleInt(), PlayerColor.valueOf(args.string()));
+                    case "chooseTile" -> server.chooseTile(args.singleInt());
+                    case "chooseTileFromBuffer" -> server.chooseTileFromBuffer(args.singleInt());
+                    case "closeFaceUp" -> server.closeFaceUpTiles();
+                    case "drawFaceDown" -> server.drawFaceDown();
+                    case "endBuilding" -> server.endBuilding(args.singleInt());
+                    case "pickPile" -> server.pickPile(args.singleInt());
+                    case "place" -> server.place(args.coord1().getX(), args.coord1().getY());
+                    case "placeInBuffer" -> server.placeInBuffer();
+                    case "returnPile" -> server.returnPile();
+                    case "returnTile" -> server.returnTile();
+                    case "showFaceUp" -> server.showFaceUp();
+                    case "startTimer" -> server.startTimer();
+                    case "chooseBattery" -> server.chooseBattery(args.coord1().getX(), args.coord1().getY());
+                    case "choosePropulsor" -> {
+                        List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
+                        server.choosePropulsor(coords, args.intList());
+                    }
+                    case "compareCrew" -> server.compareCrew();
+                    case "compareFirePower" -> {
+                        List<List<Coordinates>> groups = args.coordGroups();
+                        if (groups.size() >= 2) {
+                            server.compareFirePower(groups.get(0), groups.get(1));
+                        } else {
+                            System.out.println("Error: two -c groups are required.");
+                        }
+                    }
+                    case "epidemic" -> server.spreadEpidemic();
+                    case "getNextAdventureCard" -> server.getNextAdventureCard();
+                    case "getRewards" -> server.getRewards(args.accept());
+                    case "handleBoxes" -> server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
+                    case "planets" -> server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
+                    case "removeCrew" -> server.removeCrew(args.coordGroups().getFirst(), args.intList());
+                    case "retire" -> server.retire();
+                    case "rollDice" -> server.rollDice();
+                    case "stardust" -> server.starDust();
+                    case "fixShip" -> server.fixShip(args.coordGroups().getFirst());
+                    case "loadCrew" -> server.loadCrew(args.coord1(), args.coord2());
+                    case "helper" -> helper();
+                    default -> throw new NoSuchElementException();
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Try -h for help.");
             }
         }
+
 
         private void helper() {
             System.out.println("Commands list:\n");
@@ -176,10 +160,6 @@ public class TUI extends View {
             System.out.println("once you select a command it will be explained in detail the format of the arguments");
 
             System.out.println("====================================================================================");
-        }
-
-        private void stateSpecificHelper(){
-
         }
 
         private void stopInputReader(){
