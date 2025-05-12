@@ -38,6 +38,6 @@ public abstract class ServerHandler implements VirtualServer {
     }
 
     public void setGame(Game game) {
-        clientModel.setGame(game);
+        clientModel.setGame(game, nickname);
     }
 }

@@ -18,9 +18,9 @@ public class ClientModel implements Observable {
         return game;
     }
 
-    public void setGame(Game game) {
+    public void setGame(Game game, String nickname) {
         this.game = game;
-        notifyObserversGameUpdate();
+        notifyObserversGameUpdate(nickname);
     }
 
     public List<String> getLogs() {
@@ -28,23 +28,28 @@ public class ClientModel implements Observable {
     }
 
     public void addLog(List<String> newLogs) {
-        logs.addAll(newLogs);
+        for (String l : newLogs) {
+            logs.add(l);
+            if (logs.size() > 10) {
+                logs.removeFirst();
+            }
+        }
         notifyObserversLogsUpdate();
     }
 
     @Override
     public void addObserver(Observer observer) {
-        observer  = observer;
+        this.observer  = observer;
     }
 
     @Override
     public void removeObserver(Observer observer) {
-        observer = null;
+        this.observer = null;
     }
 
     @Override
-    public void notifyObserversGameUpdate() {
-        observer.updateGame();
+    public void notifyObserversGameUpdate(String nickname) {
+        observer.updateGame(nickname);
     }
 
     @Override

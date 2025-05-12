@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.client.view.tui;
 
 import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
@@ -23,14 +24,41 @@ public class TUI extends View {
         t.start();
     }
 
+    @Override
+    public void updateGame(String nickname) {
+        try {
+            Game toPrint = clientModel.getGame();
 
-    public void updateGame() {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
 
+            System.out.println(toPrint.render(nickname));
+        } catch (NullPointerException ignored) {
+            System.out.println("Game not found");
+        }
     }
 
 
     public void updateLogs() {
+        List<String> logs = clientModel.getLogs();
 
+        int logLines = 10;
+
+        // 1. Risali di 'logLines' + intestazione
+        System.out.print("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
+        System.out.flush();
+
+        // 2. Sovrascrivi i log (e svuota le righe rimanenti)
+        System.out.println("--- LOGS ---");
+        for (int i = 0; i < logLines; i++) {
+            if (i < logs.size()) {
+                System.out.print("\033[2K"); // cancella riga corrente
+                System.out.println("- " + logs.get(i));
+            } else {
+                System.out.print("\033[2K"); // cancella riga vuota
+                System.out.println();       // riga vuota per riempire
+            }
+        }
     }
 
 

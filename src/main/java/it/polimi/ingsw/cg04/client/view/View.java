@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 public abstract class View implements Observer{
     protected final ClientModel clientModel;
     protected final ServerHandler server;
+    protected String nickname;
 
     protected View(ServerHandler server, ClientModel clientModel) {
         this.server = server;
