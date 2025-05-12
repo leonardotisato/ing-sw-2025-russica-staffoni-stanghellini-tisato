@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.network.Server.Server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,23 +17,22 @@ import java.util.Map;
 
 public class GamesController {
 
-    private Server server;
+    private final Server server;
 
     private final List<Game> games;
     private final Map<Game, List<Player>> connectedPlayers;
     private final Map<Game, List<Player>> disconnectedPlayers;
     private final Map<String, Game> nickToGame;
 
-    public GamesController() {
+    public GamesController() throws IOException {
         games = new ArrayList<>();
         connectedPlayers = new HashMap<>();
         disconnectedPlayers = new HashMap<>();
         nickToGame = new HashMap<>();
+        server = new Server(this);
+        server.start();
     }
 
-    public void setServer(Server server) {
-        this.server = server;
-    }
 
     public List<Game> getGames() {
         return games;
