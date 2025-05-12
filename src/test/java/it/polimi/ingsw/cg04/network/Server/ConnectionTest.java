@@ -17,7 +17,7 @@ public class ConnectionTest {
     Server server;
 
     @BeforeEach
-    void setUp() throws RemoteException {
+    void setUp() throws IOException {
         this.controller = new GamesController();
         this.server = new Server(controller);
 

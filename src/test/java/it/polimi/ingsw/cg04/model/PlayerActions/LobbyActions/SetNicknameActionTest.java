@@ -6,11 +6,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SetNicknameActionTest {
 
     private final GamesController controller = new GamesController();
+
+    SetNicknameActionTest() throws IOException {
+    }
 
     @BeforeEach
     void setUp() {

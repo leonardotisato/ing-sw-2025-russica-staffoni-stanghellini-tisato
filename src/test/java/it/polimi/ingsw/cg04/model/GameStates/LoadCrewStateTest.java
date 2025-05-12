@@ -16,6 +16,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoadCrewStateTest {
@@ -26,7 +28,7 @@ class LoadCrewStateTest {
     private final Shipyard shipyard = new Shipyard();
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
         p1 = game.addPlayer("Alice", PlayerColor.RED);

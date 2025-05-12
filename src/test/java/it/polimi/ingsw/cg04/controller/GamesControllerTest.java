@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class GamesControllerTest {
 
     GamesController controller = new GamesController();
+
+    GamesControllerTest() throws IOException {
+    }
 
     @BeforeEach
     void setUp() {

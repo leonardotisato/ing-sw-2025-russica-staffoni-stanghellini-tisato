@@ -25,7 +25,7 @@ public class Main {
                 }
 
             } else {
-                System.out.println("Starting a new game");
+                System.out.println("Starting server");
                 new GamesController();
             }
 

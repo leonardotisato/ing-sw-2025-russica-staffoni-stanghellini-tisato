@@ -18,6 +18,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class AdventureCardsTest {
 //    Tile laserTile101;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         shipyard = new Shipyard();
 
         controller = new GamesController();
