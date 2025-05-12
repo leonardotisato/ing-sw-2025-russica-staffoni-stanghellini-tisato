@@ -166,16 +166,6 @@ public class TuiParser {
             }
         }
 
-        if (!coordGroups.isEmpty()) {
-            List<Coordinates> first = coordGroups.get(0);
-            if (first.size() >= 2) {
-                coord1 = first.get(0);
-                coord2 = first.get(1);
-            } else if (first.size() == 1) {
-                coord1 = first.get(0);
-            }
-        }
-
         return new ParsedArgs(coordGroups, intList, boxList, singleInt, string, coord1, coord2, accept, planetIdx);
     }
 }
