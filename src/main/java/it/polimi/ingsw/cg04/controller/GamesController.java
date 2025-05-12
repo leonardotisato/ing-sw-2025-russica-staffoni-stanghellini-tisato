@@ -54,11 +54,15 @@ public class GamesController {
             action.checkAction(p);
             action.execute(p);
 
-            // send logs collected while executing the action
-            List<String> collectedLogs = action.getLogs();
+
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
 
+            // send logs collected while executing the action
+            List<String> collectedLogs = action.getLogs();
             server.broadcastLogs(recipients, collectedLogs);
+
+            // send game snapshot to players
+            server.broadcastGameUpdate(recipients, g.deepCopy());
 
         } catch (NullPointerException e) {
             System.out.println("Player not in a game");

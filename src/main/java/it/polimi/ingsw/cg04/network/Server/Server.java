@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp;
 import it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderRMI;
 
@@ -109,16 +110,11 @@ public class Server {
         return null;
     }
 
-    public void broadcastGameUpdate(List<String> nicknames) {
+    public void broadcastGameUpdate(List<String> nicknames, Game game) {
         for (String nickname : nicknames) {
             ClientHandler clientHandler = getSubscribedClient(nickname);
             if (clientHandler != null) {
-
-                int gameId = controller.getGameFromNickname(nickname).getId();
-
-                // create snapshot of game and send it to the clients
-                getSubscribedClient(nickname).setGame(controller.getGame(gameId).deepCopy());
-
+                getSubscribedClient(nickname).setGame(game);
             } else {
                 System.out.println("Client " + nickname + " not found");
             }
