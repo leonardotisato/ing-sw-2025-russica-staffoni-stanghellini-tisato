@@ -39,7 +39,6 @@ public class TUI extends View {
 
             System.out.println(rendered);
             System.out.println("\n".repeat(10));
-            printLogs();
         } catch (NullPointerException ignored) {
             System.out.println("Game not found");
         }
@@ -59,31 +58,12 @@ public class TUI extends View {
 
             // 2. Sovrascrivi i log (e svuota le righe rimanenti)
             System.out.println("--- LOGS ---");
-            for (int i = 0; i < logLines; i++) {
-                if (i < logs.size()) {
-                    System.out.print("\033[2K"); // cancella riga corrente
-                    System.out.println("- " + logs.get(i));
-                } else {
-                    System.out.print("\033[2K"); // cancella riga vuota
-                    System.out.println();       // riga vuota per riempire
-                }
+            for (String log : logs) {
+                System.out.print("\033[2K"); // cancella riga corrente
+                System.out.println("- " + log);
             }
         }finally {
             terminalLock.unlock();
-        }
-    }
-
-    private void printLogs() {
-        List<String> logs = clientModel.getLogs();
-        int logLines = 10;
-
-        System.out.println("\n--- LOGS ---");
-        for (int i = 0; i < logLines; i++) {
-            if (i < logs.size()) {
-                System.out.println("- " + logs.get(i));
-            } else {
-                System.out.println(); // riga vuota
-            }
         }
     }
 

@@ -10,9 +10,7 @@ import it.polimi.ingsw.cg04.model.tiles.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TileLoader {
 
@@ -36,6 +34,7 @@ public class TileLoader {
                 tileMap.put(id, card);
                 faceDownTiles.add(id);
             }
+            Collections.shuffle(faceDownTiles, new Random());
             return tileMap;
         } catch (IOException e) {
             e.printStackTrace();
