@@ -383,7 +383,7 @@ public class ServerHandlerRMI extends ServerHandler {
         // todo: implement
         @Override
         public void setGameRMI(Game game) throws RemoteException {
-
+            setGame(game);
         }
 
         // todo: implement (now it's printing, we will modify it once implementing the view)

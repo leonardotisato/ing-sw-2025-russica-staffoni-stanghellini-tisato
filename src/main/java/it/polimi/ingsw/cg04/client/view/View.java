@@ -14,6 +14,7 @@ public abstract class View implements Observer{
     protected View(ServerHandler server, ClientModel clientModel) {
         this.server = server;
         this.clientModel = clientModel;
+        clientModel.addObserver(this);
     }
 
     /**
