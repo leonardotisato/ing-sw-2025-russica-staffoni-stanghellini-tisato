@@ -49,10 +49,12 @@ public class GamesController {
     public void onActionReceived(PlayerAction action) throws InvalidActionException, InvalidStateException {
 
         try {
+            System.out.println("Action received");
             Game g = nickToGame.get(action.getPlayerNickname());
             Player p = g.getPlayer(action.getPlayerNickname());
             action.checkAction(p);
             action.execute(p);
+            System.out.println("Action executed");
 
 
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
