@@ -20,6 +20,8 @@ public class TUI extends View {
         super(server, clientModel);
         System.out.println("Welcome to Galaxy Trucker!");
         System.out.println("Type helper to receive the list of commands.");
+        System.out.println("Once typed the command you decided to use, an explanation of it's accepted input format will be displayed.");
+        System.out.println("Note that not every command requires parameters.");
 
         input = new InputReader();
         Thread t = new Thread(input);
@@ -242,7 +244,7 @@ public class TUI extends View {
                     default -> throw new NoSuchElementException();
                 }
             } catch (Exception e) {
-                System.out.println("Invalid input. Try -h for help.");
+                System.out.println("Invalid input. Try 'helper' to get the list of commands.");
             }
         }
 
@@ -251,39 +253,45 @@ public class TUI extends View {
             System.out.println("Commands list:\n");
 
             System.out.println("LOBBY COMMANDS:");
-            System.out.println("\tset_nickname              -choose an unique nickname");
-            System.out.println("\tcreate_game               -create a new game specifying the number of players, the type of game and your color");
-            System.out.println("\tjoin_game                 -join an existing game\n");
+            System.out.println("\tsetNickname               -choose an unique nickname");
+            System.out.println("\tcreateGame                -create a new game specifying the number of players, the type of game and your color");
+            System.out.println("\tjoinGame                  -join an existing game\n");
 
             System.out.println("BUILDING COMMANDS:");
-            System.out.println("\tchoose_tile               -chose a tile from face up tiles specifying it's index");
-            System.out.println("\tchoose_tile_from_buffe    -choose a tile from buffer tiles specifying it's index");
-            System.out.println("\tshow_faceup_tiles         -show all face up tiles");
-            System.out.println("\tclose_faceup_tiles        -close face up tiles");
-            System.out.println("\tdraw_facedown_tile        -draw a random face down tile");
-            System.out.println("\tplace_tile                -place the tile you are currently holding specifying the coordinates");
-            System.out.println("\tend_building              -finish the building phase and decide the position you want to start in");
-            System.out.println("\tpick_pile                 -show the cards in one of the piles specifying the pile index");
-            System.out.println("\tplace_in_buffer           -place the tile you are currently holding in the buffer");
-            System.out.println("\treturn_pile               -return the pile you are currently holding");
-            System.out.println("\treturn_tile               -return the tile you are currently holding");
-            System.out.println("\tstart_timer               -start the timer");
-            System.out.println("\tfix_ship                  -specify the coordinates of the tiles you want to remove to make the ship legal\n");
+            System.out.println("\tchooseTile                -chose a tile from face up tiles specifying it's index");
+            System.out.println("\tchooseTileFromBuffer      -choose a tile from buffer tiles specifying it's index");
+            System.out.println("\tshowFaceUp                -show all face up tiles (no parameters)");
+            System.out.println("\tcloseFaceUp               -close face up tiles (no parameters)");
+            System.out.println("\tdrawFaceDown              -draw a random face down tile (no parameters)");
+            System.out.println("\tplace                     -place the tile you are currently holding specifying the coordinates");
+            System.out.println("\tendBuilding               -finish the building phase and decide the position you want to start in");
+            System.out.println("\tpickPile                  -show the cards in one of the piles specifying the pile index");
+            System.out.println("\tplaceInBuffer             -place the tile you are currently holding in the buffer (no parameters)");
+            System.out.println("\treturnPile                -return the pile you are currently holding (no parameters)");
+            System.out.println("\treturnTile                -return the tile you are currently holding (no parameters)");
+            System.out.println("\tstartTimer                -start the timer (no parameters)");
+            System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal\n");
 
             System.out.println("ADVENTURE CARDS COMMANDS:");
-            System.out.println("\tchoose_battery            -select the battery you want to use specifying it's coordinates");
-            System.out.println("\tchoose_propulsor          -select the propulsors you want to use specifying their coordinates");
-            System.out.println("\tget_next_adventure_card   -draw a new adventure card");
-            System.out.println("\thandle_boxes              -select the new boxes formation on the tiles in which you want to modify it");
-            System.out.println("\tremove_crew               -choose the crew you want to remove specifying it's coordinates");
-            System.out.println("\tretire                    -retire from the game");
-            System.out.println("\troll_dice                 -roll dices");
-            System.out.println("\tfix_ship                  -specify the coordinates of the tiles you want to remove to make the ship legal");
-            System.out.println("\tload_crew                 -load aliens specifying the coordinates of the tiles where you want to put them\n");
+            System.out.println("\tchooseBattery             -select the battery you want to use specifying it's coordinates");
+            System.out.println("\tchoosePropulsor           -select the propulsors you want to use specifying their coordinates");
+            System.out.println("\tcompareCrew               -compare players crew sizes (no parameters)");
+            System.out.println("\tcompareFirePower          -compare players fire powers, you can activate double cannons");
+            System.out.println("\tepidemic                  -spreads epidemic (no parameters)");
+            System.out.println("\tgetNextAdventureCard      -draw a new adventure card (no parameters)");
+            System.out.println("\tgetRewards                -choose if you want to get rewards");
+            System.out.println("\thandleBoxes               -select the new boxes formation on the tiles in which you want to modify it");
+            System.out.println("\tplanets                   -select the planet you want to land and specify the new boxes formation on the tiles in which you want to modify it");
+            System.out.println("\tremoveCrew                -choose the crew you want to remove specifying it's coordinates");
+            System.out.println("\tretire                    -retire from the game (no parameters)");
+            System.out.println("\trollDice                  -roll dices (no parameters)");
+            System.out.println("\tstardust                  -activate stardust effect (no parameters)");
+            System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal");
+            System.out.println("\tloadCrew                  -load aliens specifying the coordinates of the tiles where you want to put them\n");
 
             System.out.println("====================================================================================");
 
-            System.out.println("once you select a command it will be explained in detail the format of the arguments");
+            System.out.println("Once you select a command it will be explained in detail the format of the arguments");
 
             System.out.println("====================================================================================");
         }

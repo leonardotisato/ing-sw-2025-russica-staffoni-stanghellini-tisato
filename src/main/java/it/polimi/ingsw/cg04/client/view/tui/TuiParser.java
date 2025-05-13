@@ -11,20 +11,26 @@ public class TuiParser {
         System.out.println("Parameter format for command: " + command);
         switch (command) {
             case "setNickname" -> System.out.println("  <nickname>");
-            case "createGame" -> System.out.println("  <gameLevel> <maxPlayers> <color>");
-            case "joinGame" -> System.out.println("  <gameId> <color>");
+            case "createGame" -> System.out.println("  <gameLevel> <maxPlayers> <COLOR>");
+            case "joinGame" -> System.out.println("  <gameId> <COLOR>");
             case "chooseTile" -> System.out.println("  <tileIndex>");
             case "chooseTileFromBuffer" -> System.out.println("  <tileIndex>");
             case "pickPile" -> System.out.println("  <pileIndex>");
-            case "endBuilding" -> System.out.println("  <position>");
+            case "endBuilding" -> System.out.println("  <startingPosition>");
             case "place" -> System.out.println("  <x> <y>");
             case "chooseBattery" -> {
                 System.out.println("Send -1 -1 if you don't want to use a battery.");
                 System.out.println("  <x> <y>");
             }
-            case "choosePropulsor" -> System.out.println("  -c <x1> <y1> <x2> <y2> ... -n <battery1> <battery2> ...");
+            case "choosePropulsor" -> {
+                System.out.println("Press enter if you don't want to activate double propulsors.");
+                System.out.println("  -c <x1> <y1> <x2> <y2> ... -n <battery1> <battery2> ...");
+            }
             case "compareCrew" -> System.out.println("  (no arguments)");
-            case "compareFirePower" -> System.out.println("  -c <battery_x1> <battery_y1> ... -c <cannon_x1> <cannon_y1> ...");
+            case "compareFirePower" -> {
+                System.out.println("Press enter if you don't want to activate double cannons.");
+                System.out.println("  -c <battery_x1> <battery_y1> ... -c <cannon_x1> <cannon_y1> ...");
+            }
             case "drawFaceDown" -> System.out.println("  (no arguments)");
             case "returnPile" -> System.out.println("  (no arguments)");
             case "returnTile" -> System.out.println("  (no arguments)");
@@ -35,9 +41,15 @@ public class TuiParser {
             case "getNextAdventureCard" -> System.out.println("  (no arguments)");
             case "epidemic" -> System.out.println("  (no arguments)");
             case "getRewards" -> System.out.println("  <true|false>");
-            case "handleBoxes" -> System.out.println("  -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
+            case "handleBoxes" -> {
+
+                System.out.println("  -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
+            }
             case "planets" -> System.out.println("  <planetIndex> -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
-            case "removeCrew" -> System.out.println("  -c <coord_x1> <coord_y1> ... -n <crew1> <crew2> ...");
+            case "removeCrew" -> {
+                System.out.println("Press enter if you don't want to remove crew (not possible in WarZone).");
+                System.out.println("  -c <coord_x1> <coord_y1> ... -n <crew1> <crew2> ...");
+            }
             case "retire" -> System.out.println("  (no arguments)");
             case "rollDice" -> System.out.println("  (no arguments)");
             case "stardust" -> System.out.println("  (no arguments)");
