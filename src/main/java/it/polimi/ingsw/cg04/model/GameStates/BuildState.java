@@ -250,7 +250,12 @@ public class BuildState extends GameState {
             }
             stringBuilder.append("Your ship:").append("\n").append("\n");
             stringBuilder.append(game.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
-            stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
+            if (playerState.get(nickname) == BuildPlayerState.BUILDING) {
+                stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
+            }
+            if(playerState.get(nickname) == BuildPlayerState.READY){
+                stringBuilder.append("You're done building the ship! Wait for the other players to finish the building").append("\n");
+            }
             if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
                 stringBuilder.append("Face up tiles: send x to show more tiles!").append("\n").append("\n");
                 stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFigures(10, null, "tiles")).append("\n").append("\n");

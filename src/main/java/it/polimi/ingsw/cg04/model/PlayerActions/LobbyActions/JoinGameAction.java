@@ -26,7 +26,7 @@ public class JoinGameAction extends InitAction {
 
         controller.addConnectedPlayer(g, newPlayer);
         controller.addNicktoGame(playerName, g);
-        this.addLog(playerName + "joined this game!");
+        this.addLog(playerName + " joined this game!");
 
         if(g.getPlayers().size() == g.getMaxPlayers()){
             g.setGameState(new BuildState(g));
