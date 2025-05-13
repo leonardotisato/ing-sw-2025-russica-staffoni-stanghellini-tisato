@@ -314,7 +314,7 @@ public class ServerHandlerRMI extends ServerHandler {
         });
     }
 
-    public void landToPlanet(int planetIdx, List<Coordinates> coords, List<Map<BoxType,Integer>> boxes) {
+    public void landToPlanet(Integer planetIdx, List<Coordinates> coords, List<Map<BoxType,Integer>> boxes) {
         Action planetsAction = new PlanetsAction(nickname, planetIdx, coords, boxes);
         rmiExecutor.submit(() -> {
             try {

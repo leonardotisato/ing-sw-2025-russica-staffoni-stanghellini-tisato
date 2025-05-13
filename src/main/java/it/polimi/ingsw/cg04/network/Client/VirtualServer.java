@@ -38,7 +38,7 @@ public interface VirtualServer {
     void getRewards(boolean acceptReward);
     void handleBoxes(List<Coordinates> coords, List<Map<BoxType,Integer>> boxes);
     // forse fare moveBoxes, throwBoxes;
-    void landToPlanet(int planetIdx, List<Coordinates> coords, List<Map<BoxType,Integer>> boxes);
+    void landToPlanet(Integer planetIdx, List<Coordinates> coords, List<Map<BoxType,Integer>> boxes);
     // forse da separare in choosePlanet e azioni boxes;
     void removeCrew(List<Coordinates> coords, List<Integer> numCrewMembersLost);
     void rollDice();

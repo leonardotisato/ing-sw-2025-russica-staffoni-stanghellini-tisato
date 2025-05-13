@@ -206,7 +206,7 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
-    public void landToPlanet(int planetIdx, List<Coordinates> coords, List<Map<BoxType, Integer>> boxes) {
+    public void landToPlanet(Integer planetIdx, List<Coordinates> coords, List<Map<BoxType, Integer>> boxes) {
         Action a = new PlanetsAction(nickname, planetIdx, coords, boxes);
         send(new Message("ACTION", a));
     }

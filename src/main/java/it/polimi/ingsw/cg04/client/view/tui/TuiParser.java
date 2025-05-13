@@ -57,7 +57,7 @@ public class TuiParser {
             Coordinates coord1,
             Coordinates coord2,
             boolean accept,
-            int planetIdx
+            Integer planetIdx
     ) {}
 
     public ParsedArgs parseArguments(String command, String inputLine) {
@@ -70,7 +70,7 @@ public class TuiParser {
         Coordinates coord1 = null;
         Coordinates coord2 = null;
         boolean accept = true;
-        int planetIdx = -1;
+        Integer planetIdx = null;
 
         switch (command) {
             case "setNickname" -> string = scanner.hasNext() ? scanner.next() : null;
