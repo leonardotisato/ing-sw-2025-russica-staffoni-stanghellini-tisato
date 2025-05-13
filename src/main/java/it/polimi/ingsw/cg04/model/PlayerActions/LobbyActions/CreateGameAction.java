@@ -38,7 +38,7 @@ public class CreateGameAction extends InitAction {
             throw new InvalidActionException("Invalid number of players");
         }
 
-        if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
+        if (playerName == null || playerName.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
         }
 
