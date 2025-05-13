@@ -84,14 +84,13 @@ public class GamesController {
                 List<Player> players = connectedPlayers.get(g);
                 List<String> recipients = players.stream().map(Player::getName).toList();
 
+                // send game snapshot to players
+                server.broadcastGameUpdate(recipients, g.deepCopy());
                 // send logs collected while executing the action
                 List<String> collectedLogs = action.getLogs();
                 if (collectedLogs != null) {
                     server.broadcastLogs(recipients, collectedLogs);
                 }
-
-                // send game snapshot to players
-                server.broadcastGameUpdate(recipients, g.deepCopy());
             }
     }
 

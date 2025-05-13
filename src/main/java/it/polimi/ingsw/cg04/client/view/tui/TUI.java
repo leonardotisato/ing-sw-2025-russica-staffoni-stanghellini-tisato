@@ -37,6 +37,7 @@ public class TUI extends View {
             System.out.flush();
 
             System.out.println(toPrint.render(nickname));
+            System.out.println("\n");
         } catch (NullPointerException ignored) {
             System.out.println("Game not found");
         }
