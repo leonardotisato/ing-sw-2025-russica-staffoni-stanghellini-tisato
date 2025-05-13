@@ -80,7 +80,9 @@ public class GamesController {
 
             // send logs collected while executing the action
             List<String> collectedLogs = action.getLogs();
-            server.broadcastLogs(recipients, collectedLogs);
+            if (collectedLogs != null) {
+                server.broadcastLogs(recipients, collectedLogs);
+            }
 
             // send game snapshot to players
             server.broadcastGameUpdate(recipients, g.deepCopy());
