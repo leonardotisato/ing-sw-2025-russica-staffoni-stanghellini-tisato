@@ -12,10 +12,7 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class SocketClientHandler extends ClientHandler implements Runnable {
 
@@ -33,19 +30,21 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
     private void send(Message message) {
-        try {
-            outputStream.writeObject(message);
-            outputStream.flush();
-        } catch (IOException e) {
-            System.out.println("Failed to send message to client.");
-            System.out.println(e.getMessage());
+        synchronized (outputStream) {
+            try {
+                outputStream.writeObject(message);
+                outputStream.flush();
+            } catch (IOException e) {
+                System.out.println("Failed to send message to client.");
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     @Override
     public void run() {
 
-        System.out.println("Greetings from SocketClientHandler");
+        System.out.println("Wassup from SocketClientHandler");
 
         ObjectInputStream in;
         try {
