@@ -106,32 +106,72 @@ public class TUI extends View {
                 parser.printCommandFormat(command);
 
                 Scanner stdinScanner = new Scanner(System.in);
-                String argsLine = stdinScanner.nextLine();
-                TuiParser.ParsedArgs args = parser.parseArguments(command, argsLine);
+                String argsLine;
+                TuiParser.ParsedArgs args;
 
                 switch (command) {
-                    case "setNickname" -> server.setNickname(args.string());
-                    case "createGame" -> server.createGame(args.singleInt(), args.intList().getFirst(), PlayerColor.valueOf(args.string()));
-                    case "joinGame" -> server.joinGame(args.singleInt(), PlayerColor.valueOf(args.string()));
-                    case "chooseTile" -> server.chooseTile(args.singleInt());
-                    case "chooseTileFromBuffer" -> server.chooseTileFromBuffer(args.singleInt());
+                    case "setNickname" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.setNickname(args.string());
+                    }
+                    case "createGame" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.createGame(args.singleInt(), args.intList().getFirst(), PlayerColor.valueOf(args.string()));
+                    }
+                    case "joinGame" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.joinGame(args.singleInt(), PlayerColor.valueOf(args.string()));
+                    }
+                    case "chooseTile" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.chooseTile(args.singleInt());
+                    }
+                    case "chooseTileFromBuffer" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.chooseTileFromBuffer(args.singleInt());
+                    }
                     case "closeFaceUp" -> server.closeFaceUpTiles();
                     case "drawFaceDown" -> server.drawFaceDown();
-                    case "endBuilding" -> server.endBuilding(args.singleInt());
-                    case "pickPile" -> server.pickPile(args.singleInt());
-                    case "place" -> server.place(args.coord1().getX(), args.coord1().getY());
+                    case "endBuilding" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.endBuilding(args.singleInt());
+                    }
+                    case "pickPile" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.pickPile(args.singleInt());
+                    }
+                    case "place" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.place(args.coord1().getX(), args.coord1().getY());
+                    }
                     case "placeInBuffer" -> server.placeInBuffer();
                     case "returnPile" -> server.returnPile();
                     case "returnTile" -> server.returnTile();
                     case "showFaceUp" -> server.showFaceUp();
                     case "startTimer" -> server.startTimer();
-                    case "chooseBattery" -> server.chooseBattery(args.coord1().getX(), args.coord1().getY());
+                    case "chooseBattery" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.chooseBattery(args.coord1().getX(), args.coord1().getY());
+                    }
                     case "choosePropulsor" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
                         List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
                         server.choosePropulsor(coords, args.intList());
                     }
                     case "compareCrew" -> server.compareCrew();
                     case "compareFirePower" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
                         List<List<Coordinates>> groups = args.coordGroups();
                         if (groups.size() >= 2) {
                             server.compareFirePower(groups.get(0), groups.get(1));
@@ -141,15 +181,39 @@ public class TUI extends View {
                     }
                     case "epidemic" -> server.spreadEpidemic();
                     case "getNextAdventureCard" -> server.getNextAdventureCard();
-                    case "getRewards" -> server.getRewards(args.accept());
-                    case "handleBoxes" -> server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
-                    case "planets" -> server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
-                    case "removeCrew" -> server.removeCrew(args.coordGroups().getFirst(), args.intList());
+                    case "getRewards" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.getRewards(args.accept());
+                    }
+                    case "handleBoxes" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
+                    }
+                    case "planets" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
+                    }
+                    case "removeCrew" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.removeCrew(args.coordGroups().getFirst(), args.intList());
+                    }
                     case "retire" -> server.retire();
                     case "rollDice" -> server.rollDice();
                     case "stardust" -> server.starDust();
-                    case "fixShip" -> server.fixShip(args.coordGroups().getFirst());
-                    case "loadCrew" -> server.loadCrew(args.coord1(), args.coord2());
+                    case "fixShip" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.fixShip(args.coordGroups().getFirst());
+                    }
+                    case "loadCrew" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.loadCrew(args.coord1(), args.coord2());
+                    }
                     case "helper" -> helper();
                     default -> throw new NoSuchElementException();
                 }
