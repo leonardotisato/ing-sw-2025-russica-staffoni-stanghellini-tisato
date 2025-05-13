@@ -79,7 +79,8 @@ public class GamesController {
         Game g = nickToGame.get(playerNickname);
 
             if (g != null) {
-                List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
+                List<Player> players = connectedPlayers.get(g);
+                List<String> recipients = players.stream().map(Player::getName).toList();
 
                 // send logs collected while executing the action
                 List<String> collectedLogs = action.getLogs();
