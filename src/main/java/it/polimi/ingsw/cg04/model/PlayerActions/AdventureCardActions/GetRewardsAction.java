@@ -6,12 +6,10 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class GetRewardsAction extends PlayerAction {
-
-    private final String playerNickname;
     private final boolean acceptReward;
 
     public GetRewardsAction(String playerNickname, boolean acceptReward) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.acceptReward = acceptReward;
     }
 
@@ -26,10 +24,4 @@ public class GetRewardsAction extends PlayerAction {
         // no parameters check?
         return true;
     }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
-    }
-
 }

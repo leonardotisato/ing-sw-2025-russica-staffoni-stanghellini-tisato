@@ -16,14 +16,13 @@ public class PlanetsAction extends PlayerAction {
     private final Integer planetIdx;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType, Integer>> boxes;
-    private final String nickname;
 
     //boxes should contain the complete storage tiles map
     public PlanetsAction(String nickname, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) {
+        super(nickname);
         this.planetIdx = planetIdx;
         this.coordinates = coordinates;
         this.boxes = boxes;
-        this.nickname = nickname;
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -64,11 +63,6 @@ public class PlanetsAction extends PlayerAction {
             }
         }
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return this.nickname;
     }
 }
 

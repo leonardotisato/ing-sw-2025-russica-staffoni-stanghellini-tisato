@@ -8,11 +8,10 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 
 public class ChooseTileAction extends PlayerAction {
-    String playerNickname;
     int tileID;
 
     public ChooseTileAction(String playerNickname, int tileID) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.tileID = tileID;
     }
 
@@ -27,10 +26,5 @@ public class ChooseTileAction extends PlayerAction {
         // player is already holding a tile
         if (player.getHeldTile() != null) throw new InvalidActionException("Already holding a tile!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

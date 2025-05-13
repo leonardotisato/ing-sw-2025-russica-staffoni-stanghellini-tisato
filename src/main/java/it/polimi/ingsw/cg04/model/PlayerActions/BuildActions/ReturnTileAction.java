@@ -7,10 +7,9 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class ReturnTileAction extends PlayerAction {
-    String playerNickname;
 
     public ReturnTileAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
@@ -24,10 +23,5 @@ public class ReturnTileAction extends PlayerAction {
         if (player.getHeldTile() == null) throw new InvalidActionException("You can't return a tile if you're not holding one");
         if (player.getHeldTile().getWasInBuffer()) throw new InvalidActionException("You can't return a tile that was in the buffer");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

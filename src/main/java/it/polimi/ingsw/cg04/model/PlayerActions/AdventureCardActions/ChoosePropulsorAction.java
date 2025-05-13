@@ -13,12 +13,11 @@ import java.util.List;
 public class ChoosePropulsorAction extends PlayerAction {
     List<Coordinates> coordinates;
     List<Integer> usedBatteries;
-    String nickname;
 
     public ChoosePropulsorAction(String nickname, List<Coordinates> coordinates, List<Integer> usedBatteries) {
+        super(nickname);
         this.coordinates = new ArrayList<>(coordinates);
         this.usedBatteries = new ArrayList<>(usedBatteries);
-        this.nickname = nickname;
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -56,8 +55,4 @@ public class ChoosePropulsorAction extends PlayerAction {
         return true;
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return this.nickname;
-    }
 }

@@ -6,10 +6,9 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class StardustAction extends PlayerAction {
-    String playerNickname;
 
     public StardustAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -21,10 +20,5 @@ public class StardustAction extends PlayerAction {
     @Override
     public boolean checkAction(Player player) {
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return this.playerNickname;
     }
 }

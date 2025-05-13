@@ -7,9 +7,8 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class GetNextAdventureCardAction extends PlayerAction {
-    private String nickname;
     public GetNextAdventureCardAction (String nickname) {
-        this.nickname = nickname;
+        super(nickname);
     }
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
@@ -22,10 +21,4 @@ public class GetNextAdventureCardAction extends PlayerAction {
         if (player.getGame().getCurrentAdventureCard() != null) throw new InvalidActionException("It's not time to get the next adventure card");
         return true;
     }
-
-    @Override
-    public String getPlayerNickname() {
-        return "";
-    }
-
 }

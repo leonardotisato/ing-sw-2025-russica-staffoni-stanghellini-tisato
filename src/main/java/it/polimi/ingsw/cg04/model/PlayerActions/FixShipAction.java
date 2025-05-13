@@ -10,12 +10,11 @@ import java.util.List;
 
 public class FixShipAction extends PlayerAction {
 
-    private final String playerNickname;
     private final List<Coordinates> coordinatesList;
 
 
     public FixShipAction(String playerNickname, List<Coordinates> coordinatesList) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.coordinatesList = coordinatesList;
     }
 
@@ -43,8 +42,4 @@ public class FixShipAction extends PlayerAction {
         return true;
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
-    }
 }

@@ -10,11 +10,10 @@ import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 public class PlaceAction extends PlayerAction {
-    private final String playerNickname;
     private final Coordinates coordinates;
 
     public PlaceAction(String playerNickname, int x, int y) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.coordinates = new Coordinates(x, y);
     }
     public void execute(Player player) throws InvalidStateException {
@@ -38,10 +37,5 @@ public class PlaceAction extends PlayerAction {
         Tile[][] tiles = player.getShip().getTilesMatrix();
         if (tiles[coordinates.getX()][coordinates.getY()] != null) throw new InvalidActionException("Slot at " + coordinates.getX() + ", " + coordinates.getY() + " is already occupied!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

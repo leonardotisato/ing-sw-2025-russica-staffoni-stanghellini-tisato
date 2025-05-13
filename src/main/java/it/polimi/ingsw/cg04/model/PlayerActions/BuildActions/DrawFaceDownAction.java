@@ -7,10 +7,9 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class DrawFaceDownAction extends PlayerAction {
-    String playerNickname;
 
     public DrawFaceDownAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -24,10 +23,5 @@ public class DrawFaceDownAction extends PlayerAction {
         // player is already holding a tile
         if (player.getHeldTile() != null) throw new InvalidActionException("Already holding a tile!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

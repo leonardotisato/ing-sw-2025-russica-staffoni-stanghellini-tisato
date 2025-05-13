@@ -10,20 +10,19 @@ public class CreateGameAction extends InitAction {
 
     private final int gameLevel;
     private final int maxPlayers;
-    private final String playerName;
     private final PlayerColor playerColor;
 
     public CreateGameAction(int gameLevel, int maxPlayers, String playerName, PlayerColor playerColor) {
+        super(playerName);
         this.gameLevel = gameLevel;
         this.maxPlayers = maxPlayers;
-        this.playerName = playerName;
         this.playerColor = playerColor;
     }
 
 
     @Override
     public void execute(GamesController controller) {
-        Game g = new Game(gameLevel, maxPlayers, controller.getGames().size(), playerName, playerColor);
+        Game g = new Game(gameLevel, maxPlayers, controller.getGames().size(), nickname, playerColor);
         controller.addGame(g);
     }
 
@@ -38,7 +37,7 @@ public class CreateGameAction extends InitAction {
             throw new InvalidActionException("Invalid number of players");
         }
 
-        if (playerName == null || playerName.isEmpty()) {
+        if (nickname == null || nickname.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
         }
 
@@ -53,11 +52,6 @@ public class CreateGameAction extends InitAction {
     @Override
     public boolean checkAction(Player player) {
         throw new RuntimeException("Player does not exist");
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerName;
     }
 
 }

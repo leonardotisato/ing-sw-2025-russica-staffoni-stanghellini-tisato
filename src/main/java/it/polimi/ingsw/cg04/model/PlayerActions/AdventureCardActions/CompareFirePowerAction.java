@@ -13,13 +13,11 @@ import java.util.List;
 import java.util.Set;
 
 public class CompareFirePowerAction extends PlayerAction {
-
-    private final String playerNickName;
     private final List<Coordinates> batteryCoordsList;
     private final List<Coordinates> cannonCoordsList;
 
     public CompareFirePowerAction(String playerNickName, List<Coordinates> batteryCoordsList, List<Coordinates> cannonCoordsList) {
-        this.playerNickName = playerNickName;
+        super(playerNickName);
         this.batteryCoordsList = batteryCoordsList;
         this.cannonCoordsList = cannonCoordsList;
     }
@@ -81,10 +79,5 @@ public class CompareFirePowerAction extends PlayerAction {
         }
 
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return this.playerNickName;
     }
 }

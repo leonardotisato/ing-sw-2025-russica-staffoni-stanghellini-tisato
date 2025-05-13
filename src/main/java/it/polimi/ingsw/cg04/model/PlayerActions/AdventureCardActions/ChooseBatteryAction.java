@@ -6,14 +6,11 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-// todo: test me
 public class ChooseBatteryAction extends PlayerAction {
-
-    private final String playerNickname;
     private final int x, y;
 
     public ChooseBatteryAction(String playerNick, int x, int y) {
-        this.playerNickname = playerNick;
+        super(playerNick);
         this.x = x;
         this.y = y;
     }
@@ -50,10 +47,5 @@ public class ChooseBatteryAction extends PlayerAction {
         }
 
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

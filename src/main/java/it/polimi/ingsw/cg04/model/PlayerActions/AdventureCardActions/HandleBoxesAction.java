@@ -14,14 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 public class HandleBoxesAction extends PlayerAction {
-    private Game game;
     private final List<Coordinates> coordinates;
     private final List<Map<BoxType,Integer>> boxes;
-    private final String nickname;
+
     public HandleBoxesAction(String nickname, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) {
+        super(nickname);
         this.coordinates = coordinates;
         this.boxes = boxes;
-        this.nickname = nickname;
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -68,8 +67,4 @@ public class HandleBoxesAction extends PlayerAction {
          return true;
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return this.nickname;
-    }
 }

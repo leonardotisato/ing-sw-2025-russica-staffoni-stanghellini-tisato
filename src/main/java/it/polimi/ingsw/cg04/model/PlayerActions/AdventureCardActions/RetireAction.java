@@ -6,10 +6,9 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class RetireAction extends PlayerAction {
-    private final String playerNickname;
 
     public RetireAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -23,8 +22,4 @@ public class RetireAction extends PlayerAction {
         return true;
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
-    }
 }

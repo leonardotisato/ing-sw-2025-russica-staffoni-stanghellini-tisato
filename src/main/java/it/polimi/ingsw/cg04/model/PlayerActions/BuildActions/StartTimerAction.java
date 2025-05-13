@@ -7,10 +7,9 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class StartTimerAction extends PlayerAction {
-    String playerNickname;
 
     public StartTimerAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
     @Override
     public void execute(Player player) throws InvalidStateException {
@@ -24,10 +23,5 @@ public class StartTimerAction extends PlayerAction {
         if (!player.getGame().getBoard().isTimerExpired()) throw new InvalidActionException("Timer not expired!");
 
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

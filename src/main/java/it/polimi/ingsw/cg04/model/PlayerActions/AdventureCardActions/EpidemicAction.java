@@ -6,9 +6,8 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class EpidemicAction extends PlayerAction {
-    private final String nickname;
     public EpidemicAction(String nickname) {
-        this.nickname = nickname;
+        super(nickname);
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -22,8 +21,4 @@ public class EpidemicAction extends PlayerAction {
         return true;
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return this.nickname;
-    }
 }

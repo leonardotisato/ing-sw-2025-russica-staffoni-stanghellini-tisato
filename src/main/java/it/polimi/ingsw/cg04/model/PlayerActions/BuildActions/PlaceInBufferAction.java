@@ -8,10 +8,9 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class PlaceInBufferAction extends PlayerAction {
-    private final String playerNickname;
 
     public PlaceInBufferAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
 
     @Override
@@ -31,10 +30,5 @@ public class PlaceInBufferAction extends PlayerAction {
         // check if buffer is already full
         if (player.getShip().getTilesBuffer().size() == 2) throw new InvalidActionException("Buffer is full!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

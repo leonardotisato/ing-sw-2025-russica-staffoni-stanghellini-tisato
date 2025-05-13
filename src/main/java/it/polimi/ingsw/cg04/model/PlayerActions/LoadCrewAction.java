@@ -10,12 +10,10 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import java.util.List;
 
 public class LoadCrewAction extends PlayerAction {
-
-    private final String playerNickname;
     private final Coordinates pinkAlienCoords, brownAlienCoords;
 
     public LoadCrewAction(String playerNickname, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.pinkAlienCoords = pinkAlienCoords;
         this.brownAlienCoords = brownAlienCoords;
     }
@@ -60,10 +58,5 @@ public class LoadCrewAction extends PlayerAction {
 
         if (!(pinkCheck && brownCheck)) throw new InvalidActionException("Not HousingTile or cannot host aliens");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

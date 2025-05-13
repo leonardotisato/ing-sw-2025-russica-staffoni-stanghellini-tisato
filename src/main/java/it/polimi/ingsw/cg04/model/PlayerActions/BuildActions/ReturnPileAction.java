@@ -6,10 +6,9 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class ReturnPileAction extends PlayerAction {
-    String playerNickname;
 
     public ReturnPileAction(String playerNickname) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -22,10 +21,5 @@ public class ReturnPileAction extends PlayerAction {
     public boolean checkAction(Player player) {
         //TODO controllare che il player abbia in mano una pila
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

@@ -7,10 +7,10 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class EndBuildingAction extends PlayerAction {
-    String playerNickname;
     int position;
+
     public EndBuildingAction(String playerNickname, int position) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.position = position;
     }
 
@@ -25,10 +25,5 @@ public class EndBuildingAction extends PlayerAction {
     public boolean checkAction(Player player) throws InvalidActionException {
         if (position < 1 || position > 4) throw new InvalidActionException("Position must be between 1 and 4!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

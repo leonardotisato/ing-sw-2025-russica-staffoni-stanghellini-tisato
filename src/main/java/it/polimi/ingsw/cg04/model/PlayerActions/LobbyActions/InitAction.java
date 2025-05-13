@@ -11,12 +11,21 @@ import java.util.List;
 public abstract class InitAction implements Action {
 
     protected List<String> logs;
+    protected String nickname;
+
+    protected InitAction(String nickname) {
+        this.nickname = nickname;
+    }
 
     public abstract void execute(GamesController controller);
 
     public abstract boolean checkAction(GamesController controller) throws InvalidActionException;
 
-    public abstract String getPlayerNickname();
+    public String getPlayerNickname() {
+        return nickname;
+    }
+
+    ;
 
     public void dispatchTo(GamesController controller) throws InvalidActionException {
         controller.onInitActionReceived(this);

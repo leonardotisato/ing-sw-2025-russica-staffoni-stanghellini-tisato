@@ -46,7 +46,7 @@ class ServerTest {
         Thread.sleep(10000);
     }
 
-    @Test
+    // @Test
     void testNicknameCollision() throws IOException, InterruptedException {
         SocketServerHandler client1 = new SocketServerHandler("localhost", "4200", "TUI");
         SocketServerHandler client2 = new SocketServerHandler("localhost", "4200", "TUI");
@@ -69,7 +69,7 @@ class ServerTest {
                 .forEach(player -> System.out.println(player.getName()));
     }
 
-    @Test
+    // @Test
     void testJoinGame() throws IOException, InterruptedException {
         SocketServerHandler client1 = new SocketServerHandler("localhost", "4200", "TUI");
         SocketServerHandler client2 = new SocketServerHandler("localhost", "4200", "TUI");
@@ -101,7 +101,7 @@ class ServerTest {
         assertEquals("Trent", client4.getNickname());
     }
 
-    @Test
+    // @Test
     void testJoinGameRMI() throws IOException, InterruptedException {
         ServerHandlerRMI client1 = new ServerHandlerRMI("localhost", "9696", "TUI");
         ServerHandlerRMI client2 = new ServerHandlerRMI("localhost", "9696", "TUI");

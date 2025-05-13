@@ -7,11 +7,10 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class PickPileAction extends PlayerAction {
-    String playerNickname;
     int pileIndex;
 
     public PickPileAction(String playerNickname, int pileIndex) {
-        this.playerNickname = playerNickname;
+        super(playerNickname);
         this.pileIndex = pileIndex;
     }
 
@@ -26,10 +25,5 @@ public class PickPileAction extends PlayerAction {
     public boolean checkAction(Player player) throws InvalidActionException {
         if (pileIndex < 0 || pileIndex > 3) throw new InvalidActionException("Invalid pile index!");
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNickname;
     }
 }

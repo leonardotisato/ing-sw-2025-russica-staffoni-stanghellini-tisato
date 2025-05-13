@@ -5,10 +5,9 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 
 public class SetNicknameAction extends InitAction {
-    private final String nickname;
 
     public SetNicknameAction(String nickname) {
-        this.nickname = nickname;
+        super(nickname);
     }
 
     @Override

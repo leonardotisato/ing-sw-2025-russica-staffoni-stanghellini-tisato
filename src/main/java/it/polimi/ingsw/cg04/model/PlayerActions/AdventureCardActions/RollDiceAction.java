@@ -7,10 +7,8 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class RollDiceAction extends PlayerAction {
 
-    private final String playerNick;
-
     public RollDiceAction(String playerNick) {
-        this.playerNick = playerNick;
+        super(playerNick);
     }
 
     @Override
@@ -23,10 +21,5 @@ public class RollDiceAction extends PlayerAction {
     @Override
     public boolean checkAction(Player player) {
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerNick;
     }
 }

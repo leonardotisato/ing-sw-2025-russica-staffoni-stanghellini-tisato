@@ -10,25 +10,24 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 public class JoinGameAction extends InitAction {
 
     private final int gameId;
-    private final String playerName;
     private final PlayerColor playerColor;
 
     public JoinGameAction(int gameId, String playerName, PlayerColor playerColor) {
+        super(playerName);
         this.gameId = gameId;
-        this.playerName = playerName;
         this.playerColor = playerColor;
     }
 
     @Override
     public void execute(GamesController controller) {
         Game g = controller.getGames().get(gameId);
-        Player newPlayer = g.addPlayer(playerName, playerColor);
+        Player newPlayer = g.addPlayer(nickname, playerColor);
 
         controller.addConnectedPlayer(g, newPlayer);
-        controller.addNicktoGame(playerName, g);
-        this.addLog(playerName + " joined this game!");
+        controller.addNicktoGame(nickname, g);
+        this.addLog(nickname + " joined this game!");
 
-        if(g.getPlayers().size() == g.getMaxPlayers()){
+        if (g.getPlayers().size() == g.getMaxPlayers()) {
             g.setGameState(new BuildState(g));
             g.setCurrentAdventureCard(null);
             this.addLog("Number of players required has been reached. It's time to start!");
@@ -44,7 +43,7 @@ public class JoinGameAction extends InitAction {
         }
 
         // check nickname was set correctly
-        if (playerName == null || playerName.isEmpty()) {
+        if (nickname == null || nickname.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
         }
 
@@ -71,10 +70,5 @@ public class JoinGameAction extends InitAction {
     @Override
     public boolean checkAction(Player player) {
         throw new RuntimeException("Player does not exist");
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return playerName;
     }
 }

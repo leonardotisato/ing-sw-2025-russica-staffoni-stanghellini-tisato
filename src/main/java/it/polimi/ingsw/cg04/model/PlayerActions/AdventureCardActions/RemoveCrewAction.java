@@ -12,12 +12,11 @@ import java.util.List;
 public class RemoveCrewAction extends PlayerAction {
     List<Integer> numCrewMembersLost;
     List<Coordinates> coordinates;
-    String nickname;
 
     public RemoveCrewAction(String nickname, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) {
+        super(nickname);
         this.coordinates = coordinates;
         this.numCrewMembersLost = numCrewMembersLost;
-        this.nickname = nickname;
     }
 
     public void execute(Player player) throws InvalidStateException {
@@ -58,11 +57,6 @@ public class RemoveCrewAction extends PlayerAction {
 
         //the action is legal!
         return true;
-    }
-
-    @Override
-    public String getPlayerNickname() {
-        return this.nickname;
     }
 }
 
