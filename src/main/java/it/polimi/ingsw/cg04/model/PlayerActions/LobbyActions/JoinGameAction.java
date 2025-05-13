@@ -44,7 +44,7 @@ public class JoinGameAction extends InitAction {
         }
 
         // check nickname was set correctly
-        if (playerName == null || playerName.isEmpty() || controller.isNickNameTaken(playerName)) {
+        if (playerName == null || playerName.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
         }
 
