@@ -101,6 +101,7 @@ public class ServerHandlerRMI extends ServerHandler {
             try {
                 if(virtualController.handleSubscriptionRMI(setNicknameAction)) {
                     super.nickname = nickname;
+                    System.out.println("Nickname set to " + nickname);
                 }
                 else {
                     super.nickname = null;
