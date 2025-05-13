@@ -10,9 +10,11 @@ import it.polimi.ingsw.cg04.client.view.View;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TUI extends View {
     private final InputReader input;
+    private final ReentrantLock terminalLock = new ReentrantLock();
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -42,24 +44,29 @@ public class TUI extends View {
 
 
     public void updateLogs() {
-        List<String> logs = clientModel.getLogs();
+        terminalLock.lock();
+        try {
+            List<String> logs = clientModel.getLogs();
 
-        int logLines = 10;
+            int logLines = 10;
 
-        // 1. Risali di 'logLines' + intestazione
-        System.out.print("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
-        System.out.flush();
+            // 1. Risali di 'logLines' + intestazione
+            System.out.print("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
+            System.out.flush();
 
-        // 2. Sovrascrivi i log (e svuota le righe rimanenti)
-        System.out.println("--- LOGS ---");
-        for (int i = 0; i < logLines; i++) {
-            if (i < logs.size()) {
-                System.out.print("\033[2K"); // cancella riga corrente
-                System.out.println("- " + logs.get(i));
-            } else {
-                System.out.print("\033[2K"); // cancella riga vuota
-                System.out.println();       // riga vuota per riempire
+            // 2. Sovrascrivi i log (e svuota le righe rimanenti)
+            System.out.println("--- LOGS ---");
+            for (int i = 0; i < logLines; i++) {
+                if (i < logs.size()) {
+                    System.out.print("\033[2K"); // cancella riga corrente
+                    System.out.println("- " + logs.get(i));
+                } else {
+                    System.out.print("\033[2K"); // cancella riga vuota
+                    System.out.println();       // riga vuota per riempire
+                }
             }
+        }finally {
+            terminalLock.unlock();
         }
     }
 
