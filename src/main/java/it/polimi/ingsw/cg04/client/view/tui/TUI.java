@@ -15,6 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TUI extends View {
     private final InputReader input;
     private final ReentrantLock terminalLock = new ReentrantLock();
+    private int lastRenderLineCount = 0;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -32,11 +33,14 @@ public class TUI extends View {
     public void updateGame(String nickname) {
         try {
             Game toPrint = clientModel.getGame();
+            String rendered = toPrint.render(nickname);
+            String[] lines = rendered.split("\n");
+            lastRenderLineCount = lines.length;
 
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
-            System.out.println(toPrint.render(nickname));
+            System.out.println(rendered);
             System.out.println("\n");
         } catch (NullPointerException ignored) {
             System.out.println("Game not found");
@@ -52,7 +56,7 @@ public class TUI extends View {
             int logLines = 10;
 
             // 1. Risali di 'logLines' + intestazione
-            System.out.print("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
+            System.out.print("\033[" + (lastRenderLineCount + 1) + "A"); // risale di (logLines + 1) righe
             System.out.flush();
 
             // 2. Sovrascrivi i log (e svuota le righe rimanenti)
