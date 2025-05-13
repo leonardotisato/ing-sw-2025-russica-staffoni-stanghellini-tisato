@@ -19,7 +19,7 @@ public class FlightState extends GameState {
         if(!player.equals(game.getSortedPlayers().getFirst())) throw new InvalidStateException("You are not the leading player");
         Game game = player.getGame();
         game.getNextAdventureCard();
-        game.getCurrentAdventureCard().createState(game);
+        game.setGameState(game.getCurrentAdventureCard().createState(game));
         this.addLog("The leader got the next adventure card: it's " + game.getCurrentAdventureCard().getType() + " time!");
     }
 

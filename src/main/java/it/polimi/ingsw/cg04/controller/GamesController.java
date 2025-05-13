@@ -55,6 +55,7 @@ public class GamesController {
             action.checkAction(p);
             action.execute(p);
             System.out.println("Action executed");
+            g = nickToGame.get(action.getPlayerNickname());
 
 
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
