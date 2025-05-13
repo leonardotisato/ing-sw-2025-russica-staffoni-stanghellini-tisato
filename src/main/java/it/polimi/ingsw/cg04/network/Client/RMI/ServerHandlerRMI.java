@@ -398,7 +398,7 @@ public class ServerHandlerRMI extends ServerHandler {
 
         @Override
         public void pongRMI(String key) throws RemoteException {
-            System.out.println("Received: " + key);
+            // System.out.println("Received: " + key);
             lastHeartBeat = key;
         }
     }

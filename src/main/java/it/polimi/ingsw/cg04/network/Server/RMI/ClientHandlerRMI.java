@@ -98,7 +98,7 @@ public class ClientHandlerRMI extends ClientHandler {
         @Override
         public void pongRMI(String key) throws RemoteException {
             lastHeartBeat = key;
-            System.out.println("Received: " + key);
+            // System.out.println("Received: " + key);
         }
     }
 

@@ -16,6 +16,8 @@ public class TUI extends View {
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
+        System.out.println("Welcome to Galaxy Trucker!");
+        System.out.println("Type helper to receive the list of commands.");
 
         input = new InputReader();
         Thread t = new Thread(input);
