@@ -51,7 +51,21 @@ public class BuildState extends GameState {
             throw new InvalidStateException("cant place tile now");
         }
         player.placeTile(x, y);
-        this.addLog(player.getName() + " placed a tile in " +  x + ", " + y);
+        this.addLog(player.getName() + " placed a tile in " + x + ", " + y);
+    }
+
+    @Override
+    public void rotateTile(Player player, String type) throws InvalidStateException {
+
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
+            throw new InvalidStateException("cant rotate held tile now");
+        }
+
+        if (type.equalsIgnoreCase("LEFT")) {
+            player.getHeldTile().rotate90sx();
+        } else if (type.equalsIgnoreCase("RIGHT")) {
+            player.getHeldTile().rotate90dx();
+        }
     }
 
     @Override
@@ -92,6 +106,7 @@ public class BuildState extends GameState {
         this.addLog(player.getName() + " choose tile " + idx + " from the buffer");
         player.getShip().getTilesBuffer().remove(idx);
     }
+
     @Override
     public void showFaceUp(Player player) throws InvalidStateException {
         // the only state in which a player can see face-up tiles is BUILDING
@@ -193,10 +208,9 @@ public class BuildState extends GameState {
         player.move(board.getStartingPosition(position));
         playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
         //if he needs to fix his ship, is it right to move him to the start position?
-        if (player.getShip().isShipLegal()){
+        if (player.getShip().isShipLegal()) {
             this.addLog(player.getName() + " is done building and he choose to start at position " + position);
-        }
-        else{
+        } else {
             this.addLog(player.getName() + " is done building but his ship is not legal. He will need to fix it");
         }
         if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
@@ -244,8 +258,7 @@ public class BuildState extends GameState {
             stringBuilder.append("Your ship:").append("\n").append("\n");
             stringBuilder.append(game.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
             stringBuilder.append("Your ship is not legal, fix it by removing tiles until you can properly fly!");
-        }
-        else {
+        } else {
             if (playerState.get(nickname) == BuildPlayerState.SHOWING_PILE) {
                 stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname), "piles")).append("\n").append("\n");
             } else {
@@ -256,7 +269,7 @@ public class BuildState extends GameState {
             if (playerState.get(nickname) == BuildPlayerState.BUILDING) {
                 stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
             }
-            if(playerState.get(nickname) == BuildPlayerState.READY){
+            if (playerState.get(nickname) == BuildPlayerState.READY) {
                 stringBuilder.append("You're done building the ship! Wait for the other players to finish the building").append("\n");
             }
             if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
@@ -270,7 +283,7 @@ public class BuildState extends GameState {
         return stringBuilder.toString();
     }
 
-    public String renderPilesBackside(int width, int height){
+    public String renderPilesBackside(int width, int height) {
         List<List<String>> pileLines = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
@@ -341,7 +354,7 @@ public class BuildState extends GameState {
             }
 
             // stampa la riga con gli indici
-            if(typeFigure.equals("tiles")) {
+            if (typeFigure.equals("tiles")) {
                 for (int i = start; i < end; i++) {
                     int tileWidth = 14; // larghezza della tile
                     String label = "[" + i + "]";
@@ -358,7 +371,6 @@ public class BuildState extends GameState {
 
         return sb.toString();
     }
-
 
 
     // getters needed to simplify testing

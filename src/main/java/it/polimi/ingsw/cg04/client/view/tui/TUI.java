@@ -64,7 +64,7 @@ public class TUI extends View {
                 System.out.print("\033[2K"); // cancella riga corrente
                 System.out.println("- " + log);
             }
-        }finally {
+        } finally {
             terminalLock.unlock();
         }
     }
@@ -75,7 +75,7 @@ public class TUI extends View {
     }
 
 
-    class InputReader implements Runnable{
+    class InputReader implements Runnable {
         private final Scanner stdin = new Scanner(System.in);
         private boolean stdinClosed = false;
 
@@ -84,7 +84,7 @@ public class TUI extends View {
             while (!stdinClosed) {
                 try {
                     String line = stdin.nextLine();
-                    if(stdinClosed)
+                    if (stdinClosed)
                         break;
 
                     handleInput(line);
@@ -150,6 +150,11 @@ public class TUI extends View {
                         args = parser.parseArguments(command, argsLine);
                         server.place(args.coord1().getX(), args.coord1().getY());
                     }
+                    case "rotate" -> {
+                        argsLine = stdinScanner.nextLine();
+                        args = parser.parseArguments(command, argsLine);
+                        server.rotate(args.string());
+                    }
                     case "placeInBuffer" -> server.placeInBuffer();
                     case "returnPile" -> server.returnPile();
                     case "returnTile" -> server.returnTile();
@@ -162,7 +167,7 @@ public class TUI extends View {
                     }
                     case "choosePropulsor" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.choosePropulsor(null, null);
                         } else {
                             argsLine = stdinScanner.nextLine();
@@ -174,7 +179,7 @@ public class TUI extends View {
                     case "compareCrew" -> server.compareCrew();
                     case "compareFirePower" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.compareFirePower(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -195,7 +200,7 @@ public class TUI extends View {
                     }
                     case "handleBoxes" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.handleBoxes(null, null);
                         } else {
                             argsLine = stdinScanner.nextLine();
@@ -205,7 +210,7 @@ public class TUI extends View {
                     }
                     case "planets" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.landToPlanet(null, null, null);
                         } else {
                             argsLine = stdinScanner.nextLine();
@@ -215,7 +220,7 @@ public class TUI extends View {
                     }
                     case "removeCrew" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.removeCrew(null, null);
                         } else {
                             argsLine = stdinScanner.nextLine();
@@ -233,7 +238,7 @@ public class TUI extends View {
                     }
                     case "loadCrew" -> {
                         argsLine = stdinScanner.nextLine();
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.loadCrew(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -264,6 +269,7 @@ public class TUI extends View {
             System.out.println("\tcloseFaceUp               -close face up tiles (no parameters)");
             System.out.println("\tdrawFaceDown              -draw a random face down tile (no parameters)");
             System.out.println("\tplace                     -place the tile you are currently holding specifying the coordinates");
+            System.out.println("\trotate                    -rotate the tile you are currently holding");
             System.out.println("\tendBuilding               -finish the building phase and decide the position you want to start in");
             System.out.println("\tpickPile                  -show the cards in one of the piles specifying the pile index");
             System.out.println("\tplaceInBuffer             -place the tile you are currently holding in the buffer (no parameters)");
@@ -296,8 +302,8 @@ public class TUI extends View {
             System.out.println("====================================================================================");
         }
 
-        private void stopInputReader(){
-            if(!stdinClosed)
+        private void stopInputReader() {
+            if (!stdinClosed)
                 System.out.println("Connection to server unavailable, exiting.");
             stdinClosed = true;
         }

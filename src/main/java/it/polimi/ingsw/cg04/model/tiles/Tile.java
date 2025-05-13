@@ -414,13 +414,13 @@ public abstract class Tile implements Serializable {
                 sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
                 break;
             case Connection.SINGLE:
-                sb.append("│ ").append(centerText("○", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.DOUBLE:
-                sb.append("│ ").append(centerText("○ ○", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("o o", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.UNIVERSAL:
-                sb.append("│ ").append(centerText("○ ○ ○", boxWidth - 4)).append(" │").append("\n");
+                sb.append("│ ").append(centerText("o o o", boxWidth - 4)).append(" │").append("\n");
                 break;
             case Connection.PROPULSOR:
                 sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
@@ -446,9 +446,9 @@ public abstract class Tile implements Serializable {
     private void drawUpBoundary(StringBuilder sb, Connection c) {
         String text = switch (c) {
             case Connection.EMPTY -> "    ";
-            case Connection.SINGLE -> "○";
-            case Connection.DOUBLE -> "○  ○";
-            case Connection.UNIVERSAL -> "○ ○ ○";
+            case Connection.SINGLE -> "o";
+            case Connection.DOUBLE -> "o  o";
+            case Connection.UNIVERSAL -> "o o o";
             case Connection.PROPULSOR -> "M M M";
             case Connection.GUN -> "A A A";
         };
@@ -468,9 +468,9 @@ public abstract class Tile implements Serializable {
     void drawDownBoundary(StringBuilder sb, Connection c) {
         String text = switch (c) {
             case Connection.EMPTY -> "    ";
-            case Connection.SINGLE -> "○";
-            case Connection.DOUBLE -> "○  ○";
-            case Connection.UNIVERSAL -> "○ ○ ○";
+            case Connection.SINGLE -> "o";
+            case Connection.DOUBLE -> "o  o";
+            case Connection.UNIVERSAL -> "o o o";
             case Connection.PROPULSOR -> "M M M";
             case Connection.GUN -> "A A A";
         };
@@ -528,15 +528,15 @@ public abstract class Tile implements Serializable {
                 break;
             case SINGLE:
                 rows = new int[]{3};
-                symbol = '○';
+                symbol = 'o';
                 break;
             case DOUBLE:
                 rows = new int[]{2, 3};
-                symbol = '○';
+                symbol = 'o';
                 break;
             case UNIVERSAL:
                 rows = new int[]{2, 3, 4};
-                symbol = '○';
+                symbol = 'o';
                 break;
             case GUN:
                 rows = new int[]{2, 3, 4};

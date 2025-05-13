@@ -18,6 +18,7 @@ public class TuiParser {
             case "pickPile" -> System.out.println("  <pileIndex>");
             case "endBuilding" -> System.out.println("  <startingPosition>");
             case "place" -> System.out.println("  <x> <y>");
+            case "rotate" -> System.out.println("  <LEFT | RIGHT>");
             case "chooseBattery" -> {
                 System.out.println("Send -1 -1 if you don't want to use a battery.");
                 System.out.println("  <x> <y>");
@@ -88,7 +89,7 @@ public class TuiParser {
         Integer planetIdx = null;
 
         switch (command) {
-            case "setNickname" -> string = scanner.hasNext() ? scanner.next() : null;
+            case "setNickname", "rotate" -> string = scanner.hasNext() ? scanner.next() : null;
             case "createGame" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
                 if (scanner.hasNextInt()) intList.add(scanner.nextInt());

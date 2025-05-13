@@ -128,6 +128,12 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
+    public void rotate(String type) {
+        Action a = new RotateAction(nickname, type);
+        send(new Message("ACTION", a));
+    }
+
+    @Override
     public void placeInBuffer() {
         Action a = new PlaceInBufferAction(nickname);
         send(new Message("ACTION", a));

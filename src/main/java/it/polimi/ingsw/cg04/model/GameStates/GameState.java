@@ -73,6 +73,10 @@ public abstract class GameState implements Serializable {
         throw new InvalidStateException("cant place tile in this game state");
     }
 
+    public void rotateTile(Player player, String type) throws InvalidStateException {
+        throw new InvalidStateException("cant rotate tile in this game state");
+    }
+
     public void placeInBuffer(Player player) throws InvalidStateException {
         throw new InvalidStateException("cant place tile in buffer in this game state");
     }

@@ -6,23 +6,28 @@ import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
-public class ReturnTileAction extends PlayerAction {
+public class RotateAction extends PlayerAction {
 
-    public ReturnTileAction(String playerNickname) {
+    private final String type;
+
+    public RotateAction(String playerNickname, String type) {
         super(playerNickname);
+        this.type = type;
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
-        state.returnTile(player);
-        this.addLogs(state.getLogs());
+        state.rotateTile(player, type);
     }
 
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
-        // cant return heldTile if you dont have one
-        if (player.getHeldTile() == null) throw new InvalidActionException("You can't return a tile if you're not holding one");
-        if (player.getHeldTile().getWasInBuffer()) throw new InvalidActionException("You can't return a tile that was in the buffer");
+
+        if (player.getHeldTile() == null) {
+            throw new InvalidActionException("Player not holding a tile!");
+        }
+
         return true;
     }
 }

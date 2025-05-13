@@ -60,15 +60,16 @@ public class GamesController {
 
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
 
+            // send game snapshot to players
+            server.broadcastGameUpdate(recipients, g.deepCopy());
+
             // send logs collected while executing the action
             List<String> collectedLogs = action.getLogs();
-            server.broadcastGameUpdate(recipients, g.deepCopy());
             server.broadcastLogs(recipients, collectedLogs);
-
-            // send game snapshot to players
 
         } catch (NullPointerException e) {
             System.out.println("Player not in a game");
+            e.printStackTrace();
         }
     }
 

@@ -196,6 +196,15 @@ public class ServerHandlerRMI extends ServerHandler {
         });
     }
 
+    public void rotate(String type) {
+        Action rotateAction = new RotateAction(nickname, type);
+        rmiExecutor.submit(() -> {
+            try {
+                virtualController.handleActionRMI(rotateAction);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
     public void placeInBuffer() {
         Action placeInBufferAction = new PlaceInBufferAction(nickname);
         rmiExecutor.submit(() -> {

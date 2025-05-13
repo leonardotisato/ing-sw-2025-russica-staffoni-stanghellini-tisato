@@ -22,6 +22,7 @@ public interface VirtualServer {
     void endBuilding(int position);
     void pickPile(int pileIdx);
     void place(int x, int y);
+    void rotate(String type);
     void placeInBuffer();
     void returnPile();
     void returnTile();
