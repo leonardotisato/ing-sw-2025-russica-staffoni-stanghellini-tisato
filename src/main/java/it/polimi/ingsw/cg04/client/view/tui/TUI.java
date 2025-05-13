@@ -207,8 +207,12 @@ public class TUI extends View {
                     }
                     case "loadCrew" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        server.loadCrew(args.coord1(), args.coord2());
+                        if(argsLine.isEmpty()) {
+                            server.loadCrew(null, null);
+                        } else {
+                            args = parser.parseArguments(command, argsLine);
+                            server.loadCrew(args.coord1(), args.coord2());
+                        }
                     }
                     case "helper" -> helper();
                     default -> throw new NoSuchElementException();

@@ -39,7 +39,10 @@ public class TuiParser {
             case "rollDice" -> System.out.println("  (no arguments)");
             case "stardust" -> System.out.println("  (no arguments)");
             case "fixShip" -> System.out.println("  -c <x1> <y1> ...");
-            case "loadCrew" -> System.out.println("  <pink_x> <pink_y> <brown_x> <brown_y>");
+            case "loadCrew" ->  {
+                System.out.println("Press enter if you don't want to load crew.");
+                System.out.println(" -p <pink_x> <pink_y> -b <brown_x> <brown_y>");
+            }
             default -> System.out.println("  Unknown command");
         }
         System.out.println();
@@ -153,15 +156,21 @@ public class TuiParser {
                 }
             }
             case "loadCrew" -> {
-                if (scanner.hasNextInt()) {
-                    int x1 = scanner.nextInt();
-                    int y1 = scanner.nextInt();
-                    coord1 = new Coordinates(x1, y1);
+                if(scanner.hasNext("-p")) {
+                    scanner.next();
+                    if (scanner.hasNextInt()) {
+                        int x1 = scanner.nextInt();
+                        int y1 = scanner.nextInt();
+                        coord1 = new Coordinates(x1, y1);
+                    }
                 }
-                if (scanner.hasNextInt()) {
-                    int x2 = scanner.nextInt();
-                    int y2 = scanner.nextInt();
-                    coord2 = new Coordinates(x2, y2);
+                if(scanner.hasNext("-b")) {
+                    scanner.next();
+                    if (scanner.hasNextInt()) {
+                        int x2 = scanner.nextInt();
+                        int y2 = scanner.nextInt();
+                        coord2 = new Coordinates(x2, y2);
+                    }
                 }
             }
         }
