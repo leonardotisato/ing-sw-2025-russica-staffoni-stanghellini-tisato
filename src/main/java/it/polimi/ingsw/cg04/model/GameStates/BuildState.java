@@ -199,6 +199,9 @@ public class BuildState extends GameState {
         else{
             this.addLog(player.getName() + " is done building but his ship is not legal. He will need to fix it");
         }
+        if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
+            triggerNextState();
+        }
     }
 
     @Override
