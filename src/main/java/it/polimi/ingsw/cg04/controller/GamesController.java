@@ -78,16 +78,18 @@ public class GamesController {
         String playerNickname = action.getPlayerNickname();
         Game g = nickToGame.get(playerNickname);
 
-        List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
+            if (g != null) {
+                List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
 
-        // send logs collected while executing the action
-        List<String> collectedLogs = action.getLogs();
-        if (collectedLogs != null) {
-            server.broadcastLogs(recipients, collectedLogs);
-        }
+                // send logs collected while executing the action
+                List<String> collectedLogs = action.getLogs();
+                if (collectedLogs != null) {
+                    server.broadcastLogs(recipients, collectedLogs);
+                }
 
-        // send game snapshot to players
-        server.broadcastGameUpdate(recipients, g.deepCopy());
+                // send game snapshot to players
+                server.broadcastGameUpdate(recipients, g.deepCopy());
+            }
     }
 
     public void addGame(Game game) {
