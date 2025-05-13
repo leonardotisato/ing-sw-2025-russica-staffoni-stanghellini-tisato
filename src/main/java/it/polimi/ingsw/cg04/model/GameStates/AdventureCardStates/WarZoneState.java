@@ -259,7 +259,9 @@ public class WarZoneState extends AdventureCardState {
 
     @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
-
+        if(coordinates == null && numCrewMembersLost == null) {
+            throw new InvalidStateException(player.getName() + " removed uncorrectly the crew members. Try again.");
+        }
         if (played.get(worstPlayerIdx).equals(WORST) &&  player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             int crewremoved = 0;
             for (Integer integer : numCrewMembersLost) {

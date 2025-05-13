@@ -160,19 +160,28 @@ public class TUI extends View {
                     }
                     case "choosePropulsor" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
-                        server.choosePropulsor(coords, args.intList());
+                        if(argsLine.isEmpty()) {
+                            server.choosePropulsor(null, null);
+                        } else {
+                            argsLine = stdinScanner.nextLine();
+                            args = parser.parseArguments(command, argsLine);
+                            List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
+                            server.choosePropulsor(coords, args.intList());
+                        }
                     }
                     case "compareCrew" -> server.compareCrew();
                     case "compareFirePower" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        List<List<Coordinates>> groups = args.coordGroups();
-                        if (groups.size() >= 2) {
-                            server.compareFirePower(groups.get(0), groups.get(1));
+                        if(argsLine.isEmpty()) {
+                            server.compareFirePower(null, null);
                         } else {
-                            System.out.println("Error: two -c groups are required.");
+                            args = parser.parseArguments(command, argsLine);
+                            List<List<Coordinates>> groups = args.coordGroups();
+                            if (groups.size() >= 2) {
+                                server.compareFirePower(groups.get(0), groups.get(1));
+                            } else {
+                                System.out.println("Error: two -c groups are required.");
+                            }
                         }
                     }
                     case "epidemic" -> server.spreadEpidemic();
@@ -184,18 +193,33 @@ public class TUI extends View {
                     }
                     case "handleBoxes" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
+                        if(argsLine.isEmpty()) {
+                            server.handleBoxes(null, null);
+                        } else {
+                            argsLine = stdinScanner.nextLine();
+                            args = parser.parseArguments(command, argsLine);
+                            server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
+                        }
                     }
                     case "planets" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
+                        if(argsLine.isEmpty()) {
+                            server.landToPlanet(null, null, null);
+                        } else {
+                            argsLine = stdinScanner.nextLine();
+                            args = parser.parseArguments(command, argsLine);
+                            server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
+                        }
                     }
                     case "removeCrew" -> {
                         argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        server.removeCrew(args.coordGroups().getFirst(), args.intList());
+                        if(argsLine.isEmpty()) {
+                            server.removeCrew(null, null);
+                        } else {
+                            argsLine = stdinScanner.nextLine();
+                            args = parser.parseArguments(command, argsLine);
+                            server.removeCrew(args.coordGroups().getFirst(), args.intList());
+                        }
                     }
                     case "retire" -> server.retire();
                     case "rollDice" -> server.rollDice();

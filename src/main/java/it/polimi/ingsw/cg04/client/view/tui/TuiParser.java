@@ -18,7 +18,10 @@ public class TuiParser {
             case "pickPile" -> System.out.println("  <pileIndex>");
             case "endBuilding" -> System.out.println("  <position>");
             case "place" -> System.out.println("  <x> <y>");
-            case "chooseBattery" -> System.out.println("  <x> <y>");
+            case "chooseBattery" -> {
+                System.out.println("Send -1 -1 if you don't want to use a battery.");
+                System.out.println("  <x> <y>");
+            }
             case "choosePropulsor" -> System.out.println("  -c <x1> <y1> <x2> <y2> ... -n <battery1> <battery2> ...");
             case "compareCrew" -> System.out.println("  (no arguments)");
             case "compareFirePower" -> System.out.println("  -c <battery_x1> <battery_y1> ... -c <cannon_x1> <cannon_y1> ...");
