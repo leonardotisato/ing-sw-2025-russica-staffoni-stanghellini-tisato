@@ -273,6 +273,7 @@ public class TUI extends View {
             System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal\n");
 
             System.out.println("ADVENTURE CARDS COMMANDS:");
+            System.out.println("\tloadCrew                  -load aliens specifying the coordinates of the tiles where you want to put them\n");
             System.out.println("\tchooseBattery             -select the battery you want to use specifying it's coordinates");
             System.out.println("\tchoosePropulsor           -select the propulsors you want to use specifying their coordinates");
             System.out.println("\tcompareCrew               -compare players crew sizes (no parameters)");
@@ -283,12 +284,11 @@ public class TUI extends View {
             System.out.println("\thandleBoxes               -select the new boxes formation on the tiles in which you want to modify it");
             System.out.println("\tplanets                   -select the planet you want to land and specify the new boxes formation on the tiles in which you want to modify it");
             System.out.println("\tremoveCrew                -choose the crew you want to remove specifying it's coordinates");
-            System.out.println("\tretire                    -retire from the game (no parameters)");
             System.out.println("\trollDice                  -roll dices (no parameters)");
             System.out.println("\tstardust                  -activate stardust effect (no parameters)");
             System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal");
-            System.out.println("\tloadCrew                  -load aliens specifying the coordinates of the tiles where you want to put them\n");
 
+            System.out.println("\tretire                    -retire from the game (no parameters)\n");
             System.out.println("====================================================================================");
 
             System.out.println("Once you select a command it will be explained in detail the format of the arguments");
