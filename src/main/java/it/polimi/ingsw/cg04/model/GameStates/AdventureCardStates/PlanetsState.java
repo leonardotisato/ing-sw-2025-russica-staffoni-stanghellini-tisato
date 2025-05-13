@@ -51,8 +51,8 @@ public class PlanetsState extends AdventureCardState {
             for (int i = 0; i < coordinates.size(); i++) {
                 player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
             }
+            this.addLog("Player " + player.getName() + " has landed on planet " + chosenPlanets.get(player));
         }
-        this.addLog("Player " + player.getName() + " has landed on planet " + chosenPlanets.get(player));
         played.set(sortedPlayers.indexOf(player), 1);
         currPlayerIdx++;
         if (chosenPlanets.size() == card.getPlanetReward().size() || currPlayerIdx == sortedPlayers.size()) {
