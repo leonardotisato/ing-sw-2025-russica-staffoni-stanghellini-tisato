@@ -28,4 +28,9 @@ public abstract class InitAction implements Action {
         }
         this.logs.add(newLog);
     }
+
+    public List<String> getLogs() {
+        return logs;
+    }
+
 }
