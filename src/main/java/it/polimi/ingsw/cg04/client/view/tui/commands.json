@@ -8,6 +8,7 @@
   "closeFaceUp",
   "drawFaceDown",
   "place",
+  "rotate",
   "endBuilding",
   "pickPile",
   "placeInBuffer",
