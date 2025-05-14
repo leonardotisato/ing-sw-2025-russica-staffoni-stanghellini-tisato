@@ -6,7 +6,14 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.client.view.View;
+import org.jline.reader.EndOfFileException;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.UserInterruptException;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
+import javax.sound.sampled.Line;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -35,12 +42,14 @@ public class TUI extends View {
         try {
             Game toPrint = clientModel.getGame();
             String rendered = toPrint.render(nickname);
+            Terminal t = input.getTerminal();
 
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+//            t.writer().print("\033[H\033[2J");  // Clear screen
+//            t.writer().flush();
 
-            System.out.println(rendered);
-            System.out.println("\n".repeat(10));
+            System.out.println(rendered + "\n".repeat(10));
+
+
         } catch (NullPointerException ignored) {
             System.out.println("Game not found");
         }
@@ -48,23 +57,23 @@ public class TUI extends View {
 
 
     public void updateLogs() {
+        StringBuilder sb = new StringBuilder();
         terminalLock.lock();
         try {
             List<String> logs = clientModel.getLogs();
-
+            LineReader reader = input.getReader();
             int logLines = 10;
 
             // 1. Risali di 'logLines' + intestazione
-            System.out.print("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
-            System.out.flush();
+            System.out.println("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
 
             // 2. Sovrascrivi i log (e svuota le righe rimanenti)
-            System.out.println("--- LOGS ---");
+            reader.printAbove("--- LOGS ---");
             for (String log : logs) {
-                System.out.print("\033[2K"); // cancella riga corrente
-                System.out.println("- " + log);
+                System.out.println("\033[2K"); // cancella riga corrente
+                reader.printAbove("- " + log);
             }
-        } finally {
+        }finally {
             terminalLock.unlock();
         }
     }
@@ -75,26 +84,34 @@ public class TUI extends View {
     }
 
 
-    class InputReader implements Runnable {
-        private final Scanner stdin = new Scanner(System.in);
+    class InputReader implements Runnable{
+        private LineReader reader;
+        private Terminal terminal;
         private boolean stdinClosed = false;
+        public InputReader() {
+            try {
+                terminal = TerminalBuilder.builder().system(true).build();
+                reader = LineReaderBuilder.builder()
+                        .terminal(terminal)
+                        .build();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to initialize terminal", e);
+            }
+        }
 
         @Override
         public void run() {
             while (!stdinClosed) {
                 try {
-                    String line = stdin.nextLine();
-                    if (stdinClosed)
-                        break;
-
-                    handleInput(line);
-                } catch (IllegalStateException e) {
-                    break;
+                    String line = reader.readLine("> ");
+                    handleInput(line, reader);
+                } catch (UserInterruptException | EndOfFileException e) {
+                    stdinClosed = true;
                 }
             }
         }
 
-        private void handleInput(String input) {
+        private void handleInput(String input, LineReader reader) {
             Scanner scanner = new Scanner(input);
             scanner.useDelimiter(" ");
 
@@ -103,57 +120,53 @@ public class TUI extends View {
                 TuiParser parser = new TuiParser();
                 parser.printCommandFormat(command);
 
-                Scanner stdinScanner = new Scanner(System.in);
+                //Scanner stdinScanner = new Scanner(System.in);
+
                 String argsLine;
                 TuiParser.ParsedArgs args;
 
                 switch (command) {
                     case "setNickname" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.setNickname(args.string());
                     }
                     case "createGame" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.createGame(args.singleInt(), args.intList().getFirst(), PlayerColor.valueOf(args.string()));
                     }
                     case "joinGame" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.joinGame(args.singleInt(), PlayerColor.valueOf(args.string()));
                     }
                     case "chooseTile" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.chooseTile(args.singleInt());
                     }
                     case "chooseTileFromBuffer" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.chooseTileFromBuffer(args.singleInt());
                     }
                     case "closeFaceUp" -> server.closeFaceUpTiles();
                     case "drawFaceDown" -> server.drawFaceDown();
                     case "endBuilding" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.endBuilding(args.singleInt());
                     }
                     case "pickPile" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.pickPile(args.singleInt());
                     }
                     case "place" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.place(args.coord1().getX(), args.coord1().getY());
-                    }
-                    case "rotate" -> {
-                        argsLine = stdinScanner.nextLine();
-                        args = parser.parseArguments(command, argsLine);
-                        server.rotate(args.string());
                     }
                     case "placeInBuffer" -> server.placeInBuffer();
                     case "returnPile" -> server.returnPile();
@@ -161,16 +174,16 @@ public class TUI extends View {
                     case "showFaceUp" -> server.showFaceUp();
                     case "startTimer" -> server.startTimer();
                     case "chooseBattery" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.chooseBattery(args.coord1().getX(), args.coord1().getY());
                     }
                     case "choosePropulsor" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.choosePropulsor(null, null);
                         } else {
-                            argsLine = stdinScanner.nextLine();
+                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
                             server.choosePropulsor(coords, args.intList());
@@ -178,8 +191,8 @@ public class TUI extends View {
                     }
                     case "compareCrew" -> server.compareCrew();
                     case "compareFirePower" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.compareFirePower(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -194,36 +207,36 @@ public class TUI extends View {
                     case "epidemic" -> server.spreadEpidemic();
                     case "getNextAdventureCard" -> server.getNextAdventureCard();
                     case "getRewards" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.getRewards(args.accept());
                     }
                     case "handleBoxes" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.handleBoxes(null, null);
                         } else {
-                            argsLine = stdinScanner.nextLine();
+                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
                         }
                     }
                     case "planets" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.landToPlanet(null, null, null);
                         } else {
-                            argsLine = stdinScanner.nextLine();
+                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
                         }
                     }
                     case "removeCrew" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.removeCrew(null, null);
                         } else {
-                            argsLine = stdinScanner.nextLine();
+                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.removeCrew(args.coordGroups().getFirst(), args.intList());
                         }
@@ -232,13 +245,13 @@ public class TUI extends View {
                     case "rollDice" -> server.rollDice();
                     case "stardust" -> server.starDust();
                     case "fixShip" -> {
-                        argsLine = stdinScanner.nextLine();
+                        argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.fixShip(args.coordGroups().getFirst());
                     }
                     case "loadCrew" -> {
-                        argsLine = stdinScanner.nextLine();
-                        if (argsLine.isEmpty()) {
+                        argsLine = reader.readLine(">> ");
+                        if(argsLine.isEmpty()) {
                             server.loadCrew(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -269,7 +282,6 @@ public class TUI extends View {
             System.out.println("\tcloseFaceUp               -close face up tiles (no parameters)");
             System.out.println("\tdrawFaceDown              -draw a random face down tile (no parameters)");
             System.out.println("\tplace                     -place the tile you are currently holding specifying the coordinates");
-            System.out.println("\trotate                    -rotate the tile you are currently holding");
             System.out.println("\tendBuilding               -finish the building phase and decide the position you want to start in");
             System.out.println("\tpickPile                  -show the cards in one of the piles specifying the pile index");
             System.out.println("\tplaceInBuffer             -place the tile you are currently holding in the buffer (no parameters)");
@@ -303,9 +315,18 @@ public class TUI extends View {
         }
 
         private void stopInputReader() {
-            if (!stdinClosed)
-                System.out.println("Connection to server unavailable, exiting.");
             stdinClosed = true;
+            try {
+                terminal.close();
+            } catch (Exception ignored) {}
+        }
+
+        public Terminal getTerminal() {
+            return terminal;
+        }
+
+        public LineReader getReader() {
+            return reader;
         }
     }
 }

@@ -6,6 +6,7 @@ module it.polimi.ingsw.cg04 {
     requires java.desktop;
     requires com.google.gson;
     requires java.rmi;
+    requires org.jline;
 
     opens it.polimi.ingsw.cg04 to javafx.fxml;
     exports it.polimi.ingsw.cg04;
