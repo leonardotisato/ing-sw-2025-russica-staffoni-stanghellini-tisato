@@ -1,19 +1,23 @@
 package it.polimi.ingsw.cg04.client.view.tui;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.client.ClientModel;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.client.view.View;
-import org.jline.reader.EndOfFileException;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.reader.UserInterruptException;
+import org.jline.reader.*;
+import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.jline.utils.InfoCmp;
 
 import javax.sound.sampled.Line;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -21,7 +25,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TUI extends View {
     private final InputReader input;
-    private final ReentrantLock terminalLock = new ReentrantLock();
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -46,8 +49,9 @@ public class TUI extends View {
 
 //            t.writer().print("\033[H\033[2J");  // Clear screen
 //            t.writer().flush();
+            t.puts(InfoCmp.Capability.clear_screen);
 
-            System.out.println(rendered + "\n".repeat(10));
+            t.writer().println(rendered);
 
 
         } catch (NullPointerException ignored) {
@@ -57,24 +61,15 @@ public class TUI extends View {
 
 
     public void updateLogs() {
-        StringBuilder sb = new StringBuilder();
-        terminalLock.lock();
-        try {
-            List<String> logs = clientModel.getLogs();
-            LineReader reader = input.getReader();
-            int logLines = 10;
+        List<String> logs = clientModel.getLogs();
+        LineReader reader = input.getReader();
 
-            // 1. Risali di 'logLines' + intestazione
-            System.out.println("\033[" + (logLines + 1) + "A"); // risale di (logLines + 1) righe
+        // Stampa 10 righe sopra la riga attiva
+        reader.printAbove("--- LOGS ---");
 
-            // 2. Sovrascrivi i log (e svuota le righe rimanenti)
-            reader.printAbove("--- LOGS ---");
-            for (String log : logs) {
-                System.out.println("\033[2K"); // cancella riga corrente
-                reader.printAbove("- " + log);
-            }
-        }finally {
-            terminalLock.unlock();
+        // Stampa ogni log oppure una riga vuota
+        for (int i = 0; i < logs.size(); i++) {
+            reader.printAbove("- " + logs.get(i));
         }
     }
 
@@ -93,6 +88,7 @@ public class TUI extends View {
                 terminal = TerminalBuilder.builder().system(true).build();
                 reader = LineReaderBuilder.builder()
                         .terminal(terminal)
+                        .completer(getCommandsCompleter())
                         .build();
             } catch (Exception e) {
                 throw new RuntimeException("Failed to initialize terminal", e);
@@ -321,7 +317,26 @@ public class TUI extends View {
             } catch (Exception ignored) {}
         }
 
-        public Terminal getTerminal() {
+        private Completer getCommandsCompleter() {
+            try {
+                // Legge il file JSON
+                FileReader reader = new FileReader("src/main/java/it/polimi/ingsw/cg04/client/view/tui/commands.json");
+
+                // Imposta il tipo: List<String>
+                Type listType = new TypeToken<List<String>>() {
+                }.getType();
+
+                // Crea Gson e deserializza
+                Gson gson = new Gson();
+                List<String> commands = gson.fromJson(reader, listType);
+                Completer completer = new StringsCompleter(commands);
+                return completer;
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+            public Terminal getTerminal() {
             return terminal;
         }
 

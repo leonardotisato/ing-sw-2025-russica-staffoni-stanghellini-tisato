@@ -149,9 +149,7 @@ public abstract class GameState implements Serializable {
     }
 
     public void addLog(String newLogs) {
-        if(logs == null){
-            logs = new ArrayList<>();
-        }
+        logs = new ArrayList<>();
         this.logs.add(newLogs);
     }
 }

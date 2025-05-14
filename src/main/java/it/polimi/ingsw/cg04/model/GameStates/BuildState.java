@@ -155,7 +155,7 @@ public class BuildState extends GameState {
 
         Tile currTile = player.getHeldTile();
         player.getGame().getFaceUpTiles().add(currTile.getId());
-        this.addLog(player.getName() + " returned a tile " + currTile.getId());
+        this.addLog(player.getName() + " returned a tile ");
         player.setHeldTile(null);
     }
 
