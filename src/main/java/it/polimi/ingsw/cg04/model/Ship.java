@@ -209,15 +209,13 @@ public class Ship implements Serializable {
     }
 
     /**
-     * Checks whether placing a given tile at the specified coordinates is a legal move.
-     * The legality is determined by several conditions, such as bounds validation,
-     * connection rules, and slot availability on the board.
+     * Determines if placing a tile at the specified coordinates on the grid is legal.
      *
-     * @param tile the tile to be placed; must not be null to be considered valid for placement.
-     * @param x the x-coordinate where the tile is being placed.
-     * @param y the y-coordinate where the tile is being placed.
-     * @return true if the placement is legal according to the defined rules; false otherwise.
-     * @throws IllegalArgumentException if the specified coordinates are out of bounds.
+     * @param tile the tile to be placed; must not be null
+     * @param x the x-coordinate of the position where the tile is to be placed
+     * @param y the y-coordinate of the position where the tile is to be placed
+     * @return true if the placement is legal according to the game rules; false otherwise
+     * @throws IllegalArgumentException if the specified coordinates are out of bounds
      */
     public boolean isPlacingLegal(Tile tile, int x, int y){
         if (isOutOfBounds(x, y)) {
@@ -238,68 +236,45 @@ public class Ship implements Serializable {
             return false;
         }
 
-        // check if the tile is connected legally to another tile
-        if(x == 0){
-            if(y == 0){
-                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-                        || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+        if(validSlots[x][y]){
+            if(x == 0){
+                if(tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y+1] == null){
                     return false;
                 }
             }
+
+            else if(x == shipHeight - 1){
+                if(y == shipWidth - 1) {
+                    if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null) {
+                        return false;
+                    }
+                }
+                else if(y == 0) {
+                    if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y + 1] == null) {
+                        return false;
+                    }
+                }
+                else if(tilesMatrix[x-1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y+1] == null){
+                    return false;
+                }
+
+            }
+
+            else if(y == 0){
+                if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y+1] == null){
+                    return false;
+                }
+            }
+
             else if(y == shipWidth - 1){
-                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-                        || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+                if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null){
                     return false;
                 }
             }
-            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
-                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y -1]))) {
+
+            else if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y-1] == null) {
                 return false;
             }
-        }
-        else if(x == shipHeight - 1){
-            if(y == 0){
-                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-                        || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))){
-                    return false;
-                }
-            }
-            else if(y == shipWidth - 1){
-                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-                        || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))) {
-                    return false;
-                }
-            }
-            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1]))) {
-                return false;
-            }
-        }
-
-        else if(y == 0){
-            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))){
-                return false;
-            }
-        }
-
-        else if(y == shipWidth - 1){
-            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x + 1][y])
-                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y - 1])
-                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
-                return false;
-            }
-        }
-
-        else if(!(tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
-                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-                || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-                || tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1]))){
-            return false;
-
         }
         return true;
     }
