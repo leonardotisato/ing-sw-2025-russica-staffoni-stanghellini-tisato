@@ -29,6 +29,21 @@ public class HousingTile extends Tile {
         color = playerColor;
         isCentralTile = true;
         this.shortName = "Housing";
+
+        switch (playerColor) {
+            case RED:
+                this.tileColor = "\u001B[31m";
+                break;
+            case GREEN:
+                this.tileColor = "\u001B[32m";
+                break;
+            case BLUE:
+                this.tileColor = "\u001B[34m";
+                break;
+            case YELLOW:
+                this.tileColor = "\u001B[38;5;220m";
+                break;
+        }
     }
 
     public Boolean isCentralTile() {
@@ -155,6 +170,7 @@ public class HousingTile extends Tile {
     public void place(Ship ship, int x, int y) {
         // every HousingTile supports humans
         this.addSupportedCrewType(CrewType.HUMAN);
+        hostedCrewType = CrewType.HUMAN;
 
         ship.addCrew(CrewType.HUMAN, x, y); // adds crew members both in this tile and ship
 
@@ -222,5 +238,21 @@ public class HousingTile extends Tile {
                 }
             }
         }
+    }
+
+    void drawContent(StringBuilder sb) {
+        StringBuilder housing = new StringBuilder();
+
+        if (hostedCrewType == null) {
+            housing.append("--");
+        } else if (hostedCrewType == CrewType.HUMAN) {
+            housing.append("h".repeat(numCrew));
+        } else if (hostedCrewType == CrewType.BROWN_ALIEN) {
+            housing.append("b");
+        } else if (hostedCrewType == CrewType.PINK_ALIEN) {
+            housing.append("p");
+        }
+
+        sb.append("│ ").append(centerText(housing.toString(), boxWidth - 4)).append(" │").append("\n");
     }
 }

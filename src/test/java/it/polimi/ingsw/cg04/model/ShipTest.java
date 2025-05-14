@@ -1144,8 +1144,14 @@ class ShipTest {
 
     @Test
     void testDraw() {
-        System.out.println(shipyard.createShip5().draw());
-        System.out.println(shipyard.createShip3().getTile(3,1).isDoublePropulsor());
-        System.out.println(shipyard.createShip3().drawWithBuffer());
+        Ship myShip = shipyard.createShip5();
+        System.out.println(myShip.draw());
+        myShip.getTile(1, 2).removeCrewMember();
+        myShip.getTile(1, 2).removeCrewMember();
+        myShip.getTile(1, 2).addCrew(CrewType.BROWN_ALIEN);
+
+        System.out.println(myShip.draw());
+
+
     }
 }
