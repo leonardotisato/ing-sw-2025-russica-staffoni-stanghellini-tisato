@@ -10,15 +10,15 @@ public class TuiParser {
     public void printCommandFormat(String command) {
         System.out.println("Parameter format for command: " + command);
         switch (command) {
-            case "setNickname" -> System.out.println("  <nickname>");
-            case "createGame" -> System.out.println("  <gameLevel> <maxPlayers> <COLOR>");
-            case "joinGame" -> System.out.println("  <gameId> <COLOR>");
-            case "chooseTile" -> System.out.println("  <tileIndex>");
+            case "setNickname", "setNick" -> System.out.println("  <nickname>");
+            case "createGame", "create" -> System.out.println("  <gameLevel> <maxPlayers> <COLOR>");
+            case "joinGame", "join" -> System.out.println("  <gameId> <COLOR>");
+            case "chooseTile", "choose" -> System.out.println("  <tileIndex>");
             case "chooseTileFromBuffer" -> System.out.println("  <tileIndex>");
             case "pickPile" -> System.out.println("  <pileIndex>");
             case "endBuilding" -> System.out.println("  <startingPosition>");
-            case "place" -> System.out.println("  <x> <y>");
-            case "rotate" -> System.out.println("  <LEFT | RIGHT | DOWN>");
+            case "place", "p" -> System.out.println("  <x> <y>");
+            case "rotate", "r" -> System.out.println("  <LEFT | RIGHT | DOWN>");
             case "chooseBattery" -> {
                 System.out.println("Send -1 -1 if you don't want to use a battery.");
                 System.out.println("  <x> <y>");
@@ -32,7 +32,7 @@ public class TuiParser {
                 System.out.println("Press enter if you don't want to activate double cannons.");
                 System.out.println("  -c <battery_x1> <battery_y1> ... -c <cannon_x1> <cannon_y1> ...");
             }
-            case "drawFaceDown" -> System.out.println("  (no arguments)");
+            case "drawFaceDown", "draw", "d" -> System.out.println("  (no arguments)");
             case "returnPile" -> System.out.println("  (no arguments)");
             case "returnTile" -> System.out.println("  (no arguments)");
             case "placeInBuffer" -> System.out.println("  (no arguments)");
@@ -46,7 +46,8 @@ public class TuiParser {
 
                 System.out.println("  -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
             }
-            case "planets" -> System.out.println("  <planetIndex> -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
+            case "planets" ->
+                    System.out.println("  <planetIndex> -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
             case "removeCrew" -> {
                 System.out.println("Press enter if you don't want to remove crew (not possible in WarZone).");
                 System.out.println("  -c <coord_x1> <coord_y1> ... -n <crew1> <crew2> ...");
@@ -55,7 +56,7 @@ public class TuiParser {
             case "rollDice" -> System.out.println("  (no arguments)");
             case "stardust" -> System.out.println("  (no arguments)");
             case "fixShip" -> System.out.println("  -c <x1> <y1> ...");
-            case "loadCrew" ->  {
+            case "loadCrew" -> {
                 System.out.println("Press enter if you don't want to load crew.");
                 System.out.println(" -p <pink_x> <pink_y> -b <brown_x> <brown_y>");
             }
@@ -74,7 +75,8 @@ public class TuiParser {
             Coordinates coord2,
             boolean accept,
             Integer planetIdx
-    ) {}
+    ) {
+    }
 
     public ParsedArgs parseArguments(String command, String inputLine) {
         Scanner scanner = new Scanner(inputLine);
@@ -89,17 +91,17 @@ public class TuiParser {
         Integer planetIdx = null;
 
         switch (command) {
-            case "setNickname", "rotate" -> string = scanner.hasNext() ? scanner.next() : null;
-            case "createGame" -> {
+            case "setNickname", "setNick", "rotate" -> string = scanner.hasNext() ? scanner.next() : null;
+            case "createGame", "create" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
                 if (scanner.hasNextInt()) intList.add(scanner.nextInt());
                 if (scanner.hasNext()) string = scanner.next();
             }
-            case "joinGame" -> {
+            case "joinGame", "join" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
                 if (scanner.hasNext()) string = scanner.next();
             }
-            case "chooseTile", "chooseTileFromBuffer", "pickPile", "endBuilding" -> {
+            case "chooseTile", "choose", "chooseTileFromBuffer", "pickPile", "endBuilding" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
             }
             case "place", "chooseBattery" -> {
@@ -172,7 +174,7 @@ public class TuiParser {
                 }
             }
             case "loadCrew" -> {
-                if(scanner.hasNext("-p")) {
+                if (scanner.hasNext("-p")) {
                     scanner.next();
                     if (scanner.hasNextInt()) {
                         int x1 = scanner.nextInt();
@@ -180,7 +182,7 @@ public class TuiParser {
                         coord1 = new Coordinates(x1, y1);
                     }
                 }
-                if(scanner.hasNext("-b")) {
+                if (scanner.hasNext("-b")) {
                     scanner.next();
                     if (scanner.hasNextInt()) {
                         int x2 = scanner.nextInt();

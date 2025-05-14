@@ -8,6 +8,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/artifacts
 *.iws
 *.iml
 *.ipr
@@ -39,4 +40,4 @@ build/
 
 /META-INF/
 
-.idea\artifacts
+

@@ -79,10 +79,11 @@ public class TUI extends View {
     }
 
 
-    class InputReader implements Runnable{
+    class InputReader implements Runnable {
         private LineReader reader;
         private Terminal terminal;
         private boolean stdinClosed = false;
+
         public InputReader() {
             try {
                 terminal = TerminalBuilder.builder().system(true).jansi(true).build();
@@ -122,22 +123,22 @@ public class TUI extends View {
                 TuiParser.ParsedArgs args;
 
                 switch (command) {
-                    case "setNickname" -> {
+                    case "setNickname", "setNick" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.setNickname(args.string());
                     }
-                    case "createGame" -> {
+                    case "createGame", "create" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.createGame(args.singleInt(), args.intList().getFirst(), PlayerColor.valueOf(args.string()));
                     }
-                    case "joinGame" -> {
+                    case "joinGame", "join" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.joinGame(args.singleInt(), PlayerColor.valueOf(args.string()));
                     }
-                    case "chooseTile" -> {
+                    case "chooseTile", "choose" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.chooseTile(args.singleInt());
@@ -148,7 +149,7 @@ public class TUI extends View {
                         server.chooseTileFromBuffer(args.singleInt());
                     }
                     case "closeFaceUp" -> server.closeFaceUpTiles();
-                    case "drawFaceDown" -> server.drawFaceDown();
+                    case "drawFaceDown", "draw", "d" -> server.drawFaceDown();
                     case "endBuilding" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
@@ -159,7 +160,7 @@ public class TUI extends View {
                         args = parser.parseArguments(command, argsLine);
                         server.pickPile(args.singleInt());
                     }
-                    case "place" -> {
+                    case "place", "p" -> {
                         argsLine = reader.readLine(">> ");
                         args = parser.parseArguments(command, argsLine);
                         server.place(args.coord1().getX(), args.coord1().getY());
@@ -181,7 +182,7 @@ public class TUI extends View {
                     }
                     case "choosePropulsor" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.choosePropulsor(null, null);
                         } else {
                             argsLine = reader.readLine(">> ");
@@ -193,7 +194,7 @@ public class TUI extends View {
                     case "compareCrew" -> server.compareCrew();
                     case "compareFirePower" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.compareFirePower(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -214,7 +215,7 @@ public class TUI extends View {
                     }
                     case "handleBoxes" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.handleBoxes(null, null);
                         } else {
                             argsLine = reader.readLine(">> ");
@@ -224,7 +225,7 @@ public class TUI extends View {
                     }
                     case "planets" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.landToPlanet(null, null, null);
                         } else {
                             argsLine = reader.readLine(">> ");
@@ -234,7 +235,7 @@ public class TUI extends View {
                     }
                     case "removeCrew" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.removeCrew(null, null);
                         } else {
                             argsLine = reader.readLine(">> ");
@@ -252,7 +253,7 @@ public class TUI extends View {
                     }
                     case "loadCrew" -> {
                         argsLine = reader.readLine(">> ");
-                        if(argsLine.isEmpty()) {
+                        if (argsLine.isEmpty()) {
                             server.loadCrew(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
@@ -320,7 +321,8 @@ public class TUI extends View {
             stdinClosed = true;
             try {
                 terminal.close();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         private Completer getCommandsCompleter() {
