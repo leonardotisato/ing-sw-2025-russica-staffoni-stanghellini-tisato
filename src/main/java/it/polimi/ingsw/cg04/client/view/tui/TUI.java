@@ -85,7 +85,7 @@ public class TUI extends View {
         private boolean stdinClosed = false;
         public InputReader() {
             try {
-                terminal = TerminalBuilder.builder().system(true).build();
+                terminal = TerminalBuilder.builder().system(true).jansi(true).build();
                 reader = LineReaderBuilder.builder()
                         .terminal(terminal)
                         .completer(getCommandsCompleter())
