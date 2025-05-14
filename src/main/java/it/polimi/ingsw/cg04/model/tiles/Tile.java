@@ -152,9 +152,9 @@ public abstract class Tile implements Serializable {
     // return true if the connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
-        if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
-            return false;
-        }
+//        if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
+//            return false;
+//        }
 
         // if otherTile does not exist the connection is valid
         if (otherTile == null) {

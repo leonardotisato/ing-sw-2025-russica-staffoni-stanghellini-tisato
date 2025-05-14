@@ -33,6 +33,10 @@ public class PlaceAction extends PlayerAction {
             throw new InvalidActionException("You are not holding a tile!");
         }
 
+        if(!(player.getShip().isPlacingLegal(player.getHeldTile(), coordinates.getX(), coordinates.getY()))) {
+            throw new InvalidActionException("You can't place a tile at " + coordinates.getX() + ", " + coordinates.getY() + "!");
+        }
+
         // check if the slot is already taken
         Tile[][] tiles = player.getShip().getTilesMatrix();
         if (tiles[coordinates.getX()][coordinates.getY()] != null) throw new InvalidActionException("Slot at " + coordinates.getX() + ", " + coordinates.getY() + " is already occupied!");

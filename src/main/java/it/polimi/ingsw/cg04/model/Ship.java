@@ -199,12 +199,161 @@ public class Ship implements Serializable {
         if (tilesMatrix[x][y] != null) {
             return false;
         }
+//
+//        // check if the tile is connected legally to another tile
+//        if(x == 0){
+//            if(y == 0){
+//                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+//                    return false;
+//                }
+//            }
+//            else if(y == shipWidth - 1){
+//                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+//                    return false;
+//                }
+//            }
+//            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
+//                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y -1]))) {
+//                return false;
+//            }
+//        }
+//        else if(x == shipHeight - 1){
+//            if(y == 0){
+//                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))){
+//                    return false;
+//                }
+//            }
+//            else if(y == shipWidth - 1){
+//                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))) {
+//                    return false;
+//                }
+//            }
+//            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+//                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1]))) {
+//                return false;
+//            }
+//        }
+//
+//        else if(y == 0){
+//            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))){
+//                return false;
+//            }
+//        }
+//
+//        else if(y == shipWidth - 1){
+//            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x + 1][y])
+//                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y - 1])
+//                || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+//                return false;
+//            }
+//        }
+//
+//        else if(!(tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
+//                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+//                || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+//                || tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1]))){
+//            return false;
+//
+//        }
 
         tilesMatrix[x][y] = tile;   // place tile in the ship
         tile.place(this, x, y);   // update resources and tiles params
         this.addTileToMap(tile.getType(), x, y); // adds tile to tile's map
         updateExposedConnectors();  // update exposedConnectors attribute
 
+        return true;
+    }
+
+    public boolean isPlacingLegal(Tile tile, int x, int y){
+        if (isOutOfBounds(x, y)) {
+            throw new IllegalArgumentException("Requested slot is out of bounds!");
+        }
+        // check if tile != null
+        if (tile == null) {
+            return false;
+        }
+
+        // check out-of-bound placement
+        if (!validSlots[x][y]) {
+            return false;
+        }
+
+        // check placement on top of existing tile
+        if (tilesMatrix[x][y] != null) {
+            return false;
+        }
+
+        // check if the tile is connected legally to another tile
+        if(x == 0){
+            if(y == 0){
+                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+                        || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+                    return false;
+                }
+            }
+            else if(y == shipWidth - 1){
+                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+                        || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+                    return false;
+                }
+            }
+            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
+                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y -1]))) {
+                return false;
+            }
+        }
+        else if(x == shipHeight - 1){
+            if(y == 0){
+                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+                        || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))){
+                    return false;
+                }
+            }
+            else if(y == shipWidth - 1){
+                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+                        || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))) {
+                    return false;
+                }
+            }
+            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1]))) {
+                return false;
+            }
+        }
+
+        else if(y == 0){
+            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
+                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))){
+                return false;
+            }
+        }
+
+        else if(y == shipWidth - 1){
+            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x + 1][y])
+                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y - 1])
+                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
+                return false;
+            }
+        }
+
+        else if(!(tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
+                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
+                || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
+                || tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1]))){
+            return false;
+
+        }
         return true;
     }
 
@@ -641,6 +790,10 @@ public class Ship implements Serializable {
 
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
+
+                    if(currTile.isDoublePropulsor() != null && currTile.getConnection(Direction.DOWN) != Connection.PROPULSOR){
+                        return false;
+                    }
 
                     if (currTile != null && i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;
