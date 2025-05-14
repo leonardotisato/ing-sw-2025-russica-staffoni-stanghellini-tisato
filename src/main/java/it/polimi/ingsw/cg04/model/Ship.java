@@ -199,70 +199,6 @@ public class Ship implements Serializable {
         if (tilesMatrix[x][y] != null) {
             return false;
         }
-//
-//        // check if the tile is connected legally to another tile
-//        if(x == 0){
-//            if(y == 0){
-//                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
-//                    return false;
-//                }
-//            }
-//            else if(y == shipWidth - 1){
-//                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
-//                    return false;
-//                }
-//            }
-//            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
-//                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y -1]))) {
-//                return false;
-//            }
-//        }
-//        else if(x == shipHeight - 1){
-//            if(y == 0){
-//                if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))){
-//                    return false;
-//                }
-//            }
-//            else if(y == shipWidth - 1){
-//                if(!(tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y]))) {
-//                    return false;
-//                }
-//            }
-//            else if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-//                    || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1]))) {
-//                return false;
-//            }
-//        }
-//
-//        else if(y == 0){
-//            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1])
-//                    || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-//                    || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))){
-//                return false;
-//            }
-//        }
-//
-//        else if(y == shipWidth - 1){
-//            if(!(tile.isValidConnection(Direction.RIGHT, tilesMatrix[x + 1][y])
-//                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y - 1])
-//                || tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y]))) {
-//                return false;
-//            }
-//        }
-//
-//        else if(!(tile.isValidConnection(Direction.DOWN, tilesMatrix[x + 1][y])
-//                || tile.isValidConnection(Direction.UP, tilesMatrix[x - 1][y])
-//                || tile.isValidConnection(Direction.LEFT, tilesMatrix[x][y - 1])
-//                || tile.isValidConnection(Direction.RIGHT, tilesMatrix[x][y + 1]))){
-//            return false;
-//
-//        }
 
         tilesMatrix[x][y] = tile;   // place tile in the ship
         tile.place(this, x, y);   // update resources and tiles params
@@ -272,6 +208,17 @@ public class Ship implements Serializable {
         return true;
     }
 
+    /**
+     * Checks whether placing a given tile at the specified coordinates is a legal move.
+     * The legality is determined by several conditions, such as bounds validation,
+     * connection rules, and slot availability on the board.
+     *
+     * @param tile the tile to be placed; must not be null to be considered valid for placement.
+     * @param x the x-coordinate where the tile is being placed.
+     * @param y the y-coordinate where the tile is being placed.
+     * @return true if the placement is legal according to the defined rules; false otherwise.
+     * @throws IllegalArgumentException if the specified coordinates are out of bounds.
+     */
     public boolean isPlacingLegal(Tile tile, int x, int y){
         if (isOutOfBounds(x, y)) {
             throw new IllegalArgumentException("Requested slot is out of bounds!");
@@ -358,7 +305,7 @@ public class Ship implements Serializable {
     }
 
     /**
-     * breaks all the tiles of the ship, done for simplify testing
+     * breaks all the tiles of the ship, done to simplify testing
      */
     public void breakAllTiles() {
         for (int i = 0; i < tilesMatrix.length; i++) {
@@ -377,7 +324,7 @@ public class Ship implements Serializable {
      *
      * @param x row
      * @param y column
-     * @throws IllegalArgumentException if hte slot is not valid or if there is not a tile in the slot
+     * @throws IllegalArgumentException if the slot is not valid or if there is not a tile in the slot
      */
     public void breakTile(int x, int y) {
         if (isOutOfBounds(x, y)) {
