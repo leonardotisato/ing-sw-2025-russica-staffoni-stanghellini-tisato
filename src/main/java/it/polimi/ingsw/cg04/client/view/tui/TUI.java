@@ -15,6 +15,7 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.InfoCmp;
 
 import javax.sound.sampled.Line;
+import java.beans.PropertyChangeEvent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
@@ -60,9 +61,21 @@ public class TUI extends View {
     }
 
     @Override
-    public void updateGame(String nickname) {
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case "GAME_UPDATE" -> {
+                System.out.println("Game updated");
+                updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
+            }
+            case "LOGS_UPDATE" -> {
+                System.out.println("Logs updated");
+                updateLogs((List<String>) evt.getNewValue());
+            }
+        }
+    }
+
+    public void updateGame(Game toPrint, String nickname) {
         try {
-            Game toPrint = clientModel.getGame();
             String rendered = toPrint.render(nickname);
             Terminal t = input.getTerminal();
 
@@ -79,8 +92,7 @@ public class TUI extends View {
     }
 
 
-    public synchronized void updateLogs() {
-        List<String> logs = clientModel.getLogs();
+    public void updateLogs(List<String> logs) {
         LineReader reader = input.getReader();
 
         // Stampa 10 righe sopra la riga attiva
@@ -96,6 +108,8 @@ public class TUI extends View {
     public void serverUnreachable() {
         input.stopInputReader();
     }
+
+
 
 
     class InputReader implements Runnable {

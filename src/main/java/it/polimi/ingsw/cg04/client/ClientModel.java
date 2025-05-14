@@ -1,18 +1,18 @@
 package it.polimi.ingsw.cg04.client;
 
-import it.polimi.ingsw.cg04.client.view.Observer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import it.polimi.ingsw.cg04.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClientModel implements Observable {
-
+public class ClientModel {
     private Game game = null;
     private final List<String> logs = new ArrayList<>();
-    private Observer observer;
-
+    private PropertyChangeListener listener;
 
     public Game getGame() {
         return game;
@@ -20,7 +20,13 @@ public class ClientModel implements Observable {
 
     public void setGame(Game game, String nickname) {
         this.game = game;
-        notifyObserversGameUpdate(nickname);
+
+        this.listener.propertyChange(new PropertyChangeEvent(
+                this,
+                "GAME_UPDATE",
+                nickname,
+                this.game
+                ));
     }
 
     public List<String> getLogs() {
@@ -34,26 +40,15 @@ public class ClientModel implements Observable {
                 logs.removeFirst();
             }
         }
-        notifyObserversLogsUpdate();
+
+        this.listener.propertyChange(new PropertyChangeEvent(
+                this,
+                "LOGS_UPDATE",
+                null,
+                this.logs));
     }
 
-    @Override
-    public void addObserver(Observer observer) {
-        this.observer  = observer;
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        this.observer = null;
-    }
-
-    @Override
-    public void notifyObserversGameUpdate(String nickname) {
-        observer.updateGame(nickname);
-    }
-
-    @Override
-    public void notifyObserversLogsUpdate() {
-        observer.updateLogs();
+    public void setListener(PropertyChangeListener listener) {
+        this.listener = listener;
     }
 }

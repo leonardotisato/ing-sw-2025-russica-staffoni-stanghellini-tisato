@@ -3,10 +3,12 @@ package it.polimi.ingsw.cg04.client.view;
 import it.polimi.ingsw.cg04.client.ClientModel;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 
+import java.beans.PropertyChangeListener;
+
 /**
  * Class that allows the visualization of the game state
  */
-public abstract class View implements Observer{
+public abstract class View implements PropertyChangeListener {
     protected final ClientModel clientModel;
     protected final ServerHandler server;
     protected String nickname;
@@ -14,7 +16,7 @@ public abstract class View implements Observer{
     protected View(ServerHandler server, ClientModel clientModel) {
         this.server = server;
         this.clientModel = clientModel;
-        clientModel.addObserver(this);
+        clientModel.setListener(this);
     }
 
     /**
