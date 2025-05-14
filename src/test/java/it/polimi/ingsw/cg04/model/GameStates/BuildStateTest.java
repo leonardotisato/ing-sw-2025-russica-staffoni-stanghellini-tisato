@@ -345,21 +345,21 @@ class BuildStateTest {
     void renderBuildStateTest() throws InterruptedException, InvalidStateException {
         BuildState state = (BuildState) game.getGameState();
         System.out.println(state.render("Alice"));
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         state.drawFaceDown(p1);
         TuiDrawer.clear();
         System.out.println(state.render("Alice"));
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         state.returnTile(p1);
         System.out.println(state.render("Alice"));
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         state.drawFaceDown(p1);
         TuiDrawer.clear();
         System.out.println(state.render("Alice"));
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         state.returnTile(p1);
         System.out.println(state.render("Alice"));
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         state.pickPile(p1, 1);
         System.out.println(state.render("Alice"));
     }

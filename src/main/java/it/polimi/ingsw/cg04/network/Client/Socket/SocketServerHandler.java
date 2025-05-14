@@ -302,8 +302,19 @@ public class SocketServerHandler extends ServerHandler {
                         String response = (String) message.payload();
                         if(response != null){
                             nickname = response;
+                            addLogs(Collections.singletonList("Nickname set to: " + nickname));
                         } else {
                             addLogs(Collections.singletonList("Nickname already taken"));
+                        }
+                    });
+                }
+                case "JOINABLE-GAMES" -> {
+                    inputHandler.submit(() -> {
+                        List<Integer> games = (List<Integer>) message.payload();
+                        if(games.isEmpty()){
+                            addLogs(Collections.singletonList("No joinable games. Create a game with 'createGame'."));
+                        } else {
+                            addLogs(Collections.singletonList("Joinable games ID: " + games));
                         }
                     });
                 }

@@ -68,7 +68,6 @@ public class GamesController {
             server.broadcastLogs(recipients, collectedLogs);
 
         } catch (NullPointerException e) {
-            System.out.println("Player not in a game");
             e.printStackTrace();
         }
     }

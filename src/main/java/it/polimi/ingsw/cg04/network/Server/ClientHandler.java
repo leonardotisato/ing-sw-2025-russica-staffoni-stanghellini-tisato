@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 import java.util.Collections;
+import java.util.List;
 
 public abstract class ClientHandler implements VirtualClient {
 
@@ -73,5 +74,9 @@ public abstract class ClientHandler implements VirtualClient {
             addLogs(Collections.singletonList(e.getReason()));
             return false;
         }
+    }
+
+    public List<Integer> provideJoinableGames() {
+        return controller.getJoinableGames();
     }
 }

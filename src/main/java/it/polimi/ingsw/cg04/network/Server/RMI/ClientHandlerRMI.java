@@ -93,6 +93,11 @@ public class ClientHandlerRMI extends ClientHandler {
         }
 
         @Override
+        public List<Integer> provideJoinableGamesRMI() throws RemoteException {
+            return getController().getJoinableGames();
+        }
+
+        @Override
         public void pingRMI(String key) throws RemoteException {
             virtualClient.pongRMI(key);
         }

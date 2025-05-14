@@ -28,10 +28,29 @@ public class TUI extends View {
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
-        System.out.println("Welcome to Galaxy Trucker!");
+
+
+        String asciiArt = """
+                 $$$$$$\\            $$\\                                     $$$$$$$$\\                            $$\\                          \s
+                $$  __$$\\           $$ |                                    \\__$$  __|                           $$ |                         \s
+                $$ /  \\__| $$$$$$\\  $$ | $$$$$$\\  $$\\   $$\\ $$\\   $$\\          $$ | $$$$$$\\  $$\\   $$\\  $$$$$$$\\ $$ |  $$\\  $$$$$$\\   $$$$$$\\ \s
+                $$ |$$$$\\  \\____$$\\ $$ | \\____$$\\ \\$$\\ $$  |$$ |  $$ |         $$ |$$  __$$\\ $$ |  $$ |$$  _____|$$ | $$  |$$  __$$\\ $$  __$$\\\s
+                $$ |\\_$$ | $$$$$$$ |$$ | $$$$$$$ | \\$$$$  / $$ |  $$ |         $$ |$$ |  \\__|$$ |  $$ |$$ /      $$$$$$  / $$$$$$$$ |$$ |  \\__|
+                $$ |  $$ |$$  __$$ |$$ |$$  __$$ | $$  $$<  $$ |  $$ |         $$ |$$ |      $$ |  $$ |$$ |      $$  _$$<  $$   ____|$$ |     \s
+                \\$$$$$$  |\\$$$$$$$ |$$ |\\$$$$$$$ |$$  /\\$$\\ \\$$$$$$$ |         $$ |$$ |      \\$$$$$$  |\\$$$$$$$\\ $$ | \\$$\\ \\$$$$$$$\\ $$ |     \s
+                 \\______/  \\_______|\\__| \\_______|\\__/  \\__| \\____$$ |         \\__|\\__|       \\______/  \\_______|\\__|  \\__| \\_______|\\__|     \s
+                                                            $$\\   $$ |                                                                        \s
+                                                            \\$$$$$$  |                                                                        \s
+                                                             \\______/
+                
+                """;
+
+
+        System.out.println("Welcome to:\n");
+        System.out.println(asciiArt);
         System.out.println("Type 'helper' to receive the list of commands.");
         System.out.println("Once typed the command you decided to use, an explanation of it's accepted input format will be displayed.");
-        System.out.println("Note that not every command requires parameters.");
+        System.out.println("Note that not every command requires parameters.\n\n");
 
         input = new InputReader();
         Thread t = new Thread(input);
@@ -60,12 +79,12 @@ public class TUI extends View {
     }
 
 
-    public void updateLogs() {
+    public synchronized void updateLogs() {
         List<String> logs = clientModel.getLogs();
         LineReader reader = input.getReader();
 
         // Stampa 10 righe sopra la riga attiva
-        reader.printAbove("--- LOGS ---");
+        reader.printAbove("──────── LOGS ────────");
 
         // Stampa ogni log oppure una riga vuota
         for (int i = 0; i < logs.size(); i++) {

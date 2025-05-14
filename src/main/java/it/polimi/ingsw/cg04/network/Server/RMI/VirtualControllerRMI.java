@@ -13,6 +13,7 @@ import java.util.Map;
 public interface VirtualControllerRMI extends Remote {
     void handleActionRMI(Action action) throws RemoteException;
     boolean handleSubscriptionRMI(Action action) throws RemoteException;
+    List<Integer> provideJoinableGamesRMI() throws RemoteException;
 
     void pingRMI(String key) throws RemoteException;
     void pongRMI(String key) throws RemoteException;

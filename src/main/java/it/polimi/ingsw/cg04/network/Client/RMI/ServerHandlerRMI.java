@@ -22,10 +22,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -70,7 +67,9 @@ public class ServerHandlerRMI extends ServerHandler {
             virtualController = provider.connect(virtualClient);
 
             // Set up a demon thread to check if server is still up
-            Thread demon = new Thread(new RmiServerChecker()); demon.setDaemon(true); demon.setName("Rmi connection checker");
+            Thread demon = new Thread(new RmiServerChecker());
+            demon.setDaemon(true);
+            demon.setName("Rmi connection checker");
             serverChecker.scheduleAtFixedRate(demon, 1, 4, TimeUnit.SECONDS);
 
         } catch (RemoteException | NotBoundException | MalformedURLException e) {
@@ -81,10 +80,10 @@ public class ServerHandlerRMI extends ServerHandler {
         }
     }
 
-    private static void killRmiReaper(){
+    private static void killRmiReaper() {
         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
         for (Thread t : threadSet) {
-            if(t.getName().contains("RMI")){
+            if (t.getName().contains("RMI")) {
                 System.out.println("Killing RMI Reaper");
                 t.interrupt();
             }
@@ -99,11 +98,18 @@ public class ServerHandlerRMI extends ServerHandler {
         Action setNicknameAction = new SetNicknameAction(nickname);
         rmiExecutor.submit(() -> {
             try {
-                if(virtualController.handleSubscriptionRMI(setNicknameAction)) {
+                if (virtualController.handleSubscriptionRMI(setNicknameAction)) {
                     super.nickname = nickname;
                     System.out.println("Nickname set to " + nickname);
-                }
-                else {
+
+                    // get available games... controller.getJoinableGames()
+                    List<Integer> games = virtualController.provideJoinableGamesRMI();
+                    if (games.isEmpty()) {
+                        addLogs(Collections.singletonList("No joinable games. Create a game with 'createGame'."));
+                    } else {
+                        addLogs(Collections.singletonList("Joinable games ID: " + games));
+                    }
+                } else {
                     super.nickname = null;
                 }
             } catch (RemoteException ignored) {
@@ -116,7 +122,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(createGameAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -125,7 +132,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(joinGameAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -137,7 +145,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(chooseTileAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -147,7 +156,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(chooseTileFromBufferAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -156,7 +166,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(closeFaceUpTilesAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -165,7 +176,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(drawFaceDownAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -174,7 +186,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(endBuildingAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -183,7 +196,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(pickPileAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -192,7 +206,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(placeAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -201,7 +216,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(rotateAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -210,7 +226,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(placeInBufferAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -219,7 +236,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(returnPileAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -228,7 +246,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(returnTileAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -237,7 +256,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(showFaceUpAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -246,7 +266,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(startTimeAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -256,7 +277,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(chooseBatteryAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -265,7 +287,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(choosePropulsorAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -274,16 +297,18 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(compareCrewAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
-    public void compareFirePower(List<Coordinates> BatteryCoords, List <Coordinates> CannonCoords) {
+    public void compareFirePower(List<Coordinates> BatteryCoords, List<Coordinates> CannonCoords) {
         Action compareFirePowerAction = new CompareFirePowerAction(nickname, BatteryCoords, CannonCoords);
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(compareFirePowerAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -292,7 +317,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(epidemicAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -301,7 +327,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(getNextAdventureCardAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -310,25 +337,28 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(getRewardsAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
-    public void handleBoxes(List<Coordinates> coords, List<Map<BoxType,Integer>> boxes) {
+    public void handleBoxes(List<Coordinates> coords, List<Map<BoxType, Integer>> boxes) {
         Action handleBoxesAction = new HandleBoxesAction(nickname, coords, boxes);
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(handleBoxesAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
-    public void landToPlanet(Integer planetIdx, List<Coordinates> coords, List<Map<BoxType,Integer>> boxes) {
+    public void landToPlanet(Integer planetIdx, List<Coordinates> coords, List<Map<BoxType, Integer>> boxes) {
         Action planetsAction = new PlanetsAction(nickname, planetIdx, coords, boxes);
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(planetsAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -337,7 +367,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(removeCrewAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -346,7 +377,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(rollDiceAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -355,7 +387,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(starDustAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -364,7 +397,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(fixShipAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -373,7 +407,8 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(loadCrewAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
@@ -382,12 +417,14 @@ public class ServerHandlerRMI extends ServerHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualController.handleActionRMI(retireAction);
-            } catch (RemoteException ignored) {}
+            } catch (RemoteException ignored) {
+            }
         });
     }
 
     class VirtualClientImp extends UnicastRemoteObject implements VirtualClientRMI {
-        protected VirtualClientImp() throws RemoteException { }
+        protected VirtualClientImp() throws RemoteException {
+        }
 
         // todo: implement
         @Override
@@ -424,17 +461,19 @@ public class ServerHandlerRMI extends ServerHandler {
             Thread pinger = new Thread(() -> {
                 try {
                     virtualController.pingRMI(heartBeat);
-                } catch (RemoteException ignored) {}
+                } catch (RemoteException ignored) {
+                }
             });
             pinger.setDaemon(true);
             pinger.start();
 
             try {
                 Thread.sleep(3000);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
 
             // Check if client responded to the ping message
-            if(!heartBeat.equals(lastHeartBeat)) {
+            if (!heartBeat.equals(lastHeartBeat)) {
                 new Thread(() -> {
                     // todo: uncomment when implemented
                     // notifyViewServerUnreachable();

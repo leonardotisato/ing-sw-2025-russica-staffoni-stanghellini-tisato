@@ -63,7 +63,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                         inputHandler.submit(() -> {
                             try {
                                 Action a = (Action) message.payload();
-                                if (a.getPlayerNickname() == null){
+                                if (a.getPlayerNickname() == null) {
                                     addLogs(Collections.singletonList("Player " + nickname + " tried to perform an action without specifying the player nickname"));
                                 } else {
                                     handleAction(a);
@@ -77,12 +77,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                         inputHandler.submit(() -> {
                             try {
                                 Action a = (Action) message.payload();
-                                if(handleSubscription(a)){
+                                if (handleSubscription(a)) {
                                     String response = a.getPlayerNickname();
                                     send(new Message("SUBSCRIPTION-RESPONSE", response));
-
-                                    // nickname was
-                                } else{
+                                    send(new Message("JOINABLE-GAMES", provideJoinableGames()));
+                                } else {
                                     send(new Message("SUBSCRIPTION-RESPONSE", null));
                                 }
                             } catch (Exception e) {
@@ -136,14 +135,16 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             // Wait for server response
             try {
                 Thread.sleep(3000);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
 
             if (!heartBeat.equals(lastHeartBeat)) {
                 try {
                     disconnect();
                     socket.close();
                     System.out.println("Connection with client lost");
-                } catch (IOException ignored) {}
+                } catch (IOException ignored) {
+                }
             }
         }
     }
