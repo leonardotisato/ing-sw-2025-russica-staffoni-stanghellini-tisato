@@ -18,7 +18,7 @@ public class TuiParser {
             case "pickPile" -> System.out.println("  <pileIndex>");
             case "endBuilding" -> System.out.println("  <startingPosition>");
             case "place" -> System.out.println("  <x> <y>");
-            case "rotate" -> System.out.println("  <LEFT | RIGHT>");
+            case "rotate" -> System.out.println("  <LEFT | RIGHT | DOWN>");
             case "chooseBattery" -> {
                 System.out.println("Send -1 -1 if you don't want to use a battery.");
                 System.out.println("  <x> <y>");

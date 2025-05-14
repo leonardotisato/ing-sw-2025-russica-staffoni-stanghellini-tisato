@@ -66,6 +66,10 @@ public class BuildState extends GameState {
         } else if (type.equalsIgnoreCase("RIGHT")) {
             player.getHeldTile().rotate90dx();
         }
+        else if (type.equalsIgnoreCase("DOWN")) {
+            player.getHeldTile().rotate90dx();
+            player.getHeldTile().rotate90dx();
+        }
     }
 
     @Override

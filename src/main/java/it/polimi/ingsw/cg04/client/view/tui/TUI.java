@@ -29,7 +29,7 @@ public class TUI extends View {
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
         System.out.println("Welcome to Galaxy Trucker!");
-        System.out.println("Type helper to receive the list of commands.");
+        System.out.println("Type 'helper' to receive the list of commands.");
         System.out.println("Once typed the command you decided to use, an explanation of it's accepted input format will be displayed.");
         System.out.println("Note that not every command requires parameters.");
 
@@ -164,6 +164,11 @@ public class TUI extends View {
                         args = parser.parseArguments(command, argsLine);
                         server.place(args.coord1().getX(), args.coord1().getY());
                     }
+                    case "rotate" -> {
+                        argsLine = reader.readLine(">> ");
+                        args = parser.parseArguments(command, argsLine);
+                        server.rotate(args.string());
+                    }
                     case "placeInBuffer" -> server.placeInBuffer();
                     case "returnPile" -> server.returnPile();
                     case "returnTile" -> server.returnTile();
@@ -278,6 +283,7 @@ public class TUI extends View {
             System.out.println("\tcloseFaceUp               -close face up tiles (no parameters)");
             System.out.println("\tdrawFaceDown              -draw a random face down tile (no parameters)");
             System.out.println("\tplace                     -place the tile you are currently holding specifying the coordinates");
+            System.out.println("\trotate                    -rotate the tile you are currently holding specifying the direction");
             System.out.println("\tendBuilding               -finish the building phase and decide the position you want to start in");
             System.out.println("\tpickPile                  -show the cards in one of the piles specifying the pile index");
             System.out.println("\tplaceInBuffer             -place the tile you are currently holding in the buffer (no parameters)");
@@ -336,7 +342,7 @@ public class TUI extends View {
             }
         }
 
-            public Terminal getTerminal() {
+        public Terminal getTerminal() {
             return terminal;
         }
 
