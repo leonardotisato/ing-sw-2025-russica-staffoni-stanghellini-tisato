@@ -212,12 +212,12 @@ public class Ship implements Serializable {
      * Determines if placing a tile at the specified coordinates on the grid is legal.
      *
      * @param tile the tile to be placed; must not be null
-     * @param x the x-coordinate of the position where the tile is to be placed
-     * @param y the y-coordinate of the position where the tile is to be placed
+     * @param x    the x-coordinate of the position where the tile is to be placed
+     * @param y    the y-coordinate of the position where the tile is to be placed
      * @return true if the placement is legal according to the game rules; false otherwise
      * @throws IllegalArgumentException if the specified coordinates are out of bounds
      */
-    public boolean isPlacingLegal(Tile tile, int x, int y){
+    public boolean isPlacingLegal(Tile tile, int x, int y) {
         if (isOutOfBounds(x, y)) {
             throw new IllegalArgumentException("Requested slot is out of bounds!");
         }
@@ -236,46 +236,35 @@ public class Ship implements Serializable {
             return false;
         }
 
-        if(validSlots[x][y]){
-            if(x == 0){
-                if(tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y+1] == null){
-                    return false;
-                }
-            }
-
-            else if(x == shipHeight - 1){
-                if(y == shipWidth - 1) {
-                    if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null) {
-                        return false;
-                    }
-                }
-                else if(y == 0) {
-                    if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y + 1] == null) {
-                        return false;
-                    }
-                }
-                else if(tilesMatrix[x-1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y+1] == null){
-                    return false;
-                }
-
-            }
-
-            else if(y == 0){
-                if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y+1] == null){
-                    return false;
-                }
-            }
-
-            else if(y == shipWidth - 1){
-                if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null){
-                    return false;
-                }
-            }
-
-            else if(tilesMatrix[x-1][y] == null && tilesMatrix[x+1][y] == null && tilesMatrix[x][y-1] == null && tilesMatrix[x][y-1] == null) {
+        if (x == 0) {
+            if (tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
                 return false;
             }
+        } else if (x == shipHeight - 1) {
+            if (y == shipWidth - 1) {
+                if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null) {
+                    return false;
+                }
+            } else if (y == 0) {
+                if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y + 1] == null) {
+                    return false;
+                }
+            } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
+                return false;
+            }
+
+        } else if (y == 0) {
+            if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y + 1] == null) {
+                return false;
+            }
+        } else if (y == shipWidth - 1) {
+            if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null) {
+                return false;
+            }
+        } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y - 1] == null) {
+            return false;
         }
+
         return true;
     }
 
@@ -713,7 +702,7 @@ public class Ship implements Serializable {
                 if (tilesMatrix[i][j] != null) {
                     Tile currTile = tilesMatrix[i][j];
 
-                    if(currTile.isDoublePropulsor() != null && currTile.getConnection(Direction.DOWN) != Connection.PROPULSOR){
+                    if (currTile.isDoublePropulsor() != null && currTile.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
                         return false;
                     }
 
@@ -1198,7 +1187,7 @@ public class Ship implements Serializable {
         // Add top column indices
         fullShip.append(" ".repeat(4)); // space for left row labels
         for (int col = 0; col < shipWidth; col++) {
-            String colStr = String.valueOf(col+4); //todo: offset=4 depends on gameLevel!
+            String colStr = String.valueOf(col + 4); //todo: offset=4 depends on gameLevel!
             int padding = tileWidth - colStr.length();
             int padLeft = padding / 2;
             int padRight = padding - padLeft;

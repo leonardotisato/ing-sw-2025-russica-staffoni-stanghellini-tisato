@@ -201,6 +201,9 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
             throw new InvalidStateException("cant end building now");
         }
+        if(playerState.get(player.getName()) == BuildPlayerState.SHOWING_PILE) {
+            throw new InvalidStateException("cant end building while looking at a pile");
+        }
         if (position > playerState.size()) {
             throw new InvalidStateException("there are " + playerState.size() + "cant choose position " + position);
         }
