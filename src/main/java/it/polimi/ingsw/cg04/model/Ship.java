@@ -261,7 +261,7 @@ public class Ship implements Serializable {
             if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null) {
                 return false;
             }
-        } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y - 1] == null) {
+        } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
             return false;
         }
 
