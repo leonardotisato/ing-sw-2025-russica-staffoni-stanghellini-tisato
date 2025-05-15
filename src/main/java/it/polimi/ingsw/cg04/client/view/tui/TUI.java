@@ -19,6 +19,7 @@ import java.beans.PropertyChangeEvent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -216,9 +217,8 @@ public class TUI extends View {
                     case "choosePropulsor" -> {
                         argsLine = reader.readLine(">> ");
                         if (argsLine.isEmpty()) {
-                            server.choosePropulsor(null, null);
+                            server.choosePropulsor(new ArrayList<>(), new ArrayList<>());
                         } else {
-                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             List<Coordinates> coords = args.coordGroups().isEmpty() ? List.of() : args.coordGroups().getFirst();
                             server.choosePropulsor(coords, args.intList());
@@ -251,7 +251,6 @@ public class TUI extends View {
                         if (argsLine.isEmpty()) {
                             server.handleBoxes(null, null);
                         } else {
-                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
                         }
@@ -261,7 +260,6 @@ public class TUI extends View {
                         if (argsLine.isEmpty()) {
                             server.landToPlanet(null, null, null);
                         } else {
-                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
                         }
@@ -271,7 +269,6 @@ public class TUI extends View {
                         if (argsLine.isEmpty()) {
                             server.removeCrew(null, null);
                         } else {
-                            argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
                             server.removeCrew(args.coordGroups().getFirst(), args.intList());
                         }
