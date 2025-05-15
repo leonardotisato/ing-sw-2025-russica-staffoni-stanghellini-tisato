@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.view;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.adventureCards.Planets;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,6 +72,16 @@ class CardDrawTest {
     public void drawWarzoneCard() {
         AdventureCard card = game.getCardById(36);
         System.out.println(card.draw());
+    }
+
+    @Test
+    public void drawAllPlanetsCard() {
+        for (Integer i : game.getAdventureCardsMap().keySet()) {
+            AdventureCard card = game.getCardById(i);
+            if (card.getType().equals("Planets")) {
+                System.out.println(card.draw());
+            }
+        }
     }
 
 

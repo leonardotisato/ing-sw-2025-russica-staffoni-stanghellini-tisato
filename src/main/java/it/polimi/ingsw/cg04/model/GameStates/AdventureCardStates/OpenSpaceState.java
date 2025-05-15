@@ -17,18 +17,22 @@ import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
 import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class OpenSpaceState extends AdventureCardState {
-    private final Map<Player, Integer> playerDelta = new HashMap<>();;
+    private final Map<Player, Integer> playerDelta = new HashMap<>();
+    ;
 
-    public OpenSpaceState(Game game) {  super(game);  }
+    public OpenSpaceState(Game game) {
+        super(game);
+    }
 
     @Override
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
-        if (!p.equals(sortedPlayers.get(currPlayerIdx))) throw new InvalidStateException("Player" + p.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
+        if (!p.equals(sortedPlayers.get(currPlayerIdx)))
+            throw new InvalidStateException("Player" + p.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
         for (int i = 0; i < usedBatteries.size(); i++) {
             p.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
         }
         p.move(p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
-        this.addLog("Player " + p.getName() + " moved forward " + p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2 + "positions!");
+        this.addLog("Player " + p.getName() + " moved forward " + (p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2) + "positions!");
         playerDelta.put(p, p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
         this.played.set(currPlayerIdx, 1);
         this.currPlayerIdx++;
@@ -39,8 +43,8 @@ public class OpenSpaceState extends AdventureCardState {
     }
 
     private void flagNoPowerOpenSpace() {
-        for(Player p : playerDelta.keySet()) {
-            if(playerDelta.get(p) == 0) {
+        for (Player p : playerDelta.keySet()) {
+            if (playerDelta.get(p) == 0) {
                 context.getRetiredPlayers().add(p);
                 context.getPlayers().remove(p);
                 p.setRetired(true);
@@ -59,7 +63,7 @@ public class OpenSpaceState extends AdventureCardState {
         stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
-            int totDoublePropulsor = (int)propulsorCoordinates.stream()
+            int totDoublePropulsor = (int) propulsorCoordinates.stream()
                     .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
                     .filter(t -> t.isDoublePropulsor())
                     .count();

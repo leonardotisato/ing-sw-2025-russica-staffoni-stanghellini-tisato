@@ -270,7 +270,7 @@ public class BuildState extends GameState {
             stringBuilder.append("Your ship is not legal, fix it by removing tiles until you can properly fly!");
         } else {
             if (playerState.get(nickname) == BuildPlayerState.SHOWING_PILE) {
-                stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname), "piles")).append("\n").append("\n");
+                stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname) - 1, "piles")).append("\n").append("\n");
             } else {
                 stringBuilder.append(renderPilesBackside(29, 11)).append("\n").append("\n");
             }
