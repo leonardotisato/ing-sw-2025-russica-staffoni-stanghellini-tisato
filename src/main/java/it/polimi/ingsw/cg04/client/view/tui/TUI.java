@@ -64,11 +64,11 @@ public class TUI extends View {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case "GAME_UPDATE" -> {
-                System.out.println("Game updated");
+                // System.out.println("Game updated");
                 updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
             }
             case "LOGS_UPDATE" -> {
-                System.out.println("Logs updated");
+                // System.out.println("Logs updated");
                 updateLogs((List<String>) evt.getNewValue());
             }
         }
@@ -86,8 +86,10 @@ public class TUI extends View {
             t.writer().println(rendered);
 
 
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException e) {
             System.out.println("Game not found");
+            e.printStackTrace();
+
         }
     }
 
