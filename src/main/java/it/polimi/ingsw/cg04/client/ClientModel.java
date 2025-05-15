@@ -19,6 +19,8 @@ public class ClientModel {
     }
 
     public void setGame(Game game, String nickname) {
+
+        if (game == null) System.out.println("################################## Game is null!!!!!!!!!! ##################################");
         this.game = game;
 
         this.listener.propertyChange(new PropertyChangeEvent(
