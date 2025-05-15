@@ -281,6 +281,10 @@ public class Ship implements Serializable {
         }
     }
 
+    public void updateNumBrokenTiles(int numBrokenTiles) {
+        this.numBrokenTiles -= numBrokenTiles;
+    }
+
     /**
      * removes the tile in the {@code x, y} slot and calls {@code tile.broken(...)}
      * which takes care of updating ship and tile attributes

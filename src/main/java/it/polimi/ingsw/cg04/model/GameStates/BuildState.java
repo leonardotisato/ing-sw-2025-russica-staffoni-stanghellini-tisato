@@ -234,6 +234,9 @@ public class BuildState extends GameState {
         for (Coordinates coordinates : coordinatesList) {
             player.getShip().breakTile(coordinates.getX(), coordinates.getY());
         }
+        if(game.getLevel() == 1) {
+            player.getShip().updateNumBrokenTiles(coordinatesList.size());
+        }
         if (player.getShip().isShipLegal()) {
             playerState.put(player.getName(), BuildPlayerState.READY);
             this.addLog(player.getName() + " is done fixing his ship!");
