@@ -30,7 +30,7 @@ public class ChooseBatteryAction extends PlayerAction {
 
         // if received coords are out of bound
         if (!player.getShip().isSlotValid(x, y)) {
-            throw new InvalidActionException("Coordinates" + x + ", " + y + "are out of bounds");
+            throw new InvalidActionException("Coordinates " + x + ", " + y + " are out of bounds");
         }
 
         // check if input coordinates match a battery tile with batteries on it

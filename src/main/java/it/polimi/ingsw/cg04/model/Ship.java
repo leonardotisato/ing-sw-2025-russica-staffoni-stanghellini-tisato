@@ -1165,6 +1165,7 @@ public class Ship implements Serializable {
 
     public String draw() {
         StringBuilder fullShip = new StringBuilder();
+        int columnOffset = level == 2 ? 4 : 5;
 
         // Prepare tile line representations
         List<String>[][] tileLines = (List<String>[][]) new List[shipHeight][shipWidth];
@@ -1176,7 +1177,7 @@ public class Ship implements Serializable {
                 if (validSlots[row][col]) {
                     String[] lines = (tilesMatrix[row][col] != null)
                             ? tilesMatrix[row][col].draw().split("\n")
-                            : new EmptyTile(row, col).draw().split("\n");
+                            : new EmptyTile(row + 5, col + columnOffset).draw().split("\n");
                     tileLines[row][col] = Arrays.asList(lines);
                 } else {
                     List<String> blank = new ArrayList<>();
@@ -1191,7 +1192,7 @@ public class Ship implements Serializable {
         // Add top column indices
         fullShip.append(" ".repeat(4)); // space for left row labels
         for (int col = 0; col < shipWidth; col++) {
-            String colStr = String.valueOf(col + 4); //todo: offset=4 depends on gameLevel!
+            String colStr = String.valueOf(col + columnOffset);
             int padding = tileWidth - colStr.length();
             int padLeft = padding / 2;
             int padRight = padding - padLeft;

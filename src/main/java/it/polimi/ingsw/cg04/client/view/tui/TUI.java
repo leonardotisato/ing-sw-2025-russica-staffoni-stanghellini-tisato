@@ -27,6 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TUI extends View {
     private final InputReader input;
+    private int columnOffset = 0;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -67,6 +68,7 @@ public class TUI extends View {
             case "GAME_UPDATE" -> {
                 // System.out.println("Game updated");
                 updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
+                columnOffset = ((Game) evt.getNewValue()).getLevel() == 2 ? 4 : 5;
             }
             case "LOGS_UPDATE" -> {
                 // System.out.println("Logs updated");
@@ -150,7 +152,7 @@ public class TUI extends View {
 
             try {
                 String command = scanner.next();
-                TuiParser parser = new TuiParser();
+                TuiParser parser = new TuiParser(columnOffset);
                 parser.printCommandFormat(command);
 
                 //Scanner stdinScanner = new Scanner(System.in);

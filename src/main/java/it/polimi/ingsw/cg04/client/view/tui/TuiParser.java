@@ -7,6 +7,12 @@ import java.util.*;
 
 public class TuiParser {
 
+    private int columnOffset;
+
+    public TuiParser(int columnOffset) {
+        this.columnOffset = columnOffset;
+    }
+
     public void printCommandFormat(String command) {
         System.out.println("Parameter format for command: " + command);
         switch (command) {
@@ -107,7 +113,7 @@ public class TuiParser {
             case "place", "chooseBattery" -> {
                 if (scanner.hasNextInt()) {
                     int x = scanner.nextInt();
-                    if (scanner.hasNextInt()) coord1 = new Coordinates(x, scanner.nextInt());
+                    if (scanner.hasNextInt()) coord1 = new Coordinates(x - 5, scanner.nextInt() - columnOffset);
                 }
             }
             case "choosePropulsor", "removeCrew" -> {
@@ -117,7 +123,8 @@ public class TuiParser {
                         List<Coordinates> group = new ArrayList<>();
                         while (scanner.hasNextInt()) {
                             int x = scanner.nextInt();
-                            if (scanner.hasNextInt()) group.add(new Coordinates(x, scanner.nextInt()));
+                            if (scanner.hasNextInt())
+                                group.add(new Coordinates(x - 5, scanner.nextInt() - columnOffset));
                         }
                         coordGroups.add(group);
                     } else if ("-n".equals(token)) {
@@ -131,7 +138,7 @@ public class TuiParser {
                     List<Coordinates> group = new ArrayList<>();
                     while (scanner.hasNextInt()) {
                         int x = scanner.nextInt();
-                        if (scanner.hasNextInt()) group.add(new Coordinates(x, scanner.nextInt()));
+                        if (scanner.hasNextInt()) group.add(new Coordinates(x - 5, scanner.nextInt() - columnOffset));
                     }
                     coordGroups.add(group);
                 }
@@ -147,7 +154,8 @@ public class TuiParser {
                         List<Coordinates> group = new ArrayList<>();
                         while (scanner.hasNextInt()) {
                             int x = scanner.nextInt();
-                            if (scanner.hasNextInt()) group.add(new Coordinates(x, scanner.nextInt()));
+                            if (scanner.hasNextInt())
+                                group.add(new Coordinates(x - 5, scanner.nextInt() - columnOffset));
                         }
                         coordGroups.add(group);
                     } else if ("-m".equals(token)) {
@@ -168,7 +176,7 @@ public class TuiParser {
                     List<Coordinates> group = new ArrayList<>();
                     while (scanner.hasNextInt()) {
                         int x = scanner.nextInt();
-                        if (scanner.hasNextInt()) group.add(new Coordinates(x, scanner.nextInt()));
+                        if (scanner.hasNextInt()) group.add(new Coordinates(x - 5, scanner.nextInt() - columnOffset));
                     }
                     coordGroups.add(group);
                 }
@@ -179,7 +187,7 @@ public class TuiParser {
                     if (scanner.hasNextInt()) {
                         int x1 = scanner.nextInt();
                         int y1 = scanner.nextInt();
-                        coord1 = new Coordinates(x1, y1);
+                        coord1 = new Coordinates(x1 - 5, y1 - columnOffset);
                     }
                 }
                 if (scanner.hasNext("-b")) {
@@ -187,7 +195,7 @@ public class TuiParser {
                     if (scanner.hasNextInt()) {
                         int x2 = scanner.nextInt();
                         int y2 = scanner.nextInt();
-                        coord2 = new Coordinates(x2, y2);
+                        coord2 = new Coordinates(x2 - 5, y2 - columnOffset);
                     }
                 }
             }

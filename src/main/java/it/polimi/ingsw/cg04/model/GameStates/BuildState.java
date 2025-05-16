@@ -202,14 +202,14 @@ public class BuildState extends GameState {
             throw new InvalidStateException("cant end building now");
         }
         if(playerState.get(player.getName()) == BuildPlayerState.SHOWING_PILE) {
-            throw new InvalidStateException("cant end building while looking at a pile");
+            throw new InvalidStateException("Return the pile before ending the building phase!");
         }
         if (position > playerState.size()) {
-            throw new InvalidStateException("there are " + playerState.size() + "cant choose position " + position);
+            throw new InvalidStateException("There are only" + playerState.size() + " players! Can't choose position " + position);
         }
         FlightBoard board = game.getBoard();
         if (board.getCell(board.getStartingPosition(position)) != null) {
-            throw new InvalidStateException("already a player in position " + position);
+            throw new InvalidStateException("Position " + position + " is already taken!");
         }
 
         player.move(board.getStartingPosition(position));

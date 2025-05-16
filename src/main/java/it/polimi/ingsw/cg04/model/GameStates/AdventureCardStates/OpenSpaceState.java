@@ -32,7 +32,7 @@ public class OpenSpaceState extends AdventureCardState {
             p.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
         }
         p.move(p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
-        this.addLog("Player " + p.getName() + " moved forward " + (p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2) + "positions!");
+        this.addLog("Player " + p.getName() + " moved forward by " + (p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2) + " positions!");
         playerDelta.put(p, p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
         this.played.set(currPlayerIdx, 1);
         this.currPlayerIdx++;

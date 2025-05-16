@@ -26,7 +26,7 @@ public class PlaceAction extends PlayerAction {
     public boolean checkAction(Player player) throws InvalidActionException {
         // check if slot is valid
         if (!player.getShip().isSlotValid(coordinates.getX(),coordinates.getY())) {
-            throw new InvalidActionException("Coordinates" + coordinates.getX() + ", " + coordinates.getY() + "are out of bounds");
+            throw new InvalidActionException("Coordinates " + coordinates.getX() + ", " + coordinates.getY() + " are out of bounds");
         }
         // check if the player is holding a tile
         if(player.getHeldTile()==null) {
