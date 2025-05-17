@@ -69,7 +69,7 @@ public class EpidemicState extends AdventureCardState {
         played.set(sortedPlayers.indexOf(player), 1);
         this.addLog("Player " + player.getName() + " has spread epidemic and he lost " + crewMembersLost + " crew members.");
         if(!played.contains(0)){
-            this.addLog("The epidemic is finished!");
+            this.appendLog("The epidemic is finished!");
             triggerNextState();
         }
     }

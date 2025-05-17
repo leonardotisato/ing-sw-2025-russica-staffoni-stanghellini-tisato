@@ -87,7 +87,7 @@ public class WarZoneState extends AdventureCardState {
                 triggerNextPenalty();
             } else {
                 worstPlayerState = F_INIT;
-                this.addLog("Colpo in arrivo!");
+                this.appendLog("Shot incoming!");
             }
         }
     }
@@ -102,7 +102,7 @@ public class WarZoneState extends AdventureCardState {
             }
             else {
                 played.replaceAll(ignored -> INIT);
-                this.addLog("Nuovo round di WarZone! Round numero: " + (penaltyIdx + 1));
+                this.appendLog("New WarZone round! Round number: " + (penaltyIdx + 1));
             }
         }
     }
@@ -116,7 +116,11 @@ public class WarZoneState extends AdventureCardState {
             } else {
                 for (int i = 0; i < sortedPlayers.size(); i++) {
                     crewSize.add(sortedPlayers.get(i).getShip().getNumCrew());
-                    this.addLog("Player " + sortedPlayers.get(i).getName() + " ha " + crewSize.get(i) + " membri dell'equipaggio.");
+                    if(i > 0) {
+                        this.appendLog("Player " + sortedPlayers.get(i).getName() + " ha " + crewSize.get(i) + " membri dell'equipaggio.");
+                    } else {
+                        this.addLog("Player " + sortedPlayers.get(i).getName() + " ha " + crewSize.get(i) + " membri dell'equipaggio.");
+                    }
                     played.set(i, DONE);
                 }
                 for (int i = 1; i < crewSize.size(); i++) {
@@ -128,14 +132,14 @@ public class WarZoneState extends AdventureCardState {
                 played.set(worstPlayerIdx, WORST);
 
                 if (card.getPenaltyType().get(penaltyIdx).equals("GOBACK")) {
-                    this.addLog("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
+                    this.appendLog("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
                     sortedPlayers.get(worstPlayerIdx).move(-card.getDaysLost());
                     played.set(worstPlayerIdx, DONE);
 
                     sortedPlayers = context.getSortedPlayers();
                     triggerNextPenalty();
                 } else if (card.getPenaltyType().get(penaltyIdx).equals("HANDLESHOTS")) {
-                    this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
+                    this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
                     played.set(worstPlayerIdx, WILL_FIGHT);
                     worstPlayerState = F_DONE;
                     triggerNextRound();
@@ -189,17 +193,17 @@ public class WarZoneState extends AdventureCardState {
                             worstPlayerIdx = i;
                         }
                     }
-                    this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza di fuoco di tutti.");
+                    this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza di fuoco di tutti.");
                     played.set(worstPlayerIdx, WORST);
                     if (card.getPenaltyType().get(penaltyIdx).equals("GOBACK")) {
-                        this.addLog("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
+                        this.appendLog("Player: " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getDaysLost() + " giorni di volo.");
                         sortedPlayers.get(worstPlayerIdx).move(-card.getDaysLost());
                         played.set(worstPlayerIdx, DONE);
 
                         sortedPlayers = context.getSortedPlayers();
                         triggerNextPenalty();
                     } else if (card.getPenaltyType().get(penaltyIdx).equals("HANDLESHOTS")) {
-                        this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
+                        this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " subirà delle cannonate. Preparati a combattere!");
                         played.set(worstPlayerIdx, WILL_FIGHT);
                         worstPlayerState = F_DONE;
                         triggerNextRound();
@@ -238,15 +242,15 @@ public class WarZoneState extends AdventureCardState {
                             worstPlayerIdx = i;
                         }
                     }
-                    this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza dei propulsori di tutti.");
+                    this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza dei propulsori di tutti.");
                     played.set(worstPlayerIdx, WORST);
                     if (card.getPenaltyType().get(penaltyIdx).equals("LOSEBOX")) {
                         player.getShip().removeBestBoxes(card.getLostGoods());
                         played.set(worstPlayerIdx, DONE);
-                        this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getLostGoods() + " risorse.");
+                        this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getLostGoods() + " risorse.");
                         triggerNextPenalty();
                     } else if (card.getPenaltyType().get(penaltyIdx).equals("LOSECREW")) {
-                        this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " deve rimuovere " + card.getLostMembers() + " membri dell'equipaggio.");
+                        this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " deve rimuovere " + card.getLostMembers() + " membri dell'equipaggio.");
                     }
                 }
             }
@@ -322,8 +326,12 @@ public class WarZoneState extends AdventureCardState {
             }
             // if fixes make the ship legal player is done for this round
             if (player.getShip().isShipLegal()) {
+                this.addLog("Player: " + player.getName() + "'s ship was fixed!");
                 worstPlayerState = F_DONE;
                 triggerNextRound();
+            }
+            else {
+                this.addLog("Player: " + player.getName() + "'s ship is still illegal! Fix it with fixShip!");
             }
         }
         else {
@@ -370,13 +378,13 @@ public class WarZoneState extends AdventureCardState {
 
             // if player is safe set its state to done for this attack
             if (hitState == -1) {
-                this.addLog("Player: " + player.getName() + " was not hit");
+                this.appendLog("Player: " + player.getName() + " was not hit");
                 worstPlayerState = F_INIT;
                 triggerNextRound();
             }
             // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
             else if (hitState == 2) {
-                this.addLog("Player " + player.getName() + " was hit");
+                this.appendLog("Player " + player.getName() + " was hit");
                 player.getShip().handleHit(direction, dice);
 
                 // if ship is legal, player is done for this attack
@@ -385,13 +393,13 @@ public class WarZoneState extends AdventureCardState {
                     triggerNextRound();
                 } else {
                     // player needs to correct his ship
-                    this.addLog("Player " + player.getName() + " deve correggere la nave.");
+                    this.appendLog("Player " + player.getName() + " deve correggere la nave.");
                     worstPlayerState = F_CORRECT_SHIP;
                 }
             }
             // player can decide to use batteries to defend his ship
             else if (hitState == 0) {
-                this.addLog("Player: " + player.getName() + " can use a battery to save his ship!");
+                this.appendLog("Player: " + player.getName() + " can use a battery to save his ship!");
                 worstPlayerState = F_PROVIDE_BATTERY;
             }
         }

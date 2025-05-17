@@ -57,15 +57,15 @@ public class SmugglersState extends AdventureCardState {
                 player.getShip().removeBestBoxes(card.getLostGoods());
                 played.set(playerIdx, DONE);
                 currPlayerIdx++;
-                this.addLog("Player " + player.getName() + " lost against the smugglers!");
+                this.appendLog("Player " + player.getName() + " lost against the smugglers!");
             } else if (firePower == card.getFirePower()) {
                 played.set(playerIdx, DONE);
                 currPlayerIdx++;
-                this.addLog("Player " + player.getName() + " drew against the smugglers!");
+                this.appendLog("Player " + player.getName() + " drew against the smugglers!");
             } else {
                 played.replaceAll(i -> DONE);
                 played.set(playerIdx, HANDLE_BOXES);
-                this.addLog("Player " + player.getName() + " won against the smugglers!");
+                this.appendLog("Player " + player.getName() + " won against the smugglers!");
             }
 
             // check if every one is done

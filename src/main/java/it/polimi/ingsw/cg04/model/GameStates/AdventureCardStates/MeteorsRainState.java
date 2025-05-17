@@ -87,7 +87,7 @@ public class MeteorsRainState extends AdventureCardState {
 
             System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
-            addLog("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
+            this.addLog("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
 
             // check whether the meteor will hit the ships

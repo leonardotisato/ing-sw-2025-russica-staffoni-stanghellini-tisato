@@ -59,7 +59,7 @@ public class PlanetsState extends AdventureCardState {
             for (int i = sortedPlayers.size() - 1; i >= 0; i--) {
                 if (chosenPlanets.containsKey(sortedPlayers.get(i))) {
                     sortedPlayers.get(i).move(-card.getDaysLost());
-                    this.addLog("Player " + sortedPlayers.get(i).getName() +  " lost " + card.getDaysLost() + " days of flight.");
+                    this.appendLog("Player " + sortedPlayers.get(i).getName() +  " lost " + card.getDaysLost() + " days of flight.");
                 }
             }
             triggerNextState();

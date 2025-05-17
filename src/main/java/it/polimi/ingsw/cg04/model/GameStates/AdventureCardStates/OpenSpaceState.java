@@ -48,7 +48,7 @@ public class OpenSpaceState extends AdventureCardState {
                 context.getRetiredPlayers().add(p);
                 context.getPlayers().remove(p);
                 p.setRetired(true);
-                this.addLog("Player " + p.getName() + " is eliminated, he has propulsion power of 0 in open space!");
+                this.appendLog("Player " + p.getName() + " is eliminated, he has propulsion power of 0 in open space!");
             }
         }
         playerDelta.clear();
