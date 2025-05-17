@@ -1,0 +1,752 @@
+{
+  "1": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "2": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "3": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "4": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "5": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "6": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "7": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "8": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "9": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "10": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "11": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "12": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "13": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "14": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "15": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "16": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "17": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "18": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "19": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "20": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "21": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "22": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "23": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "24": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "25": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "26": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "27": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "28": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "29": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "30": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "DOWN",
+      "DOWN"
+    ],
+    "attacks": [
+      "HEAVY",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "31": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "32": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "33": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "34": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "35": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "36": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "37": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "38": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "39": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "40": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  }
+}

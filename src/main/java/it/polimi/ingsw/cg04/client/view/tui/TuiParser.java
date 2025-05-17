@@ -26,7 +26,7 @@ public class TuiParser {
             case "place", "p" -> System.out.println("  <x> <y>");
             case "rotate", "r" -> System.out.println("  <LEFT | RIGHT | DOWN>");
             case "chooseBattery" -> {
-                System.out.println("Send -1 -1 if you don't want to use a battery.");
+                System.out.println("Press enter if you don't want to activate double cannons.");
                 System.out.println("  <x> <y>");
             }
             case "choosePropulsor" -> {

@@ -215,6 +215,9 @@ public class TUI extends View {
                     case "startTimer" -> server.startTimer();
                     case "chooseBattery" -> {
                         argsLine = reader.readLine(">> ");
+                        if (argsLine.isEmpty()) {
+                            server.chooseBattery(-1, -1);
+                        }
                         args = parser.parseArguments(command, argsLine);
                         server.chooseBattery(args.coord1().getX(), args.coord1().getY());
                     }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class BuildState extends GameState {
     Game game;
     Map<String, Integer> isLookingPile;
     Map<String, Integer> isLookingFaceUpTiles;
+    Shipyard shipyard = new Shipyard(); // used for faster building
 
     public BuildState(Game game) {
         playerState = new HashMap<>();
@@ -52,6 +54,19 @@ public class BuildState extends GameState {
         }
         player.placeTile(x, y);
         this.addLog(player.getName() + " placed a tile in " + x + ", " + y);
+    }
+
+    @Override
+    public void setShip(Player player, int x, int y) throws InvalidStateException {
+        if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
+            throw new InvalidStateException("cant place tile now");
+        }
+        switch (x) {
+            case 103 -> player.setShip(shipyard.createShip3());
+            case 104 -> player.setShip(shipyard.createShip4());
+            case 105 -> player.setShip(shipyard.createShip5());
+        }
+        this.addLog(player.getName() + " set his ship using code " + x + ".");
     }
 
     @Override

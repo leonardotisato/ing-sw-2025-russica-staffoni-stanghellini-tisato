@@ -221,7 +221,7 @@ public class SlaversState extends AdventureCardState {
                 stringBuilder.append("Number of double cannons: " + totDoubleLasers).append("\n");
                 break;
             case WAIT:
-                stringBuilder.append("Smugglers are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
+                stringBuilder.append("Slavers are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
                 break;
             case REMOVE_CREW:
                 stringBuilder.append("You lost! Remove " + card.getLostMembers() + " crew members to continue the game.").append("\n");
