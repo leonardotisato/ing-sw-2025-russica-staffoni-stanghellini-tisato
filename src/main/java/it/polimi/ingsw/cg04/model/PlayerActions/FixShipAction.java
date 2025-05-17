@@ -31,7 +31,7 @@ public class FixShipAction extends PlayerAction {
 
             // if coords is out of bound return false
             if (!player.getShip().isSlotValid(coordinates.getX(), coordinates.getY())) {
-                throw new InvalidActionException("Coordinates" + coordinates.getX() + ", " + coordinates.getY() + " are out of bounds");
+                throw new InvalidActionException("Coordinates " + coordinates.getX() + ", " + coordinates.getY() + " are out of bounds");
             }
 
             if (player.getShip().getTile(coordinates.getX(), coordinates.getY()) == null) {

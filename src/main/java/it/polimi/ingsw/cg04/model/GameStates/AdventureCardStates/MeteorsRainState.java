@@ -33,7 +33,7 @@ public class MeteorsRainState extends AdventureCardState {
         super(game);
 
         numMeteors = card.getAttacks().size();
-        sortedPlayers = game.getPlayers();
+        sortedPlayers = game.getSortedPlayers();
 
         played = new ArrayList<>();
         for (int i = 0; i < sortedPlayers.size(); i++) {
@@ -85,25 +85,34 @@ public class MeteorsRainState extends AdventureCardState {
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
 
+            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
+
+            addLog("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
+
+
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    this.addLog("No ship was hit!");
+                    this.appendLog("No ship was hit!");
                     triggerNextRound();
                     return;
                 } else {
-                    dice -= upBoundary - 1;
+                    // substract offset to find zero-based index to handle hit
+                    dice = dice - leftBoundary;
                 }
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    this.addLog("No ship was hit");
+                    this.appendLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
-                    dice -= leftBoundary - 1;
+                    // substract offset to find zero-based index to handle hit
+                    dice = dice - upBoundary;
                 }
             }
+
+            System.out.println("0-based dice result is: " + dice);
 
             // create list that maps player with what he needs to do
             for (int i = 0; i < sortedPlayers.size(); i++) {
@@ -112,24 +121,26 @@ public class MeteorsRainState extends AdventureCardState {
 
                 // if player is safe set its state to done for this attack
                 if (hitState == -1) {
-                    this.addLog("Player: " + p.getName() + " was not hit");
+                    this.appendLog("Player: " + p.getName() + " was not hit");
                     played.set(i, DONE);
                 }
                 if (hitState == -2) {
-                    this.addLog("Player: " + p.getName() + " used a single cannon!");
+                    this.appendLog("Player: " + p.getName() + " used a single cannon!");
                     played.set(i, DONE);
                 }
 
                 // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                 if (hitState == 2) {
-                    this.addLog("Player: " + p.getName() + " was hit");
+                    this.appendLog("Player: " + p.getName() + " was hit");
                     p.getShip().handleHit(direction, dice);
 
                     // if ship is legal, player is done for this attack
                     if (p.getShip().isShipLegal()) {
+                        this.appendLog("Player: " + p.getName() + "'s ship was damaged, but it's still legal!");
                         played.set(i, DONE);
                     } else {
                         // player needs to correct his ship
+                        this.appendLog("Player: " + p.getName() + "'s ship is now illegal! Fix it with fixShip!");
                         played.set(i, CORRECT_SHIP);
                     }
                 }
@@ -137,6 +148,8 @@ public class MeteorsRainState extends AdventureCardState {
                 // player can decide to use batteries to defend his ship
                 if (hitState == 0 || hitState == 1) {
                     played.set(i, PROVIDE_BATTERY);
+                    System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
+                    appendLog("Player: " + p.getName() + " can use a battery to save his ship!");
                 }
             }
 
@@ -144,6 +157,12 @@ public class MeteorsRainState extends AdventureCardState {
                 triggerNextRound();
             }
         } else {
+            System.out.println("Rolled status is: " + rolled);
+            System.out.println("Player list is " + sortedPlayers.stream().map(Player::getName));
+            if (rolled && player.equals(sortedPlayers.getFirst())) {
+                throw new InvalidStateException("Wait before rolling the dices again: " + player.getName() + "!");
+            }
+
             throw new InvalidStateException("Roll dices are not allowed for player: " + player.getName());
         }
     }
@@ -163,6 +182,9 @@ public class MeteorsRainState extends AdventureCardState {
         // if fixes make the ship legal player is done for this round
         if (player.getShip().isShipLegal()) {
             played.set(playerIdx, DONE);
+            addLog("Player: " + player.getName() + "'s ship was fixed!");
+        } else {
+            addLog("Player: " + player.getName() + "'s ship is still illegal! Fix it with fixShip!");
         }
 
         if (isAllDone(played)) {
@@ -179,12 +201,19 @@ public class MeteorsRainState extends AdventureCardState {
             // handle case where player decide to take the hit
             if (x == -1 && y == -1) {
                 player.getShip().handleHit(direction, dice);
+                addLog("Player: " + player.getName() + " handles the hit!");
                 if (!player.getShip().isShipLegal()) {
                     played.set(playerIdx, CORRECT_SHIP);
+                    appendLog("Player: " + player.getName() + "'s ship is now illegal! Fix it with fixShip!");
+                } else {
+                    played.set(playerIdx, DONE);
+                    appendLog("Player: " + player.getName() + "'s ship was damaged, but it's still legal!");
                 }
+
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
                 played.set(playerIdx, DONE);
+                addLog("Player: " + player.getName() + " used a battery to save his ship!");
             }
         } else {
             throw new InvalidStateException("Choose battery not allowed for player: " + player.getName());
@@ -205,12 +234,12 @@ public class MeteorsRainState extends AdventureCardState {
         }
         else{
             if (played.get(sortedPlayers.indexOf(p)) == PROVIDE_BATTERY) {
-                stringBuilder.append("You're about to be hit by a meteor! Send a battery to save your ship!");
+                stringBuilder.append("You're about to be hit by a meteor! Send a chooseBattery to save your ship!");
             } else if (played.get(sortedPlayers.indexOf(p)) == CORRECT_SHIP) {
-                stringBuilder.append("You've been hit by a meteor! You need to fix your ship!");
+                stringBuilder.append("You've been hit by a meteor! You need to FIX YOUR SHIP!");
             }
             else{
-                stringBuilder.append("You're done for this round! Wait for the other players.");
+                stringBuilder.append("You're done for this round! Wait for the other players to handle their attacks and fix their ships!");
             }
         }
         return stringBuilder.toString();

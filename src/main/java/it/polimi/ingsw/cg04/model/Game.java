@@ -387,11 +387,14 @@ public class Game implements Serializable {
      * @throws RuntimeException if no face-down tiles are available.
      */
     public Tile drawFaceDownTile() {
-        if (faceDownTiles.isEmpty()) {
-            throw new RuntimeException("No face down tiles available");
-        }
+        int tileId;
 
-        int tileId = faceDownTiles.removeFirst();
+        do {
+            if (faceDownTiles.isEmpty()) {
+                throw new RuntimeException("No face down tiles available");
+            }
+            tileId = faceDownTiles.removeFirst();
+        } while (tileId == 33 || tileId == 34 || tileId == 52 || tileId == 61);
         return getTileById(tileId);
     }
 

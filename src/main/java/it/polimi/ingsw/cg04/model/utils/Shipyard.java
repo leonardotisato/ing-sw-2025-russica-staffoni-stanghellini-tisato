@@ -1,13 +1,14 @@
-package it.polimi.ingsw.cg04.model;
+package it.polimi.ingsw.cg04.model.utils;
 
+import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
-import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Shipyard {
+public class Shipyard implements Serializable {
 
     private Map<Integer, Tile> tiles;
 
@@ -120,7 +121,7 @@ public class Shipyard {
         ship4.placeTile(tiles.get(10), 2, 5);
         ship4.placeTile(tiles.get(114), 2, 6);
         ship4.placeTile(tiles.get(98), 3, 2);
-        // ship4.placeTile(tiles.get(75), 3, 3);
+        ship4.placeTile(tiles.get(75), 3, 3);
         ship4.placeTile(tiles.get(20), 3, 6);
 
         return ship4;

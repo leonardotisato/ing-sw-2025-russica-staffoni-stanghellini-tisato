@@ -73,6 +73,10 @@ public abstract class GameState implements Serializable {
         throw new InvalidStateException("cant place tile in this game state");
     }
 
+    public void setShip(Player player, int x, int y) throws InvalidStateException {
+        throw new InvalidStateException("cant setShip tile in this game state");
+    }
+
     public void rotateTile(Player player, String type) throws InvalidStateException {
         throw new InvalidStateException("cant rotate tile in this game state");
     }
@@ -150,6 +154,10 @@ public abstract class GameState implements Serializable {
 
     public void addLog(String newLogs) {
         logs = new ArrayList<>();
+        this.logs.add(newLogs);
+    }
+
+    public void appendLog(String newLogs) {
         this.logs.add(newLogs);
     }
 }

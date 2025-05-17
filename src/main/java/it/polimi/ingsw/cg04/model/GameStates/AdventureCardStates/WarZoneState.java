@@ -181,7 +181,7 @@ public class WarZoneState extends AdventureCardState {
                 }
                 firePower.add(fire);
                 played.set(currPlayerIdx, DONE);
-                this.addLog("Player " + player.getName() + " ha " + firePower.get(currPlayerIdx) + " di potenza di fuoco.");
+                this.addLog("Player " + player.getName() + " fire power is " + firePower.get(currPlayerIdx) + "!");
                 currPlayerIdx++;
                 if (isAllDone(played)) {
                     for (int i = 1; i < firePower.size(); i++) {

@@ -18,15 +18,36 @@ public class PlaceAction extends PlayerAction {
     }
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
-        state.placeTile(player, coordinates.getX(), coordinates.getY());
+
+        // backdoor codes todo : remove before prodding
+        if (coordinates.getX() == 103 && coordinates.getY() == 103) {
+            state.setShip(player, coordinates.getX(), coordinates.getY());
+        }
+        else if (coordinates.getX() == 104 && coordinates.getY() == 104) {
+            state.setShip(player, coordinates.getX(), coordinates.getY());
+        }
+        else if (coordinates.getX() == 105 && coordinates.getY() == 105) {
+            state.setShip(player, coordinates.getX(), coordinates.getY());
+        }
+        else {
+            // normal place actions
+            state.placeTile(player, coordinates.getX(), coordinates.getY());
+        }
+
         this.addLogs(state.getLogs());
     }
 
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
+
+        // allow backdoor codes
+        if (coordinates.getX() == 103 && coordinates.getY() == 103) return true;
+        if (coordinates.getX() == 104 && coordinates.getY() == 104) return true;
+        if (coordinates.getX() == 105 && coordinates.getY() == 105) return true;
+
         // check if slot is valid
         if (!player.getShip().isSlotValid(coordinates.getX(),coordinates.getY())) {
-            throw new InvalidActionException("Coordinates" + coordinates.getX() + ", " + coordinates.getY() + "are out of bounds");
+            throw new InvalidActionException("Coordinates " + coordinates.getX() + ", " + coordinates.getY() + " are out of bounds");
         }
         // check if the player is holding a tile
         if(player.getHeldTile()==null) {
