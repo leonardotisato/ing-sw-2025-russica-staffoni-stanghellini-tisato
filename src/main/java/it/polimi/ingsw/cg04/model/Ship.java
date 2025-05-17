@@ -320,6 +320,13 @@ public class Ship implements Serializable {
         tilesBuffer.add(tile);
     }
 
+    /**
+     * Removes and returns a Tile from the tile buffer at the specified index.
+     *
+     * @param index the position in the tile buffer from which to remove the Tile
+     * @return the Tile object removed from the specified index in the tile buffer
+     * @throws IllegalArgumentException if the index is out of bounds or if the slot at the specified index is invalid
+     */
     public Tile takeFromTileBuffer(int index) {
 
         if (index < 0 || index >= this.tilesBuffer.size()) {
