@@ -128,7 +128,7 @@ public class WarZoneState extends AdventureCardState {
                         worstPlayerIdx = i;
                     }
                 }
-                this.addLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + "ha meno membri dell'equipaggio di tutti.");
+                this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + "ha meno membri dell'equipaggio di tutti.");
                 played.set(worstPlayerIdx, WORST);
 
                 if (card.getPenaltyType().get(penaltyIdx).equals("GOBACK")) {
@@ -344,6 +344,7 @@ public class WarZoneState extends AdventureCardState {
 
         if (!rolled && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName()) && worstPlayerState == F_INIT) {
             dice = context.getBoard().rollDices();
+            this.addLog("Dice result is: " + dice);
             rolled = true;
 
 
@@ -355,7 +356,8 @@ public class WarZoneState extends AdventureCardState {
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    this.addLog("Ship wasn't hit.");
+                    this.appendLog("Ship wasn't hit.");
+                    worstPlayerState = F_DONE;
                     triggerNextRound();
                     return;
                 } else {
@@ -365,7 +367,8 @@ public class WarZoneState extends AdventureCardState {
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    this.addLog("Ship wasn't hit");
+                    this.appendLog("Ship wasn't hit");
+                    worstPlayerState = F_DONE;
                     triggerNextRound();
                     return;
                 } else {
@@ -381,7 +384,7 @@ public class WarZoneState extends AdventureCardState {
             // if player is safe set its state to done for this attack
             if (hitState == -1) {
                 this.appendLog("Player: " + player.getName() + " was not hit");
-                worstPlayerState = F_INIT;
+                worstPlayerState = F_DONE;
                 triggerNextRound();
             }
             // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
