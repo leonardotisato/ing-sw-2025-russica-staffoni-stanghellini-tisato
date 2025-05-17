@@ -351,7 +351,8 @@ public class WarZoneState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    dice -= upBoundary - 1;
+                    // substract offset to find zero-based index to handle hit
+                    dice = dice - leftBoundary;
                 }
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
@@ -360,7 +361,8 @@ public class WarZoneState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    dice -= leftBoundary - 1;
+                    // substract offset to find zero-based index to handle hit
+                    dice = dice - upBoundary;
                 }
             }
 
