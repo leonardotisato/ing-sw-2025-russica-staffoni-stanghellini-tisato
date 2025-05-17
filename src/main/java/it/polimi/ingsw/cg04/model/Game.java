@@ -394,7 +394,7 @@ public class Game implements Serializable {
                 throw new RuntimeException("No face down tiles available");
             }
             tileId = faceDownTiles.removeFirst();
-        } while (getTileById(tileId).isCentralTile());
+        } while (tileId == 33 || tileId == 34 || tileId == 52 || tileId == 61);
         return getTileById(tileId);
     }
 
