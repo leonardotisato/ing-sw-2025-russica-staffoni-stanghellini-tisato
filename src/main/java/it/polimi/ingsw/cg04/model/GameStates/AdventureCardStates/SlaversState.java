@@ -190,8 +190,8 @@ public class SlaversState extends AdventureCardState {
             for (int i = 0; i < coordinates.size(); i++) {
                 Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
                 player.getShip().removeCrew(currTile.getHostedCrewType(), coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
-                this.appendLog("Player " + player.getName() + " removed the crew members.");
             }
+            this.appendLog("Player " + player.getName() + " removed the crew members.");
 
             // player lost crew and he is done for the adventure
             playerStates.set(playerIdx, DONE);

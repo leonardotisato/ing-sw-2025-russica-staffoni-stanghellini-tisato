@@ -153,11 +153,14 @@ public abstract class GameState implements Serializable {
     }
 
     public void addLog(String newLogs) {
-        logs = new ArrayList<>();
         this.logs.add(newLogs);
     }
 
     public void appendLog(String newLogs) {
         this.logs.add(newLogs);
+    }
+
+    public void initLogs(){
+        this.logs = new ArrayList<>();
     }
 }

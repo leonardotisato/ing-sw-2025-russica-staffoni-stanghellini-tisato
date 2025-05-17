@@ -52,6 +52,7 @@ public class GamesController {
             System.out.println("Action received");
             Game g = nickToGame.get(action.getPlayerNickname());
             Player p = g.getPlayer(action.getPlayerNickname());
+            g.getGameState().initLogs();
             action.checkAction(p);
             action.execute(p);
             System.out.println("Action executed");
@@ -66,6 +67,7 @@ public class GamesController {
             // send logs collected while executing the action
             List<String> collectedLogs = action.getLogs();
             server.broadcastLogs(recipients, collectedLogs);
+            g.getGameState().initLogs();
 
         } catch (NullPointerException e) {
             e.printStackTrace();
