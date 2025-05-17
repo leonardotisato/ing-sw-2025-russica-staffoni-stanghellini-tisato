@@ -139,7 +139,7 @@ public class PiratesState extends AdventureCardState {
             // check if every one is done
             if (isAll(DONE, playerStates)) {
                 // transition to next adventure card
-                this.addLog("Pirates are not a problem anymore!");
+                this.appendLog("Pirates are not a problem anymore!");
                 triggerNextState();
             }
         } else {
@@ -192,17 +192,17 @@ public class PiratesState extends AdventureCardState {
 
                     // if player is safe set its state to done for this attack
                     if (hitState == -1) {
-                        addLog("Player: " + p.getName() + " was not hit");
+                        this.appendLog("Player: " + p.getName() + " was not hit");
                         playerStates.set(i, SHOT_DONE);
                     }
                     if (hitState == -2) {
-                        addLog("Player: " + p.getName() + " used a single cannon!");
+                        this.appendLog("Player: " + p.getName() + " used a single cannon!");
                         playerStates.set(i, SHOT_DONE);
                     }
 
                     // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                     if (hitState == 2) {
-                        addLog("Player: " + p.getName() + " was hit");
+                        this.appendLog("Player: " + p.getName() + " was hit");
                         p.getShip().handleHit(direction, dice);
 
                         // if ship is legal, player is done for this attack
@@ -216,7 +216,7 @@ public class PiratesState extends AdventureCardState {
 
                     // player can decide to use batteries to defend his ship
                     if (hitState == 0 || hitState == 1) {
-                        System.out.println("Player: " + p.getName() + " can use a battery to save his ship!");
+                        this.appendLog("Player: " + p.getName() + " can use a battery to save his ship!");
                         playerStates.set(i, PROVIDE_BATTERY);
                     }
                 }
@@ -274,6 +274,9 @@ public class PiratesState extends AdventureCardState {
             this.addLog("Player " + player.getName() + " fixed his ship.");
             played.set(playerIdx, SHOT_DONE);
         }
+        else {
+            this.addLog("Played: " + player.getName() + " ship is still illegal and he must fix it.");
+        }
 
         if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY)) {
             triggerNextRound();
@@ -290,6 +293,8 @@ public class PiratesState extends AdventureCardState {
                         .allMatch(i -> playerStates.get(i) == DONE)) {
             if (acceptReward) {
                 // give reward to winner
+                this.addLog("Player " + player.getName() + " got his rewards after defeating pirates.");
+                this.appendLog("Nobody else can receive the reward now. But you can still lose ;).");
                 player.updateCredits(reward);
                 player.move(-delta);
                 playerStates.set(playerIdx, DONE);
@@ -316,7 +321,7 @@ public class PiratesState extends AdventureCardState {
             triggerNextState();
         } else {
             playerStates.replaceAll(state -> state == SHOT_DONE ? WAIT_FOR_SHOT : state);
-            System.out.println("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
+            this.appendLog("New meteor incoming! Current meteor: " + (currMeteorIdx + 1) + " out of " + numMeteors);
         }
     }
 

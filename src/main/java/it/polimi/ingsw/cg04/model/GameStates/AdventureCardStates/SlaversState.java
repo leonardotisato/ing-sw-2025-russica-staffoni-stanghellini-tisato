@@ -111,12 +111,12 @@ public class SlaversState extends AdventureCardState {
             // player has lost
             if (firePower < opponentFirePower) {
 
-                addLog("Player " + player.getName() + " lost against the slavers!");
+                this.addLog("Player " + player.getName() + " lost against the slavers!");
                 playerStates.set(playerIdx, REMOVE_CREW);
 
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
-                    appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
+                    this.appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
                 }
             }
@@ -124,11 +124,11 @@ public class SlaversState extends AdventureCardState {
             // tie, player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
-                addLog("Player " + player.getName() + " drew against the slavers!");
+                this.addLog("Player " + player.getName() + " drew against the slavers!");
 
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
-                    appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
+                    this.appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
                 }
             }
@@ -138,16 +138,16 @@ public class SlaversState extends AdventureCardState {
                 if (!isOpponentDead) {
                     isOpponentDead = true;
                     playerStates.set(playerIdx, DECIDE_REWARD);
-                    addLog("Player " + player.getName() + " has defeated the slavers!");
+                    this.addLog("Player " + player.getName() + " has defeated the slavers!");
                 } else {
-                    addLog("Player " + player.getName() + " has defeated the slavers! However he is not entitled to the reward!");
+                    this.addLog("Player " + player.getName() + " has defeated the slavers! However he is not entitled to the reward!");
                     playerStates.set(playerIdx, DONE);
                 }
 
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
-                    appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
+                    this.appendLog("Now it's " + sortedPlayers.get(playerIdx + 1).getName() + "'s turn to activate his cannons!");
                 }
             }
 
@@ -171,7 +171,7 @@ public class SlaversState extends AdventureCardState {
                 // if player has no crew let the game continue
                 if (player.getShip().getNumCrew() == 0) {
                     playerStates.set(playerIdx, DONE); // this player will be soon eliminated on the next flight state
-                    addLog("Player " + player.getName() + "'s ship has no crew members...");
+                    this.addLog("Player " + player.getName() + "'s ship has no crew members...");
                 } else {
                     throw new InvalidStateException("You must remove crew members from your ship");
                 }
@@ -190,8 +190,8 @@ public class SlaversState extends AdventureCardState {
             for (int i = 0; i < coordinates.size(); i++) {
                 Tile currTile = player.getShip().getTile(coordinates.get(i).getX(), coordinates.get(i).getY());
                 player.getShip().removeCrew(currTile.getHostedCrewType(), coordinates.get(i).getX(), coordinates.get(i).getY(), numCrewMembersLost.get(i));
-                addLog("Player " + player.getName() + " removed the crew members.");
             }
+            this.appendLog("Player " + player.getName() + " removed the crew members.");
 
             // player lost crew and he is done for the adventure
             playerStates.set(playerIdx, DONE);

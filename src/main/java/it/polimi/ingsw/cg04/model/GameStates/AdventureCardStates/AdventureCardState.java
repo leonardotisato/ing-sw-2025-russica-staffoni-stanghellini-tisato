@@ -37,6 +37,7 @@ public abstract class AdventureCardState extends GameState {
             context.flagLapped();
             context.flagNoHumans();
             System.out.println(card.getType() + " è stata risolta!");
+            this.appendLog(card.getType() + " has been solved!");
         }
         if(getContext().getAdventureCardsDeck().isEmpty()) {
             context.setGameState(new EndGameState(context));

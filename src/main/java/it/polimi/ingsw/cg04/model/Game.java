@@ -468,7 +468,7 @@ public class Game implements Serializable {
                 toList();
 
         for (int i = 0; i < survivedPlayersByPosition.size(); i++) {
-            survivedPlayersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i));
+            survivedPlayersByPosition.get(i).updateCredits(this.board.endGameCredits.get(i + 1));
         }
     }
 
