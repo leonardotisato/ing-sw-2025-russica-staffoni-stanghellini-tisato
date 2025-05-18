@@ -507,25 +507,27 @@ public class Game implements Serializable {
     }
 
     // check no player is lapped, lapped players are removed from players and put only their nick is stored in eliminated
-    public void flagLapped() {
-        for (Player p : players) {
-            if (p.wasLapped()) {
-                retired.add(p);
-                players.remove(p);
-                p.setRetired(true);
-            }
+    public String flagLapped(Player p) {
+        String log = "";
+        if (p.wasLapped()) {
+            retired.add(p);
+            players.remove(p);
+            p.setRetired(true);
+            log = "Player " + p.getName() + " has been eliminated because he has been lapped!";
         }
+        return log;
     }
 
     // check crew is positive
-    public void flagNoHumans() {
-        for (Player p : players) {
-            if (!p.getShip().hasEnoughHumans()) {
-                retired.add(p);
-                players.remove(p);
-                p.setRetired(true);
-            }
+    public String flagNoHumans(Player p) {
+        String log = "";
+        if (!p.getShip().hasEnoughHumans()) {
+            retired.add(p);
+            players.remove(p);
+            p.setRetired(true);
+            log = "Player " + p.getName() + " has been eliminated because he has 0 crew members!";
         }
+        return log;
     }
 
     public void disconnect(Player p) {

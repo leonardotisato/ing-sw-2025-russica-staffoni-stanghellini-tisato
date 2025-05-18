@@ -33,9 +33,13 @@ public abstract class AdventureCardState extends GameState {
     }
 
     public void triggerNextState() {
+        String log = "";
         if(card != null) {
-            context.flagLapped();
-            context.flagNoHumans();
+            for (Player player : sortedPlayers) {
+                log = context.flagLapped(player);
+                log = log + context.flagNoHumans(player);
+                if (!log.isEmpty()) this.appendLog(log);
+            }
             System.out.println(card.getType() + " è stata risolta!");
             this.appendLog(card.getType() + " has been solved!");
         }
