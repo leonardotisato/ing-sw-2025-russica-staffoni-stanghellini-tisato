@@ -43,7 +43,11 @@ public class JoinGameAction extends InitAction {
         }
 
         // check nickname was set correctly
-        if (nickname == null || nickname.isEmpty()) {
+        if (nickname == null ) {
+            throw new InvalidActionException("Set your nickname first!");
+        }
+
+        if (nickname.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
         }
 
@@ -59,6 +63,12 @@ public class JoinGameAction extends InitAction {
         if (g.getNumPlayers() >= g.getMaxPlayers()) {
             throw new InvalidActionException("Game chosen is full");
         }
+
+        // check that player is still not associated with any game
+        if (controller.getGameFromNickname(nickname) != null) {
+            throw new InvalidActionException("You are already in a game!");
+        }
+
         return true;
     }
 

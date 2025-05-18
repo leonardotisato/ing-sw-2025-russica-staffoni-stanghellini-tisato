@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
@@ -11,12 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FlightState extends GameState {
-    private Game game;
-    public FlightState (Game game){
+    private final Game game;
+
+    public FlightState(Game game) {
         this.game = game;
     }
+
     public void getNextAdventureCard(Player player) throws InvalidStateException {
-        if(!player.equals(game.getSortedPlayers().getFirst())) throw new InvalidStateException("You are not the leading player");
+        if (!player.equals(game.getSortedPlayers().getFirst()))
+            throw new InvalidStateException("You are not the leading player");
         Game game = player.getGame();
         game.getNextAdventureCard();
         game.setGameState(game.getCurrentAdventureCard().createState(game));
@@ -24,7 +26,7 @@ public class FlightState extends GameState {
     }
 
     @Override
-    public void retire(Player player){
+    public void retire(Player player) {
         game.getRetiredPlayers().add(player);
         game.getPlayers().remove(player);
         this.addLog("Player " + player.getName() + " retired");
