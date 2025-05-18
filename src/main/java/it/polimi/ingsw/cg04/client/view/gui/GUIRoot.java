@@ -22,7 +22,11 @@ public class GUIRoot extends View {
 
     private String clientNickname;
 
+
     LoginController loginController;
+
+
+
 
     private boolean isLoggedOut;
 
@@ -44,6 +48,9 @@ public class GUIRoot extends View {
     public void serverUnreachable() {
 
     }
+
+
+
 
     /**
      * GuiMain setter method

@@ -8,9 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Main class that deploys the GUI
+ */
 public class GUIMain extends Application {
 
     private Stage primaryStage;
@@ -24,15 +28,23 @@ public class GUIMain extends Application {
         instance = this;
     }
 
+    /**
+     * Launches the application
+     * @param guiRootInstance sets the GUI root
+     */
     public static void launchApp(GUIRoot guiRootInstance) {
         guiRoot = guiRootInstance;
         Application.launch(GUIMain.class);
 
     }
 
-
+    /**
+     * Starts the application and displays first scene
+     * @param stage Stage to set
+     * @throws IOException
+     */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         try {
             Font.loadFont(getClass().getResourceAsStream("/fonts/obelixprob-cyr.ttf"), 10);
             Font.loadFont(getClass().getResourceAsStream("/fonts/obelixprobit-cyr.ttf"), 10);
@@ -40,14 +52,20 @@ public class GUIMain extends Application {
             guiRoot.setGuiMain(this);
             guiRoot.goToFirstScene();
         } catch (Exception e) {
-            e.printStackTrace(); // mostra l'errore vero in console
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Given a scene return the controller of that scene
+     * @param scene scene to get controller from
+     * @return Controller
+     */
     public Object getControllerForScene(Scene scene) {
         return sceneControllerMap.get(scene);
     }
 
+    // put for testing purpose, not necessary anymore
     public static void main(String[] args) {
         launch();
     }
