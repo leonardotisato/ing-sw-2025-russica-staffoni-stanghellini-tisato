@@ -37,8 +37,16 @@ public class CreateGameAction extends InitAction {
             throw new InvalidActionException("Invalid number of players");
         }
 
-        if (nickname == null || nickname.isEmpty()) {
+        if (nickname == null) {
+            throw new InvalidActionException("Set your nickname first!");
+        }
+
+        if (nickname.isEmpty()) {
             throw new InvalidActionException("Invalid nickname");
+        }
+
+        if (controller.getGameFromNickname(nickname) != null) {
+            throw new InvalidActionException("You are already in a game!");
         }
 
         return true;
