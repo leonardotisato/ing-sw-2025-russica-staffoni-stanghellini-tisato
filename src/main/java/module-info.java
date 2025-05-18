@@ -30,5 +30,9 @@ module it.polimi.ingsw.cg04 {
     exports it.polimi.ingsw.cg04.network.Server.RMI to java.rmi;
     exports it.polimi.ingsw.cg04.network.Client.RMI to java.rmi;
 
+    opens it.polimi.ingsw.cg04.client.view.gui to javafx.graphics, javafx.fxml;
+    opens it.polimi.ingsw.cg04.client.view.gui.controllers to javafx.fxml;
+
+
     exports it.polimi.ingsw.cg04.network.Server;
 }

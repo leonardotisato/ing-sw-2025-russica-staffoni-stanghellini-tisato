@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg04.client;
+package it.polimi.ingsw.cg04.client.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

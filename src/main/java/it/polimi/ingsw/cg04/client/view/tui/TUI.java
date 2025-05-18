@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg04.client.view.tui;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -14,7 +14,6 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.InfoCmp;
 
-import javax.sound.sampled.Line;
 import java.beans.PropertyChangeEvent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class TUI extends View {
     private final InputReader input;

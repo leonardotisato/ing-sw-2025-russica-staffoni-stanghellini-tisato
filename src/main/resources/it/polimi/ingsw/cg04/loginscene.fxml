@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+<StackPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController">
+    <!-- Sfondo -->
+    <ImageView fx:id="backgroundImage" preserveRatio="false" />
+
+    <!-- Livello contenuti -->
+    <VBox alignment="CENTER" spacing="40" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+        <!-- Spazio sopra -->
+        <Region fx:id="topSpacer" VBox.vgrow="ALWAYS"/>
+
+        <!-- Titolo -->
+        <Label fx:id="titleText" text="Galaxy Trucker" styleClass="title"/>
+
+        <!-- Spazio tra titolo e box -->
+        <Region prefHeight="50"/>
+
+        <!-- Box nickname + bottone -->
+        <VBox alignment="CENTER" spacing="20">
+            <TextField fx:id="nicknameField" promptText="Nickname" styleClass="nickname-field" prefWidth="300" />
+            <Button fx:id="okButton" text="Login" onAction="#handleLogin" styleClass="confirm-button"/>
+        </VBox>
+
+        <!-- Spazio sotto -->
+        <Region fx:id="bottomSpacer" VBox.vgrow="ALWAYS"/>
+    </VBox>
+</StackPane>

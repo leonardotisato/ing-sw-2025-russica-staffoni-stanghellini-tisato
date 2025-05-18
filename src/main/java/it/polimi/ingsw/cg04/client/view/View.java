@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg04.client.view;
 
-import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 
 import java.beans.PropertyChangeListener;

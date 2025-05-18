@@ -1,7 +1,8 @@
 package it.polimi.ingsw.cg04.network.Client;
 
-import it.polimi.ingsw.cg04.client.ClientModel;
+import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.client.view.tui.TUI;
 import it.polimi.ingsw.cg04.model.Game;
 
@@ -21,7 +22,7 @@ public abstract class ServerHandler implements VirtualServer {
         clientModel = new ClientModel();
 
         if(viewType.equals("GUI")) {
-            // view = new GUIRoot(clientModel, this);
+            view = new GUIRoot(clientModel, this);
         } else {
             view = new TUI(this, clientModel);
         }
