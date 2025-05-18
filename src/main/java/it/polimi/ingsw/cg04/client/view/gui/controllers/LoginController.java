@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -56,8 +55,6 @@ public class LoginController implements Initializable {
     @FXML
     private void handleLogin() {
         String nick = nicknameField.getText();
-        System.out.println("Nickname inserito: " + nick);
-        // Per ora: chiudi l'app
         if (!nick.isEmpty()) {
             gui.setNickname(nick);
         }
