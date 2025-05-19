@@ -346,6 +346,7 @@ class BuildStateTest {
         BuildState state = (BuildState) game.getGameState();
         System.out.println(state.render("Alice"));
         // Thread.sleep(5000);
+        state.initLogs();
         state.drawFaceDown(p1);
         TuiDrawer.clear();
         System.out.println(state.render("Alice"));

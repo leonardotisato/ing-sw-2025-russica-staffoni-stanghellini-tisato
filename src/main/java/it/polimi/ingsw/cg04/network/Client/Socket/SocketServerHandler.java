@@ -310,12 +310,8 @@ public class SocketServerHandler extends ServerHandler {
                 }
                 case "JOINABLE-GAMES" -> {
                     inputHandler.submit(() -> {
-                        List<Integer> games = (List<Integer>) message.payload();
-                        if(games.isEmpty()){
-                            addLogs(Collections.singletonList("No joinable games. Create a game with 'createGame'."));
-                        } else {
-                            addLogs(Collections.singletonList("Joinable games ID: " + games));
-                        }
+                        List<Game.GameInfo> infos = (List<Game.GameInfo>) message.payload();
+                        sendJoinableGames(infos);
                     });
                 }
                 default -> {

@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import it.polimi.ingsw.cg04.client.view.View;
 import org.jline.reader.*;
@@ -72,19 +73,24 @@ public class TUI extends View {
                 // System.out.println("Logs updated");
                 updateLogs((List<String>) evt.getNewValue());
             }
+            case "JOINABLE_GAMES" -> {
+                updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
+            }
         }
     }
 
     public void updateGame(Game toPrint, String nickname) {
         try {
             String rendered = toPrint.render(nickname);
-            Terminal t = input.getTerminal();
+//            Terminal t = input.getTerminal();
+
+            LineReader reader = input.getReader();
+            reader.callWidget(LineReader.CLEAR_SCREEN);
 
 //            t.writer().print("\033[H\033[2J");  // Clear screen
 //            t.writer().flush();
-            t.puts(InfoCmp.Capability.clear_screen);
-
-            t.writer().println(rendered);
+//            t.puts(InfoCmp.Capability.clear_screen);
+            reader.printAbove(rendered);
 
 
         } catch (NullPointerException e) {
@@ -98,13 +104,47 @@ public class TUI extends View {
     public void updateLogs(List<String> logs) {
         LineReader reader = input.getReader();
 
-        // Stampa 10 righe sopra la riga attiva
         reader.printAbove("──────── LOGS ────────");
 
-        // Stampa ogni log oppure una riga vuota
         for (int i = 0; i < logs.size(); i++) {
             reader.printAbove("- " + logs.get(i));
         }
+    }
+
+    public void updateJoinableGames(List<Game.GameInfo> joinableGames) {
+        LineReader reader = input.getReader();
+        StringBuilder sb = new StringBuilder();
+        if (joinableGames.isEmpty()) {
+            sb.append("\n\nUpdate in joinable games!:\n\n").append("No joinable games found. Create a new one with createGame");
+            reader.printAbove(sb.toString());
+            return;
+        }
+        List<List<String>> joinableGamesList = new ArrayList<>();
+        for (Game.GameInfo gameInfo : joinableGames) {
+            joinableGamesList.add(TuiDrawer.toLines(gameInfo.gameInfoToColumn()));
+        }
+        int columns = joinableGamesList.size();
+        int rows = joinableGamesList.stream().mapToInt(List::size).max().getAsInt();
+        int[] colWidth = new int[columns];
+
+        for (int c = 0; c < columns; c++) {
+            int max = 0;
+            for (int r = 0; r < joinableGamesList.get(c).size(); r++)
+                max = Math.max(max, joinableGamesList.get(c).get(r).length());
+            colWidth[c] = max;
+        }
+
+
+        sb.append("\n\nUpdate in joinable games!:\n\n");
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                if (r < joinableGamesList.get(c).size()) sb.append(String.format("%-" + colWidth[c] + "s", joinableGamesList.get(c).get(r)));
+                else sb.append(String.format("%-" + colWidth[c] + "s", ""));
+                if (c < columns - 1) sb.append("  ".repeat(3));
+            }
+            sb.append('\n');
+        }
+        reader.printAbove(sb.toString());
     }
 
 

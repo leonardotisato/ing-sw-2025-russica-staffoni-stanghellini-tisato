@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.network.Server.RMI;
 
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
@@ -13,7 +14,7 @@ import java.util.Map;
 public interface VirtualControllerRMI extends Remote {
     void handleActionRMI(Action action) throws RemoteException;
     boolean handleSubscriptionRMI(Action action) throws RemoteException;
-    List<Integer> provideJoinableGamesRMI() throws RemoteException;
+    List<Game.GameInfo> provideJoinableGamesRMI() throws RemoteException;
 
     void pingRMI(String key) throws RemoteException;
     void pongRMI(String key) throws RemoteException;

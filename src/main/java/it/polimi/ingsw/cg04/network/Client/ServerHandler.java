@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.client.view.tui.TUI;
 import it.polimi.ingsw.cg04.model.Game;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public abstract class ServerHandler implements VirtualServer {
@@ -43,4 +44,6 @@ public abstract class ServerHandler implements VirtualServer {
     public void setGame(Game game) {
         clientModel.setGame(game, nickname);
     }
+
+    public void sendJoinableGames(List<Game.GameInfo> infos){clientModel.displayJoinableGames(infos);}
 }

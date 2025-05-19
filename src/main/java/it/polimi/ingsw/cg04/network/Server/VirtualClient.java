@@ -19,4 +19,6 @@ public interface VirtualClient {
      * @param logs to send
      */
     void addLogs(List<String> logs);
+
+    void sendJoinableGames(List<Game.GameInfo> infos);
 }
