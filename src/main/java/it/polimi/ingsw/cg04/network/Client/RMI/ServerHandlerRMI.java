@@ -103,12 +103,8 @@ public class ServerHandlerRMI extends ServerHandler {
                     System.out.println("Nickname set to " + nickname);
 
                     // get available games... controller.getJoinableGames()
-                    List<Integer> games = virtualController.provideJoinableGamesRMI();
-                    if (games.isEmpty()) {
-                        addLogs(Collections.singletonList("No joinable games. Create a game with 'createGame'."));
-                    } else {
-                        addLogs(Collections.singletonList("Joinable games ID: " + games));
-                    }
+                    List<Game.GameInfo> gameInfos = virtualController.provideJoinableGamesRMI();
+                    virtualClient.sendJoinableGamesRMI(gameInfos);
                 } else {
                     super.nickname = null;
                 }
@@ -436,6 +432,11 @@ public class ServerHandlerRMI extends ServerHandler {
         @Override
         public void addLogsRMI(List<String> logs) throws RemoteException {
             addLogs(logs);
+        }
+
+        @Override
+        public void sendJoinableGamesRMI(List<Game.GameInfo> infos) throws RemoteException {
+            sendJoinableGames(infos);
         }
 
         @Override

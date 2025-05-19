@@ -132,6 +132,17 @@ public class Server {
         }
     }
 
+    public void broadcastJoinableGames(List<String> nicknames, List<Game.GameInfo> infos) {
+        for (String nickname : nicknames) {
+            ClientHandler clientHandler = getSubscribedClient(nickname);
+            if (clientHandler != null) {
+                clientHandler.sendJoinableGames(infos);
+            } else {
+                System.out.println("Client " + nickname + " not found");
+            }
+        }
+    }
+
 
 
 }

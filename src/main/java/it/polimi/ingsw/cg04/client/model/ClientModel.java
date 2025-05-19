@@ -50,6 +50,15 @@ public class ClientModel {
                 this.logs));
     }
 
+    public void displayJoinableGames(List<Game.GameInfo> infos){
+        this.listener.propertyChange(new PropertyChangeEvent(
+                this,
+                "JOINABLE_GAMES",
+                null,
+                infos
+        ));
+    }
+
     public void setListener(PropertyChangeListener listener) {
         this.listener = listener;
     }

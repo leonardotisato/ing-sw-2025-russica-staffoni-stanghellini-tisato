@@ -69,6 +69,15 @@ public class ClientHandlerRMI extends ClientHandler {
         });
     }
 
+    @Override
+    public void sendJoinableGames(List<Game.GameInfo> infos) {
+        rmiExecutor.submit(() -> {
+            try {
+                virtualClient.sendJoinableGamesRMI(infos);
+            } catch (RemoteException ignored) {}
+        });
+    }
+
     public static class DeamonThreadFactory implements ThreadFactory {
         @Override
         public Thread newThread(Runnable r) {
@@ -93,7 +102,7 @@ public class ClientHandlerRMI extends ClientHandler {
         }
 
         @Override
-        public List<Integer> provideJoinableGamesRMI() throws RemoteException {
+        public List<Game.GameInfo> provideJoinableGamesRMI() throws RemoteException {
             return getController().getJoinableGames();
         }
 

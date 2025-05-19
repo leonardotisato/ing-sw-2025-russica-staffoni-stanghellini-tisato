@@ -117,6 +117,9 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         send(new Message("LOG", logs));
     }
 
+    @Override
+    public void sendJoinableGames(List<Game.GameInfo> gameInfos){send(new Message("JOINABLE-GAMES", gameInfos));}
+
     public class ConnectionChecker implements Runnable {
         private final Socket socket;
 

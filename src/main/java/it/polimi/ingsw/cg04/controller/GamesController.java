@@ -82,10 +82,10 @@ public class GamesController {
 
         String playerNickname = action.getPlayerNickname();
         Game g = nickToGame.get(playerNickname);
-
+        List<String> recipients = new ArrayList<>();
             if (g != null) {
                 List<Player> players = connectedPlayers.get(g);
-                List<String> recipients = players.stream().map(Player::getName).toList();
+                recipients = players.stream().map(Player::getName).toList();
 
                 // send game snapshot to players
                 server.broadcastGameUpdate(recipients, g.deepCopy());
@@ -94,6 +94,9 @@ public class GamesController {
                 if (collectedLogs != null) {
                     server.broadcastLogs(recipients, collectedLogs);
                 }
+                List<Game.GameInfo> gameInfos = getJoinableGames();
+                recipients = getRecipientsForJoinableGames();
+                server.broadcastJoinableGames(recipients, gameInfos);
             }
     }
 
@@ -106,17 +109,22 @@ public class GamesController {
         }
     }
 
-    public List<Integer> getJoinableGames() {
-        List<Integer> joinableGames = new ArrayList<>();
-
-        for (Game g : games) {
-            if (!g.hasStarted() && connectedPlayers.get(g).size() < g.getMaxPlayers()) {
-                joinableGames.add(g.getId());
-            }
+    public List<Game.GameInfo> getJoinableGames() {
+        List<Game.GameInfo> gameInfos = new ArrayList<>();
+        for (Game game : games) {
+            if (!game.hasStarted()) gameInfos.add(game.getGameInfo());
         }
-
-        return joinableGames;
+        return gameInfos;
     }
+
+    public List<String> getRecipientsForJoinableGames() {
+        List<String> recipients = new ArrayList<>();
+        for (String nickname : nickToGame.keySet()) {
+            if (nickToGame.get(nickname) == null) recipients.add(nickname);
+        }
+        return recipients;
+    }
+
 
 
     public boolean isNickNameTaken(String nickname) {

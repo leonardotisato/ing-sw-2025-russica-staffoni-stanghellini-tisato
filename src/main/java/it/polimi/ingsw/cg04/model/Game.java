@@ -163,6 +163,8 @@ public class Game implements Serializable {
         Player newPlayer = new Player(name, color, this);
         this.players.add(newPlayer);
 
+        if (getNumPlayers() == this.maxPlayers) setHasStarted(true);
+
         return newPlayer;
     }
 
@@ -552,6 +554,26 @@ public class Game implements Serializable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public GameInfo getGameInfo() {
+        Map<String, String> playerWithColor = new HashMap<>();
+        for (Player p : players) {
+            playerWithColor.put(p.getName(), p.getColor().toString());
+        }
+        return new GameInfo(this.id, this.maxPlayers, playerWithColor);
+    }
+
+    public record GameInfo(int id, int maxPlayers, Map<String, String> playerWithColor) implements Serializable {
+        public String gameInfoToColumn (){
+            StringBuilder builder = new StringBuilder();
+            builder.append("ID: " + id).append("\n");
+            builder.append("Players " + playerWithColor.size() + "/" + maxPlayers).append("\n");
+            for (String s : playerWithColor.keySet()) {
+            builder.append(s + ": " + playerWithColor.get(s) + "\n");
+            }
+            return builder.toString();
         }
     }
 }
