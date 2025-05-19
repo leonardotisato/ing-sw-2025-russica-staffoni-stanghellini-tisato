@@ -1,7 +1,8 @@
 
 .title {
     /* -fx-font-size: 72px; */
-    -fx-font-family: "Obelix Pro Bold Italic";
+    /*-fx-font-family: "Obelix Pro Bold Italic";*/
+    -fx-font-family: "OrgovanBrush";
     -fx-text-fill: #e6b800;
     -fx-fill: #e6b800;
     -fx-stroke: #996600;
