@@ -237,6 +237,9 @@ public class Game implements Serializable {
         for (Player p : players) {
             if (p.getName().equals(name)) return p;
         }
+        for (Player p : retired) {
+            if (p.getName().equals(name)) return p;
+        }
         throw new RuntimeException("Player not found!");
     }
 

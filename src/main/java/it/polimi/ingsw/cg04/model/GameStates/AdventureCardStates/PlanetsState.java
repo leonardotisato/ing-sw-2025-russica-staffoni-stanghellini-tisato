@@ -53,6 +53,9 @@ public class PlanetsState extends AdventureCardState {
             }
             this.addLog("Player " + player.getName() + " has landed on planet " + chosenPlanets.get(player));
         }
+        else {
+            this.addLog("Player " + player.getName() + " decided not to land on a planet.");
+        }
         played.set(sortedPlayers.indexOf(player), 1);
         currPlayerIdx++;
         if (chosenPlanets.size() == card.getPlanetReward().size() || currPlayerIdx == sortedPlayers.size()) {

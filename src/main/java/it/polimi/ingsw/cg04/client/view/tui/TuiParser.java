@@ -52,8 +52,10 @@ public class TuiParser {
 
                 System.out.println("  -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
             }
-            case "planets" ->
+            case "planets" -> {
+                    System.out.println("Press enter if you don't want to land on a planet.");
                     System.out.println("  <planetIndex> -c <x1> <y1> ... -m -k <BoxType> <value> -k <BoxType> <value> ... -m ...");
+            }
             case "removeCrew" -> {
                 System.out.println("Press enter if you don't want to remove crew (not possible in WarZone).");
                 System.out.println("  -c <coord_x1> <coord_y1> ... -n <crew1> <crew2> ...");

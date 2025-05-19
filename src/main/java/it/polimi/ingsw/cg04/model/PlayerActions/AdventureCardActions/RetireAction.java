@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
 
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
@@ -12,7 +13,7 @@ public class RetireAction extends PlayerAction {
     }
 
     public void execute(Player player) throws InvalidStateException {
-        AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
+        GameState state = player.getGame().getGameState();
         state.retire(player);
         this.addLogs(state.getLogs());
     }

@@ -53,10 +53,15 @@ public class GamesController {
             Game g = nickToGame.get(action.getPlayerNickname());
             Player p = g.getPlayer(action.getPlayerNickname());
             g.getGameState().initLogs();
-            action.checkAction(p);
-            action.execute(p);
-            System.out.println("Action executed");
-            g = nickToGame.get(action.getPlayerNickname());
+            if(!p.isRetired()) {
+                action.checkAction(p);
+                action.execute(p);
+                System.out.println("Action executed");
+                g = nickToGame.get(action.getPlayerNickname());
+            } else {
+                System.out.println("Retired exception thown.");
+                throw new InvalidActionException("You are retired. You can't play anymore, wait for the game to finish.");
+            }
 
 
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
@@ -147,5 +152,4 @@ public class GamesController {
         connectedPlayers.get(g).remove(p);
         g.disconnect(p);
     }
-
 }

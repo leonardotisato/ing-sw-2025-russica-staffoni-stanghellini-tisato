@@ -42,6 +42,12 @@ public abstract class AdventureCardState extends GameState {
             }
             System.out.println(card.getType() + " è stata risolta!");
             this.appendLog(card.getType() + " has been solved!");
+            if(context.getPlayers().isEmpty()) {
+                this.appendLog("No player can continue the game. They are all either retired or disconnected.");
+                context.setGameState(new EndGameState(context));
+                context.setCurrentAdventureCard(null);
+                context.handleEndGame();
+            }
         }
         if(getContext().getAdventureCardsDeck().isEmpty()) {
             context.setGameState(new EndGameState(context));

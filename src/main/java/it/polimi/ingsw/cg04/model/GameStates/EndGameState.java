@@ -20,6 +20,7 @@ public class EndGameState extends GameState{
 
     public String render(String playerName){
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
         stringBuilder.append(playerName).append("The game has ended. \n\n");
         Player p = game.getPlayer(playerName);
         stringBuilder.append(p.getNumCredits() >= 1 ? "You have one credit or more, so you won!" : "You have no credit, you lost!").append("\n");
@@ -27,6 +28,7 @@ public class EndGameState extends GameState{
         for(Player p1 : leaderboard){
             stringBuilder.append(leaderboard.indexOf(p1) + 1).append("- ").append(p1.getName()).append(": ").append(p1.getNumCredits()).append(" credits").append("\n");
         }
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 }
