@@ -8,6 +8,8 @@ import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.CardLoader;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -39,6 +41,7 @@ public class Game implements Serializable {
 
     private boolean hasStarted = false;
     private final int id;
+    private transient PropertyChangeListener listener;
 
     // for testing purposes
     private final Random rand = new Random();
@@ -49,10 +52,10 @@ public class Game implements Serializable {
         this.id = id;
 
         if (level == 1) {
-            this.board = new FlightBoardLev1();
+            this.board = new FlightBoardLev1(this);
         }
         else if (level == 2) {
-            this.board = new FlightBoardLev2();
+            this.board = new FlightBoardLev2(this);
         }
 
         // set up adventure cards
@@ -79,8 +82,8 @@ public class Game implements Serializable {
     public Game(int level, String jsonFilePathCards, String jsonFilePathTiles) {
         this.maxPlayers = 4;
         this.level = level;
-        if (level == 1) this.board = new FlightBoardLev1();
-        else if (level == 2) this.board = new FlightBoardLev2();
+        if (level == 1) this.board = new FlightBoardLev1(this);
+        else if (level == 2) this.board = new FlightBoardLev2(this);
         this.adventureCardsMap = CardLoader.loadCardsFromJson(jsonFilePathCards, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -91,6 +94,14 @@ public class Game implements Serializable {
         this.tilesDeckMap = TileLoader.loadTilesFromJson(jsonFilePathTiles, this.faceDownTiles);
         this.id = 0;
         this.gameState = new LobbyState(this);
+    }
+
+    public void setListener(PropertyChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public void notifyListener(PropertyChangeEvent evt) {
+        listener.propertyChange(evt);
     }
 
     public boolean hasStarted() {

@@ -21,7 +21,7 @@ class FlightBoardTest {
     void setUp() {
         game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
-        fb1 = new FlightBoardLev1();
+        fb1 = new FlightBoardLev1(game);
 
         p1 = new Player("Alice", PlayerColor.RED, game);
         p2 = new Player("Bob", PlayerColor.BLUE, game);
@@ -39,7 +39,7 @@ class FlightBoardTest {
         fb1.occupyCell(startPositionOfThird, p3);
         fb1.occupyCell(startPositionOfFourth, p4);
 
-        fb2 = new FlightBoardLev2();
+        fb2 = new FlightBoardLev2(game);
         fb2.startTimer();
 
     }
@@ -132,7 +132,7 @@ class FlightBoardTest {
     void drawTestLev2(){
         game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
-        fb2 = new FlightBoardLev2();
+        fb2 = new FlightBoardLev2(game);
 
         p1 = new Player("Alice", PlayerColor.RED, game);
         p2 = new Player("Bob", PlayerColor.BLUE, game);

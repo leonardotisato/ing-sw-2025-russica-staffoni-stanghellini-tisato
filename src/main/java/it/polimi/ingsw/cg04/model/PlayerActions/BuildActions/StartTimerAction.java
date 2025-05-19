@@ -21,6 +21,7 @@ public class StartTimerAction extends PlayerAction {
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
         if (!player.getGame().getBoard().isTimerExpired()) throw new InvalidActionException("Timer not expired!");
+        if (player.getGame().getBoard().getTimerFlipsRemaining() <= 0) throw new InvalidActionException("No flips remaining!");
 
         return true;
     }

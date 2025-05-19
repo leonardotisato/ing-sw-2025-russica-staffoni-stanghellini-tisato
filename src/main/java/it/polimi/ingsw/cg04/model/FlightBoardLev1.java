@@ -3,8 +3,8 @@ package it.polimi.ingsw.cg04.model;
 import java.util.*;
 
 public class FlightBoardLev1 extends FlightBoard{
-    public FlightBoardLev1(){
-        super();
+    public FlightBoardLev1(Game game){
+        super(game);
         this.path = new Player[18];
         this.pathSize = 18;
         this.startingPosition = new HashMap<Integer, Integer>();
