@@ -9,10 +9,12 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.network.Server.Server;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.*;
 
-public class GamesController {
+public class GamesController implements PropertyChangeListener {
 
     private final Server server;
 
@@ -50,7 +52,7 @@ public class GamesController {
             Game g = nickToGame.get(action.getPlayerNickname());
             Player p = g.getPlayer(action.getPlayerNickname());
             g.getGameState().initLogs();
-            if(!p.isRetired()) {
+            if (!p.isRetired()) {
                 action.checkAction(p);
                 action.execute(p);
                 System.out.println("Action executed");
@@ -84,22 +86,23 @@ public class GamesController {
 
         String playerNickname = action.getPlayerNickname();
         Game g = nickToGame.get(playerNickname);
-        List<String> recipients = new ArrayList<>();
-            if (g != null) {
-                List<Player> players = connectedPlayers.get(g);
-                recipients = players.stream().map(Player::getName).toList();
+        List<String> recipients;
 
-                // send game snapshot to players
-                server.broadcastGameUpdate(recipients, g.deepCopy());
-                // send logs collected while executing the action
-                List<String> collectedLogs = action.getLogs();
-                if (collectedLogs != null) {
-                    server.broadcastLogs(recipients, collectedLogs);
-                }
-                List<Game.GameInfo> gameInfos = getJoinableGames();
-                recipients = getRecipientsForJoinableGames();
-                server.broadcastJoinableGames(recipients, gameInfos);
+        if (g != null) {
+            List<Player> players = connectedPlayers.get(g);
+            recipients = players.stream().map(Player::getName).toList();
+
+            // send game snapshot to players
+            server.broadcastGameUpdate(recipients, g.deepCopy());
+            // send logs collected while executing the action
+            List<String> collectedLogs = action.getLogs();
+            if (collectedLogs != null) {
+                server.broadcastLogs(recipients, collectedLogs);
             }
+            List<Game.GameInfo> gameInfos = getJoinableGames();
+            recipients = getRecipientsForJoinableGames();
+            server.broadcastJoinableGames(recipients, gameInfos);
+        }
     }
 
     public void addGame(Game game) {
@@ -128,7 +131,6 @@ public class GamesController {
     }
 
 
-
     public boolean isNickNameTaken(String nickname) {
         return nickToGame.containsKey(nickname);
     }
@@ -149,6 +151,26 @@ public class GamesController {
             disconnectedPlayers.get(g).add(p);
             connectedPlayers.get(g).remove(p);
             g.disconnect(p);
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // handle timer update
+        switch (evt.getPropertyName()) {
+            case "timerExpired" -> {
+                Integer gameId = (Integer) evt.getSource();
+                Game g = games.stream().filter(game -> game.getId() == gameId).findFirst().orElse(null);
+                if (g == null) throw new RuntimeException("Game not found");
+
+                List<Player> players = connectedPlayers.get(g);
+                List <String> recipients = players.stream().map(Player::getName).toList();
+
+                // send game snapshot and log to players
+                server.broadcastGameUpdate(recipients, g.deepCopy());
+                server.broadcastLogs(recipients, Collections.singletonList("A timer has expired! That was timer number " + evt.getNewValue() + "!"));
+
+            }
         }
     }
 }

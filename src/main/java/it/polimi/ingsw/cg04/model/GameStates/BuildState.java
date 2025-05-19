@@ -391,12 +391,12 @@ public class BuildState extends GameState {
      */
     @Override
     public void startTimer(Player player) throws InvalidStateException {
-        if (playerState.get(player.getName()) == BuildPlayerState.BUILDING) {
+        if (playerState.get(player.getName()) == BuildPlayerState.BUILDING) { // todo: review me... players that are building are allowed... i think...
             throw new InvalidStateException("cant start timer now");
         }
 
         if (game.getLevel() != 2) {
-            throw new InvalidStateException("cant start timer in a game of level " + game.getLevel());
+            throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
         }
         game.getBoard().startTimer();
         this.addLog(player.getName() + " started the timer!");

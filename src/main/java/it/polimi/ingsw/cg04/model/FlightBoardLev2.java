@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg04.model;
 
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,9 +11,13 @@ public class FlightBoardLev2 extends FlightBoard {
 
     private final int MAX_FLIPS = 3;
     private int timerFlipsUsed = 0;
+    private transient Timer timer;
+    private transient TimerTask currentTask;
     private long timerEndTime;
 
-    public FlightBoardLev2(){
+
+    public FlightBoardLev2(Game game) {
+        super(game);
         this.path = new Player[24];
         this.pathSize = 24;
 
@@ -31,21 +37,32 @@ public class FlightBoardLev2 extends FlightBoard {
     }
 
     public void startTimer() {
+
+        System.out.println("Starting timer");
+
+        if (!isTimerExpired() || timerFlipsUsed >= MAX_FLIPS) return;
+
         long TIMER_DURATION = 5000;
         timerEndTime = System.currentTimeMillis() + TIMER_DURATION;
+        timerFlipsUsed++;
+
+        // start the timer
+        timer = new Timer();
+        currentTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (isTimerExpired()) {
+                    System.out.println("Timer expired");
+                    game.notifyListener(new PropertyChangeEvent(game.getId(), "timerExpired", null, timerFlipsUsed ) );
+                }
+            }
+        };
+
+        timer.schedule(currentTask, TIMER_DURATION);
     }
 
     public boolean isTimerExpired() {
         return System.currentTimeMillis() >= timerEndTime;
-    }
-
-    public boolean flipTimer() {
-        if (isTimerExpired() && timerFlipsUsed < MAX_FLIPS) {
-            timerFlipsUsed++;
-            startTimer();
-            return true;
-        }
-        return false;
     }
 
     public int getTimerFlipsUsed() {
@@ -60,6 +77,7 @@ public class FlightBoardLev2 extends FlightBoard {
         long remainingTime = timerEndTime - System.currentTimeMillis();
         return Math.max(0, remainingTime);
     }
+
 
     public List<Integer> createAdventureCardsDeck(Game game) {
         List<Integer> adventureCardsDeck = new ArrayList<>();
@@ -92,7 +110,10 @@ public class FlightBoardLev2 extends FlightBoard {
         for (int r = 0; r < ROWS; r++) {
             boolean[] hasBox = new boolean[COLS];
             if (r == 0 || r == ROWS - 1) Arrays.fill(hasBox, true);
-            else { hasBox[0] = true; hasBox[COLS - 1] = true; }
+            else {
+                hasBox[0] = true;
+                hasBox[COLS - 1] = true;
+            }
 
             for (int part = 0; part < 3; part++) {
                 StringBuilder line = new StringBuilder();
@@ -103,7 +124,7 @@ public class FlightBoardLev2 extends FlightBoard {
                         boolean occupied = idx != -1 && path[idx] != null;
 
                         String colorStart = occupied ? path[idx].getColorUnicode() : "";
-                        String colorEnd   = occupied ? RESET : "";
+                        String colorEnd = occupied ? RESET : "";
 
                         switch (part) {
                             case 0 -> line.append(colorStart)

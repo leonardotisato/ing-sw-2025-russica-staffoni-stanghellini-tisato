@@ -14,11 +14,13 @@ public abstract class FlightBoard implements Serializable {
     protected Map<Integer, Integer> endGameCredits;
     protected int mostBeautifulShipCredits;
     protected Integer dices = null;
+    protected Game game;
 
     // for testing purposes
     protected Random rand = new Random();
 
-    public FlightBoard() {
+    public FlightBoard(Game game) {
+        this.game = game;
     }
 
     /**
