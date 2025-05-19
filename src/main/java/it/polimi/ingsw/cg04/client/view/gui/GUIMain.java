@@ -50,6 +50,7 @@ public class GUIMain extends Application {
         try {
             Font.loadFont(getClass().getResourceAsStream("/fonts/obelixprob-cyr.ttf"), 10);
             Font.loadFont(getClass().getResourceAsStream("/fonts/obelixprobit-cyr.ttf"), 10);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/OrgovanBrush.ttf"), 10);
             this.primaryStage = new Stage();
             guiRoot.setGuiMain(this);
             guiRoot.goToFirstScene();
