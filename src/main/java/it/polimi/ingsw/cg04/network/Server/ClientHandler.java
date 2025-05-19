@@ -40,6 +40,7 @@ public abstract class ClientHandler implements VirtualClient {
                 System.out.println("Disconnecting " + nickname);
             }
         } catch (Exception e) {
+            System.out.println("Error disconnecting " + nickname);
             addLogs(Collections.singletonList(e.getMessage()));
         }
 

@@ -10,10 +10,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.network.Server.Server;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GamesController {
 
@@ -146,10 +143,12 @@ public class GamesController {
 
     public void disconnect(String nickname) {
         Game g = nickToGame.get(nickname);
-        Player p = g.getPlayer(nickname);
-        if(!disconnectedPlayers.containsKey(g)) disconnectedPlayers.put(g, new ArrayList<>());
-        disconnectedPlayers.get(g).add(p);
-        connectedPlayers.get(g).remove(p);
-        g.disconnect(p);
+        if (g != null) {
+            Player p = g.getPlayer(nickname);
+            if (!disconnectedPlayers.containsKey(g)) disconnectedPlayers.put(g, new ArrayList<>());
+            disconnectedPlayers.get(g).add(p);
+            connectedPlayers.get(g).remove(p);
+            g.disconnect(p);
+        }
     }
 }

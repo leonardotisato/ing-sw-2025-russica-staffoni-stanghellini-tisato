@@ -26,7 +26,7 @@ public class ClientHandlerRMI extends ClientHandler {
     private final ScheduledExecutorService connectionDemon = Executors.newSingleThreadScheduledExecutor();
 
     /**
-     * Construct a ClientHandler that connects to the client via socket
+     * Construct a ClientHandler that connects to the client via RMI
      * @param controller of the game
      * @param server to subscribe to
      * @param virtualClient reference to the client, used to call RMI methods on
@@ -142,6 +142,7 @@ public class ClientHandlerRMI extends ClientHandler {
 
             // Check if client responded to the ping message
             if (!heartBeat.equals(lastHeartBeat)) {
+                System.out.println("Trying to disconnect client.");
                 disconnect();
                 connectionDemon.shutdown();
                 rmiExecutor.shutdown();
