@@ -30,6 +30,7 @@ public class GUIMain extends Application {
 
     /**
      * Launches the application
+     *
      * @param guiRootInstance sets the GUI root
      */
     public static void launchApp(GUIRoot guiRootInstance) {
@@ -40,6 +41,7 @@ public class GUIMain extends Application {
 
     /**
      * Starts the application and displays first scene
+     *
      * @param stage Stage to set
      * @throws IOException
      */
@@ -58,6 +60,7 @@ public class GUIMain extends Application {
 
     /**
      * Given a scene return the controller of that scene
+     *
      * @param scene scene to get controller from
      * @return Controller
      */
@@ -73,7 +76,7 @@ public class GUIMain extends Application {
     /**
      * Stops the application
      */
-    public void stop () {
+    public void stop() {
         Platform.exit();
         System.exit(0);
     }

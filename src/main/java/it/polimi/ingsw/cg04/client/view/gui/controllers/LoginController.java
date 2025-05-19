@@ -12,17 +12,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML private StackPane rootPane;
-    @FXML private Label titleText;
-    @FXML private TextField nicknameField;
-    @FXML private Button okButton;
-    @FXML private ImageView backgroundImage;
+    @FXML
+    private StackPane rootPane;
+    @FXML
+    private Label titleText;
+    @FXML
+    private TextField nicknameField;
+    @FXML
+    private Button okButton;
+    @FXML
+    private ImageView backgroundImage;
 
     private GUIRoot gui;
 
@@ -52,11 +58,13 @@ public class LoginController implements Initializable {
 
 
     }
+
     @FXML
-    private void handleLogin() {
+    private void handleLogin() throws IOException {
         String nick = nicknameField.getText();
         if (!nick.isEmpty()) {
             gui.setNickname(nick);
+            gui.goToPrelobbyScene();
         }
     }
 }
