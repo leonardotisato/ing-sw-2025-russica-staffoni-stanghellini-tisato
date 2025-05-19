@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController">
+      <ImageView fx:id="backgroundImage" />
+      <Pane fx:id="pane" prefHeight="540.0" prefWidth="960.0">
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5c649" height="63.0" layoutX="197.0" layoutY="191.0" stroke="#cc8912" strokeType="INSIDE" strokeWidth="3.0" width="567.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5c649" height="63.0" layoutX="197.0" layoutY="261.0" stroke="#cc8912" strokeType="INSIDE" strokeWidth="3.0" width="567.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5c649f7" height="63.0" layoutX="197.0" layoutY="331.0" stroke="#cc8912" strokeType="INSIDE" strokeWidth="3.0" width="567.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5c649" height="63.0" layoutX="197.0" layoutY="121.0" stroke="#cc8912" strokeType="INSIDE" strokeWidth="3.0" width="567.0" />
+         <TextField fx:id="credits1" alignment="CENTER" editable="false" layoutX="583.0" layoutY="127.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick1" alignment="CENTER" editable="false" layoutX="210.0" layoutY="127.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color1" fill="TRANSPARENT" layoutX="411.0" layoutY="152.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits2" alignment="CENTER" editable="false" layoutX="583.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick2" alignment="CENTER" editable="false" layoutX="210.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color2" fill="#1f93ff00" layoutX="411.0" layoutY="362.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits3" alignment="CENTER" editable="false" layoutX="583.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick3" alignment="CENTER" editable="false" layoutX="210.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color3" fill="#1f93ff00" layoutX="411.0" layoutY="222.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits4" alignment="CENTER" editable="false" layoutX="583.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick4" alignment="CENTER" editable="false" layoutX="210.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color4" fill="#1f93ff00" layoutX="411.0" layoutY="293.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      </Pane>
+</StackPane>

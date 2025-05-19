@@ -1,0 +1,8 @@
+.textfield {
+    -fx-background-color: transparent;
+    -fx-font-size: 32px;
+    -fx-text-fill: brown;
+    -fx-font-family: "OrgovanBrush";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}

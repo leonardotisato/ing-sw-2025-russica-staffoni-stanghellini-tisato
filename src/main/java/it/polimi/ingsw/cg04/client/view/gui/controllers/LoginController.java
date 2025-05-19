@@ -64,7 +64,10 @@ public class LoginController implements Initializable {
         String nick = nicknameField.getText();
         if (!nick.isEmpty()) {
             gui.setNickname(nick);
-            gui.goToPrelobbyScene();
+
+            // used for testing, will be removed
+            // gui.goToPrelobbyScene();
+            // gui.goToEndScene();
         }
     }
 }

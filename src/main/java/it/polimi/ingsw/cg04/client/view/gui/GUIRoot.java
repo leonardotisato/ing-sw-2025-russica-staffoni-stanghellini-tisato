@@ -2,8 +2,15 @@ package it.polimi.ingsw.cg04.client.view.gui;
 
 import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController;
+import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.BuildState;
+import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
+import it.polimi.ingsw.cg04.model.GameStates.LoadCrewState;
+import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import javafx.application.Platform;
@@ -14,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class GUIRoot extends View {
@@ -28,6 +36,10 @@ public class GUIRoot extends View {
     LoginController loginController;
     PrelobbySceneController prelobbySceneController;
 
+
+    EndSceneController endSceneController;
+
+    private int columnOffset = 0;
 
     private boolean isLoggedOut;
 
@@ -59,11 +71,48 @@ public class GUIRoot extends View {
         this.guiMain = guiMain;
     }
 
-    public void updateGame() {
+
+    public void updateGame(Game toDisplay, String oldValue) {
+
+
+        try {
+            if (toDisplay != null) {
+                if (toDisplay.getGameState() instanceof LobbyState) {
+
+                } else if (toDisplay.getGameState() instanceof BuildState) {
+                    // todo: aggiungi check per capire se mostrare faceup scene, others scene, build scene
+
+                } else if (toDisplay.getGameState() instanceof LoadCrewState) {
+
+                } else if (toDisplay.getGameState() instanceof AdventureCardState) {
+                    // todo: aggiunge check per capire se mostrare others scene o adCard scene
+
+                } else if (toDisplay.getGameState() instanceof EndGameState) {
+                    if (endSceneController == null) {
+                        goToEndScene();
+                        Platform.runLater(() -> {
+                            endSceneController.update(toDisplay);
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            endSceneController.update(toDisplay);
+                        });
+                    }
+                }
+            }
+        } catch (NullPointerException ignored) {
+            System.out.println("Game not found");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateLogs(List<String> newValue) {
 
     }
 
-    public void updateLogs() {
+    // todo implement: it should refresh the games in preLobby scene
+    private void updateJoinableGames(List<Game.GameInfo> newValue) {
 
     }
 
@@ -79,6 +128,9 @@ public class GUIRoot extends View {
             stage.setResizable(true);
             stage.show();
         });
+
+        // used for testing, will be removed
+        // endSceneController.update(new Game(2, 2, 0, "Piero", PlayerColor.GREEN));
     }
 
     /**
@@ -132,6 +184,29 @@ public class GUIRoot extends View {
     }
 
 
+
+
+    public void goToEndScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.fxml"));
+        Parent root = loader.load();
+
+        endSceneController = loader.getController();
+        endSceneController.setGUI(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.css")).toExternalForm());
+
+        Stage stage = guiMain.getPrimaryStage();
+        stage.setResizable(true);
+
+        scene.setUserData(endSceneController);
+        guiMain.sceneControllerMap.put(scene, endSceneController);
+
+        changeScene(scene);
+    }
+
+    // Actions
     public void setNickname(String nickname) {
         this.clientNickname = nickname;
         server.setNickname(nickname);
@@ -145,8 +220,23 @@ public class GUIRoot extends View {
         server.joinGame(gameId, PlayerColor.valueOf(color));
     }
 
+
+    // todo: add case to handle setNick
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        switch (evt.getPropertyName()) {
+            case "GAME_UPDATE" -> {
+                // System.out.println("Game updated");
+                updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
+                columnOffset = ((Game) evt.getNewValue()).getLevel() == 2 ? 4 : 5;
+            }
+            case "LOGS_UPDATE" -> {
+                // System.out.println("Logs updated");
+                updateLogs((List<String>) evt.getNewValue());
+            }
+            case "JOINABLE_GAMES" -> {
+                updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
+            }
+        }
     }
 }
