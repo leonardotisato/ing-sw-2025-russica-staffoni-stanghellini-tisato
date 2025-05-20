@@ -28,7 +28,7 @@ class TileTest {
 
         // new tests using the tileLoader
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
         assertNotNull(tiles);
         assertFalse(tiles.isEmpty());
