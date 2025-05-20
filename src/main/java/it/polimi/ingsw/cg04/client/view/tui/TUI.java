@@ -297,6 +297,7 @@ public class TUI extends View {
                             server.handleBoxes(null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
+                            clientModel.getGame().composeNewBoxesMap(server.getNickname(), args.coordGroups().getFirst(), args.boxMapList());
                             server.handleBoxes(args.coordGroups().getFirst(), args.boxMapList());
                         }
                     }
@@ -306,6 +307,7 @@ public class TUI extends View {
                             server.landToPlanet(null, null, null);
                         } else {
                             args = parser.parseArguments(command, argsLine);
+                            clientModel.getGame().composeNewBoxesMap(server.getNickname(), args.coordGroups().getFirst(), args.boxMapList());
                             server.landToPlanet(args.planetIdx(), args.coordGroups().getFirst(), args.boxMapList());
                         }
                     }
