@@ -1,0 +1,493 @@
+{
+  "1": {
+    "type": "Slavers",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 6,
+    "membersLost": 3,
+    "creditsEarned": 5
+  },
+  "2": {
+    "type": "Smugglers",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 4,
+    "lostGoods": 2,
+    "boxes": {
+      "YELLOW": 1,
+      "GREEN": 1,
+      "BLUE": 1
+    }
+  },
+  "3": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "4": {
+    "type": "Stardust",
+    "cardLevel": 1,
+    "daysLost": 0
+  },
+  "5": {
+    "type": "OpenSpace",
+    "cardLevel": 1,
+    "daysLost": 0
+  },
+  "6": {
+    "type": "OpenSpace",
+    "cardLevel": 1,
+    "daysLost": 0
+  },
+  "7": {
+    "type": "OpenSpace",
+    "cardLevel": 1,
+    "daysLost": 0
+  },
+  "8": {
+    "type": "OpenSpace",
+    "cardLevel": 1,
+    "daysLost": 0
+  },
+  "9": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "10": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "11": {
+    "type": "MeteorsRain",
+    "cardLevel": 1,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "12": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "RED": 1,
+        "GREEN": 1,
+        "BLUE": 3
+      },
+      {
+        "RED": 1,
+        "YELLOW": 1,
+        "BLUE": 1
+      },
+      {
+        "RED": 1,
+        "BLUE": 3
+      },
+      {
+        "RED": 1,
+        "GREEN": 1
+      }
+    ]
+  },
+  "13": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 2,
+    "planetReward": [
+      {
+        "RED": 2
+      },
+      {
+        "RED": 1,
+        "BLUE": 2
+      },
+      {
+        "YELLOW": 1
+      }
+    ]
+  },
+  "14": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "YELLOW": 1,
+        "GREEN": 1,
+        "BLUE": 2
+      },
+      {
+        "YELLOW": 2
+      }
+    ]
+  },
+  "15": {
+    "type": "Planets",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "planetReward": [
+      {
+        "GREEN": 2
+      },
+      {
+        "YELLOW": 1
+      },
+      {
+        "BLUE": 3
+      }
+    ]
+  },
+  "16": {
+    "type": "WarZone",
+    "cardLevel": 1,
+    "checkParameter": [
+      "CREW",
+      "PROPULSORS",
+      "CANNONS"
+    ],
+    "penaltyType": [
+      "GOBACK",
+      "LOSECREW",
+      "HANDLESHOTS"
+    ],
+    "daysLost": 3,
+    "lostMembers": 2,
+    "lostGoods": 0,
+    "attacks": [
+      "LIGHT",
+      "HEAVY"
+    ],
+    "directions": [
+      "DOWN",
+      "DOWN"
+    ]
+  },
+  "17": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "lostMembers": 2,
+    "earnedCredits": 3
+  },
+  "18": {
+    "type": "AbandonedShip",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "lostMembers": 3,
+    "earnedCredits": 4
+  },
+  "19": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "membersNeeded": 5,
+    "obtainedResources": {
+      "YELLOW": 1,
+      "GREEN": 1
+    }
+  },
+  "20": {
+    "type": "AbandonedStation",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "membersNeeded": 6,
+    "obtainedResources": {
+      "RED": 2
+    }
+  },
+  "21": {
+    "type": "Slavers",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 7,
+    "membersLost": 4,
+    "creditsEarned": 8
+  },
+  "22": {
+    "type": "Smugglers",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "firePower": 8,
+    "lostGoods": "3",
+    "boxes": {
+      "RED": 1,
+      "YELLOW": 2
+    }
+  },
+  "23": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "24": {
+    "type": "Stardust",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "25": {
+    "type": "Epidemic",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "26": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "27": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "28": {
+    "type": "OpenSpace",
+    "cardLevel": 2,
+    "daysLost": 0
+  },
+  "29": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT",
+      "LEFT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "30": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "DOWN",
+      "DOWN"
+    ],
+    "attacks": [
+      "HEAVY",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "31": {
+    "type": "MeteorsRain",
+    "cardLevel": 2,
+    "daysLost": 0,
+    "directions": [
+      "UP",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "HEAVY",
+      "LIGHT",
+      "LIGHT"
+    ]
+  },
+  "32": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 4,
+    "planetReward": [
+      {
+        "RED": 3,
+        "YELLOW": 1
+      },
+      {
+        "RED": 2,
+        "GREEN": 2
+      },
+      {
+        "RED": 1,
+        "BLUE": 4
+      }
+    ]
+  },
+  "33": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "RED": 2
+      },
+      {
+        "GREEN": 4
+      }
+    ]
+  },
+  "34": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "planetReward": [
+      {
+        "RED": 1,
+        "YELLOW": 1
+      },
+      {
+        "YELLOW": 1,
+        "GREEN": 1,
+        "BLUE": 1
+      },
+      {
+        "GREEN": 2
+      },
+      {
+        "YELLOW": 1
+      }
+    ]
+  },
+  "35": {
+    "type": "Planets",
+    "cardLevel": 2,
+    "daysLost": 3,
+    "planetReward": [
+      {
+        "GREEN": 4
+      },
+      {
+        "YELLOW": 2
+      },
+      {
+        "BLUE": 4
+      }
+    ]
+  },
+  "36": {
+    "type": "WarZone",
+    "cardLevel": 2,
+    "checkParameter": [
+      "CANNONS",
+      "PROPULSORS",
+      "CREW"
+    ],
+    "penaltyType": [
+      "GOBACK",
+      "LOSEBOX",
+      "HANDLESHOTS"
+    ],
+    "daysLost": 4,
+    "lostMembers": 0,
+    "lostGoods": 2,
+    "attacks": [
+      "LIGHT",
+      "LIGHT",
+      "LIGHT",
+      "HEAVY"
+    ],
+    "directions": [
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ]
+  },
+  "37": {
+    "type": "AbandonedShip",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "lostMembers": 4,
+    "earnedCredits": 6
+  },
+  "38": {
+    "type": "AbandonedShip",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "lostMembers": 5,
+    "earnedCredits": 8
+  },
+  "39": {
+    "type": "AbandonedStation",
+    "cardLevel": 2,
+    "daysLost": 1,
+    "membersNeeded": 7,
+    "obtainedResources": {
+      "RED": 1,
+      "YELLOW": 1
+    }
+  },
+  "40": {
+    "type": "AbandonedStation",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "membersNeeded": 8,
+    "obtainedResources": {
+      "YELLOW": 2,
+      "GREEN": 1
+    }
+  }
+}

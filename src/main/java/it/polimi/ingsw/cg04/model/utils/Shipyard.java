@@ -11,12 +11,14 @@ import java.util.Map;
 public class Shipyard implements Serializable {
 
     ArrayList<Integer> faceDownTiles = new ArrayList<>();
-    private final Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
+    Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
     /**
      * @return a level 1 ship
      */
     public Ship createShip2() {
+
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship lev1Ship = new Ship(1, PlayerColor.BLUE);
 
@@ -65,6 +67,8 @@ public class Shipyard implements Serializable {
      */
     public Ship createShip3() {
 
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
+
         Ship ship3 = new Ship(2, PlayerColor.BLUE);
 
         tiles.get(14).rotate90dx();
@@ -105,6 +109,8 @@ public class Shipyard implements Serializable {
 
     public Ship createShip4() {
 
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
+
         Ship ship4 = new Ship(2, PlayerColor.RED);
 
         ship4.placeTile(tiles.get(149), 1, 4);
@@ -122,6 +128,8 @@ public class Shipyard implements Serializable {
     }
 
     public Ship createShip5() {
+
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship lev2Ship = new Ship(2, PlayerColor.YELLOW);
 

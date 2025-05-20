@@ -59,7 +59,7 @@ public class Game implements Serializable {
         }
 
         // set up adventure cards
-        String PATH_TO_CARDS = "src/main/resources/jsons/AdventureCardsFile.json";
+        String PATH_TO_CARDS = "jsons/AdventureCardsFile.json";
         this.adventureCardsMap = CardLoader.loadCardsFromJson(PATH_TO_CARDS, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -69,7 +69,7 @@ public class Game implements Serializable {
         createAdventureDeck();
 
         // set up tiles
-        String PATH_TO_TILES = "src/main/resources/jsons/TilesFile.json";
+        String PATH_TO_TILES = "jsons/TilesFile.json";
         this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
 
 
@@ -86,7 +86,7 @@ public class Game implements Serializable {
         if (level == 1) this.board = new FlightBoardLev1(this);
         else if (level == 2) this.board = new FlightBoardLev2(this);
 
-        String PATH_TO_CARDS = "src/main/resources/jsons/AdventureCardsFile.json";
+        String PATH_TO_CARDS = "jsons/AdventureCardsFile.json";
         this.adventureCardsMap = CardLoader.loadCardsFromJson(PATH_TO_CARDS, this.level1Cards, this.level2Cards);
         this.preFlightPiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -95,7 +95,7 @@ public class Game implements Serializable {
         this.adventureCardsDeck = new ArrayList<>();
         createAdventureDeck();
 
-        String PATH_TO_TILES = "src/main/resources/jsons/TilesFile.json";
+        String PATH_TO_TILES = "jsons/TilesFile.json";
         this.tilesDeckMap = TileLoader.loadTilesFromJson(PATH_TO_TILES, this.faceDownTiles);
 
         this.id = 0;

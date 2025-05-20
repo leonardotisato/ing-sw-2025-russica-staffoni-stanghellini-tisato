@@ -16,8 +16,7 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.InfoCmp;
 
 import java.beans.PropertyChangeEvent;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -401,22 +400,20 @@ public class TUI extends View {
         }
 
         private Completer getCommandsCompleter() {
-            try {
-                // Legge il file JSON
-                FileReader reader = new FileReader("src/main/java/it/polimi/ingsw/cg04/client/view/tui/commands.json");
+            // Legge il file JSON
+            InputStream is = getClass().getClassLoader().getResourceAsStream("jsons/commands.json");
+            assert is != null;
+            Reader reader = new InputStreamReader(is);
 
-                // Imposta il tipo: List<String>
-                Type listType = new TypeToken<List<String>>() {
-                }.getType();
+            // Imposta il tipo: List<String>
+            Type listType = new TypeToken<List<String>>() {
+            }.getType();
 
-                // Crea Gson e deserializza
-                Gson gson = new Gson();
-                List<String> commands = gson.fromJson(reader, listType);
-                Completer completer = new StringsCompleter(commands);
-                return completer;
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            // Crea Gson e deserializza
+            Gson gson = new Gson();
+            List<String> commands = gson.fromJson(reader, listType);
+            Completer completer = new StringsCompleter(commands);
+            return completer;
         }
 
         public Terminal getTerminal() {

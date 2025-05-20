@@ -52,7 +52,7 @@ class ShipTest {
     private Tile laserTile126;
 
     ArrayList<Integer> faceDownTiles = new ArrayList<>();
-    Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
+    Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
 
     @BeforeEach
