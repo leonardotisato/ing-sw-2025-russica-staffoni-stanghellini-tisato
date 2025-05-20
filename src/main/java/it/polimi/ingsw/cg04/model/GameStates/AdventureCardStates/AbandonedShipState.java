@@ -17,7 +17,8 @@ public class AbandonedShipState extends AdventureCardState {
 
 
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
-        if (!player.equals(sortedPlayers.get(this.currPlayerIdx))) throw new InvalidStateException("Player" + player.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
+        if (!player.equals(sortedPlayers.get(this.currPlayerIdx)))
+            throw new InvalidStateException("Player" + player.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
         if (numCrewMembersLost != null && numCrewMembersLost.stream().mapToInt(Integer::intValue).sum() != card.getLostMembers())
             throw new InvalidStateException("The number of crew sent by Player " + player.getName() + " is incorrect for this card, he should send " + card.getLostMembers() + " crew members");
         if (numCrewMembersLost == null) {
@@ -43,7 +44,7 @@ public class AbandonedShipState extends AdventureCardState {
         StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
         stringBuilder.append("\n".repeat(3));
         Player p = context.getPlayer(playerName);
-        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             stringBuilder.append("You have ").append(context.getPlayer(playerName).getShip().getNumCrew()).append(" crew members.").append("\n");
             stringBuilder.append("send x if you want to give up ").append(card.getLostMembers()).append(" crew members in exchange for ").append(card.getEarnedCredits()).append(" credits.\n");

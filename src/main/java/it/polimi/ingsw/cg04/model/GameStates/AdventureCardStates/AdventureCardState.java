@@ -33,28 +33,38 @@ public abstract class AdventureCardState extends GameState {
     }
 
     public void triggerNextState() {
-        String log = "";
-        if(card != null) {
+
+        // if an adventure ended
+        if (card != null) {
+
+            // for each player, check if they need to retire
             for (Player player : sortedPlayers) {
-                log = context.flagLapped(player);
+                String log = context.flagLapped(player);
                 log = log + context.flagNoHumans(player);
                 if (!log.isEmpty()) this.appendLog(log);
             }
-            System.out.println(card.getType() + " è stata risolta!");
-            this.appendLog(card.getType() + " has been solved!");
-            if(context.getPlayers().isEmpty()) {
+
+            if (context.getPlayers().isEmpty()) {
+                // end game since all players are retired
                 this.appendLog("No player can continue the game. They are all either retired or disconnected.");
                 context.setGameState(new EndGameState(context));
                 context.setCurrentAdventureCard(null);
                 context.handleEndGame();
+            } else {
+                // game continues
+                System.out.println(card.getType() + " è stata risolta!");
+                this.appendLog(card.getType() + " has been solved!");
+                context.setGameState(new FlightState(context));
+                context.setCurrentAdventureCard(null);
             }
-        }
-        if(getContext().getAdventureCardsDeck().isEmpty()) {
+
+        } else if (getContext().getAdventureCardsDeck().isEmpty()) {
+            // the game ended since there are no more adv cards
             context.setGameState(new EndGameState(context));
             context.setCurrentAdventureCard(null);
             context.handleEndGame();
-        }
-        else {
+        } else {
+            // game continues
             context.setGameState(new FlightState(context));
             context.setCurrentAdventureCard(null);
         }

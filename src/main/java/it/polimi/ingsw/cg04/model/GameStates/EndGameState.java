@@ -22,7 +22,7 @@ public class EndGameState extends GameState{
     public String render(String playerName){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n");
-        stringBuilder.append(playerName).append("The game has ended. \n\n");
+        stringBuilder.append(playerName).append("\n\nThe game has ended. \n\n");
         Player p = game.getPlayer(playerName);
         stringBuilder.append(p.getNumCredits() >= 1 ? "You have one credit or more, so you won!" : "You have no credit, you lost!").append("\n");
         stringBuilder.append("Leaderboard: ").append("\n");
