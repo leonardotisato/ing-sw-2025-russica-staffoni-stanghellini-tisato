@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 
 import static java.lang.Math.ceil;
@@ -555,6 +556,16 @@ public class Game implements Serializable {
     public void disconnect(Player p) {
         disconnected.add(p);
         players.remove(p);
+    }
+
+    public void composeNewBoxesMap(String nickname, List<Coordinates> c, List<Map<BoxType,Integer>> newBoxes){
+        Ship s = getPlayer(nickname).getShip();
+        for (Coordinates c1 : s.getTilesMap().get("StorageTile")) {
+            if(!c1.isIn(c)) {
+                c.add(c1);
+                newBoxes.add(s.getTile(c1.getX(),c1.getY()).getBoxes());
+            }
+        }
     }
 
     public String render(String nickname){
