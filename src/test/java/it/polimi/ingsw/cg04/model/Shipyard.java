@@ -16,7 +16,7 @@ public class Shipyard {
      */
     public Ship createShip2() {
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
         Ship lev1Ship = new Ship(1, PlayerColor.BLUE);
 
@@ -65,7 +65,7 @@ public class Shipyard {
      */
     public Ship createShip3() {
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
         Ship ship3 = new Ship(2, PlayerColor.BLUE);
 
@@ -108,7 +108,7 @@ public class Shipyard {
     public Ship createShip4() {
 
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
         Ship ship4 = new Ship(2, PlayerColor.RED);
 
@@ -129,7 +129,7 @@ public class Shipyard {
     public Ship createShip5() {
 
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
         Ship lev2Ship = new Ship(2, PlayerColor.YELLOW);
 

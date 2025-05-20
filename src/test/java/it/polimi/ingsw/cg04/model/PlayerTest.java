@@ -14,7 +14,7 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        game1 = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game1 = new Game(2);
         player1 = new Player("Alice", PlayerColor.RED, game1);
     }
 

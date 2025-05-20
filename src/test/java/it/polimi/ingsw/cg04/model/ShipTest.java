@@ -51,14 +51,12 @@ class ShipTest {
     private Tile laserTile125;
     private Tile laserTile126;
 
-    Map<Integer, Tile> tiles;
+    ArrayList<Integer> faceDownTiles = new ArrayList<>();
+    Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/main/resources/jsons/TilesFile.json", faceDownTiles);
 
 
     @BeforeEach
     void setUp() {
-        // new tests using the tileLoader
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
 
         assertNotNull(tiles);
         assertFalse(tiles.isEmpty());
