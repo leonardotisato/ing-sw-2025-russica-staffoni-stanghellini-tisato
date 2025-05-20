@@ -72,7 +72,7 @@ public class GUIRoot extends View {
     }
 
 
-    public void updateGame(Game toDisplay, String oldValue) {
+    public void updateGame(Game toDisplay, String nickname) {
 
 
         try {
