@@ -15,6 +15,7 @@ public class EndGameState extends GameState{
         this.game = game;
         this.leaderboard = new ArrayList<>();
         leaderboard = game.getPlayers();
+        leaderboard.addAll(game.getRetiredPlayers());
         leaderboard.sort(Comparator.comparingDouble(Player::getNumCredits).reversed());
     }
 

@@ -20,6 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.transform.Scale;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -117,52 +118,28 @@ public class EndSceneController implements Initializable {
     public void update(Game game) {
 
         List<Player> players = game.getPlayers();
+        players.addAll(game.getRetiredPlayers());
+        players.sort(Comparator.comparingDouble(Player::getNumCredits).reversed());
 
-        switch (players.size()) {
-            case 1 -> {
-                nick1.setText(players.getFirst().getName());
-                color1.setFill(mapColor(players.getFirst().getColor()));
-                credits1.setText(Double.toString(players.getFirst().getNumCredits()));
-            }
-            case 2 -> {
-                nick1.setText(players.getFirst().getName());
-                color1.setFill(mapColor(players.getFirst().getColor()));
-                credits1.setText(Double.toString(players.getFirst().getNumCredits()));
-
-                nick2.setText(players.get(1).getName());
-                color1.setFill(mapColor(players.get(1).getColor()));
-                credits2.setText(Double.toString(players.get(1).getNumCredits()));
-            }
-            case 3 -> {
-                nick1.setText(players.getFirst().getName());
-                color1.setFill(mapColor(players.getFirst().getColor()));
-                credits1.setText(Double.toString(players.getFirst().getNumCredits()));
-
-                nick2.setText(players.get(1).getName());
-                color1.setFill(mapColor(players.get(1).getColor()));
-                credits2.setText(Double.toString(players.get(1).getNumCredits()));
-
-                nick3.setText(players.get(2).getName());
-                color1.setFill(mapColor(players.get(2).getColor()));
-                credits3.setText(Double.toString(players.get(2).getNumCredits()));
-            }
-            case 4 -> {
-                nick1.setText(players.getFirst().getName());
-                color1.setFill(mapColor(players.getFirst().getColor()));
-                credits1.setText(Double.toString(players.getFirst().getNumCredits()));
-
-                nick2.setText(players.get(1).getName());
-                color1.setFill(mapColor(players.get(2).getColor()));
-                credits2.setText(Double.toString(players.get(1).getNumCredits()));
-
-                nick3.setText(players.get(2).getName());
-                color1.setFill(mapColor(players.get(3).getColor()));
-                credits3.setText(Double.toString(players.get(2).getNumCredits()));
-
-                nick4.setText(players.get(3).getName());
-                color1.setFill(mapColor(players.get(4).getColor()));
-                credits4.setText(Double.toString(players.get(3).getNumCredits()));
-            }
+        if(players.size() >= 1) {
+            nick1.setText(players.getFirst().getName());
+            color1.setFill(mapColor(players.getFirst().getColor()));
+            credits1.setText(Double.toString(players.getFirst().getNumCredits()));
+        }
+        if(players.size() >= 2) {
+            nick2.setText(players.get(1).getName());
+            color1.setFill(mapColor(players.get(2).getColor()));
+            credits2.setText(Double.toString(players.get(1).getNumCredits()));
+        }
+        if(players.size() >= 3) {
+            nick3.setText(players.get(2).getName());
+            color1.setFill(mapColor(players.get(3).getColor()));
+            credits3.setText(Double.toString(players.get(2).getNumCredits()));
+        }
+        if(players.size() >= 4) {
+            nick4.setText(players.get(3).getName());
+            color1.setFill(mapColor(players.get(4).getColor()));
+            credits4.setText(Double.toString(players.get(3).getNumCredits()));
         }
     }
 }
