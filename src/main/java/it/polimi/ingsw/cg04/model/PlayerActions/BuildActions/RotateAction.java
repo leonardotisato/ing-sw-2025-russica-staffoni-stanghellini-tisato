@@ -19,6 +19,7 @@ public class RotateAction extends PlayerAction {
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.rotateTile(player, type);
+        this.addLogs(state.getLogs());
     }
 
     @Override

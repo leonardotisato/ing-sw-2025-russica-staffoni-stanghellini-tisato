@@ -46,6 +46,7 @@ public class LoadCrewState extends AdventureCardState {
     }
 
         public String render (String nickname){
+            Player player = context.getPlayer(nickname);
             StringBuilder stringBuilder = new StringBuilder("\n");
             stringBuilder.append("State: Load crew").append("\n").append("\n");
             for (Player p : context.getPlayers()) {
@@ -55,8 +56,11 @@ public class LoadCrewState extends AdventureCardState {
             }
             stringBuilder.append("Your ship:").append("\n").append("\n");
             stringBuilder.append(context.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
-            stringBuilder.append("It's time to load crew!");
-            stringBuilder.append("\n");
+            if (currPlayerIdx == (player.getRanking() - 1)) {
+                stringBuilder.append("It's time to load the crew! Type loadCrew and load pink or brown aliens on your ship, if you want.").append("\n");
+            } else {
+                stringBuilder.append("It's almost time to load the crew! Wait your turn to load pink or brown aliens on your ship.").append("\n");
+            }
             return stringBuilder.toString();
         }
     }
