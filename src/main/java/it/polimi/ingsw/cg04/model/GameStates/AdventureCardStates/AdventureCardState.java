@@ -126,8 +126,8 @@ public abstract class AdventureCardState extends GameState {
 
     public String render(String playerName) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(TuiDrawer.renderPlayersByColumn(context.getSortedPlayers())).append("\n");
-        stringBuilder.append("Your ship:").append("\n");
+        System.out.println(TuiDrawer.renderPlayersByColumn(context.getSortedPlayers()));
+        System.out.println("Your ship:");
         stringBuilder.append(context.getPlayer(playerName).getShip().draw());
         List<String> shipPanel = toLines(stringBuilder.toString());
         List<String> flightBoardPanel = toLines(context.getBoard().draw());
