@@ -41,8 +41,8 @@ public class BuildState extends GameState {
      * See the relative action for more exceptions and context
      *
      * @param player The player attempting to place the tile.
-     * @param x The x-coordinate where the tile is placed.
-     * @param y The y-coordinate where the tile is placed.
+     * @param x      The x-coordinate where the tile is placed.
+     * @param y      The y-coordinate where the tile is placed.
      * @throws InvalidStateException If the player is not in the BUILDING state.
      */
     @Override
@@ -75,7 +75,7 @@ public class BuildState extends GameState {
      * See the relative action for more exceptions and context
      *
      * @param player The player holding the tile to be rotated.
-     * @param type The direction of rotation ("LEFT", "RIGHT", or "DOWN").
+     * @param type   The direction of rotation ("LEFT", "RIGHT", or "DOWN").
      * @throws InvalidStateException If the player is not in the BUILDING state.
      */
     @Override
@@ -89,8 +89,7 @@ public class BuildState extends GameState {
             player.getHeldTile().rotate90sx();
         } else if (type.equalsIgnoreCase("RIGHT")) {
             player.getHeldTile().rotate90dx();
-        }
-        else if (type.equalsIgnoreCase("DOWN")) {
+        } else if (type.equalsIgnoreCase("DOWN")) {
             player.getHeldTile().rotate90dx();
             player.getHeldTile().rotate90dx();
         }
@@ -148,7 +147,7 @@ public class BuildState extends GameState {
      * See the relative action for more exceptions and context
      *
      * @param player The player who is attempting to choose a tile from their buffer.
-     * @param idx The index of the tile in the buffer that the player wants to pick.
+     * @param idx    The index of the tile in the buffer that the player wants to pick.
      * @throws InvalidStateException If the player is not in the BUILDING state.
      */
     @Override
@@ -258,7 +257,7 @@ public class BuildState extends GameState {
      * an InvalidStateException is thrown.
      * See the relative action for more exceptions and context
      *
-     * @param player The player attempting to pick the pile.
+     * @param player    The player attempting to pick the pile.
      * @param pileIndex The index of the pile the player wants to pick.
      * @throws InvalidStateException If the player is not in the BUILDING state
      *                               or the pile is already being viewed by another player.
@@ -311,7 +310,7 @@ public class BuildState extends GameState {
      * If all players have completed the building phase, it triggers the next game state.
      * See the relative action for more exceptions and context
      *
-     * @param player The player attempting to end the building phase.
+     * @param player   The player attempting to end the building phase.
      * @param position The starting position the player chooses.
      * @throws InvalidStateException If the player is not in a valid state to end the building phase,
      *                               if the position is invalid, or if the position is already taken.
@@ -322,7 +321,7 @@ public class BuildState extends GameState {
         if (playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
             throw new InvalidStateException("cant end building now");
         }
-        if(playerState.get(player.getName()) == BuildPlayerState.SHOWING_PILE) {
+        if (playerState.get(player.getName()) == BuildPlayerState.SHOWING_PILE) {
             throw new InvalidStateException("Return the pile before ending the building phase!");
         }
         if (position > playerState.size()) {
@@ -333,7 +332,8 @@ public class BuildState extends GameState {
             throw new InvalidStateException("Position " + position + " is already taken!");
         }
 
-        player.move(board.getStartingPosition(position));
+        board.occupyCell(board.getStartingPosition(position), player);
+
         playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
         //if he needs to fix his ship, is it right to move him to the start position?
         if (player.getShip().isShipLegal()) {
@@ -352,7 +352,7 @@ public class BuildState extends GameState {
      * If all players are READY, the next game state is triggered.
      * See the relative action for more exceptions and context
      *
-     * @param player The player who is attempting to fix their ship.
+     * @param player          The player who is attempting to fix their ship.
      * @param coordinatesList The list of coordinates for the tiles to be broken on the ship.
      * @throws InvalidStateException If the player is not in the FIXING state.
      */
@@ -365,7 +365,7 @@ public class BuildState extends GameState {
         for (Coordinates coordinates : coordinatesList) {
             player.getShip().breakTile(coordinates.getX(), coordinates.getY());
         }
-        if(game.getLevel() == 1) {
+        if (game.getLevel() == 1) {
             player.getShip().updateNumBrokenTiles(coordinatesList.size());
         }
         if (player.getShip().isShipLegal()) {
@@ -391,15 +391,47 @@ public class BuildState extends GameState {
      */
     @Override
     public void startTimer(Player player) throws InvalidStateException {
-        if (playerState.get(player.getName()) == BuildPlayerState.BUILDING) { // todo: review me... players that are building are allowed... i think...
-            throw new InvalidStateException("cant start timer now");
-        }
 
         if (game.getLevel() != 2) {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
         }
         game.getBoard().startTimer();
         this.addLog(player.getName() + " started the timer!");
+    }
+
+    /**
+     * Stops the building phase for the specified player in the game.
+     * This method ensures that all players who are not in the READY or FIXING states
+     * are transitioned into an appropriate state based on the validity of their ships,
+     * and assigns them a starting position on the game board.
+     *
+     * @param player The player for whom the building phase is being stopped.
+     * @throws InvalidStateException if the current level of the game is not level 2.
+     */
+    @Override
+    public void stopBuilding(Player player) throws InvalidStateException {
+
+        // this exception should never be thrown
+        if (game.getLevel() != 2) {
+            throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
+        }
+
+        FlightBoard board = game.getBoard();
+
+        for (Player p : game.getPlayers()) {
+            // if the player was still building force them in READY or FIXING
+            if (playerState.get(p.getName()) != BuildPlayerState.FIXING && playerState.get(p.getName()) != BuildPlayerState.READY) {
+                playerState.put(p.getName(), p.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
+                // start checking from the best position, if free place the current player
+                for (int i = 1; i <= 4; i++) {
+                    if (board.getCell(board.getStartingPosition(i)) == null) {
+                        board.occupyCell(board.getStartingPosition(i), p);
+                        this.addLog(p.getName() + " is done building and he choose to start at position " + i);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     @Override

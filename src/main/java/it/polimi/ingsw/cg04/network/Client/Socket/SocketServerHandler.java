@@ -164,6 +164,12 @@ public class SocketServerHandler extends ServerHandler {
     }
 
     @Override
+    public void stopBuilding() {
+        Action a = new StopBuildingAction(nickname);
+        send(new Message("ACTION", a));
+    }
+
+    @Override
     public void chooseBattery(int x, int y) {
         Action a = new ChooseBatteryAction(nickname, x, y);
         send(new Message("ACTION", a));

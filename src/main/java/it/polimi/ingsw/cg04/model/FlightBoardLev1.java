@@ -2,8 +2,8 @@ package it.polimi.ingsw.cg04.model;
 
 import java.util.*;
 
-public class FlightBoardLev1 extends FlightBoard{
-    public FlightBoardLev1(Game game){
+public class FlightBoardLev1 extends FlightBoard {
+    public FlightBoardLev1(Game game) {
         super(game);
         this.path = new Player[18];
         this.pathSize = 18;
@@ -31,8 +31,6 @@ public class FlightBoardLev1 extends FlightBoard{
         final int COLS = 7, ROWS = 4;
         final int BOX_INNER = 3;
         final int BOX_W = BOX_INNER + 2;
-        final int TITLE_ROW = 2;
-        final String TITLE = "level 1 flightboard";
         final String RESET = "\u001B[0m";
 
         StringBuilder board = new StringBuilder();
@@ -41,7 +39,10 @@ public class FlightBoardLev1 extends FlightBoard{
 
             boolean[] hasBox = new boolean[COLS];
             if (r == 0 || r == ROWS - 1) Arrays.fill(hasBox, true);
-            else { hasBox[0] = true; hasBox[COLS - 1] = true; }
+            else {
+                hasBox[0] = true;
+                hasBox[COLS - 1] = true;
+            }
 
             // three parts: top middle bottom
             for (int part = 0; part < 3; part++) {
@@ -53,7 +54,7 @@ public class FlightBoardLev1 extends FlightBoard{
                         boolean occupied = idx != -1 && path[idx] != null; // chek if the box is occupied
 
                         String colorStart = occupied ? path[idx].getColorUnicode() : "";
-                        String colorEnd   = occupied ? RESET : "";
+                        String colorEnd = occupied ? RESET : "";
 
                         switch (part) {
                             case 0 -> line.append(colorStart)
@@ -79,14 +80,6 @@ public class FlightBoardLev1 extends FlightBoard{
                     } else line.append(" ".repeat(BOX_W)); // empty
                 }
 
-                // center content inside the box
-                if (r == TITLE_ROW && part == 1) {
-                    int blankStart = BOX_W;
-                    int blankWidth = (COLS - 2) * BOX_W;
-                    line.replace(blankStart, blankStart + blankWidth,
-                            center(TITLE, blankWidth));
-                }
-
                 board.append(line).append('\n');
             }
         }
@@ -101,7 +94,7 @@ public class FlightBoardLev1 extends FlightBoard{
      * @param r the row index of the cell
      * @param c the column index of the cell
      * @return the computed path index of the cell if it is on the grid perimeter,
-     *         or -1 if the cell is not on the perimeter
+     * or -1 if the cell is not on the perimeter
      */
     private static int pathIndex(int r, int c) {
         // upper row, order left to right

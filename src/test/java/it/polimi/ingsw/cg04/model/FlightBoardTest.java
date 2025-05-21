@@ -120,7 +120,7 @@ class FlightBoardTest {
     }
 
     @Test
-    void drawTestLev1(){
+    void drawTestLev1() {
         fb1.move(p1, 6);
         fb1.move(p2, 6);
         //fb1.move(p3, 6);
@@ -152,9 +152,10 @@ class FlightBoardTest {
         System.out.println(fb2.draw());
 
         fb2.move(p1, 6);
-        fb2.move(p2, 2);
-        fb2.move(p3, 1);
-        fb2.move(p4, -10);
+        fb2.move(p4, -3);
+        fb2.move(p3, -3);
+        fb2.move(p2, -4);
+
 
         System.out.println(fb2.draw());
 

@@ -53,7 +53,7 @@ public class FlightBoardLev2 extends FlightBoard {
             public void run() {
                 if (isTimerExpired()) {
                     System.out.println("Timer expired");
-                    game.notifyListener(new PropertyChangeEvent(game.getId(), "timerExpired", null, timerFlipsUsed ) );
+                    game.notifyListener(new PropertyChangeEvent(game.getId(), "timerExpired", null, timerFlipsUsed));
                 }
             }
         };
@@ -101,8 +101,6 @@ public class FlightBoardLev2 extends FlightBoard {
         final int COLS = 9, ROWS = 5;
         final int BOX_INNER = 3;
         final int BOX_W = BOX_INNER + 2;
-        final int TITLE_ROW = 2;
-        final String TITLE = "level 2 flightboard";
         final String RESET = "\u001B[0m";
 
         StringBuilder board = new StringBuilder();
@@ -152,13 +150,6 @@ public class FlightBoardLev2 extends FlightBoard {
                     } else {
                         line.append(" ".repeat(BOX_W));
                     }
-                }
-
-                if (r == TITLE_ROW && part == 1) {
-                    int blankStart = BOX_W;
-                    int blankWidth = (COLS - 2) * BOX_W;
-                    line.replace(blankStart, blankStart + blankWidth,
-                            center(TITLE, blankWidth));
                 }
 
                 board.append(line).append('\n');

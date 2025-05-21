@@ -267,6 +267,16 @@ public class ServerHandlerRMI extends ServerHandler {
         });
     }
 
+    public void stopBuilding() {
+        Action stopBuildingAction = new StopBuildingAction(nickname);
+        rmiExecutor.submit(() -> {
+            try {
+                virtualController.handleActionRMI(stopBuildingAction);
+            } catch (RemoteException ignored) {
+            }
+        });
+    }
+
     //adventureCardActions
     public void chooseBattery(int x, int y) {
         Action chooseBatteryAction = new ChooseBatteryAction(nickname, x, y);
