@@ -125,6 +125,10 @@ public abstract class GameState implements Serializable {
         throw new InvalidStateException("cant start timer in this game state");
     }
 
+    public void stopBuilding(Player player) throws InvalidStateException {
+        throw new InvalidStateException("cant stoped building tile in this game state");
+    }
+
     public void spreadEpidemic(Player player) throws InvalidStateException {
         throw new InvalidStateException("cant return pile in this game state");
     }

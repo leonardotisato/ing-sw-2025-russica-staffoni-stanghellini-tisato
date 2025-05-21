@@ -28,6 +28,7 @@ public interface VirtualServer {
     void returnTile();
     void showFaceUp();
     void startTimer();
+    void stopBuilding();
 
     //adventureCardActions
     void chooseBattery(int x, int y);

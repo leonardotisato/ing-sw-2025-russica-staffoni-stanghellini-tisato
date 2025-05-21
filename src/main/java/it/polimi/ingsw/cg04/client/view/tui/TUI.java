@@ -251,6 +251,7 @@ public class TUI extends View {
                     case "returnTile" -> server.returnTile();
                     case "showFaceUp" -> server.showFaceUp();
                     case "startTimer" -> server.startTimer();
+                    case "stopBuilding" -> server.stopBuilding();
                     case "chooseBattery" -> {
                         argsLine = reader.readLine(">> ");
                         if (argsLine.isEmpty()) {
@@ -366,6 +367,7 @@ public class TUI extends View {
             System.out.println("\treturnPile                -return the pile you are currently holding (no parameters)");
             System.out.println("\treturnTile                -return the tile you are currently holding (no parameters)");
             System.out.println("\tstartTimer                -start the timer (no parameters)");
+            System.out.println("\tstopBuilding              -stop the building phase for everyone, can only be called after timer expired (no parameters)");
             System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal\n");
 
             System.out.println("ADVENTURE CARDS COMMANDS:");
