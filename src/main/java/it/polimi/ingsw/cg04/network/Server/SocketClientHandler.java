@@ -54,7 +54,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             return;
         }
 
-        while (true) {
+        while (!socket.isClosed()) {
             try {
                 Message message = (Message) in.readObject();
 
@@ -101,10 +101,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 }
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                break;
             }
         }
     }
+
 
     @Override
     public void setGame(Game game) {
@@ -144,6 +145,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             if (!heartBeat.equals(lastHeartBeat)) {
                 try {
                     disconnect();
+                    inputHandler.shutdown();
+                    connectionChecker.shutdown();
                     socket.close();
                     System.out.println("Connection with client lost");
                 } catch (IOException ignored) {

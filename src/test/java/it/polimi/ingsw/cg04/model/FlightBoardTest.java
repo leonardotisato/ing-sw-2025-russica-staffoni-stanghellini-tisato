@@ -19,7 +19,7 @@ class FlightBoardTest {
 
     @BeforeEach
     void setUp() {
-        game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game = new Game(1);
 
         fb1 = new FlightBoardLev1(game);
 
@@ -129,8 +129,8 @@ class FlightBoardTest {
     }
 
     @Test
-    void drawTestLev2() {
-        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+    void drawTestLev2(){
+        game = new Game(2);
 
         fb2 = new FlightBoardLev2(game);
 

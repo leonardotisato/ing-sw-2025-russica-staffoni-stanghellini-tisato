@@ -27,7 +27,7 @@ class StardustStateTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game = new Game(2);
 
         p1 = game.addPlayer("Alice", PlayerColor.RED);
         p2 = game.addPlayer("Bob", PlayerColor.BLUE);

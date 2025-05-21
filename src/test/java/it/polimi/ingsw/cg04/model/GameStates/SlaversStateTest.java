@@ -34,7 +34,7 @@ class SlaversStateTest {
     @BeforeEach
     void setUp() throws IOException {
 
-        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game = new Game(2);
 
         // set seed for controlled testing environment
         game.getBoard().setRandSeed(42);

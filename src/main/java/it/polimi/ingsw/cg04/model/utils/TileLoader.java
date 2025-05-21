@@ -7,8 +7,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.tiles.*;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -19,7 +18,14 @@ public class TileLoader {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        try (FileReader reader = new FileReader(jsonFilePath)) {
+        try (
+                InputStream is = TileLoader.class.getClassLoader().getResourceAsStream(jsonFilePath);
+                Reader reader = is != null ? new InputStreamReader(is) : null
+        ) {
+            if (reader == null) {
+                throw new RuntimeException("Resource not found: " + jsonFilePath);
+            }
+
             Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
             Map<String, JsonObject> tempMap = gson.fromJson(reader, mapType);
 

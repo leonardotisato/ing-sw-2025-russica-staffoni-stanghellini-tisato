@@ -168,6 +168,9 @@ public class TuiParser {
                             int value = scanner.nextInt();
                             map.put(BoxType.valueOf(type), value);
                         }
+                        for (BoxType boxType : BoxType.values()) {
+                            if (!map.containsKey(boxType)) map.put(boxType, 0);
+                        }
                         boxList.add(map);
                     }
                 }

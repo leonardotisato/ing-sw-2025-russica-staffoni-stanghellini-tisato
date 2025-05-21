@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.view;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.adventureCards.Planets;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ class CardDrawTest {
     private Game game;
     @BeforeEach
     void setUp() {
-        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game = new Game(2, 4, 0, "Alice", PlayerColor.RED);
     }
     @Test
     public void drawOpenSpaceCard() {

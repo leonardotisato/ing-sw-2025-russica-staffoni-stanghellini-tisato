@@ -44,7 +44,7 @@ public class AdventureCardsTest {
         shipyard = new Shipyard();
 
         controller = new GamesController();
-        game = new Game(1, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        game = new Game(1);
         game.addPlayer("Filippo", PlayerColor.BLUE);
         game.addPlayer("Martin", PlayerColor.RED);
         game.addPlayer("Joseph", PlayerColor.GREEN);

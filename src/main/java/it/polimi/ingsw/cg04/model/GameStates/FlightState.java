@@ -67,7 +67,7 @@ public class FlightState extends GameState {
         }
         Player p = game.getPlayer(playerName);
         stringBuilder.append("\n");
-        stringBuilder.append(p.getRanking() == 1 ? "Send x to start the next adventure!" : ("wait for " + game.getPlayer(0).getName() + " to start the next adventure!"));
+        stringBuilder.append(p.getRanking() == 1 ? "Send 'getNextAdventureCard' to start the next adventure!" : ("wait for " + game.getPlayer(0).getName() + " to start the next adventure!"));
         stringBuilder.append("\n");
         return stringBuilder.toString();
     }
