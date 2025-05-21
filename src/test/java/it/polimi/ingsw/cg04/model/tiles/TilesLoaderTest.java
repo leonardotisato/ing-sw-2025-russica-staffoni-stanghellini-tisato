@@ -13,7 +13,7 @@ public class TilesLoaderTest {
     void LoadAllFromJson() {
         // Carica il JSON di test
         ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("src/test/java/it/polimi/ingsw/cg04/model/tiles/TilesFile.json", faceDownTiles);
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/MiniTilesFile.json", faceDownTiles);
 
         assertNotNull(tiles);
         assertNotNull(faceDownTiles);

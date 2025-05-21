@@ -15,7 +15,7 @@ class CardLoaderTest {
         // Carica il JSON di test
         List<Integer> cards1 = new ArrayList<>();
         List<Integer> cards2 = new ArrayList<>();
-        Map<Integer, AdventureCard> cards = CardLoader.loadCardsFromJson("src/test/java/it/polimi/ingsw/cg04/model/resources/AdventureCardsFile.json", cards1, cards2);
+        Map<Integer, AdventureCard> cards = CardLoader.loadCardsFromJson("jsons/TestAdventureCardsFile.json", cards1, cards2);
 
         assertNotNull(cards);
         assertNotNull(cards1);

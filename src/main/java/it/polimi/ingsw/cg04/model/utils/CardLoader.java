@@ -4,8 +4,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.model.adventureCards.*;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +16,8 @@ public class CardLoader {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
+        // TODO delete me??
+
 //                .registerTypeAdapter(BoxType.class, new EnumDeserializer<>(BoxType.class))
 //                .registerTypeAdapter(Direction.class, new EnumDeserializer<>(Direction.class))
 //                .registerTypeAdapter(Meteor.class, new EnumDeserializer<>(Meteor.class))
@@ -25,7 +26,14 @@ public class CardLoader {
 //                .registerTypeAdapter(new TypeToken<List<Meteor>>() {}.getType(), new EnumListDeserializer<>(Meteor.class))
 //                .registerTypeAdapter(new TypeToken<List<Shot>>() {}.getType(), new EnumListDeserializer<>(Shot.class))
 //                .registerTypeAdapter(new TypeToken<List<Map<BoxType, Integer>>>() {}.getType(), new BoxTypeListMapDeserializer())
-        try (FileReader reader = new FileReader(jsonFilePath)) {
+        try (
+                InputStream is = CardLoader.class.getClassLoader().getResourceAsStream(jsonFilePath);
+                Reader reader = is != null ? new InputStreamReader(is) : null
+        ) {
+            if (reader == null) {
+                throw new RuntimeException("Resource not found: " + jsonFilePath);
+            }
+
             Type mapType = new TypeToken<Map<String, JsonObject>>() {}.getType();
             Map<String, JsonObject> tempMap = gson.fromJson(reader, mapType);
 
@@ -37,7 +45,9 @@ public class CardLoader {
                 if (card.getCardLevel() == 1) level1Cards.add(id);
                 else if (card.getCardLevel() == 2) level2Cards.add(id);
             }
+
             return cardMap;
+
         } catch (IOException e) {
             e.printStackTrace();
             return new HashMap<>();

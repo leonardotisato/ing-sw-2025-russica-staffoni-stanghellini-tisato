@@ -10,14 +10,15 @@ import java.util.Map;
 
 public class Shipyard implements Serializable {
 
-    private Map<Integer, Tile> tiles;
+    ArrayList<Integer> faceDownTiles = new ArrayList<>();
+    Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
     /**
      * @return a level 1 ship
      */
     public Ship createShip2() {
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship lev1Ship = new Ship(1, PlayerColor.BLUE);
 
@@ -65,8 +66,8 @@ public class Shipyard implements Serializable {
      * @return a level 2 ship
      */
     public Ship createShip3() {
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship ship3 = new Ship(2, PlayerColor.BLUE);
 
@@ -108,8 +109,7 @@ public class Shipyard implements Serializable {
 
     public Ship createShip4() {
 
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship ship4 = new Ship(2, PlayerColor.RED);
 
@@ -129,8 +129,7 @@ public class Shipyard implements Serializable {
 
     public Ship createShip5() {
 
-        ArrayList<Integer> faceDownTiles = new ArrayList<>();
-        tiles = TileLoader.loadTilesFromJson("src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json", faceDownTiles);
+        Map<Integer, Tile> tiles = TileLoader.loadTilesFromJson("jsons/TilesFile.json", faceDownTiles);
 
         Ship lev2Ship = new Ship(2, PlayerColor.YELLOW);
 

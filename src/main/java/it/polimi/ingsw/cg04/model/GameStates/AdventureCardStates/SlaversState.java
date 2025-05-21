@@ -168,13 +168,30 @@ public class SlaversState extends AdventureCardState {
 
             // handle null input
             if (coordinates == null && numCrewMembersLost == null) {
-                // if player has no crew let the game continue
-                if (player.getShip().getNumCrew() == 0) {
-                    playerStates.set(playerIdx, DONE); // this player will be soon eliminated on the next flight state
+                // if player crew is less than required
+                if (player.getShip().getNumCrew() <= crewLost) {
+
+                    // remove all crew from the player's ship
+                    List<Coordinates> housingTiles = player.getShip().getTilesMap().get("HousingTile");
+
+                    for (Coordinates c : housingTiles) {
+                        Tile currTile = player.getShip().getTile(c.getX(), c.getY());
+                        player.getShip().removeCrew(currTile.getHostedCrewType(), c.getX(), c.getY(), currTile.getNumCrew());
+                    }
+
                     this.addLog("Player " + player.getName() + "'s ship has no crew members...");
+                    playerStates.set(playerIdx, DONE); // this player will be soon eliminated on the next flight state
+
                 } else {
                     throw new InvalidStateException("You must remove crew members from your ship");
                 }
+
+                // check if everyone is done
+                if (isAllDone(playerStates)) {
+                    // transition to next adventure card
+                    triggerNextState();
+                }
+
                 return;
             }
 

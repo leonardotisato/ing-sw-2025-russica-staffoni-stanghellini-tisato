@@ -33,9 +33,9 @@ class BuildStateTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        game = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
 
-        p1 = game.addPlayer("Alice", PlayerColor.RED);
+        game = new Game(2, 4, 0, "Alice", PlayerColor.RED);
+        p1 = game.getPlayer("Alice");
         p2 = game.addPlayer("Bob", PlayerColor.BLUE);
         p3 = game.addPlayer("Charlie", PlayerColor.GREEN);
 

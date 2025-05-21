@@ -16,7 +16,7 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        gameLev2 = new Game(2, "src/main/java/it/polimi/ingsw/cg04/resources/AdventureCardsFile.json", "src/main/java/it/polimi/ingsw/cg04/resources/TilesFile.json");
+        gameLev2 = new Game(2);
 
     }
 

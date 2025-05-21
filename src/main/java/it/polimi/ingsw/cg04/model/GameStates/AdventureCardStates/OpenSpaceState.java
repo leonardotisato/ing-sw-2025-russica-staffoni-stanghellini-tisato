@@ -60,7 +60,7 @@ public class OpenSpaceState extends AdventureCardState {
         stringBuilder.append("\n".repeat(3));
         Player p = context.getPlayer(playerName);
 
-        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
             int totDoublePropulsor = (int) propulsorCoordinates.stream()

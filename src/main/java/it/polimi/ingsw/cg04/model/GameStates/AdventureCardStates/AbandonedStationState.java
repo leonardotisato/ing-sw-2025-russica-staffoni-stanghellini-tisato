@@ -76,7 +76,7 @@ public class AbandonedStationState extends AdventureCardState {
         StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
         stringBuilder.append("\n".repeat(3));
         Player p = context.getPlayer(playerName);
-        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append("turn").append("\n");
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             stringBuilder.append("You have ").append(context.getPlayer(playerName).getShip().getNumCrew()).append(" crew members.").append("\n");
             stringBuilder.append("send x if you want to gain the boxes.").append("\n");
