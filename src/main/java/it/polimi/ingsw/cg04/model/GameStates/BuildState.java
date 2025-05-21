@@ -319,7 +319,7 @@ public class BuildState extends GameState {
     public void endBuilding(Player player, int position) throws InvalidStateException {
         // player is not in building phase or is looking af face-up tiles or is looking a pile
         if (playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
-            throw new InvalidStateException("cant end building now");
+            throw new InvalidStateException("Can't end building now.");
         }
         if (playerState.get(player.getName()) == BuildPlayerState.SHOWING_PILE) {
             throw new InvalidStateException("Return the pile before ending the building phase!");
@@ -391,16 +391,20 @@ public class BuildState extends GameState {
      */
     @Override
     public void startTimer(Player player) throws InvalidStateException {
-
         if (game.getLevel() != 2) {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
+        }
+
+        FlightBoard board = game.getBoard();
+        if(board.getTimerFlipsUsed() > 0 && board.getTimerFlipsRemaining() > 0 && !board.isTimerExpired()) {
+            throw new InvalidStateException("Can't start timer now!");
         }
         game.getBoard().startTimer();
         this.addLog(player.getName() + " started the timer!");
     }
 
     /**
-     * Stops the building phase for the specified player in the game.
+     * Stops the building phase for all the players in the game.
      * This method ensures that all players who are not in the READY or FIXING states
      * are transitioned into an appropriate state based on the validity of their ships,
      * and assigns them a starting position on the game board.
@@ -416,7 +420,13 @@ public class BuildState extends GameState {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
         }
 
+        if (!game.getBoard().isTimerExpired()) {
+            throw new InvalidStateException("timer is not expired yet");
+        }
+
         FlightBoard board = game.getBoard();
+
+        this.addLog(player.getName() + " stopped the timer!");
 
         for (Player p : game.getPlayers()) {
             // if the player was still building force them in READY or FIXING
@@ -426,7 +436,11 @@ public class BuildState extends GameState {
                 for (int i = 1; i <= 4; i++) {
                     if (board.getCell(board.getStartingPosition(i)) == null) {
                         board.occupyCell(board.getStartingPosition(i), p);
-                        this.addLog(p.getName() + " is done building and he choose to start at position " + i);
+                        if (player.getShip().isShipLegal()) {
+                            this.appendLog(p.getName() + " was forced to stop building and will start at position " + i);
+                        } else {
+                            this.appendLog(p.getName() + " was forced to stop building and will start at position " + i + ". His ship is illegal, he will need to fix it before flying.");
+                        }
                         break;
                     }
                 }

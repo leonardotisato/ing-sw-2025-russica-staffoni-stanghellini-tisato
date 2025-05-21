@@ -45,6 +45,12 @@ public class WarZoneState extends AdventureCardState {
     private final int upBoundary, downBoundary;
 
 
+    /**
+     * Constructs a new WarZoneState instance, initializing its variables based on the game's level
+     * and setting default boundaries and states.
+     *
+     * @param game the current game instance used to initialize the state.
+     */
     public WarZoneState(Game game) {
         super(game);
         firePower = new ArrayList<Double>();
@@ -68,6 +74,12 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Checks if all the players are DONE for this penalty.
+     *
+     * @param played a list of integers representing the current state of elements to check.
+     * @return true if all elements in the list are equal to the constant `DONE`, false otherwise.
+     */
     private boolean isAllDone(List<Integer> played) {
         for (Integer integer : played) {
             if (integer != DONE) {
@@ -77,6 +89,10 @@ public class WarZoneState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Triggers the transition to the next shot within the current war zone state
+     * if specific conditions related to the worst player's state are met.
+     */
     private void triggerNextRound() {
         if(played.get(worstPlayerIdx) == WILL_FIGHT && worstPlayerState == F_DONE) {
             rolled = false;
@@ -92,6 +108,10 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Advances to the next penalty round within the current war zone state if all players
+     * have completed their actions for the current penalty.
+     */
     private void triggerNextPenalty() {
         if(isAllDone(played)) {
             penaltyIdx++;
@@ -107,6 +127,14 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Counts the crew members for each player in the current game state and determines
+     * the player with the fewest crew members to apply a penalty based on the current
+     * card's penalty type.
+     *
+     * @param player the player initiating the crew member counting action.
+     * @throws InvalidStateException if it's not the player's turn or the action is invalid in the current state.
+     */
     @Override
     public void countCrewMembers(Player player) throws InvalidStateException {
         if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())) {
@@ -150,6 +178,15 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Compares the firepower of the current player against others in the game and determines
+     * outcomes based on penalties described in the current game state.
+     *
+     * @param player the current player performing the firepower comparison.
+     * @param batteries a list of battery coordinates provided by the player; used to activate double cannons.
+     * @param doubleCannons a list of double cannon coordinates provided by the player; used to calculate additional firepower.
+     * @throws InvalidStateException if it is not the player's turn or the player performs an invalid action in the current state.
+     */
     @Override
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         Ship ship = player.getShip();
@@ -216,7 +253,15 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
-
+    /**
+     * Compares the propulsion power of the current player against others in the game and determines
+     * outcomes based on penalties described in the current game state.
+     *
+     * @param player the player performing the action.
+     * @param coordinates a list of coordinates indicating the positions of the batteries used by the player.
+     * @param usedBatteries a list of integers representing the number of batteries utilized for each battery storage.
+     * @throws InvalidStateException if it is not the player's turn or the player performs an invalid action in the current game state.
+     */
     @Override
     public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
         if (card.getParameterCheck().get(penaltyIdx).equals("PROPULSORS") && player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
@@ -260,7 +305,14 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
-
+    /**
+     * Removes a specified number of crew members from the player's ship based on the provided coordinates.
+     *
+     * @param player the player performing the action to remove crew members.
+     * @param coordinates a list of coordinates indicating the positions on the ship where crew members are removed.
+     * @param numCrewMembersLost a list of integers representing the number of crew members being removed at each coordinate.
+     * @throws InvalidStateException if the action is invalid for the current game state, if the player is not the worst player, or if the number of crew members removed does not match the penalty requirements.
+     */
     @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         if(coordinates == null && numCrewMembersLost == null) {
@@ -288,7 +340,15 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
-
+    /**
+     * Handles the selection of a battery by the worst player during their turn
+     * to neutralize an attack with a shield or take a hit if no battery is used.
+     *
+     * @param player the player attempting the battery selection.
+     * @param x the x-coordinate of a battery on the ship or -1 if no battery is used.
+     * @param y the y-coordinate of a battery on the ship or -1 if no battery is used.
+     * @throws InvalidStateException if it is not the turn of the specified player or the action is invalid in the current game state.
+     */
     @Override
     public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         if (rolled && worstPlayerState == F_PROVIDE_BATTERY && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
@@ -317,6 +377,16 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Removes the tiles of the player's ship based on the provided coordinates,
+     * ensuring the ship becomes legal. If the ship is successfully fixed, the
+     * player's turn for this round is marked as done. .
+     *
+     * @param player the player attempting to fix their ship.
+     * @param coordinatesList a list of coordinates representing the tiles on the ship to be removed.
+     * @throws InvalidStateException if it's not the player's turn, the action is not valid in the current state, or the
+     *                               ship remains in an illegal state after removing tiles.
+     */
     @Override
     public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         // check if player actually needs to fix his ship
@@ -339,6 +409,13 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Rolls dices to determine the row or the column where the shot will hit. The result of the dice
+     * roll is used to determine whether the player's ship is hit, missed, or requires additional actions.
+     *
+     * @param player the player performing the dice roll action.
+     * @throws InvalidStateException if it is not the player's turn, or the action is invalid in the current game state.
+     */
     @Override
     public void rollDice(Player player) throws InvalidStateException {
 
@@ -413,6 +490,11 @@ public class WarZoneState extends AdventureCardState {
         }
     }
 
+    /**
+     * Determines if any player in the current game state holds the "worst" status.
+     *
+     * @return true if at least one player's state matches the "WORST" or "WILL_FIGHT" conditions.
+     */
     public boolean anyWorstPlayer() {
         for (Integer integer : played) {
             if (integer == WORST || integer == WILL_FIGHT) {
@@ -422,6 +504,12 @@ public class WarZoneState extends AdventureCardState {
         return false;
     }
 
+    /**
+     * Renders the game state for a player.
+     *
+     * @param playerName the name of the player for whom the game will be rendered.
+     * @return a string representing the info of the game state to display for the given player.
+     */
     public String render(String playerName) {
         //count crew solo leader chiama per tutti;
         //remove crew quando sei worst
