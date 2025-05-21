@@ -52,7 +52,7 @@ class TileTest {
     }
 
     @Test
-    void rotate90dx() {
+    void rotate() {
 
         // check tile151
         Set<Direction> newProtectedDirections151 = new HashSet<>();
@@ -61,6 +61,8 @@ class TileTest {
 
         shieldTile151.rotate90dx();
 
+        assertEquals(1, shieldTile151.getRotation());
+
         assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.UP));
         assertEquals(Connection.DOUBLE, shieldTile151.getConnection(Direction.RIGHT));
         assertEquals(Connection.SINGLE, shieldTile151.getConnection(Direction.DOWN));
@@ -68,20 +70,36 @@ class TileTest {
 
         assertEquals(newProtectedDirections151, shieldTile151.getProtectedDirections());
 
+        shieldTile151.rotate90dx();
+        assertEquals(2, shieldTile151.getRotation());
+
+        shieldTile151.rotate90dx();
+        assertEquals(3, shieldTile151.getRotation());
+
+        shieldTile151.rotate90dx();
+        assertEquals(0, shieldTile151.getRotation());
+
+        shieldTile151.rotate90dx();
+        assertEquals(1, shieldTile151.getRotation());
+
+        shieldTile151.rotate90sx();
+        assertEquals(0, shieldTile151.getRotation());
+
+        shieldTile151.rotate180();
+        assertEquals(2, shieldTile151.getRotation());
+
+        shieldTile151.rotate90sx();
+        assertEquals(1, shieldTile151.getRotation());
+
+        shieldTile151.rotate180();
+        assertEquals(3, shieldTile151.getRotation());
+
         // check tile5
         batteryTile5.rotate90dx();
         assertEquals(Connection.SINGLE, batteryTile5.getConnection(Direction.UP));
         assertEquals(Connection.UNIVERSAL, batteryTile5.getConnection(Direction.RIGHT));
         assertEquals(Connection.EMPTY, batteryTile5.getConnection(Direction.DOWN));
         assertEquals(Connection.EMPTY, batteryTile5.getConnection(Direction.LEFT));
-    }
-
-    @Test
-    void rotate180() {
-    }
-
-    @Test
-    void rotate90sx() {
     }
 
     @Test

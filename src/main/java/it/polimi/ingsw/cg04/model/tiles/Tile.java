@@ -22,7 +22,7 @@ public abstract class Tile implements Serializable {
     int id;
     boolean wasInBuffer;
 
-
+    int rotation = 0;
 
     final int boxWidth = 14;
     final int boxHeight = 6;
@@ -93,6 +93,11 @@ public abstract class Tile implements Serializable {
         // todo: count connectors?
     }
 
+
+    public int getRotation() {
+        return rotation;
+    }
+
     /**
      * Rotates the Tile 90 degrees clockwise.
      * <p>
@@ -119,6 +124,8 @@ public abstract class Tile implements Serializable {
             newConnections.put(rotationMap.get(dir), connections.get(dir));
         }
         connections = newConnections;
+
+        rotation = (rotation + 1) % 4;
     }
 
     /**
