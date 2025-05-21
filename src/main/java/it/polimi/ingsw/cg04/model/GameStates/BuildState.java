@@ -391,9 +391,13 @@ public class BuildState extends GameState {
      */
     @Override
     public void startTimer(Player player) throws InvalidStateException {
-
         if (game.getLevel() != 2) {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
+        }
+
+        FlightBoard board = game.getBoard();
+        if(board.getTimerFlipsUsed() > 0 && board.getTimerFlipsRemaining() > 0 && !board.isTimerExpired()) {
+            throw new InvalidStateException("Can't start timer now!");
         }
         game.getBoard().startTimer();
         this.addLog(player.getName() + " started the timer!");
