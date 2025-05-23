@@ -328,6 +328,17 @@ public class BuildState extends GameState {
             throw new InvalidStateException("There are only" + playerState.size() + " players! Can't choose position " + position);
         }
         FlightBoard board = game.getBoard();
+
+        if(game.getLevel() == 1) {
+            for (int i = 1; i <= game.getNumPlayers(); i++) {
+                if (board.getCell(board.getStartingPosition(i)) == null) {
+                    board.occupyCell(board.getStartingPosition(i), player);
+                    this.addLog(player.getName() + " is done building and will start at position " + i);
+                    return;
+                }
+            }
+        }
+
         if (board.getCell(board.getStartingPosition(position)) != null) {
             throw new InvalidStateException("Position " + position + " is already taken!");
         }
