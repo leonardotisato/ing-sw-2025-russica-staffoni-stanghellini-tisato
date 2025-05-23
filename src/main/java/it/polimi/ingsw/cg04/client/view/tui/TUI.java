@@ -227,7 +227,7 @@ public class TUI extends View {
                     case "drawFaceDown", "draw", "d" -> server.drawFaceDown();
                     case "endBuilding" -> {
                         if (clientModel.getGame().getLevel() == 1) {
-                            server.endBuilding(-1);
+                            server.endBuilding(1);
                         } else {
                             argsLine = reader.readLine(">> ");
                             args = parser.parseArguments(command, argsLine);
