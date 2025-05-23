@@ -31,8 +31,13 @@ public class BuildState extends GameState {
     }
 
     public void triggerNextState() {
-        game.setGameState(new LoadCrewState(game));
-        game.setCurrentAdventureCard(null);
+        if(game.getLevel() == 1) {
+            game.setGameState(new FlightState(game));
+            game.setCurrentAdventureCard(null);
+        } else {
+            game.setGameState(new LoadCrewState(game));
+            game.setCurrentAdventureCard(null);
+        }
     }
 
     /**
@@ -456,6 +461,9 @@ public class BuildState extends GameState {
                     }
                 }
             }
+        }
+        if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
+            triggerNextState();
         }
     }
 
