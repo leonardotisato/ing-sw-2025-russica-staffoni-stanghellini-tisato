@@ -226,9 +226,13 @@ public class TUI extends View {
                     case "closeFaceUp" -> server.closeFaceUpTiles();
                     case "drawFaceDown", "draw", "d" -> server.drawFaceDown();
                     case "endBuilding" -> {
-                        argsLine = reader.readLine(">> ");
-                        args = parser.parseArguments(command, argsLine);
-                        server.endBuilding(args.singleInt());
+                        if (clientModel.getGame().getLevel() == 1) {
+                            server.endBuilding(-1);
+                        } else {
+                            argsLine = reader.readLine(">> ");
+                            args = parser.parseArguments(command, argsLine);
+                            server.endBuilding(args.singleInt());
+                        }
                     }
                     case "pickPile" -> {
                         argsLine = reader.readLine(">> ");
