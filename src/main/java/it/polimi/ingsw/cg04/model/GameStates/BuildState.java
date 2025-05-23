@@ -334,16 +334,23 @@ public class BuildState extends GameState {
         }
         FlightBoard board = game.getBoard();
 
+        // Lev 1 games part
         if(game.getLevel() == 1) {
+            playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
             for (int i = 1; i <= game.getNumPlayers(); i++) {
                 if (board.getCell(board.getStartingPosition(i)) == null) {
                     board.occupyCell(board.getStartingPosition(i), player);
                     this.addLog(player.getName() + " is done building and will start at position " + i);
+                    if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
+                        triggerNextState();
+                    }
                     return;
                 }
             }
         }
 
+
+        //Lev 2 games part
         if (board.getCell(board.getStartingPosition(position)) != null) {
             throw new InvalidStateException("Position " + position + " is already taken!");
         }
