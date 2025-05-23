@@ -207,6 +207,7 @@ public class GUIRoot extends View {
         faceUpSceneController.setGUI(this);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         stage.setResizable(true);
@@ -256,6 +257,10 @@ public class GUIRoot extends View {
 
     public void chooseFaceUp(int idx) {
         server.chooseTile(idx);
+    }
+
+    public void closeFaceUp() {
+        server.closeFaceUpTiles();
     }
 
 

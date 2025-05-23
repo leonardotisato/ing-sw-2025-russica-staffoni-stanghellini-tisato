@@ -100,7 +100,11 @@ public class FaceUpSceneController implements Initializable {
         gridPane.setTranslateY(offsetY);
     }
 
-    // todo: add button for closeFaceUpAction
+    @FXML
+    public void close() {
+        gui.closeFaceUp();
+    }
+
 
     public void handleChoice(int row, int col) {
         int idx = row * 10 + col;
@@ -115,7 +119,7 @@ public class FaceUpSceneController implements Initializable {
 
         for (int i = 0; i < faceUpTiles.size() && i < cellViews.size(); i++) {
 
-            int id = faceUpTiles.get(i) + 1;
+            int id = faceUpTiles.get(i);
 
             System.out.println("Loading faceup tiles.");
             String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + id + ".jpg";
