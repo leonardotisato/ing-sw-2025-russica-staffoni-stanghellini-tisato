@@ -40,7 +40,7 @@ public class StardustState extends AdventureCardState {
     public String render(String playerName){
         StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
         stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Send x to solve stardust effect and continue the game.");
+        stringBuilder.append("Send 'stardust' to solve stardust effect and continue the game.");
         stringBuilder.append("\n");
         stringBuilder.append("You may lose some days of flight!").append("\n");
         return stringBuilder.toString();

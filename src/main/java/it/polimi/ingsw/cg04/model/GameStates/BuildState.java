@@ -497,7 +497,7 @@ public class BuildState extends GameState {
                 stringBuilder.append("You're done building the ship! Wait for the other players to finish the building").append("\n");
             }
             if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
-                stringBuilder.append("Face up tiles: send x to show more tiles!").append("\n").append("\n");
+                stringBuilder.append("Face up tiles: send 'showFaceUp' to show more tiles!").append("\n").append("\n");
                 stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFigures(10, null, "tiles")).append("\n").append("\n");
             } else {
                 stringBuilder.append(renderKFigures(game.getFaceUpTiles().size(), null, "tiles")).append("\n");

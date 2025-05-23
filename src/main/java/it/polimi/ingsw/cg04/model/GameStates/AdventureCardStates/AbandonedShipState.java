@@ -47,8 +47,8 @@ public class AbandonedShipState extends AdventureCardState {
         stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
         if (currPlayerIdx == (p.getRanking() - 1)) {
             stringBuilder.append("You have ").append(context.getPlayer(playerName).getShip().getNumCrew()).append(" crew members.").append("\n");
-            stringBuilder.append("send x if you want to give up ").append(card.getLostMembers()).append(" crew members in exchange for ").append(card.getEarnedCredits()).append(" credits.\n");
-            stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
+            stringBuilder.append("Type 'removeCrew' to trade crew members for credits.").append("\n");
+            stringBuilder.append("Note that you will lose " + card.getDaysLost() + " days of flight if you remove any crew members.").append("\n");
         }
         return stringBuilder.toString();
     }
