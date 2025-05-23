@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.client.view.gui;
 import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.FaceUpSceneController;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController;
 import it.polimi.ingsw.cg04.model.Game;
@@ -11,6 +12,7 @@ import it.polimi.ingsw.cg04.model.GameStates.BuildState;
 import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
 import it.polimi.ingsw.cg04.model.GameStates.LoadCrewState;
 import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
+import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import javafx.application.Platform;
@@ -35,6 +37,8 @@ public class GUIRoot extends View {
 
     LoginController loginController;
     PrelobbySceneController prelobbySceneController;
+
+    FaceUpSceneController faceUpSceneController;
 
 
     EndSceneController endSceneController;
@@ -80,7 +84,20 @@ public class GUIRoot extends View {
                 if (toDisplay.getGameState() instanceof LobbyState) {
 
                 } else if (toDisplay.getGameState() instanceof BuildState) {
-                    // todo: aggiungi check per capire se mostrare faceup scene, others scene, build scene
+                    if(((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
+                        if (faceUpSceneController == null) {
+                            goToFaceUpScene();
+                            Platform.runLater(() -> {
+                                faceUpSceneController.update(toDisplay);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                faceUpSceneController.update(toDisplay);
+                            });
+                        }
+                    }
+
+                    // todo: aggiungi check per capire se mostrare others scene, build scene
 
                 } else if (toDisplay.getGameState() instanceof LoadCrewState) {
 
@@ -128,9 +145,6 @@ public class GUIRoot extends View {
             stage.setResizable(true);
             stage.show();
         });
-
-        // used for testing, will be removed
-        // endSceneController.update(new Game(2, 2, 0, "Piero", PlayerColor.GREEN));
     }
 
     /**
@@ -184,6 +198,26 @@ public class GUIRoot extends View {
     }
 
 
+    public void goToFaceUpScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.fxml"));
+        Parent root = loader.load();
+
+        faceUpSceneController = loader.getController();
+        faceUpSceneController.setGUI(this);
+
+        Scene scene = new Scene(root);
+
+        Stage stage = guiMain.getPrimaryStage();
+        stage.setResizable(true);
+
+        scene.setUserData(faceUpSceneController);
+        guiMain.sceneControllerMap.put(scene, faceUpSceneController);
+
+        changeScene(scene);
+    }
+
+
 
 
     public void goToEndScene() throws IOException {
@@ -218,6 +252,10 @@ public class GUIRoot extends View {
 
     public void joinGame(int gameId, String color) {
         server.joinGame(gameId, PlayerColor.valueOf(color));
+    }
+
+    public void chooseFaceUp(int idx) {
+        server.chooseTile(idx);
     }
 
 

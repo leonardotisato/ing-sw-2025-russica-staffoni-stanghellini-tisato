@@ -46,8 +46,7 @@ public class WarZoneState extends AdventureCardState {
 
 
     /**
-     * Constructs a new WarZoneState instance, initializing its variables based on the game's level
-     * and setting default boundaries and states.
+     * Constructs a new WarZoneState instance.
      *
      * @param game the current game instance used to initialize the state.
      */
