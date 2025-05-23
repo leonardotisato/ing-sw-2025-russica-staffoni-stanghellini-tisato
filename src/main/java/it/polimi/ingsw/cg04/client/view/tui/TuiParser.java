@@ -68,6 +68,7 @@ public class TuiParser {
                 System.out.println("Press enter if you don't want to load crew.");
                 System.out.println(" -p <pink_x> <pink_y> -b <brown_x> <brown_y>");
             }
+            case "helper", "viewShips", "ships" -> {}
             default -> System.out.println("  Unknown command");
         }
         System.out.println();

@@ -22,6 +22,12 @@ public abstract class Tile implements Serializable {
     int id;
     boolean wasInBuffer;
 
+
+    /**
+     * Represents the current rotation of a Tile.
+     *
+     * Integer between 0 and 3
+     */
     int rotation = 0;
 
     final int boxWidth = 14;

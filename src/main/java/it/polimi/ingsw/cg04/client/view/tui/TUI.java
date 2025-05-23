@@ -26,6 +26,7 @@ import java.util.Scanner;
 public class TUI extends View {
     private final InputReader input;
     private int columnOffset = 0;
+    private boolean isViewingShips = false;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -80,25 +81,22 @@ public class TUI extends View {
 
     public void updateGame(Game toPrint, String nickname) {
         try {
-            String rendered = toPrint.render(nickname);
-//            Terminal t = input.getTerminal();
+            if (!isViewingShips) {
+                System.out.println(nickname);
+                String rendered = toPrint.render(nickname);
 
-            LineReader reader = input.getReader();
-            reader.callWidget(LineReader.CLEAR_SCREEN);
+                Terminal terminal = input.getTerminal();
+                terminal.writer().print("\033[H\033[2J");
+                terminal.writer().flush();
 
-//            t.writer().print("\033[H\033[2J");  // Clear screen
-//            t.writer().flush();
-//            t.puts(InfoCmp.Capability.clear_screen);
-            reader.printAbove(rendered);
-
-
+                terminal.writer().println(rendered);
+                terminal.flush();
+            }
         } catch (NullPointerException e) {
             System.out.println("Game not found");
             e.printStackTrace();
-
         }
     }
-
 
     public void updateLogs(List<String> logs) {
         LineReader reader = input.getReader();
@@ -341,6 +339,8 @@ public class TUI extends View {
                             server.loadCrew(args.coord1(), args.coord2());
                         }
                     }
+                    case "viewShips" -> renderShips();
+                    case "home" -> renderHome();
                     case "helper" -> helper();
                     default -> throw new NoSuchElementException();
                 }
@@ -349,6 +349,18 @@ public class TUI extends View {
             }
         }
 
+        private void renderShips() {
+            isViewingShips = true;
+            System.out.println("Ships:");
+            System.out.println(clientModel.getGame().renderShips());
+        }
+
+        private void renderHome() {
+            System.out.println("Home");
+            isViewingShips = false;
+            updateGame(clientModel.getGame(), clientModel.getNickname());
+            updateLogs(clientModel.getLogs());
+        }
 
         private void helper() {
             System.out.println("Commands list:\n");
@@ -391,6 +403,8 @@ public class TUI extends View {
             System.out.println("\tstardust                  -activate stardust effect (no parameters)");
             System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal");
 
+            System.out.println("\tviewShips                 -have a look at other players' ship (no parameters)\n");
+            System.out.println("\thome                      -reset view to main view of your ship (no parameters)\n");
             System.out.println("\tretire                    -retire from the game (no parameters)\n");
             System.out.println("====================================================================================");
 

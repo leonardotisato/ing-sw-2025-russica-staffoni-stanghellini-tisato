@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ClientModel {
     private Game game = null;
+    private String nickname = null;
     private final List<String> logs = new ArrayList<>();
     private PropertyChangeListener listener;
 
@@ -18,10 +19,15 @@ public class ClientModel {
         return game;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public void setGame(Game game, String nickname) {
 
         if (game == null) System.out.println("################################## Game is null!!!!!!!!!! ##################################");
         this.game = game;
+        this.nickname = nickname;
 
         this.listener.propertyChange(new PropertyChangeEvent(
                 this,

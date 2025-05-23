@@ -572,6 +572,18 @@ public class Game implements Serializable {
         return this.gameState.render(nickname);
     }
 
+    public String renderShips() {
+        StringBuilder sb = new StringBuilder();
+
+        for(Player p : players) {
+            sb.append(p.getName()).append("'s ship: \n");
+            sb.append(p.getShip().draw());
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
     public Game deepCopy()  {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

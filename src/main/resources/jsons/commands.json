@@ -30,5 +30,7 @@
   "rollDice",
   "stardust",
   "fixShip",
-  "retire"
+  "retire",
+  "viewShips",
+  "home"
 ]
