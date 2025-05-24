@@ -81,17 +81,15 @@ public class TUI extends View {
 
     public void updateGame(Game toPrint, String nickname) {
         try {
-            if (!isViewingShips) {
-                System.out.println(nickname);
-                String rendered = toPrint.render(nickname);
+            String rendered = isViewingShips ? toPrint.renderShips() : toPrint.render(nickname);
 
-                Terminal terminal = input.getTerminal();
-                terminal.writer().print("\033[H\033[2J");
-                terminal.writer().flush();
+            Terminal terminal = input.getTerminal();
+            terminal.writer().print("\033[H\033[2J");
+            terminal.writer().flush();
 
-                terminal.writer().println(rendered);
-                terminal.flush();
-            }
+            terminal.writer().println(rendered);
+            terminal.flush();
+
         } catch (NullPointerException e) {
             System.out.println("Game not found");
             e.printStackTrace();
