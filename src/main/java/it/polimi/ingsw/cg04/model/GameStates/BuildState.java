@@ -443,11 +443,15 @@ public class BuildState extends GameState {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
         }
 
-        if (!game.getBoard().isTimerExpired()) {
+        FlightBoard board = game.getBoard();
+
+        if (!board.isTimerExpired()) {
             throw new InvalidStateException("timer is not expired yet");
         }
 
-        FlightBoard board = game.getBoard();
+        if (board.getTimerFlipsRemaining() > 0) {
+            throw new InvalidStateException("timer still needs to be flipped " + board.getTimerFlipsRemaining() + " time(s)" );
+        }
 
         this.addLog(player.getName() + " stopped the timer!");
 
