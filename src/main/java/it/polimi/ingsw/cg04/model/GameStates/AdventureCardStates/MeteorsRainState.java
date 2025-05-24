@@ -131,7 +131,7 @@ public class MeteorsRainState extends AdventureCardState {
 
                 // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                 if (hitState == 2) {
-                    this.appendLog("Player: " + p.getName() + " was hit");
+                    this.appendLog("Player: " + p.getName() + " was hit and did not have a valid protection!");
                     p.getShip().handleHit(direction, dice);
 
                     // if ship is legal, player is done for this attack
@@ -175,20 +175,21 @@ public class MeteorsRainState extends AdventureCardState {
             for (Coordinates coordinates : coordinatesList) {
                 player.getShip().breakTile(coordinates.getX(), coordinates.getY());
             }
+
+            // if fixes make the ship legal player is done for this round
+            if (player.getShip().isShipLegal()) {
+                played.set(playerIdx, DONE);
+                addLog("Player: " + player.getName() + "'s ship was fixed!");
+            } else {
+                addLog("Player: " + player.getName() + "'s ship is still illegal! Fix it with fixShip!");
+            }
+
+            if (isAllDone(played)) {
+                triggerNextRound();
+            }
+
         } else {
             throw new InvalidStateException("Fix ship not allowed for player: " + player.getName());
-        }
-
-        // if fixes make the ship legal player is done for this round
-        if (player.getShip().isShipLegal()) {
-            played.set(playerIdx, DONE);
-            addLog("Player: " + player.getName() + "'s ship was fixed!");
-        } else {
-            addLog("Player: " + player.getName() + "'s ship is still illegal! Fix it with fixShip!");
-        }
-
-        if (isAllDone(played)) {
-            triggerNextRound();
         }
     }
 

@@ -1,0 +1,682 @@
+{
+  "1": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "2": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "3": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "4": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "5": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "6": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "7": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "8": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "9": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "10": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "11": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "12": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "13": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "14": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "15": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "16": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "17": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "18": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "19": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "20": {
+    "type": "Pirates",
+    "cardLevel": 1,
+    "daysLost": 1,
+    "firePower": 5,
+    "reward": 4,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "LIGHT",
+      "HEAVY",
+      "LIGHT"
+    ]
+  },
+  "21": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "22": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "23": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "24": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "25": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "26": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "27": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "28": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "29": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "30": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "31": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "32": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "33": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "34": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "35": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "36": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "37": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "38": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "39": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  },
+  "40": {
+    "type": "Pirates",
+    "cardLevel": 2,
+    "daysLost": 2,
+    "firePower": 6,
+    "reward": 7,
+    "directions": [
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "attacks": [
+      "HEAVY",
+      "LIGHT",
+      "HEAVY"
+    ]
+  }
+}

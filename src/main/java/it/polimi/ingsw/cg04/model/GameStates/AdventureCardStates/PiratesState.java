@@ -97,12 +97,14 @@ public class PiratesState extends AdventureCardState {
                 }
             }
 
+            this.addLog("Player " + player.getName() + " total firepower is: " + firePower);
+
             // now check if player defeated the opponent
 
             // player has lost
             if (firePower < opponentFirePower) {
                 playerStates.set(playerIdx, WAIT_FOR_SHOT);
-                this.addLog("Player " + player.getName() + " lost against the pirates!");
+                this.appendLog("Player " + player.getName() + " lost against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -112,7 +114,7 @@ public class PiratesState extends AdventureCardState {
             // tie, player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
-                this.addLog("Player " + player.getName() + " drew against the pirates!");
+                this.appendLog("Player " + player.getName() + " drew against the pirates!");
                 // now playerIdx+1 needs to activate his cannons
                 if (playerIdx + 1 < playerStates.size()) {
                     playerStates.set(playerIdx + 1, ACTIVATE_CANNONS);
@@ -125,7 +127,7 @@ public class PiratesState extends AdventureCardState {
                 if (!isOpponentDead) {
                     playerStates.set(playerIdx, DECIDE_REWARD);
                     isOpponentDead = true;
-                    this.addLog("Player " + player.getName() + " won against the pirates!");
+                    this.appendLog("Player " + player.getName() + " won against the pirates!");
                 } else {
                     playerStates.set(playerIdx, DONE);
                 }
@@ -161,11 +163,12 @@ public class PiratesState extends AdventureCardState {
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
             System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
+            this.addLog("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 if (dice < leftBoundary || dice > rightBoundary) {
-                    this.addLog("No ship was hit");
+                    this.appendLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -175,7 +178,7 @@ public class PiratesState extends AdventureCardState {
             }
             if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 if (dice < upBoundary || dice > downBoundary) {
-                    this.addLog("No ship was hit");
+                    this.appendLog("No ship was hit");
                     triggerNextRound();
                     return;
                 } else {
@@ -202,14 +205,16 @@ public class PiratesState extends AdventureCardState {
 
                     // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
                     if (hitState == 2) {
-                        this.appendLog("Player: " + p.getName() + " was hit");
+                        this.appendLog("Player: " + p.getName() + " was hit and did not have a valid protection!");
                         p.getShip().handleHit(direction, dice);
 
                         // if ship is legal, player is done for this attack
                         if (p.getShip().isShipLegal()) {
+                            this.appendLog("Player: " + p.getName() + "'s ship was damaged, but it's still legal!");
                             playerStates.set(i, SHOT_DONE);
                         } else {
                             // player needs to correct his ship
+                            this.appendLog("Player: " + p.getName() + "'s ship is now illegal! Fix it with fixShip!");
                             playerStates.set(i, CORRECT_SHIP);
                         }
                     }
@@ -242,6 +247,8 @@ public class PiratesState extends AdventureCardState {
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
                     playerStates.set(playerIdx, CORRECT_SHIP);
+                } else {
+                    playerStates.set(playerIdx, SHOT_DONE);
                 }
             } else { // player used battery and he is done for the round
                 player.getShip().removeBatteries(1, x, y);
@@ -261,25 +268,26 @@ public class PiratesState extends AdventureCardState {
         int playerIdx = sortedPlayers.indexOf(player);
 
         // check if player actually needs to fix his ship
-        if (rolled && played.get(playerIdx) == CORRECT_SHIP) {
+        if (rolled && playerStates.get(playerIdx) == CORRECT_SHIP) {
             for (Coordinates coordinates : coordinatesList) {
                 player.getShip().breakTile(coordinates.getX(), coordinates.getY());
             }
+
+            // if fixes make the ship legal player is done for this round
+            if (player.getShip().isShipLegal()) {
+                this.addLog("Player " + player.getName() + " fixed his ship.");
+                playerStates.set(playerIdx, SHOT_DONE);
+            }
+            else {
+                this.addLog("Player: " + player.getName() + " ship is still illegal and he must fix it.");
+            }
+
+            if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY)) {
+                triggerNextRound();
+            }
+
         } else {
-            throw new InvalidStateException("Fix ship are not allowed for player: " + player.getName());
-        }
-
-        // if fixes make the ship legal player is done for this round
-        if (player.getShip().isShipLegal()) {
-            this.addLog("Player " + player.getName() + " fixed his ship.");
-            played.set(playerIdx, SHOT_DONE);
-        }
-        else {
-            this.addLog("Played: " + player.getName() + " ship is still illegal and he must fix it.");
-        }
-
-        if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY)) {
-            triggerNextRound();
+            throw new InvalidStateException("Fix ship is not allowed for player: " + player.getName());
         }
     }
 
@@ -385,7 +393,7 @@ public class PiratesState extends AdventureCardState {
                 stringBuilder.append("You've been hit! Fix the ship by removing tiles until it becomes legal.").append("\n");
                 break;
             case SHOT_DONE:
-                stringBuilder.append("You're finished for this ").append(currMeteorIdx == numMeteors ? "card! Wait for the next adventure." : "attack. Wait for the next one.").append("\n");
+                stringBuilder.append("You're done for this ").append(currMeteorIdx == numMeteors ? "card! Wait for the next adventure." : "attack. Wait for the next one.").append("\n");
                 break;
             case DONE:
                 stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");

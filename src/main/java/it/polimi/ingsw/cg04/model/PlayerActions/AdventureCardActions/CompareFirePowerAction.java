@@ -67,14 +67,14 @@ public class CompareFirePowerAction extends PlayerAction {
         Set<Coordinates> cannonCoordsSet = new HashSet<>(cannonCoordsList);
         for(Coordinates cannonCoords : cannonCoordsSet){
 
-            // check that cannonCoords is a laserTile
+            // check that cannonCoords is a cannonTile
             if(!cannonCoords.isIn(ship.getTilesMap().get("LaserTile"))){
-                throw new InvalidActionException("Tile in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not a LaserTile!");
+                throw new InvalidActionException("Tile in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not a CannonTile!");
             }
 
             // check that cannon isDouble
             if(!ship.getTile(cannonCoords.getX(), cannonCoords.getY()).isDoubleLaser()) {
-                throw new InvalidActionException("Cannon in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not double-laser!");
+                throw new InvalidActionException("Cannon in (" + cannonCoords.getX() + ", " + cannonCoords.getY() + ") is not double-cannon!");
             }
         }
 
