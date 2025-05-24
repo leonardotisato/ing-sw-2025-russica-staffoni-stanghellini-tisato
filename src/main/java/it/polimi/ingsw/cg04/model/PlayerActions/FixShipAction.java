@@ -15,7 +15,9 @@ public class FixShipAction extends PlayerAction {
 
     public FixShipAction(String playerNickname, List<Coordinates> coordinatesList) {
         super(playerNickname);
-        this.coordinatesList = coordinatesList;
+        this.coordinatesList = coordinatesList.stream()
+                .distinct()
+                .toList();
     }
 
     public void execute(Player player) throws InvalidStateException {
