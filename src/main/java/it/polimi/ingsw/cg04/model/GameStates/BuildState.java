@@ -444,7 +444,7 @@ public class BuildState extends GameState {
         }
 
         if (!game.getBoard().isTimerExpired()) {
-            throw new InvalidStateException("timer is not expired yet");
+            throw new InvalidStateException("Timer is not expired yet!");
         }
 
         FlightBoard board = game.getBoard();
