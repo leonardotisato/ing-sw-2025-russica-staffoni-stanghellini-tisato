@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
             gui.setNickname(nick);
 
             // used for testing, will be removed
-            // gui.goToPrelobbyScene();
+            gui.goToPrelobbyScene();
             // gui.goToEndScene();
             // gui.goToFaceUpScene();
         }

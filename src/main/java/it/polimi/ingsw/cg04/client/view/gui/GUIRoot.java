@@ -2,10 +2,7 @@ package it.polimi.ingsw.cg04.client.view.gui;
 
 import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
-import it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController;
-import it.polimi.ingsw.cg04.client.view.gui.controllers.FaceUpSceneController;
-import it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController;
-import it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.*;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.BuildState;
@@ -37,6 +34,7 @@ public class GUIRoot extends View {
 
     LoginController loginController;
     PrelobbySceneController prelobbySceneController;
+    LobbySceneController lobbySceneController;
 
     FaceUpSceneController faceUpSceneController;
 
@@ -78,13 +76,14 @@ public class GUIRoot extends View {
 
     public void updateGame(Game toDisplay, String nickname) {
 
-
         try {
             if (toDisplay != null) {
                 if (toDisplay.getGameState() instanceof LobbyState) {
-
+                    if (lobbySceneController != null) {
+                        lobbySceneController.refreshLobby(toDisplay);
+                    }
                 } else if (toDisplay.getGameState() instanceof BuildState) {
-                    if(((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
+                    if (((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
                         if (faceUpSceneController == null) {
                             goToFaceUpScene();
                             Platform.runLater(() -> {
@@ -130,6 +129,13 @@ public class GUIRoot extends View {
 
     // todo implement: it should refresh the games in preLobby scene
     private void updateJoinableGames(List<Game.GameInfo> newValue) {
+        // Il prelobby è aperto solo se il controller è già stato creato
+        if (prelobbySceneController != null) {
+            prelobbySceneController.refreshJoinableGames(newValue);
+        }
+    }
+
+    private void updateCurrentGame(List<Game.GameInfo> newValue) {
 
     }
 
@@ -197,6 +203,31 @@ public class GUIRoot extends View {
         changeScene(scene);
     }
 
+    /**
+     * Initialize the Lobby Scene.
+     *
+     * @throws IOException
+     */
+    public void gotoLobbyScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/LobbyScene.fxml"));
+        Parent root = loader.load();
+
+        lobbySceneController = loader.getController();
+        lobbySceneController.setGUI(this);
+
+        Scene scene = new Scene(root);
+
+        Stage stage = guiMain.getPrimaryStage();
+        stage.setWidth(960);
+        stage.setHeight(540);
+        stage.setResizable(true);
+
+        scene.setUserData(lobbySceneController);
+        guiMain.sceneControllerMap.put(scene, lobbySceneController);
+        changeScene(scene);
+    }
+
 
     public void goToFaceUpScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -217,8 +248,6 @@ public class GUIRoot extends View {
 
         changeScene(scene);
     }
-
-
 
 
     public void goToEndScene() throws IOException {

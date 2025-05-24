@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
+import it.polimi.ingsw.cg04.model.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,7 +10,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.application.Platform;
+import javafx.scene.control.Button;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -123,7 +127,13 @@ public class PrelobbySceneController implements Initializable {
         greenCircle.setOnMouseClicked(e -> setColor("GREEN"));
         redCircle.setOnMouseClicked(e -> setColor("RED"));
 
-        createGameButton.setOnAction(e -> onCreateGame());
+        createGameButton.setOnAction(e -> {
+            try {
+                onCreateGame();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         // load existing games somehow
     }
@@ -138,23 +148,57 @@ public class PrelobbySceneController implements Initializable {
         // todo: add visual feedback
     }
 
-    private void onCreateGame() {
+    private void onCreateGame() throws IOException {
         if (selectedColor == null || selectedLevel == 0 || selectedPlayerCount == 0) {
             System.out.println("could not create game, check if color level and numPlayers are set");
             return;
         }
         gui.createGame(selectedColor, selectedLevel, selectedPlayerCount);
         System.out.println("created game: level -> " + selectedLevel + " numPlayers -> " + selectedPlayerCount + " color -> " + selectedColor);
+        gui.gotoLobbyScene();
 
-        // todo: send a visual feedback, maybe a scene(?)
+        // todo: send a visual feedback
     }
 
-    private void onJoinGame(String gameId) {
+    private void onJoinGame(String gameId) throws IOException {
         if (selectedColor == null) {
             System.out.println("No color selected, could not join game " + gameId);
+            return;
         }
 
         gui.joinGame(Integer.parseInt(gameId), selectedColor);
         System.out.println("Joining game " + gameId);
+        gui.gotoLobbyScene();
+    }
+
+    public void refreshJoinableGames(List<Game.GameInfo> games) {
+        Platform.runLater(() -> {
+            gamesListContainer.getChildren().clear();
+
+            for (Game.GameInfo g : games) {
+
+                // if game is full don't show it
+                if (g.maxPlayers() == g.playerWithColor().size()) break;
+
+                // create button
+                int totPlayers = g.playerWithColor().size();
+                String label = "Partita " + g.id() +
+                         "\tMax players: " + g.maxPlayers() + "\t" + totPlayers + "/" + g.maxPlayers() + " Players";
+
+                Button btn = new Button(label);
+                btn.setMaxWidth(Double.MAX_VALUE);
+                btn.getStyleClass().add("joinable-game-button");
+
+                btn.setOnAction(e -> {
+                    try {
+                        onJoinGame(String.valueOf(g.id()));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+
+                gamesListContainer.getChildren().add(btn);
+            }
+        });
     }
 }
