@@ -104,11 +104,11 @@ public class TuiParser {
             case "createGame", "create" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
                 if (scanner.hasNextInt()) intList.add(scanner.nextInt());
-                if (scanner.hasNext()) string = scanner.next();
+                if (scanner.hasNext()) string = scanner.next().toUpperCase();
             }
             case "joinGame", "join" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
-                if (scanner.hasNext()) string = scanner.next();
+                if (scanner.hasNext()) string = scanner.next().toUpperCase();
             }
             case "chooseTile", "choose", "chooseTileFromBuffer", "pickPile", "endBuilding" -> {
                 if (scanner.hasNextInt()) singleInt = scanner.nextInt();
