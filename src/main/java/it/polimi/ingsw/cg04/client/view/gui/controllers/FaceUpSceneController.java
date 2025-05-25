@@ -34,6 +34,8 @@ public class FaceUpSceneController implements Initializable {
     private final List<ImageView> cellViews = new ArrayList<>();
     private GUIRoot gui;
 
+    private int size = 0;
+
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
@@ -108,12 +110,15 @@ public class FaceUpSceneController implements Initializable {
     @FXML
     public void handleChoice(int row, int col) {
         int idx = row * 16 + col;
-        System.out.println("Faceup tile selected at row: " + row + ", col: " + col + ", index: " + idx);
-        gui.chooseFaceUp(idx);
+        if(idx < size) {
+            System.out.println("Faceup tile selected at row: " + row + ", col: " + col + ", index: " + idx);
+            gui.chooseFaceUp(idx);
+        }
     }
 
     public void update(Game game) {
         List<Integer> faceUpTiles = game.getFaceUpTiles();
+        size = faceUpTiles.size();
 
         cellViews.forEach(iv -> iv.setImage(null));
 
