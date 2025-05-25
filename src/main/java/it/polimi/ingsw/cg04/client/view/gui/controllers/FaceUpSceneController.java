@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -31,10 +32,7 @@ public class FaceUpSceneController implements Initializable {
     private ImageView background;
 
     private final List<ImageView> cellViews = new ArrayList<>();
-
-
     private GUIRoot gui;
-
 
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
@@ -48,67 +46,69 @@ public class FaceUpSceneController implements Initializable {
         background.setPreserveRatio(false);
         background.fitWidthProperty().bind(root.widthProperty());
         background.fitHeightProperty().bind(root.heightProperty());
+        background.setMouseTransparent(true);
 
-        double baseWidth = 960.0;
-        double baseHeight = 540.0;
-
-        Scale scale = new Scale();
-        gridPane.getTransforms().add(scale);
-
-        root.widthProperty().addListener((obs, oldVal, newVal) -> updateScale(scale, root.getWidth(), root.getHeight(), baseWidth, baseHeight));
-        root.heightProperty().addListener((obs, oldVal, newVal) -> updateScale(scale, root.getWidth(), root.getHeight(), baseWidth, baseHeight));
-
-        for (int row = 0; row < 16; row++) {
-            for (int col = 0; col < 10; col++) {
+        for (int row = 0; row < 10; row++) {
+            for (int col = 0; col < 16; col++) {
                 final int r = row;
                 final int c = col;
 
                 StackPane stackPane = new StackPane();
-                stackPane.setPadding(new Insets(5));
-                stackPane.prefWidthProperty().bind(gridPane.widthProperty().divide(10));
-                stackPane.prefHeightProperty().bind(stackPane.prefWidthProperty());
+                stackPane.setPadding(new Insets(5, 5, 5, 5));
+                stackPane.prefWidthProperty().bind(gridPane.widthProperty().divide(16));
+                stackPane.prefHeightProperty().bind(gridPane.heightProperty().divide(10));
 
                 ImageView imageView = new ImageView();
-                cellViews.add(imageView);
-                imageView.setPreserveRatio(false);
-                imageView.fitWidthProperty().bind(stackPane.widthProperty());
-                imageView.fitHeightProperty().bind(stackPane.heightProperty());
+                imageView.setPreserveRatio(true);
+                imageView.fitWidthProperty().bind(stackPane.widthProperty().divide(1.2));
+                imageView.fitHeightProperty().bind(stackPane.heightProperty().divide(1.2));
+                imageView.setMouseTransparent(true);
 
-                imageView.setOnMouseClicked(event -> handleChoice(r, c));
+                stackPane.setOnMouseClicked(event -> {
+                    System.out.println("Click detected at row: " + r + ", col: " + c);
+                    handleChoice(r, c);
+                });
+
+                stackPane.setOnMouseEntered(event -> {
+                    stackPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2);");
+                });
+
+                stackPane.setOnMouseExited(event -> {
+                    stackPane.setStyle("-fx-background-color: transparent;");
+                });
 
                 stackPane.getChildren().add(imageView);
                 gridPane.add(stackPane, col, row);
+                cellViews.add(imageView);
             }
         }
 
-        root.setStyle("-fx-background-color: transparent;");
-        gridPane.setStyle("-fx-background-color: transparent;");
-
+        // System.out.println("Try loading faceup tiles.");
+        // test();
     }
 
-    private void updateScale(Scale scale, double width, double height, double baseWidth, double baseHeight) {
-        double scaleX = width / baseWidth;
-        double scaleY = height / baseHeight;
-        double scaleFactor = Math.min(scaleX, scaleY);
-
-        scale.setX(scaleFactor);
-        scale.setY(scaleFactor);
-
-        double offsetX = (width - baseWidth * scaleFactor) / 2;
-        double offsetY = (height - baseHeight * scaleFactor) / 2;
-        gridPane.setTranslateX(offsetX);
-        gridPane.setTranslateY(offsetY);
-    }
+//    private void test() {
+//        System.out.println("Loading faceup tiles.");
+//        for (int i = 0; i < 130; i++) {
+//            String resourcePath = "/images/tiles/1.jpg";
+//
+//            Image img = new Image(
+//                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+//            );
+//            cellViews.get(i).setImage(img);
+//        }
+//    }
 
     @FXML
     public void close() {
+        System.out.println("Faceup scene closed.");
         gui.closeFaceUp();
     }
 
-
+    @FXML
     public void handleChoice(int row, int col) {
-        int idx = row * 10 + col;
-
+        int idx = row * 16 + col;
+        System.out.println("Faceup tile selected at row: " + row + ", col: " + col + ", index: " + idx);
         gui.chooseFaceUp(idx);
     }
 
@@ -118,16 +118,20 @@ public class FaceUpSceneController implements Initializable {
         cellViews.forEach(iv -> iv.setImage(null));
 
         for (int i = 0; i < faceUpTiles.size() && i < cellViews.size(); i++) {
-
             int id = faceUpTiles.get(i);
 
-            System.out.println("Loading faceup tiles.");
+            System.out.println("Loading faceup tile with id: " + id);
             String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + id + ".jpg";
 
-            Image img = new Image(
-                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
-            );
-            cellViews.get(i).setImage(img);
+            try {
+                Image img = new Image(
+                        Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+                );
+                cellViews.get(i).setImage(img);
+            } catch (Exception e) {
+                System.err.println("Failed to load image: " + resourcePath);
+                e.printStackTrace();
+            }
         }
     }
 }

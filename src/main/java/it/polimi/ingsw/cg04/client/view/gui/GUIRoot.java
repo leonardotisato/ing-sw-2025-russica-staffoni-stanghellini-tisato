@@ -144,16 +144,16 @@ public class GUIRoot extends View {
 
     // todo implement: it should refresh the games in preLobby scene
     private void updateJoinableGames(List<Game.GameInfo> newValue) throws IOException {
-        if (prelobbySceneController == null) {
-            goToPrelobbyScene();
-            Platform.runLater(() -> {
-                prelobbySceneController.refreshJoinableGames(newValue);
-            });
-        } else {
-            Platform.runLater(() -> {
-                prelobbySceneController.refreshJoinableGames(newValue);
-            });
-        }
+//        if (prelobbySceneController == null) {
+//            goToPrelobbyScene();
+//            Platform.runLater(() -> {
+//                prelobbySceneController.refreshJoinableGames(newValue);
+//            });
+//        } else {
+//            Platform.runLater(() -> {
+//                prelobbySceneController.refreshJoinableGames(newValue);
+//            });
+//        }
     }
 
     private void updateCurrentGame(List<Game.GameInfo> newValue) {
@@ -262,6 +262,8 @@ public class GUIRoot extends View {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
+        stage.setWidth(960);
+        stage.setHeight(540);
         stage.setResizable(true);
 
         scene.setUserData(faceUpSceneController);
