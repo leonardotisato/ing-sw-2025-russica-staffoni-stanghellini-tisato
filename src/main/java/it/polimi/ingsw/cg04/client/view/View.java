@@ -12,6 +12,7 @@ public abstract class View implements PropertyChangeListener {
     protected final ClientModel clientModel;
     protected final ServerHandler server;
     protected String nickname;
+    protected boolean isViewingShips = false;
 
     protected View(ServerHandler server, ClientModel clientModel) {
         this.server = server;

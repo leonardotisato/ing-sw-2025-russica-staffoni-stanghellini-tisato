@@ -68,8 +68,8 @@ public class LoginController implements Initializable {
             // used for testing, will be removed
             gui.goToPrelobbyScene();
             // gui.goToEndScene();
-            // gui.goToFaceUpScene();
         }
+        // gui.goToFaceUpScene();
     }
 }
 

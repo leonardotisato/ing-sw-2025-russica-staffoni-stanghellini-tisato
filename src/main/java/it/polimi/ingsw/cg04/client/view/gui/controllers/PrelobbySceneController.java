@@ -155,7 +155,7 @@ public class PrelobbySceneController implements Initializable {
         }
         gui.createGame(selectedColor, selectedLevel, selectedPlayerCount);
         System.out.println("created game: level -> " + selectedLevel + " numPlayers -> " + selectedPlayerCount + " color -> " + selectedColor);
-        gui.gotoLobbyScene();
+        // gui.gotoLobbyScene();
 
         // todo: send a visual feedback
     }
@@ -168,7 +168,7 @@ public class PrelobbySceneController implements Initializable {
 
         gui.joinGame(Integer.parseInt(gameId), selectedColor);
         System.out.println("Joining game " + gameId);
-        gui.gotoLobbyScene();
+        // gui.gotoLobbyScene();
     }
 
     public void refreshJoinableGames(List<Game.GameInfo> games) {

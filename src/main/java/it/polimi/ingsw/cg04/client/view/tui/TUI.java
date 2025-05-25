@@ -26,7 +26,6 @@ import java.util.Scanner;
 public class TUI extends View {
     private final InputReader input;
     private int columnOffset = 0;
-    private boolean isViewingShips = false;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);

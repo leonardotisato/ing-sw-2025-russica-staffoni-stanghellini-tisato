@@ -79,8 +79,16 @@ public class GUIRoot extends View {
         try {
             if (toDisplay != null) {
                 if (toDisplay.getGameState() instanceof LobbyState) {
-                    if (lobbySceneController != null) {
-                        lobbySceneController.refreshLobby(toDisplay);
+
+                    if (lobbySceneController == null) {
+                        gotoLobbyScene();
+                        Platform.runLater(() -> {
+                            lobbySceneController.refreshLobby(toDisplay);
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            lobbySceneController.refreshLobby(toDisplay);
+                        });
                     }
                 } else if (toDisplay.getGameState() instanceof BuildState) {
                     if (((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
@@ -94,13 +102,20 @@ public class GUIRoot extends View {
                                 faceUpSceneController.update(toDisplay);
                             });
                         }
+                    } else if (!isViewingShips) { // todo: remember to update isViewingShips
+                        System.out.println("Print BuildScene"); // todo: scambia le 2 condizioni per rendere più leggibile
+                                                                // todo: al momento è così per testing
+                    } else {
+
                     }
-
-                    // todo: aggiungi check per capire se mostrare others scene, build scene
-
                 } else if (toDisplay.getGameState() instanceof LoadCrewState) {
 
                 } else if (toDisplay.getGameState() instanceof AdventureCardState) {
+                    if(isViewingShips) {
+
+                    } else {
+
+                    }
                     // todo: aggiunge check per capire se mostrare others scene o adCard scene
 
                 } else if (toDisplay.getGameState() instanceof EndGameState) {
@@ -128,10 +143,16 @@ public class GUIRoot extends View {
     }
 
     // todo implement: it should refresh the games in preLobby scene
-    private void updateJoinableGames(List<Game.GameInfo> newValue) {
-        // Il prelobby è aperto solo se il controller è già stato creato
-        if (prelobbySceneController != null) {
-            prelobbySceneController.refreshJoinableGames(newValue);
+    private void updateJoinableGames(List<Game.GameInfo> newValue) throws IOException {
+        if (prelobbySceneController == null) {
+            goToPrelobbyScene();
+            Platform.runLater(() -> {
+                prelobbySceneController.refreshJoinableGames(newValue);
+            });
+        } else {
+            Platform.runLater(() -> {
+                prelobbySceneController.refreshJoinableGames(newValue);
+            });
         }
     }
 
@@ -307,7 +328,11 @@ public class GUIRoot extends View {
                 updateLogs((List<String>) evt.getNewValue());
             }
             case "JOINABLE_GAMES" -> {
-                updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
+                try {
+                    updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
