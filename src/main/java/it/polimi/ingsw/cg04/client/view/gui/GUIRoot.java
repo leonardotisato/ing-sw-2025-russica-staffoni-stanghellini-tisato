@@ -138,22 +138,37 @@ public class GUIRoot extends View {
         }
     }
 
-    public void updateLogs(List<String> newValue) {
+    public void updateLogs(List<String> logs) {
+        Scene currentScene = this.getScene();
 
+        if (currentScene != null && guiMain != null) {
+            System.out.println("if");
+            Object controller = guiMain.getControllerForScene(currentScene);
+
+            if (controller instanceof LoginController) {
+                System.out.println("instanceof");
+                if (loginController != null) {
+                    System.out.println("loginController != null");
+                    Platform.runLater(() -> {
+                        loginController.showLog(logs);
+                    });
+                }
+            }
+        }
     }
 
     // todo implement: it should refresh the games in preLobby scene
     private void updateJoinableGames(List<Game.GameInfo> newValue) throws IOException {
-//        if (prelobbySceneController == null) {
-//            goToPrelobbyScene();
-//            Platform.runLater(() -> {
-//                prelobbySceneController.refreshJoinableGames(newValue);
-//            });
-//        } else {
-//            Platform.runLater(() -> {
-//                prelobbySceneController.refreshJoinableGames(newValue);
-//            });
-//        }
+        if (prelobbySceneController == null) {
+            goToPrelobbyScene();
+            Platform.runLater(() -> {
+                prelobbySceneController.refreshJoinableGames(newValue);
+            });
+        } else {
+            Platform.runLater(() -> {
+                prelobbySceneController.refreshJoinableGames(newValue);
+            });
+        }
     }
 
     private void updateCurrentGame(List<Game.GameInfo> newValue) {
@@ -326,7 +341,7 @@ public class GUIRoot extends View {
                 columnOffset = ((Game) evt.getNewValue()).getLevel() == 2 ? 4 : 5;
             }
             case "LOGS_UPDATE" -> {
-                // System.out.println("Logs updated");
+                System.out.println("Logs updated");
                 updateLogs((List<String>) evt.getNewValue());
             }
             case "JOINABLE_GAMES" -> {

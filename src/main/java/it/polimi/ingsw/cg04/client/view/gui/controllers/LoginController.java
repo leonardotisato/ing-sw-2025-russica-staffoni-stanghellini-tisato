@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,10 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -29,6 +33,8 @@ public class LoginController implements Initializable {
     private Button okButton;
     @FXML
     private ImageView backgroundImage;
+    @FXML
+    private TextField logs;
 
     private GUIRoot gui;
 
@@ -57,6 +63,16 @@ public class LoginController implements Initializable {
         backgroundImage.fitHeightProperty().bind(rootPane.heightProperty());
 
 
+    }
+
+    public void showLog(List<String> log) {
+        logs.setText(log.getLast());
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(5),
+                event -> logs.setText("")
+        ));
+        timeline.setCycleCount(1);
+        timeline.play();
     }
 
     @FXML
