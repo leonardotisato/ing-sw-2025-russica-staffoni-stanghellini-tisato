@@ -180,14 +180,14 @@ public class GUIRoot extends View {
     public void goToFirstScene() throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/loginscene.fxml"));
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/LoginScene.fxml"));
         Parent root = loader.load();
 
         loginController = loader.getController();
         loginController.setGUI(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/loginscene.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LoginScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         stage.setWidth(960);
