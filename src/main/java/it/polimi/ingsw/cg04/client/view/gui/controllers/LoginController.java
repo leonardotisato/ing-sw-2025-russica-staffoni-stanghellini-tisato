@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController extends ViewController {
 
     @FXML
     private StackPane rootPane;
@@ -65,7 +65,8 @@ public class LoginController implements Initializable {
 
     }
 
-    public void showLog(List<String> log) {
+    @Override
+    public void showLogs(List<String> log) {
         logs.setText(log.getLast());
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(5),

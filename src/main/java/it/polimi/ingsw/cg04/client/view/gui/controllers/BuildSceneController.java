@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -26,14 +28,14 @@ import javafx.scene.Node;
 
 
 
-import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class BuildSceneController implements Initializable {
+public class BuildSceneController extends ViewController {
     private final double BASE_WIDTH = 600;
     private final double BASE_HEIGHT = 400;
 
@@ -69,6 +71,9 @@ public class BuildSceneController implements Initializable {
     @FXML
     private ImageView backgroundImage;
 
+    @FXML
+    private TextArea logs;
+
 
     private GUIRoot gui;
 
@@ -93,7 +98,7 @@ public class BuildSceneController implements Initializable {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         initDragAndDrop();
-
+        logs.setEditable(false);
         drawButton.setOnAction(event -> handleDraw());
         heldTile.setVisible(false);
         heldTile.setOnMouseClicked(event -> {
@@ -145,8 +150,18 @@ public class BuildSceneController implements Initializable {
             double scaledWidth = heldTile.getFitWidth() * currentScale;
             double scaledHeight = heldTile.getFitHeight() * currentScale;
 
+            ImageView tempView = new ImageView(heldTile.getImage());
+            tempView.setFitWidth(heldTile.getFitWidth());
+            tempView.setFitHeight(heldTile.getFitHeight());
+            tempView.setRotate(heldTile.getRotate());
+
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(javafx.scene.paint.Color.TRANSPARENT); // Per evitare sfondo nero
+            javafx.scene.image.Image rotatedImage = tempView.snapshot(params, null);
+
+
             db.setDragView(
-                    heldTile.getImage(),
+                    rotatedImage,
                     scaledWidth / 2,
                     scaledHeight / 2
             );
@@ -171,8 +186,14 @@ public class BuildSceneController implements Initializable {
         gui.startTimer();
     }
 
-    public void update(Game game, String nickname) {
-        Player currentPlayer = game.getPlayer(nickname);
+    @Override
+    public void update(Game game) {
+        System.out.println(gui.getClientNickname());
+        Player currentPlayer = game.getPlayer(gui.getClientNickname());
+        if (currentPlayer == null) {
+            System.out.println("currentPlayer is null! nickname: " + gui.getClientNickname());
+        }
+        System.out.println(gui.getClientNickname());
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         updateHeldTile(playerHeldTile);
@@ -347,6 +368,8 @@ public class BuildSceneController implements Initializable {
         }
     }
 
+
+
     public void updateFaceUpTiles(Game g){
         List<Integer> faceUps = g.getFaceUpTiles();
         for (Node node : faceUpGrid.getChildren()) {
@@ -435,5 +458,22 @@ public class BuildSceneController implements Initializable {
                 }
             }
         }
+    }
+
+    @Override
+    public void showLogs(List<String> logLines) {
+        if (logLines == null || logs == null) return;
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : logLines) {
+            sb.append(line).append("\n");
+        }
+
+        Platform.runLater(() -> logs.setText(sb.toString()));
+    }
+
+    @Override
+    public void goToBuildScene(GUIRoot gui) throws IOException {
+        return;
     }
 }

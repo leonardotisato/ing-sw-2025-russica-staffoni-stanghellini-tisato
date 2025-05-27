@@ -32,16 +32,7 @@ public class GUIRoot extends View {
     private String clientNickname;
 
 
-    LoginController loginController;
-    PrelobbySceneController prelobbySceneController;
-    LobbySceneController lobbySceneController;
-
-    FaceUpSceneController faceUpSceneController;
-
-    BuildSceneController buildSceneController;
-
-
-    EndSceneController endSceneController;
+    ViewController currController;
 
     private int columnOffset = 0;
 
@@ -75,13 +66,15 @@ public class GUIRoot extends View {
         this.guiMain = guiMain;
     }
 
+    public String getClientNickname() {
+        return clientNickname;
+    }
+
 
     @Override
     public void renderLobbyState(Game toDisplay) throws IOException {
-        if (lobbySceneController == null) {
-            gotoLobbyScene();
-        }
-        Platform.runLater(() -> lobbySceneController.refreshLobby(toDisplay));
+        currController.goToLobbyScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
     }
 
     @Override
@@ -90,27 +83,22 @@ public class GUIRoot extends View {
         System.out.println("Rendering build state: " + playerState);
         switch (playerState) {
             case SHOWING_FACE_UP:
-                if (faceUpSceneController == null) {
-                    goToFaceUpScene();
-                }
-                Platform.runLater(() -> faceUpSceneController.update(toDisplay));
+                currController.goToFaceUpScene(this);
+                Platform.runLater(() -> currController.update(toDisplay));
                 break;
             default:
                 System.out.println("now in default");
-                if (buildSceneController == null) {
-                    goToBuildScene();
-                }
-                Platform.runLater(() -> buildSceneController.update(toDisplay, clientNickname));
+                System.out.println(this.getClientNickname());
+                currController.goToBuildScene(this);
+                Platform.runLater(() -> currController.update(toDisplay));
                 break;
         }
     }
 
     @Override
     public void renderEndGameState(Game toDisplay) throws IOException {
-        if (endSceneController == null) {
-            goToEndScene();
-        }
-        Platform.runLater(() -> endSceneController.update(toDisplay));
+        currController.goToEndScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
     }
 
 
@@ -121,6 +109,7 @@ public class GUIRoot extends View {
             }
         } catch (NullPointerException | IOException ignored) {
             System.out.println("Game not found");
+            ignored.printStackTrace();
         }
     }
 
@@ -129,33 +118,18 @@ public class GUIRoot extends View {
 
         if (currentScene != null && guiMain != null) {
             System.out.println("if");
-            Object controller = guiMain.getControllerForScene(currentScene);
-
-            if (controller instanceof LoginController) {
-                System.out.println("instanceof");
-                if (loginController != null) {
-                    System.out.println("loginController != null");
-                    Platform.runLater(() -> {
-                        loginController.showLog(logs);
-                    });
-                }
-            }
+            ViewController controller = (ViewController)guiMain.getControllerForScene(currentScene);
+            controller.showLogs(logs);
         }
     }
 
     // todo implement: it should refresh the games in preLobby scene
     private void updateJoinableGames(List<Game.GameInfo> newValue) throws IOException {
-        if (prelobbySceneController == null) {
-            goToPrelobbyScene();
+            currController.goToPrelobbyScene(this);
             Platform.runLater(() -> {
-                prelobbySceneController.refreshJoinableGames(newValue);
-            });
-        } else {
-            Platform.runLater(() -> {
-                prelobbySceneController.refreshJoinableGames(newValue);
+                currController.refreshJoinableGames(newValue);
             });
         }
-    }
 
     private void updateCurrentGame(List<Game.GameInfo> newValue) {
 
@@ -189,8 +163,8 @@ public class GUIRoot extends View {
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/LoginScene.fxml"));
         Parent root = loader.load();
 
-        loginController = loader.getController();
-        loginController.setGUI(this);
+        currController = loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LoginScene.css")).toExternalForm());
@@ -200,8 +174,8 @@ public class GUIRoot extends View {
         stage.setHeight(540);
         stage.setResizable(true);
 
-        scene.setUserData(loginController);
-        guiMain.sceneControllerMap.put(scene, loginController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
         changeScene(scene);
     }
 
@@ -215,8 +189,8 @@ public class GUIRoot extends View {
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/PrelobbyScene.fxml"));
         Parent root = loader.load();
 
-        prelobbySceneController = loader.getController();
-        prelobbySceneController.setGUI(this);
+        currController = loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
 
@@ -228,8 +202,8 @@ public class GUIRoot extends View {
         }
         stage.setResizable(true);
 
-        scene.setUserData(prelobbySceneController);
-        guiMain.sceneControllerMap.put(scene, prelobbySceneController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
         changeScene(scene);
     }
 
@@ -238,13 +212,13 @@ public class GUIRoot extends View {
      *
      * @throws IOException
      */
-    public void gotoLobbyScene() throws IOException {
+    public void goToLobbyScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/LobbyScene.fxml"));
         Parent root = loader.load();
 
-        lobbySceneController = loader.getController();
-        lobbySceneController.setGUI(this);
+        currController = loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
 
@@ -256,8 +230,8 @@ public class GUIRoot extends View {
         }
         stage.setResizable(true);
 
-        scene.setUserData(lobbySceneController);
-        guiMain.sceneControllerMap.put(scene, lobbySceneController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
         changeScene(scene);
     }
 
@@ -267,8 +241,8 @@ public class GUIRoot extends View {
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.fxml"));
         Parent root = loader.load();
 
-        faceUpSceneController = loader.getController();
-        faceUpSceneController.setGUI(this);
+        currController = loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
@@ -281,8 +255,8 @@ public class GUIRoot extends View {
         }
         stage.setResizable(true);
 
-        scene.setUserData(faceUpSceneController);
-        guiMain.sceneControllerMap.put(scene, faceUpSceneController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
 
         changeScene(scene);
     }
@@ -293,12 +267,11 @@ public class GUIRoot extends View {
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/BuildScene.fxml"));
         Parent root = loader.load();
 
-        buildSceneController = loader.getController();
-        buildSceneController.setGUI(this);
+        currController = (BuildSceneController) loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/BuildScene.css")).toExternalForm());
-
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();
         if (!wasFullScreen) {
@@ -307,8 +280,8 @@ public class GUIRoot extends View {
         }
         stage.setResizable(true);
 
-        scene.setUserData(buildSceneController);
-        guiMain.sceneControllerMap.put(scene, buildSceneController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
 
         changeScene(scene);
     }
@@ -319,8 +292,8 @@ public class GUIRoot extends View {
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.fxml"));
         Parent root = loader.load();
 
-        endSceneController = loader.getController();
-        endSceneController.setGUI(this);
+        currController = loader.getController();
+        currController.setGUI(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.css")).toExternalForm());
@@ -328,8 +301,8 @@ public class GUIRoot extends View {
         Stage stage = guiMain.getPrimaryStage();
         stage.setResizable(true);
 
-        scene.setUserData(endSceneController);
-        guiMain.sceneControllerMap.put(scene, endSceneController);
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
 
         changeScene(scene);
     }

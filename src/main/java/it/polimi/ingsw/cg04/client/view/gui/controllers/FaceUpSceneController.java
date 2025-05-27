@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class FaceUpSceneController implements Initializable {
+public class FaceUpSceneController extends ViewController {
 
     @FXML
     private GridPane gridPane;
@@ -115,7 +115,7 @@ public class FaceUpSceneController implements Initializable {
             gui.chooseFaceUp(idx);
         }
     }
-
+    @Override
     public void update(Game game) {
         List<Integer> faceUpTiles = game.getFaceUpTiles();
         size = faceUpTiles.size();
@@ -139,4 +139,10 @@ public class FaceUpSceneController implements Initializable {
             }
         }
     }
+
+    @Override
+    public void goToFaceUpScene(GUIRoot gui) {
+        return;
+    }
+
 }

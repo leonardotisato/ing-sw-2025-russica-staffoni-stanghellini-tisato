@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PrelobbySceneController implements Initializable {
+public class PrelobbySceneController extends ViewController {
 
     /**
      * circles, on click set player color
@@ -200,5 +201,10 @@ public class PrelobbySceneController implements Initializable {
                 gamesListContainer.getChildren().add(btn);
             }
         });
+    }
+
+    @Override
+    public void goToPrelobbyScene(GUIRoot gui) throws IOException {
+        return;
     }
 }

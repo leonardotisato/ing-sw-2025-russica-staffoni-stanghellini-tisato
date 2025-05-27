@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class EndSceneController implements Initializable {
+public class EndSceneController extends ViewController {
 
     @FXML
     private TextField nick1;
@@ -141,6 +141,9 @@ public class EndSceneController implements Initializable {
             color4.setFill(mapColor(players.get(4).getColor()));
             credits4.setText(Double.toString(players.get(3).getNumCredits()));
         }
+    }
+    public void goToEndScene(GUIRoot gui) {
+        return;
     }
 }
 

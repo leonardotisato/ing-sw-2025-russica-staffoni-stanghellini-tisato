@@ -20,7 +20,7 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LobbySceneController implements Initializable {
+public class LobbySceneController extends ViewController {
 
     private static final double DOT_RADIUS = 30;
 
@@ -73,7 +73,8 @@ public class LobbySceneController implements Initializable {
      * Refreshes the lobby view with updated game information, including the game level,
      * maximum number of players, the current list of players, and placeholders for open spots.
      **/
-    public void refreshLobby(Game game) {
+    @Override
+    public void update(Game game) {
         Platform.runLater(() -> {
             // GameLevel and MaxPlayers indicators
             levelLabel.setText(String.valueOf(game.getLevel()));
@@ -120,5 +121,10 @@ public class LobbySceneController implements Initializable {
             case GREEN -> Color.LIMEGREEN;
             case RED -> Color.CRIMSON;
         };
+    }
+
+    @Override
+    public void goToLobbyScene(GUIRoot gui){
+        return;
     }
 }
