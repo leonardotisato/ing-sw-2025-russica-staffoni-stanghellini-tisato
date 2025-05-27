@@ -147,9 +147,8 @@ public class GUIRoot extends View {
             stage.setTitle("Galaxy Trucker");
             stage.setScene(scene);
             stage.setResizable(true);
-            if (wasFullScreen) {
-                stage.setFullScreen(true);
-            }
+            // stage.setFullScreen(false);
+            stage.setFullScreen(true);
             stage.show();
         });
     }
@@ -193,6 +192,8 @@ public class GUIRoot extends View {
         currController.setGUI(this);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/PrelobbyScene.css")).toExternalForm());
+
 
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();
@@ -221,6 +222,7 @@ public class GUIRoot extends View {
         currController.setGUI(this);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LobbyScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();
@@ -326,6 +328,7 @@ public class GUIRoot extends View {
     }
 
     public void closeFaceUp() {
+        faceUpSceneController = null;
         server.closeFaceUpTiles();
     }
 
@@ -350,6 +353,7 @@ public class GUIRoot extends View {
     }
 
     public void showFaceUp() {
+        buildSceneController = null;
         server.showFaceUp();
     }
 

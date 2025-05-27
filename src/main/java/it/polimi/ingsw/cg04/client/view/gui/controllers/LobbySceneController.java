@@ -10,20 +10,21 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LobbySceneController extends ViewController {
 
     private static final double DOT_RADIUS = 30;
-
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private Label levelLabel;
     @FXML
@@ -32,6 +33,8 @@ public class LobbySceneController extends ViewController {
     private ScrollPane logsScrollPane;
     @FXML
     private GridPane infoGrid;
+    @FXML
+    private ImageView backgroundImage;
 
     private VBox logsContainer;
     private GUIRoot gui;
@@ -46,6 +49,13 @@ public class LobbySceneController extends ViewController {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        backgroundImage.setImage(
+                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
+        );
+        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
+        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
+
         logsContainer = new VBox(6);
         logsContainer.setPadding(new Insets(8));
         logsScrollPane.setContent(logsContainer);
