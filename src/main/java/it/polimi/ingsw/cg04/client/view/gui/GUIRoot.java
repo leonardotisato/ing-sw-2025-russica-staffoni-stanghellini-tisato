@@ -94,7 +94,6 @@ public class GUIRoot extends View {
                     }
                 } else if (toDisplay.getGameState() instanceof BuildState) {
                     if (((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
-                        boolean alreadyInBuildScene = guiMain.getPrimaryStage().getScene().getRoot().getUserData() instanceof BuildSceneController;
                         if (faceUpSceneController == null) {
                             goToFaceUpScene();
                             Platform.runLater(() -> {
@@ -322,7 +321,7 @@ public class GUIRoot extends View {
         buildSceneController.setGUI(this);
 
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/BuildScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();

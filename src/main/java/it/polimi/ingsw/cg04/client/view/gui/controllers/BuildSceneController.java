@@ -93,26 +93,14 @@ public class BuildSceneController implements Initializable {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         initDragAndDrop();
+
         drawButton.setOnAction(event -> handleDraw());
         heldTile.setVisible(false);
-        heldTile.setOnMouseClicked(event -> {
-            if (heldTile.getImage() != null) {
-                heldTile.requestFocus();
-                heldTile.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
-            }
-        });
         heldTile.setOnMouseClicked(event -> {
             if (heldTile.getImage() != null) {
                 selectHeldTile(true);
                 event.consume();
             }
-        });
-        Platform.runLater(() -> {
-            root.getScene().addEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> {
-                if (event.getTarget() != heldTile && !heldTile.localToScene(heldTile.getBoundsInLocal()).contains(event.getSceneX(), event.getSceneY())) {
-                    selectHeldTile(false);
-                }
-            });
         });
         heldTile.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -200,6 +188,7 @@ public class BuildSceneController implements Initializable {
             heldTile.requestFocus();
         } else {
             heldTile.setStyle("");
+            root.requestFocus();
         }
     }
 
