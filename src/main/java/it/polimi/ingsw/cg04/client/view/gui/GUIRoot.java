@@ -173,9 +173,8 @@ public class GUIRoot extends View {
             stage.setTitle("Galaxy Trucker");
             stage.setScene(scene);
             stage.setResizable(true);
-            if (wasFullScreen) {
-                stage.setFullScreen(true);
-            }
+            // stage.setFullScreen(false);
+            stage.setFullScreen(true);
             stage.show();
         });
     }
