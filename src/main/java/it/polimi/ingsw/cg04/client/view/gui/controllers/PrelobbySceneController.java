@@ -18,8 +18,10 @@ import javafx.scene.shape.StrokeType;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class PrelobbySceneController implements Initializable {
 
@@ -76,6 +78,8 @@ public class PrelobbySceneController implements Initializable {
     private String selectedColor;
     private int selectedLevel;
     private int selectedPlayerCount;
+
+    private List<String> allColors = List.of("BLUE", "YELLOW", "GREEN", "RED");
 
     private GUIRoot gui;
 
@@ -196,8 +200,20 @@ public class PrelobbySceneController implements Initializable {
 
                 // create button
                 int totPlayers = g.playerWithColor().size();
-                String label = "Partita " + g.id() +
-                        "\tMax players: " + g.maxPlayers() + "\t" + totPlayers + "/" + g.maxPlayers() + " Players";
+
+                Collection<String> usedColors = g.playerWithColor().values();
+                List<String> availableColors = allColors.stream()
+                        .filter(c -> !usedColors.contains(c))
+                        .toList();
+
+                StringBuilder colorIcons = new StringBuilder();
+                for (String color : availableColors) {
+                    colorIcons.append(color + "  ");
+                }
+
+                String label = "Game: " + g.id() + "    Level: " + g.gameLevel() + "    "
+                        + totPlayers + "/" + g.maxPlayers()
+                        + " Players\n" + "available colors: " + colorIcons;
 
                 Button btn = new Button(label);
                 btn.setMaxWidth(Double.MAX_VALUE);
