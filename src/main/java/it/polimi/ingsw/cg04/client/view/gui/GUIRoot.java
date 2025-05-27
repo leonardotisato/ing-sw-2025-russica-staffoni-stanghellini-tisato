@@ -328,7 +328,6 @@ public class GUIRoot extends View {
     }
 
     public void closeFaceUp() {
-        faceUpSceneController = null;
         server.closeFaceUpTiles();
     }
 
@@ -353,7 +352,6 @@ public class GUIRoot extends View {
     }
 
     public void showFaceUp() {
-        buildSceneController = null;
         server.showFaceUp();
     }
 
