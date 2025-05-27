@@ -38,6 +38,8 @@ public class GUIRoot extends View {
 
     FaceUpSceneController faceUpSceneController;
 
+    BuildSceneController buildSceneController;
+
 
     EndSceneController endSceneController;
 
@@ -92,6 +94,7 @@ public class GUIRoot extends View {
                     }
                 } else if (toDisplay.getGameState() instanceof BuildState) {
                     if (((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
+                        boolean alreadyInBuildScene = guiMain.getPrimaryStage().getScene().getRoot().getUserData() instanceof BuildSceneController;
                         if (faceUpSceneController == null) {
                             goToFaceUpScene();
                             Platform.runLater(() -> {
@@ -103,11 +106,19 @@ public class GUIRoot extends View {
                             });
                         }
                     } else if (!isViewingShips) { // todo: remember to update isViewingShips
-                        System.out.println("Print BuildScene"); // todo: scambia le 2 condizioni per rendere più leggibile
-                                                                // todo: al momento è così per testing
-                    } else {
-
+                        if (buildSceneController == null) {
+                            goToBuildScene();
+                            Platform.runLater(() -> {
+                                buildSceneController.update(toDisplay, nickname);
+                            });
+                        }
+                        else {
+                            Platform.runLater(() -> {
+                                buildSceneController.update(toDisplay, nickname);
+                            });
+                        }
                     }
+
                 } else if (toDisplay.getGameState() instanceof LoadCrewState) {
 
                 } else if (toDisplay.getGameState() instanceof AdventureCardState) {
@@ -180,11 +191,16 @@ public class GUIRoot extends View {
     }
 
     private void changeScene(Scene scene) {
+
         Platform.runLater(() -> {
             Stage stage = guiMain.getPrimaryStage();
+            boolean wasFullScreen = stage.isFullScreen();
             stage.setTitle("Galaxy Trucker");
             stage.setScene(scene);
             stage.setResizable(true);
+            if (wasFullScreen) {
+                stage.setFullScreen(true);
+            }
             stage.show();
         });
     }
@@ -230,8 +246,11 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
 
         Stage stage = guiMain.getPrimaryStage();
-        stage.setWidth(960);
-        stage.setHeight(540);
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(960);
+            stage.setHeight(540);
+        }
         stage.setResizable(true);
 
         scene.setUserData(prelobbySceneController);
@@ -255,8 +274,11 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
 
         Stage stage = guiMain.getPrimaryStage();
-        stage.setWidth(960);
-        stage.setHeight(540);
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(960);
+            stage.setHeight(540);
+        }
         stage.setResizable(true);
 
         scene.setUserData(lobbySceneController);
@@ -277,12 +299,41 @@ public class GUIRoot extends View {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
-        stage.setWidth(960);
-        stage.setHeight(540);
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(960);
+            stage.setHeight(540);
+        }
         stage.setResizable(true);
 
         scene.setUserData(faceUpSceneController);
         guiMain.sceneControllerMap.put(scene, faceUpSceneController);
+
+        changeScene(scene);
+    }
+
+    public void goToBuildScene() throws IOException {
+        System.out.println("going to build scene");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/BuildScene.fxml"));
+        Parent root = loader.load();
+
+        buildSceneController = loader.getController();
+        buildSceneController.setGUI(this);
+
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
+
+        Stage stage = guiMain.getPrimaryStage();
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(600);
+            stage.setHeight(400);
+        }
+        stage.setResizable(true);
+
+        scene.setUserData(buildSceneController);
+        guiMain.sceneControllerMap.put(scene, buildSceneController);
 
         changeScene(scene);
     }
@@ -330,6 +381,45 @@ public class GUIRoot extends View {
         server.closeFaceUpTiles();
     }
 
+    public void drawFaceDown(){
+        server.drawFaceDown();
+    }
+
+    public void place(int x, int y) {
+        server.place(x,y);
+    }
+
+    public void returnTile() {
+        server.returnTile();
+    }
+
+    public void pickPile(int pileIndex) {
+        server.pickPile(pileIndex);
+    }
+
+    public void startTimer(){
+        server.startTimer();
+    }
+
+    public void showFaceUp() {
+        server.showFaceUp();
+    }
+
+    public void returnPile(){
+        server.returnPile();
+    }
+
+    public void rotateTile(String direction) {
+        server.rotate(direction);
+    }
+
+    public void chooseTileFromBuffer(int idx){
+        server.chooseTileFromBuffer(idx);
+    }
+
+    public void placeTileInBuffer(){
+        server.placeInBuffer();
+    }
 
     // todo: add case to handle setNick
     @Override

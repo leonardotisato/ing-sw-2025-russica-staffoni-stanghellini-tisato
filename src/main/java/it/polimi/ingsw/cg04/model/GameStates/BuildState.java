@@ -604,4 +604,8 @@ public class BuildState extends GameState {
     public Map<String, BuildPlayerState> getPlayerState() {
         return playerState;
     }
+
+    public Map<String, Integer> getIsLookingPile(){
+        return isLookingPile;
+    }
 }
