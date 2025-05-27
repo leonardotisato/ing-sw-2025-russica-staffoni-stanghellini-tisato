@@ -1,0 +1,49 @@
+.scroll-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+}
+
+.scroll-pane > .content {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+    -fx-background-insets: 0;
+    -fx-padding: 10;
+}
+
+.toggle-button {
+    -fx-background-color: #cc9900;
+    -fx-text-fill: #40250f;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-border-color: #333300;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #996600;
+}
+
+.button {
+    -fx-background-color: #cc9900;
+    -fx-text-fill: #40250f;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-border-color: #333300;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.button:hover {
+    -fx-background-color: #996600;
+}
+
+* {
+    -fx-text-fill: white;
+}

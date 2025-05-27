@@ -7,12 +7,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController">
-
+            fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController"
+            fx:id="anchorPane">
+    <ImageView fx:id="backgroundImage" />
     <children>
         <VBox layoutX="7.0" layoutY="7.0" spacing="8" prefWidth="342.0">
             <HBox spacing="6" alignment="CENTER_LEFT">
@@ -28,7 +30,8 @@
         <GridPane fx:id="infoGrid"
                   layoutX="7.0" layoutY="60.0"
                   prefHeight="330.0" prefWidth="342.0"
-                  hgap="12" vgap="24">
+                  hgap="12" vgap="24"
+                  styleClass="translucent-grid">
             <columnConstraints>
                 <ColumnConstraints minWidth="60.0" prefWidth="60.0" maxWidth="60.0"/>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>

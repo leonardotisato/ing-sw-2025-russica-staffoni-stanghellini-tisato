@@ -218,6 +218,8 @@ public class GUIRoot extends View {
         prelobbySceneController.setGUI(this);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/PrelobbyScene.css")).toExternalForm());
+
 
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();
@@ -246,6 +248,7 @@ public class GUIRoot extends View {
         lobbySceneController.setGUI(this);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LobbyScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();

@@ -105,8 +105,8 @@
                                 </GridPane>
                                 <Pane layoutY="1.0" prefHeight="130.0" prefWidth="370.0">
                                     <children>
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="124.0" layoutX="4.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="111.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="124.0" layoutX="118.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="252.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="rgba(0, 0, 0, 0.5)" height="124.0" layoutX="4.0" layoutY="4.0" stroke="YELLOW" strokeType="INSIDE" width="111.0"/>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="rgba(0, 0, 0, 0.5)" height="124.0" layoutX="118.0" layoutY="4.0" stroke="YELLOW" strokeType="INSIDE" width="252.0"/>
                                         <GridPane fx:id="faceUpGrid" layoutX="139.0" layoutY="25.0" prefHeight="55.0" prefWidth="213.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -162,10 +162,17 @@
                                         </GridPane>
                                     </children>
                                 </Pane>
-                                <TextArea fx:id="logs" layoutX="380.0" layoutY="130.0" prefHeight="215.0" prefWidth="213.0" />
+                                <TextArea
+                                        fx:id="logs"
+                                        layoutX="380.0"
+                                        layoutY="130.0"
+                                        prefHeight="215.0"
+                                        prefWidth="213.0"
+                                        editable="false"
+                                        style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
                                 <Button fx:id="timerButton" layoutX="380.0" layoutY="360.0" mnemonicParsing="false" text="Timer" onAction="#handleTimer" />
-                                <Button fx:id="showOtherShipsButton" layoutX="435.0" layoutY="360.0" mnemonicParsing="false" text="Show other ships" />
-                                <Button fx:id="endButton" layoutX="552.0" layoutY="360.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="39.0" text="End" />
+                                <Button fx:id="showOtherShipsButton" layoutX="435.0" layoutY="360.0" mnemonicParsing="false" text="View ships" />
+                                <Button fx:id="endButton" layoutX="552.0" layoutY="360.0" mnemonicParsing="false" text="End" />
                             </children>
                         </AnchorPane>
                     </children>

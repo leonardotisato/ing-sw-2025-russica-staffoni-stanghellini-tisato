@@ -400,8 +400,8 @@ public class TUI extends View {
             System.out.println("\tstardust                  -activate stardust effect (no parameters)");
             System.out.println("\tfixShip                   -specify the coordinates of the tiles you want to remove to make the ship legal");
 
-            System.out.println("\tviewShips                 -have a look at other players' ship (no parameters)\n");
-            System.out.println("\thome                      -reset view to main view of your ship (no parameters)\n");
+            System.out.println("\tviewShips                 -have a look at other players' ship (no parameters)");
+            System.out.println("\thome                      -reset view to main view of your ship (no parameters)");
             System.out.println("\tretire                    -retire from the game (no parameters)\n");
             System.out.println("====================================================================================");
 

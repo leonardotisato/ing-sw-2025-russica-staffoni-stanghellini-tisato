@@ -1,0 +1,17 @@
+.scroll-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+}
+
+.scroll-pane > .content {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+    -fx-background-insets: 0;
+    -fx-padding: 10;
+}
+
+* {
+    -fx-text-fill: white;
+}

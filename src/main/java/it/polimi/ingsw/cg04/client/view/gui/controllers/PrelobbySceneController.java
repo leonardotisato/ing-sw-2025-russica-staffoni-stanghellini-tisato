@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.application.Platform;
@@ -20,11 +23,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 public class PrelobbySceneController implements Initializable {
 
+    public ImageView backgroundImage;
+    public AnchorPane anchorPane;
     /**
      * circles, on click set player color
      */
@@ -89,6 +95,13 @@ public class PrelobbySceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        backgroundImage.setImage(
+                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
+        );
+        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
+        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
+        
         levelGroup = new ToggleGroup();
         level1Button.setToggleGroup(levelGroup);
         level2Button.setToggleGroup(levelGroup);
