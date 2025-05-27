@@ -12,32 +12,32 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController">
     <children>
-        <GridPane layoutX="74.0" layoutY="30.0" prefHeight="101.0" prefWidth="95.0">
+        <GridPane layoutX="59.0" layoutY="36.0" prefHeight="117.0" prefWidth="127.0">
             <columnConstraints>
-                <ColumnConstraints prefWidth="49.91" />
-                <ColumnConstraints prefWidth="53.58" />
+                <ColumnConstraints maxWidth="66.27252197265625" minWidth="52.71208953857422" prefWidth="66.27252197265625" />
+                <ColumnConstraints maxWidth="51.28791046142578" minWidth="37.72747802734375" prefWidth="37.72747802734375" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints prefHeight="78.23" />
-                <RowConstraints prefHeight="71.26" />
+                <RowConstraints maxHeight="76.59449768066406" minHeight="53.54176330566406" prefHeight="58.28791046142578" />
+                <RowConstraints maxHeight="79.38240814208984" minHeight="63.90550231933594" prefHeight="66.71208953857422" />
             </rowConstraints>
             <children>
-                <Circle fx:id="blueCircle" fill="#2884da" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
-                <Circle fx:id="yellowCircle" fill="#d0e81e" radius="19.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
-                <Circle fx:id="greenCircle" fill="#0cb525" radius="19.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
-                <Circle fx:id="redCircle" fill="#cd1919" radius="19.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Circle fx:id="blueCircle" fill="#2884da" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fx:id="yellowCircle" fill="#d0e81e" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
+                <Circle fx:id="greenCircle" fill="#0cb525" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
+                <Circle fx:id="redCircle" fill="#cd1919" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
 
         <Button fx:id="createGameButton" layoutX="50.0" layoutY="302.0" prefHeight="75.0" prefWidth="132.0" text="Create Game" />
 
-        <Text layoutX="61.0" layoutY="162.0" text="Select Game's level" />
+        <Text layoutX="61.0" layoutY="181.0" text="Select Game's level" />
         <Text layoutX="49.0" layoutY="240.0" text="Select Number of players" />
         <Text layoutX="87.0" layoutY="25.0" text="select color" />
         <Text layoutX="326.0" layoutY="24.0" text="join an existing game" />
 
         <!-- Game Level Buttons -->
-        <GridPane layoutX="74.0" layoutY="180.0" prefHeight="30.0" prefWidth="96.0">
+        <GridPane layoutX="74.0" layoutY="192.0" prefHeight="30.0" prefWidth="96.0">
             <columnConstraints>
                 <ColumnConstraints prefWidth="48.0" />
                 <ColumnConstraints prefWidth="48.0" />

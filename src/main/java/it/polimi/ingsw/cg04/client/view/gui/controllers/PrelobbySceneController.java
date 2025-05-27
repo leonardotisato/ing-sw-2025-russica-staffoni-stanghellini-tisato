@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
+import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,7 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.scene.shape.StrokeType;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -145,7 +148,18 @@ public class PrelobbySceneController implements Initializable {
     private void setColor(String color) {
         this.selectedColor = color;
         System.out.println("Selected color: " + selectedColor);
-        // todo: add visual feedback
+
+        resetCircleStyle(blueCircle);
+        resetCircleStyle(yellowCircle);
+        resetCircleStyle(greenCircle);
+        resetCircleStyle(redCircle);
+
+        switch (color) {
+            case "BLUE" -> applyCircleHighlight(blueCircle);
+            case "YELLOW" -> applyCircleHighlight(yellowCircle);
+            case "GREEN" -> applyCircleHighlight(greenCircle);
+            case "RED" -> applyCircleHighlight(redCircle);
+        }
     }
 
     private void onCreateGame() throws IOException {
@@ -183,7 +197,7 @@ public class PrelobbySceneController implements Initializable {
                 // create button
                 int totPlayers = g.playerWithColor().size();
                 String label = "Partita " + g.id() +
-                         "\tMax players: " + g.maxPlayers() + "\t" + totPlayers + "/" + g.maxPlayers() + " Players";
+                        "\tMax players: " + g.maxPlayers() + "\t" + totPlayers + "/" + g.maxPlayers() + " Players";
 
                 Button btn = new Button(label);
                 btn.setMaxWidth(Double.MAX_VALUE);
@@ -200,5 +214,14 @@ public class PrelobbySceneController implements Initializable {
                 gamesListContainer.getChildren().add(btn);
             }
         });
+    }
+
+    private void resetCircleStyle(Circle circle) {
+        circle.setStrokeWidth(1);
+    }
+
+    private void applyCircleHighlight(Circle circle) {
+        circle.setStroke(javafx.scene.paint.Color.BLACK);
+        circle.setStrokeWidth(5);
     }
 }
