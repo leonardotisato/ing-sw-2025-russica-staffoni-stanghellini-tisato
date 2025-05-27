@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
@@ -8,6 +10,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,5 +169,9 @@ public abstract class GameState implements Serializable {
 
     public void initLogs(){
         this.logs = new ArrayList<>();
+    }
+
+    public void updateView(View view, Game game) throws IOException {
+        return;
     }
 }

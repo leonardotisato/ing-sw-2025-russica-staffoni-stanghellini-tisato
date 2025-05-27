@@ -76,75 +76,51 @@ public class GUIRoot extends View {
     }
 
 
-    public void updateGame(Game toDisplay, String nickname) {
+    @Override
+    public void renderLobbyState(Game toDisplay) throws IOException {
+        if (lobbySceneController == null) {
+            gotoLobbyScene();
+        }
+        Platform.runLater(() -> lobbySceneController.refreshLobby(toDisplay));
+    }
 
+    @Override
+    public void renderBuildState(Game toDisplay) throws IOException {
+        BuildPlayerState playerState = ((BuildState) toDisplay.getGameState()).getPlayerState().get(clientNickname);
+        System.out.println("Rendering build state: " + playerState);
+        switch (playerState) {
+            case SHOWING_FACE_UP:
+                if (faceUpSceneController == null) {
+                    goToFaceUpScene();
+                }
+                Platform.runLater(() -> faceUpSceneController.update(toDisplay));
+                break;
+            default:
+                System.out.println("now in default");
+                if (buildSceneController == null) {
+                    goToBuildScene();
+                }
+                Platform.runLater(() -> buildSceneController.update(toDisplay, clientNickname));
+                break;
+        }
+    }
+
+    @Override
+    public void renderEndGameState(Game toDisplay) throws IOException {
+        if (endSceneController == null) {
+            goToEndScene();
+        }
+        Platform.runLater(() -> endSceneController.update(toDisplay));
+    }
+
+
+    public void updateGame(Game toDisplay, String nickname) {
         try {
             if (toDisplay != null) {
-                if (toDisplay.getGameState() instanceof LobbyState) {
-
-                    if (lobbySceneController == null) {
-                        gotoLobbyScene();
-                        Platform.runLater(() -> {
-                            lobbySceneController.refreshLobby(toDisplay);
-                        });
-                    } else {
-                        Platform.runLater(() -> {
-                            lobbySceneController.refreshLobby(toDisplay);
-                        });
-                    }
-                } else if (toDisplay.getGameState() instanceof BuildState) {
-                    if (((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname) == BuildPlayerState.SHOWING_FACE_UP) {
-                        if (faceUpSceneController == null) {
-                            goToFaceUpScene();
-                            Platform.runLater(() -> {
-                                faceUpSceneController.update(toDisplay);
-                            });
-                        } else {
-                            Platform.runLater(() -> {
-                                faceUpSceneController.update(toDisplay);
-                            });
-                        }
-                    } else if (!isViewingShips) { // todo: remember to update isViewingShips
-                        if (buildSceneController == null) {
-                            goToBuildScene();
-                            Platform.runLater(() -> {
-                                buildSceneController.update(toDisplay, nickname);
-                            });
-                        }
-                        else {
-                            Platform.runLater(() -> {
-                                buildSceneController.update(toDisplay, nickname);
-                            });
-                        }
-                    }
-
-                } else if (toDisplay.getGameState() instanceof LoadCrewState) {
-
-                } else if (toDisplay.getGameState() instanceof AdventureCardState) {
-                    if(isViewingShips) {
-
-                    } else {
-
-                    }
-                    // todo: aggiunge check per capire se mostrare others scene o adCard scene
-
-                } else if (toDisplay.getGameState() instanceof EndGameState) {
-                    if (endSceneController == null) {
-                        goToEndScene();
-                        Platform.runLater(() -> {
-                            endSceneController.update(toDisplay);
-                        });
-                    } else {
-                        Platform.runLater(() -> {
-                            endSceneController.update(toDisplay);
-                        });
-                    }
-                }
+                toDisplay.getGameState().updateView(this, toDisplay);
             }
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException | IOException ignored) {
             System.out.println("Game not found");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -380,12 +356,12 @@ public class GUIRoot extends View {
         server.closeFaceUpTiles();
     }
 
-    public void drawFaceDown(){
+    public void drawFaceDown() {
         server.drawFaceDown();
     }
 
     public void place(int x, int y) {
-        server.place(x,y);
+        server.place(x, y);
     }
 
     public void returnTile() {
@@ -396,7 +372,7 @@ public class GUIRoot extends View {
         server.pickPile(pileIndex);
     }
 
-    public void startTimer(){
+    public void startTimer() {
         server.startTimer();
     }
 
@@ -404,7 +380,7 @@ public class GUIRoot extends View {
         server.showFaceUp();
     }
 
-    public void returnPile(){
+    public void returnPile() {
         server.returnPile();
     }
 
@@ -412,11 +388,11 @@ public class GUIRoot extends View {
         server.rotate(direction);
     }
 
-    public void chooseTileFromBuffer(int idx){
+    public void chooseTileFromBuffer(int idx) {
         server.chooseTileFromBuffer(idx);
     }
 
-    public void placeTileInBuffer(){
+    public void placeTileInBuffer() {
         server.placeInBuffer();
     }
 

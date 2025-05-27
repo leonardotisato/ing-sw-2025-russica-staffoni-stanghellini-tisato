@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.FlightBoard;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BuildState extends GameState {
@@ -476,6 +478,11 @@ public class BuildState extends GameState {
         if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
             triggerNextState();
         }
+    }
+
+    @Override
+    public void updateView(View view, Game toDisplay) throws IOException {
+        view.renderBuildState(toDisplay);
     }
 
     @Override

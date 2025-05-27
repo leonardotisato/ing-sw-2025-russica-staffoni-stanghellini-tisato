@@ -1,7 +1,10 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
+
+import java.io.IOException;
 
 public class LobbyState extends GameState {
     Game game;
@@ -18,6 +21,11 @@ public class LobbyState extends GameState {
         }
         stringBuilder.append("waiting for ").append(game.getMaxPlayers() - game.getPlayers().size()).append(" players to start the game\n");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderLobbyState(toDisplay);
     }
 
 }
