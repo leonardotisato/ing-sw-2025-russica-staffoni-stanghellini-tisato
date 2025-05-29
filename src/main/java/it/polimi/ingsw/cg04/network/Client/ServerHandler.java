@@ -45,5 +45,9 @@ public abstract class ServerHandler implements VirtualServer {
         clientModel.setGame(game, nickname);
     }
 
+    protected void notifyViewServerUnreachable(){
+        view.serverUnreachable();
+    }
+
     public void sendJoinableGames(List<Game.GameInfo> infos){clientModel.displayJoinableGames(infos);}
 }
