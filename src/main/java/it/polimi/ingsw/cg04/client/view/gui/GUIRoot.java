@@ -51,7 +51,12 @@ public class GUIRoot extends View {
 
     @Override
     public void serverUnreachable() {
-
+//        try {
+//            goToErrorScene();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        guiMain.stop();
     }
 
     /**

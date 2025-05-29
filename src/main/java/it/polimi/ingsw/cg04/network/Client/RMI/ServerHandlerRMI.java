@@ -74,7 +74,7 @@ public class ServerHandlerRMI extends ServerHandler {
 
         } catch (RemoteException | NotBoundException | MalformedURLException e) {
             // todo: uncomment when implemented
-            // notifyViewServerUnreachable();
+            notifyViewServerUnreachable();
             killRmiReaper();
             throw new RemoteException("Rmi connection to server failed");
         }
@@ -84,7 +84,7 @@ public class ServerHandlerRMI extends ServerHandler {
         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
         for (Thread t : threadSet) {
             if (t.getName().contains("RMI")) {
-                System.out.println("Killing RMI Reaper");
+                // System.out.println("Killing RMI Reaper");
                 t.interrupt();
             }
         }
@@ -487,7 +487,8 @@ public class ServerHandlerRMI extends ServerHandler {
             if (!heartBeat.equals(lastHeartBeat)) {
                 new Thread(() -> {
                     // todo: uncomment when implemented
-                    // notifyViewServerUnreachable();
+                    System.out.println("Server connection lost.");
+                    notifyViewServerUnreachable();
                     serverChecker.shutdownNow();
                     rmiExecutor.shutdownNow();
                     killRmiReaper();

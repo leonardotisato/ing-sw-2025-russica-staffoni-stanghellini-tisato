@@ -284,6 +284,9 @@ public class SocketServerHandler extends ServerHandler {
                 }
             } catch (Exception e) {
                 // System.out.println("Server -> Client communication error: " + e.getMessage());
+                System.out.println("Server connection lost.");
+                notifyViewServerUnreachable();
+
                 connectionChecker.shutdown();
                 inputHandler.shutdown();
             }
@@ -349,8 +352,10 @@ public class SocketServerHandler extends ServerHandler {
 
             if (!heartBeat.equals(lastHeartBeat)) {
                 try {
-                    socket.close();
                     System.out.println("Connection to server lost");
+                    notifyViewServerUnreachable();
+
+                    socket.close();
                 } catch (IOException ignored) {}
             }
         }
