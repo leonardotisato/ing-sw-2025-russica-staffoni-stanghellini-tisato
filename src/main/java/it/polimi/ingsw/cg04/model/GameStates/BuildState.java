@@ -273,13 +273,17 @@ public class BuildState extends GameState {
     public void pickPile(Player player, int pileIndex) throws InvalidStateException {
         // if player is not in BUILDING state
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new InvalidStateException("cant pick pile now");
+            throw new InvalidStateException("Can't pick pile now");
+        }
+
+        if (player.getHeldTile() != null) {
+            throw new InvalidStateException("Can't pick pile now");
         }
 
         // if someone is already looking at that pile
         for (int i : isLookingPile.values()) {
             if (i == pileIndex) {
-                throw new InvalidStateException("someone is already looking at pile" + pileIndex);
+                throw new InvalidStateException("Someone is already looking at pile" + pileIndex);
             }
         }
 
