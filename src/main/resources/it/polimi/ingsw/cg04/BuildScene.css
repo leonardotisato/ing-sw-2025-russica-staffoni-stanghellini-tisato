@@ -22,8 +22,9 @@
 }
 
 .text-area {
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent white */
+    -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-text-fill: white;
+    -fx-font-size: 4.5pt; /* font size del testo nei log */
 }
 
 .text-area .content {
