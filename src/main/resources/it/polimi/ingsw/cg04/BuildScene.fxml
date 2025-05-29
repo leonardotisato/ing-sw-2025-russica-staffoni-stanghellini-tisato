@@ -171,7 +171,7 @@
                                         editable="false"
                                         style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
                                 <Button fx:id="timerButton" layoutX="380.0" layoutY="360.0" mnemonicParsing="false" text="Timer" onAction="#handleTimer" />
-                                <Button fx:id="showOtherShipsButton" layoutX="435.0" layoutY="360.0" mnemonicParsing="false" text="View ships" />
+                                <Button fx:id="showOtherShipsButton" layoutX="435.0" layoutY="360.0" mnemonicParsing="false" text="View ships" onAction="#viewOther"/>
                                 <Button fx:id="endButton" layoutX="552.0" layoutY="360.0" mnemonicParsing="false" text="End" />
                             </children>
                         </AnchorPane>

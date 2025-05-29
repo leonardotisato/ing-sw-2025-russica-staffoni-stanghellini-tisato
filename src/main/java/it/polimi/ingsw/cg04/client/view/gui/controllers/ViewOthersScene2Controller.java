@@ -16,6 +16,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +24,8 @@ import java.util.ResourceBundle;
 
 public class ViewOthersScene2Controller extends ViewController{
 
-    private final double BASE_WIDTH = 600;
-    private final double BASE_HEIGHT = 400;
+    private final double BASE_WIDTH = 960;
+    private final double BASE_HEIGHT = 540;
 
     @FXML
     private GridPane shipGrid1;
@@ -146,6 +147,11 @@ public class ViewOthersScene2Controller extends ViewController{
     @FXML
     public void back() {
         gui.home();
+    }
+
+    @Override
+    public void goToViewOthers2Scene(GUIRoot gui) throws IOException {
+        return;
     }
 
 }

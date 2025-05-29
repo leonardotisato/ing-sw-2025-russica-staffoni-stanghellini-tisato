@@ -29,9 +29,6 @@ public class GUIRoot extends View {
 
     private Thread guiThread;
 
-    private String clientNickname;
-
-
     ViewController currController;
 
     private int columnOffset = 0;
@@ -67,7 +64,7 @@ public class GUIRoot extends View {
     }
 
     public String getClientNickname() {
-        return clientNickname;
+        return nickname;
     }
 
 
@@ -79,7 +76,7 @@ public class GUIRoot extends View {
 
     @Override
     public void renderBuildState(Game toDisplay) throws IOException {
-        BuildPlayerState playerState = ((BuildState) toDisplay.getGameState()).getPlayerState().get(clientNickname);
+        BuildPlayerState playerState = ((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname);
         System.out.println("Rendering build state: " + playerState);
         switch (playerState) {
             case SHOWING_FACE_UP:
@@ -105,7 +102,13 @@ public class GUIRoot extends View {
     public void updateGame(Game toDisplay, String nickname) {
         try {
             if (toDisplay != null) {
-                toDisplay.getGameState().updateView(this, toDisplay);
+                if(isViewingShips) {
+
+                    currController.goToViewOthers2Scene(this);
+                    Platform.runLater(() -> currController.update(toDisplay));
+                } else {
+                    toDisplay.getGameState().updateView(this, toDisplay);
+                }
             }
         } catch (NullPointerException | IOException ignored) {
             System.out.println("Game not found");
@@ -334,7 +337,7 @@ public class GUIRoot extends View {
 
     // Actions
     public void setNickname(String nickname) {
-        this.clientNickname = nickname;
+        this.nickname = nickname;
         server.setNickname(nickname);
     }
 
@@ -394,8 +397,14 @@ public class GUIRoot extends View {
         server.placeInBuffer();
     }
 
+    public void viewOthers2() {
+        isViewingShips = true;
+        updateGame(clientModel.getGame(), nickname);
+    }
+
     public void home() {
-        // todo: what should we do?
+        isViewingShips = false;
+        updateGame(clientModel.getGame(), nickname);
     }
 
     // todo: add case to handle setNick

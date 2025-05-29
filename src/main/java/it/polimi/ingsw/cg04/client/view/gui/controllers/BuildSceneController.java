@@ -186,6 +186,11 @@ public class BuildSceneController extends ViewController {
         gui.startTimer();
     }
 
+    @FXML
+    private void viewOther() {
+        gui.viewOthers2();
+    }
+
     @Override
     public void update(Game game) {
         System.out.println(gui.getClientNickname());
