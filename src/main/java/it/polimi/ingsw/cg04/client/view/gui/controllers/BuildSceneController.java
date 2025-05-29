@@ -307,6 +307,10 @@ public class BuildSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
+                    cell.setOnDragEntered(null);
+                    cell.setOnDragExited(null);
+                    cell.setOnDragOver(null);
+                    cell.setOnDragDropped(null);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + resourcePath);
                     e.printStackTrace();
