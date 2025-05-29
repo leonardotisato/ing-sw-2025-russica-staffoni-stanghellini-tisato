@@ -20,3 +20,16 @@
 .button:hover {
     -fx-background-color: #996600;
 }
+
+.text-field {
+    -fx-background-color: #cc9900;
+    -fx-text-fill: #40250f;
+    -fx-text-alignment: center;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 12px;              /* Smaller font */
+    -fx-padding: 4 8 4 8;            /* Smaller padding */
+    -fx-border-color: #333300;
+    -fx-border-width: 1.5px;           /* Slightly thinner border */
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}

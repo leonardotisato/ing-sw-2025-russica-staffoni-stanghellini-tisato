@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
@@ -40,10 +41,24 @@ public class ViewOthersScene2Controller extends ViewController{
     private GridPane shipGrid4;
 
     @FXML
+    private TextField nick1;
+
+    @FXML
+    private TextField nick2;
+
+    @FXML
+    private TextField nick3;
+
+    @FXML
+    private TextField nick4;
+
+    @FXML
     private StackPane root;
 
     @FXML
     private Group scalableGroup;
+
+    private List<TextField> nicknames;
 
     private List<GridPane> shipGridList;
 
@@ -59,6 +74,8 @@ public class ViewOthersScene2Controller extends ViewController{
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
 
         shipGridList = List.of(shipGrid1, shipGrid2, shipGrid3, shipGrid4);
+
+        nicknames = List.of(nick1, nick2, nick3, nick4);
     }
 
     private void scaleUI() {
@@ -79,6 +96,7 @@ public class ViewOthersScene2Controller extends ViewController{
         for (int i = 0; i < game.getPlayers().size(); i++) {
             Ship playerShip = game.getPlayers().get(i).getShip();
             updateShipGrid(playerShip, i);
+            nicknames.get(i).setText(game.getPlayers().get(i).getName());
         }
     }
 
