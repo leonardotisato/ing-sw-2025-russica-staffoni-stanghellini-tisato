@@ -1,0 +1,22 @@
+#root {
+    -fx-background-image: url("/images/background.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+.button {
+    -fx-background-color: #cc9900;
+    -fx-text-fill: #40250f;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 9px;              /* Smaller font */
+    -fx-padding: 4 12 4 12;            /* Smaller padding */
+    -fx-border-color: #333300;
+    -fx-border-width: 1.5px;           /* Slightly thinner border */
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.button:hover {
+    -fx-background-color: #996600;
+}

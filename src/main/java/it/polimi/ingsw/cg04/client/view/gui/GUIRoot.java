@@ -288,6 +288,29 @@ public class GUIRoot extends View {
         changeScene(scene);
     }
 
+    public void goToViewOthers2Scene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene2.fxml"));
+        Parent root = loader.load();
+
+        currController = loader.getController();
+        currController.setGUI(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene2.css")).toExternalForm());
+        Stage stage = guiMain.getPrimaryStage();
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(600);
+            stage.setHeight(400);
+        }
+        stage.setResizable(true);
+
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
+
+        changeScene(scene);
+    }
 
     public void goToEndScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -369,6 +392,10 @@ public class GUIRoot extends View {
 
     public void placeTileInBuffer() {
         server.placeInBuffer();
+    }
+
+    public void home() {
+        // todo: what should we do?
     }
 
     // todo: add case to handle setNick
