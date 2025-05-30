@@ -54,6 +54,7 @@ public class GUIMain extends Application {
             this.primaryStage = new Stage();
             guiRoot.setGuiMain(this);
             guiRoot.goToFirstScene();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

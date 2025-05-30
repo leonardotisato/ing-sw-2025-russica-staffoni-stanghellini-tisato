@@ -156,8 +156,12 @@ public class GUIRoot extends View {
             stage.setScene(scene);
             stage.setResizable(true);
             // stage.setFullScreen(false);
-            stage.setFullScreen(true);
             stage.show();
+            Platform.runLater(() -> {
+                if (!stage.isFullScreen()) {
+                    stage.setFullScreen(true);
+                }
+            });
         });
     }
 
