@@ -202,7 +202,7 @@ public class BuildSceneController extends ViewController {
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         updateHeldTile(playerHeldTile);
-        updateShipGrid(playerShip);
+        updateShipGrid(currentPlayer);
         updatePiles(currentPlayer);
         updateFaceUpTiles(currentPlayer.getGame());
         updateBuffer(playerShip);
@@ -253,7 +253,8 @@ public class BuildSceneController extends ViewController {
         }
     }
 
-    public void updateShipGrid(Ship ship) {
+    public void updateShipGrid(Player p) {
+        Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
 
         for (Node node : shipGrid.getChildren()) {
@@ -263,40 +264,43 @@ public class BuildSceneController extends ViewController {
             int col = colIndex == null ? 0 : colIndex;
             int row = rowIndex == null ? 0 : rowIndex;
 
+            StackPane stack = (StackPane) node;
 
-            ImageView cell = (ImageView) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
             Tile tile = shipMatrix[row][col];
 
-            if (tile == null) {
+            if (tile == null){
                 cell.setImage(null);
-                cell.setOnDragEntered(event -> {
-                    if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
-                        cell.setStyle("-fx-effect: dropshadow(gaussian, limegreen, 8, 0.6, 0, 0);");
+                if(ship.isPlacingLegal(p.getHeldTile(), row, col)){
+                    stack.setOnDragEntered(event -> {
+                        if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
+                            stack.setStyle("-fx-background-color: rgba(0,255,0,0.3);");
+                        }
+                    });
+
+                    stack.setOnDragExited(event -> {
+                        stack.setStyle("");
+                    });
+                    stack.setOnDragOver(event -> {
+                        if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
+                            event.acceptTransferModes(TransferMode.MOVE);
+                        }
+                        event.consume();
+                    });
+
+                    stack.setOnDragDropped(event -> {
+                        Dragboard db = event.getDragboard();
+                        boolean success = false;
+
+                        if (db.hasImage()) {
+                            gui.place(row, col);
+                            success = true;
+                        }
+
+                        event.setDropCompleted(success);
+                        event.consume();
+                    });
                     }
-                });
-
-                cell.setOnDragExited(event -> {
-                    cell.setStyle("");
-                });
-                cell.setOnDragOver(event -> {
-                    if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
-                        event.acceptTransferModes(TransferMode.MOVE);
-                    }
-                    event.consume();
-                });
-
-                cell.setOnDragDropped(event -> {
-                    Dragboard db = event.getDragboard();
-                    boolean success = false;
-
-                    if (db.hasImage()) {
-                        gui.place(row, col);
-                        success = true;
-                    }
-
-                    event.setDropCompleted(success);
-                    event.consume();
-                });
             }
 
             else {
@@ -307,10 +311,10 @@ public class BuildSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
-                    cell.setOnDragEntered(null);
-                    cell.setOnDragExited(null);
-                    cell.setOnDragOver(null);
-                    cell.setOnDragDropped(null);
+                    stack.setOnDragEntered(null);
+                    stack.setOnDragExited(null);
+                    stack.setOnDragOver(null);
+                    stack.setOnDragDropped(null);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + resourcePath);
                     e.printStackTrace();
