@@ -149,36 +149,7 @@ public class ViewOthersSceneController extends ViewController{
 
             if (tile == null) {
                 cell.setImage(null);
-                cell.setOnDragEntered(event -> {
-                    if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
-                        cell.setStyle("-fx-effect: dropshadow(gaussian, limegreen, 8, 0.6, 0, 0);");
-                    }
-                });
-
-                cell.setOnDragExited(event -> {
-                    cell.setStyle("");
-                });
-                cell.setOnDragOver(event -> {
-                    if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
-                        event.acceptTransferModes(TransferMode.MOVE);
-                    }
-                    event.consume();
-                });
-
-                cell.setOnDragDropped(event -> {
-                    Dragboard db = event.getDragboard();
-                    boolean success = false;
-
-                    if (db.hasImage()) {
-                        gui.place(row, col);
-                        success = true;
-                    }
-
-                    event.setDropCompleted(success);
-                    event.consume();
-                });
             }
-
             else {
                 String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + tile.getId() + ".jpg";
                 try {
