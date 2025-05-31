@@ -8,8 +8,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -17,10 +20,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LobbySceneController extends ViewController {
+
+    private final double BASE_WIDTH = 960;
+    private final double BASE_HEIGHT = 540;
+
+    @FXML
+    private StackPane root;
+    @FXML
+    private Group scalableGroup;
 
     private static final double DOT_RADIUS = 30;
     @FXML
@@ -30,13 +42,11 @@ public class LobbySceneController extends ViewController {
     @FXML
     private Label maxPlayersLabel;
     @FXML
-    private ScrollPane logsScrollPane;
+    private TextArea logs;
+
     @FXML
     private GridPane infoGrid;
-    @FXML
-    private ImageView backgroundImage;
 
-    private VBox logsContainer;
     private GUIRoot gui;
 
     /**
@@ -49,17 +59,8 @@ public class LobbySceneController extends ViewController {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        backgroundImage.setImage(
-                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
-        );
-        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
-        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
-
-        logsContainer = new VBox(6);
-        logsContainer.setPadding(new Insets(8));
-        logsScrollPane.setContent(logsContainer);
-        logsScrollPane.setFitToWidth(true);
+        root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
+        root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
 
         infoGrid.getRowConstraints().clear();
 
@@ -74,6 +75,19 @@ public class LobbySceneController extends ViewController {
         infoGrid.getColumnConstraints().setAll(c0, c1);
     }
 
+    private void scaleUI() {
+        double scaleX = root.getWidth() / BASE_WIDTH;
+        double scaleY = root.getHeight() / BASE_HEIGHT;
+        double scale = Math.min(scaleX, scaleY);
+        scalableGroup.setScaleX(scale);
+        scalableGroup.setScaleY(scale);
+        double offsetX = (root.getWidth() - BASE_WIDTH * scale) / 2;
+        double offsetY = (root.getHeight() - BASE_HEIGHT * scale) / 2;
+
+        scalableGroup.setLayoutX(offsetX);
+        scalableGroup.setLayoutY(offsetY);
+    }
+
     // todo prolly dont need this, maybe if we want to add a DISCONNECT button (?)
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
@@ -85,37 +99,35 @@ public class LobbySceneController extends ViewController {
      **/
     @Override
     public void update(Game game) {
-        Platform.runLater(() -> {
-            // GameLevel and MaxPlayers indicators
-            levelLabel.setText(String.valueOf(game.getLevel()));
-            maxPlayersLabel.setText(String.valueOf(game.getMaxPlayers()));
+        // GameLevel and MaxPlayers indicators
+        levelLabel.setText(String.valueOf(game.getLevel()));
+        maxPlayersLabel.setText(String.valueOf(game.getMaxPlayers()));
 
-            infoGrid.getChildren().clear();
+        infoGrid.getChildren().clear();
 
-            // build specific player
-            int row = 0;
-            for (Player p : game.getPlayers()) {
-                Circle dot = new Circle(DOT_RADIUS, setColor(p.getColor()));
-                dot.setStroke(Color.BLACK);
-                infoGrid.add(dot, 0, row);
+        // build specific player
+        int row = 0;
+        for (Player p : game.getPlayers()) {
+            Circle dot = new Circle(DOT_RADIUS, setColor(p.getColor()));
+            dot.setStroke(Color.BLACK);
+            infoGrid.add(dot, 0, row);
 
-                Label name = new Label(p.getName());
-                name.setMaxWidth(Double.MAX_VALUE);
-                name.setWrapText(true);
-                GridPane.setHgrow(name, Priority.ALWAYS);
-                infoGrid.add(name, 1, row);
+            Label name = new Label(p.getName());
+            name.setMaxWidth(Double.MAX_VALUE);
+            name.setWrapText(true);
+            GridPane.setHgrow(name, Priority.ALWAYS);
+            infoGrid.add(name, 1, row);
 
-                row++;
-            }
+            row++;
+        }
 
-            // free spaces placeholders, as many as MaxPlayers for the specific game
-            int free = game.getMaxPlayers() - game.getPlayers().size();
-            for (int i = 0; i < free; i++) {
-                Circle empty = new Circle(DOT_RADIUS, Color.TRANSPARENT);
-                empty.setStroke(Color.GREY);
-                infoGrid.add(empty, 0, row++);
-            }
-        });
+        // free spaces placeholders, as many as MaxPlayers for the specific game
+        int free = game.getMaxPlayers() - game.getPlayers().size();
+        for (int i = 0; i < free; i++) {
+            Circle empty = new Circle(DOT_RADIUS, Color.TRANSPARENT);
+            empty.setStroke(Color.GREY);
+            infoGrid.add(empty, 0, row++);
+        }
     }
 
     /**
@@ -131,6 +143,18 @@ public class LobbySceneController extends ViewController {
             case GREEN -> Color.LIMEGREEN;
             case RED -> Color.CRIMSON;
         };
+    }
+
+    @Override
+    public void showLogs(List<String> logLines) {
+        if (logLines == null || logs == null) return;
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : logLines) {
+            sb.append(line).append("\n");
+        }
+
+        Platform.runLater(() -> logs.setText(sb.toString()));
     }
 
     @Override

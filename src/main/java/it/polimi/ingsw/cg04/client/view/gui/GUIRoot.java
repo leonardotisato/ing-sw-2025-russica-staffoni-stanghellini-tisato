@@ -122,9 +122,7 @@ public class GUIRoot extends View {
         Scene currentScene = this.getScene();
 
         if (currentScene != null && guiMain != null) {
-            System.out.println("if");
-            ViewController controller = (ViewController)guiMain.getControllerForScene(currentScene);
-            controller.showLogs(logs);
+            currController.showLogs(logs);
         }
     }
 
