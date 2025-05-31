@@ -2,13 +2,11 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class ViewOthersScene2Controller extends ViewController{
+public class ViewOthersSceneController extends ViewController{
 
     private final double BASE_WIDTH = 960;
     private final double BASE_HEIGHT = 540;
@@ -39,6 +37,18 @@ public class ViewOthersScene2Controller extends ViewController{
 
     @FXML
     private GridPane shipGrid4;
+
+    @FXML
+    private ImageView back1;
+
+    @FXML
+    private ImageView back2;
+
+    @FXML
+    private ImageView back3;
+
+    @FXML
+    private ImageView back4;
 
     @FXML
     private TextField nick1;
@@ -60,6 +70,8 @@ public class ViewOthersScene2Controller extends ViewController{
 
     private List<TextField> nicknames;
 
+    private List<ImageView> backgrounds;
+
     private List<GridPane> shipGridList;
 
     private GUIRoot gui;
@@ -76,6 +88,8 @@ public class ViewOthersScene2Controller extends ViewController{
         shipGridList = List.of(shipGrid1, shipGrid2, shipGrid3, shipGrid4);
 
         nicknames = List.of(nick1, nick2, nick3, nick4);
+
+        backgrounds = List.of(back1, back2, back3, back4);
     }
 
     private void scaleUI() {
@@ -94,22 +108,41 @@ public class ViewOthersScene2Controller extends ViewController{
     @Override
     public void update(Game game) {
         for (int i = 0; i < game.getPlayers().size(); i++) {
+            String resourcePath = "/images/cardboard/ship" + game.getLevel() + ".jpg";
+            try {
+                Image img = new Image(
+                        Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+                );
+                backgrounds.get(i).setImage(img);
+            } catch (Exception e) {
+                System.err.println("Immagine non trovata: " + resourcePath);
+                e.printStackTrace();
+            }
+
             Ship playerShip = game.getPlayers().get(i).getShip();
-            updateShipGrid(playerShip, i);
+            updateShipGrid(playerShip, i, game.getLevel());
             nicknames.get(i).setText(game.getPlayers().get(i).getName());
         }
     }
 
-    public void updateShipGrid(Ship ship, int idx) {
+    public void updateShipGrid(Ship ship, int idx, int level) {
         Tile[][] shipMatrix = ship.getTilesMatrix();
 
         for (Node node : shipGridList.get(idx).getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
             Integer rowIndex = GridPane.getRowIndex(node);
 
-            int col = colIndex == null ? 0 : colIndex;
-            int row = rowIndex == null ? 0 : rowIndex;
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int temprow = rowIndex == null ? 0 : rowIndex;
 
+            tempcol = level == 1 ? tempcol + 1 : tempcol;
+
+            if(tempcol == ship.getShipWidth()) {
+                break;
+            }
+
+            int col = tempcol;
+            int row = temprow;
 
             ImageView cell = (ImageView) node;
             Tile tile = shipMatrix[row][col];
@@ -168,7 +201,7 @@ public class ViewOthersScene2Controller extends ViewController{
     }
 
     @Override
-    public void goToViewOthers2Scene(GUIRoot gui) throws IOException {
+    public void goToViewOthersScene(GUIRoot gui) throws IOException {
         return;
     }
 

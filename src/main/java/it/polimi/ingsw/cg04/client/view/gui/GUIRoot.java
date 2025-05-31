@@ -4,11 +4,7 @@ import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.*;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.BuildState;
-import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
-import it.polimi.ingsw.cg04.model.GameStates.LoadCrewState;
-import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
@@ -109,7 +105,7 @@ public class GUIRoot extends View {
             if (toDisplay != null) {
                 if(isViewingShips) {
 
-                    currController.goToViewOthers2Scene(this);
+                    currController.goToViewOthersScene(this);
                     Platform.runLater(() -> currController.update(toDisplay));
                 } else {
                     toDisplay.getGameState().updateView(this, toDisplay);
@@ -300,16 +296,16 @@ public class GUIRoot extends View {
         changeScene(scene);
     }
 
-    public void goToViewOthers2Scene() throws IOException {
+    public void goToViewOthersScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene2.fxml"));
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene.fxml"));
         Parent root = loader.load();
 
         currController = loader.getController();
         currController.setGUI(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene2.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene.css")).toExternalForm());
         Stage stage = guiMain.getPrimaryStage();
         boolean wasFullScreen = stage.isFullScreen();
         if (!wasFullScreen) {
