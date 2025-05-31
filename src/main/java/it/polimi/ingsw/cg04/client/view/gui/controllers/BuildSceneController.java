@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
+import it.polimi.ingsw.cg04.model.FlightBoard;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.BuildState;
 import it.polimi.ingsw.cg04.model.Player;
@@ -22,18 +23,17 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Scale;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
 
 
-
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class BuildSceneController extends ViewController {
     private final double BASE_WIDTH = 600;
@@ -61,7 +61,11 @@ public class BuildSceneController extends ViewController {
     private StackPane root;
 
     @FXML
-    private AnchorPane background;
+    private AnchorPane buildScene;
+
+    @FXML
+    private AnchorPane endBuildingScene;
+
 
     @FXML private Group scalableGroup;
 
@@ -74,6 +78,23 @@ public class BuildSceneController extends ViewController {
     @FXML
     private TextArea logs;
 
+    @FXML
+    private Button timerButton;
+
+
+    @FXML
+    private Polygon pos1;
+
+    @FXML
+    private Polygon pos2;
+
+    @FXML
+    private Polygon pos3;
+
+    @FXML
+    private Polygon pos4;
+
+    private final Map<Polygon, Integer> trianglePositionMap = new HashMap<>();
 
     private GUIRoot gui;
 
@@ -121,6 +142,7 @@ public class BuildSceneController extends ViewController {
             Platform.runLater(() -> heldTile.requestFocus());
         });
 
+        setupTrianglePositions();
 
     }
 
@@ -182,13 +204,33 @@ public class BuildSceneController extends ViewController {
     }
 
     @FXML
-    private void handleTimer() {
-        gui.startTimer();
+    private void viewOther() {
+        gui.viewOthers2();
     }
 
     @FXML
-    private void viewOther() {
-        gui.viewOthers2();
+    private void handleEndButtonClick() {
+        showEndBuildingScene();
+    }
+
+    @FXML
+    private void handleBackButtonClick() {
+        showBuildScene();
+    }
+
+    public void showBuildScene() {
+        endBuildingScene.setVisible(false);
+        endBuildingScene.setManaged(false);
+        buildScene.setVisible(true);
+        buildScene.setManaged(true);
+    }
+
+    public void showEndBuildingScene() {
+        buildScene.setVisible(false);
+        buildScene.setManaged(false);
+
+        endBuildingScene.setVisible(true);
+        endBuildingScene.setManaged(true);
     }
 
     @Override
@@ -198,7 +240,6 @@ public class BuildSceneController extends ViewController {
         if (currentPlayer == null) {
             System.out.println("currentPlayer is null! nickname: " + gui.getClientNickname());
         }
-        System.out.println(gui.getClientNickname());
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         updateHeldTile(playerHeldTile);
@@ -206,6 +247,8 @@ public class BuildSceneController extends ViewController {
         updatePiles(currentPlayer);
         updateFaceUpTiles(currentPlayer.getGame());
         updateBuffer(playerShip);
+        updateTimer(currentPlayer.getGame());
+        updateFreePostions(currentPlayer.getGame());
     }
 
     private void selectHeldTile(boolean selected) {
@@ -413,33 +456,54 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    public void updateTimer(Game g){
+        try {
+            if (g.getBoard().getTimerFlipsRemaining() == 0) {
+                timerButton.setText("Stop");
+                timerButton.setOnAction(event -> {
+                    System.out.println("Stopping build state");
+                    gui.stopBuilding();
+                });
+            } else {
+                timerButton.setText("Timer");
+                timerButton.setOnAction(event -> {
+                    System.out.println("Starting timer");
+                    gui.startTimer();
+                });
+            }
+        }catch (Exception e) {
+            System.err.println("Error in updateHeldTile: " + e.getMessage());
+        }
+    }
+
     public void updateBuffer(Ship s){
         List<Tile> buffer = s.getTilesBuffer();
         for (Node node : bufferGrid.getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
-            ImageView cell = (ImageView) node;
+            StackPane stack = (StackPane) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
             if(colIndex >= buffer.size()) {
                 cell.setImage(null);
                 cell.setOnMouseClicked(null);
                 cell.setOnMouseEntered(null);
                 cell.setOnMouseExited(null);
-                cell.setOnDragEntered(event -> {
+                stack.setOnDragEntered(event -> {
                     if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
-                        cell.setStyle("-fx-effect: dropshadow(gaussian, limegreen, 8, 0.6, 0, 0);");
+                        stack.setStyle("-fx-background-color: rgba(0,255,0,0.3);");
                     }
                 });
 
-                cell.setOnDragExited(event -> {
-                    cell.setStyle("");
+                stack.setOnDragExited(event -> {
+                    stack.setStyle("");
                 });
-                cell.setOnDragOver(event -> {
+                stack.setOnDragOver(event -> {
                     if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
                         event.acceptTransferModes(TransferMode.MOVE);
                     }
                     event.consume();
                 });
 
-                cell.setOnDragDropped(event -> {
+                stack.setOnDragDropped(event -> {
                     Dragboard db = event.getDragboard();
                     boolean success = false;
 
@@ -465,6 +529,10 @@ public class BuildSceneController extends ViewController {
                     });
                     cell.setOnMouseEntered(e -> cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 8, 0.6, 0, 0);"));
                     cell.setOnMouseExited(e -> cell.setStyle(""));
+                    stack.setOnDragEntered(null);
+                    stack.setOnDragExited(null);
+                    stack.setOnDragOver(null);
+                    stack.setOnDragDropped(null);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + resourcePath);
                     e.printStackTrace();
@@ -472,6 +540,65 @@ public class BuildSceneController extends ViewController {
             }
         }
     }
+
+    private void setupTrianglePositions() {
+        trianglePositionMap.put(pos1, 1);
+        trianglePositionMap.put(pos2, 2);
+        trianglePositionMap.put(pos3, 3);
+        trianglePositionMap.put(pos4, 4);
+
+        for (Polygon triangle : trianglePositionMap.keySet()) {
+
+            triangle.setOnMouseEntered(e -> {
+                triangle.getStyleClass().add("polygon-hover");
+            });
+
+            triangle.setOnMouseExited(e -> {
+                triangle.getStyleClass().remove("polygon-hover");
+            });
+
+            triangle.setOnMouseClicked(e -> {
+                Integer pos = trianglePositionMap.get(triangle);
+                if (pos != null) {
+                    gui.endBuilding(pos);
+                    disableTriangle(triangle);
+                    showBuildScene();
+                }
+            });
+        }
+    }
+
+    private void updateFreePostions(Game g) {
+        Map<String, String> playerColorHex = Map.of(
+                "YELLOW", "#FFFF00",
+                "RED", "#FF0000",
+                "BLUE", "#0000FF",
+                "GREEN", "#00FF00"
+        );
+
+        for (Map.Entry<Polygon, Integer> entry : trianglePositionMap.entrySet()) {
+            Polygon triangle = entry.getKey();
+            FlightBoard board = g.getBoard();
+            int pos = board.getStartingPosition(entry.getValue());
+
+            if (g.getBoard().getCell(pos) != null) {
+                String color = playerColorHex.get(g.getBoard().getCell(pos).getColor().toString());
+                triangle.setStyle("-fx-fill: " + color + "; -fx-stroke: black; -fx-stroke-width: 1;");
+                triangle.setDisable(true);
+                triangle.setOnMouseEntered(null);
+                triangle.setOnMouseExited(null);
+                triangle.getStyleClass().clear();
+            }
+        }
+    }
+
+    private void disableTriangle(Polygon triangle) {
+        triangle.setDisable(true);
+        triangle.setEffect(null);
+        triangle.setOnMouseEntered(null);
+        triangle.setOnMouseExited(null);
+    }
+
 
     @Override
     public void showLogs(List<String> logLines) {

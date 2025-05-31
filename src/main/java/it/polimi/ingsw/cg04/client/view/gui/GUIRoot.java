@@ -386,6 +386,8 @@ public class GUIRoot extends View {
         server.startTimer();
     }
 
+    public void stopBuilding() {server.stopBuilding();}
+
     public void showFaceUp() {
         server.showFaceUp();
     }
@@ -404,6 +406,10 @@ public class GUIRoot extends View {
 
     public void placeTileInBuffer() {
         server.placeInBuffer();
+    }
+
+    public void endBuilding(int pos) {
+        server.endBuilding(pos);
     }
 
     public void viewOthers2() {

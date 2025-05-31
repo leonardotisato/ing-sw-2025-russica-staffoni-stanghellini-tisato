@@ -38,3 +38,7 @@
 .text-area .viewport {
     -fx-background-color: transparent;
 }
+
+.polygon-hover {
+    -fx-fill: #FFFF004D;
+}
