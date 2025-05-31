@@ -15,8 +15,11 @@ public class Coordinates implements Serializable {
     public int getX() { return x; }
     public int getY() { return y; }
 
-    public boolean equals(Coordinates other) {
-        if (this == other) return true;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Coordinates other = (Coordinates) obj;
         return this.x == other.x && this.y == other.y;
     }
 
