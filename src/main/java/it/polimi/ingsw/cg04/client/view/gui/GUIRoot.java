@@ -11,6 +11,7 @@ import it.polimi.ingsw.cg04.model.GameStates.LoadCrewState;
 import it.polimi.ingsw.cg04.model.GameStates.LobbyState;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -410,6 +411,10 @@ public class GUIRoot extends View {
 
     public void endBuilding(int pos) {
         server.endBuilding(pos);
+    }
+
+    public void fixShip(List<Coordinates> coords){
+        server.fixShip(coords);
     }
 
     public void viewOthers2() {

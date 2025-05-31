@@ -166,6 +166,7 @@
                                 <Button fx:id="timerButton" layoutX="380.0" layoutY="360.0" mnemonicParsing="false" />
                                 <Button fx:id="showOtherShipsButton" layoutX="435.0" layoutY="360.0" mnemonicParsing="false" onAction="#viewOther" text="View ships" />
                                 <Button fx:id="endButton" layoutX="552.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleEndButtonClick" text="End" />
+                  <Button fx:id="fixButton" layoutX="418.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Fix" visible="false" onAction="#handleFixButtonClick"/>
                             </children>
                         </AnchorPane>
             <AnchorPane fx:id="endBuildingScene" managed="false" prefHeight="400.0" prefWidth="600.0" visible="false">
@@ -181,7 +182,7 @@
                         <Polygon fx:id="pos3" fill="#1f93ff00" layoutX="189.0" layoutY="127.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="-9.9" stroke="TRANSPARENT" strokeType="INSIDE" />
                         <Polygon fx:id="pos2" fill="#1f93ff00" layoutX="276.0" layoutY="112.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="6.7" stroke="TRANSPARENT" strokeType="INSIDE" />
                         <Polygon fx:id="pos1" fill="#1f93ff00" layoutX="410.0" layoutY="130.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="29.7" stroke="TRANSPARENT" strokeType="INSIDE" />
-                        <Button fx:id="backToBuildScene" layoutX="483.0" layoutY="336.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Back" onAction="#handleBackButtonClick"/>
+                        <Button fx:id="backToBuildScene" layoutX="483.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleBackButtonClick" prefHeight="26.0" prefWidth="82.0" text="Back" />
                      </children>
                   </Group>
                </children>

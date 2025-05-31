@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,6 +82,15 @@ public class BuildSceneController extends ViewController {
     @FXML
     private Button timerButton;
 
+    @FXML
+    private Button endButton;
+
+    @FXML
+    private Button showOtherShipsButton;
+
+    @FXML
+    private Button fixButton;
+
 
     @FXML
     private Polygon pos1;
@@ -95,6 +105,8 @@ public class BuildSceneController extends ViewController {
     private Polygon pos4;
 
     private final Map<Polygon, Integer> trianglePositionMap = new HashMap<>();
+
+    private List<Coordinates> tilesToBreak = new ArrayList<>();
 
     private GUIRoot gui;
 
@@ -218,6 +230,12 @@ public class BuildSceneController extends ViewController {
         showBuildScene();
     }
 
+    @FXML
+    private void handleFixButtonClick() {
+        gui.fixShip(tilesToBreak);
+        tilesToBreak.clear();
+    }
+
     public void showBuildScene() {
         endBuildingScene.setVisible(false);
         endBuildingScene.setManaged(false);
@@ -233,13 +251,31 @@ public class BuildSceneController extends ViewController {
         endBuildingScene.setManaged(true);
     }
 
+    public void showFixButton(){
+        hideAllButtons();
+        fixButton.setVisible(true);
+        fixButton.setManaged(true);
+    }
+
+    public void hideAllButtons(){
+        timerButton.setVisible(false);
+        timerButton.setManaged(false);
+
+        endButton.setVisible(false);
+        endButton.setManaged(false);
+
+        showOtherShipsButton.setVisible(false);
+        showOtherShipsButton.setManaged(false);
+
+        fixButton.setVisible(false);
+        fixButton.setManaged(false);
+    }
+
     @Override
     public void update(Game game) {
         System.out.println(gui.getClientNickname());
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
-        if (currentPlayer == null) {
-            System.out.println("currentPlayer is null! nickname: " + gui.getClientNickname());
-        }
+        BuildState state = (BuildState)currentPlayer.getGame().getGameState();
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         updateHeldTile(playerHeldTile);
@@ -249,6 +285,9 @@ public class BuildSceneController extends ViewController {
         updateBuffer(playerShip);
         updateTimer(currentPlayer.getGame());
         updateFreePostions(currentPlayer.getGame());
+        if(state.getPlayerState().get(currentPlayer.getName()) == BuildPlayerState.READY){
+            hideAllButtons();
+        }
     }
 
     private void selectHeldTile(boolean selected) {
@@ -299,6 +338,7 @@ public class BuildSceneController extends ViewController {
     public void updateShipGrid(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
+        BuildState state = (BuildState) p.getGame().getGameState();
 
         for (Node node : shipGrid.getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
@@ -354,6 +394,13 @@ public class BuildSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
+                    if(state.getPlayerState().get(p.getName()) == BuildPlayerState.FIXING){
+                        setFixEffects(cell, row, col);
+                        showFixButton();
+                    }
+                    else{
+                        cell.setOnMouseClicked(null);
+                    }
                     stack.setOnDragEntered(null);
                     stack.setOnDragExited(null);
                     stack.setOnDragOver(null);
@@ -364,6 +411,20 @@ public class BuildSceneController extends ViewController {
                 }
             }
         }
+    }
+
+    public void setFixEffects(ImageView cell, int row, int col) {
+        Coordinates coordinates = new Coordinates(row, col);
+        cell.setOnMouseClicked(event -> {
+            if(!coordinates.isIn(tilesToBreak)) {
+                cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                tilesToBreak.add(coordinates);
+            }
+            else{
+                cell.setStyle("");
+                tilesToBreak.remove(coordinates);
+            }
+            });
     }
 
     public void updatePiles(Player p) {
