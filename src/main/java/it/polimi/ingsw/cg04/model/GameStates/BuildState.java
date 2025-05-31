@@ -401,6 +401,8 @@ public class BuildState extends GameState {
             playerState.put(player.getName(), BuildPlayerState.READY);
             this.addLog(player.getName() + " is done fixing his ship!");
             //where will he start?
+        } else {
+            this.addLog(player.getName() + " tried to fix his ship but it still illegal. He must fix it!");
         }
         if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
             triggerNextState();
