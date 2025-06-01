@@ -42,7 +42,7 @@ public class FlightBoardLev2 extends FlightBoard {
 
         if (!isTimerExpired() || timerFlipsUsed >= MAX_FLIPS) return;
 
-        long TIMER_DURATION = 10000;
+        long TIMER_DURATION = 55000;
         timerEndTime = System.currentTimeMillis() + TIMER_DURATION;
         timerFlipsUsed++;
 
@@ -58,7 +58,7 @@ public class FlightBoardLev2 extends FlightBoard {
             }
         };
 
-        timer.schedule(currentTask, TIMER_DURATION);
+        timer.schedule(currentTask, TIMER_DURATION + 5000);
     }
 
     public boolean isTimerExpired() {

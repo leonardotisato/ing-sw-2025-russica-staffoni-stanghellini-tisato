@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController"
-            fx:id="anchorPane">
-    <ImageView fx:id="backgroundImage" />
+<?import javafx.scene.control.TextArea?>
+<StackPane fx:id="root" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController">
     <children>
-        <VBox layoutX="7.0" layoutY="7.0" spacing="8" prefWidth="342.0">
-            <HBox spacing="6" alignment="CENTER_LEFT">
-                <Label text="Level:" styleClass="field-label"/>
-                <Label fx:id="levelLabel" text="-" styleClass="field-value"/>
-            </HBox>
-            <HBox spacing="6" alignment="CENTER_LEFT">
-                <Label text="Max Players:" styleClass="field-label"/>
-                <Label fx:id="maxPlayersLabel" text="-" styleClass="field-value"/>
-            </HBox>
-        </VBox>
+        <Group fx:id="scalableGroup">
+            <children>
+                <AnchorPane fx:id="anchorPane" prefHeight="454.0" prefWidth="913.0">
+                    <children>
+                        <VBox layoutX="-2.0" layoutY="7.0" prefHeight="43.0" prefWidth="351.0" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="6">
+                                <Label text="Level:" />
+                                <Label fx:id="levelLabel" text="-" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="6">
+                                <Label text="Max Players:" />
+                                <Label fx:id="maxPlayersLabel" text="-" />
+                            </HBox>
+                        </VBox>
 
-        <GridPane fx:id="infoGrid"
-                  layoutX="7.0" layoutY="60.0"
-                  prefHeight="330.0" prefWidth="342.0"
-                  hgap="12" vgap="24"
-                  styleClass="translucent-grid">
-            <columnConstraints>
-                <ColumnConstraints minWidth="60.0" prefWidth="60.0" maxWidth="60.0"/>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="100.0"/>
-            </columnConstraints>
-        </GridPane>
-
-        <ScrollPane fx:id="logsScrollPane"
-                    layoutX="350.0" layoutY="37.0"
-                    prefHeight="351.0" prefWidth="235.0"/>
+                        <GridPane fx:id="infoGrid" hgap="12" layoutX="-2.0" layoutY="60.0" prefHeight="330.0" prefWidth="351.0" styleClass="translucent-grid" vgap="24">
+                            <columnConstraints>
+                                <ColumnConstraints maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" />
+                            </columnConstraints>
+                        </GridPane>
+                  <Pane fx:id="text" layoutX="604.0" layoutY="30.0" prefHeight="393.0" prefWidth="294.0" style=" -fx-background-color: transparent">
+                     <children>
+                        <TextArea fx:id="logs" layoutX="14.0" layoutY="14.0" prefHeight="371.0" prefWidth="270.0" editable="false" style=" -fx-border-color: yellow; -fx-border-width: 2px;"/>
+                     </children>
+                  </Pane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </Group>
     </children>
-</AnchorPane>
+</StackPane>
