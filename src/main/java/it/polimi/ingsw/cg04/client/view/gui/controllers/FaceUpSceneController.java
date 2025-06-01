@@ -43,7 +43,7 @@ public class FaceUpSceneController extends ViewController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         background.setImage(
-                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
+                new Image(Objects.requireNonNull(getClass().getResource("/images/background2.png")).toExternalForm())
         );
         background.setPreserveRatio(false);
         background.fitWidthProperty().bind(root.widthProperty());

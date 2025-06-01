@@ -73,7 +73,7 @@ public class EndSceneController extends ViewController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         backgroundImage.setImage(
-                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
+                new Image(Objects.requireNonNull(getClass().getResource("/images/background2.png")).toExternalForm())
         );
         backgroundImage.setPreserveRatio(false);
         backgroundImage.fitWidthProperty().bind(root.widthProperty());
