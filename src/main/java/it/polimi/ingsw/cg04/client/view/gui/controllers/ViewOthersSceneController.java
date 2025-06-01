@@ -133,16 +133,16 @@ public class ViewOthersSceneController extends ViewController{
             Integer rowIndex = GridPane.getRowIndex(node);
 
             int tempcol = colIndex == null ? 0 : colIndex;
-            int temprow = rowIndex == null ? 0 : rowIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
 
-            tempcol = level == 1 ? tempcol + 1 : tempcol;
 
-            if(tempcol == ship.getShipWidth()) {
-                break;
+            if(level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
             }
 
             int col = tempcol;
-            int row = temprow;
 
             ImageView cell = (ImageView) node;
             Tile tile = shipMatrix[row][col];

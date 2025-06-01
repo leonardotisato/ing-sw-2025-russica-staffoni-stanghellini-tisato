@@ -33,7 +33,7 @@ public class BuildState extends GameState {
     }
 
     public void triggerNextState() {
-        if(game.getLevel() == 1) {
+        if (game.getLevel() == 1) {
             game.setGameState(new FlightState(game));
             game.setCurrentAdventureCard(null);
         } else {
@@ -341,7 +341,7 @@ public class BuildState extends GameState {
         FlightBoard board = game.getBoard();
 
         // Lev 1 games part
-        if(game.getLevel() == 1) {
+        if (game.getLevel() == 1) {
             playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
             for (int i = 1; i <= game.getNumPlayers(); i++) {
                 if (board.getCell(board.getStartingPosition(i)) == null) {
@@ -391,6 +391,12 @@ public class BuildState extends GameState {
             throw new InvalidStateException("cant fix ship now");
         }
 
+        for (BuildPlayerState state : playerState.values()) {
+            if (state != BuildPlayerState.READY && state != BuildPlayerState.FIXING) {
+                throw new InvalidStateException("Can't fix ship now, some players are not ready!");
+            }
+        }
+
         for (Coordinates coordinates : coordinatesList) {
             player.getShip().breakTile(coordinates.getX(), coordinates.getY());
         }
@@ -425,9 +431,12 @@ public class BuildState extends GameState {
         if (game.getLevel() != 2) {
             throw new InvalidStateException("Timer can only be flipped in a level 2 game!");
         }
-
         FlightBoard board = game.getBoard();
-        if(board.getTimerFlipsUsed() > 0 && board.getTimerFlipsRemaining() > 0 && !board.isTimerExpired()) {
+        if (board.getTimerFlipsRemaining() == 1 && playerState.get(player.getName()) != BuildPlayerState.READY && playerState.get(player.getName()) != BuildPlayerState.FIXING) {
+            throw new InvalidStateException("Can't start the last flip if you are not done building!");
+        }
+
+        if (board.getTimerFlipsUsed() > 0 && board.getTimerFlipsRemaining() > 0 && !board.isTimerExpired()) {
             throw new InvalidStateException("Can't start timer now!");
         }
         game.getBoard().startTimer();
@@ -458,7 +467,7 @@ public class BuildState extends GameState {
         }
 
         if (board.getTimerFlipsRemaining() > 0) {
-            throw new InvalidStateException("Timer still needs to be flipped " + board.getTimerFlipsRemaining() + " time(s)" );
+            throw new InvalidStateException("Timer still needs to be flipped " + board.getTimerFlipsRemaining() + " time(s)");
         }
 
         this.addLog(player.getName() + " stopped the timer!");
@@ -618,7 +627,7 @@ public class BuildState extends GameState {
         return playerState;
     }
 
-    public Map<String, Integer> getIsLookingPile(){
+    public Map<String, Integer> getIsLookingPile() {
         return isLookingPile;
     }
 }
