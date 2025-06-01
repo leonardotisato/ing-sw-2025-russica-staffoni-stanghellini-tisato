@@ -42,7 +42,7 @@ public class FlightBoardLev2 extends FlightBoard {
 
         if (!isTimerExpired() || timerFlipsUsed >= MAX_FLIPS) return;
 
-        long TIMER_DURATION = 60000;
+        long TIMER_DURATION = 10000;
         timerEndTime = System.currentTimeMillis() + TIMER_DURATION;
         timerFlipsUsed++;
 
