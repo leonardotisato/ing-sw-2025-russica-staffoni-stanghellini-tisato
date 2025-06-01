@@ -23,6 +23,7 @@ public class CreateGameAction extends InitAction {
     @Override
     public void execute(GamesController controller) {
         Game g = new Game(gameLevel, maxPlayers, controller.getGames().size(), nickname, playerColor);
+        g.setListener(controller);
         controller.addGame(g);
     }
 
