@@ -346,7 +346,11 @@ public class BuildState extends GameState {
             for (int i = 1; i <= game.getNumPlayers(); i++) {
                 if (board.getCell(board.getStartingPosition(i)) == null) {
                     board.occupyCell(board.getStartingPosition(i), player);
-                    this.addLog(player.getName() + " is done building and will start at position " + i);
+                    if (player.getShip().isShipLegal()) {
+                        this.addLog(player.getName() + " is done building and will start at position " + i);
+                    } else {
+                        this.addLog(player.getName() + " is done building but his ship is not legal. He will need to fix it");
+                    }
                     if (playerState.values().stream().allMatch(state -> state == BuildPlayerState.READY)) {
                         triggerNextState();
                     }
