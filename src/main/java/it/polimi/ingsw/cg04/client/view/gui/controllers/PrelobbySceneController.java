@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
@@ -13,6 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.application.Platform;
@@ -30,7 +32,16 @@ import java.util.Set;
 
 public class PrelobbySceneController extends ViewController {
 
-    public ImageView backgroundImage;
+    private final double BASE_WIDTH = 960;
+    private final double BASE_HEIGHT = 540;
+
+    @FXML
+    private StackPane root;
+    @FXML
+    private Group scalableGroup;
+
+
+    @FXML
     public AnchorPane anchorPane;
     /**
      * circles, on click set player color
@@ -51,6 +62,7 @@ public class PrelobbySceneController extends ViewController {
     private ToggleButton level1Button;
     @FXML
     private ToggleButton level2Button;
+
     private ToggleGroup levelGroup;
 
     /**
@@ -62,6 +74,7 @@ public class PrelobbySceneController extends ViewController {
     private ToggleButton player3Button;
     @FXML
     private ToggleButton player4Button;
+
     private ToggleGroup playerCountGroup;
 
     /**
@@ -75,6 +88,7 @@ public class PrelobbySceneController extends ViewController {
      */
     @FXML
     private ScrollPane gamesScrollPane;
+
     private VBox gamesListContainer;
 
     /**
@@ -97,11 +111,8 @@ public class PrelobbySceneController extends ViewController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        backgroundImage.setImage(
-                new Image(Objects.requireNonNull(getClass().getResource("/images/background.png")).toExternalForm())
-        );
-        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
-        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
+        root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
+        root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
 
         levelGroup = new ToggleGroup();
         level1Button.setToggleGroup(levelGroup);
@@ -119,9 +130,13 @@ public class PrelobbySceneController extends ViewController {
 
         levelGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle == level1Button) {
+                level1Button.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                level2Button.setStyle("");
                 selectedLevel = 1;
                 System.out.println("selected level 1");
             } else if (newToggle == level2Button) {
+                level2Button.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                level1Button.setStyle("");
                 selectedLevel = 2;
                 System.out.println("selected level 2");
             }
@@ -129,12 +144,21 @@ public class PrelobbySceneController extends ViewController {
 
         playerCountGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle == player2Button) {
+                player2Button.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                player3Button.setStyle("");
+                player4Button.setStyle("");
                 selectedPlayerCount = 2;
                 System.out.println("selected 2 players");
             } else if (newToggle == player3Button) {
+                player3Button.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                player2Button.setStyle("");
+                player4Button.setStyle("");
                 selectedPlayerCount = 3;
                 System.out.println("selected 3 players");
             } else if (newToggle == player4Button) {
+                player4Button.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+                player2Button.setStyle("");
+                player3Button.setStyle("");
                 selectedPlayerCount = 4;
                 System.out.println("selected 4 players");
             }
@@ -157,6 +181,19 @@ public class PrelobbySceneController extends ViewController {
         });
 
         // load existing games somehow
+    }
+
+    private void scaleUI() {
+        double scaleX = root.getWidth() / BASE_WIDTH;
+        double scaleY = root.getHeight() / BASE_HEIGHT;
+        double scale = Math.min(scaleX, scaleY);
+        scalableGroup.setScaleX(scale);
+        scalableGroup.setScaleY(scale);
+        double offsetX = (root.getWidth() - BASE_WIDTH * scale) / 2;
+        double offsetY = (root.getHeight() - BASE_HEIGHT * scale) / 2;
+
+        scalableGroup.setLayoutX(offsetX);
+        scalableGroup.setLayoutY(offsetY);
     }
 
     public void setGUI(GUIRoot gui) {
@@ -204,55 +241,54 @@ public class PrelobbySceneController extends ViewController {
     }
 
     public void refreshJoinableGames(List<Game.GameInfo> games) {
-        Platform.runLater(() -> {
-            gamesListContainer.getChildren().clear();
+        gamesListContainer.getChildren().clear();
 
-            for (Game.GameInfo g : games) {
+        for (Game.GameInfo g : games) {
 
-                // if game is full don't show it
-                if (g.maxPlayers() == g.playerWithColor().size()) break;
+            // if game is full don't show it
+            if (g.maxPlayers() == g.playerWithColor().size()) break;
 
-                // create button
-                int totPlayers = g.playerWithColor().size();
+            // create button
+            int totPlayers = g.playerWithColor().size();
 
-                Collection<String> usedColors = g.playerWithColor().values();
-                List<String> availableColors = allColors.stream()
-                        .filter(c -> !usedColors.contains(c))
-                        .toList();
+            Collection<String> usedColors = g.playerWithColor().values();
+            List<String> availableColors = allColors.stream()
+                    .filter(c -> !usedColors.contains(c))
+                    .toList();
 
-                StringBuilder colorIcons = new StringBuilder();
-                for (String color : availableColors) {
-                    colorIcons.append(color + "  ");
-                }
-
-                String label = "Game: " + g.id() + "    Level: " + g.gameLevel() + "    "
-                        + totPlayers + "/" + g.maxPlayers()
-                        + " Players\n" + "available colors: " + colorIcons;
-
-                Button btn = new Button(label);
-                btn.setMaxWidth(Double.MAX_VALUE);
-                btn.getStyleClass().add("joinable-game-button");
-
-                btn.setOnAction(e -> {
-                    try {
-                        onJoinGame(String.valueOf(g.id()));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
-
-                gamesListContainer.getChildren().add(btn);
+            StringBuilder colorIcons = new StringBuilder();
+            for (String color : availableColors) {
+                colorIcons.append(color + "  ");
             }
-        });
+
+            String label = "Game: " + g.id() + "    Level: " + g.gameLevel() + "    "
+                    + totPlayers + "/" + g.maxPlayers()
+                    + " Players\n" + "available colors: " + colorIcons;
+
+            Button btn = new Button(label);
+            btn.setMaxWidth(Double.MAX_VALUE);
+            btn.getStyleClass().add("joinable-game-button");
+
+            btn.setAlignment(javafx.geometry.Pos.CENTER);
+
+            btn.setOnAction(e -> {
+                try {
+                    onJoinGame(String.valueOf(g.id()));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            gamesListContainer.getChildren().add(btn);
+        }
     }
 
     private void resetCircleStyle(Circle circle) {
-        circle.setStrokeWidth(1);
+        circle.setStyle("");
     }
 
     private void applyCircleHighlight(Circle circle) {
-        circle.setStroke(javafx.scene.paint.Color.BLACK);
-        circle.setStrokeWidth(5);
+        circle.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
     }
 
     @Override

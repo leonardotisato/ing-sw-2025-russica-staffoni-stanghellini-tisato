@@ -1,15 +1,22 @@
+#root {
+    -fx-background-image: url("/images/background.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
 .scroll-pane {
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-border-color: #cc9900;
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane > .content {
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* translucent green */
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
-    -fx-padding: 10;
 }
 
 .toggle-button {
@@ -44,6 +51,10 @@
     -fx-background-color: #996600;
 }
 
-* {
-    -fx-text-fill: white;
+.text-field {
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 14px;
+    -fx-text-fill: #cc9900;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
