@@ -23,6 +23,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Scale;
@@ -93,16 +94,16 @@ public class BuildSceneController extends ViewController {
 
 
     @FXML
-    private Polygon pos1;
+    private Polygon pos1,pos2,pos3,pos4;
 
     @FXML
-    private Polygon pos2;
+    private Polygon pos1_1,pos2_1,pos3_1,pos4_1;
 
     @FXML
-    private Polygon pos3;
+    private ImageView shipImage, flightboardImg;
 
     @FXML
-    private Polygon pos4;
+    private Pane pilesPane;
 
     private final Map<Polygon, Integer> trianglePositionMap = new HashMap<>();
 
@@ -153,8 +154,6 @@ public class BuildSceneController extends ViewController {
             }
             Platform.runLater(() -> heldTile.requestFocus());
         });
-
-        setupTrianglePositions();
 
     }
 
@@ -271,23 +270,66 @@ public class BuildSceneController extends ViewController {
         fixButton.setManaged(false);
     }
 
+    public void hideButton(Button button){
+        button.setManaged(false);
+        button.setVisible(false);
+    }
+
+    public void showButton(Button button){
+        button.setManaged(true);
+        button.setVisible(true);
+    }
+
     @Override
     public void update(Game game) {
         System.out.println(gui.getClientNickname());
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
-        BuildState state = (BuildState)currentPlayer.getGame().getGameState();
+        BuildState state = (BuildState)game.getGameState();
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
+        int level = game.getLevel();
+
+        composeSceneByLevel(level);
         updateHeldTile(playerHeldTile);
         updateShipGrid(currentPlayer);
-        updatePiles(currentPlayer);
         updateFaceUpTiles(currentPlayer.getGame());
-        updateBuffer(playerShip);
-        updateTimer(currentPlayer.getGame());
         updateFreePostions(currentPlayer.getGame());
+
+        if(level== 2){
+            updateBuffer(playerShip);
+            updateTimer(currentPlayer.getGame());
+            updatePiles(currentPlayer);
+        }
         if(state.getPlayerState().get(currentPlayer.getName()) == BuildPlayerState.READY){
             hideAllButtons();
+            if (level == 2) showButton(timerButton);
         }
+    }
+
+    private void composeSceneByLevel(int level) {
+        String shipPath = "/images/cardboard/ship" + level + ".jpg";
+        String flightBoardPath = "/images/cardboard/flightboard" + level + ".png";
+        try {
+            Image shipImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(shipPath)).toExternalForm()
+            );
+            Image boardImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(flightBoardPath)).toExternalForm()
+            );
+            shipImage.setImage(shipImg);
+            flightboardImg.setImage(boardImg);
+        } catch (Exception e) {
+            System.err.println("Immagine non trovata: " + shipPath);
+            System.err.println("Immagine non trovata: " + flightBoardPath);
+            e.printStackTrace();
+        }
+
+        if (level == 1){
+            hideButton(timerButton);
+            pilesPane.setVisible(false);
+            pilesPane.setManaged(false);
+        }
+        setupTrianglePositions(level);
     }
 
     private void selectHeldTile(boolean selected) {
@@ -339,13 +381,23 @@ public class BuildSceneController extends ViewController {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
         BuildState state = (BuildState) p.getGame().getGameState();
+        int level = p.getGame().getLevel();
 
         for (Node node : shipGrid.getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
             Integer rowIndex = GridPane.getRowIndex(node);
 
-            int col = colIndex == null ? 0 : colIndex;
+            int tempcol = colIndex == null ? 0 : colIndex;
             int row = rowIndex == null ? 0 : rowIndex;
+
+
+            if(level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+
+            int col = tempcol;
 
             StackPane stack = (StackPane) node;
 
@@ -602,11 +654,11 @@ public class BuildSceneController extends ViewController {
         }
     }
 
-    private void setupTrianglePositions() {
-        trianglePositionMap.put(pos1, 1);
-        trianglePositionMap.put(pos2, 2);
-        trianglePositionMap.put(pos3, 3);
-        trianglePositionMap.put(pos4, 4);
+    private void setupTrianglePositions(int level) {
+        trianglePositionMap.put(level == 2 ? pos1 : pos1_1, 1);
+        trianglePositionMap.put(level == 2 ? pos2 : pos2_1, 2);
+        trianglePositionMap.put(level == 2 ? pos3 : pos3_1, 3);
+        trianglePositionMap.put(level == 2 ? pos4 : pos4_1, 4);
 
         for (Polygon triangle : trianglePositionMap.keySet()) {
 
