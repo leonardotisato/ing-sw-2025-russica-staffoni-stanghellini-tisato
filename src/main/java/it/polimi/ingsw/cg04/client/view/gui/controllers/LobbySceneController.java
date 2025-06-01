@@ -104,6 +104,27 @@ public class LobbySceneController extends ViewController {
         maxPlayersLabel.setText(String.valueOf(game.getMaxPlayers()));
 
         infoGrid.getChildren().clear();
+        int level = game.getLevel();
+
+        String backgroundPath = "/images/background" + level + ".png";
+        try {
+            Image backgroundImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(backgroundPath)).toExternalForm()
+            );
+
+            BackgroundImage backgroundImage = new BackgroundImage(
+                    backgroundImg,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+            );
+            root.setBackground(new Background(backgroundImage));
+        }
+        catch (Exception e) {
+            System.err.println("Immagine non trovata: " + backgroundPath);
+            e.printStackTrace();
+        }
 
         // build specific player
         int row = 0;

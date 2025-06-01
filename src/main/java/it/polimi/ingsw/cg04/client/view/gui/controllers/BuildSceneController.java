@@ -21,10 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Scale;
 import javafx.scene.control.Button;
@@ -307,20 +304,33 @@ public class BuildSceneController extends ViewController {
     }
 
     private void composeSceneByLevel(int level) {
+        String backgroundPath = "/images/background" + level + ".png";
         String shipPath = "/images/cardboard/ship" + level + ".jpg";
         String flightBoardPath = "/images/cardboard/flightboard" + level + ".png";
         try {
+            Image backgroundImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(backgroundPath)).toExternalForm()
+            );
             Image shipImg = new Image(
                     Objects.requireNonNull(getClass().getResource(shipPath)).toExternalForm()
             );
             Image boardImg = new Image(
                     Objects.requireNonNull(getClass().getResource(flightBoardPath)).toExternalForm()
             );
+            BackgroundImage backgroundImage = new BackgroundImage(
+                    backgroundImg,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+            );
+            root.setBackground(new Background(backgroundImage));
             shipImage.setImage(shipImg);
             flightboardImg.setImage(boardImg);
         } catch (Exception e) {
             System.err.println("Immagine non trovata: " + shipPath);
             System.err.println("Immagine non trovata: " + flightBoardPath);
+            System.err.println("Immagine non trovata: " + backgroundPath);
             e.printStackTrace();
         }
 
