@@ -328,6 +328,9 @@ public class BuildSceneController extends ViewController {
             hideButton(timerButton);
             pilesPane.setVisible(false);
             pilesPane.setManaged(false);
+            endButton.setOnAction(event -> {
+                gui.endBuilding(1);
+            });
         }
         setupTrianglePositions(level);
     }
