@@ -36,3 +36,8 @@
 .polygon-hover {
     -fx-fill: #FFFF004D;
 }
+
+.cheats-title {
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 28px;
+}

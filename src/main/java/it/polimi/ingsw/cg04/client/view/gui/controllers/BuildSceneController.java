@@ -10,6 +10,7 @@ import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -65,8 +66,11 @@ public class BuildSceneController extends ViewController {
     @FXML
     private AnchorPane endBuildingScene;
 
+    @FXML
+    private AnchorPane cheatsPopup;
 
-    @FXML private Group scalableGroup;
+    @FXML
+    private Group scalableGroup;
 
     @FXML
     private GridPane bufferGrid;
@@ -89,12 +93,15 @@ public class BuildSceneController extends ViewController {
     @FXML
     private Button fixButton;
 
+    @FXML
+    private Button cheatsButton;
+
 
     @FXML
-    private Polygon pos1,pos2,pos3,pos4;
+    private Polygon pos1, pos2, pos3, pos4;
 
     @FXML
-    private Polygon pos1_1,pos2_1,pos3_1,pos4_1;
+    private Polygon pos1_1, pos2_1, pos3_1, pos4_1;
 
     @FXML
     private ImageView shipImage, flightboardImg;
@@ -226,6 +233,22 @@ public class BuildSceneController extends ViewController {
         showBuildScene();
     }
 
+    public void handleCheatsButtonClick(ActionEvent actionEvent) {
+        showCheatsScene();
+    }
+
+    public void onShip1Click(ActionEvent actionEvent) {
+        gui.place(103, 103);
+    }
+
+    public void onShip2Click(ActionEvent actionEvent) {
+        gui.place(104, 104);
+    }
+
+    public void onShip3Click(ActionEvent actionEvent) {
+        gui.place(105, 105);
+    }
+
     @FXML
     private void handleFixButtonClick() {
         gui.fixShip(tilesToBreak);
@@ -235,6 +258,10 @@ public class BuildSceneController extends ViewController {
     public void showBuildScene() {
         endBuildingScene.setVisible(false);
         endBuildingScene.setManaged(false);
+
+        cheatsPopup.setVisible(false);
+        cheatsPopup.setManaged(false);
+
         buildScene.setVisible(true);
         buildScene.setManaged(true);
     }
@@ -247,13 +274,20 @@ public class BuildSceneController extends ViewController {
         endBuildingScene.setManaged(true);
     }
 
-    public void showFixButton(){
+    public void showCheatsScene() {
+        buildScene.setManaged(false);
+
+        cheatsPopup.setVisible(true);
+        cheatsPopup.setManaged(true);
+    }
+
+    public void showFixButton() {
         hideAllButtons();
         fixButton.setVisible(true);
         fixButton.setManaged(true);
     }
 
-    public void hideAllButtons(){
+    public void hideAllButtons() {
         timerButton.setVisible(false);
         timerButton.setManaged(false);
 
@@ -267,12 +301,12 @@ public class BuildSceneController extends ViewController {
         fixButton.setManaged(false);
     }
 
-    public void hideButton(Button button){
+    public void hideButton(Button button) {
         button.setManaged(false);
         button.setVisible(false);
     }
 
-    public void showButton(Button button){
+    public void showButton(Button button) {
         button.setManaged(true);
         button.setVisible(true);
     }
@@ -281,7 +315,7 @@ public class BuildSceneController extends ViewController {
     public void update(Game game) {
         System.out.println(gui.getClientNickname());
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
-        BuildState state = (BuildState)game.getGameState();
+        BuildState state = (BuildState) game.getGameState();
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         int level = game.getLevel();
@@ -292,12 +326,12 @@ public class BuildSceneController extends ViewController {
         updateFaceUpTiles(currentPlayer.getGame());
         updateFreePostions(currentPlayer.getGame());
 
-        if(level== 2){
+        if (level == 2) {
             updateBuffer(playerShip);
             updateTimer(currentPlayer.getGame());
             updatePiles(currentPlayer);
         }
-        if(state.getPlayerState().get(currentPlayer.getName()) == BuildPlayerState.READY){
+        if (state.getPlayerState().get(currentPlayer.getName()) == BuildPlayerState.READY) {
             hideAllButtons();
             if (level == 2) showButton(timerButton);
         }
@@ -334,7 +368,7 @@ public class BuildSceneController extends ViewController {
             e.printStackTrace();
         }
 
-        if (level == 1){
+        if (level == 1) {
             hideButton(timerButton);
             pilesPane.setVisible(false);
             pilesPane.setManaged(false);
@@ -385,7 +419,7 @@ public class BuildSceneController extends ViewController {
                     gui.drawFaceDown();
                 });
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Error in updateHeldTile: " + e.getMessage());
         }
     }
@@ -404,7 +438,7 @@ public class BuildSceneController extends ViewController {
             int row = rowIndex == null ? 0 : rowIndex;
 
 
-            if(level == 1 && (tempcol == 0 || tempcol == 6)) {
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
                 continue;
             } else if (level == 1) {
                 tempcol = tempcol - 1;
@@ -417,9 +451,9 @@ public class BuildSceneController extends ViewController {
             ImageView cell = (ImageView) stack.getChildren().getFirst();
             Tile tile = shipMatrix[row][col];
 
-            if (tile == null){
+            if (tile == null) {
                 cell.setImage(null);
-                if(ship.isPlacingLegal(p.getHeldTile(), row, col)){
+                if (ship.isPlacingLegal(p.getHeldTile(), row, col)) {
                     stack.setOnDragEntered(event -> {
                         if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
                             stack.setStyle("-fx-background-color: rgba(0,255,0,0.3);");
@@ -448,10 +482,8 @@ public class BuildSceneController extends ViewController {
                         event.setDropCompleted(success);
                         event.consume();
                     });
-                    }
-            }
-
-            else {
+                }
+            } else {
                 String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + tile.getId() + ".jpg";
                 try {
                     Image img = new Image(
@@ -459,11 +491,10 @@ public class BuildSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
-                    if(state.getPlayerState().get(p.getName()) == BuildPlayerState.FIXING){
+                    if (state.getPlayerState().get(p.getName()) == BuildPlayerState.FIXING) {
                         setFixEffects(cell, row, col);
                         showFixButton();
-                    }
-                    else{
+                    } else {
                         cell.setOnMouseClicked(null);
                     }
                     stack.setOnDragEntered(null);
@@ -481,21 +512,20 @@ public class BuildSceneController extends ViewController {
     public void setFixEffects(ImageView cell, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
         cell.setOnMouseClicked(event -> {
-            if(!coordinates.isIn(tilesToBreak)) {
+            if (!coordinates.isIn(tilesToBreak)) {
                 cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
                 tilesToBreak.add(coordinates);
-            }
-            else{
+            } else {
                 cell.setStyle("");
                 tilesToBreak.remove(coordinates);
             }
-            });
+        });
     }
 
     public void updatePiles(Player p) {
         BuildState state = (BuildState) p.getGame().getGameState();
         int cardIdx = 0;
-        if (state.getPlayerState().get(p.getName()) == BuildPlayerState.SHOWING_PILE){
+        if (state.getPlayerState().get(p.getName()) == BuildPlayerState.SHOWING_PILE) {
             int pileIdx = state.getIsLookingPile().get(p.getName());
             for (Node node : pilesGrid.getChildren()) {
                 Integer colIndex = GridPane.getColumnIndex(node);
@@ -517,8 +547,7 @@ public class BuildSceneController extends ViewController {
                     e.printStackTrace();
                 }
             }
-        }
-        else{
+        } else {
             for (Node node : pilesGrid.getChildren()) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 System.out.println(colIndex);
@@ -551,8 +580,7 @@ public class BuildSceneController extends ViewController {
     }
 
 
-
-    public void updateFaceUpTiles(Game g){
+    public void updateFaceUpTiles(Game g) {
         List<Integer> faceUps = g.getFaceUpTiles();
         for (Node node : faceUpGrid.getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
@@ -574,15 +602,14 @@ public class BuildSceneController extends ViewController {
                     System.err.println("Immagine non trovata: " + resourcePath);
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 cell.setImage(null);
                 cell.setOnMouseClicked(null);
             }
         }
     }
 
-    public void updateTimer(Game g){
+    public void updateTimer(Game g) {
         try {
             if (g.getBoard().getTimerFlipsRemaining() == 0) {
                 timerButton.setText("Stop");
@@ -597,18 +624,18 @@ public class BuildSceneController extends ViewController {
                     gui.startTimer();
                 });
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Error in updateHeldTile: " + e.getMessage());
         }
     }
 
-    public void updateBuffer(Ship s){
+    public void updateBuffer(Ship s) {
         List<Tile> buffer = s.getTilesBuffer();
         for (Node node : bufferGrid.getChildren()) {
             Integer colIndex = GridPane.getColumnIndex(node);
             StackPane stack = (StackPane) node;
             ImageView cell = (ImageView) stack.getChildren().getFirst();
-            if(colIndex >= buffer.size()) {
+            if (colIndex >= buffer.size()) {
                 cell.setImage(null);
                 cell.setOnMouseClicked(null);
                 cell.setOnMouseEntered(null);
@@ -641,8 +668,7 @@ public class BuildSceneController extends ViewController {
                     event.setDropCompleted(success);
                     event.consume();
                 });
-            }
-            else{
+            } else {
                 String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + buffer.get(colIndex).getId() + ".jpg";
                 try {
                     Image img = new Image(
@@ -724,7 +750,6 @@ public class BuildSceneController extends ViewController {
         triangle.setOnMouseEntered(null);
         triangle.setOnMouseExited(null);
     }
-
 
     @Override
     public void showLogs(List<String> logLines) {
