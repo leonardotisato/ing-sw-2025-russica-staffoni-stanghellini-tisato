@@ -13,7 +13,6 @@ import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.util.*;
 import java.util.List;
-import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -298,45 +297,6 @@ public class Game implements Serializable {
         this.gameState = state;
     }
 
-    // state management
-
-    /**
-     * Initiates the build phase of the game.
-     * <p>
-     * This method sets the game's state to `BUILDING` and updates each player's
-     * state to `BUILDING`.
-     */
-    @Deprecated
-//    public void startBuildPhase() {
-//        this.setGameState(ExGameState.BUILDING);
-//        for (Player p : players) {
-//            p.setState(ExPlayerState.BUILDING);
-//        }
-//    }
-
-//    /**
-//     * Initiates the flight phase of the game.
-//     * <p>
-//     * This method sets the game's state to `FLIGHT` and updates each player's
-//     * state to `FLIGHT`, transitioning them from the building phase to the
-//     * flight phase.
-//     */
-
-//    public void startFlightPhase() {
-//        this.setGameState(ExGameState.FLIGHT);
-//        for (Player p : players) {
-//            p.setState(ExPlayerState.FLIGHT);
-//        }
-//    }
-
-    // todo: test
-//    public void checkShips() {
-//        for (Player p : players) {
-//            if (!p.getShip().isShipLegal()) p.setState(ExPlayerState.FIX_SHIP);
-//            else p.setState(ExPlayerState.FLIGHT);
-//        }
-//    }
-
     // cards and tiles handling
 
     /**
@@ -389,10 +349,6 @@ public class Game implements Serializable {
         return tilesDeckMap.get(id);
     }
 
-    public List<Integer> getFaceDownTiles() {
-        return faceDownTiles;
-    }
-
     public List<Integer> getFaceUpTiles() {
         return faceUpTiles;
     }
@@ -421,31 +377,7 @@ public class Game implements Serializable {
         return getTileById(tileId);
     }
 
-    /**
-     * Removes and returns a face-up tile from the specified index.
-     * <p>
-     * This method removes the tile at the given index from the face-up tile deck
-     * and returns the corresponding {@code Tile} object.
-     * If the index is out of bounds, an {@code IndexOutOfBoundsException} is thrown.
-     *
-     * @param index the position of the tile to remove from the face-up deck.
-     * @return the {@code Tile} removed from the specified index.
-     * @throws IndexOutOfBoundsException if the index is not within the valid range.
-     */
-    public Tile removeFaceUpTile(int index) {
-        if (index < 0 || index >= this.faceUpTiles.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        int selectedTileId = faceUpTiles.remove(index);
-        return tilesDeckMap.get(selectedTileId);
-    }
-
-
     // give end game bonuses
-
-    // todo: test
-
     /**
      * Calculates the best ship based on the minimum number of exposed connectors
      * among players who are currently in the flight phase and give bonus to best ships
@@ -611,11 +543,11 @@ public class Game implements Serializable {
     public record GameInfo(int id, int maxPlayers, Map<String, String> playerWithColor, int gameLevel) implements Serializable {
         public String gameInfoToColumn (){
             StringBuilder builder = new StringBuilder();
-            builder.append("ID: " + id).append("\n");
-            builder.append("Level: " + gameLevel).append("\n");
-            builder.append("Players " + playerWithColor.size() + "/" + maxPlayers).append("\n");
+            builder.append("ID: ").append(id).append("\n");
+            builder.append("Level: ").append(gameLevel).append("\n");
+            builder.append("Players ").append(playerWithColor.size()).append("/").append(maxPlayers).append("\n");
             for (String s : playerWithColor.keySet()) {
-            builder.append(s + ": " + playerWithColor.get(s) + "\n");
+            builder.append(s).append(": ").append(playerWithColor.get(s)).append("\n");
             }
             return builder.toString();
         }

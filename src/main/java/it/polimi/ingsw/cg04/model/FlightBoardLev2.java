@@ -1,11 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
-
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FlightBoardLev2 extends FlightBoard {
 
@@ -82,6 +78,7 @@ public class FlightBoardLev2 extends FlightBoard {
         }
         Collections.shuffle(adventureCardsDeck, rand);
 
+        // todo: remove me please.
         // used for testing purpose
         // adventureCardsDeck.removeFirst();
         // adventureCardsDeck.removeFirst();

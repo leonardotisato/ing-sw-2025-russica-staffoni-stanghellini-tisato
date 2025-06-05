@@ -7,12 +7,12 @@ public class FlightBoardLev1 extends FlightBoard {
         super(game);
         this.path = new Player[18];
         this.pathSize = 18;
-        this.startingPosition = new HashMap<Integer, Integer>();
+        this.startingPosition = new HashMap<>();
         this.startingPosition.put(1, 4);
         this.startingPosition.put(2, 2);
         this.startingPosition.put(3, 1);
         this.startingPosition.put(4, 0);
-        this.endGameCredits = new HashMap<Integer, Integer>();
+        this.endGameCredits = new HashMap<>();
         this.endGameCredits.put(1, 4);
         this.endGameCredits.put(2, 3);
         this.endGameCredits.put(3, 2);
