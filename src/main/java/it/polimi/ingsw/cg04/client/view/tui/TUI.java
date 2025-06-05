@@ -13,9 +13,6 @@ import org.jline.reader.*;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
-import org.jline.utils.InfoCmp;
-
-import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -25,7 +22,6 @@ import java.util.Scanner;
 
 public class TUI extends View {
     private final InputReader input;
-    private int columnOffset = 0;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -61,23 +57,6 @@ public class TUI extends View {
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        switch (evt.getPropertyName()) {
-            case "GAME_UPDATE" -> {
-                // System.out.println("Game updated");
-                updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
-                columnOffset = ((Game) evt.getNewValue()).getLevel() == 2 ? 4 : 5;
-            }
-            case "LOGS_UPDATE" -> {
-                // System.out.println("Logs updated");
-                updateLogs((List<String>) evt.getNewValue());
-            }
-            case "JOINABLE_GAMES" -> {
-                updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
-            }
-        }
-    }
-
     public void updateGame(Game toPrint, String nickname) {
         try {
             String rendered = isViewingShips ? toPrint.renderShips() : toPrint.render(nickname);
@@ -95,16 +74,18 @@ public class TUI extends View {
         }
     }
 
+    @Override
     public void updateLogs(List<String> logs) {
         LineReader reader = input.getReader();
 
         reader.printAbove("──────── LOGS ────────");
 
-        for (int i = 0; i < logs.size(); i++) {
-            reader.printAbove("- " + logs.get(i));
+        for (String log : logs) {
+            reader.printAbove("- " + log);
         }
     }
 
+    @Override
     public void updateJoinableGames(List<Game.GameInfo> joinableGames) {
         LineReader reader = input.getReader();
         StringBuilder sb = new StringBuilder();
@@ -132,7 +113,8 @@ public class TUI extends View {
         sb.append("\n\nUpdate in joinable games!:\n\n");
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
-                if (r < joinableGamesList.get(c).size()) sb.append(String.format("%-" + colWidth[c] + "s", joinableGamesList.get(c).get(r)));
+                if (r < joinableGamesList.get(c).size())
+                    sb.append(String.format("%-" + colWidth[c] + "s", joinableGamesList.get(c).get(r)));
                 else sb.append(String.format("%-" + colWidth[c] + "s", ""));
                 if (c < columns - 1) sb.append("  ".repeat(3));
             }
@@ -147,11 +129,9 @@ public class TUI extends View {
     }
 
 
-
-
     class InputReader implements Runnable {
-        private LineReader reader;
-        private Terminal terminal;
+        private final LineReader reader;
+        private final Terminal terminal;
         private boolean stdinClosed = false;
 
         public InputReader() {
@@ -431,8 +411,7 @@ public class TUI extends View {
             // Crea Gson e deserializza
             Gson gson = new Gson();
             List<String> commands = gson.fromJson(reader, listType);
-            Completer completer = new StringsCompleter(commands);
-            return completer;
+            return new StringsCompleter(commands);
         }
 
         public Terminal getTerminal() {

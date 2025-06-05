@@ -14,8 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -24,11 +22,9 @@ public class GUIRoot extends View {
 
     GUIMain guiMain;
 
-    private Thread guiThread;
+    private final Thread guiThread;
 
     ViewController currController;
-
-    private int columnOffset = 0;
 
     private boolean isLoggedOut;
 
@@ -80,17 +76,15 @@ public class GUIRoot extends View {
     public void renderBuildState(Game toDisplay) throws IOException {
         BuildPlayerState playerState = ((BuildState) toDisplay.getGameState()).getPlayerState().get(nickname);
         System.out.println("Rendering build state: " + playerState);
-        switch (playerState) {
-            case SHOWING_FACE_UP:
-                currController.goToFaceUpScene(this);
-                Platform.runLater(() -> currController.update(toDisplay));
-                break;
-            default:
-                System.out.println("now in default");
-                System.out.println(this.getClientNickname());
-                currController.goToBuildScene(this);
-                Platform.runLater(() -> currController.update(toDisplay));
-                break;
+
+        if (playerState == BuildPlayerState.SHOWING_FACE_UP) {
+            currController.goToFaceUpScene(this);
+            Platform.runLater(() -> currController.update(toDisplay));
+        } else {
+            System.out.println("now in default");
+            System.out.println(this.getClientNickname());
+            currController.goToBuildScene(this);
+            Platform.runLater(() -> currController.update(toDisplay));
         }
     }
 
@@ -101,10 +95,11 @@ public class GUIRoot extends View {
     }
 
 
+    @Override
     public void updateGame(Game toDisplay, String nickname) {
         try {
             if (toDisplay != null) {
-                if(isViewingShips) {
+                if (isViewingShips) {
 
                     currController.goToViewOthersScene(this);
                     Platform.runLater(() -> currController.update(toDisplay));
@@ -112,12 +107,13 @@ public class GUIRoot extends View {
                     toDisplay.getGameState().updateView(this, toDisplay);
                 }
             }
-        } catch (NullPointerException | IOException ignored) {
+        } catch (NullPointerException | IOException e) {
             System.out.println("Game not found");
-            ignored.printStackTrace();
+            e.printStackTrace();
         }
     }
 
+    @Override
     public void updateLogs(List<String> logs) {
         Scene currentScene = this.getScene();
 
@@ -127,13 +123,20 @@ public class GUIRoot extends View {
     }
 
     // todo implement: it should refresh the games in preLobby scene
-    private void updateJoinableGames(List<Game.GameInfo> newValue) throws IOException {
+    @Override
+    public void updateJoinableGames(List<Game.GameInfo> newValue) {
+        try {
             currController.goToPrelobbyScene(this);
-            Platform.runLater(() -> {
-                currController.refreshJoinableGames(newValue);
-            });
+        } catch (IOException e) {
+            System.out.println("Error while updating joinable games");
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
+        Platform.runLater(() -> currController.refreshJoinableGames(newValue));
+    }
+
+    // todo: what is this??
     private void updateCurrentGame(List<Game.GameInfo> newValue) {
 
     }
@@ -160,6 +163,20 @@ public class GUIRoot extends View {
         });
     }
 
+    private void prepareAndShowScene(Scene scene, int width, int height) {
+        Stage stage = guiMain.getPrimaryStage();
+        boolean wasFullScreen = stage.isFullScreen();
+        if (!wasFullScreen) {
+            stage.setWidth(width);
+            stage.setHeight(height);
+        }
+        stage.setResizable(true);
+
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
+        changeScene(scene);
+    }
+
     /**
      * Initialize the first Scene where the player chooses the nickname and the number of players.
      */
@@ -175,20 +192,13 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LoginScene.css")).toExternalForm());
 
-        Stage stage = guiMain.getPrimaryStage();
-        stage.setWidth(960);
-        stage.setHeight(540);
-        stage.setResizable(true);
-
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-        changeScene(scene);
+        prepareAndShowScene(scene, 960, 540);
     }
 
     /**
      * Initialize the second Scene where the player chooses the game mode and the number of players.
      *
-     * @throws IOException
+     * @throws IOException in cases of fxml file issues...
      */
     public void goToPrelobbyScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -201,24 +211,13 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/PrelobbyScene.css")).toExternalForm());
 
-
-        Stage stage = guiMain.getPrimaryStage();
-        boolean wasFullScreen = stage.isFullScreen();
-        if (!wasFullScreen) {
-            stage.setWidth(960);
-            stage.setHeight(540);
-        }
-        stage.setResizable(true);
-
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-        changeScene(scene);
+        prepareAndShowScene(scene, 960, 540);
     }
 
     /**
      * Initialize the Lobby Scene.
      *
-     * @throws IOException
+     * @throws IOException in cases of fxml file issues...
      */
     public void goToLobbyScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -231,19 +230,8 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/LobbyScene.css")).toExternalForm());
 
-        Stage stage = guiMain.getPrimaryStage();
-        boolean wasFullScreen = stage.isFullScreen();
-        if (!wasFullScreen) {
-            stage.setWidth(960);
-            stage.setHeight(540);
-        }
-        stage.setResizable(true);
-
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-        changeScene(scene);
+        prepareAndShowScene(scene, 960, 540);
     }
-
 
     public void goToFaceUpScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -256,18 +244,7 @@ public class GUIRoot extends View {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/FaceUpScene.css")).toExternalForm());
 
-        Stage stage = guiMain.getPrimaryStage();
-        boolean wasFullScreen = stage.isFullScreen();
-        if (!wasFullScreen) {
-            stage.setWidth(960);
-            stage.setHeight(540);
-        }
-        stage.setResizable(true);
-
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-
-        changeScene(scene);
+        prepareAndShowScene(scene, 960, 540);
     }
 
     public void goToBuildScene() throws IOException {
@@ -281,18 +258,8 @@ public class GUIRoot extends View {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/BuildScene.css")).toExternalForm());
-        Stage stage = guiMain.getPrimaryStage();
-        boolean wasFullScreen = stage.isFullScreen();
-        if (!wasFullScreen) {
-            stage.setWidth(600);
-            stage.setHeight(400);
-        }
-        stage.setResizable(true);
 
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-
-        changeScene(scene);
+        prepareAndShowScene(scene, 600, 400);
     }
 
     public void goToViewOthersScene() throws IOException {
@@ -305,18 +272,8 @@ public class GUIRoot extends View {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/ViewOthersScene.css")).toExternalForm());
-        Stage stage = guiMain.getPrimaryStage();
-        boolean wasFullScreen = stage.isFullScreen();
-        if (!wasFullScreen) {
-            stage.setWidth(600);
-            stage.setHeight(400);
-        }
-        stage.setResizable(true);
 
-        scene.setUserData(currController);
-        guiMain.sceneControllerMap.put(scene, currController);
-
-        changeScene(scene);
+        prepareAndShowScene(scene, 600, 400);
     }
 
     public void goToEndScene() throws IOException {
@@ -381,7 +338,9 @@ public class GUIRoot extends View {
         server.startTimer();
     }
 
-    public void stopBuilding() {server.stopBuilding();}
+    public void stopBuilding() {
+        server.stopBuilding();
+    }
 
     public void showFaceUp() {
         server.showFaceUp();
@@ -407,7 +366,7 @@ public class GUIRoot extends View {
         server.endBuilding(pos);
     }
 
-    public void fixShip(List<Coordinates> coords){
+    public void fixShip(List<Coordinates> coords) {
         server.fixShip(coords);
     }
 
@@ -421,26 +380,4 @@ public class GUIRoot extends View {
         updateGame(clientModel.getGame(), nickname);
     }
 
-    // todo: add case to handle setNick
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        switch (evt.getPropertyName()) {
-            case "GAME_UPDATE" -> {
-                // System.out.println("Game updated");
-                updateGame((Game) evt.getNewValue(), (String) evt.getOldValue());
-                columnOffset = ((Game) evt.getNewValue()).getLevel() == 2 ? 4 : 5;
-            }
-            case "LOGS_UPDATE" -> {
-                System.out.println("Logs updated");
-                updateLogs((List<String>) evt.getNewValue());
-            }
-            case "JOINABLE_GAMES" -> {
-                try {
-                    updateJoinableGames((List<Game.GameInfo>) evt.getNewValue());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    }
 }

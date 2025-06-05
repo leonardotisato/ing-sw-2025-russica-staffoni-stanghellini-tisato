@@ -12,8 +12,6 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TextArea;
@@ -24,12 +22,9 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
-import javafx.scene.transform.Scale;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
 
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -299,6 +294,9 @@ public class BuildSceneController extends ViewController {
 
         fixButton.setVisible(false);
         fixButton.setManaged(false);
+
+        cheatsButton.setVisible(false);
+        cheatsButton.setManaged(false);
     }
 
     public void hideButton(Button button) {
@@ -324,7 +322,7 @@ public class BuildSceneController extends ViewController {
         updateHeldTile(playerHeldTile);
         updateShipGrid(currentPlayer);
         updateFaceUpTiles(currentPlayer.getGame());
-        updateFreePostions(currentPlayer.getGame());
+        updateFreePositions(currentPlayer.getGame());
 
         if (level == 2) {
             updateBuffer(playerShip);
@@ -720,7 +718,7 @@ public class BuildSceneController extends ViewController {
         }
     }
 
-    private void updateFreePostions(Game g) {
+    private void updateFreePositions(Game g) {
         Map<String, String> playerColorHex = Map.of(
                 "YELLOW", "#FFFF00",
                 "RED", "#FF0000",
