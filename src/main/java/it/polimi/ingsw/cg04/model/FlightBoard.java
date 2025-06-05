@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model;
 
+import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -179,14 +181,10 @@ public abstract class FlightBoard implements Serializable {
         return dices;
     }
 
-    public int getDice() {
-        return dices;
-    }
-
     // timer methods for lev2 board
 
     /**
-     * Starts the timer with a fixed duration of 5 seconds.
+     * Starts the timer
      */
     public void startTimer() {
     }
@@ -197,15 +195,6 @@ public abstract class FlightBoard implements Serializable {
      * @return {@code true} if the current system time is greater than or equal to the timer end time, {@code false} otherwise.
      */
     public boolean isTimerExpired() {
-        return false;
-    }
-
-    /**
-     * Attempts to flip the timer if it has expired and the maximum number of flips has not been exceeded.
-     *
-     * @return {@code true} if the timer was successfully flipped, {@code false} otherwise.
-     */
-    public boolean flipTimer() {
         return false;
     }
 
@@ -227,19 +216,9 @@ public abstract class FlightBoard implements Serializable {
         return 0;
     }
 
-    /**
-     * Gets the remaining time before the timer expires.
-     *
-     * @return the remaining time in milliseconds, or 0 if the timer has expired.
-     */
-    public long getRemainingTime() {
-        return 0;
-    }
-
     public List<Integer> createAdventureCardsDeck(Game game) {
         return null;
     }
-
 
     @Override
     public String toString() {
@@ -265,8 +244,6 @@ public abstract class FlightBoard implements Serializable {
      */
     public String center(String s, int width) {
         if (s == null) s = "";
-        if (s.length() >= width) return s.substring(0, width);
-        int left = (width - s.length()) / 2;
-        return " ".repeat(left) + s + " ".repeat(width - s.length() - left);
+        return TuiDrawer.centerText(s, width);
     }
 }

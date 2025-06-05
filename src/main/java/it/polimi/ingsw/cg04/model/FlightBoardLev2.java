@@ -73,11 +73,6 @@ public class FlightBoardLev2 extends FlightBoard {
         return MAX_FLIPS - timerFlipsUsed;
     }
 
-    public long getRemainingTime() {
-        long remainingTime = timerEndTime - System.currentTimeMillis();
-        return Math.max(0, remainingTime);
-    }
-
 
     public List<Integer> createAdventureCardsDeck(Game game) {
         List<Integer> adventureCardsDeck = new ArrayList<>();
