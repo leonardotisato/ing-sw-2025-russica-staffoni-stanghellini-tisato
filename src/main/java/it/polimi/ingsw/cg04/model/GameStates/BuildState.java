@@ -161,7 +161,7 @@ public class BuildState extends GameState {
     public void chooseTileFromBuffer(Player player, int idx) throws InvalidStateException {
         // the only state in which a player can pick tile from buffer is BUILDING
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
-            throw new InvalidStateException("cant show face up now");
+            throw new InvalidStateException("You can choose tile from buffer now!");
         }
 
         player.setHeldTile(player.getShip().getTilesBuffer().get(idx));

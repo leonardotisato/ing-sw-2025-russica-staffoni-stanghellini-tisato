@@ -1,18 +1,12 @@
 package it.polimi.ingsw.cg04.model;
 
-import it.polimi.ingsw.cg04.model.GameStates.GameState;
-import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
-
-import javax.swing.*;
 import java.io.Serializable;
 import java.util.List;
 
 public class Player implements Serializable {
 
-    private int activity; // todo: what is this???
-    private GameState currState; // todo: what is this???
     private final String name;
     private final PlayerColor color;
     private Ship ship;
@@ -250,27 +244,6 @@ public class Player implements Serializable {
         System.out.println("Place tile failed");
         return false;
     }
-
-    /**
-     * Chooses a tile from the ship's buffer to be held by the player.
-     * <p>
-     * The method takes the tile at the specified index from the ship's tile buffer and assigns it to the player.
-     *
-     * @param idx the index of the tile to choose from the buffer.
-     */
-    public void chooseBookedTile(int idx) {
-        heldTile = ship.takeFromTileBuffer(idx);
-    }
-
-    // todo: secondo me non vanno nel model
-//    public void removeCrew(int x, int y) {
-//        if (!(ship.getTile(x, y) instanceof HousingTile)) {
-//            throw new RuntimeException("Illegal Operation! Not a HousingTile!");
-//        }
-//
-//        // removes crew member from ship and tile
-//        ship.removeCrewByType(ship.getTile(x, y).removeCrewMember());
-//    }
 
     public Game getGame() {
         return game;
