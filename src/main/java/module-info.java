@@ -38,4 +38,5 @@ module it.polimi.ingsw.cg04 {
 
     exports it.polimi.ingsw.cg04.network.Server;
     exports it.polimi.ingsw.cg04.network.Client;
+    exports it.polimi.ingsw.cg04.client.view;
 }

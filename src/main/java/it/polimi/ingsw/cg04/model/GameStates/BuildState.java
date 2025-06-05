@@ -62,6 +62,14 @@ public class BuildState extends GameState {
         this.addLog(player.getName() + " placed a tile in " + x + ", " + y);
     }
 
+    /**
+     * This action is triggered when cheats are used, in order to build a ship faster.
+     *
+     * @param player The player attempting to place the tile.
+     * @param x      The x-coordinate where the tile is placed.
+     * @param y      The y-coordinate where the tile is placed.
+     * @throws InvalidStateException If the player is not in the BUILDING state.
+     */
     @Override
     public void setShip(Player player, int x, int y) throws InvalidStateException {
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
@@ -340,7 +348,7 @@ public class BuildState extends GameState {
         }
         FlightBoard board = game.getBoard();
 
-        // Lev 1 games part
+        // Lev 1 game logic
         if (game.getLevel() == 1) {
             playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
             for (int i = 1; i <= game.getNumPlayers(); i++) {
@@ -503,6 +511,8 @@ public class BuildState extends GameState {
     public void updateView(View view, Game toDisplay) throws IOException {
         view.renderBuildState(toDisplay);
     }
+
+    // todo: move below into View TUI
 
     @Override
     public String render(String nickname) {
