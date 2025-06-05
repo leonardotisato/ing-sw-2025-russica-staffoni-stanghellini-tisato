@@ -353,6 +353,7 @@ public class Ship implements Serializable {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN) + crewMap.get(CrewType.HUMAN);
     }
 
+    // todo: handle this unused method...
     public int getNumAliens() {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
@@ -562,6 +563,7 @@ public class Ship implements Serializable {
         crewMap.put(type, this.getNumCrewByType(type) - num);
     }
 
+    // todo: handle this unused method
     /**
      * adds a single crewMember of type {@code type} to {@code this.crewMap}
      *
@@ -717,19 +719,19 @@ public class Ship implements Serializable {
                         return false;
                     }
 
-                    if (currTile != null && i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
+                    if (i != 0 && !currTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])) {
                         return false;
                     }
 
-                    if (currTile != null && j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
+                    if (j != 0 && !currTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])) {
                         return false;
                     }
 
-                    if (currTile != null && i != shipHeight - 1 && !currTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
+                    if (i != shipHeight - 1 && !currTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])) {
                         return false;
                     }
 
-                    if (currTile != null && j != shipWidth - 1 && !currTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
+                    if (j != shipWidth - 1 && !currTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])) {
                         return false;
                     }
                 }
