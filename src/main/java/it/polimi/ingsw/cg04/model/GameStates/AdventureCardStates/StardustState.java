@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,14 +39,8 @@ public class StardustState extends AdventureCardState {
         }
     }
 
-    public String render(String playerName){
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Send 'stardust' to solve stardust effect and continue the game.");
-        stringBuilder.append("\n");
-        stringBuilder.append("You may lose some days of flight!").append("\n");
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderStardustState(toDisplay);
     }
-
-
 }

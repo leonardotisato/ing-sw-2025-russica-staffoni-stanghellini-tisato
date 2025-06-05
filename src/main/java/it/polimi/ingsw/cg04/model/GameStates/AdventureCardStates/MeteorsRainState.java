@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.Attack;
@@ -7,6 +8,7 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,17 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    public int getCurrMeteorIdx() {
+        return currMeteorIdx;
+    }
+
+    public int getDiceResult() {
+        return dice;
+    }
+
+    public boolean isRolled() {
+        return rolled;
+    }
 
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {
@@ -225,24 +238,8 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Meteor " + (currMeteorIdx + 1) + " approaching").append(rolled ? " from "+ dice : "").append("\n");
-        Player p = context.getPlayer(playerName);
-        if (!rolled) {
-        stringBuilder.append(currPlayerIdx == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");
-        }
-        else{
-            if (played.get(sortedPlayers.indexOf(p)) == PROVIDE_BATTERY) {
-                stringBuilder.append("You're about to be hit by a meteor! Send a chooseBattery to save your ship!");
-            } else if (played.get(sortedPlayers.indexOf(p)) == CORRECT_SHIP) {
-                stringBuilder.append("You've been hit by a meteor! You need to FIX YOUR SHIP!");
-            }
-            else{
-                stringBuilder.append("You're done for this round! Wait for the other players to handle their attacks and fix their ships!");
-            }
-        }
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderMeteorsRainState(toDisplay);
     }
 }

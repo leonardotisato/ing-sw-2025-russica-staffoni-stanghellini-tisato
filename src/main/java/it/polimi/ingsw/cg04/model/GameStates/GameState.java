@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -172,6 +173,11 @@ public abstract class GameState implements Serializable {
     }
 
     public void updateView(View view, Game game) throws IOException {
-        return;
+        System.out.println("debug");
+        throw new RuntimeException();
     }
+
+
+
+
 }

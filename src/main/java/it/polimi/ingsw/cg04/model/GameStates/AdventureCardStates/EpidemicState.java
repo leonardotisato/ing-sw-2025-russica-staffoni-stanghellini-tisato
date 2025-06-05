@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EpidemicState extends AdventureCardState {
@@ -74,13 +76,9 @@ public class EpidemicState extends AdventureCardState {
         }
     }
 
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Send 'epidemic' to spread the epidemic (you need to spread this epidemic to continue the game).");
-        stringBuilder.append("\n");
-        stringBuilder.append("You may lose some crew members!").append("\n");
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderEpidemicState(toDisplay);
     }
 }
 

@@ -1,11 +1,13 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,25 +56,8 @@ public class OpenSpaceState extends AdventureCardState {
         playerDelta.clear();
     }
 
-    public String render(String playerName) {
-
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        Player p = context.getPlayer(playerName);
-
-        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
-        if (currPlayerIdx == (p.getRanking() - 1)) {
-            List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
-            int totDoublePropulsor = (int) propulsorCoordinates.stream()
-                    .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
-                    .filter(t -> t.isDoublePropulsor())
-                    .count();
-            stringBuilder.append("You have: ").append("\n");
-            stringBuilder.append(p.getShip().getNumBatteries() + " batteries").append("\n");
-            stringBuilder.append("Base propulsion power of ").append(p.getShip().getBasePropulsionPower()).append("\n");
-            stringBuilder.append(totDoublePropulsor).append(" double propulsors").append("\n");
-            stringBuilder.append("Send batteries to increase propulsion power").append("\n");
-        }
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderOpenSpaceState(toDisplay);
     }
 }

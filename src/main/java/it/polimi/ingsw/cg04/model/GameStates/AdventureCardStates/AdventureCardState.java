@@ -133,21 +133,4 @@ public abstract class AdventureCardState extends GameState {
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }
-
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        System.out.println(TuiDrawer.renderPlayersByColumn(context.getSortedPlayers()));
-        System.out.println("Your ship:");
-        stringBuilder.append(context.getPlayer(playerName).getShip().draw());
-        List<String> shipPanel = toLines(stringBuilder.toString());
-        List<String> flightBoardPanel = toLines(context.getBoard().draw());
-        List<String> adventureCardPanel = toLines(card.draw());
-        int totalH = shipPanel.size();
-        int rightWidth = Stream.concat(flightBoardPanel.stream(), adventureCardPanel.stream())
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);                  // quanto spazio assegni alla colonna destra
-        List<String> rightPanel = buildRightPanel(flightBoardPanel, adventureCardPanel, totalH, rightWidth);
-        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
-    }
 }

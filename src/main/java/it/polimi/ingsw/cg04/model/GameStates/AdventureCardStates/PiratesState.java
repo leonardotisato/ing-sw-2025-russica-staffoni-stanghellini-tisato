@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -68,6 +70,22 @@ public class PiratesState extends AdventureCardState {
             leftBoundary = 5;
             rightBoundary = 9;
         }
+    }
+
+    public int getCurrMeteorIdx() {
+        return currMeteorIdx;
+    }
+
+    public int getDiceResult() {
+        return dice;
+    }
+
+    public boolean isRolled() {
+        return rolled;
+    }
+
+    public List<Integer> getPlayerStates() {
+        return playerStates;
     }
 
     // pre-attack phase
@@ -342,7 +360,7 @@ public class PiratesState extends AdventureCardState {
         return true;
     }
 
-    private boolean isFirstWaitingForShot(Player player) {
+    public boolean isFirstWaitingForShot(Player player) {
         for (int i = 0; i < playerStates.size(); i++) {
             if (playerStates.get(i) == WAIT_FOR_SHOT) {
                 return sortedPlayers.get(i).equals(player);
@@ -351,54 +369,13 @@ public class PiratesState extends AdventureCardState {
         return false;
     }
 
-    // for testing purposes only!
+    // todo: remove me. for testing purposes only!
     public void FORCE_OPPONENT_FIREPOWER(int val) {
         this.opponentFirePower = val;
     }
 
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        Player p = context.getPlayer(playerName);
-        int playerIdx = p.getRanking() - 1;
-        int playerState = playerStates.get(playerIdx);
-        if (!rolled && isFirstWaitingForShot(p) && !playerStates.contains(WAIT)){
-            stringBuilder.append("You're the first loser! You must roll the dices").append("\n");
-        }
-        switch (playerState) {
-            case ACTIVATE_CANNONS:
-                List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
-                int totDoubleLasers = (int)lasersCoordinates.stream()
-                        .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
-                        .filter(t -> t.isDoubleLaser())
-                        .count();
-                stringBuilder.append("Pirates are here! Activate your double cannons and try to defeat them!").append("\n");
-                stringBuilder.append("Base fire power of your ship: " + p.getShip().getBaseFirePower()).append("\n");
-                stringBuilder.append("Number of double cannons: " + totDoubleLasers).append("\n");
-                break;
-            case WAIT:
-                stringBuilder.append("Pirates are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
-                break;
-            case DECIDE_REWARD:
-                stringBuilder.append("You won! Decide if you want to earn " + card.getEarnedCredits() + " credits").append("\n");
-                stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
-                break;
-            case WAIT_FOR_SHOT:
-                stringBuilder.append("You lost! Wait for the other players to combat the pirates. You will need to defend your ship from the attacks.").append("\n");
-                break;
-            case PROVIDE_BATTERY:
-                stringBuilder.append("You can defend your ship using a battery. Send the battery to neutralize the attack.").append("\n");
-                break;
-            case CORRECT_SHIP:
-                stringBuilder.append("You've been hit! Fix the ship by removing tiles until it becomes legal.").append("\n");
-                break;
-            case SHOT_DONE:
-                stringBuilder.append("You're done for this ").append(currMeteorIdx == numMeteors ? "card! Wait for the next adventure." : "attack. Wait for the next one.").append("\n");
-                break;
-            case DONE:
-                stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
-                break;
-        }
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderPiratesState(toDisplay);
     }
 }

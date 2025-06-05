@@ -4,7 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.cg04.client.model.ClientModel;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.*;
+import it.polimi.ingsw.cg04.model.GameStates.BuildState;
+import it.polimi.ingsw.cg04.model.GameStates.EndGameState;
+import it.polimi.ingsw.cg04.model.Player;
+import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
+import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
@@ -15,13 +22,15 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
+import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class TUI extends View {
     private final InputReader input;
+    String rendered;
 
     public TUI(ServerHandler server, ClientModel clientModel) {
         super(server, clientModel);
@@ -59,7 +68,18 @@ public class TUI extends View {
     @Override
     public void updateGame(Game toPrint, String nickname) {
         try {
-            String rendered = isViewingShips ? toPrint.renderShips() : toPrint.render(nickname);
+
+            this.nickname = nickname;
+
+            if (isViewingShips) {
+                toPrint.renderShips();
+            } else {
+                System.out.println("updating rendered");
+                toPrint.getGameState().updateView(this, toPrint);
+                System.out.println("this is the thing");
+                System.out.println(rendered);
+                System.out.println("this is the thing");
+            }
 
             Terminal terminal = input.getTerminal();
             terminal.writer().print("\033[H\033[2J");
@@ -68,10 +88,10 @@ public class TUI extends View {
             terminal.writer().println(rendered);
             terminal.flush();
 
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
             System.out.println("Game not found");
             e.printStackTrace();
-        }
+            }
     }
 
     @Override
@@ -421,5 +441,663 @@ public class TUI extends View {
         public LineReader getReader() {
             return reader;
         }
+    }
+
+
+    // render lobbyState
+    @Override
+    public void renderLobbyState(Game toDisplay) {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        for (Player p : toDisplay.getPlayers()) {
+            stringBuilder.append(p.getName()).append("\n");
+        }
+        stringBuilder.append("waiting for ").append(toDisplay.getMaxPlayers() - toDisplay.getPlayers().size()).append(" players to start the game\n");
+
+        rendered = stringBuilder.toString();
+    }
+
+    // render BuildState
+
+    @Override
+    public void renderBuildState(Game toDisplay) {
+
+        System.out.println("debug2"); //todo remove me
+
+        BuildState currState = (BuildState) toDisplay.getGameState();
+
+        Map<String, BuildPlayerState> playerState = currState.getPlayerState();
+        Map<String, Integer> isLookingPile = currState.getIsLookingPile();
+
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        stringBuilder.append(TuiDrawer.renderPlayersByColumn(toDisplay.getPlayers()));
+
+        System.out.println("debug3"); // todo remove
+        System.out.println(nickname);
+
+        if (playerState.get(nickname) == BuildPlayerState.FIXING) {
+            stringBuilder.append("Your ship:").append("\n").append("\n");
+            stringBuilder.append(toDisplay.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
+            stringBuilder.append("Your ship is not legal, fix it by removing tiles until you can properly fly!");
+        } else {
+            if (playerState.get(nickname) == BuildPlayerState.SHOWING_PILE) {
+                stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname) - 1, "piles", toDisplay)).append("\n").append("\n");
+            } else {
+                stringBuilder.append(renderPilesBackside(29, 11, isLookingPile)).append("\n").append("\n");
+            }
+            stringBuilder.append("Your ship:").append("\n").append("\n");
+            stringBuilder.append(toDisplay.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
+            if (playerState.get(nickname) == BuildPlayerState.BUILDING) {
+                stringBuilder.append(toDisplay.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + toDisplay.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
+            }
+            if (playerState.get(nickname) == BuildPlayerState.READY) {
+                stringBuilder.append("You're done building the ship! Wait for the other players to finish the building").append("\n");
+            }
+            if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
+                stringBuilder.append("Face up tiles: send 'showFaceUp' to show more tiles!").append("\n").append("\n");
+                stringBuilder.append(toDisplay.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFigures(10, null, "tiles", toDisplay)).append("\n").append("\n");
+            } else {
+                stringBuilder.append(renderKFigures(toDisplay.getFaceUpTiles().size(), null, "tiles", toDisplay)).append("\n");
+            }
+        }
+
+        System.out.println("debug4"); // todo remove
+
+        rendered = stringBuilder.toString();
+
+        System.out.println(rendered);
+        System.out.println("debug5"); // todo remove
+    }
+
+    public String renderPilesBackside(int width, int height, Map<String, Integer> isLookingPile) {
+
+
+        List<List<String>> pileLines = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            List<String> singlePile = new ArrayList<>();
+            singlePile.add(TuiDrawer.drawTopBoundary(width));
+
+            int paddingLines = height - 3;
+            for (int j = 0; j < paddingLines / 2; j++) {
+                singlePile.add(TuiDrawer.drawEmptyRow(width));
+            }
+
+            // Riga con ID e stato
+            singlePile.add(TuiDrawer.drawCenteredRow("#pile: " + (i + 1), width));
+            singlePile.add(TuiDrawer.drawCenteredRow(isLookingPile.containsValue(i + 1) ? "Held" : "Free", width));
+
+            for (int j = 0; j < paddingLines - paddingLines / 2; j++) {
+                singlePile.add(TuiDrawer.drawEmptyRow(width));
+            }
+
+            singlePile.add(TuiDrawer.drawBottomBoundary(width));
+            pileLines.add(singlePile);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < height + 1; row++) {
+            for (int p = 0; p < pileLines.size(); p++) {
+                sb.append(pileLines.get(p).get(row));
+                if (p < pileLines.size() - 1) {
+                    sb.append("  "); // spazio tra pile
+                }
+            }
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
+    public String renderKFigures(int k, Integer pileId, String typeFigure, Game toDisplay) {
+        List<List<String>> tileLines = new ArrayList<>();
+        List<Integer> figures = typeFigure.equals("tiles") ? toDisplay.getFaceUpTiles() : toDisplay.getPreFlightPiles().get(pileId);
+
+        for (int i = 0; i < k && i < figures.size(); i++) {
+            String[] lines = typeFigure.equals("tiles") ? toDisplay.getTileById(figures.get(i)).draw().split("\n") :
+                    toDisplay.getCardById(figures.get(i)).draw().split("\n");
+            tileLines.add(Arrays.asList(lines));
+        }
+
+        if (tileLines.isEmpty()) return "";
+
+        int tileHeight = tileLines.getFirst().size();
+        int tilesPerRow = 10;
+        int totalTiles = tileLines.size();
+        int numRowsOfTiles = (int) Math.ceil((double) totalTiles / tilesPerRow);
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int rowBlock = 0; rowBlock < numRowsOfTiles; rowBlock++) {
+            int start = rowBlock * tilesPerRow;
+            int end = Math.min(start + tilesPerRow, totalTiles);
+
+            // stampa le righe delle tile
+            for (int line = 0; line < tileHeight; line++) {
+                for (int i = start; i < end; i++) {
+                    sb.append(tileLines.get(i).get(line));
+                    if (i < end - 1) sb.append("  ");
+                }
+                sb.append('\n');
+            }
+
+            // stampa la riga con gli indici
+            if (typeFigure.equals("tiles")) {
+                for (int i = start; i < end; i++) {
+                    int tileWidth = 14; // larghezza della tile
+                    String label = "[" + i + "]";
+                    int padLeft = (tileWidth - label.length()) / 2;
+                    int padRight = tileWidth - label.length() - padLeft;
+                    sb.append(" ".repeat(Math.max(0, padLeft)))
+                            .append(label)
+                            .append(" ".repeat(Math.max(0, padLeft)));
+                    if (i < end - 1) sb.append("   ");
+                }
+            }
+            sb.append("\n\n");
+        }
+
+        return sb.toString();
+    }
+
+    // render LoadCrewState
+    @Override
+    public void renderLoadCrewState(Game toDisplay) {
+
+        AdventureCardState currState = (AdventureCardState) toDisplay.getGameState();
+        Integer currPlayerIdx = currState.getCurrPlayerIdx();
+
+        Player player = toDisplay.getPlayer(nickname);
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        stringBuilder.append("State: Load crew").append("\n").append("\n");
+        for (Player p : toDisplay.getPlayers()) {
+            stringBuilder.append("player: ").append(p.getName()).append("\n");
+            stringBuilder.append("Color: ").append(p.getColor()).append("\n");
+            stringBuilder.append("Position: ").append(p.getRanking()).append("\n").append("\n");
+        }
+        stringBuilder.append("Your ship:").append("\n").append("\n");
+        stringBuilder.append(toDisplay.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
+        if (currPlayerIdx == (player.getRanking() - 1)) {
+            stringBuilder.append("It's time to load the crew! Type loadCrew and load pink or brown aliens on your ship, if you want.").append("\n");
+        } else {
+            stringBuilder.append("It's almost time to load the crew! Wait your turn to load pink or brown aliens on your ship.").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    // render FlightState
+
+    @Override
+    public void renderFlightState(Game toDisplay) {
+        List<String> leftLines = new ArrayList<>();
+
+        // Informazioni generali
+        leftLines.add("State: flightState");
+        leftLines.add("Remaining cards to play: " + toDisplay.getAdventureCardsDeck().size());
+        leftLines.add("");
+
+        // Info su ogni giocatore
+        for (Player p : toDisplay.getSortedPlayers()) {
+            leftLines.add("Player: " + p.getName());
+            leftLines.add("Credits: " + p.getNumCredits());
+            leftLines.add("");
+        }
+
+        // Crea blocco per la board
+        List<String> rightLines = new ArrayList<>(Arrays.asList(toDisplay.getBoard().draw().split("\n")));
+
+        int maxLines = Math.max(leftLines.size(), rightLines.size());
+
+
+        TuiDrawer.adjustVerticalAlignment(leftLines, rightLines);
+
+        // Combina riga per riga
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        for (int i = 0; i < maxLines; i++) {
+            stringBuilder.append(String.format("%-40s", leftLines.get(i)))  // Allinea a sinistra (40 spazi)
+                    .append("  ")                                      // Spazio tra le colonne
+                    .append(rightLines.get(i))
+                    .append("\n");
+        }
+        Player p = toDisplay.getPlayer(nickname);
+        stringBuilder.append("\n");
+        stringBuilder.append(p.getRanking() == 1 ? "Send 'getNextAdventureCard' to start the next adventure!" : ("wait for " + toDisplay.getPlayer(0).getName() + " to start the next adventure!"));
+        stringBuilder.append("\n");
+
+
+        rendered = stringBuilder.toString();
+    }
+
+    // render EndGameState
+    @Override
+    public void renderEndGameState(Game toDisplay) {
+
+        EndGameState currState = (EndGameState) toDisplay.getGameState();
+        List<Player> leaderboard = currState.getLeaderboard();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
+        stringBuilder.append(nickname).append("\n\nThe game has ended. \n\n");
+        Player p = toDisplay.getPlayer(nickname);
+        stringBuilder.append(p.getNumCredits() >= 1 ? "You have one credit or more, so you won!" : "You have no credit, you lost!").append("\n");
+        stringBuilder.append("Leaderboard: ").append("\n");
+        for (Player p1 : leaderboard) {
+            stringBuilder.append(leaderboard.indexOf(p1) + 1).append("- ").append(p1.getName()).append(": ").append(p1.getNumCredits()).append(" credits").append("\n");
+        }
+        stringBuilder.append("\n");
+
+        rendered = stringBuilder.toString();
+    }
+
+    // render AdventureCardState
+
+    public String renderAdventureTemplate(Game toDisplay) {
+        StringBuilder stringBuilder = new StringBuilder();
+        System.out.println(TuiDrawer.renderPlayersByColumn(toDisplay.getSortedPlayers()));
+        System.out.println("Your ship:");
+        stringBuilder.append(toDisplay.getPlayer(nickname).getShip().draw());
+        List<String> shipPanel = toLines(stringBuilder.toString());
+        List<String> flightBoardPanel = toLines(toDisplay.getBoard().draw());
+        List<String> adventureCardPanel = toLines(toDisplay.getCurrentAdventureCard().draw());
+        int totalH = shipPanel.size();
+        int rightWidth = Stream.concat(flightBoardPanel.stream(), adventureCardPanel.stream())
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);                  // quanto spazio assegni alla colonna destra
+        List<String> rightPanel = buildRightPanel(flightBoardPanel, adventureCardPanel, totalH, rightWidth);
+        return TuiDrawer.renderTwoColumnLayout(shipPanel, rightPanel, 40);
+    }
+
+    @Override
+    public void renderAbandonedShipState(Game toDisplay) {
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        AdventureCardState currState = (AdventureCardState) toDisplay.getGameState();
+        int currPlayerIdx = currState.getCurrPlayerIdx();
+
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : toDisplay.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            stringBuilder.append("You have ").append(toDisplay.getPlayer(nickname).getShip().getNumCrew()).append(" crew members.").append("\n");
+            stringBuilder.append("Type 'removeCrew' to trade crew members for credits.").append("\n");
+            stringBuilder.append("Note that you will lose ").append(toDisplay.getCurrentAdventureCard().getDaysLost()).append(" days of flight if you remove any crew members.").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderAbandonedStationState(Game toDisplay) {
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        AdventureCardState currState = (AdventureCardState) toDisplay.getGameState();
+        int currPlayerIdx = currState.getCurrPlayerIdx();
+
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : toDisplay.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            stringBuilder.append("You have ").append(toDisplay.getPlayer(nickname).getShip().getNumCrew()).append(" crew members.").append("\n");
+            stringBuilder.append("Type 'removeCrew' to trade crew for boxes.").append("\n");
+            stringBuilder.append("Note that you will lose ").append(toDisplay.getCurrentAdventureCard().getDaysLost()).append(" days of flight.").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderEpidemicState(Game toDisplay) {
+
+        rendered = renderAdventureTemplate(toDisplay) + "\n".repeat(3) +
+                "Send 'epidemic' to spread the epidemic (you need to spread this epidemic to continue the game)." +
+                "\n" +
+                "You may lose some crew members!" + "\n";
+    }
+
+    @Override
+    public void renderMeteorsRainState(Game toDisplay) {
+
+        int PROVIDE_BATTERY = 1;
+        int CORRECT_SHIP = 2;
+        MeteorsRainState currState = (MeteorsRainState) toDisplay.getGameState();
+        List<Integer> played = currState.getPlayed();
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        stringBuilder.append("\n".repeat(3));
+        stringBuilder.append("Meteor ").append(currState.getCurrMeteorIdx() + 1).append(" approaching").append(currState.isRolled() ? " from "+ currState.getDiceResult() : "").append("\n");
+        Player p = toDisplay.getPlayer(nickname);
+        if (!currState.isRolled()) {
+            stringBuilder.append(currState.getCurrPlayerIdx() == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + currState.getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");
+        }
+        else{
+            if (played.get(currState.getSortedPlayers().indexOf(p)) == PROVIDE_BATTERY) {
+                stringBuilder.append("You're about to be hit by a meteor! Send a chooseBattery to save your ship!");
+            } else if (played.get(currState.getSortedPlayers().indexOf(p)) == CORRECT_SHIP) {
+                stringBuilder.append("You've been hit by a meteor! You need to FIX YOUR SHIP!");
+            }
+            else{
+                stringBuilder.append("You're done for this round! Wait for the other players to handle their attacks and fix their ships!");
+            }
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderOpenSpaceState(Game toDisplay) {
+
+        AdventureCardState currState = (AdventureCardState) toDisplay.getGameState();
+        int currPlayerIdx = currState.getCurrPlayerIdx();
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : toDisplay.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            List<Coordinates> propulsorCoordinates = p.getShip().getTilesMap().get("PropulsorTile");
+            int totDoublePropulsor = (int) propulsorCoordinates.stream()
+                    .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                    .filter(Tile::isDoublePropulsor)
+                    .count();
+            stringBuilder.append("You have: ").append("\n");
+            stringBuilder.append(p.getShip().getNumBatteries()).append(" batteries").append("\n");
+            stringBuilder.append("Base propulsion power of ").append(p.getShip().getBasePropulsionPower()).append("\n");
+            stringBuilder.append(totDoublePropulsor).append(" double propulsors").append("\n");
+            stringBuilder.append("Send batteries to increase propulsion power").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderPiratesState(Game toDisplay) {
+
+        PiratesState currState = (PiratesState) toDisplay.getGameState();
+        int currPlayerIdx = currState.getCurrPlayerIdx();
+
+        final int WAIT = 0;
+        final int ACTIVATE_CANNONS = 1;
+        final int DECIDE_REWARD = 2;
+        final int WAIT_FOR_SHOT = 3;
+        final int PROVIDE_BATTERY = 4;
+        final int CORRECT_SHIP = 5;
+        final int SHOT_DONE = 6;
+        final int DONE = 7;
+
+        List<Integer> playerStates = currState.getPlayerStates();
+        boolean rolled = currState.isRolled();
+        List<Player> sortedPlayers = currState.getSortedPlayers();
+        AdventureCard card = currState.getCard();
+        int numMeteors = card.getAttacks().size();
+        int currMeteorIdx = currState.getCurrMeteorIdx();
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+        int playerIdx = p.getRanking() - 1;
+        int playerState = playerStates.get(playerIdx);
+        if (!rolled && currState.isFirstWaitingForShot(p) && !playerStates.contains(WAIT)){
+            stringBuilder.append("You're the first loser! You must roll the dices").append("\n");
+        }
+        switch (playerState) {
+            case ACTIVATE_CANNONS:
+                List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
+                int totDoubleLasers = (int)lasersCoordinates.stream()
+                        .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                        .filter(Tile::isDoubleLaser)
+                        .count();
+                stringBuilder.append("Pirates are here! Activate your double cannons and try to defeat them!").append("\n");
+                stringBuilder.append("Base fire power of your ship: ").append(p.getShip().getBaseFirePower()).append("\n");
+                stringBuilder.append("Number of double cannons: ").append(totDoubleLasers).append("\n");
+                break;
+            case WAIT:
+                stringBuilder.append("Pirates are coming! Wait for ").append(sortedPlayers.get(currPlayerIdx).getName()).append(" to combat them.").append("\n");
+                break;
+            case DECIDE_REWARD:
+                stringBuilder.append("You won! Decide if you want to earn ").append(card.getEarnedCredits()).append(" credits").append("\n");
+                stringBuilder.append("Please note that you will lose ").append(card.getDaysLost()).append(" days of flight.").append("\n");
+                break;
+            case WAIT_FOR_SHOT:
+                stringBuilder.append("You lost! Wait for the other players to combat the pirates. You will need to defend your ship from the attacks.").append("\n");
+                break;
+            case PROVIDE_BATTERY:
+                stringBuilder.append("You can defend your ship using a battery. Send the battery to neutralize the attack.").append("\n");
+                break;
+            case CORRECT_SHIP:
+                stringBuilder.append("You've been hit! Fix the ship by removing tiles until it becomes legal.").append("\n");
+                break;
+            case SHOT_DONE:
+                stringBuilder.append("You're done for this ").append(currMeteorIdx == numMeteors ? "card! Wait for the next adventure." : "attack. Wait for the next one.").append("\n");
+                break;
+            case DONE:
+                stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
+                break;
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderPlanetsState(Game toDisplay) {
+
+        AdventureCard card = toDisplay.getCurrentAdventureCard();
+        PlanetsState currState = (PlanetsState) toDisplay.getGameState();
+        Integer currPlayerIdx = currState.getCurrPlayerIdx();
+        Map<Player, Integer> chosenPlanets = currState.getChosenPlanets();
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        stringBuilder.append("\n".repeat(3));
+
+        for (int i = 0; i < card.getPlanetReward().size(); i++) {
+            if (chosenPlanets.containsValue(i)) {
+                stringBuilder.append("Planet ").append(i).append(" is already chosen").append("\n");
+            } else {
+                stringBuilder.append("Planet ").append(i).append(" is free").append("\n");
+            }
+        }
+        Player p = toDisplay.getPlayer(nickname);
+        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : toDisplay.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
+        if (currPlayerIdx == (p.getRanking() - 1)) {
+            stringBuilder.append("Choose a planet (if you want) and handle your new boxes!").append("\n");
+            stringBuilder.append("Please note that you will lose ").append(card.getDaysLost()).append(" days of flight.").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderSlaversState(Game toDisplay) {
+
+        final int WAIT = 0;
+        final int ACTIVATE_CANNONS = 1;
+        final int REMOVE_CREW = 2;
+        final int DECIDE_REWARD = 3;
+        final int DONE = 4;
+
+        AdventureCard card = toDisplay.getCurrentAdventureCard();
+        SlaversState currState = (SlaversState) toDisplay.getGameState();
+        Integer currPlayerIdx = currState.getCurrPlayerIdx();
+        List<Integer> playerStates = currState.getPlayerStates();
+        List<Player> sortedPlayers = currState.getSortedPlayers();
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+        int playerIdx = p.getRanking() - 1;
+        int playerState = playerStates.get(playerIdx);
+        switch (playerState) {
+            case ACTIVATE_CANNONS:
+                List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
+                int totDoubleLasers = (int)lasersCoordinates.stream()
+                        .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                        .filter(Tile::isDoubleLaser)
+                        .count();
+                stringBuilder.append("Slavers are here! Activate your double cannons and try to defeat them!").append("\n");
+                stringBuilder.append("Base fire power of your ship: ").append(p.getShip().getBaseFirePower()).append("\n");
+                stringBuilder.append("Number of double cannons: ").append(totDoubleLasers).append("\n");
+                break;
+            case WAIT:
+                stringBuilder.append("Slavers are coming! Wait for ").append(sortedPlayers.get(currPlayerIdx).getName()).append(" to combat them.").append("\n");
+                break;
+            case REMOVE_CREW:
+                stringBuilder.append("You lost! Remove ").append(card.getLostMembers()).append(" crew members to continue the game.").append("\n");
+                break;
+            case DECIDE_REWARD:
+                stringBuilder.append("You won! Decide if you want to earn ").append(card.getEarnedCredits()).append("\n");
+                stringBuilder.append("Please note that you will lose ").append(card.getDaysLost()).append(" days of flight.").append("\n");
+                break;
+            case DONE:
+                stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
+                break;
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderSmugglersState(Game toDisplay) {
+
+        final int DONE = 2;
+        final int HANDLE_BOXES = 1;
+        final int ACTIVATE_CANNONS = 0;
+
+        AdventureCardState currState = (AdventureCardState) toDisplay.getGameState();
+        int currPlayerIdx = currState.getCurrPlayerIdx();
+        List<Integer> played = currState.getPlayed();
+        List<Player> sortedPlayers = currState.getSortedPlayers();
+        AdventureCard card = toDisplay.getCurrentAdventureCard();
+
+
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+
+        int playerIdx = p.getRanking() - 1;
+        if (played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx == playerIdx){
+            List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
+            int totDoubleLasers = (int)lasersCoordinates.stream()
+                    .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
+                    .filter(Tile::isDoubleLaser)
+                    .count();
+            stringBuilder.append("Smugglers are here! Activate your double cannons and try to defeat them!").append("\n");
+            stringBuilder.append("Base fire power of your ship: ").append(p.getShip().getBaseFirePower()).append("\n");
+            stringBuilder.append("Number of double cannons: ").append(totDoubleLasers).append("\n");
+        }
+        else if(played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx != playerIdx){
+            stringBuilder.append("Smugglers are coming! Wait for ").append(sortedPlayers.get(currPlayerIdx).getName()).append(" to combat them.").append("\n");
+        }
+        else if (played.get(playerIdx) == HANDLE_BOXES) {
+            stringBuilder.append("You won! Handle your new boxes now if you want.").append("\n");
+            stringBuilder.append("Please note that you will lose ").append(card.getDaysLost()).append(" days of flight.").append("\n");
+        }
+        else if (played.get(playerIdx) == DONE){
+            stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
+        }
+
+        rendered = stringBuilder.toString();
+    }
+
+    @Override
+    public void renderStardustState(Game toDisplay){
+
+        rendered = renderAdventureTemplate(toDisplay) + "\n".repeat(3) +
+                "Send 'stardust' to solve stardust effect and continue the game." +
+                "\n" +
+                "You may lose some days of flight!" + "\n";
+    }
+
+    /**
+     * Renders the game state for a player.
+     *
+     * @param toDisplay {@code Game} which will be printed
+     */
+    @Override
+    public void renderWarZoneState(Game toDisplay) {
+
+        AdventureCard card = toDisplay.getCurrentAdventureCard();
+        WarZoneState currState = (WarZoneState) toDisplay.getGameState();
+        Integer currPlayerIdx = currState.getCurrPlayerIdx();
+        Integer penaltyIdx = currState.getPenaltyIdx();
+        List<Integer> played = currState.getPlayed();
+        Integer worstPlayerState = currState.getWorstPlayerState();
+        Integer currShotIdx = currState.getCurrShotIdx();
+
+        final int WORST = 2;
+        final int WILL_FIGHT = 3;
+        final int F_INIT = 0;
+        final int F_PROVIDE_BATTERY = 1;
+        final int F_CORRECT_SHIP = 2;
+
+        //count crew solo leader chiama per tutti;
+        //remove crew quando sei worst
+        StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
+        stringBuilder.append("\n".repeat(3));
+        Player p = toDisplay.getPlayer(nickname);
+        int playerIdx = p.getRanking() - 1;
+        String challenge = card.getParameterCheck().get(penaltyIdx);
+        if (!currState.anyWorstPlayer()) {
+            switch (challenge) {
+                case "CANNONS":
+                    stringBuilder.append("It's time to compare fire powers!").append("\n");
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("It's your turn! Send batteries to increase your fire power.").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("Wait for your turn to send batteries to increase your fire power.").append("\n");
+                    }
+                    break;
+                case "PROPULSORS":
+                    stringBuilder.append("It's time to compare propulsion powers!").append("\n");
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("It's your turn! Send batteries to increase your propulsion power.").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("Wait for your turn to send batteries to increase your propulsion power.").append("\n");
+                    }
+                    break;
+                case "CREW":
+                    stringBuilder.append("It's time to compare the number of crew members!").append("\n");
+                    if (currPlayerIdx == playerIdx) {
+                        stringBuilder.append("You're the leader, start the challenge!").append("\n");
+                    }
+                    else{
+                        stringBuilder.append("Wait for the leader to start the challenge").append("\n");
+                    }
+            }
+        }
+        else{
+            if (card.getPenaltyType().get(currPlayerIdx).equals("LOSECREW")){
+                if (played.get(playerIdx) == WORST) {
+                    stringBuilder.append("You're the worst player for this challenge! Remove ").append(card.getLostMembers()).append(" crew members.").append("\n");
+                }
+                else{
+                    stringBuilder.append("You survived this challenge!").append(penaltyIdx == card.getPenaltyType().size() ? " You're done for this warzone! Wait for the next adventure." :
+                            " You're done for this challenge! Wait for the next one.").append("\n");
+                }
+            } else if (card.getPenaltyType().get(currPlayerIdx).equals("HANDLESHOTS")) {
+                if (played.get(playerIdx) == WILL_FIGHT) {
+                    switch (worstPlayerState) {
+                        case F_INIT:
+                            stringBuilder.append("You're the worst player for this challenge! Shot ").append(currShotIdx).append(" is coming, roll the dice to discover its direction").append("\n");
+                            break;
+                        case F_PROVIDE_BATTERY:
+                            stringBuilder.append("You can defend your ship! Send a bettery to destroy the shot").append("\n");
+                            break;
+                        case F_CORRECT_SHIP:
+                            stringBuilder.append("You've been hit! Fix your ship by removing tiles until it becomes legal.").append("\n");
+                            break;
+                    }
+                }
+            }
+        }
+
+        rendered = stringBuilder.toString();
     }
 }

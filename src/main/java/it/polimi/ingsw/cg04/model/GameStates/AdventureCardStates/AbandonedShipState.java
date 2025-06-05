@@ -1,12 +1,13 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RemoveCrewAction;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AbandonedShipState extends AdventureCardState {
@@ -40,17 +41,10 @@ public class AbandonedShipState extends AdventureCardState {
         }
     }
 
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        Player p = context.getPlayer(playerName);
-        stringBuilder.append("It's ").append(currPlayerIdx == (p.getRanking() - 1) ? "your " : context.getPlayer(currPlayerIdx).getName()).append(" turn").append("\n");
-        if (currPlayerIdx == (p.getRanking() - 1)) {
-            stringBuilder.append("You have ").append(context.getPlayer(playerName).getShip().getNumCrew()).append(" crew members.").append("\n");
-            stringBuilder.append("Type 'removeCrew' to trade crew members for credits.").append("\n");
-            stringBuilder.append("Note that you will lose " + card.getDaysLost() + " days of flight if you remove any crew members.").append("\n");
-        }
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderAbandonedShipState(toDisplay);
     }
+
 }
 

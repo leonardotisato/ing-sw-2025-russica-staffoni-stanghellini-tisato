@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
+import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,31 +143,8 @@ public class SmugglersState extends AdventureCardState {
         return true;
     }
 
-    public String render(String playerName) {
-        StringBuilder stringBuilder = new StringBuilder(super.render(playerName));
-        stringBuilder.append("\n".repeat(3));
-        Player p = context.getPlayer(playerName);
-        int playerIdx = p.getRanking() - 1;
-        if (played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx == playerIdx){
-            List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
-            int totDoubleLasers = (int)lasersCoordinates.stream()
-                    .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
-                    .filter(t -> t.isDoubleLaser())
-                    .count();
-            stringBuilder.append("Smugglers are here! Activate your double cannons and try to defeat them!").append("\n");
-            stringBuilder.append("Base fire power of your ship: " + p.getShip().getBaseFirePower()).append("\n");
-            stringBuilder.append("Number of double cannons: " + totDoubleLasers).append("\n");
-        }
-        else if(played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx != playerIdx){
-            stringBuilder.append("Smugglers are coming! Wait for " + sortedPlayers.get(currPlayerIdx).getName() + " to combat them.").append("\n");
-        }
-        else if (played.get(playerIdx) == HANDLE_BOXES) {
-            stringBuilder.append("You won! Handle your new boxes now if you want.").append("\n");
-            stringBuilder.append("Please note that you will lose " + card.getDaysLost() + " days of flight.").append("\n");
-        }
-        else if (played.get(playerIdx) == DONE){
-            stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
-        }
-        return stringBuilder.toString();
+    @Override
+    public void updateView (View view, Game toDisplay) throws IOException {
+        view.renderSmugglersState(toDisplay);
     }
 }

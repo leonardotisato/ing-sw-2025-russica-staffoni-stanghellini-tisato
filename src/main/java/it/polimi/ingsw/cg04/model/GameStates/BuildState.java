@@ -9,7 +9,6 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.model.utils.Shipyard;
-import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
 import java.io.IOException;
 import java.util.*;
@@ -31,6 +30,8 @@ public class BuildState extends GameState {
             isLookingPile.put(player.getName(), 0);
         }
     }
+
+
 
     public void triggerNextState() {
         if (game.getLevel() == 1) {
@@ -509,134 +510,10 @@ public class BuildState extends GameState {
 
     @Override
     public void updateView(View view, Game toDisplay) throws IOException {
+        System.out.println("debug"); // todo: remove me
         view.renderBuildState(toDisplay);
     }
 
-    // todo: move below into View TUI
-
-    @Override
-    public String render(String nickname) {
-        StringBuilder stringBuilder = new StringBuilder("\n");
-        stringBuilder.append(TuiDrawer.renderPlayersByColumn(game.getPlayers()));
-        if (playerState.get(nickname) == BuildPlayerState.FIXING) {
-            stringBuilder.append("Your ship:").append("\n").append("\n");
-            stringBuilder.append(game.getPlayer(nickname).getShip().draw()).append("\n").append("\n");
-            stringBuilder.append("Your ship is not legal, fix it by removing tiles until you can properly fly!");
-        } else {
-            if (playerState.get(nickname) == BuildPlayerState.SHOWING_PILE) {
-                stringBuilder.append(renderKFigures(5, isLookingPile.get(nickname) - 1, "piles")).append("\n").append("\n");
-            } else {
-                stringBuilder.append(renderPilesBackside(29, 11)).append("\n").append("\n");
-            }
-            stringBuilder.append("Your ship:").append("\n").append("\n");
-            stringBuilder.append(game.getPlayer(nickname).getShip().drawWithBuffer()).append("\n").append("\n");
-            if (playerState.get(nickname) == BuildPlayerState.BUILDING) {
-                stringBuilder.append(game.getPlayer(nickname).getHeldTile() != null ? ("Held tile: \n" + game.getPlayer(nickname).getHeldTile().draw()) : "Pick a tile!").append("\n").append("\n");
-            }
-            if (playerState.get(nickname) == BuildPlayerState.READY) {
-                stringBuilder.append("You're done building the ship! Wait for the other players to finish the building").append("\n");
-            }
-            if (playerState.get(nickname) != BuildPlayerState.SHOWING_FACE_UP) {
-                stringBuilder.append("Face up tiles: send 'showFaceUp' to show more tiles!").append("\n").append("\n");
-                stringBuilder.append(game.getFaceUpTiles().isEmpty() ? "No face up tiles at the moment" : renderKFigures(10, null, "tiles")).append("\n").append("\n");
-            } else {
-                stringBuilder.append(renderKFigures(game.getFaceUpTiles().size(), null, "tiles")).append("\n");
-            }
-        }
-
-        return stringBuilder.toString();
-    }
-
-    public String renderPilesBackside(int width, int height) {
-        List<List<String>> pileLines = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            List<String> singlePile = new ArrayList<>();
-            singlePile.add(TuiDrawer.drawTopBoundary(width));
-
-            int paddingLines = height - 3;
-            for (int j = 0; j < paddingLines / 2; j++) {
-                singlePile.add(TuiDrawer.drawEmptyRow(width));
-            }
-
-            // Riga con ID e stato
-            singlePile.add(TuiDrawer.drawCenteredRow("#pile: " + (i + 1), width));
-            singlePile.add(TuiDrawer.drawCenteredRow(isLookingPile.containsValue(i + 1) ? "Held" : "Free", width));
-
-            for (int j = 0; j < paddingLines - paddingLines / 2; j++) {
-                singlePile.add(TuiDrawer.drawEmptyRow(width));
-            }
-
-            singlePile.add(TuiDrawer.drawBottomBoundary(width));
-            pileLines.add(singlePile);
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (int row = 0; row < height + 1; row++) {
-            for (int p = 0; p < pileLines.size(); p++) {
-                sb.append(pileLines.get(p).get(row));
-                if (p < pileLines.size() - 1) {
-                    sb.append("  "); // spazio tra pile
-                }
-            }
-            sb.append('\n');
-        }
-
-        return sb.toString();
-    }
-
-    public String renderKFigures(int k, Integer pileId, String typeFigure) {
-        List<List<String>> tileLines = new ArrayList<>();
-        List<Integer> figures = typeFigure.equals("tiles") ? game.getFaceUpTiles() : game.getPreFlightPiles().get(pileId);
-
-        for (int i = 0; i < k && i < figures.size(); i++) {
-            String[] lines = typeFigure.equals("tiles") ? game.getTileById(figures.get(i)).draw().split("\n") :
-                    game.getCardById(figures.get(i)).draw().split("\n");
-            tileLines.add(Arrays.asList(lines));
-        }
-
-        if (tileLines.isEmpty()) return "";
-
-        int tileHeight = tileLines.getFirst().size();
-        int tilesPerRow = 10;
-        int totalTiles = tileLines.size();
-        int numRowsOfTiles = (int) Math.ceil((double) totalTiles / tilesPerRow);
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int rowBlock = 0; rowBlock < numRowsOfTiles; rowBlock++) {
-            int start = rowBlock * tilesPerRow;
-            int end = Math.min(start + tilesPerRow, totalTiles);
-
-            // stampa le righe delle tile
-            for (int line = 0; line < tileHeight; line++) {
-                for (int i = start; i < end; i++) {
-                    sb.append(tileLines.get(i).get(line));
-                    if (i < end - 1) sb.append("  ");
-                }
-                sb.append('\n');
-            }
-
-            // stampa la riga con gli indici
-            if (typeFigure.equals("tiles")) {
-                for (int i = start; i < end; i++) {
-                    int tileWidth = 14; // larghezza della tile
-                    String label = "[" + i + "]";
-                    int padLeft = (tileWidth - label.length()) / 2;
-                    int padRight = tileWidth - label.length() - padLeft;
-                    sb.append(" ".repeat(Math.max(0, padLeft)))
-                            .append(label)
-                            .append(" ".repeat(Math.max(0, padLeft)));
-                    if (i < end - 1) sb.append("   ");
-                }
-            }
-            sb.append("\n\n");
-        }
-
-        return sb.toString();
-    }
-
-    // only used for testing
     public Map<String, BuildPlayerState> getPlayerState() {
         return playerState;
     }
