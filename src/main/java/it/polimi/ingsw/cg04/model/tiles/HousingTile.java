@@ -50,6 +50,7 @@ public class HousingTile extends Tile {
         return isCentralTile;
     }
 
+    // todo: handle unused method
     public void setIsCentralTile(boolean isCentralTile) {
         this.isCentralTile = isCentralTile;
     }
@@ -127,7 +128,7 @@ public class HousingTile extends Tile {
      * removes aliens from ship's {@code crewMap} attribute
      * removes this tile from connected AlienSupportTile's list {@code adjacentHousingTiles}
      *
-     * @param ship
+     * @param ship player's {@code Ship}
      * @param x    int
      * @param y    int
      */
@@ -162,7 +163,7 @@ public class HousingTile extends Tile {
      * adds the adjacent {@code AlienSupportTile}'s {@code supportedAlienColor} attribute to {@code this.supportedCrewType}
      * adds this tile to the connected {@code AlienSupportTile} list {@code adjacentHousingTiles}
      *
-     * @param ship
+     * @param ship player's {@code Ship}
      * @param x    int
      * @param y    int
      */

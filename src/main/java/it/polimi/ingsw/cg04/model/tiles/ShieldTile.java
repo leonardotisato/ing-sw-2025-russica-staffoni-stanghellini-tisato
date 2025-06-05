@@ -63,9 +63,9 @@ public class ShieldTile extends Tile {
     /**
      * removes this tile {@code protectedDirections} from ship attribute {@code protectedDirections}
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's {@code Ship}
+     * @param x {@code int} coordinate
+     * @param y {@code int} coordinate
      */
     @Override
     public void broken(Ship ship, int x, int y) {
@@ -75,9 +75,9 @@ public class ShieldTile extends Tile {
     /**
      * adds this tile {@code protectedDirections} to ship attribute {@code protectedDirections}
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's {@code Ship}
+     * @param x {@code int} coordinate
+     * @param y {@code int} coordinate
      */
     @Override
     public void place(Ship ship, int x, int y) {

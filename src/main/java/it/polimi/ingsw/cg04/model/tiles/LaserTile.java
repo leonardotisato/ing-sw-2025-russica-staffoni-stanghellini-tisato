@@ -29,6 +29,7 @@ public class LaserTile extends Tile {
         }
     }
 
+    // todo: handle unused method
     public void setDoubleLaser(boolean isDoubleLaser) {
         this.isDoubleLaser = isDoubleLaser;
     }
@@ -48,9 +49,9 @@ public class LaserTile extends Tile {
     /**
      * updates {@code baseFirePower} attribute in ship
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's {@code Ship}
+     * @param x {@code int} coordinate
+     * @param y {@code int} coordinate
      */
     @Override
     public void broken(Ship ship, int x, int y) {
@@ -64,9 +65,9 @@ public class LaserTile extends Tile {
     /**
      * updates {@code baseFirePower} attribute in ship
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's {@code Ship}
+     * @param x {@code int} coordinate
+     * @param y {@code int} coordinate
      */
     @Override
     public void place(Ship ship, int x, int y) {

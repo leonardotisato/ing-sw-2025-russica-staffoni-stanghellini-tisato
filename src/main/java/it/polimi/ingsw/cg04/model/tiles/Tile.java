@@ -25,7 +25,7 @@ public abstract class Tile implements Serializable {
 
     /**
      * Represents the current rotation of a Tile.
-     *
+     * <p>
      * Integer between 0 and 3
      */
     int rotation = 0;
@@ -537,7 +537,6 @@ public abstract class Tile implements Serializable {
         switch (connections.get(dir)) {
             case EMPTY:
                 rows = new int[]{2, 3, 4};
-                symbol = ' ';
                 break;
             case SINGLE:
                 rows = new int[]{3};

@@ -62,6 +62,7 @@ public class AlienSupportTile extends Tile {
         return supportedAlienColor;
     }
 
+    // todo: handle unused method
     public void setSupportedAlienColor(CrewType supportedAlienColor) {
         this.supportedAlienColor = supportedAlienColor;
     }
@@ -70,9 +71,9 @@ public class AlienSupportTile extends Tile {
      * remove this tile supported crewType from connected HousingTiles attribute supportedCrewType
      * if now that HousingTile hosts an alien no longer supported removes it
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's ship
+     * @param x coordinate
+     * @param y coordinate
      */
     @Override
     public void broken(Ship ship, int x, int y) {
@@ -96,11 +97,11 @@ public class AlienSupportTile extends Tile {
 
     /**
      * if there is an HousingTile connected to this tile, update it's supportedCrewType, remove HUMANS from it,
-     * add that HousingTile to this tile's lsit {@code adjacentHousingTile}
+     * add that HousingTile to this tile's list {@code adjacentHousingTile}
      *
-     * @param ship
-     * @param x
-     * @param y
+     * @param ship player's ship
+     * @param x coordinate
+     * @param y coordinate
      */
     @Override
     public void place(Ship ship, int x, int y) {
