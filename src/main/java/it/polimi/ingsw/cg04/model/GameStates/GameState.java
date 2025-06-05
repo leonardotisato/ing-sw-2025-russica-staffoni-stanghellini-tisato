@@ -173,7 +173,6 @@ public abstract class GameState implements Serializable {
     }
 
     public void updateView(View view, Game game) throws IOException {
-        System.out.println("debug");
         throw new RuntimeException();
     }
 

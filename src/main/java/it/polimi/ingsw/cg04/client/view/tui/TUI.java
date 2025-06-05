@@ -74,11 +74,8 @@ public class TUI extends View {
             if (isViewingShips) {
                 toPrint.renderShips();
             } else {
-                System.out.println("updating rendered");
+                // System.out.println("updating rendered");
                 toPrint.getGameState().updateView(this, toPrint);
-                System.out.println("this is the thing");
-                System.out.println(rendered);
-                System.out.println("this is the thing");
             }
 
             Terminal terminal = input.getTerminal();
@@ -461,8 +458,6 @@ public class TUI extends View {
     @Override
     public void renderBuildState(Game toDisplay) {
 
-        System.out.println("debug2"); //todo remove me
-
         BuildState currState = (BuildState) toDisplay.getGameState();
 
         Map<String, BuildPlayerState> playerState = currState.getPlayerState();
@@ -470,9 +465,6 @@ public class TUI extends View {
 
         StringBuilder stringBuilder = new StringBuilder("\n");
         stringBuilder.append(TuiDrawer.renderPlayersByColumn(toDisplay.getPlayers()));
-
-        System.out.println("debug3"); // todo remove
-        System.out.println(nickname);
 
         if (playerState.get(nickname) == BuildPlayerState.FIXING) {
             stringBuilder.append("Your ship:").append("\n").append("\n");
@@ -500,12 +492,7 @@ public class TUI extends View {
             }
         }
 
-        System.out.println("debug4"); // todo remove
-
         rendered = stringBuilder.toString();
-
-        System.out.println(rendered);
-        System.out.println("debug5"); // todo remove
     }
 
     public String renderPilesBackside(int width, int height, Map<String, Integer> isLookingPile) {

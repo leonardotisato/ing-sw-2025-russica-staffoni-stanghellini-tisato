@@ -510,7 +510,6 @@ public class BuildState extends GameState {
 
     @Override
     public void updateView(View view, Game toDisplay) throws IOException {
-        System.out.println("debug"); // todo: remove me
         view.renderBuildState(toDisplay);
     }
 
