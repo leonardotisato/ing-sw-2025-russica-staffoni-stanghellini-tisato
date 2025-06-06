@@ -72,23 +72,54 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Retrieves the index of the current meteor.
+     *
+     * @return the index of the current meteor as an integer
+     */
     public int getCurrMeteorIdx() {
         return currMeteorIdx;
     }
 
+    /**
+     * Retrieves the result of the dice roll.
+     *
+     * @return the result of the dice roll as an integer
+     */
     public int getDiceResult() {
         return dice;
     }
 
+    /**
+     * Determines whether the dice has been rolled in the current state.
+     *
+     * @return true if the dice has been rolled, false otherwise
+     */
     public boolean isRolled() {
         return rolled;
     }
 
+    /**
+     * Retrieves the list of player states.
+     *
+     * @return a list of integers representing the current states of the players
+     */
     public List<Integer> getPlayerStates() {
         return playerStates;
     }
 
     // pre-attack phase
+
+    /**
+     * Compares the firepower of the given player with the opponent's firepower and updates
+     * the game state accordingly based on the comparison result.
+     *
+     * @param player        the player whose firepower is being compared
+     * @param batteries     a list of battery coordinates to be used by the player; can be null
+     * @param doubleCannons a list of double cannon coordinates to be used by the player; can be null
+     * @throws InvalidStateException if the action is not allowed for the given player in their current state
+     */
+    @Override
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
@@ -168,6 +199,17 @@ public class PiratesState extends AdventureCardState {
     }
 
     // attack phase
+
+    /**
+     * Executes the roll dice action during the attack phase for a specified player.
+     * It determines the outcome of the dice roll and checks whether the meteor attack hits any ships, updating player
+     * states accordingly.
+     *
+     * @param player the player attempting to roll the dice during the attack phase
+     * @throws InvalidStateException if the dice roll is attempted in an invalid state
+     *                               or by an unauthorized player
+     */
+    @Override
     public void rollDice(Player player) throws InvalidStateException {
 
         // roll dice must be performed only when everybody left the wait stage
@@ -190,7 +232,7 @@ public class PiratesState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    // substract offset to find zero-based index to handle hit
+                    // subtract offset to find zero-based index to handle hit
                     dice = dice - leftBoundary;
                 }
             }
@@ -200,7 +242,7 @@ public class PiratesState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    // substract offset to find zero-based index to handle hit
+                    // subtract offset to find zero-based index to handle hit
                     dice = dice - upBoundary;
                 }
             }
@@ -253,6 +295,15 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Allows the player to choose whether to neutralize an attack using a battery or to take the hit.
+     *
+     * @param player the player making the choice
+     * @param x      the x-coordinate of the battery to use, or -1 if the player decides to take the hit
+     * @param y      the y-coordinate of the battery to use, or -1 if the player decides to take the hit
+     * @throws InvalidStateException if the player is not in a state where they can choose a battery
+     */
+    @Override
     public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -282,6 +333,16 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Fixes the ship of the given player by repairing the specified tiles.
+     * This method checks if the player is allowed to perform the fix operation
+     * and updates the game state based on the legality of the ship after the fix.
+     *
+     * @param player          the player who is attempting to fix their ship
+     * @param coordinatesList a list of coordinates representing the ship tiles to be repaired
+     * @throws InvalidStateException if the player is not allowed to fix their ship at this time
+     */
+    @Override
     public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -295,8 +356,7 @@ public class PiratesState extends AdventureCardState {
             if (player.getShip().isShipLegal()) {
                 this.addLog("Player " + player.getName() + " fixed his ship.");
                 playerStates.set(playerIdx, SHOT_DONE);
-            }
-            else {
+            } else {
                 this.addLog("Player: " + player.getName() + " ship is still illegal and he must fix it.");
             }
 
@@ -309,6 +369,18 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Allows the specified player to decide whether to accept or decline a reward
+     * after defeating an opponent, provided the game state allows this action.
+     * If the player accepts the reward, their in-game credits and position are
+     * updated.
+     *
+     * @param player       the player who is deciding whether to accept the reward
+     * @param acceptReward true if the player accepts the reward, false if they decline
+     * @throws InvalidStateException if the player is not in a valid state to receive the reward,
+     *                               or if the action is not allowed
+     */
+    @Override
     public void getReward(Player player, boolean acceptReward) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -318,7 +390,7 @@ public class PiratesState extends AdventureCardState {
                         .filter(i -> i != playerIdx)
                         .allMatch(i -> playerStates.get(i) == DONE)) {
             if (acceptReward) {
-                // give reward to winner
+                // give reward to the winner
                 this.addLog("Player " + player.getName() + " got his rewards after defeating pirates.");
                 this.appendLog("Nobody else can receive the reward now. But you can still lose ;).");
                 player.updateCredits(reward);
@@ -329,7 +401,7 @@ public class PiratesState extends AdventureCardState {
                 playerStates.set(playerIdx, DONE);
             }
 
-            // check if every one is done
+            // check if everyone is done
             if (isAll(DONE, playerStates)) {
                 // transition to next adventure card
                 triggerNextState();
@@ -339,6 +411,10 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Advances the game to the next round by updating the current meteor index and player states.
+     * If all meteors have been addressed, transitions the game to the next state.
+     */
     private void triggerNextRound() {
         rolled = false;
         currMeteorIdx++;
@@ -351,6 +427,13 @@ public class PiratesState extends AdventureCardState {
         }
     }
 
+    /**
+     * Determines whether all elements in the given list are equal to the provided state.
+     *
+     * @param state the integer value to compare against each element in the list
+     * @param list  the list of integers to check
+     * @return true if all elements in the list are equal to the specified state; false otherwise
+     */
     private boolean isAll(int state, List<Integer> list) {
         for (Integer integer : list) {
             if (integer != state) {
@@ -360,6 +443,13 @@ public class PiratesState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Checks if the specified player is the first player in the list of players
+     * whose state is currently set to WAIT_FOR_SHOT.
+     *
+     * @param player the player to check
+     * @return true if the specified player is the first player in the WAIT_FOR_SHOT state, false otherwise
+     */
     public boolean isFirstWaitingForShot(Player player) {
         for (int i = 0; i < playerStates.size(); i++) {
             if (playerStates.get(i) == WAIT_FOR_SHOT) {
@@ -374,8 +464,15 @@ public class PiratesState extends AdventureCardState {
         this.opponentFirePower = val;
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderPiratesState(toDisplay);
     }
 }

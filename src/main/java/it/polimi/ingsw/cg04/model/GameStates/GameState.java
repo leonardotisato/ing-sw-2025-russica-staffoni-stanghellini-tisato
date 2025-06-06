@@ -3,12 +3,8 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
-import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.io.IOException;
@@ -20,8 +16,6 @@ import java.util.Map;
 public abstract class GameState implements Serializable {
     protected List<String> logs;
 
-
-
     // AdventureCardState methods
 
     public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) throws InvalidStateException {
@@ -32,7 +26,7 @@ public abstract class GameState implements Serializable {
         throw new InvalidStateException("Invalid action!");
     }
 
-    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
+    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
         throw new InvalidStateException("Invalid action!");
     }
 
@@ -69,7 +63,6 @@ public abstract class GameState implements Serializable {
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         throw new InvalidStateException("invalid action");
     }
-
 
 
     // BuildState Methods
@@ -147,16 +140,18 @@ public abstract class GameState implements Serializable {
     }
 
     public void getNextAdventureCard(Player player) throws InvalidStateException {
-        throw new InvalidStateException("Invalid action in this game state!");}
+        throw new InvalidStateException("Invalid action in this game state!");
+    }
 
     public void retire(Player player) throws InvalidStateException {
-        throw new InvalidStateException("Invalid action in this game state!");}
+        throw new InvalidStateException("Invalid action in this game state!");
+    }
 
     public String render(String nickname) {
         return null;
     }
 
-    public List<String> getLogs(){
+    public List<String> getLogs() {
         return logs;
     }
 
@@ -168,15 +163,11 @@ public abstract class GameState implements Serializable {
         this.logs.add(newLogs);
     }
 
-    public void initLogs(){
+    public void initLogs() {
         this.logs = new ArrayList<>();
     }
 
     public void updateView(View view, Game game) throws IOException {
         throw new RuntimeException();
     }
-
-
-
-
 }

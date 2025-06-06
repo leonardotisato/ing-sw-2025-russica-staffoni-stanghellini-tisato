@@ -17,6 +17,14 @@ public class AbandonedShipState extends AdventureCardState {
     }
 
 
+    /**
+     * Handles the removal of crew members from a player's ship during the Abandoned Ship event state.
+     *
+     * @param player             the player attempting to remove crew members
+     * @param coordinates        a list of coordinates specifying the positions of the crew members to be removed
+     * @param numCrewMembersLost a list of integers representing the number of crew members lost per specified coordinate
+     * @throws InvalidStateException if the action is invalid due to turn order, incorrect crew count, or other game rules
+     */
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         if (!player.equals(sortedPlayers.get(this.currPlayerIdx)))
             throw new InvalidStateException("Player" + player.getName() + " can't play, it's not his turn, player " + sortedPlayers.get(this.currPlayerIdx) + " should play");
@@ -41,8 +49,15 @@ public class AbandonedShipState extends AdventureCardState {
         }
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderAbandonedShipState(toDisplay);
     }
 

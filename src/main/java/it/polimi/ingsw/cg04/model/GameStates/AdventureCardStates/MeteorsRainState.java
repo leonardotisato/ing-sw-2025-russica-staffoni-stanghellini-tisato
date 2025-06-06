@@ -54,18 +54,40 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    /**
+     * Retrieves the index of the current meteor in the game state.
+     *
+     * @return the current meteor index
+     */
     public int getCurrMeteorIdx() {
         return currMeteorIdx;
     }
 
+    /**
+     * Retrieves the value of the dice rolled in the current game state.
+     *
+     * @return the result of the dice roll
+     */
     public int getDiceResult() {
         return dice;
     }
 
+
+    /**
+     * Checks whether the dice has been rolled in the current game state.
+     *
+     * @return true if the dice has been rolled, false otherwise
+     */
     public boolean isRolled() {
         return rolled;
     }
 
+    /**
+     * Checks if all elements in the provided list are equal to the DONE value.
+     *
+     * @param list the list of integers to check
+     * @return true if all elements in the list are equal to DONE, false otherwise
+     */
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {
             if (integer != DONE) {
@@ -76,6 +98,14 @@ public class MeteorsRainState extends AdventureCardState {
     }
 
 
+    /**
+     * Advances the game to the next round in the MeteorsRainState.
+     *
+     * This method resets the rolled status for the dice, increments the index of the current meteor,
+     * and determines whether it is necessary to transition to the next game state. If all meteors have
+     * been processed, the `triggerNextState` method is called to handle the transition. Otherwise, the
+     * state of each player is reset to the INIT state in preparation for the next round.
+     */
     private void triggerNextRound() {
         rolled = false;
         currMeteorIdx++;
@@ -87,13 +117,22 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    /**
+     * Handles the roll dice action in the context of the MeteorsRainState.
+     * This method allows a player to roll the dice, determines the effect of the roll based on
+     * the current meteor's direction and attack specifications, and updates the game state accordingly.
+     *
+     * @param player the player who initiates the roll dice action
+     * @throws InvalidStateException if the action is not allowed for the player or the game state
+     */
+    @Override
     public void rollDice(Player player) throws InvalidStateException {
         if (!rolled && player.equals(sortedPlayers.getFirst())) {
             dice = context.getBoard().rollDices();
             rolled = true;
 
 
-            // check if meteor misses completely
+            // check if the meteor misses completely
             direction = context.getCurrentAdventureCard().getDirection(currMeteorIdx);
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
@@ -110,7 +149,7 @@ public class MeteorsRainState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    // substract offset to find zero-based index to handle hit
+                    // subtract offset to find zero-based index to handle hit
                     dice = dice - leftBoundary;
                 }
             }
@@ -120,14 +159,14 @@ public class MeteorsRainState extends AdventureCardState {
                     triggerNextRound();
                     return;
                 } else {
-                    // substract offset to find zero-based index to handle hit
+                    // subtract offset to find zero-based index to handle hit
                     dice = dice - upBoundary;
                 }
             }
 
             System.out.println("0-based dice result is: " + dice);
 
-            // create list that maps player with what he needs to do
+            // create a list that maps player with what he needs to do
             for (int i = 0; i < sortedPlayers.size(); i++) {
                 Player p = sortedPlayers.get(i);
                 int hitState = p.getShip().checkHit(direction, attack, dice, "meteor");
@@ -180,6 +219,16 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    /**
+     * Fixes the ship of the given player by repairing the specified tiles.
+     * This method checks if the player is allowed to perform the fix operation
+     * and updates the game state based on the legality of the ship after the fix.
+     *
+     * @param player the player who is attempting to fix their ship
+     * @param coordinatesList a list of coordinates representing the ship tiles to be repaired
+     * @throws InvalidStateException if the player is not allowed to fix their ship at this time
+     */
+    @Override
     public void fixShip(Player player, List<Coordinates> coordinatesList) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -206,6 +255,16 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    /**
+     * Allows a player to choose how to respond when their ship is under attack by a meteor.
+     * The player can either handle the hit by accepting the damage or use a battery to prevent damage.
+     *
+     * @param player the player making the decision to handle the attack
+     * @param x the x-coordinate of the battery to be used; or -1 if the player chooses to take the hit
+     * @param y the y-coordinate of the battery to be used; or -1 if the player chooses to take the hit
+     * @throws InvalidStateException if the player is not allowed to perform the choose battery action at this time
+     */
+    @Override
     public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -238,6 +297,13 @@ public class MeteorsRainState extends AdventureCardState {
         }
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
     public void updateView (View view, Game toDisplay) throws IOException {
         view.renderMeteorsRainState(toDisplay);

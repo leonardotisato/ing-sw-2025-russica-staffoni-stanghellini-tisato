@@ -15,11 +15,25 @@ import java.util.List;
 
 public class EpidemicState extends AdventureCardState {
     private int crewMembersLost = 0;
-    public EpidemicState(Game game) {super(game);}
+
+    public EpidemicState(Game game) {
+        super(game);
+    }
 
 
+    /**
+     * Executes the logic for spreading an epidemic within the ship of the specified player.
+     * This method iterates over all housing tiles on the player's ship and evaluates the
+     * spread of the epidemic based on the tile connectivity and neighboring tiles with crew members.
+     * Crew members affected by the epidemic are removed from the ship accordingly.
+     *
+     * @param player the player whose ship is affected by the epidemic
+     * @throws InvalidStateException if the epidemic has already been spread by the player
+     */
+    @Override
     public void spreadEpidemic(Player player) throws InvalidStateException {
-        if (played.get(sortedPlayers.indexOf(player)) == 1) throw new InvalidStateException("Player " + player.getName() + " has already spread epidemic");
+        if (played.get(sortedPlayers.indexOf(player)) == 1)
+            throw new InvalidStateException("Player " + player.getName() + " has already spread epidemic");
         Ship ship = player.getShip();
         Tile[][] tilesMatrix = ship.getTilesMatrix();
         Tile currentTile;
@@ -31,7 +45,7 @@ public class EpidemicState extends AdventureCardState {
                 if (tilesMatrix[i][j] != null && currentCoordinates.isIn(housingTilesCoordinates) && tilesMatrix[i][j].getNumCrew() > 0) {
                     currentTile = tilesMatrix[i][j];
                     // look UP -> check tile type and connection
-                    if (i > 0 && new Coordinates(i-1, j).isIn(housingTilesCoordinates)
+                    if (i > 0 && new Coordinates(i - 1, j).isIn(housingTilesCoordinates)
                             && tilesMatrix[i - 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
@@ -39,7 +53,7 @@ public class EpidemicState extends AdventureCardState {
                         crewMembersLost++;
                     }
                     // look LEFT -> check tile type and connection
-                    else if (j > 0 && new Coordinates(i, j-1).isIn(housingTilesCoordinates)
+                    else if (j > 0 && new Coordinates(i, j - 1).isIn(housingTilesCoordinates)
                             && tilesMatrix[i][j - 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
@@ -48,7 +62,7 @@ public class EpidemicState extends AdventureCardState {
                     }
 
                     // look RIGHT -> check tile type and connection
-                    else if (j < ship.getShipWidth() - 1 && new Coordinates(i, j+1).isIn(housingTilesCoordinates)
+                    else if (j < ship.getShipWidth() - 1 && new Coordinates(i, j + 1).isIn(housingTilesCoordinates)
                             && tilesMatrix[i][j + 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
@@ -57,7 +71,7 @@ public class EpidemicState extends AdventureCardState {
                     }
 
                     // look DOWN -> check tile type and connection
-                    else if (i < ship.getShipHeight() - 1 && new Coordinates(i+1, j).isIn(housingTilesCoordinates)
+                    else if (i < ship.getShipHeight() - 1 && new Coordinates(i + 1, j).isIn(housingTilesCoordinates)
                             && tilesMatrix[i + 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
@@ -70,14 +84,21 @@ public class EpidemicState extends AdventureCardState {
         }
         played.set(sortedPlayers.indexOf(player), 1);
         this.addLog("Player " + player.getName() + " has spread epidemic and he lost " + crewMembersLost + " crew members.");
-        if(!played.contains(0)){
+        if (!played.contains(0)) {
             this.appendLog("The epidemic is finished!");
             triggerNextState();
         }
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderEpidemicState(toDisplay);
     }
 }

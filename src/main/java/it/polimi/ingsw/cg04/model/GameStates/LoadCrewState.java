@@ -17,6 +17,18 @@ public class LoadCrewState extends AdventureCardState {
         super(game);
     }
 
+    /**
+     * Handles the process of loading the crew onto a player's ship. Allows the
+     * player to assign pink and/or brown aliens to specific ship coordinates.
+     *
+     * @param player           The player attempting to load the crew.
+     * @param pinkAlienCoords  The coordinates where the pink alien is to be loaded,
+     *                         or null if no pink alien is being assigned.
+     * @param brownAlienCoords The coordinates where the brown alien is to be loaded,
+     *                         or null if no brown alien is being assigned.
+     * @throws InvalidStateException If the action is performed by a player out of turn.
+     */
+    @Override
     public void loadCrew(Player player, Coordinates pinkAlienCoords, Coordinates brownAlienCoords) throws InvalidStateException {
         if (sortedPlayers.get(currPlayerIdx).equals(player)) {
 
@@ -36,7 +48,7 @@ public class LoadCrewState extends AdventureCardState {
 
             currPlayerIdx++;
 
-            // when all player loaded their ships the flight can begin
+            // when all player loaded their ships, the flight can begin
             if (currPlayerIdx == sortedPlayers.size()) {
                 this.addLog("All the players loaded the crew. It's time to start!");
                 triggerNextState();
@@ -47,8 +59,15 @@ public class LoadCrewState extends AdventureCardState {
         }
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderLoadCrewState(toDisplay);
     }
 }

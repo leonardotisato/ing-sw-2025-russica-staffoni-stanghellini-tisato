@@ -1075,7 +1075,7 @@ public class TUI extends View {
                             stringBuilder.append("You're the worst player for this challenge! Shot ").append(currShotIdx).append(" is coming, roll the dice to discover its direction").append("\n");
                             break;
                         case F_PROVIDE_BATTERY:
-                            stringBuilder.append("You can defend your ship! Send a bettery to destroy the shot").append("\n");
+                            stringBuilder.append("You can defend your ship! Send a battery to destroy the shot").append("\n");
                             break;
                         case F_CORRECT_SHIP:
                             stringBuilder.append("You've been hit! Fix your ship by removing tiles until it becomes legal.").append("\n");

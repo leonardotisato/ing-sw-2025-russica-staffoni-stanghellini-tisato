@@ -50,10 +50,27 @@ public class SlaversState extends AdventureCardState {
         playerStates.set(0, ACTIVATE_CANNONS);
     }
 
+    /**
+     * Retrieves the current player states.
+     *
+     * @return a list of integers representing the states of the players.
+     */
     public List<Integer> getPlayerStates() {
         return playerStates;
     }
 
+    /**
+     * Allows the specified player to decide whether to accept or decline a reward
+     * after defeating an opponent, provided the game state allows this action.
+     * If the player accepts the reward, their in-game credits and position are
+     * updated.
+     *
+     * @param player       the player who is deciding whether to accept the reward
+     * @param acceptReward true if the player accepts the reward, false if they decline
+     * @throws InvalidStateException if the player is not in a valid state to receive the reward,
+     *                               or if the action is not allowed
+     */
+    @Override
     public void getReward(Player player, boolean acceptReward) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -63,7 +80,7 @@ public class SlaversState extends AdventureCardState {
                         .filter(i -> i != playerIdx)
                         .allMatch(i -> playerStates.get(i) == DONE)) {
             if (acceptReward) {
-                // give reward to winner
+                // give reward to the winner
                 player.updateCredits(reward);
                 player.move(-delta);
                 playerStates.set(playerIdx, DONE);
@@ -74,7 +91,7 @@ public class SlaversState extends AdventureCardState {
                 addLog("Player " + player.getName() + " won against the slavers, but declined the reward.");
             }
 
-            // check if every one is done
+            // check if everyone is done
             if (isAllDone(playerStates)) {
                 // transition to next adventure card
                 triggerNextState();
@@ -85,6 +102,16 @@ public class SlaversState extends AdventureCardState {
 
     }
 
+    /**
+     * Compares the firepower of the given player with the opponent's firepower and updates
+     * the game state accordingly based on the comparison result.
+     *
+     * @param player        the player whose firepower is being compared
+     * @param batteries     a list of battery coordinates to be used by the player; can be null
+     * @param doubleCannons a list of double cannon coordinates to be used by the player; can be null
+     * @throws InvalidStateException if the action is not allowed for the given player in their current state
+     */
+    @Override
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
@@ -111,7 +138,7 @@ public class SlaversState extends AdventureCardState {
                 }
             }
 
-            // now check if player defeated the opponent
+            // now check if the player defeated the opponent
 
             // player has lost
             if (firePower < opponentFirePower) {
@@ -126,7 +153,7 @@ public class SlaversState extends AdventureCardState {
                 }
             }
 
-            // tie, player does not get reward and simply end his turn
+            // tie, the player does not get reward and simply end his turn
             if (firePower == opponentFirePower) {
                 playerStates.set(playerIdx, DONE);
                 this.addLog("Player " + player.getName() + " drew against the slavers!");
@@ -156,7 +183,7 @@ public class SlaversState extends AdventureCardState {
                 }
             }
 
-            // check if every one is done
+            // check if everyone is done
             if (isAllDone(playerStates)) {
                 // transition to next adventure card
                 triggerNextState();
@@ -166,6 +193,18 @@ public class SlaversState extends AdventureCardState {
         }
     }
 
+
+    /**
+     * Removes a specified number of crew members from a player's ship during the "Remove Crew" game state.
+     * Depending on the player's actions, this method either removes the crew as indicated or throws an
+     * exception if the required conditions are not met. The game state is updated after the operation.
+     *
+     * @param player             the player who is removing crew members
+     * @param coordinates        a list of coordinates specifying the tiles from which to remove crew members
+     * @param numCrewMembersLost a list of integers indicating the number of crew members to be removed from each corresponding tile
+     * @throws InvalidStateException if the player is not in a valid state to perform this action, or if the number of crew members provided is insufficient
+     */
+    @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
 
@@ -200,7 +239,7 @@ public class SlaversState extends AdventureCardState {
                 return;
             }
 
-            // check that total sacrificed is <= to crewLost
+            // check that the total sacrificed is <= to crewLost
             assert numCrewMembersLost != null;
             int totalCrewMembers = numCrewMembersLost.stream().mapToInt(Integer::intValue).sum();
             if (totalCrewMembers < crewLost) {
@@ -215,10 +254,10 @@ public class SlaversState extends AdventureCardState {
             }
             this.appendLog("Player " + player.getName() + " removed the crew members.");
 
-            // player lost crew and he is done for the adventure
+            // the player lost crew, and he is done for the adventure
             playerStates.set(playerIdx, DONE);
 
-            // check if every one is done
+            // check if everyone is done
             if (isAllDone(playerStates)) {
                 // transition to next adventure card
                 triggerNextState();
@@ -233,6 +272,12 @@ public class SlaversState extends AdventureCardState {
         this.opponentFirePower = val;
     }
 
+    /**
+     * Checks if all elements in the provided list are equal to the DONE value.
+     *
+     * @param list the list of integers to check
+     * @return true if all elements in the list are equal to DONE, false otherwise
+     */
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {
             if (integer != DONE) {
@@ -242,8 +287,15 @@ public class SlaversState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderSlaversState(toDisplay);
     }
 }

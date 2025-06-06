@@ -107,7 +107,7 @@ public class WarZoneState extends AdventureCardState {
      * if specific conditions related to the worst player's state are met.
      */
     private void triggerNextRound() {
-        if(played.get(worstPlayerIdx) == WILL_FIGHT && worstPlayerState == F_DONE) {
+        if (played.get(worstPlayerIdx) == WILL_FIGHT && worstPlayerState == F_DONE) {
             rolled = false;
             currShotIdx++;
 
@@ -126,14 +126,13 @@ public class WarZoneState extends AdventureCardState {
      * have completed their actions for the current penalty.
      */
     private void triggerNextPenalty() {
-        if(isAllDone(played)) {
+        if (isAllDone(played)) {
             penaltyIdx++;
             worstPlayerIdx = 0;
             currPlayerIdx = 0;
-            if(penaltyIdx >= 3) {
+            if (penaltyIdx >= 3) {
                 triggerNextState();
-            }
-            else {
+            } else {
                 played.replaceAll(ignored -> INIT);
                 this.appendLog("New WarZone round! Round number: " + (penaltyIdx + 1));
             }
@@ -151,13 +150,13 @@ public class WarZoneState extends AdventureCardState {
     @Override
     public void countCrewMembers(Player player) throws InvalidStateException {
         if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())) {
-            if(player.getGame().getSortedPlayers().size() == 1) {
+            if (player.getGame().getSortedPlayers().size() == 1) {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();
             } else {
                 for (int i = 0; i < sortedPlayers.size(); i++) {
                     crewSize.add(sortedPlayers.get(i).getShip().getNumCrew());
-                    if(i > 0) {
+                    if (i > 0) {
                         this.appendLog("Player " + sortedPlayers.get(i).getName() + " ha " + crewSize.get(i) + " membri dell'equipaggio.");
                     } else {
                         this.addLog("Player " + sortedPlayers.get(i).getName() + " ha " + crewSize.get(i) + " membri dell'equipaggio.");
@@ -195,8 +194,8 @@ public class WarZoneState extends AdventureCardState {
      * Compares the firepower of the current player against others in the game and determines
      * outcomes based on penalties described in the current game state.
      *
-     * @param player the current player performing the firepower comparison.
-     * @param batteries a list of battery coordinates provided by the player; used to activate double cannons.
+     * @param player        the current player performing the firepower comparison.
+     * @param batteries     a list of battery coordinates provided by the player; used to activate double cannons.
      * @param doubleCannons a list of double cannon coordinates provided by the player; used to calculate additional firepower.
      * @throws InvalidStateException if it is not the player's turn or the player performs an invalid action in the current state.
      */
@@ -204,8 +203,8 @@ public class WarZoneState extends AdventureCardState {
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         Ship ship = player.getShip();
 
-        if (card.getParameterCheck().get(penaltyIdx).equals("CANNONS") &&  player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
-            if(player.getGame().getSortedPlayers().size() == 1) {
+        if (card.getParameterCheck().get(penaltyIdx).equals("CANNONS") && player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
+            if (player.getGame().getSortedPlayers().size() == 1) {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();
             } else {
@@ -260,8 +259,7 @@ public class WarZoneState extends AdventureCardState {
                     }
                 }
             }
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -270,15 +268,15 @@ public class WarZoneState extends AdventureCardState {
      * Compares the propulsion power of the current player against others in the game and determines
      * outcomes based on penalties described in the current game state.
      *
-     * @param player the player performing the action.
-     * @param coordinates a list of coordinates indicating the positions of the batteries used by the player.
+     * @param player        the player performing the action.
+     * @param coordinates   a list of coordinates indicating the positions of the batteries used by the player.
      * @param usedBatteries a list of integers representing the number of batteries utilized for each battery storage.
      * @throws InvalidStateException if it is not the player's turn or the player performs an invalid action in the current game state.
      */
     @Override
     public void usePropulsors(Player player, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
         if (card.getParameterCheck().get(penaltyIdx).equals("PROPULSORS") && player.getName().equals(sortedPlayers.get(currPlayerIdx).getName())) {
-            if(player.getGame().getSortedPlayers().size() == 1) {
+            if (player.getGame().getSortedPlayers().size() == 1) {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();
             } else {
@@ -312,8 +310,7 @@ public class WarZoneState extends AdventureCardState {
                     }
                 }
             }
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -321,22 +318,22 @@ public class WarZoneState extends AdventureCardState {
     /**
      * Removes a specified number of crew members from the player's ship based on the provided coordinates.
      *
-     * @param player the player performing the action to remove crew members.
-     * @param coordinates a list of coordinates indicating the positions on the ship where crew members are removed.
+     * @param player             the player performing the action to remove crew members.
+     * @param coordinates        a list of coordinates indicating the positions on the ship where crew members are removed.
      * @param numCrewMembersLost a list of integers representing the number of crew members being removed at each coordinate.
      * @throws InvalidStateException if the action is invalid for the current game state, if the player is not the worst player, or if the number of crew members removed does not match the penalty requirements.
      */
     @Override
     public void removeCrew(Player player, List<Coordinates> coordinates, List<Integer> numCrewMembersLost) throws InvalidStateException {
-        if(coordinates == null && numCrewMembersLost == null) {
+        if (coordinates == null && numCrewMembersLost == null) {
             throw new InvalidStateException(player.getName() + " removed uncorrectly the crew members. Try again.");
         }
-        if (played.get(worstPlayerIdx).equals(WORST) &&  player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
+        if (played.get(worstPlayerIdx).equals(WORST) && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
             int crewremoved = 0;
             for (Integer integer : numCrewMembersLost) {
                 crewremoved += integer;
             }
-            if(crewremoved != card.getLostMembers()) {
+            if (crewremoved != card.getLostMembers()) {
                 throw new InvalidStateException(player.getName() + " removed uncorrectly the crew members. Try again.");
             }
 
@@ -347,8 +344,7 @@ public class WarZoneState extends AdventureCardState {
             this.addLog("Player " + player.getName() + " ha rimosso i membri dall'equipaggio.");
             played.set(worstPlayerIdx, DONE);
             triggerNextPenalty();
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -358,8 +354,8 @@ public class WarZoneState extends AdventureCardState {
      * to neutralize an attack with a shield or take a hit if no battery is used.
      *
      * @param player the player attempting the battery selection.
-     * @param x the x-coordinate of a battery on the ship or -1 if no battery is used.
-     * @param y the y-coordinate of a battery on the ship or -1 if no battery is used.
+     * @param x      the x-coordinate of a battery on the ship or -1 if no battery is used.
+     * @param y      the y-coordinate of a battery on the ship or -1 if no battery is used.
      * @throws InvalidStateException if it is not the turn of the specified player or the action is invalid in the current game state.
      */
     @Override
@@ -372,8 +368,7 @@ public class WarZoneState extends AdventureCardState {
                 if (!player.getShip().isShipLegal()) {
                     this.addLog("Player " + player.getName() + " has been hit and he should fix his ship!");
                     worstPlayerState = F_CORRECT_SHIP;
-                }
-                else {
+                } else {
                     this.addLog("Player " + player.getName() + " has been hit but his ship is still legal!");
                     worstPlayerState = F_DONE;
                     triggerNextRound();
@@ -384,8 +379,7 @@ public class WarZoneState extends AdventureCardState {
                 worstPlayerState = F_DONE;
                 triggerNextRound();
             }
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -395,7 +389,7 @@ public class WarZoneState extends AdventureCardState {
      * ensuring the ship becomes legal. If the ship is successfully fixed, the
      * player's turn for this round is marked as done. .
      *
-     * @param player the player attempting to fix their ship.
+     * @param player          the player attempting to fix their ship.
      * @param coordinatesList a list of coordinates representing the tiles on the ship to be removed.
      * @throws InvalidStateException if it's not the player's turn, the action is not valid in the current state, or the
      *                               ship remains in an illegal state after removing tiles.
@@ -412,12 +406,10 @@ public class WarZoneState extends AdventureCardState {
                 this.addLog("Player: " + player.getName() + "'s ship was fixed!");
                 worstPlayerState = F_DONE;
                 triggerNextRound();
-            }
-            else {
+            } else {
                 this.addLog("Player: " + player.getName() + "'s ship is still illegal! Fix it with fixShip!");
             }
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -497,8 +489,7 @@ public class WarZoneState extends AdventureCardState {
                 this.appendLog("Player: " + player.getName() + " can use a battery to save his ship!");
                 worstPlayerState = F_PROVIDE_BATTERY;
             }
-        }
-        else {
+        } else {
             throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
         }
     }
@@ -517,8 +508,15 @@ public class WarZoneState extends AdventureCardState {
         return false;
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderWarZoneState(toDisplay);
     }
 }

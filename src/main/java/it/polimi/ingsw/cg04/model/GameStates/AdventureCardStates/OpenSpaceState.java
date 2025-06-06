@@ -5,27 +5,29 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
-import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
-
-import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
-import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public class OpenSpaceState extends AdventureCardState {
     private final Map<Player, Integer> playerDelta = new HashMap<>();
-    ;
 
     public OpenSpaceState(Game game) {
         super(game);
     }
 
+    /**
+     * Allows a player to use their propulsors to move forward in open space. The method validates
+     * whether it is the player's turn, adjusts the ship's batteries, calculates the propulsion
+     * power, and updates the player's position.
+     *
+     * @param p the player attempting to use their propulsors
+     * @param coordinates a list of coordinate positions where batteries are removed from the player's ship
+     * @param usedBatteries a list of batteries used for propulsion at corresponding coordinate positions
+     * @throws InvalidStateException if the player attempts to play out of turn
+     */
     @Override
     public void usePropulsors(Player p, List<Coordinates> coordinates, List<Integer> usedBatteries) throws InvalidStateException {
         if (!p.equals(sortedPlayers.get(currPlayerIdx)))
@@ -44,6 +46,9 @@ public class OpenSpaceState extends AdventureCardState {
         }
     }
 
+    /**
+     * Flags players who have no propulsion power in open space, eliminates them from the game and logs their removal.
+     */
     private void flagNoPowerOpenSpace() {
         for (Player p : playerDelta.keySet()) {
             if (playerDelta.get(p) == 0) {
@@ -56,6 +61,13 @@ public class OpenSpaceState extends AdventureCardState {
         playerDelta.clear();
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
     public void updateView (View view, Game toDisplay) throws IOException {
         view.renderOpenSpaceState(toDisplay);

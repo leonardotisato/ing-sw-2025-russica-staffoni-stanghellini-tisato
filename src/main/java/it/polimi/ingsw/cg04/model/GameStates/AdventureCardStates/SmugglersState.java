@@ -24,6 +24,16 @@ public class SmugglersState extends AdventureCardState {
         super(game);
     }
 
+    /**
+     * Compares the firepower of the given player with the opponent's firepower and updates
+     * the game state accordingly based on the comparison result.
+     *
+     * @param player        the player whose firepower is being compared
+     * @param batteries     a list of battery coordinates to be used by the player; can be null
+     * @param doubleCannons a list of double cannon coordinates to be used by the player; can be null
+     * @throws InvalidStateException if the action is not allowed for the given player in their current state
+     */
+    @Override
     public void compareFirePower(Player player, List<Coordinates> batteries, List<Coordinates> doubleCannons) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
         Ship ship = player.getShip();
@@ -49,7 +59,7 @@ public class SmugglersState extends AdventureCardState {
                     }
                 }
             }
-            if(batteries != null && doubleCannons != null) {
+            if (batteries != null && doubleCannons != null) {
                 this.addLog("Player " + playerIdx + " increased his fire power to " + firePower + " by using " + batteries.size() + "batteries");
             }
             // now check if player defeated the opponent
@@ -80,15 +90,16 @@ public class SmugglersState extends AdventureCardState {
         }
     }
 
-    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
+    @Override
+    public void handleBoxes(Player player, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
         int playerIdx = sortedPlayers.indexOf(player);
-        if (played.get(playerIdx) != HANDLE_BOXES) throw new InvalidStateException("Player " + player.getName() + " can't handle boxes");
+        if (played.get(playerIdx) != HANDLE_BOXES)
+            throw new InvalidStateException("Player " + player.getName() + " can't handle boxes");
         checkRightBoxesAfterReward(player, coordinates, boxes);
-        if (coordinates == null && boxes == null){
+        if (coordinates == null && boxes == null) {
             this.addLog("Player " + player.getName() + " decided not to lose flight days!");
             played.set(playerIdx, DONE);
-        }
-        else {
+        } else {
             for (int i = 0; i < coordinates.size(); i++) {
                 player.getShip().setBoxes(boxes.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
             }
@@ -98,13 +109,14 @@ public class SmugglersState extends AdventureCardState {
         }
         if (isAllDone(played)) {
             triggerNextState();
-        };
+        }
+        ;
     }
 
-    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType,Integer>> boxes) throws InvalidStateException {
+    public boolean checkRightBoxesAfterReward(Player player, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
         //the player doesn't want to play this card
-        if(coordinates == null && boxes == null) return true;
-        Map<BoxType,Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
+        if (coordinates == null && boxes == null) return true;
+        Map<BoxType, Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
         for (int i = 0; i < coordinates.size(); i++) {
             Coordinates coord = coordinates.get(i);
             Map<BoxType, Integer> boxesAtCoord = boxes.get(i);
@@ -123,8 +135,7 @@ public class SmugglersState extends AdventureCardState {
                 if (count > player.getShip().getBoxes(type) + card.getObtainedResourcesByType(type)) {
                     throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
-            }
-            else {
+            } else {
                 //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
                     throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
@@ -134,6 +145,12 @@ public class SmugglersState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Checks if all elements in the provided list are equal to the DONE value.
+     *
+     * @param list the list of integers to check
+     * @return true if all elements in the list are equal to DONE, false otherwise
+     */
     private boolean isAllDone(List<Integer> list) {
         for (Integer integer : list) {
             if (integer != DONE) {
@@ -143,8 +160,15 @@ public class SmugglersState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderSmugglersState(toDisplay);
     }
 }

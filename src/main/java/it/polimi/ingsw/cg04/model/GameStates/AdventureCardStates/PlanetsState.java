@@ -21,23 +21,51 @@ public class PlanetsState extends AdventureCardState {
         this.chosenPlanets = new HashMap<>();
     }
 
+    /**
+     * Retrieves the map of players and their corresponding chosen planets.
+     *
+     * @return a map where each key is a {@code Player} object and the value is an {@code Integer}
+     *         representing the chosen planet index for that player.
+     */
+    @Override
     public Map<Player, Integer> getChosenPlanets() {
         return chosenPlanets;
     }
 
+    /**
+     * Checks whether all the planets have been chosen in the current state.
+     *
+     * @return a {@code Boolean} indicating whether all planets are chosen. Returns {@code true} if all
+     *         planets have been selected, otherwise {@code false}.
+     */
+    @Override
     public Boolean getAllPlanetsChosen() {
         return allPlanetsChosen;
     }
 
+    /**
+     * Sets the state indicating whether all planets have been chosen.
+     *
+     * @param allPlanetsChosen a {@code Boolean} value representing whether all planets
+     *                         are marked as chosen. Pass {@code true} if all planets are chosen,
+     *                         otherwise {@code false}.
+     */
+    @Override
     public void setAllPlanetsChosen(Boolean allPlanetsChosen) {
         this.allPlanetsChosen = allPlanetsChosen;
     }
 
+    /**
+     * Retrieves the list of current players in the game state.
+     *
+     * @return a list of {@code Player} objects representing the players currently in the game state.
+     */
     @Override
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }
 
+    // todo: delete me??
     public boolean allPlanetsChosen() {
         return allPlanetsChosen;
     }
@@ -104,8 +132,15 @@ public class PlanetsState extends AdventureCardState {
         return true;
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderPlanetsState(toDisplay);
     }
 }

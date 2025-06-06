@@ -6,13 +6,8 @@ import it.polimi.ingsw.cg04.model.GameStates.FlightState;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
-import it.polimi.ingsw.cg04.model.utils.TuiDrawer;
 
 import java.util.*;
-import java.util.stream.Stream;
-
-import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.buildRightPanel;
-import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.toLines;
 
 public abstract class AdventureCardState extends GameState {
     protected List<Player> sortedPlayers;
@@ -98,6 +93,7 @@ public abstract class AdventureCardState extends GameState {
         this.played = played;
     }
 
+    // todo: handle this unused method
     public void setCurrPlayerIdx(Integer currPlayerIdx) {
         this.currPlayerIdx = currPlayerIdx;
     }
@@ -106,6 +102,7 @@ public abstract class AdventureCardState extends GameState {
         this.card = card;
     }
 
+    // todo: handle this unused method
     public void setContext(Game context) {
         this.context = context;
     }
@@ -118,18 +115,22 @@ public abstract class AdventureCardState extends GameState {
         return null;
     }
 
+    // todo: handle this unused method
     public Boolean getAllPlanetsChosen() {
         return false;
     }
 
+    // todo: handle this unused method
     public void setAllPlanetsChosen(Boolean allPlanetsChosen) {
         return;
     }
 
+    // todo: handle this unused method
     public void setPlayerToBeMovedIdx(Integer playerToBeMovedIdx) {
         return;
     }
 
+    // todo: handle this unused method
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }

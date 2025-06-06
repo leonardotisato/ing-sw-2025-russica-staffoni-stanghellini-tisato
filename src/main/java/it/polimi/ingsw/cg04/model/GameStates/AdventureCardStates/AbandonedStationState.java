@@ -4,7 +4,6 @@ import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
@@ -33,12 +32,12 @@ public class AbandonedStationState extends AdventureCardState {
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
-        //newTotBoxes contains the updated amount of boxes type-wise
+        //newTotBoxes contains the updated number of boxes type-wise
         for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
             BoxType type = entry.getKey();
             Integer count = entry.getValue();
             if (card.getObtainedResources().containsKey(type)) {
-                //number of boxes of a specific type should be < old number (type) + reward(type)
+                // the number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getObtainedResourcesByType(type)) {
                     throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
@@ -74,8 +73,15 @@ public class AbandonedStationState extends AdventureCardState {
         if (!played.contains(0)) triggerNextState();
     }
 
+    /**
+     * Updates the given view with the current state of the provided game object.
+     *
+     * @param view      the view instance that should be updated
+     * @param toDisplay the game object containing the state to render on the view
+     * @throws IOException if an input or output exception occurs during the view update
+     */
     @Override
-    public void updateView (View view, Game toDisplay) throws IOException {
+    public void updateView(View view, Game toDisplay) throws IOException {
         view.renderAbandonedStationState(toDisplay);
     }
 

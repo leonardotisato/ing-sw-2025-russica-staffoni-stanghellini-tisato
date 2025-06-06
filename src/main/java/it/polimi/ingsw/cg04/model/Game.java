@@ -500,6 +500,7 @@ public class Game implements Serializable {
         }
     }
 
+    // todo: questo viene usato nel vecchio pattern, usages solo in tests vecchi...
     public String render(String nickname){
         return this.gameState.render(nickname);
     }
