@@ -20,5 +20,10 @@ public interface VirtualClient {
      */
     void addLogs(List<String> logs);
 
+    /**
+     * Sends a list of games that the client can join.
+     *
+     * @param infos the list of joinable games, each represented by Game.GameInfo
+     */
     void sendJoinableGames(List<Game.GameInfo> infos);
 }
