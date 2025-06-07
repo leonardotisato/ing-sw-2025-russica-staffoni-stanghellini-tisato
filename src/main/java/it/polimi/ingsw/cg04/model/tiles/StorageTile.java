@@ -21,7 +21,7 @@ public class StorageTile extends Tile {
     }
 
     @Override
-    String getName() {
+    public String getName() {
         if (isSpecialStorageTile) {
             return "S. Storage";
         } else {
@@ -30,7 +30,7 @@ public class StorageTile extends Tile {
     }
 
     @Override
-    String getTileColor() {
+    public String getTileColor() {
         if (isSpecialStorageTile) {
             return "\u001B[31m";
         } else {

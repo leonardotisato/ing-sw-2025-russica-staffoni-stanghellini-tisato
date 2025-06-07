@@ -96,14 +96,14 @@ public abstract class Tile implements Serializable {
     /**
      * @return the short name of the tile as a String.
      */
-    String getName() {
+    public String getName() {
         return shortName;
     }
 
     /**
      * @return the color of the tile as a String.
      */
-    String getTileColor() {
+    public String getTileColor() {
         return tileColor;
     }
 
