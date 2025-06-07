@@ -20,6 +20,7 @@ import org.jline.reader.*;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -88,7 +89,7 @@ public class TUI extends View {
         } catch (NullPointerException | IOException e) {
             System.out.println("Game not found");
             e.printStackTrace();
-            }
+        }
     }
 
     @Override
@@ -441,6 +442,11 @@ public class TUI extends View {
     }
 
 
+    // added for testing purposes
+    public String getRendered() {
+        return rendered;
+    }
+
     // render lobbyState
     @Override
     public void renderLobbyState(Game toDisplay) {
@@ -753,18 +759,16 @@ public class TUI extends View {
         StringBuilder stringBuilder = new StringBuilder(renderAdventureTemplate(toDisplay));
 
         stringBuilder.append("\n".repeat(3));
-        stringBuilder.append("Meteor ").append(currState.getCurrMeteorIdx() + 1).append(" approaching").append(currState.isRolled() ? " from "+ currState.getDiceResult() : "").append("\n");
+        stringBuilder.append("Meteor ").append(currState.getCurrMeteorIdx() + 1).append(" approaching").append(currState.isRolled() ? " from " + currState.getDiceResult() : "").append("\n");
         Player p = toDisplay.getPlayer(nickname);
         if (!currState.isRolled()) {
             stringBuilder.append(currState.getCurrPlayerIdx() == (p.getRanking() - 1) ? "Roll the dices!" : "Wait for " + currState.getSortedPlayers().getFirst().getName() + " to roll the dices!").append("\n");
-        }
-        else{
+        } else {
             if (played.get(currState.getSortedPlayers().indexOf(p)) == PROVIDE_BATTERY) {
                 stringBuilder.append("You're about to be hit by a meteor! Send a chooseBattery to save your ship!");
             } else if (played.get(currState.getSortedPlayers().indexOf(p)) == CORRECT_SHIP) {
                 stringBuilder.append("You've been hit by a meteor! You need to FIX YOUR SHIP!");
-            }
-            else{
+            } else {
                 stringBuilder.append("You're done for this round! Wait for the other players to handle their attacks and fix their ships!");
             }
         }
@@ -828,13 +832,13 @@ public class TUI extends View {
         Player p = toDisplay.getPlayer(nickname);
         int playerIdx = p.getRanking() - 1;
         int playerState = playerStates.get(playerIdx);
-        if (!rolled && currState.isFirstWaitingForShot(p) && !playerStates.contains(WAIT)){
+        if (!rolled && currState.isFirstWaitingForShot(p) && !playerStates.contains(WAIT)) {
             stringBuilder.append("You're the first loser! You must roll the dices").append("\n");
         }
         switch (playerState) {
             case ACTIVATE_CANNONS:
                 List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
-                int totDoubleLasers = (int)lasersCoordinates.stream()
+                int totDoubleLasers = (int) lasersCoordinates.stream()
                         .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
                         .filter(Tile::isDoubleLaser)
                         .count();
@@ -922,7 +926,7 @@ public class TUI extends View {
         switch (playerState) {
             case ACTIVATE_CANNONS:
                 List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
-                int totDoubleLasers = (int)lasersCoordinates.stream()
+                int totDoubleLasers = (int) lasersCoordinates.stream()
                         .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
                         .filter(Tile::isDoubleLaser)
                         .count();
@@ -967,24 +971,21 @@ public class TUI extends View {
         Player p = toDisplay.getPlayer(nickname);
 
         int playerIdx = p.getRanking() - 1;
-        if (played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx == playerIdx){
+        if (played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx == playerIdx) {
             List<Coordinates> lasersCoordinates = p.getShip().getTilesMap().get("LaserTile");
-            int totDoubleLasers = (int)lasersCoordinates.stream()
+            int totDoubleLasers = (int) lasersCoordinates.stream()
                     .map(coord -> p.getShip().getTile(coord.getX(), coord.getY()))
                     .filter(Tile::isDoubleLaser)
                     .count();
             stringBuilder.append("Smugglers are here! Activate your double cannons and try to defeat them!").append("\n");
             stringBuilder.append("Base fire power of your ship: ").append(p.getShip().getBaseFirePower()).append("\n");
             stringBuilder.append("Number of double cannons: ").append(totDoubleLasers).append("\n");
-        }
-        else if(played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx != playerIdx){
+        } else if (played.get(playerIdx) == ACTIVATE_CANNONS && currPlayerIdx != playerIdx) {
             stringBuilder.append("Smugglers are coming! Wait for ").append(sortedPlayers.get(currPlayerIdx).getName()).append(" to combat them.").append("\n");
-        }
-        else if (played.get(playerIdx) == HANDLE_BOXES) {
+        } else if (played.get(playerIdx) == HANDLE_BOXES) {
             stringBuilder.append("You won! Handle your new boxes now if you want.").append("\n");
             stringBuilder.append("Please note that you will lose ").append(card.getDaysLost()).append(" days of flight.").append("\n");
-        }
-        else if (played.get(playerIdx) == DONE){
+        } else if (played.get(playerIdx) == DONE) {
             stringBuilder.append("You're done for this card! Wait for the other players to start the next adventure.").append("\n");
         }
 
@@ -992,7 +993,7 @@ public class TUI extends View {
     }
 
     @Override
-    public void renderStardustState(Game toDisplay){
+    public void renderStardustState(Game toDisplay) {
 
         rendered = renderAdventureTemplate(toDisplay) + "\n".repeat(3) +
                 "Send 'stardust' to solve stardust effect and continue the game." +
@@ -1035,8 +1036,7 @@ public class TUI extends View {
                     stringBuilder.append("It's time to compare fire powers!").append("\n");
                     if (currPlayerIdx == playerIdx) {
                         stringBuilder.append("It's your turn! Send batteries to increase your fire power.").append("\n");
-                    }
-                    else{
+                    } else {
                         stringBuilder.append("Wait for your turn to send batteries to increase your fire power.").append("\n");
                     }
                     break;
@@ -1044,8 +1044,7 @@ public class TUI extends View {
                     stringBuilder.append("It's time to compare propulsion powers!").append("\n");
                     if (currPlayerIdx == playerIdx) {
                         stringBuilder.append("It's your turn! Send batteries to increase your propulsion power.").append("\n");
-                    }
-                    else{
+                    } else {
                         stringBuilder.append("Wait for your turn to send batteries to increase your propulsion power.").append("\n");
                     }
                     break;
@@ -1053,18 +1052,15 @@ public class TUI extends View {
                     stringBuilder.append("It's time to compare the number of crew members!").append("\n");
                     if (currPlayerIdx == playerIdx) {
                         stringBuilder.append("You're the leader, start the challenge!").append("\n");
-                    }
-                    else{
+                    } else {
                         stringBuilder.append("Wait for the leader to start the challenge").append("\n");
                     }
             }
-        }
-        else{
-            if (card.getPenaltyType().get(currPlayerIdx).equals("LOSECREW")){
+        } else {
+            if (card.getPenaltyType().get(currPlayerIdx).equals("LOSECREW")) {
                 if (played.get(playerIdx) == WORST) {
                     stringBuilder.append("You're the worst player for this challenge! Remove ").append(card.getLostMembers()).append(" crew members.").append("\n");
-                }
-                else{
+                } else {
                     stringBuilder.append("You survived this challenge!").append(penaltyIdx == card.getPenaltyType().size() ? " You're done for this warzone! Wait for the next adventure." :
                             " You're done for this challenge! Wait for the next one.").append("\n");
                 }
