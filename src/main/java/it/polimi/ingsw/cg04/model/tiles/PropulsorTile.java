@@ -13,6 +13,10 @@ public class PropulsorTile extends Tile {
         this.tileColor = "\u001B[38;5;220m";
     }
 
+    /**
+     *
+     * @return {@code true} if the propulsor is a double propulsor, {@code false} otherwise.
+     */
     @Override
     public Boolean isDoublePropulsor() {
         return isDoublePropulsor;
@@ -41,6 +45,13 @@ public class PropulsorTile extends Tile {
         }
     }
 
+    /**
+     * updates {@code baseFirePower} attribute in ship
+     *
+     * @param ship player's {@code Ship}
+     * @param x {@code int} coordinate
+     * @param y {@code int} coordinate
+     */
     @Override
     public void place(Ship ship, int x, int y) {
         if(!isDoublePropulsor){

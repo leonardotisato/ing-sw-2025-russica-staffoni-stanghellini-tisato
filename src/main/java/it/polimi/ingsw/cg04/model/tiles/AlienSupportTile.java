@@ -45,18 +45,39 @@ public class AlienSupportTile extends Tile {
         }
     }
 
+    /**
+     *
+     * @return a set of Tile objects representing the adjacent housing tiles.
+     */
+    @Override
     public Set<Tile> getAdjacentHousingTiles() {
         return adjacentHousingTiles;
     }
 
+    /**
+     * Adds a housing tile adjacent to this tile.
+     *
+     * @param tile the Tile object representing the housing tile to be added as adjacent
+     */
+    @Override
     public void addAdjacentHousingTile(Tile tile) {
         adjacentHousingTiles.add(tile);
     }
 
+    /**
+     * Removes the specified adjacent housing tile from the set of housing tiles connected to this tile.
+     *
+     * @param tile the Tile object representing the housing tile to be removed from the adjacency list
+     */
+    @Override
     public void removeAdjacentHousingTile(Tile tile) {
         adjacentHousingTiles.remove(tile);
     }
 
+    /**
+     *
+     * @return the CrewType indicating the supported alien color for this tile
+     */
     @Override
     public CrewType getSupportedAlienColor() {
         return supportedAlienColor;
@@ -72,8 +93,8 @@ public class AlienSupportTile extends Tile {
      * if now that HousingTile hosts an alien no longer supported removes it
      *
      * @param ship player's ship
-     * @param x coordinate
-     * @param y coordinate
+     * @param x    coordinate
+     * @param y    coordinate
      */
     @Override
     public void broken(Ship ship, int x, int y) {
@@ -100,8 +121,8 @@ public class AlienSupportTile extends Tile {
      * add that HousingTile to this tile's list {@code adjacentHousingTile}
      *
      * @param ship player's ship
-     * @param x coordinate
-     * @param y coordinate
+     * @param x    coordinate
+     * @param y    coordinate
      */
     @Override
     public void place(Ship ship, int x, int y) {

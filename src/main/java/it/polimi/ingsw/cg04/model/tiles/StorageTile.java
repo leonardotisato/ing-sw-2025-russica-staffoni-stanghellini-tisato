@@ -18,8 +18,6 @@ public class StorageTile extends Tile {
         boxes.put(BoxType.RED, 0);
         boxes.put(BoxType.YELLOW, 0);
         boxes.put(BoxType.GREEN, 0);
-
-
     }
 
     @Override
@@ -40,33 +38,55 @@ public class StorageTile extends Tile {
         }
     }
 
+    /**
+     *
+     * @return {@code true} if the tile is a special storage tile; {@code false} otherwise.
+     */
     @Override
     public Boolean isSpecialStorageTile() {
         return isSpecialStorageTile;
     }
 
+    // todo: no usages
     public void setSpecialStorageTile(boolean isSpecialStorageTile) {
         this.isSpecialStorageTile = isSpecialStorageTile;
     }
 
+    /**
+     *
+     * @return the maximum number of boxes as an {@code Integer}
+     */
     @Override
     public Integer getMaxBoxes() {
         return maxBoxes;
     }
 
+    // todo: no usages
     public void setMaxBoxes(Integer maxBoxes) {
         this.maxBoxes = maxBoxes;
     }
 
+    /**
+     *
+     * @return a {@code Map} where keys are {@code BoxType} and values are their respective counts as {@code Integer}
+     */
     @Override
     public Map<BoxType, Integer> getBoxes() {
         return boxes;
     }
 
+    // todo: no usages
     public void setBoxes(Map<BoxType, Integer> boxes) {
         this.boxes = boxes;
     }
 
+    /**
+     * Adds a specified number of boxes of a given type to the storage.
+     *
+     * @param boxType the type of box to be added, represented as {@code BoxType}
+     * @param num the number of boxes to be added, represented as an integer
+     * @throws RuntimeException if the operation is illegal
+     */
     @Override
     public void addBox(BoxType boxType, int num) {
         if (!this.isSpecialStorageTile() && boxType == BoxType.RED) {
@@ -80,6 +100,13 @@ public class StorageTile extends Tile {
         boxes.put(boxType, boxes.get(boxType) + num);
     }
 
+    /**
+     * Removes a specified number of boxes of a given type from the storage.
+     *
+     * @param boxType the type of box to be removed, represented as {@code BoxType}
+     * @param num the number of boxes to be removed, represented as an integer
+     * @throws RuntimeException if the operation is illegal
+     */
     @Override
     public void removeBox(BoxType boxType, int num) {
         int totalBoxes = boxes.values().stream().mapToInt(Integer::intValue).sum();

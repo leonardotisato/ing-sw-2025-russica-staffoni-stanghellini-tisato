@@ -7,6 +7,13 @@ import java.util.HashMap;
 
 public class EmptyTile extends Tile {
 
+    /**
+     * Constructs an EmptyTile object with specified row and column coordinates.
+     * Used to render ship's tile matrix
+     *
+     * @param row the row coordinate of the tile
+     * @param column the column coordinate of the tile
+     */
     public EmptyTile(int row, int column) {
         super();
         this.shortName = row + " " + column;
@@ -16,6 +23,12 @@ public class EmptyTile extends Tile {
         }
     }
 
+
+    /**
+     * Constructs an EmptyTile object to serve as bufferTile during ship construction render
+     *
+     * @param index the integer index used to create a unique identifier for the buffer's short name
+     */
     public EmptyTile(int index) {
         super();
         this.shortName = "Buff: " + index;

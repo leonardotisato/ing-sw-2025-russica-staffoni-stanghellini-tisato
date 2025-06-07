@@ -15,6 +15,10 @@ public class LaserTile extends Tile {
         this.tileColor = "\u001B[35m";
     }
 
+    /**
+     *
+     * @return {@code true} if the tile is a double laser, otherwise {@code false}.
+     */
     @Override
     public Boolean isDoubleLaser() {
         return isDoubleLaser;
@@ -34,6 +38,11 @@ public class LaserTile extends Tile {
         this.isDoubleLaser = isDoubleLaser;
     }
 
+    /**
+     * Determines and returns the shooting direction of the laser based on its connections.
+     *
+     * @return the {@code Direction} of the laser's shooting orientation if a GUN connection is found
+     */
     @Override
     public Direction getShootingDirection() {
         for (Direction dir : connections.keySet()) {

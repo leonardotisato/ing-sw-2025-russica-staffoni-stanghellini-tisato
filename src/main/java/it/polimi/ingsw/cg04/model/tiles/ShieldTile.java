@@ -17,15 +17,29 @@ public class ShieldTile extends Tile {
         this.tileColor = "\u001B[34m";
     }
 
+    /**
+     *
+     * @return a set of {@code Direction} enum values representing the protected directions.
+     */
     @Override
     public Set<Direction> getProtectedDirections() {
         return protectedDirections;
     }
 
+    // todo: unused method
     public void setProtectedDirections(Set<Direction> protectedDirections) {
         this.protectedDirections = protectedDirections;
     }
 
+    /**
+     * Rotates the ShieldTile 90 degrees clockwise.
+     *
+     * This method updates the `protectedDirections` set to reflect the new directions
+     * after a 90-degree clockwise rotation.
+     *
+     * The method invokes the superclass implementation to handle
+     * the rotation of the Tile's connections.
+     */
     @Override
     public void rotate90dx() {
 

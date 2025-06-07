@@ -46,6 +46,10 @@ public class HousingTile extends Tile {
         }
     }
 
+    /**
+     *
+     * @return true if this tile is the central tile, false otherwise
+     */
     public Boolean isCentralTile() {
         return isCentralTile;
     }
@@ -55,33 +59,67 @@ public class HousingTile extends Tile {
         this.isCentralTile = isCentralTile;
     }
 
+    /**
+     *
+     * @return the PlayerColor of this housing tile
+     */
     public PlayerColor getColor() {
         return color;
     }
 
+    // todo: no usages
+    /**
+     * Sets the color of this housing tile.
+     *
+     * @param color the PlayerColor to assign to this tile
+     */
     public void setColor(PlayerColor color) {
         this.color = color;
     }
 
+    // todo: no usages
+    @Override
     public void updateSupportedCrewTypes() {
         // if (!isCentralTile || no supports) { supportedCrewType = set(HUMANS)
         // else supportedCrewType can host some aliens...
     }
 
+    @Override
     public void addSupportedCrewType(CrewType crewType) {
         if (crewType == CrewType.HUMAN || !isCentralTile) {
             supportedCrewType.add(crewType);
         }
     }
 
+    /**
+     *
+     * @param crewType the crew type to be removed from the list of supported crew types
+     */
+    @Override
     public void removeSupportedCrewType(CrewType crewType) {
         supportedCrewType.remove(crewType);
     }
 
+    /**
+     *
+     * @return a list of {@code CrewType} representing the crew types this tile can support
+     */
+    @Override
     public List<CrewType> getSupportedCrewType() {
         return supportedCrewType;
     }
 
+    /**
+     * Adds a crew member of the specified type to the housing tile.
+     * Performs validations to ensure the type is supported, and that
+     * the tile has enough capacity for the crew member.
+     *
+     * @param type the {@code CrewType} representing the type of crew member to add.
+     * @throws RuntimeException if the provided {@code type} is null.
+     * @throws RuntimeException if the provided {@code type} is not supported by this tile.
+     * @throws RuntimeException if the housing tile has reached its crew capacity.
+     */
+    @Override
     public void addCrew(CrewType type) {
         if (type == null) {
             throw new RuntimeException("CrewType cannot be null");
@@ -104,14 +142,32 @@ public class HousingTile extends Tile {
 
     }
 
+    /**
+     *
+     * @return the number of crew members as an Integer
+     */
+    @Override
     public Integer getNumCrew() {
         return numCrew;
     }
 
+    /**
+     *
+     * @return the {@code CrewType} representing the currently hosted crew type on this tile.
+     */
+    @Override
     public CrewType getHostedCrewType() {
         return hostedCrewType;
     }
 
+    /**
+     * Removes a crew member from the housing tile.
+     * If this tile no longer contains any crew members after the removal, the hosted crew type is set to null.
+     *
+     * @return the {@code CrewType} of the removed crew member.
+     * @throws RuntimeException if there are no crew members to remove.
+     */
+    @Override
     public CrewType removeCrewMember() {
         if (numCrew <= 0) {
             throw new RuntimeException("Not enough crew members");
@@ -241,6 +297,7 @@ public class HousingTile extends Tile {
         }
     }
 
+    @Override
     void drawContent(StringBuilder sb) {
         StringBuilder housing = new StringBuilder();
 

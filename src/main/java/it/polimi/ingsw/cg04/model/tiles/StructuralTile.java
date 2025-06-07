@@ -6,6 +6,4 @@ public class StructuralTile extends Tile {
         super();
         this.shortName = "Struct.";
     }
-
-
 }

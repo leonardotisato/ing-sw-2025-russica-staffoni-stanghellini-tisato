@@ -65,41 +65,86 @@ public abstract class Tile implements Serializable {
         }
     }
 
+    /**
+     * @return the type of the tile as a String.
+     */
     public String getType() {
         return type;
     }
 
-
+    /**
+     * @return the identifier of the tile as an Integer.
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @return true if the tile was previously in a buffer, false otherwise.
+     */
     public boolean getWasInBuffer() {
         return wasInBuffer;
     }
 
+    /**
+     * Sets the state of the tile indicating that it was previously in a buffer.
+     */
     public void setWasInBuffer() {
         wasInBuffer = true;
     }
 
+    /**
+     * @return the short name of the tile as a String.
+     */
     String getName() {
         return shortName;
     }
 
+    /**
+     * @return the color of the tile as a String.
+     */
     String getTileColor() {
         return tileColor;
     }
 
+    /**
+     * Places this tile on the specified {@link Ship} at the given coordinates.
+     * <p>
+     * This method should be overridden by subclasses to implement specific behavior
+     * for updating the ship's properties or resources when this tile is placed.
+     * </p>
+     *
+     * @param ship the ship on which this tile is to be placed
+     * @param x    the x-coordinate in the ship's tile matrix
+     * @param y    the y-coordinate in the ship's tile matrix
+     */
     public void place(Ship ship, int x, int y) {
         // todo: implement each tile with specific tile-ship attributes updates
     }
 
+    /**
+     * Removes this tile from the specified {@link Ship} at the given coordinates.
+     * <p>
+     * This method should be overridden by subclasses to implement specific behavior
+     * when the tile is broken, such as updating the ship's state or checking for
+     * lost connections.
+     * </p>
+     *
+     * @param ship the ship on which this tile is marked as broken
+     * @param x    the x-coordinate of this tile in the ship's matrix
+     * @param y    the y-coordinate of this tile in the ship's matrix
+     */
     public void broken(Ship ship, int x, int y) {
         // todo: implement in each specific tile
         // todo: count connectors?
     }
 
 
+    /**
+     * Retrieves the rotation value of the tile.
+     *
+     * @return the rotation value as an integer.
+     */
     public int getRotation() {
         return rotation;
     }
@@ -162,14 +207,23 @@ public abstract class Tile implements Serializable {
         return connections.get(dir);
     }
 
-    // return true if the connection between this && otherTile is valid. eg: dir=RIGHT ==> this >--< otherTile
+    /**
+     * Determines whether the connection between this tile and another specified tile is valid
+     * based on the given direction and connection types.
+     *
+     * @param dir       The direction of the connection to validate.
+     * @param otherTile The tile to which this tile is being compared for a valid connection.
+     *                  If null, the connection is considered valid by default.
+     * @return true if the connection is valid, according to the specified direction and the
+     * types of connections on both tiles; false otherwise.
+     */
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
 //        if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
 //            return false;
 //        }
 
-        // if otherTile does not exist the connection is valid
+        // if otherTile does not exist, the connection is valid
         if (otherTile == null) {
             return true;
         }
@@ -235,17 +289,12 @@ public abstract class Tile implements Serializable {
         return null;
     }
 
-    // todo: check if this is ok
     public Integer getNumBatteries() {
         return null;
     }
 
     public void removeBatteries(Integer numBatteries) {
-
-        if (!(this instanceof BatteryTile)) {
-            System.out.println("Illegal Operation!");
-            throw new RuntimeException("Illegal Operation!");
-        }
+        throw new RuntimeException("removeBatteries: Illegal Operation!");
     }
 
     // storageTile methods
@@ -303,7 +352,7 @@ public abstract class Tile implements Serializable {
 
     // housingTile methods
     // this one is tricky... housingUnit can be central, and if so have a specific color
-    // and can host only humans if its central, and host aliens of a specific color only if a alienSupportTile is neighbouring...
+    // and can host only humans if it's central, and host aliens of a specific color only if an alienSupportTile is neighbouring...
     public Boolean isCentralTile() {
         return null;
     }
@@ -327,7 +376,6 @@ public abstract class Tile implements Serializable {
     }
 
     public void addCrew(CrewType crewType) {
-
     }
 
     public CrewType removeCrewMember() {
@@ -338,6 +386,8 @@ public abstract class Tile implements Serializable {
         return null;
     }
 
+
+    // toString methods
 
     @Override
     public String toString() {
@@ -504,7 +554,12 @@ public abstract class Tile implements Serializable {
         sb.append("│ ").append(centerText(getName(), boxWidth - 4)).append(" │").append("\n");
     }
 
-    // this method is overrided where content needs to be displayed
+    /**
+     * Draws the content of the tile onto the provided StringBuilder.
+     *
+     * @param sb the StringBuilder to which the tile's content will be appended
+     */
+    // this method is overridden where content needs to be displayed
     void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("", boxWidth - 4)).append(" │").append("\n");
     }
