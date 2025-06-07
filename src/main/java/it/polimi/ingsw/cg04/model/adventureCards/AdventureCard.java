@@ -23,6 +23,7 @@ public abstract class AdventureCard implements Serializable {
     private int cardLevel;
     @Expose
     private int daysLost;
+
     // @Expose private boolean solved = false;
 
     protected static final int WIDTH = 29;
@@ -30,8 +31,6 @@ public abstract class AdventureCard implements Serializable {
 
     public AdventureCard() {
     }
-
-    //public abstract void solveEffect(Game game);
 
     public String getType() {
         return type;
@@ -88,6 +87,12 @@ public abstract class AdventureCard implements Serializable {
         return;
     }
 
+    /**
+     * Creates the state associated with the adventure card.
+     *
+     * @param game the game instance that provides the context for the adventure card state
+     * @return the newly created instance of {@code AbandonedShipState} which represents the state of the current adventure card
+     */
     public abstract AdventureCardState createState(Game game);
 
     public int getObtainedResourcesByType(BoxType type) {
@@ -114,9 +119,13 @@ public abstract class AdventureCard implements Serializable {
         return null;
     }
 
-    public int getLostGoods() { return 0; }
+    public int getLostGoods() {
+        return 0;
+    }
 
-    public Map<BoxType, Integer> getBoxes() { return null; }
+    public Map<BoxType, Integer> getBoxes() {
+        return null;
+    }
 
     public List<String> getParameterCheck() {
         return null;
@@ -129,6 +138,8 @@ public abstract class AdventureCard implements Serializable {
     public AdventureCardState createGameState(Game game) {
         return null;
     }
+
+    // toString methods
 
     void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("", WIDTH - 4)).append(" │").append("\n");

@@ -18,8 +18,13 @@ public class OpenSpace extends AdventureCard {
         return new OpenSpaceState(game);
     }
 
+    /**
+     * Draws the content of the "OpenSpace" adventure card in a formatted manner.
+     *
+     * @param sb the StringBuilder used to append the formatted content of the card
+     */
     @Override
-    void drawContent(StringBuilder sb){
+    void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("Time to fly!", WIDTH - 4)).append(" │").append("\n");
     }
 }

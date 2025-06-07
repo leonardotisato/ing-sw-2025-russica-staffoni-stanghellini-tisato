@@ -24,20 +24,30 @@ public class Planets extends AdventureCard {
         planetReward = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the list of planet rewards, where each planet reward is
+     * represented as a map associating BoxType with its corresponding integer value.
+     *
+     * @return a list of maps, where each map contains BoxType keys and their associated integer values
+     *         representing the reward for a specific planet.
+     */
     public List<Map<BoxType, Integer>> getPlanetReward() {
         return planetReward;
     }
 
+    // todo: handle unused method
     public void setPlanetReward(List<Map<BoxType, Integer>> planetReward) {
         this.planetReward = planetReward;
     }
 
+    // todo: handle unused method
     public Map<BoxType, Integer> getSinglePlanetReward(int i) {
         return planetReward.get(i);
     }
 
     // potrebbe servire ad esempio per controllare quanti rossi ci sono e se il giocatore può trasportarli?
     // nel dubbio lo tengo per ora
+    // todo: handle unused method
     public int getSinglePlanetRewardByType(int i, BoxType boxType) {
         return planetReward.get(i).get(boxType);
     }
@@ -45,6 +55,7 @@ public class Planets extends AdventureCard {
     public List<Boolean> getIsOccupied() {
         return isOccupied;
     }
+
     public void createListIsOccupied() {
         isOccupied = new ArrayList<>();
         int size = planetReward.size();
@@ -53,20 +64,31 @@ public class Planets extends AdventureCard {
         }
     }
 
-
     @Override
     public AdventureCardState createState(Game game) {
         return new PlanetsState(game);
     }
 
+    /**
+     * Draws the formatted content of the Planets adventure card into the provided StringBuilder.
+     *
+     * @param sb the StringBuilder instance where the formatted card content will be appended
+     */
     @Override
-    void drawContent(StringBuilder sb){
+    void drawContent(StringBuilder sb) {
         for (int i = 0; i < this.planetReward.size(); i++) {
             sb.append("│ ").append(centerText("Planet " + i + " → " + renderPlanetBoxes(i), WIDTH - 4)).append(" │").append("\n");
         }
         sb.append("│ ").append(centerText("Lost flight days: " + this.getDaysLost(), WIDTH - 4)).append(" │").append("\n");
     }
 
+    /**
+     * Renders a formatted string representing the box types and their associated values
+     * for the specified planet index.
+     *
+     * @param planetIdx the index of the planet whose box types and values are to be rendered
+     * @return a string representing contained boxTypes
+     */
     public String renderPlanetBoxes(Integer planetIdx) {
         StringBuilder sb = new StringBuilder();
         Iterator<BoxType> it = planetReward.get(planetIdx).keySet().iterator();

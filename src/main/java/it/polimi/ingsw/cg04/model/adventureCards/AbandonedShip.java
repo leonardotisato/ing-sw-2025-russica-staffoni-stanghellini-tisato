@@ -17,21 +17,49 @@ public class AbandonedShip extends AdventureCard {
         super();
     }
 
-    public Integer getLostMembers() { return lostMembers; }
+    /**
+     *
+     * @return the number of lost crew members as an Integer
+     */
+    @Override
+    public Integer getLostMembers() {
+        return lostMembers;
+    }
+
+    // todo: handle unused method
     public void setLostMembers(int lostMembers) {
         this.lostMembers = lostMembers;
     }
 
-    public Integer getEarnedCredits() { return earnedCredits; }
+    /**
+     *
+     * @return the earned credits as an Integer
+     */
+    @Override
+    public Integer getEarnedCredits() {
+        return earnedCredits;
+    }
+
     public void setEarnedCredits(int earnedCredits) {
         this.earnedCredits = earnedCredits;
     }
 
+    /**
+     * Creates the state associated with the adventure card.
+     *
+     * @param game the game instance that provides the context for the adventure card state
+     * @return the newly created instance of {@code AbandonedShipState} which represents the state of the current adventure card
+     */
     @Override
     public AdventureCardState createState(Game game) {
         return new AbandonedShipState(game);
     }
 
+    /**
+     * Draws the content of the {@code AbandonedShip} card
+     *
+     * @param sb the {@code StringBuilder} to which the content will be appended
+     */
     @Override
     void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("Lost crew: " + this.lostMembers, WIDTH - 4)).append(" │").append("\n");

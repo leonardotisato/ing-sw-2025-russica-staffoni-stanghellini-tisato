@@ -31,6 +31,11 @@ public class Pirates extends AdventureCard {
         attacks = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return the firepower value as an Integer
+     */
+    @Override
     public Integer getFirePower() {
         return firePower;
     }
@@ -40,6 +45,11 @@ public class Pirates extends AdventureCard {
         this.firePower = firePower;
     }
 
+    /**
+     *
+     * @return the earned credits as an Integer
+     */
+    @Override
     public Integer getEarnedCredits() {
         return reward;
     }
@@ -49,14 +59,34 @@ public class Pirates extends AdventureCard {
         this.attacks = new ArrayList<>(attacks);
     }
 
+    /**
+     * Retrieves the direction from the list of directions at the specified index.
+     *
+     * @param i the index of the direction to retrieve
+     * @return the direction corresponding to the provided index
+     */
+    @Override
     public Direction getDirection(int i) {
         return directions.get(i);
     }
 
+    /**
+     * Retrieves the attack from the list of attacks at the specified index.
+     *
+     * @param i the index of the attack to retrieve
+     * @return the attack corresponding to the provided index
+     */
+    @Override
     public Attack getAttack(int i) {
         return attacks.get(i);
     }
 
+    /**
+     * Retrieves the list of attacks.
+     *
+     * @return a List of Attack instances representing the type of attacks available.
+     */
+    @Override
     public List<Attack> getAttacks() {
         return attacks;
     }
@@ -66,8 +96,13 @@ public class Pirates extends AdventureCard {
         return new PiratesState(game);
     }
 
+    /**
+     * Draws the content of the Pirates adventure card into the provided StringBuilder.
+     *
+     * @param sb the StringBuilder instance where the formatted card content will be appended
+     */
     @Override
-    void drawContent(StringBuilder sb){
+    void drawContent(StringBuilder sb) {
         List<String> shots = renderShots();
         for (String shot : shots) {
             sb.append("│ ").append(centerText(shot, WIDTH - 4)).append(" │").append("\n");
@@ -77,7 +112,12 @@ public class Pirates extends AdventureCard {
         sb.append("│ ").append(centerText("Lost flight days: " + this.getDaysLost(), WIDTH - 4)).append(" │").append("\n");
     }
 
-    public List<String> renderShots(){
+    /**
+     * Generates a list of formatted strings representing shots.
+     *
+     * @return a list of strings where each string represents a formatted shot with direction and attack information
+     */
+    public List<String> renderShots() {
         Map<Direction, String> directionToArrow = new HashMap<>();
         directionToArrow.put(Direction.UP, "↓");
         directionToArrow.put(Direction.RIGHT, "←");
@@ -85,7 +125,7 @@ public class Pirates extends AdventureCard {
         directionToArrow.put(Direction.DOWN, "↑");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.getAttacks().size(); i++) {
-            sb.append(directionToArrow.get(directions.get(i)) + " " + attacks.get(i).toString() + " " + directionToArrow.get(directions.get(i))).append("\n");
+            sb.append(directionToArrow.get(directions.get(i))).append(" ").append(attacks.get(i).toString()).append(" ").append(directionToArrow.get(directions.get(i))).append("\n");
         }
         return toLines(sb.toString());
     }

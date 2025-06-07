@@ -17,6 +17,11 @@ public class Stardust extends AdventureCard {
         return new StardustState(game);
     }
 
+    /**
+     * Draws the content of the Stardust adventure card into the provided StringBuilder.
+     *
+     * @param sb the StringBuilder instance where the formatted card content will be appended
+     */
     @Override
     void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("There is a stardust!", WIDTH - 4)).append(" │").append("\n");

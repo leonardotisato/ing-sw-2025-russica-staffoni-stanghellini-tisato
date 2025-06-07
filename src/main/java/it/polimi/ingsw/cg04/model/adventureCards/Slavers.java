@@ -7,7 +7,7 @@ import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState;
 
 import static it.polimi.ingsw.cg04.model.utils.TuiDrawer.centerText;
 
-public class Slavers extends AdventureCard{
+public class Slavers extends AdventureCard {
     @Expose
     private int firePower;
     @Expose
@@ -15,27 +15,51 @@ public class Slavers extends AdventureCard{
     @Expose
     private int creditsEarned;
 
-    public Slavers(){
+    public Slavers() {
         super();
     }
 
+    /**
+     *
+     * @return the firepower value as an Integer
+     */
+    @Override
     public Integer getFirePower() {
         return firePower;
     }
+
+    /**
+     *
+     * @param firePower the integer value representing the firepower to be set
+     */
     public void setFirePower(int firePower) {
         this.firePower = firePower;
     }
 
+    /**
+     *
+     * @return the number of members lost as an Integer
+     */
+    @Override
     public Integer getLostMembers() {
         return membersLost;
     }
+
+    // todo: handle unused method
     public void setMembersLost(int membersLost) {
         this.membersLost = membersLost;
     }
 
+    /**
+     *
+     * @return the earned credits as an Integer
+     */
+    @Override
     public Integer getEarnedCredits() {
         return creditsEarned;
     }
+
+    // todo: handle unused method
     public void setCreditsEarned(int creditsEarned) {
         this.creditsEarned = creditsEarned;
     }
@@ -45,6 +69,11 @@ public class Slavers extends AdventureCard{
         return new SlaversState(game);
     }
 
+    /**
+     * Draws the content of the Slavers adventure card into the provided StringBuilder.
+     *
+     * @param sb the StringBuilder instance where the formatted card content will be appended
+     */
     @Override
     void drawContent(StringBuilder sb) {
         sb.append("│ ").append(centerText("Required fire power: " + this.firePower, WIDTH - 4)).append(" │").append("\n");
