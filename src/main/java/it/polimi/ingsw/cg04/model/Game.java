@@ -594,10 +594,12 @@ public class Game implements Serializable {
     public String flagNoHumans(Player p) {
         String log = "";
         if (!p.getShip().hasEnoughHumans()) {
-            retired.add(p);
-            players.remove(p);
-            p.setRetired(true);
-            log = "Player " + p.getName() + " has been eliminated because he has 0 crew members!";
+            if(!retired.contains(p)) {
+                retired.add(p);
+                players.remove(p);
+                p.setRetired(true);
+                log = "Player " + p.getName() + " has been eliminated because he has 0 crew members!";
+            }
         }
         return log;
     }

@@ -23,7 +23,7 @@ public class PropulsorTile extends Tile {
     }
 
     @Override
-    String getName() {
+    public String getName() {
         if (isDoublePropulsor) {
             return "D. Prop.";
         } else {

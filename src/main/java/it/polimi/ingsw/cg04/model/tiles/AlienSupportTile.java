@@ -28,7 +28,7 @@ public class AlienSupportTile extends Tile {
     }
 
     @Override
-    String getName() {
+    public String getName() {
         if (supportedAlienColor == CrewType.BROWN_ALIEN) {
             return "B. Support";
         } else {
@@ -37,7 +37,7 @@ public class AlienSupportTile extends Tile {
     }
 
     @Override
-    String getTileColor() {
+    public String getTileColor() {
         if (supportedAlienColor == CrewType.BROWN_ALIEN) {
             return "\u001B[33m";
         } else {
