@@ -90,6 +90,13 @@ public class Player implements Serializable {
         return currentCell + (flightBoard.getPathSize() * loopsCompleted);
     }
 
+    /**
+     * Determines and returns the player's ranking based on their position relative
+     * to other players in the game.
+     *
+     * @return the player's ranking as a 1-based integer value. If the player's color
+     *         is not found in the list of sorted players, returns -1.
+     */
     public Integer getRanking() {
         List<Player> sortedPlayers = this.game.getSortedPlayers();
         for (int i = 0; i < sortedPlayers.size(); i++) {
@@ -220,7 +227,6 @@ public class Player implements Serializable {
         heldTile = null;
     }
 
-
     /**
      * Attempts to place the tile currently held by the player at the specified coordinates (x, y).
      * <p>
@@ -245,19 +251,36 @@ public class Player implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @return the {@code Game} object associated with the player.
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     *
+     * @return {@code true} if the player is retired; {@code false} otherwise.
+     */
     public boolean isRetired() {
         return retired;
     }
 
+    /**
+     * Updates the retired status of the player.
+     *
+     * @param retired a boolean flag indicating whether the player is retired.
+     *                {@code true} if the player is retired; {@code false} otherwise.
+     */
     public void setRetired(boolean retired) {
         this.retired = retired;
     }
 
-    // check if the leader lapped player
+    /**
+     *
+     * @return {@code true} if the leader has lapped the player; {@code false} otherwise.
+     */
     public boolean wasLapped() {
         int leaderLoops = game.getPlayer(0).getLoops();
         int leaderCell = game.getPlayer(0).getCurrentCell();

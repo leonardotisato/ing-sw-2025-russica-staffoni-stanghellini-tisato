@@ -216,6 +216,12 @@ public abstract class FlightBoard implements Serializable {
         return 0;
     }
 
+    /**
+     * Creates and returns a deck of adventure cards for the game.
+     *
+     * @param game the game instance for which the adventure cards deck is to be created
+     * @return a list of integers representing the adventure cards deck
+     */
     public List<Integer> createAdventureCardsDeck(Game game) {
         return null;
     }
@@ -230,6 +236,11 @@ public abstract class FlightBoard implements Serializable {
                 '}';
     }
 
+    /**
+     * Executes the draw operation and returns the result as a string.
+     *
+     * @return the string representing the outcome of the draw operation
+     */
     public String draw(){
         return null;
     }

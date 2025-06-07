@@ -96,23 +96,48 @@ public class Ship implements Serializable {
 
     }
 
+    /**
+     *
+     * @return level of the ship
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     *
+     * @return the PlayerColor representing the ship's color
+     */
     public PlayerColor getColor() {
         return this.color;
     }
 
-    // ship structure and tiles management
+    /**
+     * Retrieves the two-dimensional array representing the matrix of tiles.
+     *
+     * @return a 2D array of Tile objects representing the tile matrix.
+     */
     public Tile[][] getTilesMatrix() {
         return tilesMatrix;
     }
 
+    /**
+     *
+     * @return a 2D boolean array representing valid slots where tiles can be placed
+     */
     public boolean[][] getValidSlots() {
         return validSlots;
     }
 
+    /**
+     * Checks if the given slot coordinates are valid within the defined boundaries
+     * and if the slot is marked as valid in the validSlots array.
+     *
+     * @param x the row index of the slot to be checked
+     * @param y the column index of the slot to be checked
+     * @return true if the slot coordinates are within bounds and the slot is valid,
+     *         otherwise false
+     */
     public boolean isSlotValid(int x, int y) {
         if (x < 0 || x >= shipHeight || y < 0 || y >= shipWidth) {
             return false;
@@ -121,18 +146,34 @@ public class Ship implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return the count of broken tiles as an integer.
+     */
     public int getNumBrokenTiles() {
         return numBrokenTiles;
     }
 
+    /**
+     *
+     * @return the width of the ship as an integer
+     */
     public int getShipWidth() {
         return shipWidth;
     }
 
+    /**
+     *
+     * @return the height of the ship as an integer.
+     */
     public int getShipHeight() {
         return shipHeight;
     }
 
+    /**
+     *
+     * @return a map where the keys are tile names as strings, and the values are lists of Coordinates objects.
+     */
     public Map<String, List<Coordinates>> getTilesMap() {
         return tilesMap;
     }
@@ -281,6 +322,11 @@ public class Ship implements Serializable {
         }
     }
 
+    /**
+     * Updates the number of broken tiles by subtracting the specified value.
+     *
+     * @param numBrokenTiles the number of tiles to subtract from the current count of broken tiles
+     */
     public void updateNumBrokenTiles(int numBrokenTiles) {
         this.numBrokenTiles -= numBrokenTiles;
     }
@@ -312,23 +358,47 @@ public class Ship implements Serializable {
         this.numBrokenTiles++;
     }
 
+    /**
+     *
+     * @return a list of Tile objects representing the buffer
+     */
     public List<Tile> getTilesBuffer() {
         return tilesBuffer;
     }
 
+    /**
+     * Adds the specified tile to the tiles buffer.
+     *
+     * @param tile the tile object to be added to the buffer
+     */
     public void addTileInBuffer(Tile tile) {
         tilesBuffer.add(tile);
     }
 
     // ship resources
+
+    /**
+     * @return the number of batteries as an integer
+     */
     public int getNumBatteries() {
         return numBatteries;
     }
 
+    /**
+     *
+     * @param type the type of crew for which to retrieve the count
+     * @return the number of crew members of the specified type
+     */
     public int getNumCrewByType(CrewType type) {
         return crewMap.get(type);
     }
 
+    /**
+     * Retrieves the total number of crew members by summing up the counts
+     * of specific crew types: PINK_ALIEN, BROWN_ALIEN, and HUMAN.
+     *
+     * @return the total number of crew members.
+     */
     public int getNumCrew() {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN) + crewMap.get(CrewType.HUMAN);
     }
@@ -338,10 +408,22 @@ public class Ship implements Serializable {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
 
+    /**
+     * Retrieves a map representing the types of boxes and their corresponding quantities.
+     *
+     * @return a map where the keys are of type BoxType representing the type of box,
+     *         and the values are integers representing the quantity of each box type.
+     */
     public Map<BoxType, Integer> getBoxes() {
         return boxes;
     }
 
+    /**
+     * Retrieves the number of boxes for the specified box type.
+     *
+     * @param type the type of box whose count is to be retrieved
+     * @return the number of boxes of the specified type
+     */
     public int getBoxes(BoxType type) {
         return boxes.get(type);
     }
@@ -406,7 +488,7 @@ public class Ship implements Serializable {
      * @throws RuntimeException if there are no boxes to be removed from {@code ship.boxes}
      */
     public void removeBox(BoxType boxType, int x, int y) {
-        // exception are already in tile methode
+        // exception is already in the tile method
         getTile(x, y).removeBox(boxType, 1);   // remove box from tile's map
 
         if (boxes.get(boxType) <= 0) {
@@ -424,7 +506,7 @@ public class Ship implements Serializable {
      * @param y       column
      */
     public void addBox(BoxType boxType, int x, int y) {
-        // exception are already in tile methode
+        // exception is already in the tile method
         getTile(x, y).addBox(boxType, 1);  // add box to tile's map
 
         boxes.put(boxType, boxes.get(boxType) + 1); // add box to ship's map
@@ -544,6 +626,7 @@ public class Ship implements Serializable {
     }
 
     // todo: handle this unused method
+
     /**
      * adds a single crewMember of type {@code type} to {@code this.crewMap}
      *
@@ -579,26 +662,54 @@ public class Ship implements Serializable {
 
 
     // stats
+
+
+    /**
+     *
+     * @return the number of exposed connectors as an integer.
+     */
     public int getNumExposedConnectors() {
         return numExposedConnectors;
     }
 
+    /**
+     *
+     * @return a list of Direction objects representing the protected directions.
+     */
     public List<Direction> getProtectedDirections() {
         return protectedDirections;
     }
 
+    /**
+     *
+     * @return the base firepower as a double value.
+     */
     public double getBaseFirePower() {
         return baseFirePower;
     }
 
+    /**
+     *
+     * @return the base propulsion power as an integer
+     */
     public int getBasePropulsionPower() {
         return basePropulsionPower;
     }
 
+    /**
+     * Updates the base firepower of the entity by adding the given value to the current base firepower.
+     *
+     * @param i the value to be added to the current base firepower
+     */
     public void updateBaseFirePower(double i) {
         baseFirePower = baseFirePower + i;
     }
 
+    /**
+     * Updates the base propulsion power by adding the specified increment value.
+     *
+     * @param i the value to be added to the current base propulsion power
+     */
     public void updateBasePropulsionPower(int i) {
         basePropulsionPower = basePropulsionPower + i;
     }
@@ -1096,7 +1207,11 @@ public class Ship implements Serializable {
         return false;
     }
 
-    // check that the crew has enough crew members (>0)
+    /**
+     * Checks if the crew has enough human members.
+     *
+     * @return true if the number of human crew members is greater than 0, false otherwise
+     */
     public boolean hasEnoughHumans() {
         return crewMap.get(CrewType.HUMAN) > 0;
     }
@@ -1152,6 +1267,15 @@ public class Ship implements Serializable {
                 '}';
     }
 
+    /**
+     * Generates a string representation of a ship layout. The layout depicts
+     * a grid of tiles where each tile may contain a specific drawable object or
+     * represent an empty area. Each tile's content is displayed as a rectangular
+     * block of characters.
+     *
+     * @return A formatted string representation of the ship's layout grid,
+     *         including all tiles and row/column indices.
+     */
     public String draw() {
         StringBuilder fullShip = new StringBuilder();
         int columnOffset = level == 2 ? 4 : 5;
@@ -1208,6 +1332,15 @@ public class Ship implements Serializable {
         return fullShip.toString();
     }
 
+    /**
+     * Generates a string representation of a ship layout with the buffer. The layout depicts
+     * a grid of tiles where each tile may contain a specific drawable object or
+     * represent an empty area. Each tile's content is displayed as a rectangular
+     * block of characters.
+     *
+     * @return A formatted string representation of the ship's layout grid,
+     *         including all tiles and row/column indices.
+     */
     public String drawWithBuffer() {
         String[] shipLines = draw().split("\n");
 

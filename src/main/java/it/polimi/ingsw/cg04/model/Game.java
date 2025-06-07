@@ -53,8 +53,7 @@ public class Game implements Serializable {
 
         if (level == 1) {
             this.board = new FlightBoardLev1(this);
-        }
-        else if (level == 2) {
+        } else if (level == 2) {
             this.board = new FlightBoardLev2(this);
         }
 
@@ -102,26 +101,53 @@ public class Game implements Serializable {
         this.gameState = new LobbyState(this);
     }
 
+    /**
+     * Sets the listener {@code GamesController} for property change events in the game.
+     *
+     * @param listener the {@code PropertyChangeListener} to be notified of property changes.
+     */
     public void setListener(PropertyChangeListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Notifies the registered listener of a property change event.
+     *
+     * @param evt the {@code PropertyChangeEvent} containing information about the change.
+     */
     public void notifyListener(PropertyChangeEvent evt) {
         listener.propertyChange(evt);
     }
 
+    /**
+     * Checks if the game has started.
+     *
+     * @return {@code true} if the game has started, {@code false} otherwise.
+     */
     public boolean hasStarted() {
         return hasStarted;
     }
 
+    /**
+     * Sets the game's current start status.
+     *
+     * @param hasStarted a boolean indicating if the game has started.
+     *                   {@code true} if the game has started, {@code false} otherwise.
+     */
     public void setHasStarted(boolean hasStarted) {
         this.hasStarted = hasStarted;
     }
 
+    /**
+     * @return the maximum number of players as an integer.
+     */
     public int getMaxPlayers() {
         return maxPlayers;
     }
 
+    /**
+     * @return the identifier of the game as an integer.
+     */
     public int getId() {
         return id;
     }
@@ -230,7 +256,10 @@ public class Game implements Serializable {
         return players.size();
     }
 
-    public List<Player>getRetiredPlayers() {
+    /**
+     * @return a list of {@code Player} objects representing the retired players.
+     */
+    public List<Player> getRetiredPlayers() {
         return retired;
     }
 
@@ -319,40 +348,95 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * @return a list of lists where each inner list represents a specific pre-flight pile
+     * containing integer that represent adventure cards IDs
+     */
     public List<List<Integer>> getPreFlightPiles() {
         return this.preFlightPiles;
     }
 
-    public Map<Integer, AdventureCard> getAdventureCardsMap() { return this.adventureCardsMap; }
+    /**
+     * @return a map where the keys are integers representing card IDs
+     * and the values are {@code AdventureCard} objects.
+     */
+    public Map<Integer, AdventureCard> getAdventureCardsMap() {
+        return this.adventureCardsMap;
+    }
 
-    public List<Integer> getAdventureCardsDeck() { return this.adventureCardsDeck; }
+    /**
+     * @return a list of integers representing the IDs of the adventure cards in the deck.
+     */
+    public List<Integer> getAdventureCardsDeck() {
+        return this.adventureCardsDeck;
+    }
 
+    /**
+     * Retrieves an {@code AdventureCard} by its unique identifier.
+     *
+     * @param id the unique identifier of the adventure card to retrieve.
+     * @return the {@code AdventureCard} associated with the specified ID
+     */
     public AdventureCard getCardById(Integer id) {
         return adventureCardsMap.get(id);
     }
 
+    /**
+     * Retrieves the next adventure card from the deck. If the deck is empty,
+     * the method returns {@code null}. The current adventure card is updated
+     * to the retrieved card before being returned.
+     *
+     * @return the next {@code AdventureCard} from the deck, or {@code null} if the deck is empty.
+     */
     public AdventureCard getNextAdventureCard() {
         if (this.adventureCardsDeck.isEmpty()) return null;
         this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
         return this.currentAdventureCard;
     }
 
+    /**
+     * Retrieves the current adventure card set in the game.
+     *
+     * @return the current {@code AdventureCard} instance
+     */
     public AdventureCard getCurrentAdventureCard() {
         return this.currentAdventureCard;
     }
 
+    /**
+     * Sets the current adventure card for the game.
+     *
+     * @param card the {@code AdventureCard} to set as the current adventure card.
+     */
     public void setCurrentAdventureCard(AdventureCard card) {
         this.currentAdventureCard = card;
     }
 
+    /**
+     * Retrieves a tile from the tiles deck map using the specified ID.
+     *
+     * @param id the unique identifier of the tile to be retrieved
+     * @return the Tile object corresponding to the given ID, or null if no tile is found
+     */
     public Tile getTileById(Integer id) {
         return tilesDeckMap.get(id);
     }
 
+    /**
+     * Retrieves the list of tiles that are currently face up.
+     *
+     * @return a list of integers representing the face-up tiles
+     */
     public List<Integer> getFaceUpTiles() {
         return faceUpTiles;
     }
 
+    /**
+     * Retrieves the map of tiles associated with their respective identifiers.
+     *
+     * @return a map where the key is an integer representing the tile identifier
+     * and the value is the corresponding Tile object
+     */
     public Map<Integer, Tile> getTilesDeckMap() {
         return tilesDeckMap;
     }
@@ -378,6 +462,7 @@ public class Game implements Serializable {
     }
 
     // give end game bonuses
+
     /**
      * Calculates the best ship based on the minimum number of exposed connectors
      * among players who are currently in the flight phase and give bonus to best ships
@@ -427,9 +512,18 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Processes the selling of boxes for active and retired players
+     * and updates their credits accordingly based on the types and
+     * quantities of boxes they have on their ships.
+     * <p>
+     * The method leverages the Player's `getShip()` method to access
+     * the ship's box inventory and the `updateCredits(double)` method
+     * to update the player's credit balance.
+     */
     private void sellBoxes() {
         double delta;
-        for(Player p : players) {
+        for (Player p : players) {
             delta = p.getShip().getBoxes().get(BoxType.RED) * 4 + p.getShip().getBoxes().get(BoxType.YELLOW) * 3
                     + p.getShip().getBoxes().get(BoxType.GREEN) * 2 + p.getShip().getBoxes().get(BoxType.BLUE);
             p.updateCredits(delta);
@@ -442,6 +536,11 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Calculates the total number of lost pieces for each player and updates their credits accordingly.
+     * This method processes all active and retired players, taking into account the broken tiles
+     * and buffered tiles on their respective ships.
+     */
     private void calculateLostPieces() {
         int lostPieces;
         for (Player p : players) {
@@ -454,6 +553,10 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Handles the end-of-game process by performing a series of operations
+     * that finalize the game state and provide game-ending details.
+     */
     public void handleEndGame() {
         this.sellBoxes();
         this.calculateLostPieces();
@@ -461,7 +564,14 @@ public class Game implements Serializable {
         this.calculateBestShip();
     }
 
-    // check no player is lapped, lapped players are removed from players and put only their nick is stored in eliminated
+    /**
+     * Flags and handles the scenario when a player has been lapped during the game.
+     * If the player is lapped, they are marked as retired, removed from the current players list,
+     * and a log message is returned indicating their elimination.
+     *
+     * @param p The player to check for being lapped.
+     * @return A log message indicating the player's elimination if they were lapped, or an empty string otherwise.
+     */
     public String flagLapped(Player p) {
         String log = "";
         if (p.wasLapped()) {
@@ -473,7 +583,14 @@ public class Game implements Serializable {
         return log;
     }
 
-    // check crew is positive
+    /**
+     * Flags a player whose ship does not have enough human crew members,
+     * retires them from the game, removes them from active players,
+     * and returns a log message about the removal.
+     *
+     * @param p the player to check for human crew members
+     * @return a log message indicating the player has been retired due to having no human crew members
+     */
     public String flagNoHumans(Player p) {
         String log = "";
         if (!p.getShip().hasEnoughHumans()) {
@@ -485,30 +602,40 @@ public class Game implements Serializable {
         return log;
     }
 
+    /**
+     * Mark a player as disconnected by removing it from the players list and adding it in the disconnected players
+     *
+     * @param p the player to be disconnected
+     */
     public void disconnect(Player p) {
         disconnected.add(p);
         players.remove(p);
     }
 
-    public void composeNewBoxesMap(String nickname, List<Coordinates> c, List<Map<BoxType,Integer>> newBoxes){
+    public void composeNewBoxesMap(String nickname, List<Coordinates> c, List<Map<BoxType, Integer>> newBoxes) {
         Ship s = getPlayer(nickname).getShip();
         for (Coordinates c1 : s.getTilesMap().get("StorageTile")) {
-            if(!c1.isIn(c)) {
+            if (!c1.isIn(c)) {
                 c.add(c1);
-                newBoxes.add(s.getTile(c1.getX(),c1.getY()).getBoxes());
+                newBoxes.add(s.getTile(c1.getX(), c1.getY()).getBoxes());
             }
         }
     }
 
     // todo: questo viene usato nel vecchio pattern, usages solo in tests vecchi...
-    public String render(String nickname){
+    public String render(String nickname) {
         return this.gameState.render(nickname);
     }
 
+    /**
+     * Create a toString of the ships of all players into a single string.
+     *
+     * @return A string containing the rendered representation of all players' ships.
+     */
     public String renderShips() {
         StringBuilder sb = new StringBuilder();
 
-        for(Player p : players) {
+        for (Player p : players) {
             sb.append(p.getName()).append("'s ship: \n");
             sb.append(p.getShip().draw());
             sb.append("\n");
@@ -517,7 +644,14 @@ public class Game implements Serializable {
         return sb.toString();
     }
 
-    public Game deepCopy()  {
+
+    /**
+     * Creates a deep copy of the current Game object by using serialization.
+     *
+     * @return A new Game object that is a deep copy of the current instance or
+     * null if an error occurs during the deep copy process.
+     */
+    public Game deepCopy() {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -533,6 +667,12 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Retrieves the information about the current game, including game ID, the maximum number of players allowed,
+     * a mapping of players' names to their respective colors, and the game level. Used to provide info about the game to players in preLobby
+     *
+     * @return a GameInfo object containing details about the current game.
+     */
     public GameInfo getGameInfo() {
         Map<String, String> playerWithColor = new HashMap<>();
         for (Player p : players) {
@@ -541,14 +681,18 @@ public class Game implements Serializable {
         return new GameInfo(this.id, this.maxPlayers, playerWithColor, this.level);
     }
 
+    /**
+     * Represents information about a game, including its ID, maximum number of players,
+     * player-color associations, and game level.
+     */
     public record GameInfo(int id, int maxPlayers, Map<String, String> playerWithColor, int gameLevel) implements Serializable {
-        public String gameInfoToColumn (){
+        public String gameInfoToColumn() {
             StringBuilder builder = new StringBuilder();
             builder.append("ID: ").append(id).append("\n");
             builder.append("Level: ").append(gameLevel).append("\n");
             builder.append("Players ").append(playerWithColor.size()).append("/").append(maxPlayers).append("\n");
             for (String s : playerWithColor.keySet()) {
-            builder.append(s).append(": ").append(playerWithColor.get(s)).append("\n");
+                builder.append(s).append(": ").append(playerWithColor.get(s)).append("\n");
             }
             return builder.toString();
         }

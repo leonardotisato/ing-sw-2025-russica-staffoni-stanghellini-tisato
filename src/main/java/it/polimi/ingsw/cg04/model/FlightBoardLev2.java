@@ -32,6 +32,7 @@ public class FlightBoardLev2 extends FlightBoard {
         this.mostBeautifulShipCredits = 4;
     }
 
+    @Override
     public void startTimer() {
 
         System.out.println("Starting timer");
@@ -57,19 +58,22 @@ public class FlightBoardLev2 extends FlightBoard {
         timer.schedule(currentTask, TIMER_DURATION + 5000);
     }
 
+    @Override
     public boolean isTimerExpired() {
         return System.currentTimeMillis() >= timerEndTime;
     }
 
+    @Override
     public int getTimerFlipsUsed() {
         return timerFlipsUsed;
     }
 
+    @Override
     public int getTimerFlipsRemaining() {
         return MAX_FLIPS - timerFlipsUsed;
     }
 
-
+    @Override
     public List<Integer> createAdventureCardsDeck(Game game) {
         List<Integer> adventureCardsDeck = new ArrayList<>();
         game.buildPiles();
@@ -89,6 +93,7 @@ public class FlightBoardLev2 extends FlightBoard {
         return adventureCardsDeck;
     }
 
+    @Override
     public String draw() {
         final int COLS = 9, ROWS = 5;
         final int BOX_INNER = 3;
