@@ -11,11 +11,13 @@ public class CompareCrewAction extends PlayerAction {
         super(nickname);
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException  {
         GameState state = player.getGame().getGameState();
         state.countCrewMembers(player);
         this.addLogs(state.getLogs());
     }
 
+    @Override
     public boolean checkAction(Player player) { return true; }
 }

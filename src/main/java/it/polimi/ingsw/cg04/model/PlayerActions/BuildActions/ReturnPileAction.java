@@ -11,6 +11,7 @@ public class ReturnPileAction extends PlayerAction {
         super(playerNickname);
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.returnPile(player);

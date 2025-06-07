@@ -25,12 +25,14 @@ public class PlanetsAction extends PlayerAction {
         this.boxes = boxes;
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.landToPlanet(player, planetIdx, coordinates, boxes);
         this.addLogs(state.getLogs());
     }
 
+    @Override
     public boolean checkAction(Player player) throws InvalidActionException {
         if (planetIdx == null) return true;
         List<Coordinates> storageCoordinates = player.getShip().getTilesMap().get("StorageTile");

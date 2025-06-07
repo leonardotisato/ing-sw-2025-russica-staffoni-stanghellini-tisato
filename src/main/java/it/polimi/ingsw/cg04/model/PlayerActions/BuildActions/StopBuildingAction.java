@@ -8,7 +8,7 @@ import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 
 public class StopBuildingAction extends PlayerAction {
 
-    public StopBuildingAction(String playerNickname){
+    public StopBuildingAction(String playerNickname) {
         super(playerNickname);
     }
 

@@ -25,22 +25,24 @@ public class RemoveCrewAction extends PlayerAction {
         this.addLogs(state.getLogs());
     }
 
-    public boolean checkAction(Player player) throws InvalidActionException{
+    public boolean checkAction(Player player) throws InvalidActionException {
 
         GameState gameState = player.getGame().getGameState();
 
         // if both null, the player doesn't want to play
         if (coordinates == null && numCrewMembersLost == null) return true;
 
-        //if just one of them is null, it's an error
+        // if just one of them is null, it's an error
         if (coordinates == null || numCrewMembersLost == null) throw new InvalidActionException("Wrong inputs format!");
 
-        //number of crew members lost by the player should not be >= crew members on the ship
+        // the number of crew members lost by the player should not be >= crew members on the ship
         int numberOfCrewLost = numCrewMembersLost.stream().mapToInt(b -> b).sum();
-        if (numberOfCrewLost > player.getShip().getNumCrew()) throw new InvalidActionException("You don't have enough crew members in your ship!");
+        if (numberOfCrewLost > player.getShip().getNumCrew())
+            throw new InvalidActionException("You don't have enough crew members in your ship!");
 
         //mismatch error
-        if (numCrewMembersLost.size() != coordinates.size()) throw new InvalidActionException("numCrewMembersLost size does not match coordinates size!");
+        if (numCrewMembersLost.size() != coordinates.size())
+            throw new InvalidActionException("numCrewMembersLost size does not match coordinates size!");
 
         // check if coordinates are HousingTile and crew in that HousingTile is enough
         for (int i = 0; i < numCrewMembersLost.size(); i++) {

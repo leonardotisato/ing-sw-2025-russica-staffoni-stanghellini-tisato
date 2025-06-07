@@ -11,6 +11,7 @@ public class StardustAction extends PlayerAction {
         super(playerNickname);
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.starDust(player);

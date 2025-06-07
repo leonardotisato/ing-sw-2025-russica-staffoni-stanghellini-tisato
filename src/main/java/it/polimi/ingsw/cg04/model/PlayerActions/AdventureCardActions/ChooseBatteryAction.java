@@ -15,12 +15,14 @@ public class ChooseBatteryAction extends PlayerAction {
         this.y = y;
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.chooseBattery(player, x, y);
         this.addLogs(state.getLogs());
     }
 
+    @Override
     public boolean checkAction(Player player) throws InvalidActionException {
 
         // x=y=-1 means "Dont use batteries"

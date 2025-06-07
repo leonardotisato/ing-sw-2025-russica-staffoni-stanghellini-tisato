@@ -34,8 +34,4 @@ public class SetNicknameAction extends InitAction {
         throw new RuntimeException("Player does not exist");
     }
 
-    @Override
-    public String getPlayerNickname() {
-        return nickname;
-    }
 }

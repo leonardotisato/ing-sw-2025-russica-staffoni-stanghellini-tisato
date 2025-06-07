@@ -12,6 +12,7 @@ public class ReturnTileAction extends PlayerAction {
         super(playerNickname);
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.returnTile(player);
@@ -21,8 +22,10 @@ public class ReturnTileAction extends PlayerAction {
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
         // cant return heldTile if you dont have one
-        if (player.getHeldTile() == null) throw new InvalidActionException("You can't return a tile if you're not holding one");
-        if (player.getHeldTile().getWasInBuffer()) throw new InvalidActionException("You can't return a tile that was in the buffer");
+        if (player.getHeldTile() == null)
+            throw new InvalidActionException("You can't return a tile if you're not holding one");
+        if (player.getHeldTile().getWasInBuffer())
+            throw new InvalidActionException("You can't return a tile that was in the buffer");
         return true;
     }
 }

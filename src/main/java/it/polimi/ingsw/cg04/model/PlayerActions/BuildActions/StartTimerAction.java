@@ -11,6 +11,7 @@ public class StartTimerAction extends PlayerAction {
     public StartTimerAction(String playerNickname) {
         super(playerNickname);
     }
+
     @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
@@ -21,7 +22,8 @@ public class StartTimerAction extends PlayerAction {
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
         if (!player.getGame().getBoard().isTimerExpired()) throw new InvalidActionException("Timer not expired!");
-        if (player.getGame().getBoard().getTimerFlipsRemaining() <= 0) throw new InvalidActionException("No flips remaining!");
+        if (player.getGame().getBoard().getTimerFlipsRemaining() <= 0)
+            throw new InvalidActionException("No flips remaining!");
 
         return true;
     }

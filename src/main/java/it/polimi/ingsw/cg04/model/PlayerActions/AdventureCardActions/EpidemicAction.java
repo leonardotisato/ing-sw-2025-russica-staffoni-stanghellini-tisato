@@ -10,6 +10,7 @@ public class EpidemicAction extends PlayerAction {
         super(nickname);
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.spreadEpidemic(player);

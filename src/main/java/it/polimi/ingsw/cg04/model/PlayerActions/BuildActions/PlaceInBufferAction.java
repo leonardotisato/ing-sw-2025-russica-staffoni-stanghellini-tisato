@@ -1,6 +1,5 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
 
-import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.GameState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
@@ -22,12 +21,12 @@ public class PlaceInBufferAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
-        // check if player is holding a tile
-        if(player.getHeldTile()==null) {
+        // check if the player is holding a tile
+        if (player.getHeldTile() == null) {
             throw new InvalidActionException("You are not holding a tile!");
         }
 
-        // check if buffer is already full
+        // check if the buffer is already full
         if (player.getShip().getTilesBuffer().size() == 2) throw new InvalidActionException("Buffer is full!");
         return true;
     }

@@ -20,6 +20,7 @@ public class FixShipAction extends PlayerAction {
                 .toList();
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         GameState state = player.getGame().getGameState();
         state.fixShip(player, coordinatesList);

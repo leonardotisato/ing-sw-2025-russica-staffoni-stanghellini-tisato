@@ -13,6 +13,7 @@ public class GetRewardsAction extends PlayerAction {
         this.acceptReward = acceptReward;
     }
 
+    @Override
     public void execute(Player player) throws InvalidStateException {
         AdventureCardState state = (AdventureCardState) player.getGame().getGameState();
         state.getReward(player, acceptReward);
@@ -21,7 +22,7 @@ public class GetRewardsAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        // no parameters check?
+        // todo: no parameters check?
         return true;
     }
 }
