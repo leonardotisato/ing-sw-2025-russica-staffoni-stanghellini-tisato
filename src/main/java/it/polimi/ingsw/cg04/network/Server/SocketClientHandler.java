@@ -29,6 +29,12 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         this.connectionChecker.scheduleAtFixedRate(new ConnectionChecker(this.socket), 1, 4, TimeUnit.SECONDS);
     }
 
+    /**
+     * Sends a message to the client through the output stream.
+     * This method synchronizes access to the output stream to ensure thread safety.
+     *
+     * @param message the {@code Message} object to be sent to the client.
+     */
     private void send(Message message) {
         synchronized (outputStream) {
             try {
@@ -41,6 +47,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles incoming messages from a client through an input stream and processes them
+     * based on their type. This method continuously listens for messages as long as the
+     * associated socket remains open.
+     */
     @Override
     public void run() {
 
@@ -107,20 +118,46 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
 
+    /**
+     * Updates the game state for the client by sending the provided game object
+     * through a message to the client.
+     *
+     * @param game the {@code Game} object representing the current state of the game
+     *             to be sent to the client.
+     */
     @Override
     public void setGame(Game game) {
         send(new Message("GAME", game));
     }
 
-    // send message to client
+
+    /**
+     * Sends a list of log messages to the client. The log messages are sent as a payload
+     * within a message with the type "LOG".
+     *
+     * @param logs the list of log messages to be sent to the client.
+     */
     @Override
     public void addLogs(List<String> logs) {
         send(new Message("LOG", logs));
     }
 
+    /**
+     * Sends a list of joinable games to the client.
+     * This method constructs a message of type "JOINABLE-GAMES"
+     * containing the list of game information and sends it through the output stream.
+     *
+     * @param gameInfos the list of {@code Game.GameInfo} objects representing
+     *                  the available games that the client can join.
+     */
     @Override
     public void sendJoinableGames(List<Game.GameInfo> gameInfos){send(new Message("JOINABLE-GAMES", gameInfos));}
 
+    /**
+     * The {@code ConnectionChecker} class is responsible for monitoring the connection
+     * with a client to ensure that it remains active. It periodically sends a heartbeat
+     * message to the client and validates the response to detect potential disconnections.
+     */
     public class ConnectionChecker implements Runnable {
         private final Socket socket;
 
@@ -128,7 +165,13 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             this.socket = socket;
         }
 
-
+        /**
+         * Periodically performs tasks to monitor and validate the connection with the client.
+         * A heartbeat message is generated and sent to the client. The method then waits
+         * for a response from the client. If the response does not match the expected heartbeat,
+         * it assumes the connection is lost and proceeds to disconnect the client and shut down
+         * relevant resources.
+         */
         @Override
         public void run() {
             String heartBeat = UUID.randomUUID().toString();
