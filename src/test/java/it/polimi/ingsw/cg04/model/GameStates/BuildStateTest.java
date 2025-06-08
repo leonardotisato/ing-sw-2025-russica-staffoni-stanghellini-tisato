@@ -283,13 +283,20 @@ class BuildStateTest {
                 controller.onActionReceived(new DrawFaceDownAction("Alice"));
             } catch (InvalidActionException | InvalidStateException ignored) {      }
         }
-        while (p1.getHeldTile().getConnection(Direction.LEFT) == Connection.SINGLE
-                || p1.getHeldTile().getConnection(Direction.LEFT) == Connection.DOUBLE
-                || p1.getHeldTile().getConnection(Direction.LEFT) == Connection.UNIVERSAL);
+        while (p1.getHeldTile().getConnection(Direction.RIGHT) == Connection.SINGLE
+                || p1.getHeldTile().getConnection(Direction.RIGHT) == Connection.DOUBLE
+                || p1.getHeldTile().getConnection(Direction.RIGHT) == Connection.UNIVERSAL);
         try {
-            controller.onActionReceived(new PlaceAction("Alice", 2,4));
+            controller.onActionReceived(new PlaceAction("Alice", 2,2));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
+        try {
+            controller.onActionReceived(new EndBuildingAction("Bob", 2));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new EndBuildingAction("Charlie", 3));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         try {
             controller.onActionReceived(new EndBuildingAction("Alice", 1));
@@ -298,7 +305,7 @@ class BuildStateTest {
         BuildState b = (BuildState) game.getGameState();
         assertEquals(BuildPlayerState.FIXING, b.getPlayerState().get("Alice"));
         List<Coordinates> coordsList = new ArrayList<>();
-        coordsList.add(new Coordinates(2,4));
+        coordsList.add(new Coordinates(2,2));
 
         try {
             controller.onActionReceived(new FixShipAction("Alice", coordsList));

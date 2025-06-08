@@ -272,14 +272,17 @@ class GameTest {
 
     @Test
     void calculateBestShip() {
+        gameLev2.calculateBestShip();
     }
 
     @Test
     void giveEndCredits() {
+        gameLev2.giveEndCredits();
     }
 
     @Test
     void handleEndGame() {
+        gameLev2.handleEndGame();
     }
 
     @Test
@@ -304,6 +307,7 @@ class GameTest {
 
     @Test
     void getNextAdventureCard() {
+        gameLev2.getNextAdventureCard();
     }
 
     @Test
@@ -389,4 +393,48 @@ class GameTest {
         System.out.println(copy.getBoard());
         System.out.println(copy.getPlayer("Bob").getShip().draw());
     }
+
+    @Test
+    void gameInfoColumn(){
+        Game.GameInfo gameInfo = gameLev2.getGameInfo();
+        gameLev2.getGameInfo();
+        gameInfo.gameInfoToColumn();
+    }
+
+    @Test
+    void renderShip(){
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+        System.out.println(gameLev2.getNumPlayers());
+        gameLev2.renderShips();
+    }
+
+    @Test
+    void sellBoxes(){
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+        gameLev2.sellBoxes();
+    }
+
+    @Test
+    void calulateLostPieces(){
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        gameLev2.addPlayer("Bob", PlayerColor.BLUE);
+        gameLev2.addPlayer("Charlie", PlayerColor.GREEN);
+        gameLev2.addPlayer("Dave", PlayerColor.YELLOW);
+        gameLev2.calculateLostPieces();
+    }
+
+    @Test
+    void disconnect(){
+        gameLev2.addPlayer("Alice", PlayerColor.RED);
+        gameLev2.disconnect(gameLev2.getPlayer("Alice"));
+    }
+
+
+
 }

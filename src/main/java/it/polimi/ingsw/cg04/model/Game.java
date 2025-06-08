@@ -521,7 +521,7 @@ public class Game implements Serializable {
      * the ship's box inventory and the `updateCredits(double)` method
      * to update the player's credit balance.
      */
-    private void sellBoxes() {
+    public void sellBoxes() {
         double delta;
         for (Player p : players) {
             delta = p.getShip().getBoxes().get(BoxType.RED) * 4 + p.getShip().getBoxes().get(BoxType.YELLOW) * 3
@@ -541,7 +541,7 @@ public class Game implements Serializable {
      * This method processes all active and retired players, taking into account the broken tiles
      * and buffered tiles on their respective ships.
      */
-    private void calculateLostPieces() {
+    public void calculateLostPieces() {
         int lostPieces;
         for (Player p : players) {
             lostPieces = p.getShip().getNumBrokenTiles() + p.getShip().getTilesBuffer().size();
