@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.cg04.client.view.gui.controllers.ErrorSceneController">
+      <children>
+         <Group fx:id="scalableGroup">
+            <children>
+               <AnchorPane fx:id="anchorPane" prefHeight="525.0" prefWidth="913.0">
+                  <children>
+                     <TextField alignment="CENTER" editable="false" prefHeight="1.0" prefWidth="1.0" />
+                     <TextField alignment="CENTER" editable="false" layoutX="277.0" layoutY="209.0" prefHeight="106.0" prefWidth="358.0" text="server connection crashed" />
+                     <TextField alignment="CENTER" editable="false" layoutX="277.0" layoutY="338.0" prefHeight="105.0" prefWidth="358.0" text="closing window in 10s..." />
+                  </children>
+               </AnchorPane>
+            </children>
+         </Group>
+   </children>
+</StackPane>

@@ -196,10 +196,6 @@ public class PrelobbySceneController extends ViewController {
         scalableGroup.setLayoutY(offsetY);
     }
 
-    public void setGUI(GUIRoot gui) {
-        this.gui = gui;
-    }
-
     private void setColor(String color) {
         this.selectedColor = color;
         System.out.println("Selected color: " + selectedColor);

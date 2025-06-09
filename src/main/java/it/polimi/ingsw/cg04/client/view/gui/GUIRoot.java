@@ -9,11 +9,15 @@ import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import it.polimi.ingsw.cg04.network.Client.ServerHandler;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -44,12 +48,17 @@ public class GUIRoot extends View {
 
     @Override
     public void serverUnreachable() {
-//        try {
-//            goToErrorScene();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        guiMain.stop();
+        try {
+            currController.goToErrorScene(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(10),
+                event -> guiMain.stop()
+        ));
+        timeline.setCycleCount(1);
+        timeline.play();
     }
 
     /**
@@ -157,6 +166,7 @@ public class GUIRoot extends View {
             stage.show();
             Platform.runLater(() -> {
                 if (!stage.isFullScreen()) {
+                    stage.setFullScreenExitHint("");
                     stage.setFullScreen(true);
                 }
             });
@@ -286,6 +296,26 @@ public class GUIRoot extends View {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.css")).toExternalForm());
+
+        Stage stage = guiMain.getPrimaryStage();
+        stage.setResizable(true);
+
+        scene.setUserData(currController);
+        guiMain.sceneControllerMap.put(scene, currController);
+
+        changeScene(scene);
+    }
+
+    public void goToErrorScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/ErrorScene.fxml"));
+        Parent root = loader.load();
+
+        currController = loader.getController();
+        currController.setGUI(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/ErrorScene.css")).toExternalForm());
 
         Stage stage = guiMain.getPrimaryStage();
         stage.setResizable(true);

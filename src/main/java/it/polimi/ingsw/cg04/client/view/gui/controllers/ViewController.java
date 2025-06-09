@@ -42,6 +42,10 @@ public abstract class ViewController implements Initializable {
         gui.goToViewOthersScene();
     }
 
+    public void goToErrorScene(GUIRoot gui) throws  IOException {
+        gui.goToErrorScene();
+    }
+
     public void update(Game g) {
         return;
     }
