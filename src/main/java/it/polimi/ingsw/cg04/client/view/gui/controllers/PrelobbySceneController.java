@@ -104,7 +104,7 @@ public class PrelobbySceneController extends ViewController {
 
     private GUIRoot gui;
 
-    public void setGui(GUIRoot gui) {
+    public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
 
