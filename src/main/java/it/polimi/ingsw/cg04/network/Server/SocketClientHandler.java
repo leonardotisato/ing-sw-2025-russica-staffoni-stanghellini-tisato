@@ -117,7 +117,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         }
     }
 
-
     /**
      * Updates the game state for the client by sending the provided game object
      * through a message to the client.
@@ -129,7 +128,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void setGame(Game game) {
         send(new Message("GAME", game));
     }
-
 
     /**
      * Sends a list of log messages to the client. The log messages are sent as a payload

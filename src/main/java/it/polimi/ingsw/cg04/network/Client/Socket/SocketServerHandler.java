@@ -274,6 +274,13 @@ public class SocketServerHandler extends ServerHandler {
             connectionChecker.scheduleAtFixedRate(new ConnectionChecker(this.socket), 1, 4, TimeUnit.SECONDS);
         }
 
+        /**
+         * Continuously listens for and processes incoming messages from the server over a socket connection.
+         * This method reads serialized {@link Message} objects sent by the server and passes them to the
+         * {@code handleMessage} method for further processing.
+         *
+         * @throws RuntimeException if the {@link ObjectInputStream} creation or message reading fails.
+         */
         @Override
         public void run() {
             try {
@@ -292,6 +299,11 @@ public class SocketServerHandler extends ServerHandler {
             }
         }
 
+        /**
+         * Handles incoming messages by their type and performs corresponding actions.
+         *
+         * @param message the message to be handled, containing a message type and its associated payload
+         */
         private void handleMessage(Message message) {
             switch (message.messageType()) {
                 case "PING" -> {
