@@ -12,8 +12,10 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -102,11 +105,16 @@ public class BuildSceneController extends ViewController {
     private ImageView shipImage, flightboardImg;
 
     @FXML
-    private Pane pilesPane;
+    private Pane pilesPane, drawPane;
+
+    @FXML
+    private Label title;
 
     private final Map<Polygon, Integer> trianglePositionMap = new HashMap<>();
 
     private List<Coordinates> tilesToBreak = new ArrayList<>();
+
+    private final Map<Coordinates, ImageView> highlightedCells = new HashMap<>();
 
     private GUIRoot gui;
 
@@ -134,6 +142,9 @@ public class BuildSceneController extends ViewController {
         logs.setEditable(false);
         drawButton.setOnAction(event -> handleDraw());
         heldTile.setVisible(false);
+        title.setPrefWidth(BASE_WIDTH);
+        title.setAlignment(Pos.CENTER);
+        title.setFont(new Font(48));
         heldTile.setOnMouseClicked(event -> {
             if (heldTile.getImage() != null) {
                 selectHeldTile(true);
@@ -247,7 +258,11 @@ public class BuildSceneController extends ViewController {
     @FXML
     private void handleFixButtonClick() {
         gui.fixShip(tilesToBreak);
+        for (ImageView cell : highlightedCells.values()) {
+            cell.setStyle("");
+        }
         tilesToBreak.clear();
+        highlightedCells.clear();
     }
 
     public void showBuildScene() {
@@ -307,6 +322,16 @@ public class BuildSceneController extends ViewController {
     public void showButton(Button button) {
         button.setManaged(true);
         button.setVisible(true);
+    }
+
+    public void hidePane(Pane pane) {
+        pane.setManaged(false);
+        pane.setVisible(false);
+    }
+
+    public void showPane(Pane pane) {
+        pane.setManaged(true);
+        pane.setVisible(true);
     }
 
     @Override
@@ -490,6 +515,11 @@ public class BuildSceneController extends ViewController {
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
                     if (state.getPlayerState().get(p.getName()) == BuildPlayerState.FIXING) {
+                        hidePane(drawPane);
+                        hidePane(pilesPane);
+                        title.setVisible(true);
+                        title.setManaged(true);
+                        title.setText("FIX YOUR SHIP!");
                         setFixEffects(cell, row, col);
                         showFixButton();
                     } else {
@@ -513,9 +543,13 @@ public class BuildSceneController extends ViewController {
             if (!coordinates.isIn(tilesToBreak)) {
                 cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
                 tilesToBreak.add(coordinates);
+                highlightedCells.put(coordinates, cell);
+                System.out.println(tilesToBreak);
             } else {
                 cell.setStyle("");
                 tilesToBreak.remove(coordinates);
+                highlightedCells.remove(coordinates);
+                System.out.println(tilesToBreak);
             }
         });
     }
