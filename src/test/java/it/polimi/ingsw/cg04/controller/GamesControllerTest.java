@@ -7,12 +7,13 @@ import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
+import java.beans.PropertyChangeEvent;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +32,8 @@ class GamesControllerTest {
         createAction = new CreateGameAction(2, 2, "Charlie", PlayerColor.BLUE);
         try {
             controller.onInitActionReceived(createAction);
-        } catch (InvalidActionException ignored) {}
+        } catch (InvalidActionException ignored) {
+        }
 
     }
 
@@ -41,10 +43,11 @@ class GamesControllerTest {
 
     @Test
     void testCreateGame() {
-        CreateGameAction createAction = new CreateGameAction(2,4, "Alice", PlayerColor.BLUE);
+        CreateGameAction createAction = new CreateGameAction(2, 4, "Alice", PlayerColor.BLUE);
         try {
             controller.onInitActionReceived(createAction);
-        } catch (InvalidActionException ignored) {}
+        } catch (InvalidActionException ignored) {
+        }
 
 
         // check controller has the game and game was initialized correctly
@@ -70,7 +73,8 @@ class GamesControllerTest {
         joinAction = new JoinGameAction(0, "Bob", PlayerColor.RED);
         try {
             controller.onInitActionReceived(joinAction);
-        } catch (InvalidActionException ignored) {}
+        } catch (InvalidActionException ignored) {
+        }
 
 
         assertEquals(1, controller.getGames().size());
@@ -104,5 +108,28 @@ class GamesControllerTest {
 
     private void assertDoesNotThrowsOnAction(InitAction action) {
         assertDoesNotThrow(() -> action.checkAction(controller));
-}
+    }
+
+    @Test
+    void testDisconnect() {
+        controller.disconnect("Charlie");
+    }
+
+    @Test
+    void testGetGame() {
+
+        assertNotNull(controller.getGame(0));
+    }
+
+    @Test
+    void propertyChange() {
+        PropertyChangeEvent timerEvent = new PropertyChangeEvent(
+                0,
+                "timerExpired",
+                null,
+                5
+        );
+
+        controller.propertyChange(timerEvent);
+    }
 }
