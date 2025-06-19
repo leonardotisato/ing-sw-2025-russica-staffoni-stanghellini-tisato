@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg04.view;
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.Shipyard;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

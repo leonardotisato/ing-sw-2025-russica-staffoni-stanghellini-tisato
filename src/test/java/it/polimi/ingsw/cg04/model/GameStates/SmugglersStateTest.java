@@ -6,7 +6,7 @@ import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.CompareFirePowerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.HandleBoxesAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
-import it.polimi.ingsw.cg04.model.Shipyard;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.adventureCards.Smugglers;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;

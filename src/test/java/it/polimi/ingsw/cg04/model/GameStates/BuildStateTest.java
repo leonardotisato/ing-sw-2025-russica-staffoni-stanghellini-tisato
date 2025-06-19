@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.*;
 import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
-import it.polimi.ingsw.cg04.model.Shipyard;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
@@ -56,6 +56,28 @@ class BuildStateTest {
             controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
+        try {
+            controller.onActionReceived(new ShowFaceUpAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new PlaceAction("Alice", 2, 4));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new CloseFaceUpTilesAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ReturnTileAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+
+
+        try {
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
         int id = game.getPlayer("Alice").getHeldTile().getId();
 
         try {
@@ -69,7 +91,7 @@ class BuildStateTest {
         assertEquals(game.getTileById(id), p1.getHeldTile());
 
         try {
-            controller.onActionReceived(new PlaceAction("Alice", 2,4));
+            controller.onActionReceived(new PlaceAction("Alice", 2,2));
         } catch (InvalidActionException | InvalidStateException ignored) {        }
 
         assertNull(p1.getHeldTile());
@@ -370,6 +392,27 @@ class BuildStateTest {
         // Thread.sleep(5000);
         state.pickPile(p1, 1);
         System.out.println(state.render("Alice"));
+    }
+
+    @Test
+    void setShipTest() throws InvalidActionException, InvalidStateException {
+        try {
+            controller.onActionReceived(new PlaceAction("Alice", 103, 103));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        try {
+            controller.onActionReceived(new PlaceAction("Alice", 104, 104));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        try {
+            controller.onActionReceived(new PlaceAction("Alice", 105, 105));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new ShowFaceUpAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
+
+        try {
+            controller.onActionReceived(new PlaceAction("Alice", 103, 103));
+        } catch (InvalidActionException | InvalidStateException ignored) {        }
     }
 
     @AfterEach

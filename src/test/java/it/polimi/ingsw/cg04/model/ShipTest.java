@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model;
 import it.polimi.ingsw.cg04.model.enumerations.*;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -147,11 +148,11 @@ class ShipTest {
 
         assertEquals(0, lev2Ship.getNumBrokenTiles());
 
-        lev2Ship.breakTile(1,3);
+        lev2Ship.breakTile(1, 3);
         assertEquals(1, lev2Ship.getNumBrokenTiles());
-        lev2Ship.breakTile(3,1);
+        lev2Ship.breakTile(3, 1);
         assertEquals(2, lev2Ship.getNumBrokenTiles());
-        lev2Ship.breakTile(1,2);
+        lev2Ship.breakTile(1, 2);
         assertEquals(3, lev2Ship.getNumBrokenTiles());
         assertEquals(3, lev2Ship.getNumBatteries());
         assertEquals(5, lev2Ship.getNumExposedConnectors());
@@ -805,7 +806,7 @@ class ShipTest {
         assertEquals(6, lev2Ship.getNumBatteries());
         assertTrue(lev2Ship.getProtectedDirections().containsAll(Set.of(Direction.UP, Direction.RIGHT)));
 
-        lev2Ship.breakTile(1,3);
+        lev2Ship.breakTile(1, 3);
         System.out.println(lev2Ship);
         assertFalse(lev2Ship.isShipLegal());
     }
@@ -838,9 +839,8 @@ class ShipTest {
     }
 
 
-
     @Test
-    void isShipLegal6(){
+    void isShipLegal6() {
         lev2Ship = shipyard.createShip3();
         assertTrue(lev2Ship.isShipLegal());
         lev2Ship.breakTile(1, 3);
@@ -959,7 +959,7 @@ class ShipTest {
     }
 
     @Test
-    void checkAttack2(){
+    void checkAttack2() {
         lev1Ship = shipyard.createShip2();
 
         assertEquals(2, lev1Ship.checkShot(Direction.UP, Attack.LIGHT, 0));
@@ -1131,13 +1131,13 @@ class ShipTest {
     @Test
     void isSlotValid() {
         lev2Ship = shipyard.createShip3();
-        assertFalse(lev2Ship.isSlotValid(4,3));
-        assertFalse(lev2Ship.isSlotValid(0,5));
-        assertFalse(lev2Ship.isSlotValid(0,3));
-        assertFalse(lev2Ship.isSlotValid(1,6));
+        assertFalse(lev2Ship.isSlotValid(4, 3));
+        assertFalse(lev2Ship.isSlotValid(0, 5));
+        assertFalse(lev2Ship.isSlotValid(0, 3));
+        assertFalse(lev2Ship.isSlotValid(1, 6));
 
-        assertTrue(lev2Ship.isSlotValid(1,5));
-        assertTrue(lev2Ship.isSlotValid(4,6));
+        assertTrue(lev2Ship.isSlotValid(1, 5));
+        assertTrue(lev2Ship.isSlotValid(4, 6));
     }
 
     @Test
@@ -1149,7 +1149,89 @@ class ShipTest {
         myShip.getTile(1, 2).addCrew(CrewType.BROWN_ALIEN);
 
         System.out.println(myShip.draw());
+    }
 
+    @Test
+    void testDrawWithBuffer() {
+        lev1Ship = shipyard.createShip5();
+        lev1Ship.drawWithBuffer();
+    }
 
+    @Test
+    void testIsPlacingLegal() {
+        lev1Ship.isPlacingLegal(structuralTile53, 0, 0);
+        lev1Ship.isPlacingLegal(structuralTile53, 0, 1);
+        lev1Ship.isPlacingLegal(structuralTile53, 0, 2);
+        lev1Ship.isPlacingLegal(structuralTile53, 0, 3);
+        lev1Ship.isPlacingLegal(structuralTile53, 0, 4);
+        lev1Ship.isPlacingLegal(structuralTile53, 1, 0);
+        lev1Ship.isPlacingLegal(structuralTile53, 1, 1);
+        lev1Ship.isPlacingLegal(structuralTile53, 1, 2);
+        lev1Ship.isPlacingLegal(structuralTile53, 1, 3);
+        lev1Ship.isPlacingLegal(structuralTile53, 1, 4);
+        lev1Ship.isPlacingLegal(structuralTile53, 2, 0);
+        lev1Ship.isPlacingLegal(structuralTile53, 2, 1);
+        lev1Ship.isPlacingLegal(structuralTile53, 2, 2);
+        lev1Ship.isPlacingLegal(structuralTile53, 2, 3);
+        lev1Ship.isPlacingLegal(structuralTile53, 2, 4);
+        lev1Ship.isPlacingLegal(structuralTile53, 3, 0);
+        lev1Ship.isPlacingLegal(structuralTile53, 3, 1);
+        lev1Ship.isPlacingLegal(structuralTile53, 3, 2);
+        lev1Ship.isPlacingLegal(structuralTile53, 3, 3);
+        lev1Ship.isPlacingLegal(structuralTile53, 3, 4);
+        lev1Ship.isPlacingLegal(structuralTile53, 4, 0);
+        lev1Ship.isPlacingLegal(structuralTile53, 4, 1);
+        lev1Ship.isPlacingLegal(structuralTile53, 4, 2);
+        lev1Ship.isPlacingLegal(structuralTile53, 4, 3);
+        lev1Ship.isPlacingLegal(structuralTile53, 4, 4);
+        assertThrows(IllegalArgumentException.class, () -> lev1Ship.isPlacingLegal(null, -1, -1));
+        lev1Ship.isPlacingLegal(null, 0, 0);
+    }
+
+    @Test
+    void testHandleHit() {
+        lev1Ship = shipyard.createShip5();
+        lev1Ship.handleHit(Direction.UP, 0);
+        lev1Ship.handleHit(Direction.DOWN, 0);
+        lev1Ship.handleHit(Direction.LEFT, 0);
+        lev1Ship.handleHit(Direction.RIGHT, 0);
+        lev1Ship.handleHit(Direction.UP, 1);
+        lev1Ship.handleHit(Direction.DOWN, 1);
+        lev1Ship.handleHit(Direction.LEFT, 1);
+        lev1Ship.handleHit(Direction.RIGHT, 1);
+        lev1Ship.handleHit(Direction.UP, 2);
+        lev1Ship.handleHit(Direction.DOWN, 2);
+        lev1Ship.handleHit(Direction.LEFT, 2);
+        lev1Ship.handleHit(Direction.RIGHT, 2);
+        lev1Ship.handleHit(Direction.UP, 3);
+        lev1Ship.handleHit(Direction.DOWN, 3);
+        lev1Ship.handleHit(Direction.LEFT, 3);
+        lev1Ship.handleHit(Direction.RIGHT, 3);
+        lev1Ship.handleHit(Direction.UP, 4);
+        lev1Ship.handleHit(Direction.DOWN, 4);
+        lev1Ship.handleHit(Direction.LEFT, 4);
+        lev1Ship.handleHit(Direction.RIGHT, 4);
+    }
+
+    @Test
+    void testGetHeight() {
+        assertEquals(5, lev1Ship.getShipHeight());
+        assertEquals(5, lev2Ship.getShipHeight());
+    }
+
+    @Test
+    void testGetWidth() {
+        assertEquals(5, lev1Ship.getShipWidth());
+        assertEquals(7, lev2Ship.getShipWidth());
+    }
+
+    @Test
+    void testAddTileToBuffer() {
+        lev2Ship.addTileInBuffer(structuralTile53);
+    }
+
+    @Test
+    void testGetBoxes2() {
+        assertNotNull(lev1Ship.getBoxes());
     }
 }
