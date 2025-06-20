@@ -39,7 +39,6 @@ public class StorageTile extends Tile {
     }
 
     /**
-     *
      * @return {@code true} if the tile is a special storage tile; {@code false} otherwise.
      */
     @Override
@@ -48,12 +47,11 @@ public class StorageTile extends Tile {
     }
 
     // todo: no usages
-    public void setSpecialStorageTile(boolean isSpecialStorageTile) {
-        this.isSpecialStorageTile = isSpecialStorageTile;
-    }
+//    public void setSpecialStorageTile(boolean isSpecialStorageTile) {
+//        this.isSpecialStorageTile = isSpecialStorageTile;
+//    }
 
     /**
-     *
      * @return the maximum number of boxes as an {@code Integer}
      */
     @Override
@@ -62,12 +60,11 @@ public class StorageTile extends Tile {
     }
 
     // todo: no usages
-    public void setMaxBoxes(Integer maxBoxes) {
-        this.maxBoxes = maxBoxes;
-    }
+//    public void setMaxBoxes(Integer maxBoxes) {
+//        this.maxBoxes = maxBoxes;
+//    }
 
     /**
-     *
      * @return a {@code Map} where keys are {@code BoxType} and values are their respective counts as {@code Integer}
      */
     @Override
@@ -84,7 +81,7 @@ public class StorageTile extends Tile {
      * Adds a specified number of boxes of a given type to the storage.
      *
      * @param boxType the type of box to be added, represented as {@code BoxType}
-     * @param num the number of boxes to be added, represented as an integer
+     * @param num     the number of boxes to be added, represented as an integer
      * @throws RuntimeException if the operation is illegal
      */
     @Override
@@ -104,7 +101,7 @@ public class StorageTile extends Tile {
      * Removes a specified number of boxes of a given type from the storage.
      *
      * @param boxType the type of box to be removed, represented as {@code BoxType}
-     * @param num the number of boxes to be removed, represented as an integer
+     * @param num     the number of boxes to be removed, represented as an integer
      * @throws RuntimeException if the operation is illegal
      */
     @Override

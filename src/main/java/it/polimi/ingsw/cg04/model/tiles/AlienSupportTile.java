@@ -110,10 +110,9 @@ public class AlienSupportTile extends Tile {
                 //ship.removeCrew(adj.getHostedCrewType(), ?, ?, adj.getNumCrew());
                 adj.removeCrewMember();
             }
-
-            // clear in case of reuse of this tile
-            adjacentHousingTiles.clear();
         }
+        // clear in case of reuse of this tile
+        adjacentHousingTiles.clear();
     }
 
     /**

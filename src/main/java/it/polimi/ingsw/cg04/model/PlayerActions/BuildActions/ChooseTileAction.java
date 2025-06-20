@@ -25,6 +25,7 @@ public class ChooseTileAction extends PlayerAction {
     public boolean checkAction(Player player) throws InvalidActionException {
         // player is already holding a tile
         if (player.getHeldTile() != null) throw new InvalidActionException("Already holding a tile!");
+        if (player.getGame().getFaceUpTiles().size() < tileID) throw new InvalidActionException("Not enough tiles!");
         return true;
     }
 }

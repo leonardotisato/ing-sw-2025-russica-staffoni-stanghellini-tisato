@@ -8,7 +8,7 @@ import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.ChooseBatte
 import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RollDiceAction;
-import it.polimi.ingsw.cg04.model.Shipyard;
+import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;

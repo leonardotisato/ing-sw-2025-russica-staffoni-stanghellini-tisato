@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg04.model.tiles;
 
+import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.PlaceInBufferAction;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.utils.TileLoader;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
@@ -305,5 +307,20 @@ class TileTest {
         System.out.println(propulsorTile71.draw());
         System.out.println(shieldTile151.draw());
         System.out.println(batteryTile13.draw());
+    }
+
+    @Test
+    void testTile() {
+        storageTile26.removeCrewMember();
+        storageTile26.getHostedCrewType();
+        storageTile26.addCrew(CrewType.PINK_ALIEN);
+        storageTile26.removeSupportedCrewType(CrewType.PINK_ALIEN);
+        storageTile26.addSupportedCrewType(CrewType.PINK_ALIEN);
+        storageTile26.updateSupportedCrewTypes();
+        storageTile26.removeAdjacentHousingTile(strucutralTile56);
+        storageTile26.addAdjacentHousingTile(strucutralTile56);
+        assertThrows(RuntimeException.class, () -> strucutralTile56.addBox(BoxType.BLUE, 1));
+        assertThrows(RuntimeException.class, () -> strucutralTile56.removeBox(BoxType.YELLOW, 1));
+
     }
 }

@@ -55,9 +55,9 @@ public class HousingTile extends Tile {
     }
 
     // todo: handle unused method
-    public void setIsCentralTile(boolean isCentralTile) {
-        this.isCentralTile = isCentralTile;
-    }
+//    public void setIsCentralTile(boolean isCentralTile) {
+//        this.isCentralTile = isCentralTile;
+//    }
 
     /**
      *

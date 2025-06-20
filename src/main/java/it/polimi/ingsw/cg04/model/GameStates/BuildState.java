@@ -511,7 +511,7 @@ public class BuildState extends GameState {
     /**
      * Updates the given view with the current state of the provided game object.
      *
-     * @param view the view instance that should be updated
+     * @param view      the view instance that should be updated
      * @param toDisplay the game object containing the state to render on the view
      * @throws IOException if an input or output exception occurs during the view update
      */
@@ -540,7 +540,7 @@ public class BuildState extends GameState {
      * Retrieves the map representing the "is looking pile".
      *
      * @return a map where the keys are strings representing item identifiers
-     *         and the values are integers representing their corresponding counts.
+     * and the values are integers representing their corresponding counts.
      */
     public Map<String, Integer> getIsLookingPile() {
         return isLookingPile;

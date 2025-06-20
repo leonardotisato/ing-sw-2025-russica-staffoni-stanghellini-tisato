@@ -129,7 +129,7 @@ class FlightBoardTest {
     }
 
     @Test
-    void drawTestLev2(){
+    void drawTestLev2() {
         game = new Game(2);
 
         fb2 = new FlightBoardLev2(game);
@@ -167,4 +167,14 @@ class FlightBoardTest {
 //        Thread.sleep(5100);
 //        assertTrue(fb2.isTimerExpired());
 //    }
+
+    @Test
+    void TimerTests() {
+        fb1.draw();
+        fb1.startTimer();
+        fb1.isTimerExpired();
+        fb1.getTimerFlipsRemaining();
+        fb1.getTimerFlipsUsed();
+        System.out.println(fb1.getMostBeautifulShipCredits());
+    }
 }

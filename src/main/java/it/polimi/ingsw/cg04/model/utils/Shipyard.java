@@ -121,7 +121,7 @@ public class Shipyard implements Serializable {
         ship4.placeTile(tiles.get(10), 2, 5);
         ship4.placeTile(tiles.get(114), 2, 6);
         ship4.placeTile(tiles.get(98), 3, 2);
-        ship4.placeTile(tiles.get(75), 3, 3);
+        //ship4.placeTile(tiles.get(75), 3, 3); // !!!!!!
         ship4.placeTile(tiles.get(20), 3, 6);
 
         return ship4;
