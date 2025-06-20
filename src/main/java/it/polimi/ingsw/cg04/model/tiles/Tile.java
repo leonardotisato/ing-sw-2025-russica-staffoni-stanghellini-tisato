@@ -323,8 +323,8 @@ public abstract class Tile implements Serializable {
         return null;
     }
 
-    public void setDoublePropulsor(Boolean doublePropulsor) {
-    }
+//    public void setDoublePropulsor(Boolean doublePropulsor) {
+//    }
 
     // laserTile methods
     public Boolean isDoubleLaser() {
@@ -358,7 +358,6 @@ public abstract class Tile implements Serializable {
     }
 
     public void updateSupportedCrewTypes() {
-
     }
 
     public void addSupportedCrewType(CrewType crewType) {
@@ -470,33 +469,33 @@ public abstract class Tile implements Serializable {
         return " ".repeat(padding) + text + " ".repeat(width - text.length() - padding);
     }
 
-    private void drawHorizonalConnections(StringBuilder sb, Connection c) {
-
-        switch (c) {
-            case Connection.EMPTY:
-                sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
-                break;
-            case Connection.SINGLE:
-                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
-                break;
-            case Connection.DOUBLE:
-                sb.append("│ ").append(centerText("o o", boxWidth - 4)).append(" │").append("\n");
-                break;
-            case Connection.UNIVERSAL:
-                sb.append("│ ").append(centerText("o o o", boxWidth - 4)).append(" │").append("\n");
-                break;
-            case Connection.PROPULSOR:
-                sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
-                break;
-            case Connection.GUN:
-                sb.append("│ ").append(centerText("AAA", boxWidth - 4)).append(" │").append("\n");
-                break;
-        }
-    }
-
-    private void drawEmptyRow(StringBuilder sb) {
-        sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
-    }
+//    private void drawHorizonalConnections(StringBuilder sb, Connection c) {
+//
+//        switch (c) {
+//            case Connection.EMPTY:
+//                sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
+//                break;
+//            case Connection.SINGLE:
+//                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
+//                break;
+//            case Connection.DOUBLE:
+//                sb.append("│ ").append(centerText("o o", boxWidth - 4)).append(" │").append("\n");
+//                break;
+//            case Connection.UNIVERSAL:
+//                sb.append("│ ").append(centerText("o o o", boxWidth - 4)).append(" │").append("\n");
+//                break;
+//            case Connection.PROPULSOR:
+//                sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
+//                break;
+//            case Connection.GUN:
+//                sb.append("│ ").append(centerText("AAA", boxWidth - 4)).append(" │").append("\n");
+//                break;
+//        }
+//    }
+//
+//    private void drawEmptyRow(StringBuilder sb) {
+//        sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
+//    }
 
     private void drawHorizontalShields(StringBuilder sb, Direction protectedDir) {
         if (getProtectedDirections() != null && getProtectedDirections().contains(protectedDir)) {

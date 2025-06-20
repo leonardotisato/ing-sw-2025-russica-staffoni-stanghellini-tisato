@@ -75,14 +75,16 @@ class LoadCrewStateTest {
         bobAction = new LoadCrewAction("Bob", null, null);
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
         // alice loads her crew
         aliceAction = new LoadCrewAction("Alice", null, null);
         try {
             controller.onActionReceived(aliceAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
         // make sure her ship has the right number of crew per type
@@ -91,22 +93,24 @@ class LoadCrewStateTest {
         assertEquals(0, p1.getShip().getNumCrewByType(CrewType.BROWN_ALIEN));
 
         // bob loads his crew
-        brownAlienCoords = new Coordinates(2,2);
+        brownAlienCoords = new Coordinates(2, 2);
         bobAction = new LoadCrewAction("Bob", null, brownAlienCoords);
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         assertEquals(2, p2.getShip().getNumCrewByType(CrewType.HUMAN));
         assertEquals(1, p2.getShip().getNumCrewByType(CrewType.BROWN_ALIEN));
 
         // charlie loads his crew
-        pinkAlienCoords = new Coordinates(3,4);
-        brownAlienCoords = new Coordinates(1,2);
+        pinkAlienCoords = new Coordinates(3, 4);
+        brownAlienCoords = new Coordinates(1, 2);
         charlieAction = new LoadCrewAction("Charlie", pinkAlienCoords, brownAlienCoords);
         try {
             controller.onActionReceived(charlieAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         assertEquals(8, p3.getShip().getNumCrewByType(CrewType.HUMAN));
         assertEquals(1, p3.getShip().getNumCrewByType(CrewType.BROWN_ALIEN));
@@ -122,5 +126,58 @@ class LoadCrewStateTest {
         game.setGameState(new LoadCrewState(game));
         LoadCrewState state = (LoadCrewState) game.getGameState();
         System.out.println(state.render("Alice"));
+    }
+
+    @Test
+    void IncorrectStateTest() {
+        game.setGameState(new LoadCrewState(game));
+        LoadCrewState state = (LoadCrewState) game.getGameState();
+        assertThrows(InvalidStateException.class, () -> {
+            state.placeTile(null, 0, 0);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.setShip(null, 0, 0);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.rotateTile(null, null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.placeInBuffer(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.chooseTile(null, 0);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.chooseTileFromBuffer(null, 0);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.showFaceUp(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.drawFaceDown(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.returnTile(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.closeFaceUpTiles(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.pickPile(null, 1);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.endBuilding(null, 1);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.startTimer(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.stopBuilding(null);
+        });
+        assertThrows(InvalidStateException.class, () -> {
+            state.spreadEpidemic(null);
+        });
+
+
     }
 }
