@@ -236,7 +236,21 @@
                 <Polygon fx:id="pos1_1" fill="#1f93ff00" layoutX="383.0" layoutY="115.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="21.8" stroke="TRANSPARENT" strokeType="INSIDE" />
             </Group>
         </AnchorPane>
-      <Label fx:id="title" styleClass="title" layoutY="50.0" prefHeight="41.0" text="Label" visible="false" managed="false"/>
+      <Label fx:id="title" layoutY="50.0" managed="false" prefHeight="41.0" styleClass="title" text="Label" visible="false" />
+      <Pane layoutX="120.0" layoutY="62.0">
+         <children>
+            <ImageView fx:id="pinkAlien" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@/images/pink_alien.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="brownAlien" fitHeight="50.0" fitWidth="50.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@/images/brown_alien.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
 
     </Group>
 

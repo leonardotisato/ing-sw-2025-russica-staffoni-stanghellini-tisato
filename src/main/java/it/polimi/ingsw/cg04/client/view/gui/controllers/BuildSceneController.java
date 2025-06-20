@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg04.model.GameStates.BuildState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
@@ -110,11 +111,16 @@ public class BuildSceneController extends ViewController {
     @FXML
     private Label title;
 
+    @FXML
+    private ImageView pinkAlien, brownAlien;
+
     private final Map<Polygon, Integer> trianglePositionMap = new HashMap<>();
 
     private List<Coordinates> tilesToBreak = new ArrayList<>();
 
     private final Map<Coordinates, ImageView> highlightedCells = new HashMap<>();
+
+    private Map<CrewType, Coordinates> crewAliens = new HashMap<>();
 
     private GUIRoot gui;
 
@@ -164,7 +170,10 @@ public class BuildSceneController extends ViewController {
             }
             Platform.runLater(() -> heldTile.requestFocus());
         });
-
+        setDragAndDrop(pinkAlien, CrewType.PINK_ALIEN);
+        setDragAndDrop(brownAlien, CrewType.BROWN_ALIEN);
+        crewAliens.put(CrewType.PINK_ALIEN, null);
+        crewAliens.put(CrewType.BROWN_ALIEN, null);
     }
 
     private void scaleUI() {
@@ -212,6 +221,56 @@ public class BuildSceneController extends ViewController {
             event.consume();
         });
     }
+
+    public void setDragAndDrop(ImageView alien, CrewType crewType) {
+        alien.setOnDragDetected(event -> {
+            if (alien.getImage() == null) return;
+
+            Dragboard db = alien.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putImage(alien.getImage());
+            content.putString(crewType.name());
+            db.setContent(content);
+
+            double dragWidth = 30;
+            double dragHeight = 30;
+
+            ImageView dragView = new ImageView(alien.getImage());
+            dragView.setFitWidth(dragWidth);
+            dragView.setFitHeight(dragHeight);
+            dragView.setPreserveRatio(true);
+
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            Image scaledDragImage = dragView.snapshot(params, null);
+
+            db.setDragView(scaledDragImage, dragWidth / 2, dragHeight / 2);
+
+            event.consume();
+        });
+
+
+
+    }
+
+    private void clearAllDragAndDropEvents() {
+        for (Node node : shipGrid.getChildren()) {
+            StackPane stack = (StackPane) node;
+            stack.setOnDragEntered(null);
+            stack.setOnDragExited(null);
+            stack.setOnDragOver(null);
+            stack.setOnDragDropped(null);
+        }
+
+        for (Node node : bufferGrid.getChildren()) {
+            StackPane stack = (StackPane) node;
+            stack.setOnDragEntered(null);
+            stack.setOnDragExited(null);
+            stack.setOnDragOver(null);
+            stack.setOnDragDropped(null);
+        }
+    }
+
 
     @FXML
     private void handleDraw() {
@@ -335,29 +394,58 @@ public class BuildSceneController extends ViewController {
     }
 
     @Override
-    public void update(Game game) {
-        System.out.println(gui.getClientNickname());
+    public void updateLoadCrewController(Game game) {
+        System.out.println(">> LoadCrewController UPDATE CALLED - Level: " + game.getLevel());
+        clearAllDragAndDropEvents();
+        hideAllButtons();
+        fixButton.setText("Load crew");
+        fixButton.setOnAction(event -> {
+            gui.loadCrew(crewAliens.get(CrewType.PINK_ALIEN), crewAliens.get(CrewType.BROWN_ALIEN));
+        });
+        title.setVisible(true);
+        title.setManaged(true);
+        title.setText("Load Crew!");
+        title.alignmentProperty().set(Pos.TOP_RIGHT);
+        showButton(fixButton);
+        hidePane(pilesPane);
+        hidePane(drawPane);
+        pinkAlien.setVisible(crewAliens.get(CrewType.PINK_ALIEN) == null);
+        pinkAlien.setManaged(crewAliens.get(CrewType.PINK_ALIEN) == null);
+        brownAlien.setVisible(crewAliens.get(CrewType.BROWN_ALIEN) == null);
+        brownAlien.setManaged(crewAliens.get(CrewType.BROWN_ALIEN) == null);
+        updateShipForLoadCrew(game.getPlayer(gui.getClientNickname()));
+    }
+
+    @Override
+    public void updateBuildController(Game game) {
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
         BuildState state = (BuildState) game.getGameState();
         Tile playerHeldTile = currentPlayer.getHeldTile();
         Ship playerShip = currentPlayer.getShip();
         int level = game.getLevel();
 
-        composeSceneByLevel(level);
-        updateHeldTile(playerHeldTile);
         updateShipGrid(currentPlayer);
-        updateFaceUpTiles(currentPlayer.getGame());
-        updateFreePositions(currentPlayer.getGame());
+        updateHeldTile(playerHeldTile);
+        updateFaceUpTiles(game);
+        updateFreePositions(game);
 
         if (level == 2) {
             updateBuffer(playerShip);
-            updateTimer(currentPlayer.getGame());
+            updateTimer(game);
             updatePiles(currentPlayer);
         }
         if (state.getPlayerState().get(currentPlayer.getName()) == BuildPlayerState.READY) {
             hideAllButtons();
             if (level == 2) showButton(timerButton);
         }
+    }
+
+    @Override
+    public void update(Game game) {
+        System.out.println(gui.getClientNickname());
+        int level = game.getLevel();
+        composeSceneByLevel(level);
+        game.getGameState().updateStateController(this, game);
     }
 
     private void composeSceneByLevel(int level) {
@@ -444,6 +532,109 @@ public class BuildSceneController extends ViewController {
             }
         } catch (Exception e) {
             System.err.println("Error in updateHeldTile: " + e.getMessage());
+        }
+    }
+
+    public void updateShipForLoadCrew(Player p){
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+        for (Node node : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+
+
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+
+            int col = tempcol;
+
+            StackPane stack = (StackPane) node;
+
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
+            Tile tile = shipMatrix[row][col];
+
+            if (tile == null) {
+                cell.setImage(null);
+            } else {
+                String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + tile.getId() + ".jpg";
+                try {
+                    Image img = new Image(
+                            Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+                    );
+                    cell.setImage(img);
+                    cell.setRotate(tile.getRotation() * 90);
+                    Coordinates c = new Coordinates(row, col);
+                    if (crewAliens.containsValue(c)) {
+                        updateHousingTile(c, stack);
+                        cell.setOnDragEntered(null);
+                        cell.setOnDragExited(null);
+                        cell.setOnDragOver(null);
+                        cell.setOnDragDropped(null);
+                        continue;
+                    }
+                    if (tile.getSupportedCrewType() != null && (tile.getSupportedCrewType().contains(CrewType.PINK_ALIEN) || tile.getSupportedCrewType().contains(CrewType.BROWN_ALIEN))) {
+                        cell.setOnDragEntered(event -> {
+                            if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
+                                String crewStr = event.getDragboard().getString();
+                                if (crewStr != null && tile.getSupportedCrewType().contains(CrewType.valueOf(crewStr))) {
+                                    cell.setStyle("-fx-effect: dropshadow(gaussian, limegreen, 10, 0.6, 0, 0);");
+                                }
+                            }
+                        });
+
+                        cell.setOnDragExited(event -> {
+                            cell.setStyle("");
+                        });
+                        cell.setOnDragOver(event -> {
+                            if (event.getGestureSource() != cell && event.getDragboard().hasImage()) {
+                                String crewStr = event.getDragboard().getString();
+                                if (crewStr != null && tile.getSupportedCrewType().contains(CrewType.valueOf(crewStr))) {
+                                    event.acceptTransferModes(TransferMode.MOVE);
+                                }
+                            }
+                            event.consume();
+                        });
+
+                        cell.setOnDragDropped(event -> {
+                            Dragboard db = event.getDragboard();
+                            boolean success = false;
+
+                            if (db.hasString()) {
+                                String alienType = db.getString();
+                                CrewType type = CrewType.valueOf(alienType);
+                                Coordinates coord = new Coordinates(row, col);
+
+                                if (tile.getSupportedCrewType().contains(type)) {
+                                    crewAliens.put(type, coord);
+                                    updateHousingTile(coord, stack);
+                                    success = true;
+
+                                    if (crewAliens.get(CrewType.PINK_ALIEN) != null) {
+                                        pinkAlien.setVisible(false);
+                                        pinkAlien.setManaged(false);
+                                    }
+                                    if (crewAliens.get(CrewType.BROWN_ALIEN) != null) {
+                                        brownAlien.setVisible(false);
+                                        brownAlien.setManaged(false);
+                                    }
+                                }
+                            }
+                            event.setDropCompleted(success);
+                            event.consume();
+                        });
+                }} catch (Exception e) {
+                    System.err.println("Immagine non trovata: " + resourcePath);
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -781,6 +972,40 @@ public class BuildSceneController extends ViewController {
         triangle.setEffect(null);
         triangle.setOnMouseEntered(null);
         triangle.setOnMouseExited(null);
+    }
+
+    public void updateHousingTile(Coordinates c, StackPane stackPane) {
+        CrewType crewType = null;
+        for (Map.Entry<CrewType, Coordinates> entry : crewAliens.entrySet()) {
+            if (entry.getValue() != null && entry.getValue().equals(c)) {
+                crewType = entry.getKey();
+            }
+        }
+        Node crewContainer;
+        ImageView crewImage = new ImageView();
+        crewImage.setFitWidth(25);
+        crewImage.setFitHeight(25);
+        crewImage.setPreserveRatio(true);
+        String crewImagePath = switch (crewType) {
+            case PINK_ALIEN -> "/images/pink_alien.png";
+            case BROWN_ALIEN -> "/images/brown_alien.png";
+            default -> null;
+        };
+
+        if (crewImagePath != null) {
+            try {
+                Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
+                crewImage.setImage(crewImg);
+                crewImage.setOpacity(1.0);
+                stackPane.getChildren().add(crewImage); // aggiunge l'immagine al centro
+                StackPane.setAlignment(crewImage, Pos.CENTER);
+            } catch (Exception e) {
+                System.err.println("Immagine non trovata: " + crewImagePath);
+                e.printStackTrace();
+            }
+        }
+        crewContainer = crewImage;
+        StackPane.setAlignment(crewContainer, Pos.CENTER);
     }
 
     @Override

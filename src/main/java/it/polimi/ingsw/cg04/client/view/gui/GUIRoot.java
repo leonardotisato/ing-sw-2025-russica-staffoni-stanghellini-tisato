@@ -98,6 +98,12 @@ public class GUIRoot extends View {
     }
 
     @Override
+    public void renderLoadCrewState(Game toDisplay) throws IOException {
+        currController.goToBuildScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
     public void renderEndGameState(Game toDisplay) throws IOException {
         currController.goToEndScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
@@ -394,6 +400,10 @@ public class GUIRoot extends View {
 
     public void endBuilding(int pos) {
         server.endBuilding(pos);
+    }
+
+    public void loadCrew(Coordinates pink, Coordinates brown) {
+        server.loadCrew(pink, brown);
     }
 
     public void fixShip(List<Coordinates> coords) {

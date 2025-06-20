@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
@@ -169,5 +170,9 @@ public abstract class GameState implements Serializable {
 
     public void updateView(View view, Game game) throws IOException {
         throw new RuntimeException();
+    }
+
+    public void updateStateController(ViewController controller, Game game) {
+        return;
     }
 }
