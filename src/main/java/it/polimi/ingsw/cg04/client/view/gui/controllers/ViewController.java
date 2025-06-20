@@ -42,6 +42,10 @@ public abstract class ViewController implements Initializable {
         gui.goToViewOthersScene();
     }
 
+    public void goToAdventureCardScene(GUIRoot gui) throws IOException {
+        gui.goToAdventureCardScene();
+    }
+
     public void goToErrorScene(GUIRoot gui) throws  IOException {
         gui.goToErrorScene();
     }
@@ -52,6 +56,7 @@ public abstract class ViewController implements Initializable {
 
     public void updateLoadCrewController(Game game){ return;}
     public void updateBuildController(Game game){ return;}
+    public void updateFlightController(Game game){ return;}
 
     public void refreshJoinableGames(List<Game.GameInfo> games) {
         return;

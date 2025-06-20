@@ -104,6 +104,12 @@ public class GUIRoot extends View {
     }
 
     @Override
+    public void renderFlightState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
     public void renderEndGameState(Game toDisplay) throws IOException {
         currController.goToEndScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
@@ -292,6 +298,21 @@ public class GUIRoot extends View {
         prepareAndShowScene(scene, 600, 400);
     }
 
+    public void goToAdventureCardScene() throws IOException {
+        System.out.println("going to adventure card scene");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/AdventureCardScene.fxml"));
+        Parent root = loader.load();
+
+        currController = loader.getController();
+        currController.setGUI(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw/cg04/AdventureCardScene.css")).toExternalForm());
+
+        prepareAndShowScene(scene, 960, 540);
+    }
+
     public void goToEndScene() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/it/polimi/ingsw/cg04/EndScene.fxml"));
@@ -404,6 +425,14 @@ public class GUIRoot extends View {
 
     public void loadCrew(Coordinates pink, Coordinates brown) {
         server.loadCrew(pink, brown);
+    }
+
+    public void getNextAdventureCard(){
+        server.getNextAdventureCard();
+    }
+
+    public void retire(){
+        server.retire();
     }
 
     public void fixShip(List<Coordinates> coords) {

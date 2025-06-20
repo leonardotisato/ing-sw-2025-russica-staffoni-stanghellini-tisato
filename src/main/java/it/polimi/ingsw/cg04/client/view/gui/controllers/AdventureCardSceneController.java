@@ -8,23 +8,25 @@ import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
+import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.BatteryTile;
 import it.polimi.ingsw.cg04.model.tiles.HousingTile;
 import it.polimi.ingsw.cg04.model.tiles.StorageTile;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Polygon;
 
 import java.net.URL;
 import java.util.*;
@@ -37,6 +39,30 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private Button fixButton;
 
+    @FXML
+    private StackPane root;
+
+    @FXML
+    ImageView deck, currentCard;
+
+    @FXML
+    Button quitButton;
+
+    @FXML
+    Pane cardButtonsPane;
+
+    @FXML
+    TextArea logs;
+
+    @FXML
+    ImageView shipImage, flightboardImg;
+
+    @FXML private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
+            pos6_lev2, pos7_lev2, pos8_lev2, pos9_lev2, pos10_lev2,
+            pos11_lev2, pos12_lev2, pos13_lev2, pos14_lev2, pos15_lev2,
+            pos16_lev2, pos17_lev2, pos18_lev2, pos19_lev2, pos20_lev2,
+            pos21_lev2, pos22_lev2, pos23_lev2;
+
     private List<Coordinates> tilesToBreak = new ArrayList<>();
     private List<Coordinates> selectedBatties = new ArrayList<>();
     private List<Coordinates> selectedCannons = new ArrayList<>();
@@ -44,27 +70,110 @@ public class AdventureCardSceneController extends ViewController {
     private List<Coordinates> selectedStorage = new ArrayList<>();
     private List<Map<BoxType, Integer>> boxesMap = new ArrayList<>();
 
+    private final Map<Integer, Polygon> level2Triangles = new HashMap<>();
+
+
+    private final double BASE_WIDTH = 960;
+    private final double BASE_HEIGHT = 540;
+
     private GUIRoot gui;
 
+    @FXML
+    private Group scalableGroup;
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
+        root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
+        quitButton.setOnAction(event -> {
+            gui.retire();
+        });
+        setupFlightboardTriangles();
 
+
+    }
+
+    private void scaleUI() {
+        double scaleX = root.getWidth() / BASE_WIDTH;
+        double scaleY = root.getHeight() / BASE_HEIGHT;
+        double scale = Math.min(scaleX, scaleY);
+        scalableGroup.setScaleX(scale);
+        scalableGroup.setScaleY(scale);
+        double offsetX = (root.getWidth() - BASE_WIDTH * scale) / 2;
+        double offsetY = (root.getHeight() - BASE_HEIGHT * scale) / 2;
+
+        scalableGroup.setLayoutX(offsetX);
+        scalableGroup.setLayoutY(offsetY);
+    }
+
+    private void setupFlightboardTriangles() {
+        level2Triangles.put(0, pos0_lev2);
+        level2Triangles.put(1, pos1_lev2);
+        level2Triangles.put(2, pos2_lev2);
+        level2Triangles.put(3, pos3_lev2);
+        level2Triangles.put(4, pos4_lev2);
+        level2Triangles.put(5, pos5_lev2);
+        level2Triangles.put(6, pos6_lev2);
+        level2Triangles.put(7, pos7_lev2);
+        level2Triangles.put(8, pos8_lev2);
+        level2Triangles.put(9, pos9_lev2);
+        level2Triangles.put(10, pos10_lev2);
+        level2Triangles.put(11, pos11_lev2);
+        level2Triangles.put(12, pos12_lev2);
+        level2Triangles.put(13, pos13_lev2);
+        level2Triangles.put(14, pos14_lev2);
+        level2Triangles.put(15, pos15_lev2);
+        level2Triangles.put(16, pos16_lev2);
+        level2Triangles.put(17, pos17_lev2);
+        level2Triangles.put(18, pos18_lev2);
+        level2Triangles.put(19, pos19_lev2);
+        level2Triangles.put(20, pos20_lev2);
+        level2Triangles.put(21, pos21_lev2);
+        level2Triangles.put(22, pos22_lev2);
+        level2Triangles.put(23, pos23_lev2);
+    }
+
+
+    private void hidePane(Pane pane){
+        pane.setVisible(false);
+        pane.setManaged(false);
     }
 
     public void update(Game game) {
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
-        // updateCard(game.getAdventureCard());
+        game.getGameState().updateStateController(this, game);
+        composeSceneByLevel(game.getLevel());
         updateShip(currentPlayer);
+        updatePlayersInfo(game.getPlayers());
+    }
+
+    @Override
+    public void updateFlightController(Game game) {
+        hidePane(cardButtonsPane);
+        String resourcePath = "/images/cards/back" + game.getLevel() + ".jpg";
+        try {
+            Image img = new Image(
+                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+            );
+            deck.setImage(img);
+            deck.setOnMouseEntered(e -> deck.setStyle("-fx-effect: dropshadow(gaussian, gold, 8, 0.6, 0, 0);"));
+            deck.setOnMouseExited(e -> deck.setStyle(""));
+            deck.setOnMouseClicked(event -> {
+                System.out.println("Get Next Adventure Card clicked: ");
+                gui.getNextAdventureCard();
+            });
+        } catch (Exception e) {
+            System.err.println("Immagine non trovata: " + resourcePath);
+            e.printStackTrace();
+        }
     }
 
     private void updateShip(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
-        BuildState state = (BuildState) p.getGame().getGameState();
 
         int level = p.getGame().getLevel();
 
@@ -99,13 +208,6 @@ public class AdventureCardSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
-                    if(state.getPlayerState().get(p.getName()) == BuildPlayerState.FIXING){
-                        setFixEffects(cell, row, col);
-                        showFixButton();
-                    }
-                    else{
-                        cell.setOnMouseClicked(null);
-                    }
                     stack.setOnDragEntered(null);
                     stack.setOnDragExited(null);
                     stack.setOnDragOver(null);
@@ -164,7 +266,7 @@ public class AdventureCardSceneController extends ViewController {
             crewImage.setPreserveRatio(true);
 
             if (housingTile.getHostedCrewType() == CrewType.HUMAN) {
-                String crewImagePath = "/images/objects/human.png";
+                String crewImagePath = "/images/human.png";
                 try {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
@@ -175,7 +277,7 @@ public class AdventureCardSceneController extends ViewController {
                     e.printStackTrace();
                 }
             } else if (housingTile.getHostedCrewType() == CrewType.PINK_ALIEN) {
-                String crewImagePath = "/images/objects/pink.png";
+                String crewImagePath = "/images/pink_alien.png";
                 try {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
@@ -186,7 +288,7 @@ public class AdventureCardSceneController extends ViewController {
                     e.printStackTrace();
                 }
             } else if (housingTile.getHostedCrewType() == CrewType.BROWN_ALIEN){
-                String crewImagePath = "/images/objects/brown.png";
+                String crewImagePath = "/images/brown_alien.png";
                 try {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
@@ -211,7 +313,7 @@ public class AdventureCardSceneController extends ViewController {
                 crewImage.setFitHeight(20);
                 crewImage.setPreserveRatio(true);
 
-                String crewImagePath = "/images/objects/human.png";
+                String crewImagePath = "/images/human.png";
                 try {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
@@ -493,6 +595,28 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    public void updateFlightboardPositions(Game game) {
+        Map<String, String> playerColorHex = Map.of(
+                "YELLOW", "#FFFF00",
+                "RED", "#FF0000",
+                "BLUE", "#0000FF",
+                "GREEN", "#00FF00"
+        );
+        for (Polygon triangle : level2Triangles.values()) {
+            triangle.setStyle("-fx-fill: transparent; -fx-stroke: transparent;");
+        }
+
+        for (Player player : game.getPlayers()) {
+            int position = player.getPosition();
+            PlayerColor color = player.getColor();
+            Polygon triangle = level2Triangles.get(position);
+            if (triangle != null && color != null) {
+                triangle.setStyle("-fx-fill: " + playerColorHex.get(color.toString()) + "; -fx-stroke: black; -fx-stroke-width: 1;");
+            }
+        }
+    }
+
+
     public void hideAllButtons(){
         // todo: implement
     }
@@ -508,4 +632,73 @@ public class AdventureCardSceneController extends ViewController {
         fixButton.setVisible(true);
         fixButton.setManaged(true);
     }
+
+    @Override
+    public void goToAdventureCardScene(GUIRoot gui) {
+        return;
+    }
+
+    @Override
+    public void showLogs(List<String> logLines) {
+        if (logLines == null || logs == null) return;
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : logLines) {
+            sb.append(line).append("\n");
+        }
+
+        Platform.runLater(() -> logs.setText(sb.toString()));
+    }
+
+    @FXML
+    private TextArea playersInfo;
+
+    public void updatePlayersInfo(List<Player> players) {
+        players.sort(Comparator.comparingInt(Player::getRanking));
+
+        StringBuilder sb = new StringBuilder();
+        for (Player player : players) {
+            String nickname = player.getName();
+            int ranking = player.getRanking();
+            Double credits = player.getNumCredits();
+            String colorHex = player.getColor().toString(); // esempio: "#ff00ff"
+
+            sb.append(String.format("Rank %d: %s  [Credits: %.2f]  Color: %s%n", ranking, nickname, credits, colorHex));
+        }
+
+        playersInfo.setText(sb.toString());
+    }
+
+    private void composeSceneByLevel(int level) {
+        String backgroundPath = "/images/background" + level + ".png";
+        String shipPath = "/images/cardboard/ship" + level + ".jpg";
+        String flightBoardPath = "/images/cardboard/flightboard" + level + ".png";
+        try {
+            Image backgroundImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(backgroundPath)).toExternalForm()
+            );
+            Image shipImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(shipPath)).toExternalForm()
+            );
+            Image boardImg = new Image(
+                    Objects.requireNonNull(getClass().getResource(flightBoardPath)).toExternalForm()
+            );
+            BackgroundImage backgroundImage = new BackgroundImage(
+                    backgroundImg,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+            );
+            root.setBackground(new Background(backgroundImage));
+            shipImage.setImage(shipImg);
+            flightboardImg.setImage(boardImg);
+        } catch (Exception e) {
+            System.err.println("Immagine non trovata: " + shipPath);
+            System.err.println("Immagine non trovata: " + flightBoardPath);
+            System.err.println("Immagine non trovata: " + backgroundPath);
+            e.printStackTrace();
+        }
+    }
+
 }

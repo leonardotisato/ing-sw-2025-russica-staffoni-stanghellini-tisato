@@ -1,0 +1,52 @@
+.title {
+    /* -fx-font-size: 72px; */
+    /*-fx-font-family: "Obelix Pro Bold Italic";*/
+    -fx-font-family: "OrgovanBrush";
+    -fx-text-fill: #e6b800;
+    -fx-fill: #e6b800;
+    -fx-stroke: #996600;
+    -fx-stroke-width: 2px;
+}
+
+.button {
+    -fx-background-color: #cc9900;
+    -fx-text-fill: #40250f;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 9px;              /* Smaller font */
+    -fx-padding: 4 12 4 12;            /* Smaller padding */
+    -fx-border-color: #333300;
+    -fx-border-width: 1.5px;           /* Slightly thinner border */
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.button:hover {
+    -fx-background-color: #996600;
+}
+
+.text-area {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-text-fill: white;
+    -fx-font-size: 4.5pt; /* font size del testo nei log */
+}
+
+.text-area .content {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* match the background */
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.polygon-hover {
+    -fx-fill: #FFFF004D;
+}
+
+.cheats-title {
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 28px;
+}
