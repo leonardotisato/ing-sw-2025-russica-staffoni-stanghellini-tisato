@@ -266,6 +266,7 @@ public class AdventureCardSceneController extends ViewController {
                     usedBatteries = new ArrayList<>(selectedBatties.values());
                 }
                 gui.choosePropulsor(c, usedBatteries);
+                selectedBatties.clear();
             });
 
             choiceButton.setText("Clear selected");
