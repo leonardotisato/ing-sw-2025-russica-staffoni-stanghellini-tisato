@@ -228,31 +228,7 @@ public class AdventureCardSceneController extends ViewController {
 
             if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
                 System.out.println("trovata una battery tile in coordinate " + coords);
-
-                cell.setOnMouseEntered(event -> {
-                    cell.setStyle("-fx-effect: dropshadow(gaussian, lawngreen, 10, 0.6, 0, 0);");
-                });
-
-                cell.setOnMouseExited(event -> cell.setStyle(""));
-
-                cell.setOnMouseClicked(event -> {
-                    selectedBatties.put(coords, selectedBatties.getOrDefault(coords, 0) + 1);
-                    updateBatteryTile((BatteryTile) tile, stack, row, col);
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("🔋 Selected Batteries:\n\n");
-
-                    for (Map.Entry<Coordinates, Integer> entry : selectedBatties.entrySet()) {
-                        Coordinates c = entry.getKey();
-                        int count = entry.getValue();
-                        sb.append(String.format("• (%d, %d): %s\n",
-                                c.getX(),
-                                c.getY(),
-                                "🔋".repeat(count)
-                        ));
-                    }
-
-                    objectsInfo.setText(sb.toString());
-                });
+                enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
             }
 
             solveButton.setOnAction(event -> {
@@ -312,6 +288,7 @@ public class AdventureCardSceneController extends ViewController {
             if (ship.getTilesMap().get("BatteryTile").contains(coords)) {
                 StackPane stack = (StackPane) n;
                 updateBatteryTile((BatteryTile) tile, stack, row, col);
+                enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
             }
         }
     }
@@ -485,7 +462,8 @@ public class AdventureCardSceneController extends ViewController {
         }
 
         int maxBatteries = batteryTile.getMaxBatteryCapacity();
-        int currentBatteries = batteryTile.getNumBatteries();
+        Coordinates coordinates = new Coordinates(row, col);
+        int currentBatteries = batteryTile.getNumBatteries() - selectedBatties.getOrDefault(coordinates, 0);
 
         HBox batteryBox = new HBox(1);
         batteryBox.setAlignment(Pos.CENTER);
@@ -514,6 +492,51 @@ public class AdventureCardSceneController extends ViewController {
         batteryBox.setMouseTransparent(true);
         cellStack.getChildren().add(batteryBox);
     }
+
+    private void enableBatteryTileInteraction(BatteryTile tile, StackPane stack, int row, int col) {
+        Coordinates coords = new Coordinates(row, col);
+        int remaining = tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0);
+
+        ImageView cell = (ImageView)stack.getChildren().getFirst();
+
+        if (remaining <= 0) {
+            cell.setOnMouseClicked(null);
+            cell.setOnMouseEntered(null);
+            cell.setOnMouseExited(null);
+            return;
+        }
+
+        cell.setOnMouseEntered(e -> {
+            cell.setStyle("-fx-effect: dropshadow(gaussian, lawngreen, 10, 0.6, 0, 0);");
+        });
+
+        cell.setOnMouseExited(e -> cell.setStyle(""));
+
+        cell.setOnMouseClicked(e -> {
+            selectedBatties.put(coords, selectedBatties.getOrDefault(coords, 0) + 1);
+
+            updateBatteryTile(tile, stack, row, col);
+            enableBatteryTileInteraction(tile, stack, row, col);
+
+            updateObjectsInfoText();
+        });
+    }
+
+    private void updateObjectsInfoText() {
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("🔋 Selected Batteries:\n\n");
+        selectedBatties.forEach((coord, count) ->
+                sb.append(String.format("• (%d, %d): %s\n", coord.getX(), coord.getY(), "🔋".repeat(count)))
+        );
+
+        objectsInfo.setText(sb.toString());
+    }
+
+
 
     private void updateStorageTile(StorageTile storageTile, StackPane cellStack, int row, int col) {
 
