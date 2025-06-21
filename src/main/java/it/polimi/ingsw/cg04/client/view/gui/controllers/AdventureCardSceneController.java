@@ -673,6 +673,15 @@ public class AdventureCardSceneController extends ViewController {
             batteryBox.getChildren().add(batteryImage);
         }
 
+        for(int i = currentBatteries; i < maxBatteries; i++) {
+            ImageView batteryImage = new ImageView();
+            batteryImage.setFitWidth(8);
+            batteryImage.setFitHeight(15);
+            batteryImage.setPreserveRatio(true);
+            batteryImage.setImage(null);
+            batteryBox.getChildren().add(batteryImage);
+        }
+
         batteryBox.setRotate(batteryTile.getRotation() * 90);
         batteryBox.setMouseTransparent(true);
         cellStack.getChildren().add(batteryBox);
@@ -849,6 +858,14 @@ public class AdventureCardSceneController extends ViewController {
                     }
 
                     doubleStorage.getChildren().add(storageImage);
+                }
+
+                for(int i = usedStorage; i < maxStorage; i++) {
+                    ImageView storageImage = new ImageView();
+                    storageImage.setFitWidth(12);
+                    storageImage.setFitHeight(12);
+                    storageImage.setPreserveRatio(true);
+                    storageImage.setImage(null);
                 }
 
                 storageContainer = doubleStorage;
