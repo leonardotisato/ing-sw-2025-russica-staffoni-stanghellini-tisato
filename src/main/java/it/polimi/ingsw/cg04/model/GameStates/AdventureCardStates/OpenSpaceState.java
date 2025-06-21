@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
@@ -71,5 +72,10 @@ public class OpenSpaceState extends AdventureCardState {
     @Override
     public void updateView (View view, Game toDisplay) throws IOException {
         view.renderOpenSpaceState(toDisplay);
+    }
+
+    @Override
+    public void updateStateController(ViewController controller, Game game) {
+        controller.updateOpenSpaceController(game);
     }
 }

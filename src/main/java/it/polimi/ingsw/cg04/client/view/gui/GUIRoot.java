@@ -110,6 +110,12 @@ public class GUIRoot extends View {
     }
 
     @Override
+    public void renderOpenSpaceState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
     public void renderEndGameState(Game toDisplay) throws IOException {
         currController.goToEndScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
@@ -429,6 +435,10 @@ public class GUIRoot extends View {
 
     public void getNextAdventureCard(){
         server.getNextAdventureCard();
+    }
+
+    public void choosePropulsor(List<Coordinates> coords, List<Integer> usedBatteries){
+        server.choosePropulsor(coords, usedBatteries);
     }
 
     public void retire(){

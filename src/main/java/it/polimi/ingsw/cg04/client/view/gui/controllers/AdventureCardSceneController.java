@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.BuildState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
+import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
@@ -46,13 +47,13 @@ public class AdventureCardSceneController extends ViewController {
     ImageView deck, currentCard;
 
     @FXML
-    Button quitButton;
+    Button quitButton, solveButton, choiceButton, diceButton;
 
     @FXML
     Pane cardButtonsPane;
 
     @FXML
-    TextArea logs;
+    TextArea logs, objectsInfo;
 
     @FXML
     ImageView shipImage, flightboardImg;
@@ -64,7 +65,7 @@ public class AdventureCardSceneController extends ViewController {
             pos21_lev2, pos22_lev2, pos23_lev2;
 
     private List<Coordinates> tilesToBreak = new ArrayList<>();
-    private List<Coordinates> selectedBatties = new ArrayList<>();
+    private Map<Coordinates, Integer> selectedBatties = new HashMap<>();
     private List<Coordinates> selectedCannons = new ArrayList<>();
     private List<Coordinates> selectedCrew = new ArrayList<>();
     private List<Coordinates> selectedStorage = new ArrayList<>();
@@ -141,6 +142,10 @@ public class AdventureCardSceneController extends ViewController {
         pane.setVisible(false);
         pane.setManaged(false);
     }
+    private void showPane(Pane pane){
+        pane.setVisible(true);
+        pane.setManaged(true);
+    }
 
     public void update(Game game) {
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
@@ -148,6 +153,7 @@ public class AdventureCardSceneController extends ViewController {
         composeSceneByLevel(game.getLevel());
         updateShip(currentPlayer);
         updatePlayersInfo(game.getPlayers());
+        updateFlightboardPositions(game);
     }
 
     @Override
@@ -165,9 +171,147 @@ public class AdventureCardSceneController extends ViewController {
                 System.out.println("Get Next Adventure Card clicked: ");
                 gui.getNextAdventureCard();
             });
+            currentCard.setImage(null);
         } catch (Exception e) {
-            System.err.println("Immagine non trovata: " + resourcePath);
+            System.err.println("Image not found: " + resourcePath);
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateOpenSpaceController(Game game) {
+        showPane(cardButtonsPane);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        AdventureCard currCard = game.getCurrentAdventureCard();
+        String resourcePath = "/images/cards/" + getKeyByValue(game.getAdventureCardsMap(), currCard) + ".jpg";
+        try {
+            Image img = new Image(
+                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+            );
+            currentCard.setImage(img);
+        } catch (Exception e) {
+            System.err.println("Image not found: " + resourcePath);
+            e.printStackTrace();
+        }
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+        }
+
+        for (Node node : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+            int col = tempcol;
+
+            StackPane stack = (StackPane) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+                System.out.println("trovata una battery tile in coordinate " + coords);
+
+                cell.setOnMouseEntered(event -> {
+                    cell.setStyle("-fx-effect: dropshadow(gaussian, lawngreen, 10, 0.6, 0, 0);");
+                });
+
+                cell.setOnMouseExited(event -> cell.setStyle(""));
+
+                cell.setOnMouseClicked(event -> {
+                    selectedBatties.put(coords, selectedBatties.getOrDefault(coords, 0) + 1);
+                    updateBatteryTile((BatteryTile) tile, stack, row, col);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("🔋 Selected Batteries:\n\n");
+
+                    for (Map.Entry<Coordinates, Integer> entry : selectedBatties.entrySet()) {
+                        Coordinates c = entry.getKey();
+                        int count = entry.getValue();
+                        sb.append(String.format("• (%d, %d): %s\n",
+                                c.getX(),
+                                c.getY(),
+                                "🔋".repeat(count)
+                        ));
+                    }
+
+                    objectsInfo.setText(sb.toString());
+                });
+            }
+
+            solveButton.setOnAction(event -> {
+                List<Coordinates> c;
+                List<Integer> usedBatteries;
+                if (selectedBatties.isEmpty()) {
+                    c = new ArrayList<>();
+                    usedBatteries = new ArrayList<>();
+                } else {
+                    c = new ArrayList<>(selectedBatties.keySet());
+                    usedBatteries = new ArrayList<>(selectedBatties.values());
+                }
+                gui.choosePropulsor(c, usedBatteries);
+            });
+
+            choiceButton.setText("Clear selected");
+            choiceButton.setOnAction(event -> {
+                selectedBatties.clear();
+                updateBatteriesView(game);
+                objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+            });
+        }
+    }
+
+    private <K, V> K getKeyByValue(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (Objects.equals(entry.getValue(), value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public void updateBatteriesView(Game game){
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+
+        for (Node n : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(n);
+            Integer rowIndex = GridPane.getRowIndex(n);
+
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            int level = game.getLevel();
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+
+            int col = tempcol;
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if (ship.getTilesMap().get("BatteryTile").contains(coords)) {
+                StackPane stack = (StackPane) n;
+                updateBatteryTile((BatteryTile) tile, stack, row, col);
+            }
         }
     }
 
@@ -342,7 +486,7 @@ public class AdventureCardSceneController extends ViewController {
         int maxBatteries = batteryTile.getMaxBatteryCapacity();
         int currentBatteries = batteryTile.getNumBatteries();
 
-        VBox batteryBox = new VBox(1);
+        HBox batteryBox = new HBox(1);
         batteryBox.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < currentBatteries; i++) {
@@ -366,7 +510,7 @@ public class AdventureCardSceneController extends ViewController {
         }
 
         batteryBox.setRotate(batteryTile.getRotation() * 90);
-
+        batteryBox.setMouseTransparent(true);
         cellStack.getChildren().add(batteryBox);
     }
 
