@@ -67,7 +67,7 @@ public class AdventureCardSceneController extends ViewController {
     private List<Coordinates> tilesToBreak = new ArrayList<>();
     private Map<Coordinates, Integer> selectedBatties = new HashMap<>();
     private List<Coordinates> selectedCannons = new ArrayList<>();
-    private List<Coordinates> selectedCrew = new ArrayList<>();
+    private Map<Coordinates, Integer> selectedCrew = new HashMap<>();
     private List<Coordinates> selectedStorage = new ArrayList<>();
     private List<Map<BoxType, Integer>> boxesMap = new ArrayList<>();
 
@@ -89,12 +89,7 @@ public class AdventureCardSceneController extends ViewController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
-        quitButton.setOnAction(event -> {
-            gui.retire();
-        });
         setupFlightboardTriangles();
-
-
     }
 
     private void scaleUI() {
@@ -158,6 +153,7 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateFlightController(Game game) {
+        resetTileInteractions();
         hidePane(cardButtonsPane);
         String resourcePath = "/images/cards/back" + game.getLevel() + ".jpg";
         try {
@@ -172,6 +168,10 @@ public class AdventureCardSceneController extends ViewController {
                 gui.getNextAdventureCard();
             });
             currentCard.setImage(null);
+            quitButton.setText("Quit");
+            quitButton.setOnAction(event -> {
+                gui.retire();
+            });
         } catch (Exception e) {
             System.err.println("Image not found: " + resourcePath);
             e.printStackTrace();
@@ -188,17 +188,7 @@ public class AdventureCardSceneController extends ViewController {
         deck.setOnMouseClicked(null);
         deck.setStyle(null);
 
-        AdventureCard currCard = game.getCurrentAdventureCard();
-        String resourcePath = "/images/cards/" + getKeyByValue(game.getAdventureCardsMap(), currCard) + ".jpg";
-        try {
-            Image img = new Image(
-                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
-            );
-            currentCard.setImage(img);
-        } catch (Exception e) {
-            System.err.println("Image not found: " + resourcePath);
-            e.printStackTrace();
-        }
+        loadCurrentCard(game);
 
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
@@ -245,13 +235,84 @@ public class AdventureCardSceneController extends ViewController {
                 selectedBatties.clear();
             });
 
-            choiceButton.setText("Clear selected");
-            choiceButton.setOnAction(event -> {
-                selectedBatties.clear();
-                updateBatteriesView(game);
-                objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+        }
+        choiceButton.setText("Clear selected");
+        choiceButton.setOnAction(event -> {
+            selectedBatties.clear();
+            updateBatteriesView(game);
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+        });
+    }
+
+    @Override
+    public void updateAbandonedShipController(Game game) {
+        showPane(cardButtonsPane);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+        if (selectedCrew.isEmpty()) {
+            objectsInfo.setText("Selected Crew:\n\nNone selected.");
+        }
+
+        for (Node node : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+            int col = tempcol;
+
+            StackPane stack = (StackPane) node;
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+                updateHousingTile((HousingTile) tile, stack, row, col);
+                enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+            }
+
+            solveButton.setOnAction(event -> {
+                List<Coordinates> c;
+                List<Integer> removedCrew;
+                if (selectedCrew.isEmpty()) {
+                    c = new ArrayList<>();
+                    removedCrew = new ArrayList<>();
+                } else {
+                    c = new ArrayList<>(selectedCrew.keySet());
+                    removedCrew = new ArrayList<>(selectedCrew.values());
+                }
+                gui.removeCrew(c, removedCrew);
+                if (!selectedCrew.isEmpty()) selectedCrew.clear();
             });
         }
+
+        choiceButton.setText("Clear selected");
+        choiceButton.setOnAction(event -> {
+            selectedCrew.clear();
+            updateCrewView(game);
+            updateCrewInfoText();
+        });
+
+        quitButton.setText("Pass Turn");
+        quitButton.setOnAction(event -> {
+            gui.removeCrew(null, null);
+            selectedCrew.clear();
+        });
     }
 
     private <K, V> K getKeyByValue(Map<K, V> map, V value) {
@@ -289,6 +350,36 @@ public class AdventureCardSceneController extends ViewController {
                 StackPane stack = (StackPane) n;
                 updateBatteryTile((BatteryTile) tile, stack, row, col);
                 enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+            }
+        }
+    }
+
+    public void updateCrewView(Game game){
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+
+        for (Node n : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(n);
+            Integer rowIndex = GridPane.getRowIndex(n);
+
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            int level = game.getLevel();
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+
+            int col = tempcol;
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if (ship.getTilesMap().get("HousingTile").contains(coords)) {
+                StackPane stack = (StackPane) n;
+                updateHousingTile((HousingTile) tile, stack, row, col);
+                enableHousingTileInteraction((HousingTile) tile, stack, row, col);
             }
         }
     }
@@ -375,7 +466,8 @@ public class AdventureCardSceneController extends ViewController {
         }
 
         int maxCrew = 2;
-        int currentCrew = housingTile.getNumCrew();
+        Coordinates coordinates = new Coordinates(row, col);
+        int currentCrew = housingTile.getNumCrew() - selectedCrew.getOrDefault(coordinates, 0);
 
         if(currentCrew == 0) return;
 
@@ -393,7 +485,6 @@ public class AdventureCardSceneController extends ViewController {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
                     crewImage.setOpacity(1.0);
-                    onCrewClicked(crewImage, row, col);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + crewImagePath);
                     e.printStackTrace();
@@ -404,7 +495,6 @@ public class AdventureCardSceneController extends ViewController {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
                     crewImage.setOpacity(1.0);
-                    onCrewClicked(crewImage, row, col);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + crewImagePath);
                     e.printStackTrace();
@@ -415,7 +505,6 @@ public class AdventureCardSceneController extends ViewController {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
                     crewImage.setOpacity(1.0);
-                    onCrewClicked(crewImage, row, col);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + crewImagePath);
                     e.printStackTrace();
@@ -440,7 +529,6 @@ public class AdventureCardSceneController extends ViewController {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
                     crewImage.setImage(crewImg);
                     crewImage.setOpacity(1.0);
-                    onCrewClicked(crewImage, row, col);
                 } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + crewImagePath);
                     e.printStackTrace();
@@ -451,7 +539,7 @@ public class AdventureCardSceneController extends ViewController {
 
             crewContainer = crewBox;
         }
-
+        crewContainer.setMouseTransparent(true);
         cellStack.getChildren().add(crewContainer);
     }
 
@@ -478,8 +566,6 @@ public class AdventureCardSceneController extends ViewController {
             try {
                 Image batteryImg = new Image(Objects.requireNonNull(getClass().getResource(batteryImagePath)).toExternalForm());
                 batteryImage.setImage(batteryImg);
-                onBatteryClicked(batteryImage, row, col);
-
             } catch (Exception e) {
                 System.err.println("Immagine non trovata: " + batteryImagePath);
                 e.printStackTrace();
@@ -518,11 +604,38 @@ public class AdventureCardSceneController extends ViewController {
             updateBatteryTile(tile, stack, row, col);
             enableBatteryTileInteraction(tile, stack, row, col);
 
-            updateObjectsInfoText();
+            updateBatteriesInfoText();
         });
     }
 
-    private void updateObjectsInfoText() {
+    private void enableHousingTileInteraction(HousingTile tile, StackPane stack, int row, int col) {
+        Coordinates coords = new Coordinates(row, col);
+        int remaining = tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0);
+
+        ImageView cell = (ImageView)stack.getChildren().getFirst();
+
+        if (remaining <= 0) {
+            cell.setOnMouseClicked(null);
+            cell.setOnMouseEntered(null);
+            cell.setOnMouseExited(null);
+            return;
+        }
+
+        cell.setOnMouseEntered(e -> {
+            cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
+        });
+
+        cell.setOnMouseExited(e -> cell.setStyle(""));
+
+        cell.setOnMouseClicked(e -> {
+            selectedCrew.put(coords, selectedCrew.getOrDefault(coords, 0) + 1);
+            updateHousingTile(tile, stack, row, col);
+            enableHousingTileInteraction(tile, stack, row, col);
+            updateCrewInfoText();
+        });
+    }
+
+    private void updateBatteriesInfoText() {
         if (selectedBatties.isEmpty()) {
             objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
             return;
@@ -531,6 +644,20 @@ public class AdventureCardSceneController extends ViewController {
         StringBuilder sb = new StringBuilder("🔋 Selected Batteries:\n\n");
         selectedBatties.forEach((coord, count) ->
                 sb.append(String.format("• (%d, %d): %s\n", coord.getX(), coord.getY(), "🔋".repeat(count)))
+        );
+
+        objectsInfo.setText(sb.toString());
+    }
+
+    private void updateCrewInfoText() {
+        if (selectedCrew.isEmpty()) {
+            objectsInfo.setText("Selected Crew:\n\nNone selected.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Selected crew:\n\n");
+        selectedCrew.forEach((coord, count) ->
+                sb.append(String.format("• (%d, %d): %d\n", coord.getX(), coord.getY(), count))
         );
 
         objectsInfo.setText(sb.toString());
@@ -706,17 +833,31 @@ public class AdventureCardSceneController extends ViewController {
 
     // todo: fix the onXClicked() methods
 
-    public void onCrewClicked(ImageView cell, int row, int col) {
+    public void onCrewClicked(ImageView crewImage, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
-        cell.setOnMouseClicked(event -> {
-            if(!coordinates.isIn(tilesToBreak)) {
-                cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
-                tilesToBreak.add(coordinates);
+        String selectedEffect = "-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);";
+        crewImage.setOnMouseEntered(e -> {
+            if (!selectedEffect.equals(crewImage.getStyle()))
+                crewImage.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
+        });
+
+        crewImage.setOnMouseExited(e -> {
+            if (!selectedEffect.equals(crewImage.getStyle()))
+                crewImage.setStyle("");
+        });
+
+        crewImage.setOnMouseClicked(e -> {
+            if (selectedEffect.equals(crewImage.getStyle())) {
+                crewImage.setStyle("");
+                selectedCrew.put(coordinates, selectedCrew.getOrDefault(coordinates, 0) - 1);
+                if(selectedCrew.getOrDefault(coordinates, 0) == 0) {
+                    selectedCrew.remove(coordinates);
+                }
+            } else {
+                crewImage.setStyle(selectedEffect);
+                selectedCrew.put(coordinates, selectedCrew.getOrDefault(coordinates, 0) + 1);
             }
-            else{
-                cell.setStyle("");
-                tilesToBreak.remove(coordinates);
-            }
+            updateCrewInfoText();
         });
     }
 
@@ -868,5 +1009,41 @@ public class AdventureCardSceneController extends ViewController {
             e.printStackTrace();
         }
     }
+
+    private void loadCurrentCard(Game game){
+        AdventureCard currCard = game.getCurrentAdventureCard();
+        String resourcePath = "/images/cards/" + getKeyByValue(game.getAdventureCardsMap(), currCard) + ".jpg";
+        try {
+            Image img = new Image(
+                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+            );
+            currentCard.setImage(img);
+        } catch (Exception e) {
+            System.err.println("Image not found: " + resourcePath);
+            e.printStackTrace();
+        }
+    }
+
+    private void resetTileInteractions() {
+        for (Node node : shipGrid.getChildren()) {
+            StackPane stack = (StackPane) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
+            cell.setOnMouseEntered(null);
+            cell.setOnMouseExited(null);
+            cell.setOnMouseClicked(null);
+            cell.setStyle("");
+
+            if (stack.getChildren().size() > 1) {
+                for (int i = 1; i < stack.getChildren().size(); i++) {
+                    Node child = stack.getChildren().get(i);
+                    child.setStyle("");
+                    child.setOnMouseClicked(null);
+                    child.setOnMouseEntered(null);
+                    child.setOnMouseExited(null);
+                }
+            }
+        }
+    }
+
 
 }
