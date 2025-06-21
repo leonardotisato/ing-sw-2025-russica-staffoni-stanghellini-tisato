@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
@@ -11,10 +12,13 @@ import it.polimi.ingsw.cg04.model.tiles.Tile;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EpidemicState extends AdventureCardState {
     private int crewMembersLost = 0;
+
+    private List<Coordinates> membersToRemove = new ArrayList<Coordinates>();
 
     public EpidemicState(Game game) {
         super(game);
@@ -49,16 +53,14 @@ public class EpidemicState extends AdventureCardState {
                             && tilesMatrix[i - 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.UP, tilesMatrix[i - 1][j])
                             && currentTile.getConnection(Direction.UP) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                        crewMembersLost++;
+                        membersToRemove.add(new Coordinates(i, j));
                     }
                     // look LEFT -> check tile type and connection
                     else if (j > 0 && new Coordinates(i, j - 1).isIn(housingTilesCoordinates)
                             && tilesMatrix[i][j - 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.LEFT, tilesMatrix[i][j - 1])
                             && currentTile.getConnection(Direction.LEFT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                        crewMembersLost++;
+                        membersToRemove.add(new Coordinates(i, j));
                     }
 
                     // look RIGHT -> check tile type and connection
@@ -66,8 +68,7 @@ public class EpidemicState extends AdventureCardState {
                             && tilesMatrix[i][j + 1].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.RIGHT, tilesMatrix[i][j + 1])
                             && currentTile.getConnection(Direction.RIGHT) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                        crewMembersLost++;
+                        membersToRemove.add(new Coordinates(i, j));
                     }
 
                     // look DOWN -> check tile type and connection
@@ -75,13 +76,21 @@ public class EpidemicState extends AdventureCardState {
                             && tilesMatrix[i + 1][j].getNumCrew() > 0
                             && currentTile.isValidConnection(Direction.DOWN, tilesMatrix[i + 1][j])
                             && currentTile.getConnection(Direction.DOWN) != Connection.EMPTY) {
-                        ship.removeCrew(currentTile.getHostedCrewType(), i, j, 1);
-                        crewMembersLost++;
+                        membersToRemove.add(new Coordinates(i, j));
                     }
 
                 }
             }
         }
+
+        for(Coordinates coordinates : membersToRemove) {
+            System.out.println("Removing " + coordinates.getX() + " " + coordinates.getY());
+            Tile housingTile = ship.getTile(coordinates.getX(), coordinates.getY());
+            ship.removeCrew(housingTile.getHostedCrewType(), coordinates.getX(), coordinates.getY(), 1);
+            crewMembersLost++;
+        }
+        membersToRemove.clear();
+
         played.set(sortedPlayers.indexOf(player), 1);
         this.addLog("Player " + player.getName() + " has spread epidemic and he lost " + crewMembersLost + " crew members.");
         if (!played.contains(0)) {
@@ -100,6 +109,11 @@ public class EpidemicState extends AdventureCardState {
     @Override
     public void updateView(View view, Game toDisplay) throws IOException {
         view.renderEpidemicState(toDisplay);
+    }
+
+    @Override
+    public void updateStateController(ViewController controller, Game game) {
+        controller.updateEpidemicController(game);
     }
 }
 

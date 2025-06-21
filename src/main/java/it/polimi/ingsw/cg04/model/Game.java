@@ -390,7 +390,9 @@ public class Game implements Serializable {
      */
     public AdventureCard getNextAdventureCard() {
         if (this.adventureCardsDeck.isEmpty()) return null;
-        this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
+        //TODO decomment, I'm just doing some test
+        //this.currentAdventureCard = this.adventureCardsMap.get(adventureCardsDeck.removeFirst());
+        this.currentAdventureCard = this.adventureCardsMap.get(17);
         return this.currentAdventureCard;
     }
 

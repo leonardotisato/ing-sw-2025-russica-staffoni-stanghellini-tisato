@@ -129,6 +129,18 @@ public class GUIRoot extends View {
         Platform.runLater(() -> currController.update(toDisplay));
     }
 
+    @Override
+    public void renderStardustState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderEpidemicState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
 
     @Override
     public void updateGame(Game toDisplay, String nickname) {
@@ -455,6 +467,14 @@ public class GUIRoot extends View {
 
     public void handleBoxes(List<Coordinates> coords, List<Map<BoxType, Integer>> boxesMap){
         server.handleBoxes(coords, boxesMap);
+    }
+
+    public void starDust() {
+        server.starDust();
+    }
+
+    public void epidemic() {
+        server.spreadEpidemic();
     }
 
     public void retire(){

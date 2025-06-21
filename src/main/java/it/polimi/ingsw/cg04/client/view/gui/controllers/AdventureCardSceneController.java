@@ -2,12 +2,10 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.BuildState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
-import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.BatteryTile;
@@ -45,19 +43,19 @@ public class AdventureCardSceneController extends ViewController {
     private StackPane root;
 
     @FXML
-    ImageView deck, currentCard;
+    private ImageView deck, currentCard;
 
     @FXML
-    Button quitButton, solveButton, choiceButton, diceButton;
+    private Button quitButton, solveButton, choiceButton, diceButton;
 
     @FXML
-    Pane cardButtonsPane;
+    private Pane cardButtonsPane;
 
     @FXML
-    TextArea logs, objectsInfo;
+    private TextArea logs, objectsInfo;
 
     @FXML
-    ImageView shipImage, flightboardImg;
+    private ImageView shipImage, flightboardImg;
 
     @FXML private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
             pos6_lev2, pos7_lev2, pos8_lev2, pos9_lev2, pos10_lev2,
@@ -318,6 +316,56 @@ public class AdventureCardSceneController extends ViewController {
             gui.removeCrew(null, null);
             selectedCrew.clear();
         });
+    }
+
+    @Override
+    public void updateStardustController(Game game) {
+        showPane(cardButtonsPane);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        choiceButton.setVisible(false);
+        choiceButton.setManaged(false);
+        quitButton.setVisible(false);
+        quitButton.setManaged(false);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        solveButton.setOnAction(event -> {
+            gui.starDust();
+        });
+
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("");
+        }
+    }
+
+    @Override
+    public void updateEpidemicController(Game game) {
+        showPane(cardButtonsPane);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        choiceButton.setVisible(false);
+        choiceButton.setManaged(false);
+        quitButton.setVisible(false);
+        quitButton.setManaged(false);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        solveButton.setOnAction(event -> {
+            gui.epidemic();
+        });
+
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("");
+        }
     }
 
     @Override
@@ -1091,7 +1139,11 @@ public class AdventureCardSceneController extends ViewController {
         for (Player player : game.getPlayers()) {
             int position = player.getPosition();
             PlayerColor color = player.getColor();
+            if(position < 0) {
+                position = level2Triangles.size() + position;
+            }
             Polygon triangle = level2Triangles.get(position);
+            System.out.println("Position: " + position + " Color: " + color + " Triangle: ");
             if (triangle != null && color != null) {
                 triangle.setStyle("-fx-fill: " + playerColorHex.get(color.toString()) + "; -fx-stroke: black; -fx-stroke-width: 1;");
             }

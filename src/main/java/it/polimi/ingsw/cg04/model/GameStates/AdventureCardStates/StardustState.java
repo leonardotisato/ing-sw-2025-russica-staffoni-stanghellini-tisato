@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
 
 import it.polimi.ingsw.cg04.client.view.View;
+import it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
@@ -41,7 +42,7 @@ public class StardustState extends AdventureCardState {
             }
             triggerNextState();
         } else {
-            throw new InvalidStateException("Non è il turno di " + player.getName() + " o l'azione che ha compiuto non è valida in questo stato.");
+            throw new InvalidStateException("It's not " + player.getName() + " turn or the action he is performing is not valid in this game state.");
         }
     }
 
@@ -55,5 +56,10 @@ public class StardustState extends AdventureCardState {
     @Override
     public void updateView(View view, Game toDisplay) throws IOException {
         view.renderStardustState(toDisplay);
+    }
+
+    @Override
+    public void updateStateController(ViewController controller, Game game) {
+        controller.updateStardustController(game);
     }
 }
