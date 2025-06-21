@@ -47,6 +47,9 @@ public class LoadCrewState extends AdventureCardState {
                 ship.addCrew(CrewType.BROWN_ALIEN, brownAlienCoords.getX(), brownAlienCoords.getY());
                 this.addLog(player.getName() + " added a brown alien to his ship!");
             }
+            if(pinkAlienCoords == null && brownAlienCoords == null) {
+                this.addLog(player.getName() + " didn't add aliens to his ship!");
+            }
 
             currPlayerIdx++;
 
