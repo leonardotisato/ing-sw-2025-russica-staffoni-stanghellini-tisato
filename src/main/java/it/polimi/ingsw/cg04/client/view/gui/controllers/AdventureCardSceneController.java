@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
@@ -35,7 +36,7 @@ import java.util.*;
 public class AdventureCardSceneController extends ViewController {
 
     @FXML
-    private GridPane shipGrid;
+    private GridPane shipGrid, boxesGrid;
 
     @FXML
     private Button fixButton;
@@ -76,6 +77,10 @@ public class AdventureCardSceneController extends ViewController {
 
     private final double BASE_WIDTH = 960;
     private final double BASE_HEIGHT = 540;
+
+    private final Map<BoxType, ImageView> boxImages = new EnumMap<>(BoxType.class);
+    private final Map<BoxType, Integer> remainingBoxes = new EnumMap<>(BoxType.class);
+    private final Map<BoxType, Image> loadedBoxImages = new EnumMap<>(BoxType.class);
 
     private GUIRoot gui;
 
@@ -168,7 +173,7 @@ public class AdventureCardSceneController extends ViewController {
                 gui.getNextAdventureCard();
             });
             currentCard.setImage(null);
-            quitButton.setText("Quit");
+            quitButton.setText("Retire");
             quitButton.setOnAction(event -> {
                 gui.retire();
             });
@@ -312,6 +317,52 @@ public class AdventureCardSceneController extends ViewController {
         quitButton.setOnAction(event -> {
             gui.removeCrew(null, null);
             selectedCrew.clear();
+        });
+    }
+
+    @Override
+    public void updateAbandonedStationController(Game game) {
+        setupBoxesGrid(game);
+        showPane(cardButtonsPane);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+        objectsInfo.setVisible(false);
+        objectsInfo.setManaged(false);
+
+
+
+        solveButton.setOnAction(event -> {
+            List<Coordinates> c;
+            List<Map<BoxType, Integer>> storageMap;
+            if (selectedStorage.isEmpty()) {
+                c = new ArrayList<>();
+                storageMap = new ArrayList<>();
+            } else {
+                c = new ArrayList<>(selectedBatties.keySet());
+                storageMap = new ArrayList<>(boxesMap);
+            }
+            gui.handleBoxes(c, storageMap);
+            selectedStorage.clear();
+            boxesMap.clear();
+            });
+
+        choiceButton.setText("Reset boxes");
+        choiceButton.setOnAction(event -> {
+            selectedStorage.clear();
+            boxesMap.clear();
+            //updateStorageView(game);
         });
     }
 
@@ -704,7 +755,7 @@ public class AdventureCardSceneController extends ViewController {
                         Image itemImg = new Image(Objects.requireNonNull(getClass().getResource(boxImage)).toExternalForm());
                         singleStorage.setImage(itemImg);
                         singleStorage.setOpacity(1.0);
-                        onStorageClicked(singleStorage, row, col);
+                        enableStorageTileInteraction(singleStorage, row, col);
                     } catch (Exception e) {
                         System.err.println("Immagine non trovata: " + boxImage);
                         e.printStackTrace();
@@ -743,7 +794,7 @@ public class AdventureCardSceneController extends ViewController {
                         Image itemImg = new Image(Objects.requireNonNull(getClass().getResource(boxImage)).toExternalForm());
                         storageImage.setImage(itemImg);
                         storageImage.setOpacity(1.0);
-                        onStorageClicked(storageImage, row, col);
+                        enableStorageTileInteraction(storageImage, row, col);
                     } catch (Exception e) {
                         System.err.println("Immagine non trovata: " + boxImage);
                         e.printStackTrace();
@@ -786,7 +837,7 @@ public class AdventureCardSceneController extends ViewController {
                             Image itemImg = new Image(Objects.requireNonNull(getClass().getResource(boxImage)).toExternalForm());
                             storageImage.setImage(itemImg);
                             storageImage.setOpacity(1.0);
-                            onStorageClicked(storageImage, row, col);
+                            enableStorageTileInteraction(storageImage, row, col);
                         } catch (Exception e) {
                             System.err.println("Immagine non trovata: " + boxImage);
                             e.printStackTrace();
@@ -809,7 +860,7 @@ public class AdventureCardSceneController extends ViewController {
                         Image itemImg = new Image(Objects.requireNonNull(getClass().getResource(boxImage)).toExternalForm());
                         bottomStorage.setImage(itemImg);
                         bottomStorage.setOpacity(1.0);
-                        onStorageClicked(bottomStorage, row, col);
+                        enableStorageTileInteraction(bottomStorage, row, col);
                     } catch (Exception e) {
                         System.err.println("Immagine non trovata: " + boxImage);
                         e.printStackTrace();
@@ -830,6 +881,55 @@ public class AdventureCardSceneController extends ViewController {
 
         cellStack.getChildren().add(storageContainer);
     }
+
+    private void setupBoxesGrid(Game game) {
+        AdventureCard card = game.getCurrentAdventureCard();
+        Map<BoxType, Integer> rewards = card.getObtainedResources();
+        remainingBoxes.clear();
+
+        for (Node node : boxesGrid.getChildren()) {
+            ImageView imageView = (ImageView) node;
+            int col = GridPane.getColumnIndex(imageView);
+
+            BoxType type = switch (col) {
+                case 0 -> BoxType.RED;
+                case 1 -> BoxType.YELLOW;
+                case 2 -> BoxType.GREEN;
+                case 3 -> BoxType.BLUE;
+                default -> null;
+            };
+
+            if (type != null && rewards.containsKey(type) && rewards.get(type) > 0) {
+                String path = "/images/objects/" + type.name().toLowerCase() + ".png";
+                try {
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
+                    imageView.setImage(img);
+                    imageView.setVisible(true);
+                    imageView.setOpacity(1.0);
+
+                    loadedBoxImages.put(type, img);
+                    remainingBoxes.put(type, rewards.get(type));
+
+                    imageView.setOnDragDetected(e -> {
+                        if (remainingBoxes.getOrDefault(type, 0) > 0) {
+                            Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
+                            db.setDragView(imageView.getImage());
+                            db.setContent(Map.of(DataFormat.PLAIN_TEXT, type.name()));
+                            e.consume();
+                        }
+                    });
+
+                    } catch (Exception e) {
+                        System.err.println("Box image not found: " + path);
+                        e.printStackTrace();
+                    }
+                } else {
+                    imageView.setImage(null);
+                    imageView.setVisible(false);
+                }
+        }
+    }
+
 
     // todo: fix the onXClicked() methods
 
@@ -875,19 +975,92 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
-    public void onStorageClicked(ImageView cell, int row, int col) {
+    public void enableStorageTileInteraction(ImageView targetImage, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
-        cell.setOnMouseClicked(event -> {
-            if(!coordinates.isIn(tilesToBreak)) {
-                cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
-                tilesToBreak.add(coordinates);
+
+        targetImage.setOnDragOver(event -> {
+            if (event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
             }
-            else{
-                cell.setStyle("");
-                tilesToBreak.remove(coordinates);
+            event.consume();
+        });
+
+        targetImage.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                try {
+                    BoxType newBox = BoxType.valueOf(db.getString());
+
+                    String currentUrl = targetImage.getImage() != null ? targetImage.getImage().getUrl() : null;
+                    BoxType oldBox = null;
+
+                    if (currentUrl != null) {
+                        for (BoxType bt : BoxType.values()) {
+                            if (currentUrl.contains(bt.toString().toLowerCase())) {
+                                oldBox = bt;
+                                break;
+                            }
+                        }
+                    }
+
+                    String newPath = "/images/objects/" + newBox.toString().toLowerCase() + ".png";
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource(newPath)).toExternalForm());
+                    targetImage.setImage(img);
+
+                    int index = selectedStorage.indexOf(coordinates);
+                    if (index == -1) {
+                        selectedStorage.add(coordinates);
+                        boxesMap.add(new EnumMap<>(BoxType.class));
+                        index = boxesMap.size() - 1;
+                    }
+
+                    Map<BoxType, Integer> content = boxesMap.get(index);
+
+                    if (oldBox != null) {
+                        content.put(oldBox, content.getOrDefault(oldBox, 1) - 1);
+                        if (content.get(oldBox) <= 0) {
+                            content.remove(oldBox);
+                        }
+                        remainingBoxes.put(oldBox, remainingBoxes.getOrDefault(oldBox, 0) + 1);
+                    }
+
+                    content.put(newBox, content.getOrDefault(newBox, 0) + 1);
+                    remainingBoxes.put(newBox, remainingBoxes.getOrDefault(newBox, 0) - 1);
+
+                    updateBoxesGrid();
+
+                    event.setDropCompleted(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    event.setDropCompleted(false);
+                }
             }
+            event.consume();
         });
     }
+
+    private void updateBoxesGrid() {
+        for (Node node : boxesGrid.getChildren()) {
+            ImageView imageView = (ImageView) node;
+            int col = GridPane.getColumnIndex(imageView) != null ? GridPane.getColumnIndex(imageView) : 0;
+            BoxType type = switch (col) {
+                case 0 -> BoxType.RED;
+                case 1 -> BoxType.YELLOW;
+                case 2 -> BoxType.GREEN;
+                case 3 -> BoxType.BLUE;
+                default -> null;
+            };
+
+            if (type != null && remainingBoxes.getOrDefault(type, 0) > 0) {
+                imageView.setImage(loadedBoxImages.get(type));
+                imageView.setVisible(true);
+            } else {
+                imageView.setImage(null);
+                imageView.setVisible(false);
+            }
+        }
+    }
+
 
 
     public void setFixEffects(ImageView cell, int row, int col) {

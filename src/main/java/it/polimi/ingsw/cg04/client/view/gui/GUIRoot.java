@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg04.client.view.View;
 import it.polimi.ingsw.cg04.client.view.gui.controllers.*;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.BuildState;
+import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
@@ -20,6 +21,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class GUIRoot extends View {
@@ -449,6 +451,10 @@ public class GUIRoot extends View {
 
     public void removeCrew(List<Coordinates> coords, List<Integer> removedCrew){
         server.removeCrew(coords, removedCrew);
+    }
+
+    public void handleBoxes(List<Coordinates> coords, List<Map<BoxType, Integer>> boxesMap){
+        server.handleBoxes(coords, boxesMap);
     }
 
     public void retire(){

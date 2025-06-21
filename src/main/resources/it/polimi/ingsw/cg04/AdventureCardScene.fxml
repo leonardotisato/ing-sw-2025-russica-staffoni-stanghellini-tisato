@@ -157,21 +157,33 @@
                      </image></ImageView>
                   <ImageView fx:id="currentCard" fitHeight="202.0" fitWidth="136.0" layoutX="173.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
                   <TextArea fx:id="playersInfo" editable="false" layoutX="323.0" layoutY="33.0" prefHeight="151.0" prefWidth="234.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
-                  <GridPane layoutX="316.0" layoutY="190.0" prefHeight="59.0" prefWidth="244.0">
+                  <GridPane fx:id="boxesGrid" layoutX="316.0" layoutY="190.0" prefHeight="59.0" prefWidth="244.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" GridPane.columnIndex="0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" GridPane.columnIndex="1"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" GridPane.columnIndex="2"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" GridPane.columnIndex="3"/>
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fitHeight="59.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                        <ImageView fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                        <ImageView fitHeight="62.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-                        <ImageView fitHeight="62.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="59.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                           <image>
+                              <Image url="@../../../../images/objects/yellow.png" />
+                           </image></ImageView>
+                        <ImageView fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                           <image>
+                              <Image url="@../../../../images/objects/green.png" />
+                           </image></ImageView>
+                        <ImageView fitHeight="62.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                           <image>
+                              <Image url="@../../../../images/objects/blue.png" />
+                           </image></ImageView>
+                        <ImageView fitHeight="62.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/objects/red.png" />
+                           </image></ImageView>
                      </children>
                   </GridPane>
                   <Group layoutX="467.0" layoutY="14.0">
