@@ -124,6 +124,12 @@ public class GUIRoot extends View {
     }
 
     @Override
+    public void renderAbandonedStationState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
     public void renderEndGameState(Game toDisplay) throws IOException {
         currController.goToEndScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
