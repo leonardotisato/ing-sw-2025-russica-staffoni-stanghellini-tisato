@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.polimi.ingsw.cg04.model.enumerations.CrewType.PINK_ALIEN;
+
 public class SmugglersState extends AdventureCardState {
     private final int DONE = 2;
     private final int HANDLE_BOXES = 1;
@@ -58,6 +60,10 @@ public class SmugglersState extends AdventureCardState {
                         //else bonus is 1
                         firePower += 1;
                     }
+                }
+
+                if (firePower > 0) {
+                    firePower += 2 * player.getShip().getNumCrewByType(PINK_ALIEN);
                 }
             }
             if (batteries != null && doubleCannons != null) {

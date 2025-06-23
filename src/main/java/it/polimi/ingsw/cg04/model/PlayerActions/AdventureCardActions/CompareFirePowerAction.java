@@ -42,7 +42,8 @@ public class CompareFirePowerAction extends PlayerAction {
             throw new InvalidActionException("Wrong inputs format!");
         }
         if (batteryCoordsList.size() != cannonCoordsList.size()) {
-            throw new InvalidActionException("batteryCoordsList size does not match cannonCoordsList size!");
+            throw new InvalidActionException("batteryCoordsList.size() = " + batteryCoordsList.size() +
+                    ", cannonCoordsList.size() = " + cannonCoordsList.size());
         }
 
         Ship ship = player.getShip();
