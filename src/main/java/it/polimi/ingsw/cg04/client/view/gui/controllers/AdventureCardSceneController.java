@@ -2,16 +2,15 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.adventureCards.WarZone;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
-import it.polimi.ingsw.cg04.model.tiles.BatteryTile;
-import it.polimi.ingsw.cg04.model.tiles.HousingTile;
-import it.polimi.ingsw.cg04.model.tiles.StorageTile;
-import it.polimi.ingsw.cg04.model.tiles.Tile;
+import it.polimi.ingsw.cg04.model.tiles.*;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -414,6 +413,203 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+//    @Override
+//    public void updateWarZoneController(Game game) {
+//        showPane(cardButtonsPane);
+//        deck.setOnMouseEntered(null);
+//        deck.setOnMouseExited(null);
+//        deck.setOnMouseClicked(null);
+//        deck.setStyle(null);
+//
+//        loadCurrentCard(game);
+//
+//        WarZoneState state = (WarZoneState) game.getGameState();
+//
+//        Player p = game.getPlayer(gui.getClientNickname());
+//        Ship ship = p.getShip();
+//        Tile[][] shipMatrix = ship.getTilesMatrix();
+//        int level = p.getGame().getLevel();
+//
+////        "CANNONS",
+////                "PROPULSORS",
+////                "CREW"
+//
+//        switch(state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
+//            case "GOBACK":
+//                if(state.getCard().getParameterCheck().get(state.getPenaltyIdx()).equals("CANNONS")) {
+//                    if (selectedBatties.isEmpty()) {
+//                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+//                    }
+//                    for (Node node : shipGrid.getChildren()) {
+//                        Integer colIndex = GridPane.getColumnIndex(node);
+//                        Integer rowIndex = GridPane.getRowIndex(node);
+//                        int tempcol = colIndex == null ? 0 : colIndex;
+//                        int row = rowIndex == null ? 0 : rowIndex;
+//                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+//                            continue;
+//                        } else if (level == 1) {
+//                            tempcol = tempcol - 1;
+//                        }
+//                        int col = tempcol;
+//
+//                        StackPane stack = (StackPane) node;
+//                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+//                        Coordinates coords = new Coordinates(row, col);
+//                        Tile tile = shipMatrix[row][col];
+//
+//                        if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+//                            System.out.println("trovata una battery tile in coordinate " + coords);
+//                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+//                        }
+//                        else if (coords.isIn(ship.getTilesMap().get("D. Cannon"))) {
+//                            System.out.println("trovato un double cannon tile in coordinate " + coords);
+//                            enableCannonTileInteraction((LaserTile) tile, stack, row, col);
+//                        }
+//
+//                        solveButton.setOnAction(event -> {
+//                            List<Coordinates> cannons;
+//                            List<Coordinates> usedBatteries;
+//                            if (selectedBatties.isEmpty()) {
+//                                c = new ArrayList<>();
+//                                usedBatteries = new ArrayList<>();
+//                            } else {
+//                                c = new ArrayList<>(selectedBatties.keySet());
+//                                usedBatteries = new ArrayList<>(selectedBatties.values());
+//                            }
+//                            gui.compareFirePower(c, usedBatteries);
+//                            selectedBatties.clear();
+//                            selectedCannons.clear();
+//                        });
+//                    }
+//                    choiceButton.setText("Clear selected");
+//                    choiceButton.setOnAction(event -> {
+//                        selectedBatties.clear();
+//                        updateBatteriesView(game);
+//                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+//                    });
+//                }
+//                else {
+//                    if (selectedCrew.isEmpty()) {
+//                        objectsInfo.setText("Selected Crew:\n\nNone selected.");
+//                    }
+//
+//                    for (Node node : shipGrid.getChildren()) {
+//                        Integer colIndex = GridPane.getColumnIndex(node);
+//                        Integer rowIndex = GridPane.getRowIndex(node);
+//                        int tempcol = colIndex == null ? 0 : colIndex;
+//                        int row = rowIndex == null ? 0 : rowIndex;
+//                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+//                            continue;
+//                        } else if (level == 1) {
+//                            tempcol = tempcol - 1;
+//                        }
+//                        int col = tempcol;
+//
+//                        StackPane stack = (StackPane) node;
+//                        Coordinates coords = new Coordinates(row, col);
+//                        Tile tile = shipMatrix[row][col];
+//
+//                        if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+//                            updateHousingTile((HousingTile) tile, stack, row, col);
+//                            enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+//                        }
+//
+//                        solveButton.setOnAction(event -> {
+//                            List<Coordinates> c;
+//                            List<Integer> removedCrew;
+//                            if (selectedCrew.isEmpty()) {
+//                                c = new ArrayList<>();
+//                                removedCrew = new ArrayList<>();
+//                            } else {
+//                                c = new ArrayList<>(selectedCrew.keySet());
+//                                removedCrew = new ArrayList<>(selectedCrew.values());
+//                            }
+//                            gui.removeCrew(c, removedCrew);
+//                            if (!selectedCrew.isEmpty()) selectedCrew.clear();
+//                        });
+//                    }
+//
+//                    choiceButton.setText("Clear selected");
+//                    choiceButton.setOnAction(event -> {
+//                        selectedCrew.clear();
+//                        updateCrewView(game);
+//                        updateCrewInfoText();
+//                    });
+//                }
+//                break;
+//            case "LOSECREW":
+//
+//                break;
+//            case "HANDLESHOTS":
+//
+//                break;
+//            case "LOSEBOX":
+//
+//
+//                choiceButton.setText("Clear selected");
+//                choiceButton.setOnAction(event -> {
+//                    selectedBatties.clear();
+//                    updateBatteriesView(game);
+//                    objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+//                });
+//                break;
+//        }
+//
+//
+//        if (selectedCrew.isEmpty()) {
+//            objectsInfo.setText("Selected Crew:\n\nNone selected.");
+//        }
+//
+//        for (Node node : shipGrid.getChildren()) {
+//            Integer colIndex = GridPane.getColumnIndex(node);
+//            Integer rowIndex = GridPane.getRowIndex(node);
+//            int tempcol = colIndex == null ? 0 : colIndex;
+//            int row = rowIndex == null ? 0 : rowIndex;
+//            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+//                continue;
+//            } else if (level == 1) {
+//                tempcol = tempcol - 1;
+//            }
+//            int col = tempcol;
+//
+//            StackPane stack = (StackPane) node;
+//            Coordinates coords = new Coordinates(row, col);
+//            Tile tile = shipMatrix[row][col];
+//
+//            if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+//                updateHousingTile((HousingTile) tile, stack, row, col);
+//                enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+//            }
+//
+//            solveButton.setOnAction(event -> {
+//                List<Coordinates> c;
+//                List<Integer> removedCrew;
+//                if (selectedCrew.isEmpty()) {
+//                    c = new ArrayList<>();
+//                    removedCrew = new ArrayList<>();
+//                } else {
+//                    c = new ArrayList<>(selectedCrew.keySet());
+//                    removedCrew = new ArrayList<>(selectedCrew.values());
+//                }
+//                gui.removeCrew(c, removedCrew);
+//                if (!selectedCrew.isEmpty()) selectedCrew.clear();
+//            });
+//        }
+//
+//        choiceButton.setText("Clear selected");
+//        choiceButton.setOnAction(event -> {
+//            selectedCrew.clear();
+//            updateCrewView(game);
+//            updateCrewInfoText();
+//        });
+//
+//        quitButton.setText("Pass Turn");
+//        quitButton.setOnAction(event -> {
+//            gui.removeCrew(null, null);
+//            selectedCrew.clear();
+//        });
+//    }
+
     private <K, V> K getKeyByValue(Map<K, V> map, V value) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (Objects.equals(entry.getValue(), value)) {
@@ -743,6 +939,33 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+//    private void enableCannonTileInteraction(HousingTile tile, StackPane stack, int row, int col) {
+//        Coordinates coords = new Coordinates(row, col);
+//        int remaining = tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0);
+//
+//        ImageView cell = (ImageView)stack.getChildren().getFirst();
+//
+//        if (remaining <= 0) {
+//            cell.setOnMouseClicked(null);
+//            cell.setOnMouseEntered(null);
+//            cell.setOnMouseExited(null);
+//            return;
+//        }
+//
+//        cell.setOnMouseEntered(e -> {
+//            cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
+//        });
+//
+//        cell.setOnMouseExited(e -> cell.setStyle(""));
+//
+//        cell.setOnMouseClicked(e -> {
+//            selectedCrew.put(coords, selectedCrew.getOrDefault(coords, 0) + 1);
+//            updateHousingTile(tile, stack, row, col);
+//            enableCannonTileInteraction(tile, stack, row, col);
+//            updateCannonsInfoText();
+//        });
+//    }
+
     private void updateBatteriesInfoText() {
         if (selectedBatties.isEmpty()) {
             objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
@@ -794,8 +1017,8 @@ public class AdventureCardSceneController extends ViewController {
             case 1:
 
                 ImageView singleStorage = new ImageView();
-                singleStorage.setFitWidth(12);
-                singleStorage.setFitHeight(12);
+                singleStorage.setFitWidth(13);
+                singleStorage.setFitHeight(13);
                 singleStorage.setPreserveRatio(true);
 
                 if (usedStorage == 1) {
@@ -827,7 +1050,7 @@ public class AdventureCardSceneController extends ViewController {
 
             case 2:
 
-                VBox doubleStorage = new VBox(2);
+                VBox doubleStorage = new VBox(3);
                 doubleStorage.setAlignment(Pos.CENTER);
 
                 for (BoxType boxType : boxes.keySet()) {
@@ -840,8 +1063,8 @@ public class AdventureCardSceneController extends ViewController {
 
                 for (int i = 0; i < usedStorage; i++) {
                     ImageView storageImage = new ImageView();
-                    storageImage.setFitWidth(12);
-                    storageImage.setFitHeight(12);
+                    storageImage.setFitWidth(13);
+                    storageImage.setFitHeight(13);
                     storageImage.setPreserveRatio(true);
 
 
@@ -862,8 +1085,8 @@ public class AdventureCardSceneController extends ViewController {
 
                 for(int i = usedStorage; i < maxStorage; i++) {
                     ImageView storageImage = new ImageView();
-                    storageImage.setFitWidth(12);
-                    storageImage.setFitHeight(12);
+                    storageImage.setFitWidth(13);
+                    storageImage.setFitHeight(13);
                     storageImage.setPreserveRatio(true);
                     storageImage.setImage(null);
                 }
@@ -876,10 +1099,10 @@ public class AdventureCardSceneController extends ViewController {
 
             default:
 
-                VBox triangleLayout = new VBox(1);
+                HBox triangleLayout = new HBox(3);
                 triangleLayout.setAlignment(Pos.CENTER);
 
-                HBox topRow = new HBox(2);
+                VBox topRow = new VBox(4);
                 topRow.setAlignment(Pos.CENTER);
 
                 for (BoxType boxType : boxes.keySet()) {
@@ -892,8 +1115,8 @@ public class AdventureCardSceneController extends ViewController {
 
                 for (int i = 0; i < 2; i++) {
                     ImageView storageImage = new ImageView();
-                    storageImage.setFitWidth(12);
-                    storageImage.setFitHeight(12);
+                    storageImage.setFitWidth(13);
+                    storageImage.setFitHeight(13);
                     storageImage.setPreserveRatio(true);
 
                     if (i < usedStorage) {
@@ -915,8 +1138,8 @@ public class AdventureCardSceneController extends ViewController {
                 }
 
                 ImageView bottomStorage = new ImageView();
-                bottomStorage.setFitWidth(12);
-                bottomStorage.setFitHeight(12);
+                bottomStorage.setFitWidth(13);
+                bottomStorage.setFitHeight(13);
                 bottomStorage.setPreserveRatio(true);
 
                 if (usedStorage > 2) {
@@ -942,7 +1165,7 @@ public class AdventureCardSceneController extends ViewController {
                 break;
         }
 
-        storageContainer.setRotate(storageTile.getRotation() * 90);
+        storageContainer.setRotate(storageTile.getRotation() * 90 + 180);
 
         cellStack.getChildren().add(storageContainer);
     }

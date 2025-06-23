@@ -62,6 +62,7 @@ public abstract class ViewController implements Initializable {
     public void updateStardustController(Game game) { return;}
     public void updateEpidemicController(Game game) {return; }
     public void updateAbandonedStationController(Game game){ return;}
+    public void updateWarZoneController(Game game){ return;}
 
     public void refreshJoinableGames(List<Game.GameInfo> games) {
         return;
