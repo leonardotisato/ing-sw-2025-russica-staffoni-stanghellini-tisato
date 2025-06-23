@@ -112,12 +112,6 @@ public class GUIRoot extends View {
     }
 
     @Override
-    public void renderOpenSpaceState(Game toDisplay) throws IOException {
-        currController.goToAdventureCardScene(this);
-        Platform.runLater(() -> currController.update(toDisplay));
-    }
-
-    @Override
     public void renderAbandonedShipState(Game toDisplay) throws IOException {
         currController.goToAdventureCardScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
@@ -130,8 +124,43 @@ public class GUIRoot extends View {
     }
 
     @Override
-    public void renderEndGameState(Game toDisplay) throws IOException {
-        currController.goToEndScene(this);
+    public void renderEpidemicState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderMeteorsRainState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderOpenSpaceState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    public void renderPiratesState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderPlanetsState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderSlaversState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
+
+    @Override
+    public void renderSmugglersState(Game toDisplay) throws IOException {
+        currController.goToAdventureCardScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
     }
 
@@ -142,11 +171,16 @@ public class GUIRoot extends View {
     }
 
     @Override
-    public void renderEpidemicState(Game toDisplay) throws IOException {
+    public void renderWarZoneState(Game toDisplay) throws IOException {
         currController.goToAdventureCardScene(this);
         Platform.runLater(() -> currController.update(toDisplay));
     }
 
+    @Override
+    public void renderEndGameState(Game toDisplay) throws IOException {
+        currController.goToEndScene(this);
+        Platform.runLater(() -> currController.update(toDisplay));
+    }
 
     @Override
     public void updateGame(Game toDisplay, String nickname) {
@@ -481,6 +515,14 @@ public class GUIRoot extends View {
 
     public void epidemic() {
         server.spreadEpidemic();
+    }
+
+    public void rollDice() {
+        server.rollDice();
+    }
+
+    public void chooseBattery(int x, int y) {
+        server.chooseBattery(x, y);
     }
 
     public void retire(){

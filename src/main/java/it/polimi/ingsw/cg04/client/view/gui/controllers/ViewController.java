@@ -57,11 +57,17 @@ public abstract class ViewController implements Initializable {
     public void updateLoadCrewController(Game game){ return;}
     public void updateBuildController(Game game){ return;}
     public void updateFlightController(Game game){ return;}
+
     public void updateOpenSpaceController(Game game){ return;}
     public void updateAbandonedShipController(Game game){ return;}
     public void updateStardustController(Game game) { return;}
     public void updateEpidemicController(Game game) {return; }
     public void updateAbandonedStationController(Game game){ return;}
+    public void updateMeteorsRainController(Game game){ return; }
+    public void updatePiratesController(Game game){ return; }
+    public void updatePlanetsController(Game game){ return; }
+    public void updateSlaversController(Game game){ return; }
+    public void updateSmugglersController(Game game){ return; }
     public void updateWarZoneController(Game game){ return;}
 
     public void refreshJoinableGames(List<Game.GameInfo> games) {
