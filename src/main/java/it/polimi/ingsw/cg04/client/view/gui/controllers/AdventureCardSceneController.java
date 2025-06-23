@@ -2,12 +2,12 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
-import it.polimi.ingsw.cg04.model.adventureCards.WarZone;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
+import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.tiles.*;
@@ -29,14 +29,12 @@ import javafx.scene.shape.Polygon;
 
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AdventureCardSceneController extends ViewController {
 
     @FXML
     private GridPane shipGrid, boxesGrid;
-
-    @FXML
-    private Button fixButton;
 
     @FXML
     private StackPane root;
@@ -413,6 +411,85 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    @Override
+    public void updateMeteorsRainController(Game game) {
+        showPane(cardButtonsPane);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+        diceButton.setVisible(true);
+        diceButton.setManaged(true);
+        diceButton.setOnAction(event -> {
+            gui.rollDice();
+        });
+
+        loadCurrentCard(game);
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+        }
+
+        for (Node node : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+            int col = tempcol;
+
+            StackPane stack = (StackPane) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+            AdventureCardState state = (AdventureCardState) game.getGameState();
+
+
+            if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
+                    && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0
+                    && state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 1) {  // PROVIDE_BATTERY = 1
+                System.out.println("Enabling batteries interaction.");
+                enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+            }
+
+            if (!ship.isShipLegal()) {
+                setFixEffects(cell, row, col);
+                hidePane(cardButtonsPane);
+                quitButton.setText("Fix Ship");
+                quitButton.setVisible(true);
+                quitButton.setManaged(true);
+                quitButton.setOnAction(event -> {gui.fixShip(tilesToBreak);});
+            }
+
+            solveButton.setOnAction(event -> {
+                if (selectedBatties.isEmpty()) {
+                    gui.chooseBattery(-1, -1);
+                } else {
+                    Coordinates c = selectedBatties.entrySet().iterator().next().getKey();
+                    gui.chooseBattery(c.getX(), c.getY());
+                }
+                selectedBatties.clear();
+            });
+
+        }
+        choiceButton.setText("Clear selected");
+        choiceButton.setOnAction(event -> {
+            selectedBatties.clear();
+            updateBatteriesView(game);
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+        });
+    }
+
+
 //    @Override
 //    public void updateWarZoneController(Game game) {
 //        showPane(cardButtonsPane);
@@ -707,6 +784,7 @@ public class AdventureCardSceneController extends ViewController {
             Tile tile = shipMatrix[row][col];
 
             if (tile == null){
+                stack.getChildren().remove(1, stack.getChildren().size());
                 cell.setImage(null);
             } else {
                 String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + tile.getId() + ".jpg";
@@ -716,6 +794,7 @@ public class AdventureCardSceneController extends ViewController {
                     );
                     cell.setImage(img);
                     cell.setRotate(tile.getRotation() * 90);
+
                     stack.setOnDragEntered(null);
                     stack.setOnDragExited(null);
                     stack.setOnDragOver(null);
@@ -1052,6 +1131,7 @@ public class AdventureCardSceneController extends ViewController {
 
                 VBox doubleStorage = new VBox(3);
                 doubleStorage.setAlignment(Pos.CENTER);
+                doubleStorage.setMouseTransparent(true);
 
                 for (BoxType boxType : boxes.keySet()) {
                     if(boxes.get(boxType) > 0) {
@@ -1104,6 +1184,9 @@ public class AdventureCardSceneController extends ViewController {
 
                 VBox topRow = new VBox(4);
                 topRow.setAlignment(Pos.CENTER);
+
+                triangleLayout.setMouseTransparent(true);
+                topRow.setMouseTransparent(true);
 
                 for (BoxType boxType : boxes.keySet()) {
                     if(boxes.get(boxType) > 0) {
@@ -1388,23 +1471,6 @@ public class AdventureCardSceneController extends ViewController {
                 triangle.setStyle("-fx-fill: " + playerColorHex.get(color.toString()) + "; -fx-stroke: black; -fx-stroke-width: 1;");
             }
         }
-    }
-
-
-    public void hideAllButtons(){
-        // todo: implement
-    }
-
-    @FXML
-    private void handleFixButtonClick() {
-        gui.fixShip(tilesToBreak);
-        tilesToBreak.clear();
-    }
-
-    public void showFixButton(){
-        hideAllButtons();
-        fixButton.setVisible(true);
-        fixButton.setManaged(true);
     }
 
     @Override

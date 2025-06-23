@@ -336,8 +336,6 @@ public class Game implements Serializable {
      */
     public void createAdventureDeck() {
         this.adventureCardsDeck = this.board.createAdventureCardsDeck(this);
-        this.adventureCardsDeck.set(0, 7);
-        this.adventureCardsDeck.set(1, 8);
     }
 
     public void buildPiles() {
