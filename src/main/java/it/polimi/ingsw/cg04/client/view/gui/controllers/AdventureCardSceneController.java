@@ -4,9 +4,11 @@ import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
+import it.polimi.ingsw.cg04.model.adventureCards.Slavers;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.CrewType;
@@ -474,6 +476,141 @@ public class AdventureCardSceneController extends ViewController {
     }
 
     @Override
+    public void updateSlaversController(Game game) {
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+        SlaversState state = (SlaversState) game.getGameState();
+
+        showPane(cardButtonsPane);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        choiceButton.setVisible(false);
+        choiceButton.setManaged(false);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+
+        if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 3) { // DECIDE_REWARD = 3
+            choiceButton.setVisible(true);
+            choiceButton.setManaged(true);
+            choiceButton.setText("Reject");
+            choiceButton.setOnAction(event -> {
+                gui.getRewards(false);
+            });
+
+            diceButton.setVisible(true);
+            diceButton.setManaged(true);
+            diceButton.setText("Accept");
+            diceButton.setOnAction(event -> {
+                gui.getRewards(true);
+            });
+        }
+
+        quitButton.setVisible(true);
+        quitButton.setManaged(true);
+        quitButton.setText("Clear Selected");
+        if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
+            quitButton.setOnAction(event -> {
+                selectedBatties.clear();
+                updateBatteriesView(game);
+                objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                selectedCannons.clear();
+                updateCannonView(game);
+                objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
+            });
+        } else if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2
+                quitButton.setOnAction(event -> {
+                selectedCrew.clear();
+                updateCrewView(game);
+                updateCrewInfoText();
+            });
+        }
+
+        loadCurrentCard(game);
+
+        if (selectedBatties.isEmpty()) {
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+            objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
+        }
+
+        for (Node node : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+            int col = tempcol;
+
+            StackPane stack = (StackPane) node;
+            ImageView cell = (ImageView) stack.getChildren().getFirst();
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {
+                if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
+                        && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0
+                        && state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {  // ACTIVATE_CANNONS = 1
+                    enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+                }
+                if (coords.isIn(ship.getTilesMap().get("LaserTile")) && tile.isDoubleLaser()
+                        && state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {
+                    enableCannonTileInteraction((LaserTile) tile, stack, row, col);
+                }
+
+                solveButton.setOnAction(event -> {
+                    List<Coordinates> batteriesCoords = new ArrayList<>();
+                    List<Coordinates> cannonCoords = new ArrayList<>();
+
+                    if (!selectedCrew.isEmpty()) {
+                        for (Map.Entry<Coordinates, Integer> entry : selectedBatties.entrySet()) {
+                            Coordinates coord = entry.getKey();
+                            int count = entry.getValue();
+                            for (int i = 0; i < count; i++) {
+                                batteriesCoords.add(coord);
+                            }
+                        }
+                        cannonCoords = selectedCannons;
+                    }
+
+                    gui.compareFirePower(batteriesCoords, cannonCoords);
+                    selectedBatties.clear();
+                    selectedCannons.clear();
+                });
+            } else if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2;
+                if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+                    resetTileInteractions();
+                    updateHousingTile((HousingTile) tile, stack, row, col);
+                    enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+
+                }
+
+                solveButton.setOnAction(event -> {
+                    List<Coordinates> c;
+                    List<Integer> removedCrew;
+                    if (selectedCrew.isEmpty()) {
+                        c = new ArrayList<>();
+                        removedCrew = new ArrayList<>();
+                    } else {
+                        c = new ArrayList<>(selectedCrew.keySet());
+                        removedCrew = new ArrayList<>(selectedCrew.values());
+                    }
+                    gui.removeCrew(c, removedCrew);
+                    if (!selectedCrew.isEmpty()) selectedCrew.clear();
+                });
+            }
+        }
+    }
+
+    @Override
     public void updateMeteorsRainController(Game game) {
         showPane(cardButtonsPane);
         deck.setOnMouseEntered(null);
@@ -818,6 +955,37 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    public void updateCannonView(Game game){
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+
+        for (Node n : shipGrid.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(n);
+            Integer rowIndex = GridPane.getRowIndex(n);
+
+            int tempcol = colIndex == null ? 0 : colIndex;
+            int row = rowIndex == null ? 0 : rowIndex;
+            int level = game.getLevel();
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                continue;
+            } else if (level == 1) {
+                tempcol = tempcol - 1;
+            }
+
+            int col = tempcol;
+            Coordinates coords = new Coordinates(row, col);
+            Tile tile = shipMatrix[row][col];
+
+            if (ship.getTilesMap().get("LaserTile").contains(coords) && tile.isDoubleLaser()) {
+                System.out.println("Found D. Cannon at " + coords.getX() + " " + coords.getY());
+                StackPane stack = (StackPane) n;
+                enableCannonTileInteraction((LaserTile) tile, stack, row, col);
+            }
+        }
+    }
+
+
     private void updateShip(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -1081,36 +1249,27 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
-//    private void enableCannonTileInteraction(HousingTile tile, StackPane stack, int row, int col) {
-//        Coordinates coords = new Coordinates(row, col);
-//        int remaining = tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0);
-//
-//        ImageView cell = (ImageView)stack.getChildren().getFirst();
-//
-//        if (remaining <= 0) {
-//            cell.setOnMouseClicked(null);
-//            cell.setOnMouseEntered(null);
-//            cell.setOnMouseExited(null);
-//            return;
-//        }
-//
-//        cell.setOnMouseEntered(e -> {
-//            cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
-//        });
-//
-//        cell.setOnMouseExited(e -> cell.setStyle(""));
-//
-//        cell.setOnMouseClicked(e -> {
-//            selectedCrew.put(coords, selectedCrew.getOrDefault(coords, 0) + 1);
-//            updateHousingTile(tile, stack, row, col);
-//            enableCannonTileInteraction(tile, stack, row, col);
-//            updateCannonsInfoText();
-//        });
-//    }
+    private void enableCannonTileInteraction(LaserTile tile, StackPane stack, int row, int col) {
+        Coordinates coords = new Coordinates(row, col);
+
+        ImageView cell = (ImageView)stack.getChildren().getFirst();
+
+        cell.setOnMouseEntered(e -> {
+            cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
+        });
+
+        cell.setOnMouseExited(e -> cell.setStyle(""));
+
+        cell.setOnMouseClicked(e -> {
+            selectedCannons.add(coords);
+            enableCannonTileInteraction(tile, stack, row, col);
+            updateCannonsInfoText();
+        });
+    }
 
     private void updateBatteriesInfoText() {
         if (selectedBatties.isEmpty()) {
-            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected\n\n.");
             return;
         }
 
@@ -1134,6 +1293,20 @@ public class AdventureCardSceneController extends ViewController {
         );
 
         objectsInfo.setText(sb.toString());
+    }
+
+    private void updateCannonsInfoText() {
+        if (selectedCannons.isEmpty()) {
+            objectsInfo.appendText("Selected Cannons:\n\nNone selected.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Selected Cannons:\n\n");
+        selectedCannons.forEach((coord) ->
+                sb.append(String.format("• (%d, %d)\n", coord.getX(), coord.getY()))
+        );
+
+        objectsInfo.appendText(sb.toString());
     }
 
 

@@ -529,6 +529,14 @@ public class GUIRoot extends View {
         server.chooseBattery(x, y);
     }
 
+    public void getRewards(Boolean b) {
+        server.getRewards(b);
+    }
+
+    public void compareFirePower(List<Coordinates> batteries, List<Coordinates> cannons) {
+        server.compareFirePower(batteries, cannons);
+    }
+
     public void retire(){
         server.retire();
     }
