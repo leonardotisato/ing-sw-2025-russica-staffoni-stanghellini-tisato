@@ -157,12 +157,12 @@
                      </image></ImageView>
                   <ImageView fx:id="currentCard" fitHeight="202.0" fitWidth="136.0" layoutX="173.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
                   <TextArea fx:id="playersInfo" editable="false" layoutX="323.0" layoutY="33.0" prefHeight="151.0" prefWidth="234.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
-                  <GridPane fx:id="boxesGrid" layoutX="316.0" layoutY="190.0" prefHeight="59.0" prefWidth="244.0" visible="false" managed="false">
+                  <GridPane fx:id="boxesGrid" layoutX="316.0" layoutY="190.0" managed="false" prefHeight="59.0" prefWidth="244.0" visible="false">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"  />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -225,6 +225,23 @@
                   <TextArea fx:id="objectsInfo" editable="false" layoutX="397.0" layoutY="256.0" prefHeight="151.0" prefWidth="279.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
                   <Button fx:id="viewShipsButton" layoutX="544.0" layoutY="453.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="View Ships" />
                   <Button fx:id="quitButton" layoutX="395.0" layoutY="492.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="283.0" text="Quit" />
+                  <GridPane fx:id="planetsGrid" layoutX="398.0" layoutY="491.0" prefHeight="33.0" prefWidth="283.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="planet1Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="1" GridPane.columnIndex="0"/>
+                        <Button fx:id="planet2Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="2" GridPane.columnIndex="1" />
+                        <Button fx:id="planet3Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="3" GridPane.columnIndex="2" />
+                        <Button fx:id="planet4Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="4" GridPane.columnIndex="3" />
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
          </children>

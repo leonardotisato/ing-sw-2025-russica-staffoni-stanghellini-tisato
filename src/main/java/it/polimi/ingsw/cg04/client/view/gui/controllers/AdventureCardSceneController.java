@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.client.view.gui.controllers;
 import it.polimi.ingsw.cg04.client.view.gui.GUIRoot;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.adventureCards.AdventureCard;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 public class AdventureCardSceneController extends ViewController {
 
     @FXML
-    private GridPane shipGrid, boxesGrid;
+    private GridPane shipGrid, boxesGrid, planetsGrid;
 
     @FXML
     private StackPane root;
@@ -81,6 +82,7 @@ public class AdventureCardSceneController extends ViewController {
     private final Map<BoxType, Image> loadedBoxImages = new EnumMap<>(BoxType.class);
     private ImageView draggedImageView = null;
     private List<ImageView> storageImages = new ArrayList<>();
+    private Integer chosenPlanetIdx;
 
     private GUIRoot gui;
 
@@ -95,6 +97,7 @@ public class AdventureCardSceneController extends ViewController {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         setupFlightboardTriangles();
+        hidePlanetsButtons();
     }
 
     private void scaleUI() {
@@ -379,7 +382,9 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateAbandonedStationController(Game game) {
-        setupBoxesGrid(game);
+        AdventureCard card = game.getCurrentAdventureCard();
+        Map<BoxType,Integer> rewards = new HashMap<>(card.getObtainedResources());
+        setupBoxesGrid(game, rewards);
         enableAllStorageTileInteractions(game);
         showPane(cardButtonsPane);
         diceButton.setVisible(false);
@@ -420,6 +425,51 @@ public class AdventureCardSceneController extends ViewController {
         choiceButton.setOnAction(event -> {
             gui.handleBoxes(null, null);
             //updateStorageView(game);
+        });
+    }
+
+    @Override
+    public void updatePlanetsController(Game game) {
+        showPane(cardButtonsPane);
+        showPlanetsButtons(game);
+        diceButton.setVisible(false);
+        diceButton.setManaged(false);
+        solveButton.setVisible(false);
+        solveButton.setManaged(false);
+        quitButton.setVisible(false);
+        quitButton.setManaged(false);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        Player p = game.getPlayer(gui.getClientNickname());
+
+        objectsInfo.setVisible(false);
+        objectsInfo.setManaged(false);
+
+
+
+        solveButton.setOnAction(event -> {
+            List<Coordinates> c;
+            List<Map<BoxType, Integer>> storageMap;
+            if (selectedStorage.isEmpty()) {
+                c = new ArrayList<>();
+                storageMap = new ArrayList<>();
+            } else {
+                c = new ArrayList<>(selectedStorage);
+                storageMap = new ArrayList<>(boxesMaps);
+            }
+            gui.landToPlanet(chosenPlanetIdx, c, storageMap);
+            selectedStorage.clear();
+            boxesMaps.clear();
+        });
+
+        choiceButton.setText("Pass turn");
+        choiceButton.setOnAction(event -> {
+            gui.landToPlanet(null, null, null);
         });
     }
 
@@ -1146,7 +1196,6 @@ public class AdventureCardSceneController extends ViewController {
 
                 VBox doubleStorage = new VBox(3);
                 doubleStorage.setAlignment(Pos.CENTER);
-                doubleStorage.setMouseTransparent(true);
 
                 for (BoxType boxType : boxes.keySet()) {
                     if(boxes.get(boxType) > 0) {
@@ -1207,8 +1256,6 @@ public class AdventureCardSceneController extends ViewController {
                 VBox topRow = new VBox(4);
                 topRow.setAlignment(Pos.CENTER);
 
-                triangleLayout.setMouseTransparent(true);
-                topRow.setMouseTransparent(true);
 
                 for (BoxType boxType : boxes.keySet()) {
                     if(boxes.get(boxType) > 0) {
@@ -1282,9 +1329,8 @@ public class AdventureCardSceneController extends ViewController {
         cellStack.getChildren().add(storageContainer);
     }
 
-    private void setupBoxesGrid(Game game) {
+    private void setupBoxesGrid(Game game, Map<BoxType, Integer> rewards) {
         AdventureCard card = game.getCurrentAdventureCard();
-        Map<BoxType, Integer> rewards = card.getObtainedResources();
         remainingBoxes.clear();
         boxesGrid.setVisible(true);
         boxesGrid.setManaged(true);
@@ -1696,6 +1742,39 @@ public class AdventureCardSceneController extends ViewController {
             }
         }
         return null;
+    }
+
+    public void showPlanetsButtons(Game game){
+        AdventureCard card = game.getCurrentAdventureCard();
+        PlanetsState state = (PlanetsState)game.getGameState();
+        for (Node node : planetsGrid.getChildren()) {
+            Button button = (Button) node;
+            if(GridPane.getColumnIndex(button) < card.getPlanetReward().size() && !state.getChosenPlanets().containsValue(GridPane.getColumnIndex(button))) {
+                button.setVisible(true);
+                button.setManaged(true);
+                button.setOnAction(event -> {
+                    chosenPlanetIdx = GridPane.getColumnIndex(button);
+                    setupBoxesGrid(game, card.getPlanetReward().get(chosenPlanetIdx));
+                    enableAllStorageTileInteractions(game);
+                    solveButton.setVisible(true);
+                    solveButton.setManaged(true);
+                });
+            }
+            else{
+                button.setVisible(false);
+                button.setManaged(false);
+            }
+        }
+    }
+
+    public void hidePlanetsButtons(){
+        for (Node node : planetsGrid.getChildren()) {
+            Button button = (Button) node;
+            if(GridPane.getColumnIndex(button) < 4){
+                button.setVisible(false);
+                button.setManaged(false);
+            }
+        }
     }
 
 

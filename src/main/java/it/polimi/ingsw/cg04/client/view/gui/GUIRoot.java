@@ -509,6 +509,10 @@ public class GUIRoot extends View {
         server.handleBoxes(coords, boxesMap);
     }
 
+    public void landToPlanet(Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes){
+        server.landToPlanet(planetIdx, coordinates, boxes);
+    }
+
     public void starDust() {
         server.starDust();
     }
