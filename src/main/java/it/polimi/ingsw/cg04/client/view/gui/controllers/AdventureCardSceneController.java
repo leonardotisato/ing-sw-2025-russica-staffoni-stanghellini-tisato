@@ -47,10 +47,10 @@ public class AdventureCardSceneController extends ViewController {
     private ImageView deck, currentCard;
 
     @FXML
-    private Button quitButton, solveButton, choiceButton, diceButton;
+    private Button quitButton, solveButton, choiceButton, diceButton, viewShipsButton;
 
     @FXML
-    private Pane cardButtonsPane;
+    private Pane cardButtonsPane, flightButtonsPane;
 
     @FXML
     private TextArea logs, objectsInfo;
@@ -64,6 +64,12 @@ public class AdventureCardSceneController extends ViewController {
             pos16_lev2, pos17_lev2, pos18_lev2, pos19_lev2, pos20_lev2,
             pos21_lev2, pos22_lev2, pos23_lev2;
 
+
+    @FXML private Polygon pos0_lev1, pos1_lev1, pos2_lev1, pos3_lev1, pos4_lev1, pos5_lev1,
+            pos6_lev1, pos7_lev1, pos8_lev1, pos9_lev1, pos10_lev1,
+            pos11_lev1, pos12_lev1, pos13_lev1, pos14_lev1, pos15_lev1,
+            pos16_lev1, pos17_lev1;
+
     private List<Coordinates> tilesToBreak = new ArrayList<>();
     private Map<Coordinates, Integer> selectedBatties = new HashMap<>();
     private List<Coordinates> selectedCannons = new ArrayList<>();
@@ -71,6 +77,7 @@ public class AdventureCardSceneController extends ViewController {
     private List<Coordinates> selectedStorage = new ArrayList<>();
     private List<Map<BoxType, Integer>> boxesMaps = new ArrayList<>();
 
+    private final Map<Integer, Polygon> level1Triangles = new HashMap<>();
     private final Map<Integer, Polygon> level2Triangles = new HashMap<>();
 
 
@@ -138,6 +145,24 @@ public class AdventureCardSceneController extends ViewController {
         level2Triangles.put(21, pos21_lev2);
         level2Triangles.put(22, pos22_lev2);
         level2Triangles.put(23, pos23_lev2);
+        level1Triangles.put(0, pos0_lev1);
+        level1Triangles.put(1, pos1_lev1);
+        level1Triangles.put(2, pos2_lev1);
+        level1Triangles.put(3, pos3_lev1);
+        level1Triangles.put(4, pos4_lev1);
+        level1Triangles.put(5, pos5_lev1);
+        level1Triangles.put(6, pos6_lev1);
+        level1Triangles.put(7, pos7_lev1);
+        level1Triangles.put(8, pos8_lev1);
+        level1Triangles.put(9, pos9_lev1);
+        level1Triangles.put(10, pos10_lev1);
+        level1Triangles.put(11, pos11_lev1);
+        level1Triangles.put(12, pos12_lev1);
+        level1Triangles.put(13, pos13_lev1);
+        level1Triangles.put(14, pos14_lev1);
+        level1Triangles.put(15, pos15_lev1);
+        level1Triangles.put(16, pos16_lev1);
+        level1Triangles.put(17, pos17_lev1);
     }
 
 
@@ -163,6 +188,7 @@ public class AdventureCardSceneController extends ViewController {
         updateShip(currentPlayer);
         updatePlayersInfo(game.getPlayers());
         updateFlightboardPositions(game);
+
         game.getGameState().updateStateController(this, game);
     }
 
@@ -170,6 +196,9 @@ public class AdventureCardSceneController extends ViewController {
     public void updateFlightController(Game game) {
         resetTileInteractions();
         hidePane(cardButtonsPane);
+        hidePane(boxesGrid);
+        hidePane(planetsGrid);
+        showPane(flightButtonsPane);
         String resourcePath = "/images/cards/back" + game.getLevel() + ".jpg";
         try {
             Image img = new Image(
@@ -421,6 +450,8 @@ public class AdventureCardSceneController extends ViewController {
             boxesMaps.clear();
             });
 
+        choiceButton.setVisible(true);
+        choiceButton.setManaged(true);
         choiceButton.setText("Pass turn");
         choiceButton.setOnAction(event -> {
             gui.handleBoxes(null, null);
@@ -431,6 +462,7 @@ public class AdventureCardSceneController extends ViewController {
     @Override
     public void updatePlanetsController(Game game) {
         showPane(cardButtonsPane);
+        showPane(planetsGrid);
         showPlanetsButtons(game);
         diceButton.setVisible(false);
         diceButton.setManaged(false);
@@ -468,8 +500,10 @@ public class AdventureCardSceneController extends ViewController {
         });
 
         choiceButton.setText("Pass turn");
+        choiceButton.toFront();
         choiceButton.setOnAction(event -> {
             gui.landToPlanet(null, null, null);
+            hidePlanetsButtons();
         });
     }
 
@@ -1441,6 +1475,7 @@ public class AdventureCardSceneController extends ViewController {
 
     public void enableStorageTileInteraction(ImageView targetImage, int row, int col, Game game) {
         Coordinates targetCoords = new Coordinates(row, col);
+        Ship ship = game.getPlayer(gui.getClientNickname()).getShip();
         targetImage.setMouseTransparent(false);
         targetImage.toFront();
         System.out.println("enabling storage tile interaction " + targetCoords);
@@ -1489,6 +1524,7 @@ public class AdventureCardSceneController extends ViewController {
             try {
                 String[] parts = db.getString().split(":");
                 BoxType draggedBox = BoxType.valueOf(parts[1]);
+                if(draggedBox == BoxType.RED && !ship.getTile(targetCoords.getX(), targetCoords.getY()).isSpecialStorageTile()) return;
                 boolean fromTile = "tile".equals(parts[3]);
                 boolean fromGrid = "grid".equals(parts[3]);
 
@@ -1612,7 +1648,9 @@ public class AdventureCardSceneController extends ViewController {
                 "BLUE", "#0000FF",
                 "GREEN", "#00FF00"
         );
-        for (Polygon triangle : level2Triangles.values()) {
+        Map<Integer, Polygon> currentMap = new HashMap<>();
+        currentMap = game.getLevel() == 1 ? level1Triangles : level2Triangles;
+        for (Polygon triangle : currentMap.values()) {
             triangle.setStyle("-fx-fill: transparent; -fx-stroke: transparent;");
         }
 
@@ -1620,9 +1658,9 @@ public class AdventureCardSceneController extends ViewController {
             int position = player.getPosition();
             PlayerColor color = player.getColor();
             if(position < 0) {
-                position = level2Triangles.size() + position;
+                position = currentMap.size() + position;
             }
-            Polygon triangle = level2Triangles.get(position);
+            Polygon triangle = currentMap.get(position);
             System.out.println("Position: " + position + " Color: " + color + " Triangle: ");
             if (triangle != null && color != null) {
                 triangle.setStyle("-fx-fill: " + playerColorHex.get(color.toString()) + "; -fx-stroke: black; -fx-stroke-width: 1;");
