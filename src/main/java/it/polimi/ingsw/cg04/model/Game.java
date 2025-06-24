@@ -336,8 +336,6 @@ public class Game implements Serializable {
      */
     public void createAdventureDeck() {
         this.adventureCardsDeck = this.board.createAdventureCardsDeck(this);
-        this.adventureCardsDeck.set(0, 3);
-        this.adventureCardsDeck.set(1, 23);
     }
 
     public void buildPiles() {
@@ -613,8 +611,10 @@ public class Game implements Serializable {
      * @param p the player to be disconnected
      */
     public void disconnect(Player p) {
+        gameState.disconnect(p);
         disconnected.add(p);
         players.remove(p);
+        gameState.setSortedPlayers(this.getSortedPlayers());
     }
 
     public void composeNewBoxesMap(String nickname, List<Coordinates> c, List<Map<BoxType, Integer>> newBoxes) {
