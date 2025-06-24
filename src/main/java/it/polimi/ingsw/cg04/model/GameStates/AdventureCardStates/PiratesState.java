@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static it.polimi.ingsw.cg04.model.enumerations.CrewType.PINK_ALIEN;
+
 public class PiratesState extends AdventureCardState {
 
     private int opponentFirePower;
@@ -230,8 +232,8 @@ public class PiratesState extends AdventureCardState {
             direction = context.getCurrentAdventureCard().getDirection(currMeteorIdx);
             attack = context.getCurrentAdventureCard().getAttack(currMeteorIdx);
 
-            System.out.println("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
-            this.addLog("Attack type is: " + attack + " meteor, direction is: " + direction + " dice result is: " + dice);
+            System.out.println("Attack type is: " + attack + " shot, direction is: " + direction + " dice result is: " + dice);
+            this.addLog("Attack type is: " + attack + " shot, direction is: " + direction + " dice result is: " + dice);
 
             // check whether the meteor will hit the ships
             if (direction == Direction.UP || direction == Direction.DOWN) {
@@ -259,36 +261,31 @@ public class PiratesState extends AdventureCardState {
             for (int i = 0; i < sortedPlayers.size(); i++) {
                 if (playerStates.get(i) == WAIT_FOR_SHOT) {
                     Player p = sortedPlayers.get(i);
-                    int hitState = p.getShip().checkHit(direction, attack, dice, "meteor");
+
+                    int hitState = p.getShip().checkHit(direction, attack, dice, "shot");
 
                     // if player is safe set its state to done for this attack
                     if (hitState == -1) {
                         this.appendLog("Player: " + p.getName() + " was not hit");
                         playerStates.set(i, SHOT_DONE);
                     }
-                    if (hitState == -2) {
-                        this.appendLog("Player: " + p.getName() + " used a single cannon!");
-                        playerStates.set(i, SHOT_DONE);
-                    }
-
                     // deliver guaranteed hit and check if ship is still legal if not put in correction state "2"
-                    if (hitState == 2) {
-                        this.appendLog("Player: " + p.getName() + " was hit and did not have a valid protection!");
+                    else if (hitState == 2) {
+                        this.appendLog("Player " + p.getName() + " was hit");
                         p.getShip().handleHit(direction, dice);
 
                         // if ship is legal, player is done for this attack
                         if (p.getShip().isShipLegal()) {
-                            this.appendLog("Player: " + p.getName() + "'s ship was damaged, but it's still legal!");
                             playerStates.set(i, SHOT_DONE);
+                            triggerNextRound();
                         } else {
                             // player needs to correct his ship
-                            this.appendLog("Player: " + p.getName() + "'s ship is now illegal! Fix it with fixShip!");
+                            this.appendLog("Player " + p.getName() + " must fix his ship.");
                             playerStates.set(i, CORRECT_SHIP);
                         }
                     }
-
                     // player can decide to use batteries to defend his ship
-                    if (hitState == 0 || hitState == 1) {
+                    else if (hitState == 0) {
                         this.appendLog("Player: " + p.getName() + " can use a battery to save his ship!");
                         playerStates.set(i, PROVIDE_BATTERY);
                     }
@@ -323,8 +320,10 @@ public class PiratesState extends AdventureCardState {
                 this.addLog("Player " + player.getName() + " decided to take the hit.");
                 player.getShip().handleHit(direction, dice);
                 if (!player.getShip().isShipLegal()) {
+                    this.appendLog("Player " + player.getName() + " was hit and his ship is now illegal. He must fix it.");
                     playerStates.set(playerIdx, CORRECT_SHIP);
                 } else {
+                    this.appendLog("Player " + player.getName() + " was hit but his ship is still legal.");
                     playerStates.set(playerIdx, SHOT_DONE);
                 }
             } else { // player used battery and he is done for the round
