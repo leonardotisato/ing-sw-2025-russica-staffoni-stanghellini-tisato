@@ -128,17 +128,17 @@ public class EndSceneController extends ViewController {
         }
         if(players.size() >= 2) {
             nick2.setText(players.get(1).getName());
-            color2.setFill(mapColor(players.get(2).getColor()));
+            color2.setFill(mapColor(players.get(1).getColor()));
             credits2.setText(Double.toString(players.get(1).getNumCredits()));
         }
         if(players.size() >= 3) {
             nick3.setText(players.get(2).getName());
-            color3.setFill(mapColor(players.get(3).getColor()));
+            color3.setFill(mapColor(players.get(2).getColor()));
             credits3.setText(Double.toString(players.get(2).getNumCredits()));
         }
         if(players.size() >= 4) {
             nick4.setText(players.get(3).getName());
-            color4.setFill(mapColor(players.get(4).getColor()));
+            color4.setFill(mapColor(players.get(3).getColor()));
             credits4.setText(Double.toString(players.get(3).getNumCredits()));
         }
     }

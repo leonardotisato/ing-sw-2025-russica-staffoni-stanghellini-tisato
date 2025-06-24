@@ -58,56 +58,30 @@ public abstract class View implements PropertyChangeListener {
 
     abstract public void renderEndGameState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderLoadCrewState(Game toDisplay) throws IOException {}
+    public abstract void renderLoadCrewState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderFlightState(Game toDisplay) throws IOException {}
+    public abstract void renderFlightState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderAbandonedShipState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderAbandonedShipState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderAbandonedStationState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderAbandonedStationState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderEpidemicState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderEpidemicState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderMeteorsRainState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderMeteorsRainState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderOpenSpaceState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderOpenSpaceState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderPiratesState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderPiratesState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderPlanetsState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderPlanetsState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderSlaversState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderSlaversState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderSmugglersState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderSmugglersState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderStardustState(Game toDisplay) throws IOException {
-    }
+    public abstract void renderStardustState(Game toDisplay) throws IOException;
 
-    // todo: abstract me when implemented on gui
-    public void renderWarZoneState(Game toDisplay) throws IOException {
-    }
-
-
+    public abstract void renderWarZoneState(Game toDisplay) throws IOException;
 
 }

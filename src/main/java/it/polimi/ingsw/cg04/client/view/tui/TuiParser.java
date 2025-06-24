@@ -20,7 +20,7 @@ public class TuiParser {
             case "createGame", "create" -> System.out.println("  <gameLevel> <maxPlayers> <COLOR>");
             case "joinGame", "join" -> System.out.println("  <gameId> <COLOR>");
             case "chooseTile", "choose" -> System.out.println("  <tileIndex>");
-            case "chooseTileFromBuffer" -> System.out.println("  <tileIndex>");
+            case "chooseTileFromBuffer" -> System.out.println("  <bufferIndex>");
             case "pickPile" -> System.out.println("  <pileIndex>");
             case "endBuilding" -> System.out.println("  <startingPosition>");
             case "place", "p" -> System.out.println("  <x> <y>");
