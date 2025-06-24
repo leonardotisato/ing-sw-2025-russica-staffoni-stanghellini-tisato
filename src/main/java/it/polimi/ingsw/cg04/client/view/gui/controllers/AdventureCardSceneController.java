@@ -57,9 +57,6 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private ImageView shipImage, flightboardImg;
 
-    @FXML
-    private TextField diceResult;
-
 
     @FXML
     private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
@@ -238,6 +235,8 @@ public class AdventureCardSceneController extends ViewController {
         showButton(choiceButton);
         showButton(quitButton);
         choiceButton.setLayoutY(453);
+        objectsInfo.setVisible(true);
+        objectsInfo.setManaged(true);
     }
 
     private void showStardustButtons(){
@@ -354,7 +353,6 @@ public class AdventureCardSceneController extends ViewController {
             System.err.println("Image not found: " + resourcePath);
             e.printStackTrace();
         }
-        diceResult.setText("");
     }
 
     @Override
@@ -922,6 +920,7 @@ public class AdventureCardSceneController extends ViewController {
                 showButton(quitButton);
                 quitButton.setOnAction(event -> {
                     gui.fixShip(tilesToBreak);
+                    tilesToBreak.clear();
                 });
             }
 
@@ -934,11 +933,6 @@ public class AdventureCardSceneController extends ViewController {
                 }
                 selectedBatties.clear();
             });
-
-            if(state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
-
         }
         choiceButton.setText("Clear selected");
         showButton(choiceButton);
@@ -1068,17 +1062,7 @@ public class AdventureCardSceneController extends ViewController {
             }
         }
 
-        if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) >= 4) {
-            if (state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
-        }
-
-
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 4) {
-            if(state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
             for (Node node : shipGrid.getChildren()) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);
@@ -2499,11 +2483,14 @@ public class AdventureCardSceneController extends ViewController {
     }
 
     public void showPlanetsButtons(Game game) {
+        int i = 0;
         AdventureCard card = game.getCurrentAdventureCard();
         PlanetsState state = (PlanetsState) game.getGameState();
         for (Node node : planetsGrid.getChildren()) {
             Button button = (Button) node;
             if (GridPane.getColumnIndex(button) < card.getPlanetReward().size() && !state.getChosenPlanets().containsValue(GridPane.getColumnIndex(button))) {
+                button.setText(Integer.toString(i));
+                i++;
                 button.setVisible(true);
                 button.setManaged(true);
                 button.setMouseTransparent(false);

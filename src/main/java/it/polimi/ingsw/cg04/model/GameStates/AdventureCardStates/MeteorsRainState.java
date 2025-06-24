@@ -301,6 +301,9 @@ public class MeteorsRainState extends AdventureCardState {
     @Override
     public void disconnect(Player player) {
         played.remove(context.getSortedPlayers().indexOf(player));
+        if (isAllDone(played)) {
+            triggerNextRound();
+        }
     }
 
     /**
