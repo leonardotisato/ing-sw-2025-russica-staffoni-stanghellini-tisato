@@ -39,9 +39,8 @@ public abstract class AdventureCardState extends GameState {
                 if (!log.isEmpty()) this.appendLog(log);
             }
 
-            if (context.getPlayers().isEmpty()) {
-                // end game since all players are retired
-                this.appendLog("No player can continue the game. They are all either retired or disconnected.");
+            if (context.getPlayers().isEmpty() || getContext().getAdventureCardsDeck().isEmpty()) {
+                // end game since all players are retired or the deck is empty
                 context.setGameState(new EndGameState(context));
                 context.setCurrentAdventureCard(null);
                 context.handleEndGame();
@@ -53,16 +52,6 @@ public abstract class AdventureCardState extends GameState {
                 context.setCurrentAdventureCard(null);
             }
 
-        }
-        if (getContext().getAdventureCardsDeck().isEmpty()) {
-            // the game ended since there are no more adv cards
-            context.setGameState(new EndGameState(context));
-            context.setCurrentAdventureCard(null);
-            context.handleEndGame();
-        } else {
-            // game continues
-            context.setGameState(new FlightState(context));
-            context.setCurrentAdventureCard(null);
         }
     }
 
