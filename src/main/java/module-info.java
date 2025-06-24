@@ -18,11 +18,11 @@ module it.polimi.ingsw.cg04 {
     opens it.polimi.ingsw.cg04.model.tiles to com.google.gson;
     exports it.polimi.ingsw.cg04.controller;
     exports it.polimi.ingsw.cg04.model.GameStates;
-    exports it.polimi.ingsw.cg04.model.PlayerActions;
+    exports it.polimi.ingsw.cg04.controller.PlayerActions;
     exports it.polimi.ingsw.cg04.model.utils;
-    exports it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions;
-    exports it.polimi.ingsw.cg04.model.PlayerActions.BuildActions;
-    exports it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions;
+    exports it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions;
+    exports it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions;
+    exports it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions;
     exports it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates;
     exports it.polimi.ingsw.cg04.model.exceptions;
     exports it.polimi.ingsw.cg04.network.Server.RMI to java.rmi;

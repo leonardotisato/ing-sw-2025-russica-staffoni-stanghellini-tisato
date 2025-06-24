@@ -1,14 +1,14 @@
 package it.polimi.ingsw.cg04.network.Client.RMI;
 
+import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.*;
+import it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.*;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.PlayerActions.Action;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.*;
-import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.*;
-import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.LoadCrewAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.CreateGameAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.JoinGameAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.SetNicknameAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.Action;
+import it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.enumerations.BoxType;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.utils.Coordinates;

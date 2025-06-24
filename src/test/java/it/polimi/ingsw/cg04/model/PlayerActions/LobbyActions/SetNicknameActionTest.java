@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
