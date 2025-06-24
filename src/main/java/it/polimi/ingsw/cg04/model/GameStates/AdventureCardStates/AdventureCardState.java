@@ -33,7 +33,7 @@ public abstract class AdventureCardState extends GameState {
         if (card != null) {
 
             // for each player, check if they need to retire
-            for (Player player : sortedPlayers) {
+            for (Player player : context.getSortedPlayers()) {
                 String log = context.flagLapped(player);
                 log = log + context.flagNoHumans(player);
                 if (!log.isEmpty()) this.appendLog(log);

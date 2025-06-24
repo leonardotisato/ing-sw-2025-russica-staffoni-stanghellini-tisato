@@ -1,5 +1,19 @@
 # Galaxy Trucker
 
+# Funzionalità implementate
+| FUNZIONALITA'       |  |
+|---------------------|--|
+| Regole Semplificate | ✅ |
+| Regole Complete     | ✅ |
+| TUI                 | ✅ |
+| GUI                 | ✅ |
+| RMI                 | ✅ |
+| Socket              | ✅ |
+| Volo di Prova       | ✅ |
+| Multigame           | ✅ |
+| Resilienza          | ❌ |
+| Persistenza         | ❌ |
+
 ## Run the server
 ```bash
 java -jar <path to the .jar file> server

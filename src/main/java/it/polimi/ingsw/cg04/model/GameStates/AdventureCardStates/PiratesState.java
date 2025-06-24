@@ -465,6 +465,11 @@ public class PiratesState extends AdventureCardState {
         return false;
     }
 
+    @Override
+    public void disconnect(Player player) {
+        playerStates.remove(context.getSortedPlayers().indexOf(player));
+    }
+
     // todo: remove me. for testing purposes only!
     public void FORCE_OPPONENT_FIREPOWER(int val) {
         this.opponentFirePower = val;

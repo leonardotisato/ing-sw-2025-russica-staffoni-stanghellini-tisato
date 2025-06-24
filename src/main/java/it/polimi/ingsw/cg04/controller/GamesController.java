@@ -88,7 +88,6 @@ public class GamesController implements PropertyChangeListener {
                 throw new InvalidActionException("You are retired. You can't play anymore, wait for the game to finish.");
             }
 
-
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
 
             // send game snapshot to players
@@ -227,6 +226,10 @@ public class GamesController implements PropertyChangeListener {
             disconnectedPlayers.get(g).add(p);
             connectedPlayers.get(g).remove(p);
             g.disconnect(p);
+            List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
+
+            // send game snapshot to players
+            server.broadcastGameUpdate(recipients, g.deepCopy());
         }
     }
 

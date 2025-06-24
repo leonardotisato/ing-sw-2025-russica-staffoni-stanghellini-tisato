@@ -17,14 +17,14 @@
          <TextField fx:id="credits1" alignment="CENTER" editable="false" layoutX="583.0" layoutY="127.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
          <TextField fx:id="nick1" alignment="CENTER" editable="false" layoutX="210.0" layoutY="127.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
          <Circle fx:id="color1" fill="TRANSPARENT" layoutX="411.0" layoutY="152.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-         <TextField fx:id="credits2" alignment="CENTER" editable="false" layoutX="583.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <TextField fx:id="nick2" alignment="CENTER" editable="false" layoutX="210.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <Circle fx:id="color2" fill="#1f93ff00" layoutX="411.0" layoutY="362.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-         <TextField fx:id="credits3" alignment="CENTER" editable="false" layoutX="583.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <TextField fx:id="nick3" alignment="CENTER" editable="false" layoutX="210.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <Circle fx:id="color3" fill="#1f93ff00" layoutX="411.0" layoutY="222.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-         <TextField fx:id="credits4" alignment="CENTER" editable="false" layoutX="583.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <TextField fx:id="nick4" alignment="CENTER" editable="false" layoutX="210.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
-         <Circle fx:id="color4" fill="#1f93ff00" layoutX="411.0" layoutY="293.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits4" alignment="CENTER" editable="false" layoutX="583.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick4" alignment="CENTER" editable="false" layoutX="210.0" layoutY="337.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color4" fill="#1f93ff00" layoutX="411.0" layoutY="362.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits2" alignment="CENTER" editable="false" layoutX="583.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick2" alignment="CENTER" editable="false" layoutX="210.0" layoutY="197.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color2" fill="#1f93ff00" layoutX="411.0" layoutY="222.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+         <TextField fx:id="credits3" alignment="CENTER" editable="false" layoutX="583.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <TextField fx:id="nick3" alignment="CENTER" editable="false" layoutX="210.0" layoutY="267.0" prefHeight="51.0" prefWidth="169.0" styleClass="textfield" />
+         <Circle fx:id="color3" fill="#1f93ff00" layoutX="411.0" layoutY="293.0" radius="22.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       </Pane>
 </StackPane>
