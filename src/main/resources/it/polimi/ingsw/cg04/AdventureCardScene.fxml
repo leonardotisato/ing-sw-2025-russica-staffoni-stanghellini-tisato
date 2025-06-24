@@ -20,12 +20,8 @@
          <children>
             <AnchorPane prefHeight="540.0" prefWidth="960.0">
                <children>
-                  <Pane fx:id="flightButtonsPane" layoutX="395.0" layoutY="453.0">
-                     <children>
-                        <Button fx:id="viewShipsButton" layoutX="149.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="View Ships" />
-                        <Button fx:id="quitButton" layoutY="39.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="283.0" text="Quit" />
-                     </children>
-                  </Pane>
+                  <Button fx:id="viewShipsButton" layoutX="544.0" layoutY="453.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="View Ships" />
+                  <Button fx:id="quitButton" layoutX="395.0" layoutY="492.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="283.0" text="Quit" />
                   <Pane layoutX="14.0" layoutY="235.0" prefHeight="291.0" prefWidth="374.0">
                      <ImageView fx:id="shipImage" fitHeight="270.0" fitWidth="476.0" layoutX="-1.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
                      <GridPane fx:id="shipGrid" layoutX="13.0" layoutY="30.5" prefHeight="250.0" prefWidth="347.0">
@@ -240,15 +236,11 @@
                      <Polygon fx:id="pos3_lev1" fill="#1f93ff00" layoutX="327.0" layoutY="100.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="10.3" stroke="TRANSPARENT" strokeType="INSIDE" />
                   </Group>
                   <TextArea fx:id="logs" editable="false" layoutX="709.0" layoutY="274.0" prefHeight="206.0" prefWidth="239.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
-                  <Pane fx:id="cardButtonsPane" layoutX="397.0" layoutY="413.0">
-                     <children>
-                        <Button fx:id="solveButton" layoutX="313.0" layoutY="79.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="234.0" text="Solve card" />
-                        <Button fx:id="diceButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="Roll Dices" />
-                        <Button fx:id="choiceButton" layoutY="40.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="Pass Turn" />
-                        <TextField alignment="CENTER" editable="false" layoutX="146.0" layoutY="6.0" prefHeight="0.1" prefWidth="0.1" />
-                        <TextField fx:id="diceResult" alignment="CENTER" editable="false" layoutX="146.0" layoutY="6.0" prefHeight="23.0" prefWidth="132.0" />
-                     </children>
-                  </Pane>
+                  <Button fx:id="solveButton" layoutX="710.0" layoutY="492.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="234.0" text="Solve card" />
+                  <Button fx:id="diceButton" layoutX="397.0" layoutY="413.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="Roll Dices" />
+                  <Button fx:id="choiceButton" layoutX="397.0" layoutY="453.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="Pass Turn" />
+                  <TextField alignment="CENTER" editable="false" layoutX="543.0" layoutY="419.0" prefHeight="0.1" prefWidth="0.1" />
+                  <TextField fx:id="diceResult" alignment="CENTER" editable="false" layoutX="543.0" layoutY="419.0" prefHeight="23.0" prefWidth="132.0" />
                   <TextArea fx:id="objectsInfo" editable="false" layoutX="397.0" layoutY="256.0" prefHeight="151.0" prefWidth="279.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
                   <GridPane fx:id="planetsGrid" layoutX="398.0" layoutY="491.0" prefHeight="33.0" prefWidth="283.0">
                     <columnConstraints>
