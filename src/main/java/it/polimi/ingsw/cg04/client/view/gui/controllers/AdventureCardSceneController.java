@@ -269,6 +269,7 @@ public class AdventureCardSceneController extends ViewController {
         showButton(solveButton);
         showButton(viewShipsButton);
         showButton(quitButton);
+        showButton(choiceButton);
         objectsInfo.setVisible(true);
     }
 
@@ -639,23 +640,20 @@ public class AdventureCardSceneController extends ViewController {
 
 
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 3) { // DECIDE_REWARD = 3
-            choiceButton.setVisible(true);
-            choiceButton.setManaged(true);
+            showButton(choiceButton);
             choiceButton.setText("Reject");
             choiceButton.setOnAction(event -> {
                 gui.getRewards(false);
             });
 
-            diceButton.setVisible(true);
-            diceButton.setManaged(true);
+            showButton(diceButton);
             diceButton.setText("Accept");
             diceButton.setOnAction(event -> {
                 gui.getRewards(true);
             });
         }
 
-        quitButton.setVisible(true);
-        quitButton.setManaged(true);
+        showButton(quitButton);
         quitButton.setText("Clear Selected");
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
             quitButton.setOnAction(event -> {
@@ -667,6 +665,12 @@ public class AdventureCardSceneController extends ViewController {
                 objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
             });
         } else if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2
+            showButton(choiceButton);
+            choiceButton.setText("Not enough crew");
+            choiceButton.setOnAction(event -> {
+                gui.removeCrew(null, null);
+            });
+            showButton(quitButton);
             quitButton.setOnAction(event -> {
                 selectedCrew.clear();
                 updateCrewView(game);
@@ -1309,6 +1313,12 @@ public class AdventureCardSceneController extends ViewController {
                             if (!selectedCrew.isEmpty()) selectedCrew.clear();
                         });
                     }
+
+                    showButton(quitButton);
+                    quitButton.setText("Not enough crew");
+                    quitButton.setOnAction(event -> {
+                        gui.removeCrew(null,null);
+                    });
 
                     choiceButton.setText("Clear selected");
                     showButton(choiceButton);
