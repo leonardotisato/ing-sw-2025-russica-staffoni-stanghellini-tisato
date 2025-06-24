@@ -58,14 +58,16 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private ImageView shipImage, flightboardImg;
 
-    @FXML private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
+    @FXML
+    private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
             pos6_lev2, pos7_lev2, pos8_lev2, pos9_lev2, pos10_lev2,
             pos11_lev2, pos12_lev2, pos13_lev2, pos14_lev2, pos15_lev2,
             pos16_lev2, pos17_lev2, pos18_lev2, pos19_lev2, pos20_lev2,
             pos21_lev2, pos22_lev2, pos23_lev2;
 
 
-    @FXML private Polygon pos0_lev1, pos1_lev1, pos2_lev1, pos3_lev1, pos4_lev1, pos5_lev1,
+    @FXML
+    private Polygon pos0_lev1, pos1_lev1, pos2_lev1, pos3_lev1, pos4_lev1, pos5_lev1,
             pos6_lev1, pos7_lev1, pos8_lev1, pos9_lev1, pos10_lev1,
             pos11_lev1, pos12_lev1, pos13_lev1, pos14_lev1, pos15_lev1,
             pos16_lev1, pos17_lev1;
@@ -95,6 +97,7 @@ public class AdventureCardSceneController extends ViewController {
 
     @FXML
     private Group scalableGroup;
+
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
@@ -166,13 +169,16 @@ public class AdventureCardSceneController extends ViewController {
     }
 
 
-    private void hidePane(Pane pane){
+    private void hidePane(Pane pane) {
         pane.setVisible(false);
         pane.setManaged(false);
+        pane.setMouseTransparent(true);
     }
-    private void showPane(Pane pane){
+
+    private void showPane(Pane pane) {
         pane.setVisible(true);
         pane.setManaged(true);
+        pane.setMouseTransparent(false);
     }
 
     public void update(Game game) {
@@ -180,13 +186,14 @@ public class AdventureCardSceneController extends ViewController {
         Ship ship = currentPlayer.getShip();
         selectedStorage.clear();
         boxesMaps.clear();
-        for(Coordinates c : ship.getTilesMap().get("StorageTile")){
+        for (Coordinates c : ship.getTilesMap().get("StorageTile")) {
             selectedStorage.add(c);
-            boxesMaps.add(ship.getTile(c.getX(),c.getY()).getBoxes());
+            boxesMaps.add(ship.getTile(c.getX(), c.getY()).getBoxes());
         }
         composeSceneByLevel(game.getLevel());
-        resetTileInteractions();
         updateShip(currentPlayer);
+        resetTileInteractions();
+        makeBoxesContainersTransparent(game);
         updatePlayersInfo(game.getPlayers());
         updateFlightboardPositions(game);
         game.getGameState().updateStateController(this, game);
@@ -411,7 +418,7 @@ public class AdventureCardSceneController extends ViewController {
     @Override
     public void updateAbandonedStationController(Game game) {
         AdventureCard card = game.getCurrentAdventureCard();
-        Map<BoxType,Integer> rewards = new HashMap<>(card.getObtainedResources());
+        Map<BoxType, Integer> rewards = new HashMap<>(card.getObtainedResources());
         setupBoxesGrid(game, rewards);
         enableAllStorageTileInteractions(game);
         showPane(cardButtonsPane);
@@ -433,7 +440,6 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setManaged(false);
 
 
-
         solveButton.setOnAction(event -> {
             List<Coordinates> c;
             List<Map<BoxType, Integer>> storageMap;
@@ -447,7 +453,7 @@ public class AdventureCardSceneController extends ViewController {
             gui.handleBoxes(c, storageMap);
             selectedStorage.clear();
             boxesMaps.clear();
-            });
+        });
 
         choiceButton.setVisible(true);
         choiceButton.setManaged(true);
@@ -480,7 +486,6 @@ public class AdventureCardSceneController extends ViewController {
 
         objectsInfo.setVisible(false);
         objectsInfo.setManaged(false);
-
 
 
         solveButton.setOnAction(event -> {
@@ -526,7 +531,7 @@ public class AdventureCardSceneController extends ViewController {
         diceButton.setVisible(false);
         diceButton.setManaged(false);
 
-        if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 3) { // DECIDE_REWARD = 3
+        if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 3) { // DECIDE_REWARD = 3
             choiceButton.setVisible(true);
             choiceButton.setManaged(true);
             choiceButton.setText("Reject");
@@ -545,7 +550,7 @@ public class AdventureCardSceneController extends ViewController {
         quitButton.setVisible(true);
         quitButton.setManaged(true);
         quitButton.setText("Clear Selected");
-        if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
+        if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
             quitButton.setOnAction(event -> {
                 selectedBatties.clear();
                 updateBatteriesView(game);
@@ -554,8 +559,8 @@ public class AdventureCardSceneController extends ViewController {
                 updateCannonView(game);
                 objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
             });
-        } else if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2
-                quitButton.setOnAction(event -> {
+        } else if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2
+            quitButton.setOnAction(event -> {
                 selectedCrew.clear();
                 updateCrewView(game);
                 updateCrewInfoText();
@@ -586,7 +591,7 @@ public class AdventureCardSceneController extends ViewController {
             Coordinates coords = new Coordinates(row, col);
             Tile tile = shipMatrix[row][col];
 
-            if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {
+            if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {
                 if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
                         && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0
                         && state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) {  // ACTIVATE_CANNONS = 1
@@ -617,7 +622,7 @@ public class AdventureCardSceneController extends ViewController {
                     selectedBatties.clear();
                     selectedCannons.clear();
                 });
-            } else if(state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2;
+            } else if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2;
                 if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
                     resetTileInteractions();
                     updateCrewView(game);
@@ -641,7 +646,7 @@ public class AdventureCardSceneController extends ViewController {
     }
 
     @Override
-    public void updateSmugglersController(Game game){
+    public void updateSmugglersController(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -663,7 +668,7 @@ public class AdventureCardSceneController extends ViewController {
 
         loadCurrentCard(game);
 
-        if(state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 1) { // HANDLE_BOXES == 1
+        if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 1) { // HANDLE_BOXES == 1
             setupBoxesGrid(game, card.getBoxes());
             enableAllStorageTileInteractions(game);
             choiceButton.setVisible(true);
@@ -673,14 +678,14 @@ public class AdventureCardSceneController extends ViewController {
                 gui.handleBoxes(null, null);
             });
             solveButton.setOnAction(event -> {
-                gui.handleBoxes(selectedStorage,boxesMaps);
+                gui.handleBoxes(selectedStorage, boxesMaps);
             });
         }
 
         quitButton.setVisible(true);
         quitButton.setManaged(true);
         quitButton.setText("Clear Selected");
-        if(state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) { // ACTIVATE_CANNONS = 0
+        if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) { // ACTIVATE_CANNONS = 0
             quitButton.setOnAction(event -> {
                 selectedBatties.clear();
                 updateBatteriesView(game);
@@ -736,7 +741,7 @@ public class AdventureCardSceneController extends ViewController {
             Coordinates coords = new Coordinates(row, col);
             Tile tile = shipMatrix[row][col];
 
-            if(state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) {
+            if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) {
                 if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
                         && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {  // ACTIVATE_CANNONS = 1
                     enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
@@ -804,7 +809,9 @@ public class AdventureCardSceneController extends ViewController {
                 quitButton.setText("Fix Ship");
                 quitButton.setVisible(true);
                 quitButton.setManaged(true);
-                quitButton.setOnAction(event -> {gui.fixShip(tilesToBreak);});
+                quitButton.setOnAction(event -> {
+                    gui.fixShip(tilesToBreak);
+                });
             }
 
             solveButton.setOnAction(event -> {
@@ -1036,202 +1043,289 @@ public class AdventureCardSceneController extends ViewController {
     }
 
 
-//    @Override
-//    public void updateWarZoneController(Game game) {
-//        showPane(cardButtonsPane);
-//        deck.setOnMouseEntered(null);
-//        deck.setOnMouseExited(null);
-//        deck.setOnMouseClicked(null);
-//        deck.setStyle(null);
-//
-//        loadCurrentCard(game);
-//
-//        WarZoneState state = (WarZoneState) game.getGameState();
-//
-//        Player p = game.getPlayer(gui.getClientNickname());
-//        Ship ship = p.getShip();
-//        Tile[][] shipMatrix = ship.getTilesMatrix();
-//        int level = p.getGame().getLevel();
-//
-////        "CANNONS",
-////                "PROPULSORS",
-////                "CREW"
-//
-//        switch(state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
-//            case "GOBACK":
-//                if(state.getCard().getParameterCheck().get(state.getPenaltyIdx()).equals("CANNONS")) {
-//                    if (selectedBatties.isEmpty()) {
-//                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
-//                    }
-//                    for (Node node : shipGrid.getChildren()) {
-//                        Integer colIndex = GridPane.getColumnIndex(node);
-//                        Integer rowIndex = GridPane.getRowIndex(node);
-//                        int tempcol = colIndex == null ? 0 : colIndex;
-//                        int row = rowIndex == null ? 0 : rowIndex;
-//                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-//                            continue;
-//                        } else if (level == 1) {
-//                            tempcol = tempcol - 1;
-//                        }
-//                        int col = tempcol;
-//
-//                        StackPane stack = (StackPane) node;
-//                        ImageView cell = (ImageView) stack.getChildren().getFirst();
-//                        Coordinates coords = new Coordinates(row, col);
-//                        Tile tile = shipMatrix[row][col];
-//
-//                        if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
-//                            System.out.println("trovata una battery tile in coordinate " + coords);
-//                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
-//                        }
-//                        else if (coords.isIn(ship.getTilesMap().get("D. Cannon"))) {
-//                            System.out.println("trovato un double cannon tile in coordinate " + coords);
-//                            enableCannonTileInteraction((LaserTile) tile, stack, row, col);
-//                        }
-//
-//                        solveButton.setOnAction(event -> {
-//                            List<Coordinates> cannons;
-//                            List<Coordinates> usedBatteries;
-//                            if (selectedBatties.isEmpty()) {
-//                                c = new ArrayList<>();
-//                                usedBatteries = new ArrayList<>();
-//                            } else {
-//                                c = new ArrayList<>(selectedBatties.keySet());
-//                                usedBatteries = new ArrayList<>(selectedBatties.values());
-//                            }
-//                            gui.compareFirePower(c, usedBatteries);
-//                            selectedBatties.clear();
-//                            selectedCannons.clear();
-//                        });
-//                    }
-//                    choiceButton.setText("Clear selected");
-//                    choiceButton.setOnAction(event -> {
-//                        selectedBatties.clear();
-//                        updateBatteriesView(game);
-//                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
-//                    });
-//                }
-//                else {
-//                    if (selectedCrew.isEmpty()) {
-//                        objectsInfo.setText("Selected Crew:\n\nNone selected.");
-//                    }
-//
-//                    for (Node node : shipGrid.getChildren()) {
-//                        Integer colIndex = GridPane.getColumnIndex(node);
-//                        Integer rowIndex = GridPane.getRowIndex(node);
-//                        int tempcol = colIndex == null ? 0 : colIndex;
-//                        int row = rowIndex == null ? 0 : rowIndex;
-//                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-//                            continue;
-//                        } else if (level == 1) {
-//                            tempcol = tempcol - 1;
-//                        }
-//                        int col = tempcol;
-//
-//                        StackPane stack = (StackPane) node;
-//                        Coordinates coords = new Coordinates(row, col);
-//                        Tile tile = shipMatrix[row][col];
-//
-//                        if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
-//                            updateHousingTile((HousingTile) tile, stack, row, col);
-//                            enableHousingTileInteraction((HousingTile) tile, stack, row, col);
-//                        }
-//
-//                        solveButton.setOnAction(event -> {
-//                            List<Coordinates> c;
-//                            List<Integer> removedCrew;
-//                            if (selectedCrew.isEmpty()) {
-//                                c = new ArrayList<>();
-//                                removedCrew = new ArrayList<>();
-//                            } else {
-//                                c = new ArrayList<>(selectedCrew.keySet());
-//                                removedCrew = new ArrayList<>(selectedCrew.values());
-//                            }
-//                            gui.removeCrew(c, removedCrew);
-//                            if (!selectedCrew.isEmpty()) selectedCrew.clear();
-//                        });
-//                    }
-//
-//                    choiceButton.setText("Clear selected");
-//                    choiceButton.setOnAction(event -> {
-//                        selectedCrew.clear();
-//                        updateCrewView(game);
-//                        updateCrewInfoText();
-//                    });
-//                }
-//                break;
-//            case "LOSECREW":
-//
-//                break;
-//            case "HANDLESHOTS":
-//
-//                break;
-//            case "LOSEBOX":
-//
-//
-//                choiceButton.setText("Clear selected");
-//                choiceButton.setOnAction(event -> {
-//                    selectedBatties.clear();
-//                    updateBatteriesView(game);
-//                    objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
-//                });
-//                break;
-//        }
-//
-//
-//        if (selectedCrew.isEmpty()) {
-//            objectsInfo.setText("Selected Crew:\n\nNone selected.");
-//        }
-//
-//        for (Node node : shipGrid.getChildren()) {
-//            Integer colIndex = GridPane.getColumnIndex(node);
-//            Integer rowIndex = GridPane.getRowIndex(node);
-//            int tempcol = colIndex == null ? 0 : colIndex;
-//            int row = rowIndex == null ? 0 : rowIndex;
-//            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-//                continue;
-//            } else if (level == 1) {
-//                tempcol = tempcol - 1;
-//            }
-//            int col = tempcol;
-//
-//            StackPane stack = (StackPane) node;
-//            Coordinates coords = new Coordinates(row, col);
-//            Tile tile = shipMatrix[row][col];
-//
-//            if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
-//                updateHousingTile((HousingTile) tile, stack, row, col);
-//                enableHousingTileInteraction((HousingTile) tile, stack, row, col);
-//            }
-//
-//            solveButton.setOnAction(event -> {
-//                List<Coordinates> c;
-//                List<Integer> removedCrew;
-//                if (selectedCrew.isEmpty()) {
-//                    c = new ArrayList<>();
-//                    removedCrew = new ArrayList<>();
-//                } else {
-//                    c = new ArrayList<>(selectedCrew.keySet());
-//                    removedCrew = new ArrayList<>(selectedCrew.values());
-//                }
-//                gui.removeCrew(c, removedCrew);
-//                if (!selectedCrew.isEmpty()) selectedCrew.clear();
-//            });
-//        }
-//
-//        choiceButton.setText("Clear selected");
-//        choiceButton.setOnAction(event -> {
-//            selectedCrew.clear();
-//            updateCrewView(game);
-//            updateCrewInfoText();
-//        });
-//
-//        quitButton.setText("Pass Turn");
-//        quitButton.setOnAction(event -> {
-//            gui.removeCrew(null, null);
-//            selectedCrew.clear();
-//        });
-//    }
+    @Override
+    public void updateWarZoneController(Game game) {
+        showPane(cardButtonsPane);
+        deck.setOnMouseEntered(null);
+        deck.setOnMouseExited(null);
+        deck.setOnMouseClicked(null);
+        deck.setStyle(null);
+
+        loadCurrentCard(game);
+
+        WarZoneState state = (WarZoneState) game.getGameState();
+
+        Player p = game.getPlayer(gui.getClientNickname());
+        Ship ship = p.getShip();
+        Tile[][] shipMatrix = ship.getTilesMatrix();
+        int level = p.getGame().getLevel();
+
+//        "CANNONS",
+//                "PROPULSORS",
+//                "CREW"
+
+        switch (state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
+            case "HANDLESHOTS":
+                if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0) {
+                    diceButton.setText("Roll Dice");
+                    diceButton.setVisible(true);
+                    diceButton.setManaged(true);
+                    diceButton.setOnAction(event -> {
+                        gui.rollDice();
+                    });
+                }
+                else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 1) {
+                    diceButton.setVisible(false);
+                    diceButton.setManaged(false);
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
+                                && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+                            System.out.println("Enabling batteries interaction.");
+                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            if (selectedBatties.isEmpty()) {
+                                gui.chooseBattery(-1, -1);
+                            } else {
+                                Coordinates c = selectedBatties.entrySet().iterator().next().getKey();
+                                gui.chooseBattery(c.getX(), c.getY());
+                            }
+                            selectedBatties.clear();
+                        });
+                        choiceButton.setText("Clear selected");
+                        choiceButton.setOnAction(event -> {
+                            selectedBatties.clear();
+                            updateBatteriesView(game);
+                            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                        });
+                    }
+                }
+                else if (state.getWorstPlayerIdx() == 0 && state.getWorstPlayerState() == 2){
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (!ship.isShipLegal()) {
+                            setFixEffects(cell, row, col);
+                            hidePane(cardButtonsPane);
+                            quitButton.setText("Fix Ship");
+                            quitButton.setVisible(true);
+                            quitButton.setManaged(true);
+                            quitButton.setOnAction(event -> {
+                                gui.fixShip(tilesToBreak);
+                            });
+                        }
+                    }
+
+                    choiceButton.setText("Clear selected");
+                    choiceButton.setOnAction(event -> {
+                        tilesToBreak.clear();
+                        objectsInfo.setText("");
+                    });
+                }
+                break;
+            case "LOSECREW":
+                if (state.isAllDone(state.getPlayed()) && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
+                    if (selectedCrew.isEmpty()) {
+                        objectsInfo.setText("Selected Crew:\n\nNone selected.");
+                    }
+
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+                            updateHousingTile((HousingTile) tile, stack, row, col);
+                            enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            List<Coordinates> c;
+                            List<Integer> removedCrew;
+                            if (selectedCrew.isEmpty()) {
+                                c = new ArrayList<>();
+                                removedCrew = new ArrayList<>();
+                            } else {
+                                c = new ArrayList<>(selectedCrew.keySet());
+                                removedCrew = new ArrayList<>(selectedCrew.values());
+                            }
+                            gui.removeCrew(c, removedCrew);
+                            if (!selectedCrew.isEmpty()) selectedCrew.clear();
+                        });
+                    }
+
+                    choiceButton.setText("Clear selected");
+                    choiceButton.setOnAction(event -> {
+                        selectedCrew.clear();
+                        updateCrewView(game);
+                        updateCrewInfoText();
+                    });
+                }
+                break;
+        }
+
+        switch (state.getCard().getParameterCheck().get(state.getPenaltyIdx())) {
+            case "CANNONS":
+                if (state.getCurrPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
+                    if (selectedBatties.isEmpty()) {
+                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                    }
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+                            System.out.println("trovata una battery tile in coordinate " + coords);
+                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+                        } else if ((ship.getTilesMap().get("LaserTile").contains(coords) && tile.isDoubleLaser())) {
+                            System.out.println("trovato un double cannon tile in coordinate " + coords);
+                            enableCannonTileInteraction((LaserTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            List<Coordinates> batteriesCoords = new ArrayList<>();
+                            List<Coordinates> cannonCoords = new ArrayList<>();
+
+                            if (!selectedBatties.isEmpty()) {
+                                for (Map.Entry<Coordinates, Integer> entry : selectedBatties.entrySet()) {
+                                    Coordinates coord = entry.getKey();
+                                    int count = entry.getValue();
+                                    for (int i = 0; i < count; i++) {
+                                        batteriesCoords.add(coord);
+                                    }
+                                }
+                                cannonCoords = selectedCannons;
+                            }
+                            List<Coordinates> batteriesCopy = new ArrayList<>(batteriesCoords);
+                            List<Coordinates> cannonsCopy = new ArrayList<>(cannonCoords);
+                            gui.compareFirePower(batteriesCopy, cannonsCopy);
+                            selectedBatties.clear();
+                            selectedCannons.clear();
+                        });
+                    }
+                    quitButton.setText("Clear selected");
+                    quitButton.setOnAction(event -> {
+                        selectedBatties.clear();
+                        updateBatteriesView(game);
+                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                        selectedCannons.clear();
+                        updateCannonView(game);
+                        objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
+                    });
+                }
+                break;
+            case "PROPULSORS":
+                if (state.getCurrPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
+                    if (selectedBatties.isEmpty()) {
+                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                    }
+
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("BatteryTile")) && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+                            System.out.println("trovata una battery tile in coordinate " + coords);
+                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            List<Coordinates> c;
+                            List<Integer> usedBatteries;
+                            if (selectedBatties.isEmpty()) {
+                                c = new ArrayList<>();
+                                usedBatteries = new ArrayList<>();
+                            } else {
+                                c = new ArrayList<>(selectedBatties.keySet());
+                                usedBatteries = new ArrayList<>(selectedBatties.values());
+                            }
+                            gui.choosePropulsor(c, usedBatteries);
+                            selectedBatties.clear();
+                        });
+
+                    }
+                    choiceButton.setText("Clear selected");
+                    choiceButton.setOnAction(event -> {
+                        selectedBatties.clear();
+                        updateBatteriesView(game);
+                        objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                    });
+                }
+                break;
+            case "CREW":
+                solveButton.setOnAction(event -> {
+                    gui.compareCrew();
+                });
+        }
+    }
 
     private <K, V> K getKeyByValue(Map<K, V> map, V value) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
@@ -1242,7 +1336,7 @@ public class AdventureCardSceneController extends ViewController {
         return null;
     }
 
-    public void updateBatteriesView(Game game){
+    public void updateBatteriesView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -1272,7 +1366,7 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-    public void updateCrewView(Game game){
+    public void updateCrewView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -1302,7 +1396,7 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-    public void updateCannonView(Game game){
+    public void updateCannonView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -1348,7 +1442,7 @@ public class AdventureCardSceneController extends ViewController {
             int row = rowIndex == null ? 0 : rowIndex;
 
 
-            if(level == 1 && (tempcol == 0 || tempcol == 6)) {
+            if (level == 1 && (tempcol == 0 || tempcol == 6)) {
                 continue;
             } else if (level == 1) {
                 tempcol = tempcol - 1;
@@ -1361,7 +1455,7 @@ public class AdventureCardSceneController extends ViewController {
             ImageView cell = (ImageView) stack.getChildren().getFirst();
             Tile tile = shipMatrix[row][col];
 
-            if (tile == null){
+            if (tile == null) {
                 stack.getChildren().remove(1, stack.getChildren().size());
                 cell.setImage(null);
             } else {
@@ -1394,7 +1488,7 @@ public class AdventureCardSceneController extends ViewController {
     private void updateTile(StackPane cellStack, Tile tile, int row, int col) {
         String type = tile.getName();
 
-        if(cellStack == null) return;
+        if (cellStack == null) return;
 
         switch (type) {
             case "Housing":
@@ -1421,7 +1515,7 @@ public class AdventureCardSceneController extends ViewController {
         Coordinates coordinates = new Coordinates(row, col);
         int currentCrew = housingTile.getNumCrew() - selectedCrew.getOrDefault(coordinates, 0);
 
-        if(currentCrew == 0) return;
+        if (currentCrew == 0) return;
 
         Node crewContainer;
 
@@ -1451,7 +1545,7 @@ public class AdventureCardSceneController extends ViewController {
                     System.err.println("Immagine non trovata: " + crewImagePath);
                     e.printStackTrace();
                 }
-            } else if (housingTile.getHostedCrewType() == CrewType.BROWN_ALIEN){
+            } else if (housingTile.getHostedCrewType() == CrewType.BROWN_ALIEN) {
                 String crewImagePath = "/images/brown_alien.png";
                 try {
                     Image crewImg = new Image(Objects.requireNonNull(getClass().getResource(crewImagePath)).toExternalForm());
@@ -1526,7 +1620,7 @@ public class AdventureCardSceneController extends ViewController {
             batteryBox.getChildren().add(batteryImage);
         }
 
-        for(int i = currentBatteries; i < maxBatteries; i++) {
+        for (int i = currentBatteries; i < maxBatteries; i++) {
             ImageView batteryImage = new ImageView();
             batteryImage.setFitWidth(8);
             batteryImage.setFitHeight(15);
@@ -1544,7 +1638,7 @@ public class AdventureCardSceneController extends ViewController {
         Coordinates coords = new Coordinates(row, col);
         int remaining = tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0);
 
-        ImageView cell = (ImageView)stack.getChildren().getFirst();
+        ImageView cell = (ImageView) stack.getChildren().getFirst();
 
         if (remaining <= 0) {
             cell.setOnMouseClicked(null);
@@ -1573,7 +1667,7 @@ public class AdventureCardSceneController extends ViewController {
         Coordinates coords = new Coordinates(row, col);
         int remaining = tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0);
 
-        ImageView cell = (ImageView)stack.getChildren().getFirst();
+        ImageView cell = (ImageView) stack.getChildren().getFirst();
 
         if (remaining <= 0) {
             cell.setOnMouseClicked(null);
@@ -1599,7 +1693,7 @@ public class AdventureCardSceneController extends ViewController {
     private void enableCannonTileInteraction(LaserTile tile, StackPane stack, int row, int col) {
         Coordinates coords = new Coordinates(row, col);
 
-        ImageView cell = (ImageView)stack.getChildren().getFirst();
+        ImageView cell = (ImageView) stack.getChildren().getFirst();
 
         cell.setOnMouseEntered(e -> {
             cell.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);");
@@ -1663,7 +1757,6 @@ public class AdventureCardSceneController extends ViewController {
     }
 
 
-
     private void updateStorageTile(StorageTile storageTile, StackPane cellStack, int row, int col) {
         if (cellStack.getChildren().size() > 1) {
             cellStack.getChildren().subList(1, cellStack.getChildren().size()).clear();
@@ -1672,7 +1765,7 @@ public class AdventureCardSceneController extends ViewController {
         int maxStorage = storageTile.getMaxBoxes();
         Map<BoxType, Integer> boxes = boxesMaps.get(selectedStorage.indexOf(new Coordinates(row, col)));
         int usedStorage = 0;
-        for(BoxType boxType : boxes.keySet()){
+        for (BoxType boxType : boxes.keySet()) {
             usedStorage += boxes.get(boxType);
         }
 
@@ -1696,7 +1789,7 @@ public class AdventureCardSceneController extends ViewController {
 
                     String color = "";
                     for (BoxType boxType : boxes.keySet()) {
-                        if(boxes.get(boxType) == 1) {
+                        if (boxes.get(boxType) == 1) {
                             color = boxType.toString().toLowerCase();
                         }
                     }
@@ -1724,7 +1817,7 @@ public class AdventureCardSceneController extends ViewController {
                 doubleStorage.setAlignment(Pos.CENTER);
 
                 for (BoxType boxType : boxes.keySet()) {
-                    if(boxes.get(boxType) > 0) {
+                    if (boxes.get(boxType) > 0) {
                         for (int i = 0; i < boxes.get(boxType); i++) {
                             colorList.add(boxType.toString().toLowerCase());
                         }
@@ -1755,7 +1848,7 @@ public class AdventureCardSceneController extends ViewController {
                     doubleStorage.getChildren().add(storageImage);
                 }
 
-                for(int i = usedStorage; i < maxStorage; i++) {
+                for (int i = usedStorage; i < maxStorage; i++) {
                     ImageView storageImage = new ImageView();
                     storageImage.getProperties().put("coords", new Coordinates(row, col));
                     storageImage.setFitWidth(13);
@@ -1784,7 +1877,7 @@ public class AdventureCardSceneController extends ViewController {
 
 
                 for (BoxType boxType : boxes.keySet()) {
-                    if(boxes.get(boxType) > 0) {
+                    if (boxes.get(boxType) > 0) {
                         for (int i = 0; i < boxes.get(boxType); i++) {
                             colorList.add(boxType.toString().toLowerCase());
                         }
@@ -1909,14 +2002,14 @@ public class AdventureCardSceneController extends ViewController {
                         }
                     });
 
-                    } catch (Exception e) {
-                        System.err.println("Box image not found: " + path);
-                        e.printStackTrace();
-                    }
-                } else {
-                    imageView.setImage(null);
-                    imageView.setVisible(false);
+                } catch (Exception e) {
+                    System.err.println("Box image not found: " + path);
+                    e.printStackTrace();
                 }
+            } else {
+                imageView.setImage(null);
+                imageView.setVisible(false);
+            }
         }
     }
 
@@ -1940,7 +2033,7 @@ public class AdventureCardSceneController extends ViewController {
             if (selectedEffect.equals(crewImage.getStyle())) {
                 crewImage.setStyle("");
                 selectedCrew.put(coordinates, selectedCrew.getOrDefault(coordinates, 0) - 1);
-                if(selectedCrew.getOrDefault(coordinates, 0) == 0) {
+                if (selectedCrew.getOrDefault(coordinates, 0) == 0) {
                     selectedCrew.remove(coordinates);
                 }
             } else {
@@ -1954,11 +2047,10 @@ public class AdventureCardSceneController extends ViewController {
     public void onBatteryClicked(ImageView cell, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
         cell.setOnMouseClicked(event -> {
-            if(!coordinates.isIn(tilesToBreak)) {
+            if (!coordinates.isIn(tilesToBreak)) {
                 cell.setStyle("-fx-effect: dropshadow(gaussian, lawngreen, 10, 0.6, 0, 0);");
                 tilesToBreak.add(coordinates);
-            }
-            else{
+            } else {
                 cell.setStyle("");
                 tilesToBreak.remove(coordinates);
             }
@@ -1969,6 +2061,8 @@ public class AdventureCardSceneController extends ViewController {
         Coordinates targetCoords = new Coordinates(row, col);
         Ship ship = game.getPlayer(gui.getClientNickname()).getShip();
         targetImage.setMouseTransparent(false);
+        Tile tile = ship.getTile(row, col);
+        if (tile.getMaxBoxes() > 1) targetImage.getParent().setMouseTransparent(false);
         targetImage.toFront();
         System.out.println("enabling storage tile interaction " + targetCoords);
 
@@ -2016,7 +2110,8 @@ public class AdventureCardSceneController extends ViewController {
             try {
                 String[] parts = db.getString().split(":");
                 BoxType draggedBox = BoxType.valueOf(parts[1]);
-                if(draggedBox == BoxType.RED && !ship.getTile(targetCoords.getX(), targetCoords.getY()).isSpecialStorageTile()) return;
+                if (draggedBox == BoxType.RED && !ship.getTile(targetCoords.getX(), targetCoords.getY()).isSpecialStorageTile())
+                    return;
                 boolean fromTile = "tile".equals(parts[3]);
                 boolean fromGrid = "grid".equals(parts[3]);
 
@@ -2118,15 +2213,13 @@ public class AdventureCardSceneController extends ViewController {
     }
 
 
-
     public void setFixEffects(ImageView cell, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
         cell.setOnMouseClicked(event -> {
-            if(!coordinates.isIn(tilesToBreak)) {
+            if (!coordinates.isIn(tilesToBreak)) {
                 cell.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
                 tilesToBreak.add(coordinates);
-            }
-            else{
+            } else {
                 cell.setStyle("");
                 tilesToBreak.remove(coordinates);
             }
@@ -2149,7 +2242,7 @@ public class AdventureCardSceneController extends ViewController {
         for (Player player : game.getPlayers()) {
             int position = player.getPosition();
             PlayerColor color = player.getColor();
-            if(position < 0) {
+            if (position < 0) {
                 position = currentMap.size() + position;
             }
             Polygon triangle = currentMap.get(position);
@@ -2228,7 +2321,7 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-    private void loadCurrentCard(Game game){
+    private void loadCurrentCard(Game game) {
         AdventureCard currCard = game.getCurrentAdventureCard();
         String resourcePath = "/images/cards/" + getKeyByValue(game.getAdventureCardsMap(), currCard) + ".jpg";
         try {
@@ -2274,12 +2367,12 @@ public class AdventureCardSceneController extends ViewController {
         return null;
     }
 
-    public void showPlanetsButtons(Game game){
+    public void showPlanetsButtons(Game game) {
         AdventureCard card = game.getCurrentAdventureCard();
-        PlanetsState state = (PlanetsState)game.getGameState();
+        PlanetsState state = (PlanetsState) game.getGameState();
         for (Node node : planetsGrid.getChildren()) {
             Button button = (Button) node;
-            if(GridPane.getColumnIndex(button) < card.getPlanetReward().size() && !state.getChosenPlanets().containsValue(GridPane.getColumnIndex(button))) {
+            if (GridPane.getColumnIndex(button) < card.getPlanetReward().size() && !state.getChosenPlanets().containsValue(GridPane.getColumnIndex(button))) {
                 button.setVisible(true);
                 button.setManaged(true);
                 button.setOnAction(event -> {
@@ -2289,24 +2382,32 @@ public class AdventureCardSceneController extends ViewController {
                     solveButton.setVisible(true);
                     solveButton.setManaged(true);
                 });
-            }
-            else{
+            } else {
                 button.setVisible(false);
                 button.setManaged(false);
             }
         }
     }
 
-    public void hidePlanetsButtons(){
+    public void hidePlanetsButtons() {
         for (Node node : planetsGrid.getChildren()) {
             Button button = (Button) node;
-            if(GridPane.getColumnIndex(button) < 4){
+            if (GridPane.getColumnIndex(button) < 4) {
                 button.setVisible(false);
                 button.setManaged(false);
             }
         }
     }
 
+    public void makeBoxesContainersTransparent(Game game) {
+        Ship ship = game.getPlayer(gui.getClientNickname()).getShip();
+        for (ImageView storage : storageImages) {
+            Coordinates c = (Coordinates) storage.getProperties().get("coords");
+            Tile tile = ship.getTile(c.getX(), c.getY());
+            storage.setMouseTransparent(true);
+            if (tile.getMaxBoxes() > 1) storage.getParent().setMouseTransparent(true);
+        }
+    }
 
 
 }

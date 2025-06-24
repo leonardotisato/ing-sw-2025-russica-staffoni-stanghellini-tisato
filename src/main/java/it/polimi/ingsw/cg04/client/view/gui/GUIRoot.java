@@ -537,6 +537,10 @@ public class GUIRoot extends View {
         server.compareFirePower(batteries, cannons);
     }
 
+    public void compareCrew(){
+        server.compareCrew();
+    }
+
     public void retire(){
         server.retire();
     }

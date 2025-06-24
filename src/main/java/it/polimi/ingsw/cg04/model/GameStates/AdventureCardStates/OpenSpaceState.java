@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.polimi.ingsw.cg04.model.enumerations.CrewType.BROWN_ALIEN;
+import static it.polimi.ingsw.cg04.model.enumerations.CrewType.PINK_ALIEN;
+
 public class OpenSpaceState extends AdventureCardState {
     private final Map<Player, Integer> playerDelta = new HashMap<>();
 
@@ -36,9 +39,10 @@ public class OpenSpaceState extends AdventureCardState {
         for (int i = 0; i < usedBatteries.size(); i++) {
             p.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
         }
-        p.move(p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
-        this.addLog("Player " + p.getName() + " moved forward by " + (p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2) + " positions!");
-        playerDelta.put(p, p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2);
+        int delta = p.getShip().getBasePropulsionPower() + usedBatteries.stream().mapToInt(Integer::intValue).sum() * 2 +  p.getShip().getNumCrewByType(BROWN_ALIEN) * 2;
+        p.move(delta);
+        this.addLog("Player " + p.getName() + " moved forward by " + delta + " positions!");
+        playerDelta.put(p, delta);
         this.played.set(currPlayerIdx, 1);
         this.currPlayerIdx++;
         if (currPlayerIdx == sortedPlayers.size()) {

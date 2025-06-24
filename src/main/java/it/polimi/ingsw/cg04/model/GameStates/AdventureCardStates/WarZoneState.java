@@ -88,13 +88,17 @@ public class WarZoneState extends AdventureCardState {
         return currShotIdx;
     }
 
+    public Integer getWorstPlayerIdx() {return worstPlayerIdx;}
+
+    public boolean isRolled() {return rolled;}
+
     /**
      * Checks if all the players are DONE for this penalty.
      *
      * @param played a list of integers representing the current state of elements to check.
      * @return true if all elements in the list are equal to the constant `DONE`, false otherwise.
      */
-    private boolean isAllDone(List<Integer> played) {
+    public boolean isAllDone(List<Integer> played) {
         for (Integer integer : played) {
             if (integer != DONE) {
                 return false;
@@ -281,15 +285,15 @@ public class WarZoneState extends AdventureCardState {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();
             } else {
-                int deltaPropPower = 0;
+                int deltaPropPower = player.getShip().getBasePropulsionPower();
                 for (int i = 0; i < usedBatteries.size(); i++) {
                     player.getShip().removeBatteries(usedBatteries.get(i), coordinates.get(i).getX(), coordinates.get(i).getY());
-                    deltaPropPower += usedBatteries.get(i);
+                    deltaPropPower += 2 * usedBatteries.get(i);
                 }
-                if (player.getShip().getBasePropulsionPower() > 0) {
+                if (deltaPropPower > 0) {
                     deltaPropPower += 2 * player.getShip().getNumCrewByType(BROWN_ALIEN);
                 }
-                propulsionPower.add(player.getShip().getBasePropulsionPower() + deltaPropPower * 2);
+                propulsionPower.add(deltaPropPower);
                 played.set(currPlayerIdx, DONE);
                 this.addLog("Player " + player.getName() + " ha " + propulsionPower.get(currPlayerIdx) + " di potenza dei propulsori.");
                 currPlayerIdx++;
