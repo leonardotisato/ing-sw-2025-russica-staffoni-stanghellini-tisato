@@ -240,12 +240,11 @@ public class SlaversState extends AdventureCardState {
                 return;
             }
 
-            // check that the total sacrificed is <= to crewLost
-            assert numCrewMembersLost != null;
+            // check that the total sacrificed is == to crewLost
             int totalCrewMembers = numCrewMembersLost.stream().mapToInt(Integer::intValue).sum();
-            if (totalCrewMembers < crewLost) {
-                System.out.println("Abort handleCrew: " + player.getName() + " did not provide enough members");
-                throw new InvalidStateException("You must remove " + crewLost + " crew members from your ship, but provided " + totalCrewMembers + " instead.");
+            if (totalCrewMembers != crewLost) {
+                System.out.println("Abort handleCrew: " + player.getName() + " did not provide correct amount of members");
+                throw new InvalidStateException("You must remove " + crewLost + " crew members from your ship, but provided " + totalCrewMembers + " instead. If you don't have enough crew members, simply resend the removeCrew command without providing coordinates or numbers of crew members to remove.");
             }
 
             // remove crew members provided
