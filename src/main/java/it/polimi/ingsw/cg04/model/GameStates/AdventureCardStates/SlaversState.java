@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.model.Ship;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;
+import it.polimi.ingsw.cg04.model.enumerations.CrewType;
 import it.polimi.ingsw.cg04.model.enumerations.Direction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.model.tiles.Tile;
@@ -137,6 +138,12 @@ public class SlaversState extends AdventureCardState {
                         firePower += 1;
                     }
                 }
+            }
+
+            // apply conditional alien bonus
+            if (firePower > 0 && ship.getNumCrewByType(CrewType.PINK_ALIEN) == 1) {
+                firePower += 2;
+                this.addLog("Player " + player.getName() + " has a pink alien and gets bonus firepower!");
             }
 
             // now check if the player defeated the opponent

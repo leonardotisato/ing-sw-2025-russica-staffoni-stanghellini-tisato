@@ -62,13 +62,14 @@ public class SmugglersState extends AdventureCardState {
                     }
                 }
 
-                if (firePower > 0) {
-                    firePower += 2 * player.getShip().getNumCrewByType(PINK_ALIEN);
-                }
+                this.addLog("Player " + player.getName() + " increased his fire power to " + firePower + " by using " + batteries.size() + "batteries");
             }
-            if (batteries != null && doubleCannons != null) {
-                this.addLog("Player " + playerIdx + " increased his fire power to " + firePower + " by using " + batteries.size() + "batteries");
+
+            if (firePower > 0) {
+                firePower += 2 * player.getShip().getNumCrewByType(PINK_ALIEN);
+                this.addLog("Player " + player.getName() + " has a pink alien and gets bonus firepower!");
             }
+
             // now check if player defeated the opponent
 
             // player has lost
