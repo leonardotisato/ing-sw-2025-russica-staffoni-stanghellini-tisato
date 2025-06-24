@@ -66,6 +66,12 @@ public class CompareFirePowerAction extends PlayerAction {
 
         // check cannonCoordsList
         Set<Coordinates> cannonCoordsSet = new HashSet<>(cannonCoordsList);
+
+        // block multiple usages of same cannon
+        if (cannonCoordsSet.size() != cannonCoordsList.size()) {
+            throw new InvalidActionException("Same cannon cannot be activated multiple times!");
+        }
+
         for (Coordinates cannonCoords : cannonCoordsSet) {
 
             // check that cannonCoords is a cannonTile
