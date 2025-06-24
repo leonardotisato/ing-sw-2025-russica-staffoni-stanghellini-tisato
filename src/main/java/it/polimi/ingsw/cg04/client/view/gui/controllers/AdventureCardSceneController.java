@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -57,6 +58,9 @@ public class AdventureCardSceneController extends ViewController {
 
     @FXML
     private ImageView shipImage, flightboardImg;
+
+    @FXML
+    private TextField diceResult;
 
     @FXML
     private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
@@ -226,6 +230,7 @@ public class AdventureCardSceneController extends ViewController {
             System.err.println("Image not found: " + resourcePath);
             e.printStackTrace();
         }
+        diceResult.setText("");
     }
 
     @Override
@@ -793,7 +798,7 @@ public class AdventureCardSceneController extends ViewController {
             ImageView cell = (ImageView) stack.getChildren().getFirst();
             Coordinates coords = new Coordinates(row, col);
             Tile tile = shipMatrix[row][col];
-            AdventureCardState state = (AdventureCardState) game.getGameState();
+            MeteorsRainState state = (MeteorsRainState) game.getGameState();
 
 
             if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
@@ -823,6 +828,10 @@ public class AdventureCardSceneController extends ViewController {
                 }
                 selectedBatties.clear();
             });
+
+            if(state.isRolled()) {
+                diceResult.setText("Dice: " + state.getDiceResult());
+            }
 
         }
         choiceButton.setText("Clear selected");
@@ -961,8 +970,17 @@ public class AdventureCardSceneController extends ViewController {
             }
         }
 
+        if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) >= 4) {
+            if (state.isRolled()) {
+                diceResult.setText("Dice: " + state.getDiceResult());
+            }
+        }
+
 
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 4) {
+            if(state.isRolled()) {
+                diceResult.setText("Dice: " + state.getDiceResult());
+            }
             for (Node node : shipGrid.getChildren()) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);

@@ -224,7 +224,7 @@ public class PiratesState extends AdventureCardState {
 
         // roll dice must be performed only when everybody left the wait stage
         // roll dice must be performed by the leader of the losers subset
-        if (!rolled && isFirstWaitingForShot(player) && !playerStates.contains(WAIT)) {
+        if (!rolled && isFirstWaitingForShot(player) && !playerStates.contains(ACTIVATE_CANNONS)) {
             dice = context.getBoard().rollDices();
             rolled = true;
 

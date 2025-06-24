@@ -50,3 +50,10 @@
     -fx-font-family: "OrgovanBrush";
     -fx-font-size: 28px;
 }
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cc9900;
+    -fx-font-family: "OrgovanBrush";
+    -fx-font-size: 12px;
+}
