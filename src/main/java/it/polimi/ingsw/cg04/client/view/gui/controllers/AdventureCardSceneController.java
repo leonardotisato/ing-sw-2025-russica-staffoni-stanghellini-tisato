@@ -233,11 +233,11 @@ public class AdventureCardSceneController extends ViewController {
     private void showAbandonedShipButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(544);
-        viewShipsButton.setLayoutY(492);
+        viewShipsButton.setLayoutY(453);
         showButton(solveButton);
         showButton(choiceButton);
         showButton(quitButton);
-        choiceButton.setLayoutY(492);
+        choiceButton.setLayoutY(453);
     }
 
     private void showStardustButtons(){
