@@ -268,6 +268,7 @@ public class AdventureCardSceneController extends ViewController {
     public void showSlaversButtons(){
         showButton(solveButton);
         showButton(viewShipsButton);
+        showButton(quitButton);
         objectsInfo.setVisible(true);
     }
 
