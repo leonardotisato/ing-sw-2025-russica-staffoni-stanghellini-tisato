@@ -783,8 +783,7 @@ public class AdventureCardSceneController extends ViewController {
         if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 1) { // HANDLE_BOXES == 1
             setupBoxesGrid(game, card.getBoxes());
             enableAllStorageTileInteractions(game);
-            choiceButton.setVisible(true);
-            choiceButton.setManaged(true);
+            showButton(choiceButton);
             choiceButton.setText("Reject");
             choiceButton.setOnAction(event -> {
                 gui.handleBoxes(null, null);
@@ -794,8 +793,7 @@ public class AdventureCardSceneController extends ViewController {
             });
         }
 
-        quitButton.setVisible(true);
-        quitButton.setManaged(true);
+        showButton(quitButton);
         quitButton.setText("Clear Selected");
         if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) { // ACTIVATE_CANNONS = 0
             quitButton.setOnAction(event -> {
