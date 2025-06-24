@@ -19,6 +19,12 @@
          <children>
             <AnchorPane prefHeight="540.0" prefWidth="960.0">
                <children>
+                  <Pane fx:id="flightButtonsPane" layoutX="395.0" layoutY="453.0">
+                     <children>
+                        <Button fx:id="viewShipsButton" layoutX="149.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="View Ships" />
+                        <Button fx:id="quitButton" layoutY="39.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="283.0" text="Quit" />
+                     </children>
+                  </Pane>
                   <Pane layoutX="14.0" layoutY="235.0" prefHeight="291.0" prefWidth="374.0">
                      <ImageView fx:id="shipImage" fitHeight="270.0" fitWidth="476.0" layoutX="-1.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
                      <GridPane fx:id="shipGrid" layoutX="13.0" layoutY="30.5" prefHeight="250.0" prefWidth="347.0">
@@ -213,6 +219,24 @@
                      <Polygon fx:id="pos8_lev2" fill="#1f93ff00" layoutX="437.0" layoutY="145.5" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="48.4" stroke="TRANSPARENT" strokeType="INSIDE" />
                      <Polygon fx:id="pos7_lev2" fill="#1f93ff00" layoutX="410.0" layoutY="127.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="33.7" stroke="TRANSPARENT" strokeType="INSIDE" />
                      <Polygon fx:id="pos6_lev2" fill="#1f93ff00" layoutX="383.0" layoutY="115.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="23.2" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos4_lev1" fill="#1f93ff00" layoutX="364.0" layoutY="105.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="14.9" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos5_lev1" fill="#1f93ff00" layoutX="400.0" layoutY="117.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="29.2" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos6_lev1" fill="#1f93ff00" layoutX="434.0" layoutY="141.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="56.1" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos7_lev1" fill="#1f93ff00" layoutX="449.0" layoutY="183.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="109.7" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos8_lev1" fill="#1f93ff00" layoutX="428.0" layoutY="219.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="146.9" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos9_lev1" fill="#1f93ff00" layoutX="393.0" layoutY="239.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="165.1" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos10_lev1" fill="#1f93ff00" layoutX="357.0" layoutY="251.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="176.7" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos11_lev1" fill="#1f93ff00" layoutX="322.0" layoutY="255.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-176.9" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos12_lev1" fill="#1f93ff00" layoutX="284.0" layoutY="255.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-172.9" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos13_lev1" fill="#1f93ff00" layoutX="246.0" layoutY="248.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-159.6" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos14_lev1" fill="#1f93ff00" layoutX="209.0" layoutY="236.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-148.2" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos15_lev1" fill="#1f93ff00" layoutX="175.0" layoutY="213.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-124.3" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos16_lev1" fill="#1f93ff00" layoutX="161.0" layoutY="172.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-70.8" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos17_lev1" fill="#1f93ff00" layoutX="183.0" layoutY="136.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-38.9" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos0_lev1" fill="#1f93ff00" layoutX="217.0" layoutY="116.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-12.5" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos1_lev1" fill="#1f93ff00" layoutX="252.0" layoutY="104.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="-10.3" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos2_lev1" fill="#1f93ff00" layoutX="289.0" layoutY="100.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     <Polygon fx:id="pos3_lev1" fill="#1f93ff00" layoutX="327.0" layoutY="100.0" points="-22.908077239990234, -56.86928176879883, -9.581544876098633, -67.22573852539062, -23.663663864135742, -75.6435317993164" rotate="10.3" stroke="TRANSPARENT" strokeType="INSIDE" />
                   </Group>
                   <TextArea fx:id="logs" editable="false" layoutX="709.0" layoutY="274.0" prefHeight="206.0" prefWidth="239.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
                   <Pane fx:id="cardButtonsPane" layoutX="397.0" layoutY="413.0">
@@ -223,8 +247,6 @@
                      </children>
                   </Pane>
                   <TextArea fx:id="objectsInfo" editable="false" layoutX="397.0" layoutY="256.0" prefHeight="151.0" prefWidth="279.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-border-color: yellow; -fx-border-width: 2px;" />
-                  <Button fx:id="viewShipsButton" layoutX="544.0" layoutY="453.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" text="View Ships" />
-                  <Button fx:id="quitButton" layoutX="395.0" layoutY="492.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="283.0" text="Quit" />
                   <GridPane fx:id="planetsGrid" layoutX="398.0" layoutY="491.0" prefHeight="33.0" prefWidth="283.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -236,7 +258,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="planet1Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="1" GridPane.columnIndex="0"/>
+                        <Button fx:id="planet1Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="1" GridPane.columnIndex="0" />
                         <Button fx:id="planet2Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="2" GridPane.columnIndex="1" />
                         <Button fx:id="planet3Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="3" GridPane.columnIndex="2" />
                         <Button fx:id="planet4Button" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="4" GridPane.columnIndex="3" />
