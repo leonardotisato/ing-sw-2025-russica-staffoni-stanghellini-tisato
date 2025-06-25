@@ -9,9 +9,21 @@ public class TuiParser {
 
     private int columnOffset;
 
+    /**
+     * Constructs a new TuiParser.
+     *
+     * @param columnOffset  the vertical offset to apply to y-coordinates depending on the game level
+     */
+
     public TuiParser(int columnOffset) {
         this.columnOffset = columnOffset;
     }
+
+    /**
+     * Prints the expected parameter format for a given command.
+     *
+     * @param command  the command name for which to display usage information
+     */
 
     public void printCommandFormat(String command) {
         System.out.println("Parameter format for command: " + command);
@@ -74,6 +86,19 @@ public class TuiParser {
         System.out.println();
     }
 
+    /**
+     * Represents the result of parsing command arguments.
+     *
+     * @param coordGroups  groups of coordinate lists provided with -c flags
+     * @param intList      additional integer arguments
+     * @param boxMapList   list of box-type-to-value maps parsed from -k and -m flags
+     * @param singleInt    a single integer parsed (e.g., game or tile index)
+     * @param string       a string argument (e.g., color or nickname)
+     * @param coord1       first coordinate parsed (if applicable)
+     * @param coord2       second coordinate parsed (if applicable)
+     * @param accept       whether the user accepted an option (e.g., boolean flag)
+     * @param planetIdx    selected planet index (if applicable)
+     */
     public record ParsedArgs(
             List<List<Coordinates>> coordGroups,
             List<Integer> intList,
@@ -87,6 +112,13 @@ public class TuiParser {
     ) {
     }
 
+    /**
+     * Parses the user input line based on the specified command and extracts structured arguments.
+     *
+     * @param command    the command to parse
+     * @param inputLine  the full input line containing the command arguments
+     * @return a {@link ParsedArgs} record containing all extracted values
+     */
     public ParsedArgs parseArguments(String command, String inputLine) {
         Scanner scanner = new Scanner(inputLine);
         List<List<Coordinates>> coordGroups = new ArrayList<>();

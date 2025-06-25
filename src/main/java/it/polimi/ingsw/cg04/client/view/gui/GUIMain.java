@@ -70,10 +70,6 @@ public class GUIMain extends Application {
         return sceneControllerMap.get(scene);
     }
 
-    // put for testing purpose, not necessary anymore
-    public static void main(String[] args) {
-        launch();
-    }
 
     /**
      * Stops the application

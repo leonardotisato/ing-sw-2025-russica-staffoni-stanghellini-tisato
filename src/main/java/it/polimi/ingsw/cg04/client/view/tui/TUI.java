@@ -141,7 +141,7 @@ public class TUI extends View {
         reader.printAbove(sb.toString());
     }
 
-
+    @Override
     public void serverUnreachable() {
         input.stopInputReader();
     }
@@ -1051,11 +1051,6 @@ public class TUI extends View {
                 "You may lose some days of flight!" + "\n";
     }
 
-    /**
-     * Renders the game state for a player.
-     *
-     * @param toDisplay {@code Game} which will be printed
-     */
     @Override
     public void renderWarZoneState(Game toDisplay) {
 
