@@ -164,6 +164,10 @@ public class TUI extends View {
             }
         }
 
+        /**
+         * Continuously reads user input from the terminal until the input stream is closed.
+         * Each input line is processed using the {@code handleInput} method.
+         */
         @Override
         public void run() {
             while (!stdinClosed) {
@@ -176,6 +180,15 @@ public class TUI extends View {
             }
         }
 
+        /**
+         * Processes a given user input and executes the corresponding command by interacting
+         * with the server and client model.
+         *
+         * @param input the input string entered by the user, which contains the command
+         *              and its arguments.
+         * @param reader the {@code LineReader} instance used to read additional input
+         *               when prompted for command arguments.
+         */
         private void handleInput(String input, LineReader reader) {
             Scanner scanner = new Scanner(input);
             scanner.useDelimiter(" ");
@@ -344,12 +357,19 @@ public class TUI extends View {
             }
         }
 
+        /**
+         * Renders the ships of all players in the game and displays them in the terminal.
+         * Marks the current state as viewing ships.
+         */
         private void renderShips() {
             isViewingShips = true;
             System.out.println("Ships:");
             System.out.println(clientModel.getGame().renderShips());
         }
 
+        /**
+         * Renders the home view of the game interface.
+         */
         private void renderHome() {
             System.out.println("Home");
             isViewingShips = false;
@@ -357,6 +377,11 @@ public class TUI extends View {
             updateLogs(clientModel.getLogs());
         }
 
+        /**
+         * Displays a comprehensive list of available commands grouped by their respective categories.
+         * It includes commands for lobby management, building phase, adventure cards, and miscellaneous actions.
+         * The method outputs a description of each command along with its purpose or required parameters.
+         */
         private void helper() {
             System.out.println("Commands list:\n");
 
@@ -408,6 +433,14 @@ public class TUI extends View {
             System.out.println("====================================================================================");
         }
 
+        /**
+         * Stops the input reader by marking the standard input as closed and attempting to close
+         * the associated terminal resource.
+         *
+         * This method sets the `stdinClosed` flag to true to indicate that no further input
+         * is expected. It then attempts to close the `terminal` resource to release any associated
+         * system resources. Any exceptions encountered during the terminal closure are ignored.
+         */
         private void stopInputReader() {
             stdinClosed = true;
             try {
@@ -416,6 +449,13 @@ public class TUI extends View {
             }
         }
 
+        /**
+         * Reads a JSON file containing a list of command strings, deserializes it into a list,
+         * and returns a {@code Completer} instance initialized with these commands.
+         *
+         * @return a {@code Completer} that provides autocompletion functionality for the commands
+         *         listed in the JSON file.
+         */
         private Completer getCommandsCompleter() {
             // Legge il file JSON
             InputStream is = getClass().getClassLoader().getResourceAsStream("jsons/commands.json");
@@ -432,10 +472,20 @@ public class TUI extends View {
             return new StringsCompleter(commands);
         }
 
+        /**
+         * Retrieves the terminal associated with this input reader.
+         *
+         * @return the {@code Terminal} instance used by this input reader.
+         */
         public Terminal getTerminal() {
             return terminal;
         }
 
+        /**
+         * Retrieves the {@code LineReader} instance associated with this input reader.
+         *
+         * @return the {@code LineReader} instance used for reading input.
+         */
         public LineReader getReader() {
             return reader;
         }
