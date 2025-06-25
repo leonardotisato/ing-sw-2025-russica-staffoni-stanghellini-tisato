@@ -14,6 +14,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -59,6 +60,7 @@ public class Server {
         // Keep accepting connections
         while (true) {
             try {
+                assert serverSocket != null;
                 final Socket socket = serverSocket.accept();
                 System.out.println("New connection from " + socket.getRemoteSocketAddress());
                 threadPool.submit(new SocketClientHandler(controller, this, socket));
@@ -117,10 +119,6 @@ public class Server {
         System.out.println("Unsubscribed client: " + clientHandler.getNickName());
     }
 
-    // todo: no usages
-    public synchronized boolean isSubscribed(ClientHandler clientHandler) {
-        return clientHandlers.contains(clientHandler);
-    }
 
     /**
      * Retrieves the subscribed {@code ClientHandler} associated with the given nickname.
@@ -151,7 +149,7 @@ public class Server {
         for (String nickname : nicknames) {
             ClientHandler clientHandler = getSubscribedClient(nickname);
             if (clientHandler != null) {
-                getSubscribedClient(nickname).setGame(game);
+                Objects.requireNonNull(getSubscribedClient(nickname)).setGame(game);
             } else {
                 System.out.println("Client " + nickname + " not found");
             }

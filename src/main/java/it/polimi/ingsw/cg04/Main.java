@@ -4,8 +4,6 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI;
 import it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler;
 
-import java.io.IOException;
-import java.rmi.RemoteException;
 
 public class Main {
     public static void main(String[] args) {
