@@ -54,9 +54,9 @@ public class ClientHandlerRMI extends ClientHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualClient.setGameRMI(game);
-            } catch (RemoteException ignored) {
-                System.out.println("not working");
-                ignored.printStackTrace();
+            } catch (RemoteException e) {
+                System.out.println("Not working");
+                e.printStackTrace();
             }
         });
     }

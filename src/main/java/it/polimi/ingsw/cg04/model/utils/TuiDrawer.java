@@ -46,11 +46,11 @@ public class TuiDrawer {
 
         if (leftHeight > rightHeight) {
             int topPad = (leftHeight - rightHeight) / 2;
-            for (int i = 0; i < topPad; i++) rightLines.add(0, "");
+            for (int i = 0; i < topPad; i++) rightLines.addFirst("");
             while (rightLines.size() < leftHeight) rightLines.add("");
         } else if (rightHeight > leftHeight) {
             int topPad = (rightHeight - leftHeight) / 2;
-            for (int i = 0; i < topPad; i++) leftLines.add(0, "");
+            for (int i = 0; i < topPad; i++) leftLines.addFirst("");
             while (leftLines.size() < rightHeight) leftLines.add("");
         }
     }
@@ -152,7 +152,7 @@ public class TuiDrawer {
         }
         /* ------ 1. larghezza massima per ogni colonna (player) ------ */
         int columns = playersInfo.size();
-        int rows    = playersInfo.get(0).size();          // stesso numero di righe per tutti
+        int rows    = playersInfo.getFirst().size();          // stesso numero di righe per tutti
         int[] colWidth = new int[columns];
 
         for (int c = 0; c < columns; c++) {

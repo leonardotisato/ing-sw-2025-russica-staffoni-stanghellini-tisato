@@ -24,7 +24,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BuildStateTest {
+class Lev2BuildStateTest {
 
     private GamesController controller;
     private Game game;
@@ -652,8 +652,14 @@ class BuildStateTest {
         state.appendLog("Hello World");
         state.addLog("Hello World");
         System.out.println(state.getLogs());
+    }
 
-
+    @Test
+    void stopBuildingTest() throws InvalidActionException, InvalidStateException {
+        try {
+            controller.onActionReceived(new DrawFaceDownAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
     }
 
 

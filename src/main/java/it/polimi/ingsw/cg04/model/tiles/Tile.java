@@ -119,7 +119,7 @@ public abstract class Tile implements Serializable {
      * @param y    the y-coordinate in the ship's tile matrix
      */
     public void place(Ship ship, int x, int y) {
-        // todo: implement each tile with specific tile-ship attributes updates
+
     }
 
     /**
@@ -135,8 +135,7 @@ public abstract class Tile implements Serializable {
      * @param y    the y-coordinate of this tile in the ship's matrix
      */
     public void broken(Ship ship, int x, int y) {
-        // todo: implement in each specific tile
-        // todo: count connectors?
+
     }
 
 
@@ -323,8 +322,8 @@ public abstract class Tile implements Serializable {
         return null;
     }
 
-//    public void setDoublePropulsor(Boolean doublePropulsor) {
-//    }
+    public void setDoublePropulsor(Boolean doublePropulsor) {
+    }
 
     // laserTile methods
     public Boolean isDoubleLaser() {
@@ -351,8 +350,6 @@ public abstract class Tile implements Serializable {
     }
 
     // housingTile methods
-    // this one is tricky... housingUnit can be central, and if so have a specific color
-    // and can host only humans if it's central, and host aliens of a specific color only if an alienSupportTile is neighbouring...
     public Boolean isCentralTile() {
         return null;
     }
@@ -469,33 +466,6 @@ public abstract class Tile implements Serializable {
         return " ".repeat(padding) + text + " ".repeat(width - text.length() - padding);
     }
 
-//    private void drawHorizonalConnections(StringBuilder sb, Connection c) {
-//
-//        switch (c) {
-//            case Connection.EMPTY:
-//                sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
-//                break;
-//            case Connection.SINGLE:
-//                sb.append("│ ").append(centerText("o", boxWidth - 4)).append(" │").append("\n");
-//                break;
-//            case Connection.DOUBLE:
-//                sb.append("│ ").append(centerText("o o", boxWidth - 4)).append(" │").append("\n");
-//                break;
-//            case Connection.UNIVERSAL:
-//                sb.append("│ ").append(centerText("o o o", boxWidth - 4)).append(" │").append("\n");
-//                break;
-//            case Connection.PROPULSOR:
-//                sb.append("│ ").append(centerText("MMM", boxWidth - 4)).append(" │").append("\n");
-//                break;
-//            case Connection.GUN:
-//                sb.append("│ ").append(centerText("AAA", boxWidth - 4)).append(" │").append("\n");
-//                break;
-//        }
-//    }
-//
-//    private void drawEmptyRow(StringBuilder sb) {
-//        sb.append("│").append(" ".repeat(boxWidth - 2)).append("│").append("\n");
-//    }
 
     private void drawHorizontalShields(StringBuilder sb, Direction protectedDir) {
         if (getProtectedDirections() != null && getProtectedDirections().contains(protectedDir)) {
