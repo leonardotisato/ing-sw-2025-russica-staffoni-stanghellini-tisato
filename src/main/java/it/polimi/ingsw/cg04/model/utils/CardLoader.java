@@ -16,16 +16,6 @@ public class CardLoader {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        // TODO delete me??
-
-//                .registerTypeAdapter(BoxType.class, new EnumDeserializer<>(BoxType.class))
-//                .registerTypeAdapter(Direction.class, new EnumDeserializer<>(Direction.class))
-//                .registerTypeAdapter(Meteor.class, new EnumDeserializer<>(Meteor.class))
-//                .registerTypeAdapter(new TypeToken<Map<BoxType, Integer>>() {}.getType(), new BoxTypeMapDeserializer())
-//                .registerTypeAdapter(new TypeToken<List<Direction>>() {}.getType(), new EnumListDeserializer<>(Direction.class))
-//                .registerTypeAdapter(new TypeToken<List<Meteor>>() {}.getType(), new EnumListDeserializer<>(Meteor.class))
-//                .registerTypeAdapter(new TypeToken<List<Shot>>() {}.getType(), new EnumListDeserializer<>(Shot.class))
-//                .registerTypeAdapter(new TypeToken<List<Map<BoxType, Integer>>>() {}.getType(), new BoxTypeListMapDeserializer())
         try (
                 InputStream is = CardLoader.class.getClassLoader().getResourceAsStream(jsonFilePath);
                 Reader reader = is != null ? new InputStreamReader(is) : null

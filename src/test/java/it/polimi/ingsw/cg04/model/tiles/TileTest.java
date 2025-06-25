@@ -315,7 +315,6 @@ class TileTest {
         storageTile26.addCrew(CrewType.PINK_ALIEN);
         storageTile26.removeSupportedCrewType(CrewType.PINK_ALIEN);
         storageTile26.addSupportedCrewType(CrewType.PINK_ALIEN);
-        storageTile26.updateSupportedCrewTypes();
         storageTile26.removeAdjacentHousingTile(strucutralTile56);
         storageTile26.addAdjacentHousingTile(strucutralTile56);
         assertThrows(RuntimeException.class, () -> strucutralTile56.addBox(BoxType.BLUE, 1));
