@@ -322,8 +322,8 @@ public abstract class Tile implements Serializable {
         return null;
     }
 
-//    public void setDoublePropulsor(Boolean doublePropulsor) {
-//    }
+    public void setDoublePropulsor(Boolean doublePropulsor) {
+    }
 
     // laserTile methods
     public Boolean isDoubleLaser() {
