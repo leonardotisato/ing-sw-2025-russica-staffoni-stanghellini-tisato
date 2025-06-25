@@ -105,20 +105,25 @@ public class EndSceneController extends ViewController {
 
 
     public Color mapColor(PlayerColor color) {
-        switch (color) {
-            case RED: return Color.RED;
-            case BLUE: return Color.BLUE;
-            case GREEN: return Color.GREEN;
-            case YELLOW: return Color.YELLOW;
-            default: return Color.GRAY;
-        }
+        return switch (color) {
+            case RED -> Color.RED;
+            case BLUE -> Color.BLUE;
+            case GREEN -> Color.GREEN;
+            case YELLOW -> Color.YELLOW;
+        };
     }
 
 
     public void update(Game game) {
 
         List<Player> players = game.getPlayers();
-        players.addAll(game.getRetiredPlayers());
+
+        for (Player retired : game.getRetiredPlayers()) {
+            if (!players.contains(retired)) {
+                players.add(retired);
+            }
+        }
+
         players.sort(Comparator.comparingDouble(Player::getNumCredits).reversed());
 
         if(players.size() >= 1) {

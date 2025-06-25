@@ -54,10 +54,10 @@ public class HousingTile extends Tile {
         return isCentralTile;
     }
 
-    // todo: handle unused method
-//    public void setIsCentralTile(boolean isCentralTile) {
-//        this.isCentralTile = isCentralTile;
-//    }
+
+    public void setIsCentralTile(boolean isCentralTile) {
+        this.isCentralTile = isCentralTile;
+    }
 
     /**
      *
@@ -67,7 +67,7 @@ public class HousingTile extends Tile {
         return color;
     }
 
-    // todo: no usages
+
     /**
      * Sets the color of this housing tile.
      *
@@ -77,12 +77,6 @@ public class HousingTile extends Tile {
         this.color = color;
     }
 
-    // todo: no usages
-    @Override
-    public void updateSupportedCrewTypes() {
-        // if (!isCentralTile || no supports) { supportedCrewType = set(HUMANS)
-        // else supportedCrewType can host some aliens...
-    }
 
     @Override
     public void addSupportedCrewType(CrewType crewType) {

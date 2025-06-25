@@ -50,8 +50,6 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private Button quitButton, solveButton, choiceButton, diceButton, viewShipsButton;
 
-    @FXML
-    private Pane cardButtonsPane, flightButtonsPane;
 
     @FXML
     private TextArea logs, objectsInfo;
@@ -59,8 +57,6 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private ImageView shipImage, flightboardImg;
 
-    @FXML
-    private TextField diceResult;
 
     @FXML
     private Polygon pos0_lev2, pos1_lev2, pos2_lev2, pos3_lev2, pos4_lev2, pos5_lev2,
@@ -96,6 +92,9 @@ public class AdventureCardSceneController extends ViewController {
     private ImageView draggedImageView = null;
     private List<ImageView> storageImages = new ArrayList<>();
     private Integer chosenPlanetIdx;
+    private List<ImageView> backgrounds = new ArrayList<>();
+    private List<GridPane> shipGridList;
+    private List<TextField> nicknames;
 
     private GUIRoot gui;
 
@@ -112,6 +111,9 @@ public class AdventureCardSceneController extends ViewController {
         root.heightProperty().addListener((obs, oldVal, newVal) -> scaleUI());
         setupFlightboardTriangles();
         hidePlanetsButtons();
+        viewShipsButton.setOnAction(e -> {
+            gui.viewOthers();
+        });
     }
 
     private void scaleUI() {
@@ -177,12 +179,132 @@ public class AdventureCardSceneController extends ViewController {
         pane.setVisible(false);
         pane.setManaged(false);
         pane.setMouseTransparent(true);
+        pane.toFront();
     }
 
     private void showPane(Pane pane) {
         pane.setVisible(true);
         pane.setManaged(true);
         pane.setMouseTransparent(false);
+        pane.toFront();
+    }
+
+    private void hideButton(Button button) {
+        button.setVisible(false);
+        button.setManaged(false);
+        button.setMouseTransparent(true);
+    }
+
+    private void showButton(Button button) {
+        button.setVisible(true);
+        button.setManaged(true);
+        button.setMouseTransparent(false);
+    }
+
+    private void hideAllButtons() {
+        hideButton(viewShipsButton);
+        hideButton(solveButton);
+        hideButton(diceButton);
+        hideButton(choiceButton);
+        hideButton(quitButton);
+        hidePlanetsButtons();
+    }
+
+    private void showFlightsButtons(){
+        showButton(viewShipsButton);
+        viewShipsButton.setLayoutX(471);
+        showButton(quitButton);
+        objectsInfo.setVisible(false);
+    }
+
+    private void showOpenSpaceButtons(){
+        showButton(viewShipsButton);
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(492);
+        showButton(solveButton);
+        showButton(choiceButton);
+        choiceButton.setLayoutY(492);
+        objectsInfo.setVisible(true);
+    }
+
+    private void showAbandonedShipButtons(){
+        showButton(viewShipsButton);
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(453);
+        showButton(solveButton);
+        showButton(choiceButton);
+        showButton(quitButton);
+        choiceButton.setLayoutY(453);
+        objectsInfo.setVisible(true);
+        objectsInfo.setManaged(true);
+    }
+
+    private void showStardustButtons(){
+        showButton(viewShipsButton);
+        showButton(solveButton);
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(492);
+    }
+
+    private void showAbandonedStationButtons(){
+        showButton(viewShipsButton);
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(492);
+        showButton(solveButton);
+        showButton(choiceButton);
+        choiceButton.setLayoutY(492);
+    }
+
+    public void showPlanetsButtons(){
+        showButton(viewShipsButton);
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(453);
+        showButton(solveButton);
+        showButton(choiceButton);
+        choiceButton.setLayoutY(453);
+    }
+
+    public void showSlaversButtons(){
+        showButton(solveButton);
+        showButton(viewShipsButton);
+        showButton(quitButton);
+        showButton(choiceButton);
+        objectsInfo.setVisible(true);
+    }
+
+    public void showSmugglersButtons(){
+        showButton(solveButton);
+        showButton(viewShipsButton);
+        objectsInfo.setVisible(true);
+    }
+
+    public void showMeteorsRainButtons(){
+        showButton(solveButton);
+        showButton(choiceButton);
+        showButton(diceButton);
+        showButton(viewShipsButton);
+        objectsInfo.setVisible(true);
+    }
+
+    public void showPiratesButtons(){
+        showButton(solveButton);
+        showButton(quitButton);
+        showButton(viewShipsButton);
+        objectsInfo.setVisible(true);
+    }
+
+    public void showWarzoneButtons(){
+        showButton(solveButton);
+        showButton(quitButton);
+        showButton(viewShipsButton);
+        objectsInfo.setVisible(true);
+    }
+
+    public void resetButtonsPositions(){
+        viewShipsButton.setLayoutX(544);
+        viewShipsButton.setLayoutY(453);
+        choiceButton.setLayoutX(397);
+        choiceButton.setLayoutY(453);
     }
 
     public void update(Game game) {
@@ -200,15 +322,16 @@ public class AdventureCardSceneController extends ViewController {
         makeBoxesContainersTransparent(game);
         updatePlayersInfo(game.getPlayers());
         updateFlightboardPositions(game);
+        resetButtonsPositions();
         game.getGameState().updateStateController(this, game);
     }
 
     @Override
     public void updateFlightController(Game game) {
-        hidePane(cardButtonsPane);
+        hideAllButtons();
         hidePane(boxesGrid);
         hidePane(planetsGrid);
-        showPane(flightButtonsPane);
+        showFlightsButtons();
         String resourcePath = "/images/cards/back" + game.getLevel() + ".jpg";
         try {
             Image img = new Image(
@@ -230,14 +353,12 @@ public class AdventureCardSceneController extends ViewController {
             System.err.println("Image not found: " + resourcePath);
             e.printStackTrace();
         }
-        diceResult.setText("");
     }
 
     @Override
     public void updateOpenSpaceController(Game game) {
-        showPane(cardButtonsPane);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
+        hideAllButtons();
+        showOpenSpaceButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -301,9 +422,8 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateAbandonedShipController(Game game) {
-        showPane(cardButtonsPane);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
+        hideAllButtons();
+        showAbandonedShipButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -372,16 +492,11 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateStardustController(Game game) {
-        showPane(cardButtonsPane);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
+        hideAllButtons();
+        showStardustButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
-        choiceButton.setVisible(false);
-        choiceButton.setManaged(false);
-        quitButton.setVisible(false);
-        quitButton.setManaged(false);
         deck.setStyle(null);
 
         loadCurrentCard(game);
@@ -397,16 +512,11 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateEpidemicController(Game game) {
-        showPane(cardButtonsPane);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
+        hideAllButtons();
+        showStardustButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
-        choiceButton.setVisible(false);
-        choiceButton.setManaged(false);
-        quitButton.setVisible(false);
-        quitButton.setManaged(false);
         deck.setStyle(null);
 
         loadCurrentCard(game);
@@ -426,9 +536,8 @@ public class AdventureCardSceneController extends ViewController {
         Map<BoxType, Integer> rewards = new HashMap<>(card.getObtainedResources());
         setupBoxesGrid(game, rewards);
         enableAllStorageTileInteractions(game);
-        showPane(cardButtonsPane);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
+        hideAllButtons();
+        showAbandonedStationButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -471,15 +580,10 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updatePlanetsController(Game game) {
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showPlanetsButtons();
         showPane(planetsGrid);
         showPlanetsButtons(game);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
-        solveButton.setVisible(false);
-        solveButton.setManaged(false);
-        quitButton.setVisible(false);
-        quitButton.setManaged(false);
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -525,35 +629,29 @@ public class AdventureCardSceneController extends ViewController {
         int level = p.getGame().getLevel();
         SlaversState state = (SlaversState) game.getGameState();
 
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showSlaversButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
         deck.setStyle(null);
 
-        choiceButton.setVisible(false);
-        choiceButton.setManaged(false);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
 
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 3) { // DECIDE_REWARD = 3
-            choiceButton.setVisible(true);
-            choiceButton.setManaged(true);
+            showButton(choiceButton);
             choiceButton.setText("Reject");
             choiceButton.setOnAction(event -> {
                 gui.getRewards(false);
             });
 
-            diceButton.setVisible(true);
-            diceButton.setManaged(true);
+            showButton(diceButton);
             diceButton.setText("Accept");
             diceButton.setOnAction(event -> {
                 gui.getRewards(true);
             });
         }
 
-        quitButton.setVisible(true);
-        quitButton.setManaged(true);
+        showButton(quitButton);
         quitButton.setText("Clear Selected");
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
             quitButton.setOnAction(event -> {
@@ -565,6 +663,12 @@ public class AdventureCardSceneController extends ViewController {
                 objectsInfo.appendText("\n\nSelected Cannons:\n\nNone selected.");
             });
         } else if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // REMOVE_CREW = 2
+            showButton(choiceButton);
+            choiceButton.setText("Not enough crew");
+            choiceButton.setOnAction(event -> {
+                gui.removeCrew(null, null);
+            });
+            showButton(quitButton);
             quitButton.setOnAction(event -> {
                 selectedCrew.clear();
                 updateCrewView(game);
@@ -660,7 +764,8 @@ public class AdventureCardSceneController extends ViewController {
         AdventureCard card = game.getCurrentAdventureCard();
 
 
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showSmugglersButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -676,8 +781,7 @@ public class AdventureCardSceneController extends ViewController {
         if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 1) { // HANDLE_BOXES == 1
             setupBoxesGrid(game, card.getBoxes());
             enableAllStorageTileInteractions(game);
-            choiceButton.setVisible(true);
-            choiceButton.setManaged(true);
+            showButton(choiceButton);
             choiceButton.setText("Reject");
             choiceButton.setOnAction(event -> {
                 gui.handleBoxes(null, null);
@@ -687,8 +791,7 @@ public class AdventureCardSceneController extends ViewController {
             });
         }
 
-        quitButton.setVisible(true);
-        quitButton.setManaged(true);
+        showButton(quitButton);
         quitButton.setText("Clear Selected");
         if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 0) { // ACTIVATE_CANNONS = 0
             quitButton.setOnAction(event -> {
@@ -760,7 +863,8 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateMeteorsRainController(Game game) {
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showMeteorsRainButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -810,12 +914,13 @@ public class AdventureCardSceneController extends ViewController {
 
             if (!ship.isShipLegal()) {
                 setFixEffects(cell, row, col);
-                hidePane(cardButtonsPane);
+                hideAllButtons();
+                showButton(solveButton);
                 quitButton.setText("Fix Ship");
-                quitButton.setVisible(true);
-                quitButton.setManaged(true);
+                showButton(quitButton);
                 quitButton.setOnAction(event -> {
                     gui.fixShip(tilesToBreak);
+                    tilesToBreak.clear();
                 });
             }
 
@@ -828,13 +933,9 @@ public class AdventureCardSceneController extends ViewController {
                 }
                 selectedBatties.clear();
             });
-
-            if(state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
-
         }
         choiceButton.setText("Clear selected");
+        showButton(choiceButton);
         choiceButton.setOnAction(event -> {
             selectedBatties.clear();
             updateBatteriesView(game);
@@ -850,28 +951,22 @@ public class AdventureCardSceneController extends ViewController {
         int level = p.getGame().getLevel();
         PiratesState state = (PiratesState) game.getGameState();
 
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showPiratesButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
         deck.setStyle(null);
 
-        choiceButton.setVisible(false);
-        choiceButton.setManaged(false);
-        diceButton.setVisible(false);
-        diceButton.setManaged(false);
-
         // Decide reward
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 2) { // DECIDE_REWARD = 2
-            choiceButton.setVisible(true);
-            choiceButton.setManaged(true);
+            showButton(choiceButton);
             choiceButton.setText("Reject");
             choiceButton.setOnAction(event -> {
                 gui.getRewards(false);
             });
 
-            diceButton.setVisible(true);
-            diceButton.setManaged(true);
+            showButton(diceButton);
             diceButton.setText("Accept");
             diceButton.setOnAction(event -> {
                 gui.getRewards(true);
@@ -880,8 +975,7 @@ public class AdventureCardSceneController extends ViewController {
 
 
         // Compare firepower
-        quitButton.setVisible(true);
-        quitButton.setManaged(true);
+        showButton(quitButton);
         quitButton.setText("Clear Selected");
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 1) { // ACTIVATE_CANNONS = 1
             quitButton.setOnAction(event -> {
@@ -958,9 +1052,7 @@ public class AdventureCardSceneController extends ViewController {
         }
 
         if (!state.isRolled() && state.isFirstWaitingForShot(p) && !state.getPlayerStates().contains(1)) {
-            diceButton.setText("Roll Dice");
-            diceButton.setVisible(true);
-            diceButton.setManaged(true);
+            showButton(diceButton);
             diceButton.setOnAction(event -> {
                 gui.rollDice();
             });
@@ -970,17 +1062,7 @@ public class AdventureCardSceneController extends ViewController {
             }
         }
 
-        if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) >= 4) {
-            if (state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
-        }
-
-
         if (state.getPlayerStates().get(game.getSortedPlayers().indexOf(p)) == 4) {
-            if(state.isRolled()) {
-                diceResult.setText("Dice: " + state.getDiceResult());
-            }
             for (Node node : shipGrid.getChildren()) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);
@@ -1014,6 +1096,7 @@ public class AdventureCardSceneController extends ViewController {
                     selectedBatties.clear();
                 });
                 choiceButton.setText("Clear selected");
+                showButton(choiceButton);
                 choiceButton.setOnAction(event -> {
                     selectedBatties.clear();
                     updateBatteriesView(game);
@@ -1042,10 +1125,9 @@ public class AdventureCardSceneController extends ViewController {
 
                 if (!ship.isShipLegal()) {
                     setFixEffects(cell, row, col);
-                    hidePane(cardButtonsPane);
+                    hideAllButtons();
                     quitButton.setText("Fix Ship");
-                    quitButton.setVisible(true);
-                    quitButton.setManaged(true);
+                    showButton(quitButton);
                     quitButton.setOnAction(event -> {
                         gui.fixShip(tilesToBreak);
                     });
@@ -1063,7 +1145,8 @@ public class AdventureCardSceneController extends ViewController {
 
     @Override
     public void updateWarZoneController(Game game) {
-        showPane(cardButtonsPane);
+        hideAllButtons();
+        showWarzoneButtons();
         deck.setOnMouseEntered(null);
         deck.setOnMouseExited(null);
         deck.setOnMouseClicked(null);
@@ -1085,16 +1168,13 @@ public class AdventureCardSceneController extends ViewController {
         switch (state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
             case "HANDLESHOTS":
                 if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0) {
-                    diceButton.setText("Roll Dice");
-                    diceButton.setVisible(true);
-                    diceButton.setManaged(true);
+                    showButton(diceButton);
                     diceButton.setOnAction(event -> {
                         gui.rollDice();
                     });
                 }
                 else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 1) {
-                    diceButton.setVisible(false);
-                    diceButton.setManaged(false);
+                    hideButton(diceButton);
                     for (Node node : shipGrid.getChildren()) {
                         Integer colIndex = GridPane.getColumnIndex(node);
                         Integer rowIndex = GridPane.getRowIndex(node);
@@ -1128,6 +1208,7 @@ public class AdventureCardSceneController extends ViewController {
                             selectedBatties.clear();
                         });
                         choiceButton.setText("Clear selected");
+                        showButton(choiceButton);
                         choiceButton.setOnAction(event -> {
                             selectedBatties.clear();
                             updateBatteriesView(game);
@@ -1155,10 +1236,10 @@ public class AdventureCardSceneController extends ViewController {
 
                         if (!ship.isShipLegal()) {
                             setFixEffects(cell, row, col);
-                            hidePane(cardButtonsPane);
+                            hideAllButtons();
+                            showButton(solveButton);
                             quitButton.setText("Fix Ship");
-                            quitButton.setVisible(true);
-                            quitButton.setManaged(true);
+                            showButton(quitButton);
                             quitButton.setOnAction(event -> {
                                 gui.fixShip(tilesToBreak);
                             });
@@ -1166,6 +1247,7 @@ public class AdventureCardSceneController extends ViewController {
                     }
 
                     choiceButton.setText("Clear selected");
+                    showButton(choiceButton);
                     choiceButton.setOnAction(event -> {
                         tilesToBreak.clear();
                         objectsInfo.setText("");
@@ -1173,7 +1255,7 @@ public class AdventureCardSceneController extends ViewController {
                 }
                 break;
             case "LOSECREW":
-                if (state.isAllDone(state.getPlayed()) && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
+                if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 2 && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
                     if (selectedCrew.isEmpty()) {
                         objectsInfo.setText("Selected Crew:\n\nNone selected.");
                     }
@@ -1214,7 +1296,14 @@ public class AdventureCardSceneController extends ViewController {
                         });
                     }
 
+                    showButton(quitButton);
+                    quitButton.setText("Not enough crew");
+                    quitButton.setOnAction(event -> {
+                        gui.removeCrew(null,null);
+                    });
+
                     choiceButton.setText("Clear selected");
+                    showButton(choiceButton);
                     choiceButton.setOnAction(event -> {
                         selectedCrew.clear();
                         updateCrewView(game);
@@ -1276,6 +1365,7 @@ public class AdventureCardSceneController extends ViewController {
                             selectedCannons.clear();
                         });
                     }
+                    showButton(quitButton);
                     quitButton.setText("Clear selected");
                     quitButton.setOnAction(event -> {
                         selectedBatties.clear();
@@ -1331,6 +1421,7 @@ public class AdventureCardSceneController extends ViewController {
 
                     }
                     choiceButton.setText("Clear selected");
+                    showButton(choiceButton);
                     choiceButton.setOnAction(event -> {
                         selectedBatties.clear();
                         updateBatteriesView(game);
@@ -1969,8 +2060,8 @@ public class AdventureCardSceneController extends ViewController {
     private void setupBoxesGrid(Game game, Map<BoxType, Integer> rewards) {
         AdventureCard card = game.getCurrentAdventureCard();
         remainingBoxes.clear();
-        boxesGrid.setVisible(true);
-        boxesGrid.setManaged(true);
+        showPane(boxesGrid);
+        System.out.println("setup box grid");
 
         for (Node node : boxesGrid.getChildren()) {
             ImageView imageView = (ImageView) node;
@@ -1990,11 +2081,13 @@ public class AdventureCardSceneController extends ViewController {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
                     imageView.setImage(img);
                     imageView.setVisible(true);
+                    imageView.setManaged(true);
+                    imageView.setMouseTransparent(false);
                     imageView.setOpacity(1.0);
 
                     loadedBoxImages.put(type, img);
                     remainingBoxes.put(type, rewards.get(type));
-
+                    System.out.println("before drag");
                     imageView.setOnDragDetected(e -> {
                         if (remainingBoxes.getOrDefault(type, 0) > 0) {
                             draggedImageView = imageView;
@@ -2019,6 +2112,10 @@ public class AdventureCardSceneController extends ViewController {
                             e.consume();
                         }
                     });
+
+                    imageView.setOnMouseEntered(e -> imageView.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);"));
+                    imageView.setOnMouseExited(e -> imageView.setStyle(""));
+
 
                 } catch (Exception e) {
                     System.err.println("Box image not found: " + path);
@@ -2386,23 +2483,29 @@ public class AdventureCardSceneController extends ViewController {
     }
 
     public void showPlanetsButtons(Game game) {
+        int i = 0;
         AdventureCard card = game.getCurrentAdventureCard();
         PlanetsState state = (PlanetsState) game.getGameState();
         for (Node node : planetsGrid.getChildren()) {
             Button button = (Button) node;
             if (GridPane.getColumnIndex(button) < card.getPlanetReward().size() && !state.getChosenPlanets().containsValue(GridPane.getColumnIndex(button))) {
+                button.setText(Integer.toString(i));
+                i++;
                 button.setVisible(true);
                 button.setManaged(true);
+                button.setMouseTransparent(false);
                 button.setOnAction(event -> {
+                    System.out.println("planets setup on going");
                     chosenPlanetIdx = GridPane.getColumnIndex(button);
                     setupBoxesGrid(game, card.getPlanetReward().get(chosenPlanetIdx));
-                    enableAllStorageTileInteractions(game);
                     solveButton.setVisible(true);
                     solveButton.setManaged(true);
+                    enableAllStorageTileInteractions(game);
                 });
             } else {
                 button.setVisible(false);
                 button.setManaged(false);
+                button.setMouseTransparent(true);
             }
         }
     }
@@ -2413,6 +2516,7 @@ public class AdventureCardSceneController extends ViewController {
             if (GridPane.getColumnIndex(button) < 4) {
                 button.setVisible(false);
                 button.setManaged(false);
+                button.setMouseTransparent(true);
             }
         }
     }
@@ -2426,6 +2530,72 @@ public class AdventureCardSceneController extends ViewController {
             if (tile.getMaxBoxes() > 1) storage.getParent().setMouseTransparent(true);
         }
     }
+
+//    public void viewOtherShips(Game game) {
+//        for (int i = 0; i < game.getPlayers().size(); i++) {
+//            String resourcePath = "/images/cardboard/ship" + game.getLevel() + ".jpg";
+//            try {
+//                Image img = new Image(
+//                        Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+//                );
+//                backgrounds.get(i).setImage(img);
+//            } catch (Exception e) {
+//                System.err.println("Immagine non trovata: " + resourcePath);
+//                e.printStackTrace();
+//            }
+//
+//            Ship playerShip = game.getPlayers().get(i).getShip();
+//            loadShipView(playerShip, i, game.getLevel());
+//            nicknames.get(i).setText(game.getPlayers().get(i).getName());
+//        }
+//        showPane(viewShipsPane);
+//    }
+//
+//    @FXML
+//    public void back() {
+//        hidePane(viewShipsPane);
+//    }
+//
+//    public void loadShipView(Ship ship, int idx, int level) {
+//        Tile[][] shipMatrix = ship.getTilesMatrix();
+//
+//        for (Node node : shipGridList.get(idx).getChildren()) {
+//            Integer colIndex = GridPane.getColumnIndex(node);
+//            Integer rowIndex = GridPane.getRowIndex(node);
+//
+//            int tempcol = colIndex == null ? 0 : colIndex;
+//            int row = rowIndex == null ? 0 : rowIndex;
+//
+//
+//            if(level == 1 && (tempcol == 0 || tempcol == 6)) {
+//                continue;
+//            } else if (level == 1) {
+//                tempcol = tempcol - 1;
+//            }
+//
+//            int col = tempcol;
+//
+//            ImageView cell = (ImageView) node;
+//            Tile tile = shipMatrix[row][col];
+//
+//            if (tile == null) {
+//                cell.setImage(null);
+//            }
+//            else {
+//                String resourcePath = "/images/tiles/GT-new_tiles_16_for web" + tile.getId() + ".jpg";
+//                try {
+//                    Image img = new Image(
+//                            Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
+//                    );
+//                    cell.setImage(img);
+//                    cell.setRotate(tile.getRotation() * 90);
+//                } catch (Exception e) {
+//                    System.err.println("Immagine non trovata: " + resourcePath);
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
 
 }

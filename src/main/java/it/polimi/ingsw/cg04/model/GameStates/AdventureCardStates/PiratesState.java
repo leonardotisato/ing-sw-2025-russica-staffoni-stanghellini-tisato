@@ -277,7 +277,6 @@ public class PiratesState extends AdventureCardState {
                         // if ship is legal, player is done for this attack
                         if (p.getShip().isShipLegal()) {
                             playerStates.set(i, SHOT_DONE);
-                            triggerNextRound();
                         } else {
                             // player needs to correct his ship
                             this.appendLog("Player " + p.getName() + " must fix his ship.");
@@ -464,6 +463,11 @@ public class PiratesState extends AdventureCardState {
             }
         }
         return false;
+    }
+
+    @Override
+    public void disconnect(Player player) {
+        playerStates.remove(context.getSortedPlayers().indexOf(player));
     }
 
     // todo: remove me. for testing purposes only!

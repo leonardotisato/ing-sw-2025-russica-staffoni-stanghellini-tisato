@@ -278,35 +278,22 @@ public class Ship implements Serializable {
         }
 
         if (x == 0) {
-            if (tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
-                return false;
-            }
+            return tilesMatrix[x + 1][y] != null || tilesMatrix[x][y - 1] != null || tilesMatrix[x][y + 1] != null;
         } else if (x == shipHeight - 1) {
             if (y == shipWidth - 1) {
-                if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null) {
-                    return false;
-                }
+                return tilesMatrix[x - 1][y] != null || tilesMatrix[x][y - 1] != null;
             } else if (y == 0) {
-                if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y + 1] == null) {
-                    return false;
-                }
-            } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
-                return false;
+                return tilesMatrix[x - 1][y] != null || tilesMatrix[x][y + 1] != null;
+            } else {
+                return tilesMatrix[x - 1][y] != null || tilesMatrix[x][y - 1] != null || tilesMatrix[x][y + 1] != null;
             }
-
         } else if (y == 0) {
-            if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y + 1] == null) {
-                return false;
-            }
+            return tilesMatrix[x - 1][y] != null || tilesMatrix[x + 1][y] != null || tilesMatrix[x][y + 1] != null;
         } else if (y == shipWidth - 1) {
-            if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null) {
-                return false;
-            }
-        } else if (tilesMatrix[x - 1][y] == null && tilesMatrix[x + 1][y] == null && tilesMatrix[x][y - 1] == null && tilesMatrix[x][y + 1] == null) {
-            return false;
+            return tilesMatrix[x - 1][y] != null || tilesMatrix[x + 1][y] != null || tilesMatrix[x][y - 1] != null;
+        } else {
+            return tilesMatrix[x - 1][y] != null || tilesMatrix[x + 1][y] != null || tilesMatrix[x][y - 1] != null || tilesMatrix[x][y + 1] != null;
         }
-
-        return true;
     }
 
     /**
@@ -401,11 +388,6 @@ public class Ship implements Serializable {
      */
     public int getNumCrew() {
         return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN) + crewMap.get(CrewType.HUMAN);
-    }
-
-    // todo: handle this unused method...
-    public int getNumAliens() {
-        return crewMap.get(CrewType.PINK_ALIEN) + crewMap.get(CrewType.BROWN_ALIEN);
     }
 
     /**
@@ -585,12 +567,10 @@ public class Ship implements Serializable {
      */
     public void removeCrewByType(CrewType type) {
 
-        // non bellissimo ma potrebbe dover essere necessario in caso di rimozione tile
         if (type == null) {
             return;
         }
 
-        // todo: handle this gracefully
         assert crewMap.containsKey(type);
         assert crewMap.get(type) > 0;
 
@@ -625,16 +605,7 @@ public class Ship implements Serializable {
         crewMap.put(type, this.getNumCrewByType(type) - num);
     }
 
-    // todo: handle this unused method
 
-    /**
-     * adds a single crewMember of type {@code type} to {@code this.crewMap}
-     *
-     * @param type type of crewMember to add
-     */
-    public void addCrewByType(CrewType type) {
-        crewMap.put(type, this.getNumCrewByType(type) + 1);
-    }
 
     /**
      * fills the HousingTile in position {@code x, y} with crewMember/s of type {@code type} and adds them to {@code this.crewMap}

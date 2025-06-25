@@ -549,7 +549,7 @@ public class GUIRoot extends View {
         server.fixShip(coords);
     }
 
-    public void viewOthers2() {
+    public void viewOthers() {
         isViewingShips = true;
         updateGame(clientModel.getGame(), nickname);
     }

@@ -2,8 +2,8 @@ package it.polimi.ingsw.cg04.controller;
 
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.LobbyActions.InitAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.PlayerAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 import it.polimi.ingsw.cg04.network.Server.Server;
@@ -87,7 +87,6 @@ public class GamesController implements PropertyChangeListener {
                 System.out.println("Retired exception thrown.");
                 throw new InvalidActionException("You are retired. You can't play anymore, wait for the game to finish.");
             }
-
 
             List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
 
@@ -227,6 +226,10 @@ public class GamesController implements PropertyChangeListener {
             disconnectedPlayers.get(g).add(p);
             connectedPlayers.get(g).remove(p);
             g.disconnect(p);
+            List<String> recipients = connectedPlayers.get(g).stream().map(Player::getName).toList();
+
+            // send game snapshot to players
+            server.broadcastGameUpdate(recipients, g.deepCopy());
         }
     }
 

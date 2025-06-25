@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.*;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.BuildActions.*;
-import it.polimi.ingsw.cg04.model.PlayerActions.FixShipAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction;
 import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState;
 import it.polimi.ingsw.cg04.model.enumerations.Connection;

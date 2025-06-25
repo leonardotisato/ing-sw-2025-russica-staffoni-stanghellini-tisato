@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg04.network.Server;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.PlayerActions.Action;
+import it.polimi.ingsw.cg04.controller.PlayerActions.Action;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidStateException;
 

@@ -46,10 +46,9 @@ public class StorageTile extends Tile {
         return isSpecialStorageTile;
     }
 
-    // todo: no usages
-//    public void setSpecialStorageTile(boolean isSpecialStorageTile) {
-//        this.isSpecialStorageTile = isSpecialStorageTile;
-//    }
+    public void setSpecialStorageTile(boolean isSpecialStorageTile) {
+        this.isSpecialStorageTile = isSpecialStorageTile;
+    }
 
     /**
      * @return the maximum number of boxes as an {@code Integer}
@@ -59,10 +58,9 @@ public class StorageTile extends Tile {
         return maxBoxes;
     }
 
-    // todo: no usages
-//    public void setMaxBoxes(Integer maxBoxes) {
-//        this.maxBoxes = maxBoxes;
-//    }
+    public void setMaxBoxes(Integer maxBoxes) {
+        this.maxBoxes = maxBoxes;
+    }
 
     /**
      * @return a {@code Map} where keys are {@code BoxType} and values are their respective counts as {@code Integer}
@@ -72,7 +70,6 @@ public class StorageTile extends Tile {
         return boxes;
     }
 
-    // todo: no usages
     public void setBoxes(Map<BoxType, Integer> boxes) {
         this.boxes = boxes;
     }

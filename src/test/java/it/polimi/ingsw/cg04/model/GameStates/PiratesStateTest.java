@@ -1,15 +1,15 @@
 package it.polimi.ingsw.cg04.model.GameStates;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
+import it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState;
 import it.polimi.ingsw.cg04.model.Player;
-import it.polimi.ingsw.cg04.model.PlayerActions.*;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.ChooseBatteryAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.CompareFirePowerAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.GetRewardsAction;
-import it.polimi.ingsw.cg04.model.PlayerActions.AdventureCardActions.RollDiceAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetRewardsAction;
+import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RollDiceAction;
 import it.polimi.ingsw.cg04.model.utils.Shipyard;
 import it.polimi.ingsw.cg04.model.enumerations.PlayerColor;
 import it.polimi.ingsw.cg04.model.exceptions.InvalidActionException;

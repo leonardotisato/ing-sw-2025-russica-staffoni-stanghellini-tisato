@@ -513,6 +513,14 @@ public class WarZoneState extends AdventureCardState {
         return false;
     }
 
+    @Override
+    public void disconnect(Player player) {
+        played.remove(context.getSortedPlayers().indexOf(player));
+        if(isAllDone(played)) {
+            triggerNextPenalty();
+        }
+    }
+
     /**
      * Updates the given view with the current state of the provided game object.
      *

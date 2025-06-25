@@ -285,7 +285,7 @@ public class BuildSceneController extends ViewController {
 
     @FXML
     private void viewOther() {
-        gui.viewOthers2();
+        gui.viewOthers();
     }
 
     @FXML

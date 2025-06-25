@@ -148,6 +148,8 @@ public abstract class GameState implements Serializable {
         throw new InvalidStateException("Invalid action in this game state!");
     }
 
+    public void disconnect(Player player) { return; }
+
     public String render(String nickname) {
         return null;
     }
@@ -167,6 +169,8 @@ public abstract class GameState implements Serializable {
     public void initLogs() {
         this.logs = new ArrayList<>();
     }
+
+    public void setSortedPlayers(List<Player> sortedPlayers) { return; }
 
     public void updateView(View view, Game game) throws IOException {
         throw new RuntimeException();

@@ -33,7 +33,6 @@ public class LaserTile extends Tile {
         }
     }
 
-    // todo: handle unused method
     public void setDoubleLaser(boolean isDoubleLaser) {
         this.isDoubleLaser = isDoubleLaser;
     }

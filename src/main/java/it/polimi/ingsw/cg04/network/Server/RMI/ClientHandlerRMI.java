@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg04.network.Server.RMI;
 
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
-import it.polimi.ingsw.cg04.model.PlayerActions.Action;
+import it.polimi.ingsw.cg04.controller.PlayerActions.Action;
 import it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI;
 import it.polimi.ingsw.cg04.network.Server.ClientHandler;
 import it.polimi.ingsw.cg04.network.Server.Server;
@@ -54,9 +54,9 @@ public class ClientHandlerRMI extends ClientHandler {
         rmiExecutor.submit(() -> {
             try {
                 virtualClient.setGameRMI(game);
-            } catch (RemoteException ignored) {
-                System.out.println("not working");
-                ignored.printStackTrace();
+            } catch (RemoteException e) {
+                System.out.println("Not working");
+                e.printStackTrace();
             }
         });
     }

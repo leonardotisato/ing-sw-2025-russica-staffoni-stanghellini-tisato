@@ -27,7 +27,7 @@ public class MeteorsRainState extends AdventureCardState {
     private final int PROVIDE_BATTERY = 1;
     private final int INIT = 0;
 
-    private final List<Player> sortedPlayers;
+    private List<Player> sortedPlayers;
 
     private final int leftBoundary, rightBoundary;
     private final int upBoundary, downBoundary;
@@ -293,6 +293,14 @@ public class MeteorsRainState extends AdventureCardState {
             throw new InvalidStateException("Choose battery not allowed for player: " + player.getName());
         }
 
+        if (isAllDone(played)) {
+            triggerNextRound();
+        }
+    }
+
+    @Override
+    public void disconnect(Player player) {
+        played.remove(context.getSortedPlayers().indexOf(player));
         if (isAllDone(played)) {
             triggerNextRound();
         }
