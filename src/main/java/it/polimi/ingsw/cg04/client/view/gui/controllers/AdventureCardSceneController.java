@@ -1171,149 +1171,6 @@ public class AdventureCardSceneController extends ViewController {
 
         if (!game.getPlayers().contains(p)) return;
 
-        switch (state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
-            case "HANDLESHOTS":
-                if (!state.isRolled() && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0 && !new HashSet<>(state.getPlayed()).contains(0)) {
-                    showButton(diceButton);
-                    diceButton.setOnAction(event -> {
-                        gui.rollDice();
-                    });
-                }
-                else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 1) {
-                    hideButton(diceButton);
-                    for (Node node : shipGrid.getChildren()) {
-                        Integer colIndex = GridPane.getColumnIndex(node);
-                        Integer rowIndex = GridPane.getRowIndex(node);
-                        int tempcol = colIndex == null ? 0 : colIndex;
-                        int row = rowIndex == null ? 0 : rowIndex;
-                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-                            continue;
-                        } else if (level == 1) {
-                            tempcol = tempcol - 1;
-                        }
-                        int col = tempcol;
-
-                        StackPane stack = (StackPane) node;
-                        ImageView cell = (ImageView) stack.getChildren().getFirst();
-                        Coordinates coords = new Coordinates(row, col);
-                        Tile tile = shipMatrix[row][col];
-
-                        if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
-                                && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
-                            System.out.println("Enabling batteries interaction.");
-                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
-                        }
-
-                        solveButton.setOnAction(event -> {
-                            if (selectedBatties.isEmpty()) {
-                                gui.chooseBattery(-1, -1);
-                            } else {
-                                Coordinates c = selectedBatties.entrySet().iterator().next().getKey();
-                                gui.chooseBattery(c.getX(), c.getY());
-                            }
-                            selectedBatties.clear();
-                        });
-                        choiceButton.setText("Clear selected");
-                        showButton(choiceButton);
-                        choiceButton.setOnAction(event -> {
-                            selectedBatties.clear();
-                            updateBatteriesView(game);
-                            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
-                        });
-                    }
-                }
-                else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 2){
-                    for (Node node : shipGrid.getChildren()) {
-                        Integer colIndex = GridPane.getColumnIndex(node);
-                        Integer rowIndex = GridPane.getRowIndex(node);
-                        int tempcol = colIndex == null ? 0 : colIndex;
-                        int row = rowIndex == null ? 0 : rowIndex;
-                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-                            continue;
-                        } else if (level == 1) {
-                            tempcol = tempcol - 1;
-                        }
-                        int col = tempcol;
-
-                        StackPane stack = (StackPane) node;
-                        ImageView cell = (ImageView) stack.getChildren().getFirst();
-                        Coordinates coords = new Coordinates(row, col);
-                        Tile tile = shipMatrix[row][col];
-
-                        if (!ship.isShipLegal()) {
-                            setFixEffects(cell, row, col);
-                            hideAllButtons();
-                            showButton(solveButton);
-                            quitButton.setText("Fix Ship");
-                            showButton(quitButton);
-                            quitButton.setOnAction(event -> {
-                                gui.fixShip(tilesToBreak);
-                                tilesToBreak.clear();
-                            });
-                        }
-                    }
-
-                    hideButton(choiceButton);
-                }
-                break;
-            case "LOSECREW":
-                if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 2 && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
-                    if (selectedCrew.isEmpty()) {
-                        objectsInfo.setText("Selected Crew:\n\nNone selected.");
-                    }
-
-                    for (Node node : shipGrid.getChildren()) {
-                        Integer colIndex = GridPane.getColumnIndex(node);
-                        Integer rowIndex = GridPane.getRowIndex(node);
-                        int tempcol = colIndex == null ? 0 : colIndex;
-                        int row = rowIndex == null ? 0 : rowIndex;
-                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
-                            continue;
-                        } else if (level == 1) {
-                            tempcol = tempcol - 1;
-                        }
-                        int col = tempcol;
-
-                        StackPane stack = (StackPane) node;
-                        Coordinates coords = new Coordinates(row, col);
-                        Tile tile = shipMatrix[row][col];
-
-                        if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
-                            updateHousingTile((HousingTile) tile, stack, row, col);
-                            enableHousingTileInteraction((HousingTile) tile, stack, row, col);
-                        }
-
-                        solveButton.setOnAction(event -> {
-                            List<Coordinates> c;
-                            List<Integer> removedCrew;
-                            if (selectedCrew.isEmpty()) {
-                                c = new ArrayList<>();
-                                removedCrew = new ArrayList<>();
-                            } else {
-                                c = new ArrayList<>(selectedCrew.keySet());
-                                removedCrew = new ArrayList<>(selectedCrew.values());
-                            }
-                            gui.removeCrew(c, removedCrew);
-                            if (!selectedCrew.isEmpty()) selectedCrew.clear();
-                        });
-                    }
-
-                    showButton(quitButton);
-                    quitButton.setText("Not enough crew");
-                    quitButton.setOnAction(event -> {
-                        gui.removeCrew(null,null);
-                    });
-
-                    choiceButton.setText("Clear selected");
-                    showButton(choiceButton);
-                    choiceButton.setOnAction(event -> {
-                        selectedCrew.clear();
-                        updateCrewView(game);
-                        updateCrewInfoText();
-                    });
-                }
-                break;
-        }
 
         switch (state.getCard().getParameterCheck().get(state.getPenaltyIdx())) {
             case "CANNONS":
@@ -1436,8 +1293,149 @@ public class AdventureCardSceneController extends ViewController {
                     gui.compareCrew();
                 });
         }
-    }
 
+        switch (state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
+            case "HANDLESHOTS":
+                if (!state.isRolled() && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0 && !new HashSet<>(state.getPlayed()).contains(0)) {
+                    showButton(diceButton);
+                    diceButton.setOnAction(event -> {
+                        gui.rollDice();
+                    });
+                } else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 1) {
+                    hideButton(diceButton);
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("BatteryTile"))
+                                && (tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0)) > 0) {
+                            System.out.println("Enabling batteries interaction.");
+                            enableBatteryTileInteraction((BatteryTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            if (selectedBatties.isEmpty()) {
+                                gui.chooseBattery(-1, -1);
+                            } else {
+                                Coordinates c = selectedBatties.entrySet().iterator().next().getKey();
+                                gui.chooseBattery(c.getX(), c.getY());
+                            }
+                            selectedBatties.clear();
+                        });
+                        choiceButton.setText("Clear selected");
+                        showButton(choiceButton);
+                        choiceButton.setOnAction(event -> {
+                            selectedBatties.clear();
+                            updateBatteriesView(game);
+                            objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected.");
+                        });
+                    }
+                } else if (state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 2) {
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        ImageView cell = (ImageView) stack.getChildren().getFirst();
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (!ship.isShipLegal()) {
+                            setFixEffects(cell, row, col);
+                            hideAllButtons();
+                            showButton(solveButton);
+                            quitButton.setText("Fix Ship");
+                            showButton(quitButton);
+                            quitButton.setOnAction(event -> {
+                                gui.fixShip(tilesToBreak);
+                                tilesToBreak.clear();
+                            });
+                        }
+                    }
+
+                    hideButton(choiceButton);
+                }
+                break;
+            case "LOSECREW":
+                if (state.getPlayed().get(game.getSortedPlayers().indexOf(p)) == 2 && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p)) {
+                    if (selectedCrew.isEmpty()) {
+                        objectsInfo.setText("Selected Crew:\n\nNone selected.");
+                    }
+
+                    for (Node node : shipGrid.getChildren()) {
+                        Integer colIndex = GridPane.getColumnIndex(node);
+                        Integer rowIndex = GridPane.getRowIndex(node);
+                        int tempcol = colIndex == null ? 0 : colIndex;
+                        int row = rowIndex == null ? 0 : rowIndex;
+                        if (level == 1 && (tempcol == 0 || tempcol == 6)) {
+                            continue;
+                        } else if (level == 1) {
+                            tempcol = tempcol - 1;
+                        }
+                        int col = tempcol;
+
+                        StackPane stack = (StackPane) node;
+                        Coordinates coords = new Coordinates(row, col);
+                        Tile tile = shipMatrix[row][col];
+
+                        if (coords.isIn(ship.getTilesMap().get("HousingTile")) && (tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0)) > 0) {
+                            updateHousingTile((HousingTile) tile, stack, row, col);
+                            enableHousingTileInteraction((HousingTile) tile, stack, row, col);
+                        }
+
+                        solveButton.setOnAction(event -> {
+                            List<Coordinates> c;
+                            List<Integer> removedCrew;
+                            if (selectedCrew.isEmpty()) {
+                                c = new ArrayList<>();
+                                removedCrew = new ArrayList<>();
+                            } else {
+                                c = new ArrayList<>(selectedCrew.keySet());
+                                removedCrew = new ArrayList<>(selectedCrew.values());
+                            }
+                            gui.removeCrew(c, removedCrew);
+                            if (!selectedCrew.isEmpty()) selectedCrew.clear();
+                        });
+                    }
+
+                    showButton(quitButton);
+                    quitButton.setText("Not enough crew");
+                    quitButton.setOnAction(event -> {
+                        gui.removeCrew(null, null);
+                    });
+
+                    choiceButton.setText("Clear selected");
+                    showButton(choiceButton);
+                    choiceButton.setOnAction(event -> {
+                        selectedCrew.clear();
+                        updateCrewView(game);
+                        updateCrewInfoText();
+                    });
+                }
+                break;
+        }
+    }
     private <K, V> K getKeyByValue(Map<K, V> map, V value) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (Objects.equals(entry.getValue(), value)) {
