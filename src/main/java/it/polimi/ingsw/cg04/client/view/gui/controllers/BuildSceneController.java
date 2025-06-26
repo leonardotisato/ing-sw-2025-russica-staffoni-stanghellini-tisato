@@ -133,16 +133,6 @@ public class BuildSceneController extends ViewController {
     }
 
 
-//
-//    @FXML
-//    private void handleShowOtherShips() {
-//        gui.viewOtherShips();
-//    }
-//
-//    @FXML
-//    private void handleEnd() {
-//        gui.endTurn(); // o endPhase() o simile
-//    }
 
     /**
      * Initializes the build scene controller and sets up all UI components and event handlers.

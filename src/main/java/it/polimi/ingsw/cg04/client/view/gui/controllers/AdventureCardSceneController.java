@@ -50,9 +50,8 @@ public class AdventureCardSceneController extends ViewController {
     @FXML
     private Button quitButton, solveButton, choiceButton, diceButton, viewShipsButton;
 
-
     @FXML
-    private TextArea logs, objectsInfo;
+    private TextArea logs, objectsInfo, playersInfo;
 
     @FXML
     private ImageView shipImage, flightboardImg;
@@ -105,6 +104,12 @@ public class AdventureCardSceneController extends ViewController {
         this.gui = gui;
     }
 
+    /**
+     * Initializes the scene by scaling the UI, configuring the flight board, and setting button actions.
+     *
+     * @param url            location used to resolve relative paths
+     * @param resourceBundle resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
@@ -116,6 +121,9 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Scales and centers the UI based on the current window size.
+     */
     private void scaleUI() {
         double scaleX = root.getWidth() / BASE_WIDTH;
         double scaleY = root.getHeight() / BASE_HEIGHT;
@@ -129,6 +137,9 @@ public class AdventureCardSceneController extends ViewController {
         scalableGroup.setLayoutY(offsetY);
     }
 
+    /**
+     * Maps flight board triangle positions to level 1 and level 2 game levels.
+     */
     private void setupFlightboardTriangles() {
         level2Triangles.put(0, pos0_lev2);
         level2Triangles.put(1, pos1_lev2);
@@ -174,7 +185,11 @@ public class AdventureCardSceneController extends ViewController {
         level1Triangles.put(17, pos17_lev1);
     }
 
-
+    /**
+     * Hides a given pane from the UI.
+     *
+     * @param pane the {@link Pane} to hide
+     */
     private void hidePane(Pane pane) {
         pane.setVisible(false);
         pane.setManaged(false);
@@ -182,6 +197,11 @@ public class AdventureCardSceneController extends ViewController {
         pane.toFront();
     }
 
+    /**
+     * Shows a given pane in the UI.
+     *
+     * @param pane the {@link Pane} to show
+     */
     private void showPane(Pane pane) {
         pane.setVisible(true);
         pane.setManaged(true);
@@ -189,18 +209,31 @@ public class AdventureCardSceneController extends ViewController {
         pane.toFront();
     }
 
+    /**
+     * Hides a button from the UI.
+     *
+     * @param button the {@link Button} to hide
+     */
     private void hideButton(Button button) {
         button.setVisible(false);
         button.setManaged(false);
         button.setMouseTransparent(true);
     }
 
+    /**
+     * Shows a button in the UI.
+     *
+     * @param button the {@link Button} to show
+     */
     private void showButton(Button button) {
         button.setVisible(true);
         button.setManaged(true);
         button.setMouseTransparent(false);
     }
 
+    /**
+     * Hides all buttons in the scene, including planet-specific ones.
+     */
     private void hideAllButtons() {
         hideButton(viewShipsButton);
         hideButton(solveButton);
@@ -210,6 +243,9 @@ public class AdventureCardSceneController extends ViewController {
         hidePlanetsButtons();
     }
 
+    /**
+     * Shows buttons specific to the Flights phase.
+     */
     private void showFlightsButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(471);
@@ -218,6 +254,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setVisible(false);
     }
 
+    /**
+     * Shows buttons specific to the Open Space phase.
+     */
     private void showOpenSpaceButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(544);
@@ -228,6 +267,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Shows buttons for the Abandoned Ship phase.
+     */
     private void showAbandonedShipButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(544);
@@ -240,6 +282,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setManaged(true);
     }
 
+    /**
+     * Shows buttons for the Stardust phase.
+     */
     private void showStardustButtons(){
         showButton(viewShipsButton);
         showButton(solveButton);
@@ -247,6 +292,9 @@ public class AdventureCardSceneController extends ViewController {
         viewShipsButton.setLayoutY(492);
     }
 
+    /**
+     * Shows buttons for the Abandoned Station phase.
+     */
     private void showAbandonedStationButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(544);
@@ -256,6 +304,9 @@ public class AdventureCardSceneController extends ViewController {
         choiceButton.setLayoutY(492);
     }
 
+    /**
+     * Shows buttons for the Planets phase.
+     */
     public void showPlanetsButtons(){
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(544);
@@ -264,6 +315,9 @@ public class AdventureCardSceneController extends ViewController {
         choiceButton.setLayoutY(453);
     }
 
+    /**
+     * Shows buttons for the Slavers encounter.
+     */
     public void showSlaversButtons(){
         showButton(solveButton);
         showButton(viewShipsButton);
@@ -272,12 +326,18 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Shows buttons for the Smugglers encounter.
+     */
     public void showSmugglersButtons(){
         showButton(solveButton);
         showButton(viewShipsButton);
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Shows buttons for the Meteors Rain event.
+     */
     public void showMeteorsRainButtons(){
         showButton(solveButton);
         showButton(choiceButton);
@@ -286,6 +346,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Shows buttons for the Pirates encounter.
+     */
     public void showPiratesButtons(){
         showButton(solveButton);
         showButton(quitButton);
@@ -293,12 +356,18 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Shows buttons for the Warzone event.
+     */
     public void showWarzoneButtons(){
         showButton(solveButton);
         showButton(viewShipsButton);
         objectsInfo.setVisible(true);
     }
 
+    /**
+     * Resets the positions of commonly used buttons to default values.
+     */
     public void resetButtonsPositions(){
         viewShipsButton.setLayoutX(544);
         viewShipsButton.setLayoutY(453);
@@ -306,6 +375,7 @@ public class AdventureCardSceneController extends ViewController {
         choiceButton.setLayoutY(453);
     }
 
+    @Override
     public void update(Game game) {
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
         Ship ship = currentPlayer.getShip();
@@ -1165,10 +1235,6 @@ public class AdventureCardSceneController extends ViewController {
         Tile[][] shipMatrix = ship.getTilesMatrix();
         int level = p.getGame().getLevel();
 
-//        "CANNONS",
-//                "PROPULSORS",
-//                "CREW"
-
         if (!game.getPlayers().contains(p)) return;
 
 
@@ -1436,6 +1502,15 @@ public class AdventureCardSceneController extends ViewController {
                 break;
         }
     }
+
+
+    /**
+     * Returns the key in the given map that corresponds to the specified value.
+     *
+     * @param map   the map to search
+     * @param value the value to find
+     * @return the corresponding key, or null if not found
+     */
     private <K, V> K getKeyByValue(Map<K, V> map, V value) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (Objects.equals(entry.getValue(), value)) {
@@ -1445,6 +1520,11 @@ public class AdventureCardSceneController extends ViewController {
         return null;
     }
 
+    /**
+     * Updates the view of battery tiles by showing their state and enabling user interaction.
+     *
+     * @param game the current game instance
+     */
     public void updateBatteriesView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
@@ -1475,6 +1555,11 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the view of crew tiles by showing crew members and enabling interaction.
+     *
+     * @param game the current game instance
+     */
     public void updateCrewView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
@@ -1505,6 +1590,11 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Enables cannon tile interaction for selecting or deselecting cannons.
+     *
+     * @param game the current game instance
+     */
     public void updateCannonView(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
@@ -1535,7 +1625,11 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-
+    /**
+     * Renders the entire ship grid for the given player, including tile images and drag events.
+     *
+     * @param p the player whose ship is being rendered
+     */
     private void updateShip(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -1594,6 +1688,14 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates a tile's visual based on its type (e.g., Housing, Battery, Storage).
+     *
+     * @param cellStack the StackPane cell to update
+     * @param tile      the tile object
+     * @param row       row coordinate
+     * @param col       column coordinate
+     */
     private void updateTile(StackPane cellStack, Tile tile, int row, int col) {
         String type = tile.getName();
 
@@ -1614,6 +1716,14 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the housing tile UI with crew icons based on current and selected crew.
+     *
+     * @param housingTile the housing tile
+     * @param cellStack   the UI container
+     * @param row         the tile's row
+     * @param col         the tile's column
+     */
     private void updateHousingTile(HousingTile housingTile, StackPane cellStack, int row, int col) {
 
         if (cellStack.getChildren().size() > 1) {
@@ -1698,6 +1808,14 @@ public class AdventureCardSceneController extends ViewController {
         cellStack.getChildren().add(crewContainer);
     }
 
+    /**
+     * Updates the battery tile UI with battery icons based on current and selected batteries.
+     *
+     * @param batteryTile the battery tile
+     * @param cellStack   the UI container
+     * @param row         the tile's row
+     * @param col         the tile's column
+     */
     private void updateBatteryTile(BatteryTile batteryTile, StackPane cellStack, int row, int col) {
 
         if (cellStack.getChildren().size() > 1) {
@@ -1743,6 +1861,14 @@ public class AdventureCardSceneController extends ViewController {
         cellStack.getChildren().add(batteryBox);
     }
 
+    /**
+     * Enables user interaction on a battery tile for selecting batteries.
+     *
+     * @param tile  the battery tile
+     * @param stack the UI StackPane
+     * @param row   the tile's row
+     * @param col   the tile's column
+     */
     private void enableBatteryTileInteraction(BatteryTile tile, StackPane stack, int row, int col) {
         Coordinates coords = new Coordinates(row, col);
         int remaining = tile.getNumBatteries() - selectedBatties.getOrDefault(coords, 0);
@@ -1772,6 +1898,14 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Enables user interaction on a housing tile for selecting crew.
+     *
+     * @param tile  the housing tile
+     * @param stack the UI StackPane
+     * @param row   the tile's row
+     * @param col   the tile's column
+     */
     private void enableHousingTileInteraction(HousingTile tile, StackPane stack, int row, int col) {
         Coordinates coords = new Coordinates(row, col);
         int remaining = tile.getNumCrew() - selectedCrew.getOrDefault(coords, 0);
@@ -1799,6 +1933,14 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Enables user interaction on a cannon tile for selecting/deselecting it.
+     *
+     * @param tile  the laser tile
+     * @param stack the UI StackPane
+     * @param row   the tile's row
+     * @param col   the tile's column
+     */
     private void enableCannonTileInteraction(LaserTile tile, StackPane stack, int row, int col) {
         Coordinates coords = new Coordinates(row, col);
 
@@ -1823,6 +1965,9 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Updates the info text area with a summary of selected batteries.
+     */
     private void updateBatteriesInfoText() {
         if (selectedBatties.isEmpty()) {
             objectsInfo.setText("🔋 Selected Batteries:\n\nNone selected\n\n.");
@@ -1836,6 +1981,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setText(sb.toString());
     }
 
+    /**
+     * Updates the info text area with a summary of selected crew members.
+     */
     private void updateCrewInfoText() {
         if (selectedCrew.isEmpty()) {
             objectsInfo.setText("Selected Crew:\n\nNone selected.");
@@ -1850,6 +1998,9 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.setText(sb.toString());
     }
 
+    /**
+     * Updates the info text area with the list of selected cannons.
+     */
     private void updateCannonsInfoText() {
         if (selectedCannons.isEmpty()) {
             objectsInfo.appendText("Selected Cannons:\n\nNone selected.");
@@ -1864,7 +2015,14 @@ public class AdventureCardSceneController extends ViewController {
         objectsInfo.appendText(sb.toString());
     }
 
-
+    /**
+     * Updates the visual representation of a storage tile, based on stored boxes and their types.
+     *
+     * @param storageTile the storage tile to update
+     * @param cellStack   the UI container for the tile
+     * @param row         the tile's row
+     * @param col         the tile's column
+     */
     private void updateStorageTile(StorageTile storageTile, StackPane cellStack, int row, int col) {
         if (cellStack.getChildren().size() > 1) {
             cellStack.getChildren().subList(1, cellStack.getChildren().size()).clear();
@@ -2056,6 +2214,12 @@ public class AdventureCardSceneController extends ViewController {
         cellStack.getChildren().add(storageContainer);
     }
 
+    /**
+     * Initializes the draggable reward boxes in the grid based on the current adventure card.
+     *
+     * @param game    the current game state
+     * @param rewards the reward boxes received
+     */
     private void setupBoxesGrid(Game game, Map<BoxType, Integer> rewards) {
         AdventureCard card = game.getCurrentAdventureCard();
         remainingBoxes.clear();
@@ -2127,50 +2291,14 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-
-    // todo: fix the onXClicked() methods
-
-    public void onCrewClicked(ImageView crewImage, int row, int col) {
-        Coordinates coordinates = new Coordinates(row, col);
-        String selectedEffect = "-fx-effect: dropshadow(gaussian, red, 10, 0.6, 0, 0);";
-        crewImage.setOnMouseEntered(e -> {
-            if (!selectedEffect.equals(crewImage.getStyle()))
-                crewImage.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
-        });
-
-        crewImage.setOnMouseExited(e -> {
-            if (!selectedEffect.equals(crewImage.getStyle()))
-                crewImage.setStyle("");
-        });
-
-        crewImage.setOnMouseClicked(e -> {
-            if (selectedEffect.equals(crewImage.getStyle())) {
-                crewImage.setStyle("");
-                selectedCrew.put(coordinates, selectedCrew.getOrDefault(coordinates, 0) - 1);
-                if (selectedCrew.getOrDefault(coordinates, 0) == 0) {
-                    selectedCrew.remove(coordinates);
-                }
-            } else {
-                crewImage.setStyle(selectedEffect);
-                selectedCrew.put(coordinates, selectedCrew.getOrDefault(coordinates, 0) + 1);
-            }
-            updateCrewInfoText();
-        });
-    }
-
-    public void onBatteryClicked(ImageView cell, int row, int col) {
-        Coordinates coordinates = new Coordinates(row, col);
-        cell.setOnMouseClicked(event -> {
-            if (!coordinates.isIn(tilesToBreak)) {
-                cell.setStyle("-fx-effect: dropshadow(gaussian, lawngreen, 10, 0.6, 0, 0);");
-                tilesToBreak.add(coordinates);
-            } else {
-                cell.setStyle("");
-                tilesToBreak.remove(coordinates);
-            }
-        });
-    }
-
+    /**
+     * Enables interaction with a specific storage tile, allowing box drag-and-drop.
+     *
+     * @param targetImage the {@link ImageView} representing a box slot
+     * @param row         the row of the tile
+     * @param col         the column of the tile
+     * @param game        the current game state
+     */
     public void enableStorageTileInteraction(ImageView targetImage, int row, int col, Game game) {
         Coordinates targetCoords = new Coordinates(row, col);
         Ship ship = game.getPlayer(gui.getClientNickname()).getShip();
@@ -2291,6 +2419,11 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Enables drag-and-drop interaction for all active storage tiles on the player's ship.
+     *
+     * @param game the current game state
+     */
     private void enableAllStorageTileInteractions(Game game) {
         Player p = game.getPlayer(gui.getClientNickname());
         Ship ship = p.getShip();
@@ -2303,7 +2436,9 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-
+    /**
+     * Refreshes the box grid visuals based on currently available boxes.
+     */
     private void updateBoxesGrid() {
         for (Node node : boxesGrid.getChildren()) {
             ImageView imageView = (ImageView) node;
@@ -2326,7 +2461,13 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
-
+    /**
+     * Toggles the fix effect (highlighting) on a tile when clicked for ship repair.
+     *
+     * @param cell the {@link ImageView} representing the tile
+     * @param row  the row of the tile
+     * @param col  the column of the tile
+     */
     public void setFixEffects(ImageView cell, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
         cell.setOnMouseClicked(event -> {
@@ -2340,6 +2481,11 @@ public class AdventureCardSceneController extends ViewController {
         });
     }
 
+    /**
+     * Updates the positions of players on the flight board UI based on their current location.
+     *
+     * @param game the current game state
+     */
     public void updateFlightboardPositions(Game game) {
         Map<String, String> playerColorHex = Map.of(
                 "YELLOW", "#FFFF00",
@@ -2384,9 +2530,11 @@ public class AdventureCardSceneController extends ViewController {
         Platform.runLater(() -> logs.setText(sb.toString()));
     }
 
-    @FXML
-    private TextArea playersInfo;
-
+    /**
+     * Updates the player info panel with ranking, credits, and color.
+     *
+     * @param players list of players in the game
+     */
     public void updatePlayersInfo(List<Player> players) {
         players.sort(Comparator.comparingInt(Player::getRanking));
 
@@ -2403,6 +2551,11 @@ public class AdventureCardSceneController extends ViewController {
         playersInfo.setText(sb.toString());
     }
 
+    /**
+     * Sets up the scene elements (background, ship image, flightboard) based on the game level.
+     *
+     * @param level the current game level
+     */
     private void composeSceneByLevel(int level) {
         String backgroundPath = "/images/background" + level + ".png";
         String shipPath = "/images/cardboard/ship" + level + ".jpg";
@@ -2435,6 +2588,11 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Loads the currently active adventure card and displays its image.
+     *
+     * @param game the current game state
+     */
     private void loadCurrentCard(Game game) {
         AdventureCard currCard = game.getCurrentAdventureCard();
         String resourcePath = "/images/cards/" + getKeyByValue(game.getAdventureCardsMap(), currCard) + ".jpg";
@@ -2449,6 +2607,9 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Resets all tile interaction effects and mouse events on the ship grid.
+     */
     private void resetTileInteractions() {
         for (Node node : shipGrid.getChildren()) {
             StackPane stack = (StackPane) node;
@@ -2470,6 +2631,12 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Extracts the box type from the given image, based on its filename.
+     *
+     * @param image the image to analyze
+     * @return the corresponding {@link BoxType}, or null if not recognized
+     */
     private BoxType getBoxTypeFromImage(Image image) {
         if (image == null || image.getUrl() == null) return null;
 
@@ -2481,6 +2648,11 @@ public class AdventureCardSceneController extends ViewController {
         return null;
     }
 
+    /**
+     * Shows planet buttons that the current player can interact with during the planet reward phase.
+     *
+     * @param game the current game state
+     */
     public void showPlanetsButtons(Game game) {
         AdventureCard card = game.getCurrentAdventureCard();
         PlanetsState state = (PlanetsState) game.getGameState();
@@ -2503,6 +2675,9 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Hides all planet buttons from the grid.
+     */
     public void hidePlanetsButtons() {
         for (Node node : planetsGrid.getChildren()) {
             Button button = (Button) node;
@@ -2512,6 +2687,11 @@ public class AdventureCardSceneController extends ViewController {
         }
     }
 
+    /**
+     * Disables interaction for all box containers, making them visually transparent.
+     *
+     * @param game the current game state
+     */
     public void makeBoxesContainersTransparent(Game game) {
         Ship ship = game.getPlayer(gui.getClientNickname()).getShip();
         for (ImageView storage : storageImages) {
