@@ -219,7 +219,6 @@ public class BuildState extends GameState {
 
         playerState.put(player.getName(), BuildPlayerState.BUILDING);
 
-        //todo: what to do here???
     }
 
     /**
@@ -279,7 +278,7 @@ public class BuildState extends GameState {
      */
     @Override
     public void pickPile(Player player, int pileIndex) throws InvalidStateException {
-        // if player is not in BUILDING state
+        // if the player is not in BUILDING state
         if (playerState.get(player.getName()) != BuildPlayerState.BUILDING) {
             throw new InvalidStateException("Can't pick pile now");
         }
@@ -336,7 +335,7 @@ public class BuildState extends GameState {
      */
     @Override
     public void endBuilding(Player player, int position) throws InvalidStateException {
-        // player is not in building phase or is looking af face-up tiles or is looking a pile
+        // player is not in building phase or is looking at face-up tiles or is looking a pile
         if (playerState.get(player.getName()) == BuildPlayerState.READY || playerState.get(player.getName()) == BuildPlayerState.FIXING) {
             throw new InvalidStateException("Can't end building now.");
         }
@@ -376,7 +375,6 @@ public class BuildState extends GameState {
         board.occupyCell(board.getStartingPosition(position), player);
 
         playerState.put(player.getName(), player.getShip().isShipLegal() ? BuildPlayerState.READY : BuildPlayerState.FIXING);
-        //if he needs to fix his ship, is it right to move him to the start position?
         if (player.getShip().isShipLegal()) {
             this.addLog(player.getName() + " is done building and he choose to start at position " + position);
         } else {
@@ -418,7 +416,6 @@ public class BuildState extends GameState {
         if (player.getShip().isShipLegal()) {
             playerState.put(player.getName(), BuildPlayerState.READY);
             this.addLog(player.getName() + " is done fixing his ship!");
-            //where will he start?
         } else {
             this.addLog(player.getName() + " tried to fix his ship but it still illegal. He must fix it!");
         }

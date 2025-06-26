@@ -24,8 +24,6 @@ public abstract class AdventureCard implements Serializable {
     @Expose
     private int daysLost;
 
-    // @Expose private boolean solved = false;
-
     protected static final int WIDTH = 29;
     protected static final int HEIGHT = 11;
 
@@ -56,15 +54,9 @@ public abstract class AdventureCard implements Serializable {
         this.daysLost = daysLost;
     }
 
-    // public boolean getSolved() { return solved; }
-
-    // public void setSolved(boolean solved) { this.solved = solved; }
-
     public Integer getFirePower() {
         return null;
     }
-
-    // public int getLostGoods() { return 0; }
 
     public Integer getLostMembers() {
         return null;
@@ -138,6 +130,7 @@ public abstract class AdventureCard implements Serializable {
     public AdventureCardState createGameState(Game game) {
         return null;
     }
+
 
     // toString methods
 

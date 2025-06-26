@@ -95,7 +95,6 @@ public class WarZone extends AdventureCard {
         return directions.get(i);
     }
 
-    // todo: no usages
     public void setAttacks(List<Attack> attacks) {
         this.attacks = attacks;
     }
@@ -108,7 +107,6 @@ public class WarZone extends AdventureCard {
         return directions;
     }
 
-    // todo: no usages...
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
     }
@@ -122,7 +120,6 @@ public class WarZone extends AdventureCard {
         return lostGoods;
     }
 
-    // todo: no usages
     public void setLostGoods(int lostGoods) {
         this.lostGoods = lostGoods;
     }
@@ -135,7 +132,6 @@ public class WarZone extends AdventureCard {
         return lostMembers;
     }
 
-    // todo: no usages
     public void setLostMembers(int lostMembers) {
         this.lostMembers = lostMembers;
     }

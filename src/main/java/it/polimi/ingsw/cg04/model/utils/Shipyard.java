@@ -32,32 +32,6 @@ public class Shipyard implements Serializable {
         lev1Ship.placeTile(tiles.get(19), 2, 1);
         lev1Ship.placeTile(tiles.get(125), 2, 3);
         lev1Ship.placeTile(tiles.get(18), 1, 2);
-        /*
-        lev1Ship.placeTile(tiles.get(103), 0, 2);
-        lev1Ship.placeTile(tiles.get(105), 1, 1);
-        tiles.get(154).rotate90sx();
-        lev1Ship.placeTile(tiles.get(154), 1, 2);
-        lev1Ship.placeTile(tiles.get(35), 1, 3);
-        tiles.get(14).rotate90sx();
-        lev1Ship.placeTile(tiles.get(14), 2, 0);
-        tiles.get(26).rotate90dx();
-        lev1Ship.placeTile(tiles.get(26), 2, 1);
-        lev1Ship.placeTile(tiles.get(33), 2, 2);
-        tiles.get(27).rotate180();
-        lev1Ship.placeTile(tiles.get(6), 2, 3);
-
-        lev1Ship.placeTile(tiles.get(10), 2, 4);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-        lev1Ship.placeTile(tiles.get(33), 0, 0);
-
-         */
 
         return lev1Ship;
     }

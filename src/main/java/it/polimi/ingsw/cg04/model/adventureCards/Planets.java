@@ -35,19 +35,14 @@ public class Planets extends AdventureCard {
         return planetReward;
     }
 
-    // todo: handle unused method
     public void setPlanetReward(List<Map<BoxType, Integer>> planetReward) {
         this.planetReward = planetReward;
     }
 
-    // todo: handle unused method
     public Map<BoxType, Integer> getSinglePlanetReward(int i) {
         return planetReward.get(i);
     }
 
-    // potrebbe servire ad esempio per controllare quanti rossi ci sono e se il giocatore può trasportarli?
-    // nel dubbio lo tengo per ora
-    // todo: handle unused method
     public int getSinglePlanetRewardByType(int i, BoxType boxType) {
         return planetReward.get(i).get(boxType);
     }

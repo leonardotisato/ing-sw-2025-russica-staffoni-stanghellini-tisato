@@ -45,7 +45,6 @@ public class Slavers extends AdventureCard {
         return membersLost;
     }
 
-    // todo: handle unused method
     public void setMembersLost(int membersLost) {
         this.membersLost = membersLost;
     }
@@ -59,7 +58,6 @@ public class Slavers extends AdventureCard {
         return creditsEarned;
     }
 
-    // todo: handle unused method
     public void setCreditsEarned(int creditsEarned) {
         this.creditsEarned = creditsEarned;
     }
