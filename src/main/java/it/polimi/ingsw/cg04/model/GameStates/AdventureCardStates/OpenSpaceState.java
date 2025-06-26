@@ -45,7 +45,7 @@ public class OpenSpaceState extends AdventureCardState {
         playerDelta.put(p, delta);
         this.played.set(currPlayerIdx, 1);
         this.currPlayerIdx++;
-        if (currPlayerIdx == sortedPlayers.size()) {
+        if (!played.contains(0)) {
             flagNoPowerOpenSpace();
             triggerNextState();
         }

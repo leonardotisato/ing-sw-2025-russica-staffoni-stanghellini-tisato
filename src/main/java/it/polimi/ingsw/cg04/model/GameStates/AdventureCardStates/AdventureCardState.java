@@ -126,4 +126,12 @@ public abstract class AdventureCardState extends GameState {
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }
+
+    @Override
+    public void disconnect(Player player) {
+        played.remove(sortedPlayers.indexOf(player));
+        if (!played.contains(0)) {
+            triggerNextState();
+        }
+    }
 }
