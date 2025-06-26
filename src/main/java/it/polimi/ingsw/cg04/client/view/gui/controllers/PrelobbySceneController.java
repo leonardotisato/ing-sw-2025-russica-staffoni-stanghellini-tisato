@@ -104,10 +104,28 @@ public class PrelobbySceneController extends ViewController {
 
     private GUIRoot gui;
 
+    /**
+     * Sets the GUI root reference for this pre-lobby scene controller.
+     * This method establishes the connection between the controller and the main GUI application,
+     * enabling the controller to communicate with other GUI components and handle game operations.
+     *
+     * @param gui the GUIRoot instance that manages the overall GUI application
+     */
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
 
+    /**
+     * Initializes the pre-lobby scene controller after the FXML file has been loaded.
+     * This method sets up responsive scaling behavior, creates toggle groups for game level
+     * and player count selection, configures default selections (level 1, 2 players),
+     * adds listeners for visual feedback on toggle changes with golden drop shadow effects,
+     * sets up the games list container, and binds mouse click events to color selection circles
+     * and the create game button.
+     *
+     * @param location the location used to resolve relative paths for the root object, or null if unknown
+     * @param resources the resources used to localize the root object, or null if not localized
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -183,6 +201,13 @@ public class PrelobbySceneController extends ViewController {
         // load existing games somehow
     }
 
+    /**
+     * Scales the UI elements to maintain proper aspect ratio and centering during window resizing.
+     * This method calculates the appropriate scale factor based on the current window dimensions
+     * compared to the base dimensions (960x540), applies uniform scaling to the scalable group,
+     * and centers the scaled content within the available space. The scaling preserves the original
+     * aspect ratio by using the smaller of the horizontal or vertical scale factors.
+     */
     private void scaleUI() {
         double scaleX = root.getWidth() / BASE_WIDTH;
         double scaleY = root.getHeight() / BASE_HEIGHT;
@@ -196,6 +221,14 @@ public class PrelobbySceneController extends ViewController {
         scalableGroup.setLayoutY(offsetY);
     }
 
+    /**
+     * Sets the selected player color and updates the visual feedback for color selection circles.
+     * This method stores the selected color, resets all circle styles to remove previous highlights,
+     * and applies a golden drop shadow effect to the selected color circle to provide visual
+     * confirmation of the user's choice.
+     *
+     * @param color the color string to be selected ("BLUE", "YELLOW", "GREEN", or "RED")
+     */
     private void setColor(String color) {
         this.selectedColor = color;
         System.out.println("Selected color: " + selectedColor);
@@ -213,6 +246,14 @@ public class PrelobbySceneController extends ViewController {
         }
     }
 
+    /**
+     * Handles the creation of a new game with the selected configuration options.
+     * This method validates that all required selections (color, level, and player count) are made,
+     * then calls the GUI root to create a game with the specified parameters. If any required
+     * selection is missing, the method logs an error and returns without creating the game.
+     *
+     * @throws IOException if an I/O error occurs during the game creation process
+     */
     private void onCreateGame() throws IOException {
         if (selectedColor == null || selectedLevel == 0 || selectedPlayerCount == 0) {
             System.out.println("could not create game, check if color level and numPlayers are set");
@@ -225,6 +266,15 @@ public class PrelobbySceneController extends ViewController {
         // todo: send a visual feedback
     }
 
+    /**
+     * Handles joining an existing game with the selected player color.
+     * This method validates that a color has been selected, then calls the GUI root to join
+     * the specified game with the chosen color. If no color is selected, the method logs
+     * an error and returns without attempting to join the game.
+     *
+     * @param gameId the string representation of the game ID to join
+     * @throws IOException if an I/O error occurs during the game joining process
+     */
     private void onJoinGame(String gameId) throws IOException {
         if (selectedColor == null) {
             System.out.println("No color selected, could not join game " + gameId);
@@ -236,6 +286,15 @@ public class PrelobbySceneController extends ViewController {
         // gui.gotoLobbyScene();
     }
 
+    /**
+     * Refreshes the list of joinable games displayed in the scroll pane.
+     * This method clears the existing games list, filters out full games, and creates
+     * buttons for each available game showing game information (ID, level, current/max players)
+     * and available colors. Each button is configured with proper styling and click handlers
+     * to enable joining the corresponding game.
+     *
+     * @param games the list of GameInfo objects representing available games to join
+     */
     public void refreshJoinableGames(List<Game.GameInfo> games) {
         gamesListContainer.getChildren().clear();
 
@@ -279,14 +338,37 @@ public class PrelobbySceneController extends ViewController {
         }
     }
 
+    /**
+     * Removes all visual styling effects from the specified circle.
+     * This utility method resets a color selection circle to its default appearance
+     * by clearing any applied CSS styles, typically used before applying highlighting
+     * to a newly selected circle.
+     *
+     * @param circle the Circle object to reset to default styling
+     */
     private void resetCircleStyle(Circle circle) {
         circle.setStyle("");
     }
 
+    /**
+     * Applies a golden drop shadow highlight effect to the specified circle.
+     * This utility method provides visual feedback for color selection by applying
+     * a golden drop shadow effect to indicate the currently selected color circle.
+     *
+     * @param circle the Circle object to highlight with the golden drop shadow effect
+     */
     private void applyCircleHighlight(Circle circle) {
         circle.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
     }
 
+    /**
+     * Placeholder method for navigation to the pre-lobby scene.
+     * Currently returns immediately without performing any action.
+     * This method appears to be intended for scene transition logic but is not implemented.
+     *
+     * @param gui the GUIRoot instance for potential scene management operations
+     * @throws IOException if an I/O error occurs during scene transition (though not currently thrown)
+     */
     @Override
     public void goToPrelobbyScene(GUIRoot gui) throws IOException {
         return;

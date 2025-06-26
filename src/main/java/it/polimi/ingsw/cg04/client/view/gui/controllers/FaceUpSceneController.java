@@ -36,10 +36,26 @@ public class FaceUpSceneController extends ViewController {
 
     private int size = 0;
 
+    /**
+     * Sets the GUI root reference for this face-up scene controller.
+     * This method establishes the connection between the controller and the main GUI application,
+     * enabling the controller to communicate with other GUI components and handle user interactions.
+     *
+     * @param gui the GUIRoot instance that manages the overall GUI application
+     */
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
 
+    /**
+     * Initializes the face-up scene controller after the FXML file has been loaded.
+     * This method sets up the background image, creates a 10x16 grid of interactive cells for displaying tiles,
+     * and configures mouse event handlers for tile selection and hover effects. Each cell is bound to
+     * the grid's dimensions for responsive scaling and includes visual feedback for user interactions.
+     *
+     * @param url the location used to resolve relative paths for the root object, or null if unknown
+     * @param resourceBundle the resources used to localize the root object, or null if not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         background.setImage(
@@ -101,12 +117,26 @@ public class FaceUpSceneController extends ViewController {
 //        }
 //    }
 
+    /**
+     * Closes the face-up scene and returns to the previous view.
+     * This method is triggered when the user wants to exit the face-up tiles selection screen
+     * and notifies the GUI root to handle the scene transition.
+     */
     @FXML
     public void close() {
         System.out.println("Faceup scene closed.");
         gui.closeFaceUp();
     }
 
+    /**
+     * Handles the selection of a face-up tile at the specified grid position.
+     * This method converts the row and column coordinates to a linear index and validates
+     * that the selection is within the bounds of available tiles before notifying the GUI
+     * root of the user's choice.
+     *
+     * @param row the row position in the grid (0-based)
+     * @param col the column position in the grid (0-based)
+     */
     @FXML
     public void handleChoice(int row, int col) {
         int idx = row * 16 + col;
@@ -115,6 +145,16 @@ public class FaceUpSceneController extends ViewController {
             gui.chooseFaceUp(idx);
         }
     }
+
+    /**
+     * Updates the face-up tiles display with the current game state.
+     * This method retrieves the list of available face-up tiles from the game,
+     * clears all existing tile images, and loads new tile images based on their IDs.
+     * The method handles image loading errors gracefully and updates the internal
+     * size counter to track the number of available tiles.
+     *
+     * @param game the Game object containing the current state of face-up tiles
+     */
     @Override
     public void update(Game game) {
         List<Integer> faceUpTiles = game.getFaceUpTiles();
@@ -140,6 +180,13 @@ public class FaceUpSceneController extends ViewController {
         }
     }
 
+    /**
+     * Placeholder method for navigation to the face-up scene.
+     * Currently returns immediately without performing any action.
+     * This method appears to be intended for scene transition logic but is not implemented.
+     *
+     * @param gui the GUIRoot instance for potential scene management operations
+     */
     @Override
     public void goToFaceUpScene(GUIRoot gui) {
         return;

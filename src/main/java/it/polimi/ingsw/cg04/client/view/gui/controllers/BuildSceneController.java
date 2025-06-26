@@ -121,6 +121,13 @@ public class BuildSceneController extends ViewController {
 
     private GUIRoot gui;
 
+    /**
+     * Sets the GUI root reference for this build scene controller.
+     * This method establishes the connection between the controller and the main GUI class,
+     * enabling communication with the game client and other GUI components.
+     *
+     * @param gui the GUIRoot instance that manages the overall GUI state and client communication
+     */
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
@@ -137,6 +144,17 @@ public class BuildSceneController extends ViewController {
 //        gui.endTurn(); // o endPhase() o simile
 //    }
 
+    /**
+     * Initializes the build scene controller and sets up all UI components and event handlers.
+     * JavaFX automatically calls this method after loading the FXML file and configures:
+     * - Responsive UI scaling based on window size changes
+     * - Drag and drop functionality for tiles and crew members
+     * - Event handlers for tile rotation and selection
+     * - Initial state of UI components
+     *
+     * @param url            the location used to resolve relative paths for the root object, or null if unknown
+     * @param resourceBundle the resources used to localize the root object, or null if not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         root.widthProperty().addListener((obs, oldVal, newVal) -> scaleUI());
@@ -173,6 +191,13 @@ public class BuildSceneController extends ViewController {
         crewAliens.put(CrewType.BROWN_ALIEN, null);
     }
 
+    /**
+     * Scales and centers the UI components to maintain aspect ratio when the window is resized.
+     * Calculates the appropriate scale factor based on the current window dimensions compared
+     * to the base dimensions, then applies uniform scaling and centering to the scalable group.
+     * This ensures the game interface remains properly proportioned and centered regardless
+     * of window size.
+     */
     private void scaleUI() {
         double scaleX = root.getWidth() / BASE_WIDTH;
         double scaleY = root.getHeight() / BASE_HEIGHT;
@@ -186,6 +211,13 @@ public class BuildSceneController extends ViewController {
         scalableGroup.setLayoutY(offsetY);
     }
 
+    /**
+     * Initializes drag and drop functionality for the held tile component.
+     * Sets up the drag detection event handler that creates a visual representation
+     * of the tile being dragged, including proper scaling and rotation to match
+     * the current tile state. The drag image is created with transparent background
+     * and centered cursor positioning for better user experience.
+     */
     private void initDragAndDrop() {
         heldTile.setOnDragDetected(event -> {
             if (heldTile.getImage() == null) return;
@@ -219,6 +251,15 @@ public class BuildSceneController extends ViewController {
         });
     }
 
+    /**
+     * Sets up drag and drop functionality for crew alien ImageViews.
+     * Configures the specified alien ImageView to be draggable, creating a visual
+     * drag representation with fixed dimensions and including the crew type information
+     * in the drag data for proper drop validation.
+     *
+     * @param alien    the ImageView representing the crew alien to make draggable
+     * @param crewType the type of crew member (PINK_ALIEN or BROWN_ALIEN) for identification during drop operations
+     */
     public void setDragAndDrop(ImageView alien, CrewType crewType) {
         alien.setOnDragDetected(event -> {
             if (alien.getImage() == null) return;
@@ -247,9 +288,13 @@ public class BuildSceneController extends ViewController {
         });
 
 
-
     }
 
+    /**
+     * Clears all drag and drop event handlers from ship grid and buffer grid components.
+     * This method removes existing drag event listeners to prevent interference when
+     * switching between different game states or UI modes.
+     */
     private void clearAllDragAndDropEvents() {
         for (Node node : shipGrid.getChildren()) {
             StackPane stack = (StackPane) node;
@@ -269,48 +314,98 @@ public class BuildSceneController extends ViewController {
     }
 
 
+    /**
+     * Handles the draw button click event by requesting a face-down tile from the server.
+     * Sends a draw request to the GUI controller to obtain a new tile from the deck.
+     */
     @FXML
     private void handleDraw() {
         System.out.println("Draw button clicked. Sending draw request to server.");
         gui.drawFaceDown();
     }
 
+    /**
+     * Handles the show face-up tiles button click event.
+     * Requests the GUI to display the currently available face-up tiles.
+     */
     @FXML
     private void handleShowFaceUp() {
         gui.showFaceUp();
     }
 
+    /**
+     * Handles the view other ships button click event.
+     * Requests the GUI to display other players' ships for inspection.
+     */
     @FXML
     private void viewOther() {
         gui.viewOthers();
     }
 
+    /**
+     * Handles the end building button click event.
+     * Transitions the UI to show the end building scene where players can select
+     * their starting position on the flight board.
+     */
     @FXML
     private void handleEndButtonClick() {
         showEndBuildingScene();
     }
 
+    /**
+     * Handles the back button click event.
+     * Returns the UI to the main build scene from other sub-scenes.
+     */
     @FXML
     private void handleBackButtonClick() {
         showBuildScene();
     }
 
+    /**
+     * Handles the cheats button click event.
+     * Displays the cheats popup scene for testing or development purposes.
+     *
+     * @param actionEvent the action event triggered by the button click
+     */
     public void handleCheatsButtonClick(ActionEvent actionEvent) {
         showCheatsScene();
     }
 
+    /**
+     * Handles the ship 1 cheat button click.
+     * Places a test tile at coordinates (103, 103) for development/testing purposes.
+     *
+     * @param actionEvent the action event triggered by the button click
+     */
     public void onShip1Click(ActionEvent actionEvent) {
         gui.place(103, 103);
     }
 
+    /**
+     * Handles the ship 2 cheat button click.
+     * Places a test tile at coordinates (104, 104) for development/testing purposes.
+     *
+     * @param actionEvent the action event triggered by the button click
+     */
     public void onShip2Click(ActionEvent actionEvent) {
         gui.place(104, 104);
     }
 
+    /**
+     * Handles the ship 3 cheat button click.
+     * Places a test tile at coordinates (105, 105) for development/testing purposes.
+     *
+     * @param actionEvent the action event triggered by the button click
+     */
     public void onShip3Click(ActionEvent actionEvent) {
         gui.place(105, 105);
     }
 
+    /**
+     * Handles the fix button click event during ship repair phase.
+     * Sends the list of selected tiles to break to the GUI controller and
+     * clears all highlighting and selection state.
+     */
     @FXML
     private void handleFixButtonClick() {
         gui.fixShip(tilesToBreak);
@@ -321,6 +416,10 @@ public class BuildSceneController extends ViewController {
         highlightedCells.clear();
     }
 
+    /**
+     * Shows the main build scene and hides other sub-scenes.
+     * Sets visibility and management properties for the primary building interface.
+     */
     public void showBuildScene() {
         endBuildingScene.setVisible(false);
         endBuildingScene.setManaged(false);
@@ -335,6 +434,10 @@ public class BuildSceneController extends ViewController {
         buildScene.setMouseTransparent(false);
     }
 
+    /**
+     * Shows the end building scene and hides the main build scene.
+     * Displays the interface for selecting starting positions on the flight board.
+     */
     public void showEndBuildingScene() {
         buildScene.setVisible(false);
         buildScene.setManaged(false);
@@ -345,6 +448,10 @@ public class BuildSceneController extends ViewController {
         endBuildingScene.setMouseTransparent(false);
     }
 
+    /**
+     * Shows the cheats popup scene for development/testing purposes.
+     * Displays additional controls for testing game functionality.
+     */
     public void showCheatsScene() {
         buildScene.setManaged(false);
 
@@ -352,12 +459,20 @@ public class BuildSceneController extends ViewController {
         cheatsPopup.setManaged(true);
     }
 
+    /**
+     * Shows the fix button and hides all other action buttons.
+     * Used during the ship repair phase to provide the appropriate UI controls.
+     */
     public void showFixButton() {
         hideAllButtons();
         fixButton.setVisible(true);
         fixButton.setManaged(true);
     }
 
+    /**
+     * Hides all action buttons in the interface.
+     * Sets visibility and management properties to false for all control buttons.
+     */
     public void hideAllButtons() {
         timerButton.setVisible(false);
         timerButton.setManaged(false);
@@ -375,30 +490,57 @@ public class BuildSceneController extends ViewController {
         cheatsButton.setManaged(false);
     }
 
+    /**
+     * Hides the specified button by setting its visibility and management to false.
+     *
+     * @param button the button to hide
+     */
     public void hideButton(Button button) {
         button.setManaged(false);
         button.setVisible(false);
         button.setMouseTransparent(true);
     }
 
+    /**
+     * Shows the specified button by setting its visibility and management to true.
+     *
+     * @param button the button to show
+     */
     public void showButton(Button button) {
         button.setManaged(true);
         button.setVisible(true);
         button.setMouseTransparent(false);
     }
 
+    /**
+     * Hides the specified pane by setting its visibility and management to false.
+     *
+     * @param pane the pane to hide
+     */
     public void hidePane(Pane pane) {
         pane.setManaged(false);
         pane.setVisible(false);
         pane.setMouseTransparent(true);
     }
 
+    /**
+     * Shows the specified pane by setting its visibility and management to true.
+     *
+     * @param pane the pane to show
+     */
     public void showPane(Pane pane) {
         pane.setManaged(true);
         pane.setVisible(true);
         pane.setMouseTransparent(false);
     }
 
+    /**
+     * Updates the controller for the crew loading phase.
+     * Configures the interface for placing crew members on the ship by setting up
+     * drag and drop functionality and hiding unnecessary UI elements.
+     *
+     * @param game the current game state containing player and ship information
+     */
     @Override
     public void updateLoadCrewController(Game game) {
         System.out.println(">> LoadCrewController UPDATE CALLED - Level: " + game.getLevel());
@@ -423,6 +565,13 @@ public class BuildSceneController extends ViewController {
         updateShipForLoadCrew(game.getPlayer(gui.getClientNickname()));
     }
 
+    /**
+     * Updates the controller for the main building phase.
+     * Refreshes all UI components based on the current game state, including
+     * ship grid, held tile, face-up tiles, and level-specific elements.
+     *
+     * @param game the current game state
+     */
     @Override
     public void updateBuildController(Game game) {
         Player currentPlayer = game.getPlayer(gui.getClientNickname());
@@ -448,6 +597,15 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the controller with the current game state and refreshes the scene accordingly.
+     * This method logs the client's nickname for debugging purposes, retrieves the current game level,
+     * composes the scene layout based on the level-specific requirements, and delegates state-specific
+     * updates to the game state controller. The method ensures the UI is properly synchronized with
+     * the current game state and level configuration.
+     *
+     * @param game the Game object containing the current state, level, and game state controller
+     */
     @Override
     public void update(Game game) {
         System.out.println(gui.getClientNickname());
@@ -456,6 +614,13 @@ public class BuildSceneController extends ViewController {
         game.getGameState().updateStateController(this, game);
     }
 
+    /**
+     * Configures the scene appearance and functionality based on the game level.
+     * Loads appropriate background images, ship graphics, and flight board images,
+     * and sets up level-specific UI elements and button behaviors.
+     *
+     * @param level the current game level (1 or 2)
+     */
     private void composeSceneByLevel(int level) {
         String backgroundPath = "/images/background" + level + ".png";
         String shipPath = "/images/cardboard/ship" + level + ".jpg";
@@ -498,6 +663,13 @@ public class BuildSceneController extends ViewController {
         setupTrianglePositions(level);
     }
 
+    /**
+     * Applies or removes visual selection effects on the held tile.
+     * When selected, adds a golden drop shadow effect and focuses the tile.
+     * When deselected, removes effects and returns focus to the root.
+     *
+     * @param selected true to select the tile, false to deselect
+     */
     private void selectHeldTile(boolean selected) {
         if (selected) {
             heldTile.setStyle("-fx-effect: dropshadow(gaussian, gold, 10, 0.6, 0, 0);");
@@ -508,6 +680,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the held tile display based on the current tile state.
+     * Shows or hides the tile image, sets appropriate rotation, and configures
+     * the draw button behavior based on whether a tile is currently held.
+     *
+     * @param tile the tile currently held by the player, or null if no tile is held
+     */
     public void updateHeldTile(Tile tile) {
         try {
             if (tile != null) {
@@ -543,7 +722,14 @@ public class BuildSceneController extends ViewController {
         }
     }
 
-    public void updateShipForLoadCrew(Player p){
+    /**
+     * Updates the ship grid display for the crew loading phase.
+     * Configures drag and drop functionality for placing crew members on tiles
+     * that support them, and displays existing crew placements.
+     *
+     * @param p the player whose ship is being updated
+     */
+    public void updateShipForLoadCrew(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
         int level = p.getGame().getLevel();
@@ -638,7 +824,8 @@ public class BuildSceneController extends ViewController {
                             event.setDropCompleted(success);
                             event.consume();
                         });
-                }} catch (Exception e) {
+                    }
+                } catch (Exception e) {
                     System.err.println("Immagine non trovata: " + resourcePath);
                     e.printStackTrace();
                 }
@@ -646,6 +833,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the ship grid display for the main building phase.
+     * Shows current tiles, sets up drag and drop for tile placement,
+     * and handles special states like ship fixing mode.
+     *
+     * @param p the player whose ship is being updated
+     */
     public void updateShipGrid(Player p) {
         Ship ship = p.getShip();
         Tile[][] shipMatrix = ship.getTilesMatrix();
@@ -736,6 +930,15 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Sets up click effects for tiles during the ship fixing phase.
+     * Allows players to select and deselect tiles for removal by clicking on them.
+     * Selected tiles are highlighted with a golden drop shadow effect.
+     *
+     * @param cell the ImageView representing the tile
+     * @param row  the row coordinate of the tile
+     * @param col  the column coordinate of the tile
+     */
     public void setFixEffects(ImageView cell, int row, int col) {
         Coordinates coordinates = new Coordinates(row, col);
         cell.setOnMouseClicked(event -> {
@@ -753,6 +956,13 @@ public class BuildSceneController extends ViewController {
         });
     }
 
+    /**
+     * Updates the piles display based on current game state.
+     * Shows either the contents of a selected pile or the backs of available piles,
+     * and sets up appropriate click handlers for pile interaction.
+     *
+     * @param p the player whose pile state is being updated
+     */
     public void updatePiles(Player p) {
         BuildState state = (BuildState) p.getGame().getGameState();
         int cardIdx = 0;
@@ -810,7 +1020,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
-
+    /**
+     * Updates the face-up tiles display.
+     * Shows the currently available face-up tiles that players can choose from,
+     * and sets up click handlers for tile selection with hover effects.
+     *
+     * @param g the current game state containing face-up tile information
+     */
     public void updateFaceUpTiles(Game g) {
         List<Integer> faceUps = g.getFaceUpTiles();
         for (Node node : faceUpGrid.getChildren()) {
@@ -840,6 +1056,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the timer button based on the current timer state.
+     * Changes button text and functionality between "Timer" (to start) and "Stop" (to end)
+     * based on remaining timer flips in the game.
+     *
+     * @param g the current game state containing timer information
+     */
     public void updateTimer(Game g) {
         try {
             if (g.getBoard().getTimerFlipsRemaining() == 0) {
@@ -860,6 +1083,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the buffer tiles display for level 2 gameplay.
+     * Shows tiles in the buffer and sets up drag and drop functionality
+     * for empty buffer slots and click handlers for filled slots.
+     *
+     * @param s the ship containing the buffer to update
+     */
     public void updateBuffer(Ship s) {
         List<Tile> buffer = s.getTilesBuffer();
         for (Node node : bufferGrid.getChildren()) {
@@ -924,6 +1154,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Sets up the triangle position mappings and event handlers for the flight board.
+     * Configures hover effects and click handlers for triangular position selectors
+     * based on the current game level, allowing players to choose their starting position.
+     *
+     * @param level the current game level (1 or 2) determining which triangle set to use
+     */
     private void setupTrianglePositions(int level) {
         if (level ==1) return;
         trianglePositionMap.put(pos1, 1);
@@ -952,6 +1189,13 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Updates the visual state of triangular position selectors based on occupied positions.
+     * Colors triangles according to the player occupying each position and disables
+     * interaction for already taken positions.
+     *
+     * @param g the current game state containing flight board information
+     */
     private void updateFreePositions(Game g) {
         Map<String, String> playerColorHex = Map.of(
                 "YELLOW", "#FFFF00",
@@ -976,6 +1220,12 @@ public class BuildSceneController extends ViewController {
         }
     }
 
+    /**
+     * Disables a triangle position selector and removes all interaction handlers.
+     * Used when a position has been selected or is no longer available.
+     *
+     * @param triangle the triangle polygon to disable
+     */
     private void disableTriangle(Polygon triangle) {
         triangle.setDisable(true);
         triangle.setEffect(null);
@@ -983,6 +1233,14 @@ public class BuildSceneController extends ViewController {
         triangle.setOnMouseExited(null);
     }
 
+    /**
+     * Updates the visual representation of a tile that houses crew members.
+     * Adds crew alien images to the specified stack pane based on the crew type
+     * currently assigned to the given coordinates.
+     *
+     * @param c         the coordinates of the tile housing the crew
+     * @param stackPane the UI container where the crew image should be displayed
+     */
     public void updateHousingTile(Coordinates c, StackPane stackPane) {
         CrewType crewType = null;
         for (Map.Entry<CrewType, Coordinates> entry : crewAliens.entrySet()) {
@@ -1017,6 +1275,13 @@ public class BuildSceneController extends ViewController {
         StackPane.setAlignment(crewContainer, Pos.CENTER);
     }
 
+    /**
+     * Updates the logs display with the provided log lines.
+     * Concatenates all log entries and displays them in the logs text area
+     * using Platform.runLater to ensure UI thread safety.
+     *
+     * @param logLines the list of log messages to display, or null if no logs available
+     */
     @Override
     public void showLogs(List<String> logLines) {
         if (logLines == null || logs == null) return;
@@ -1029,6 +1294,14 @@ public class BuildSceneController extends ViewController {
         Platform.runLater(() -> logs.setText(sb.toString()));
     }
 
+    /**
+     * Navigates to the build scene (no-op implementation).
+     * This method is part of the ViewController interface but performs no action
+     * in this controller as the build scene is already the primary scene.
+     *
+     * @param gui the GUI root reference (unused in this implementation)
+     * @throws IOException if an I/O error occurs (not thrown in this implementation)
+     */
     @Override
     public void goToBuildScene(GUIRoot gui) throws IOException {
         return;

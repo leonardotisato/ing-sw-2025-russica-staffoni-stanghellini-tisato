@@ -51,11 +51,12 @@ public class LobbySceneController extends ViewController {
 
     /**
      * Initializes the controller after the root element has been completely processed.
-     * Configures the layout of the logs container and info grid components and sets initial
-     * constraints and padding for the user interface.
+     * This method sets up responsive scaling behavior by adding listeners to the root container's
+     * dimensions, configures the info grid layout with proper column constraints, spacing, and padding.
+     * The grid is designed to display player information with circular indicators and names.
      *
      * @param url the location used to resolve relative paths for the root object, or null if not known
-     * @param rb  the resource bundle used to localize the root object, or null if not provided
+     * @param rb the resource bundle used to localize the root object, or null if not provided
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,6 +76,13 @@ public class LobbySceneController extends ViewController {
         infoGrid.getColumnConstraints().setAll(c0, c1);
     }
 
+    /**
+     * Scales the UI elements to maintain proper aspect ratio and centering during window resizing.
+     * This method calculates the appropriate scale factor based on the current window dimensions
+     * compared to the base dimensions (960x540), applies uniform scaling to the scalable group,
+     * and centers the scaled content within the available space. The scaling preserves the original
+     * aspect ratio by using the smaller of the horizontal or vertical scale factors.
+     */
     private void scaleUI() {
         double scaleX = root.getWidth() / BASE_WIDTH;
         double scaleY = root.getHeight() / BASE_HEIGHT;
@@ -88,15 +96,26 @@ public class LobbySceneController extends ViewController {
         scalableGroup.setLayoutY(offsetY);
     }
 
-    // todo prolly dont need this, maybe if we want to add a DISCONNECT button (?)
+    /**
+     * Sets the GUI root reference for this lobby scene controller.
+     * This method establishes the connection between the controller and the main GUI application.
+     * Currently used for potential future functionality such as adding a disconnect button.
+     *
+     * @param gui the GUIRoot instance that manages the overall GUI application
+     */
     public void setGUI(GUIRoot gui) {
         this.gui = gui;
     }
 
     /**
-     * Refreshes the lobby view with updated game information, including the game level,
-     * maximum number of players, the current list of players, and placeholders for open spots.
-     **/
+     * Refreshes the lobby view with updated game information from the current game state.
+     * This method updates the game level and maximum players display, sets the appropriate
+     * background image based on the game level, clears and rebuilds the player list with
+     * colored circular indicators and names, and adds placeholder spots for remaining player slots.
+     * The method handles image loading errors gracefully.
+     *
+     * @param game the Game object containing the current lobby state and player information
+     */
     @Override
     public void update(Game game) {
         // GameLevel and MaxPlayers indicators
@@ -152,10 +171,12 @@ public class LobbySceneController extends ViewController {
     }
 
     /**
-     * utility to set the color
+     * Converts a PlayerColor enumeration value to the corresponding JavaFX Color object.
+     * This utility method provides the visual representation color for each player color type,
+     * using more visually appealing color variants (e.g., DEEPSKYBLUE instead of BLUE).
      *
-     * @param pc the PlayerColor value to be converted
-     * @return the JavaFX Color that corresponds to the given PlayerColor
+     * @param pc the PlayerColor enumeration value to be converted
+     * @return the corresponding JavaFX Color object with enhanced visual appearance
      */
     private Color setColor(PlayerColor pc) {
         return switch (pc) {
@@ -166,6 +187,14 @@ public class LobbySceneController extends ViewController {
         };
     }
 
+    /**
+     * Updates the logs display with the provided list of log messages.
+     * This method concatenates all log lines into a single string and updates the logs text area
+     * on the JavaFX Application Thread to ensure thread safety. The method handles null inputs
+     * gracefully by returning early if either the log lines or logs component is null.
+     *
+     * @param logLines the list of log message strings to be displayed, or null if no logs available
+     */
     @Override
     public void showLogs(List<String> logLines) {
         if (logLines == null || logs == null) return;
@@ -178,6 +207,13 @@ public class LobbySceneController extends ViewController {
         Platform.runLater(() -> logs.setText(sb.toString()));
     }
 
+    /**
+     * Placeholder method for navigation to the lobby scene.
+     * Currently returns immediately without performing any action.
+     * This method appears to be intended for scene transition logic but is not implemented.
+     *
+     * @param gui the GUIRoot instance for potential scene management operations
+     */
     @Override
     public void goToLobbyScene(GUIRoot gui){
         return;
