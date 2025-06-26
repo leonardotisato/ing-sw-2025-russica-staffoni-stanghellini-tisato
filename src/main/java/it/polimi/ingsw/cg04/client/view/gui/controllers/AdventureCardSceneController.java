@@ -214,6 +214,7 @@ public class AdventureCardSceneController extends ViewController {
         showButton(viewShipsButton);
         viewShipsButton.setLayoutX(471);
         showButton(quitButton);
+        diceButton.setText("Roll Dices");
         objectsInfo.setVisible(false);
     }
 
