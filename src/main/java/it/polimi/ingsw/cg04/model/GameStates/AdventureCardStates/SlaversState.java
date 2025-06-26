@@ -274,6 +274,14 @@ public class SlaversState extends AdventureCardState {
         }
     }
 
+    @Override
+    public void disconnect(Player player) {
+        playerStates.remove(context.getSortedPlayers().indexOf(player));
+        if (isAllDone(playerStates)) {
+            triggerNextState();
+        }
+    }
+
     // for testing purposes only!
     public void FORCE_OPPONENT_FIREPOWER(int val) {
         this.opponentFirePower = val;

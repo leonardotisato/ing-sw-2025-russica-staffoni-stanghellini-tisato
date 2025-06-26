@@ -51,10 +51,11 @@ public class LoadCrewState extends AdventureCardState {
                 this.addLog(player.getName() + " didn't add aliens to his ship!");
             }
 
+            played.set(currPlayerIdx, 1);
             currPlayerIdx++;
 
             // when all player loaded their ships, the flight can begin
-            if (currPlayerIdx == sortedPlayers.size()) {
+            if (!played.contains(0)) {
                 this.addLog("All the players loaded the crew. It's time to start!");
                 triggerNextState();
             }

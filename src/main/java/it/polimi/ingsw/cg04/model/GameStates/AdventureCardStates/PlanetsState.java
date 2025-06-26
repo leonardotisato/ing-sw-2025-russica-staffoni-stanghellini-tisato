@@ -90,7 +90,7 @@ public class PlanetsState extends AdventureCardState {
         }
         played.set(sortedPlayers.indexOf(player), 1);
         currPlayerIdx++;
-        if (chosenPlanets.size() == card.getPlanetReward().size() || currPlayerIdx == sortedPlayers.size()) {
+        if (chosenPlanets.size() == card.getPlanetReward().size() || !played.contains(0)) {
             for (int i = sortedPlayers.size() - 1; i >= 0; i--) {
                 if (chosenPlanets.containsKey(sortedPlayers.get(i))) {
                     sortedPlayers.get(i).move(-card.getDaysLost());

@@ -1172,7 +1172,7 @@ public class AdventureCardSceneController extends ViewController {
 
         switch (state.getCard().getPenaltyType().get(state.getPenaltyIdx())) {
             case "HANDLESHOTS":
-                if (!state.isRolled() && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0) {
+                if (!state.isRolled() && state.getWorstPlayerIdx() == game.getSortedPlayers().indexOf(p) && state.getWorstPlayerState() == 0 && !new HashSet<>(state.getPlayed()).contains(0)) {
                     showButton(diceButton);
                     diceButton.setOnAction(event -> {
                         gui.rollDice();

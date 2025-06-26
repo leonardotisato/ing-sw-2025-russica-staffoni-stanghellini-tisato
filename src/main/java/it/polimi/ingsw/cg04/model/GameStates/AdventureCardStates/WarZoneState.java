@@ -156,8 +156,7 @@ public class WarZoneState extends AdventureCardState {
      */
     @Override
     public void countCrewMembers(Player player) throws InvalidStateException {
-        if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())  &&
-                new HashSet<>(played).contains(0)) {
+        if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName()) && new HashSet<>(played).contains(0)) {
             if (player.getGame().getSortedPlayers().size() == 1) {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();
@@ -368,6 +367,9 @@ public class WarZoneState extends AdventureCardState {
      */
     @Override
     public void chooseBattery(Player player, int x, int y) throws InvalidStateException {
+        System.out.println("Rolled =  " + rolled);
+        System.out.println("Worst Player State = " + worstPlayerState);
+        System.out.println("Worst Player = " + sortedPlayers.get(worstPlayerIdx).getName() + "Player = " + player.getName());
         if (rolled && worstPlayerState == F_PROVIDE_BATTERY && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName())) {
 
             // handle case where player decide to take the hit
@@ -432,7 +434,7 @@ public class WarZoneState extends AdventureCardState {
     @Override
     public void rollDice(Player player) throws InvalidStateException {
 
-        if (!rolled && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName()) && worstPlayerState == F_INIT) {
+        if (!rolled && player.getName().equals(sortedPlayers.get(worstPlayerIdx).getName()) && worstPlayerState == F_INIT && !new HashSet<>(played).contains(0)) {
             dice = context.getBoard().rollDices();
             this.addLog("Dice result is: " + dice);
             rolled = true;
