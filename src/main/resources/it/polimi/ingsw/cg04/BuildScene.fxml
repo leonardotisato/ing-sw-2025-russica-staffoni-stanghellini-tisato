@@ -230,14 +230,10 @@
                 <Polygon fx:id="pos2" fill="#1f93ff00" layoutX="276.0" layoutY="112.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="6.7" stroke="TRANSPARENT" strokeType="INSIDE" />
                 <Polygon fx:id="pos1" fill="#1f93ff00" layoutX="410.0" layoutY="130.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="29.7" stroke="TRANSPARENT" strokeType="INSIDE" />
                 <Button fx:id="backToBuildScene" layoutX="483.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleBackButtonClick" prefHeight="26.0" prefWidth="82.0" text="Back" />
-                <Polygon fx:id="pos4_1" fill="#1f93ff00" layoutX="159.0" layoutY="130.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="-14.9" stroke="TRANSPARENT" strokeType="INSIDE" />
-                <Polygon fx:id="pos3_1" fill="#1f93ff00" layoutX="214.0" layoutY="115.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" stroke="TRANSPARENT" strokeType="INSIDE" />
-                <Polygon fx:id="pos2_1" fill="#1f93ff00" layoutX="270.0" layoutY="108.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="7.6" stroke="TRANSPARENT" strokeType="INSIDE" />
-                <Polygon fx:id="pos1_1" fill="#1f93ff00" layoutX="383.0" layoutY="115.0" points="-4.493414878845215, -42.69194412231445, 13.303949356079102, -59.0905647277832, -8.519773483276367, -70.01158142089844" rotate="21.8" stroke="TRANSPARENT" strokeType="INSIDE" />
             </Group>
         </AnchorPane>
       <Label fx:id="title" layoutY="50.0" managed="false" prefHeight="41.0" styleClass="title" text="Label" visible="false" />
-      <Pane layoutX="120.0" layoutY="50.0">
+      <Pane fx:id="loadCrewPane" layoutX="120.0" layoutY="50.0">
          <children>
             <ImageView fx:id="pinkAlien" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>

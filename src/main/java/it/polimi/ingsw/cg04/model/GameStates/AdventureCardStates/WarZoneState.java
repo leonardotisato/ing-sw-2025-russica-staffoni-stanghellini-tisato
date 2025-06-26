@@ -14,6 +14,8 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import static it.polimi.ingsw.cg04.model.enumerations.CrewType.BROWN_ALIEN;
@@ -154,7 +156,8 @@ public class WarZoneState extends AdventureCardState {
      */
     @Override
     public void countCrewMembers(Player player) throws InvalidStateException {
-        if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())) {
+        if (card.getParameterCheck().get(penaltyIdx).equals("CREW") && player.getName().equals(sortedPlayers.getFirst().getName())  &&
+                new HashSet<>(played).contains(0)) {
             if (player.getGame().getSortedPlayers().size() == 1) {
                 this.addLog("Only 1 player is currently in the game. WarZone will be skipped.");
                 triggerNextState();

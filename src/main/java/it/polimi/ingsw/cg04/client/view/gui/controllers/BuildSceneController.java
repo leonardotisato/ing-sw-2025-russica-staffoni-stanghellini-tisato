@@ -100,13 +100,10 @@ public class BuildSceneController extends ViewController {
     private Polygon pos1, pos2, pos3, pos4;
 
     @FXML
-    private Polygon pos1_1, pos2_1, pos3_1, pos4_1;
-
-    @FXML
     private ImageView shipImage, flightboardImg;
 
     @FXML
-    private Pane pilesPane, drawPane;
+    private Pane pilesPane, drawPane, loadCrewPane;
 
     @FXML
     private Label title;
@@ -327,20 +324,25 @@ public class BuildSceneController extends ViewController {
     public void showBuildScene() {
         endBuildingScene.setVisible(false);
         endBuildingScene.setManaged(false);
+        endBuildingScene.setMouseTransparent(true);
+        
 
         cheatsPopup.setVisible(false);
         cheatsPopup.setManaged(false);
 
         buildScene.setVisible(true);
         buildScene.setManaged(true);
+        buildScene.setMouseTransparent(false);
     }
 
     public void showEndBuildingScene() {
         buildScene.setVisible(false);
         buildScene.setManaged(false);
+        buildScene.setMouseTransparent(true);
 
         endBuildingScene.setVisible(true);
         endBuildingScene.setManaged(true);
+        endBuildingScene.setMouseTransparent(false);
     }
 
     public void showCheatsScene() {
@@ -376,21 +378,25 @@ public class BuildSceneController extends ViewController {
     public void hideButton(Button button) {
         button.setManaged(false);
         button.setVisible(false);
+        button.setMouseTransparent(true);
     }
 
     public void showButton(Button button) {
         button.setManaged(true);
         button.setVisible(true);
+        button.setMouseTransparent(false);
     }
 
     public void hidePane(Pane pane) {
         pane.setManaged(false);
         pane.setVisible(false);
+        pane.setMouseTransparent(true);
     }
 
     public void showPane(Pane pane) {
         pane.setManaged(true);
         pane.setVisible(true);
+        pane.setMouseTransparent(false);
     }
 
     @Override
@@ -409,6 +415,7 @@ public class BuildSceneController extends ViewController {
         showButton(fixButton);
         hidePane(pilesPane);
         hidePane(drawPane);
+        showPane(loadCrewPane);
         pinkAlien.setVisible(crewAliens.get(CrewType.PINK_ALIEN) == null);
         pinkAlien.setManaged(crewAliens.get(CrewType.PINK_ALIEN) == null);
         brownAlien.setVisible(crewAliens.get(CrewType.BROWN_ALIEN) == null);
@@ -424,6 +431,7 @@ public class BuildSceneController extends ViewController {
         Ship playerShip = currentPlayer.getShip();
         int level = game.getLevel();
 
+        hidePane(loadCrewPane);
         updateShipGrid(currentPlayer);
         updateHeldTile(playerHeldTile);
         updateFaceUpTiles(game);
@@ -917,10 +925,11 @@ public class BuildSceneController extends ViewController {
     }
 
     private void setupTrianglePositions(int level) {
-        trianglePositionMap.put(level == 2 ? pos1 : pos1_1, 1);
-        trianglePositionMap.put(level == 2 ? pos2 : pos2_1, 2);
-        trianglePositionMap.put(level == 2 ? pos3 : pos3_1, 3);
-        trianglePositionMap.put(level == 2 ? pos4 : pos4_1, 4);
+        if (level ==1) return;
+        trianglePositionMap.put(pos1, 1);
+        trianglePositionMap.put(pos2, 2);
+        trianglePositionMap.put(pos3, 3);
+        trianglePositionMap.put(pos4, 4);
 
         for (Polygon triangle : trianglePositionMap.keySet()) {
 
