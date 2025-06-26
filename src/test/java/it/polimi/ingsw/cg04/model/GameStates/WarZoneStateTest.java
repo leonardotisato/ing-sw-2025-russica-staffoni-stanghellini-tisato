@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.*;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction;
 import it.polimi.ingsw.cg04.model.utils.Shipyard;
@@ -174,9 +175,18 @@ class WarZoneStateTest {
         try {
             controller.onActionReceived(aliceRolls2);
         } catch (InvalidActionException | InvalidStateException ignored) {        }
+    }
 
+    @Test
+    void gettersTest(){
+        WarZoneState state = new WarZoneState(game);
+        assertNotNull(state.getPenaltyIdx());
+        assertNotNull(state.getWorstPlayerState());
+        assertNotNull(state.getCurrShotIdx());
+        assertNotNull(state.getWorstPlayerIdx());
+        assertFalse(state.isRolled());
+        assertFalse(state.anyWorstPlayer());
+        state.disconnect(game.getPlayer(1));
 
-
-        
     }
 }

@@ -98,7 +98,8 @@ class PiratesStateTest {
         aliceAction = new CompareFirePowerAction("Alice", batteries, doubleCannons);
         try {
             controller.onActionReceived(aliceAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         batteries.clear();
         doubleCannons.clear();
@@ -138,7 +139,8 @@ class PiratesStateTest {
         bobAction = new CompareFirePowerAction("Bob", null, null);
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         batteries.clear();
         doubleCannons.clear();
@@ -150,7 +152,8 @@ class PiratesStateTest {
         charlieAction = new CompareFirePowerAction("Charlie", batteries, doubleCannons);
         try {
             controller.onActionReceived(charlieAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         batteries.clear();
         doubleCannons.clear();
@@ -159,21 +162,23 @@ class PiratesStateTest {
         charlieAction = new GetRewardsAction("Charlie", true);
         try {
             controller.onActionReceived(charlieAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
-
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
         bobAction = new RollDiceAction("Bob");
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
         batteries.add(new Coordinates(2, 5));
         bobAction = new ChooseBatteryAction("Bob", 2, 5);
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
         batteries.clear();
 
@@ -181,15 +186,16 @@ class PiratesStateTest {
         bobAction = new RollDiceAction("Bob");
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
         // bob accepts his fate and rolls again (last meteor)
         bobAction = new RollDiceAction("Bob");
         try {
             controller.onActionReceived(bobAction);
-        } catch (InvalidActionException | InvalidStateException ignored) {        }
-
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
 
 
     }
@@ -200,5 +206,36 @@ class PiratesStateTest {
 
     private void assertInvalidState(PlayerAction action, Player p) {
         assertThrows(InvalidStateException.class, () -> action.execute(p));
+    }
+
+    @Test
+    void gettersTest() {
+        game.setCurrentAdventureCard(game.getCardById(3));
+        PiratesState state = new PiratesState(game);
+        state.FORCE_OPPONENT_FIREPOWER(3);
+        assertNotNull(state);
+        assertNotNull(state.getCurrMeteorIdx());
+        assertNotNull(state.getDiceResult());
+        assertFalse(state.isRolled());
+        assertNotNull(state.getPlayerStates());
+        state.getAllPlanetsChosen();
+        state.setAllPlanetsChosen(true);
+        state.setPlayerToBeMovedIdx(1);
+        state.getCurrPlayers();
+        state.getChosenPlanets();
+        state.checkAction(p1);
+        state.setContext(game);
+        state.setCard(game.getCardById(3));
+        state.setCurrPlayerIdx(1);
+        state.setPlayed(null);
+        state.setSortedPlayers(null);
+        state.getContext();
+        state.getCard();
+        state.getCurrPlayerIdx();
+        state.getPlayed();
+        state.getSortedPlayers();
+        state.triggerNextState();
+        state.disconnect(p1);
+
     }
 }

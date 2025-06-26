@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg04.model.GameStates;
 import it.polimi.ingsw.cg04.controller.GamesController;
 import it.polimi.ingsw.cg04.model.Game;
 import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState;
+import it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState;
 import it.polimi.ingsw.cg04.model.Player;
 import it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction;
 import it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction;
@@ -181,6 +182,16 @@ class MeteorsRainStateTest {
 
     private void assertInvalidState(PlayerAction action, Player p) {
         assertThrows(InvalidStateException.class, () -> action.execute(p));
+    }
+
+    @Test
+    void gettersTest(){
+        game.setCurrentAdventureCard(game.getCardById(9));
+        MeteorsRainState state = new MeteorsRainState(game);
+        assertFalse(state.isRolled());
+        state.getDiceResult();
+        state.getCurrMeteorIdx();
+        state.disconnect(p1);
     }
 
 }
