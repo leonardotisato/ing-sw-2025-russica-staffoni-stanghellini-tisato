@@ -239,7 +239,6 @@ public class Player implements Serializable {
      * @return {@code true} if the tile is successfully placed; {@code false} otherwise.
      */
     public boolean placeTile(int x, int y) {
-        // todo
         boolean validPlacement = ship.placeTile(heldTile, x, y);
 
         if (validPlacement) {

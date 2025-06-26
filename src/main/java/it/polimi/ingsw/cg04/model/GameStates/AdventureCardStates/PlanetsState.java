@@ -26,7 +26,7 @@ public class PlanetsState extends AdventureCardState {
      * Retrieves the map of players and their corresponding chosen planets.
      *
      * @return a map where each key is a {@code Player} object and the value is an {@code Integer}
-     *         representing the chosen planet index for that player.
+     * representing the chosen planet index for that player.
      */
     @Override
     public Map<Player, Integer> getChosenPlanets() {
@@ -37,7 +37,7 @@ public class PlanetsState extends AdventureCardState {
      * Checks whether all the planets have been chosen in the current state.
      *
      * @return a {@code Boolean} indicating whether all planets are chosen. Returns {@code true} if all
-     *         planets have been selected, otherwise {@code false}.
+     * planets have been selected, otherwise {@code false}.
      */
     @Override
     public Boolean getAllPlanetsChosen() {
@@ -66,7 +66,6 @@ public class PlanetsState extends AdventureCardState {
         return currPlayers;
     }
 
-    // todo: delete me??
     public boolean allPlanetsChosen() {
         return allPlanetsChosen;
     }
@@ -102,7 +101,7 @@ public class PlanetsState extends AdventureCardState {
     }
 
     public boolean checkRightBoxesAfterReward(Player player, Integer planetIdx, List<Coordinates> coordinates, List<Map<BoxType, Integer>> boxes) throws InvalidStateException {
-        //the player doesn't want to play this card
+        // the player doesn't want to play this card
         if (coordinates == null && boxes == null) return true;
         Map<BoxType, Integer> newTotBoxes = new HashMap<>(Map.of(BoxType.RED, 0, BoxType.BLUE, 0, BoxType.YELLOW, 0, BoxType.GREEN, 0));
         for (int i = 0; i < coordinates.size(); i++) {
@@ -114,17 +113,17 @@ public class PlanetsState extends AdventureCardState {
                 newTotBoxes.put(type, newTotBoxes.getOrDefault(type, 0) + count);
             }
         }
-        //newTotBoxes contains the updated amount of boxes type-wise
+        // newTotBoxes contains the updated amount of boxes type-wise
         for (Map.Entry<BoxType, Integer> entry : newTotBoxes.entrySet()) {
             BoxType type = entry.getKey();
             Integer count = entry.getValue();
             if (card.getPlanetReward().get(planetIdx).containsKey(type)) {
-                //number of boxes of a specific type should be < old number (type) + reward(type)
+                // number of boxes of a specific type should be < old number (type) + reward(type)
                 if (count > player.getShip().getBoxes(type) + card.getPlanetReward().get(planetIdx).get(type)) {
                     throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }
             } else {
-                //if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
+                // if there is no box in the reward of this type, the new number of box(type) should be <= the old number of box(type)
                 if (count > player.getShip().getBoxes(type)) {
                     throw new InvalidStateException("The new map of boxes for " + player.getName() + " is incorrect, there are too many " + type + " boxes");
                 }

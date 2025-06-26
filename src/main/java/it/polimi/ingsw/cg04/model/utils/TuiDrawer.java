@@ -55,7 +55,7 @@ public class TuiDrawer {
         }
     }
 
-    /** Crea la colonna destra (upper + lower centrati nelle rispettive metà). */
+    // Crea la colonna destra (upper + lower centrati nelle rispettive metà)
     public static List<String> buildRightPanel(List<String> upper,
                                                List<String> lower,
                                                int totalH,
@@ -64,29 +64,29 @@ public class TuiDrawer {
         int halfTop    = totalH / 2;
         int halfBottom = totalH - halfTop;
 
-        /* ---------- blocco superiore centrato ---------- */
+        // blocco superiore centrato
         List<String> top = new ArrayList<>();
         int padTop = Math.max(0, (halfTop - upper.size()) / 2);
         for (int i = 0; i < padTop; i++) top.add("");
         top.addAll(upper);
         while (top.size() < halfTop) top.add("");
 
-        /* ---------- blocco inferiore centrato ---------- */
+        // blocco inferiore centrato
         List<String> bottom = new ArrayList<>();
         int padBottomTop = Math.max(0, (halfBottom - lower.size()) / 2);
         for (int i = 0; i < padBottomTop; i++) bottom.add("");
         bottom.addAll(lower);
         while (bottom.size() < halfBottom) bottom.add("");
 
-        /* ---------- linea orizzontale di separazione ---------- */
-        String hSep = "─".repeat(rightW);          // se vuoi la “T”: "┼" + "─".repeat(rightW-1)
+        // linea orizzontale di separazione
+        String hSep = "─".repeat(rightW);
 
-        /* ---------- colonna destra finale ---------- */
+        // colonna destra finale
         List<String> result = new ArrayList<>(top);
         result.add(hSep);
         result.addAll(bottom);
 
-        /*  padding orizzontale di ogni riga a rightW  */
+        // padding orizzontale di ogni riga a rightW
         return result.stream()
                 .map(s -> s + " ".repeat(Math.max(0, rightW - s.length())))
                 .collect(Collectors.toList());
@@ -112,18 +112,17 @@ public class TuiDrawer {
 
         for (int i = 0; i < leftPanel.size() - 1; i++) {
 
-            /* ----- colonna sinistra (fissa) ----- */
+            // colonna sinistra (fissa)
             String left = String.format("%-" + leftWidth + "s", leftPanel.get(i));
 
-            /* ----- separatore verticale ----- */
-            String vSep = i != splitIndex ? "   │   " : "   │";                    // puoi scegliere '|' se preferisci
+            // separatore verticale
+            String vSep = i != splitIndex ? "   │   " : "   │";
 
-            /* ----- riga corrente della colonna destra ----- */
+            // riga corrente della colonna destra
             String rightLine;
-            if (i == splitIndex) {                // linea orizzontale di separazione
-                rightLine = "┄".repeat(rightWidth);  // oppure '─'.repeat(...)
-                // se vuoi intersezione “a T”, sostituisci il primo carattere:
-                rightLine = "┼" + rightLine.substring(1);  // unisce la verticale
+            if (i == splitIndex) {
+                rightLine = "┄".repeat(rightWidth);
+                rightLine = "┼" + rightLine.substring(1);
             } else {
                 // pad a destra per uniformare la larghezza
                 rightLine = rightPanel.get(i) + " ".repeat(rightWidth - rightPanel.get(i).length());
@@ -150,24 +149,24 @@ public class TuiDrawer {
             singlePlayer.add("Credits: " + p.getNumCredits());
             playersInfo.add(singlePlayer);
         }
-        /* ------ 1. larghezza massima per ogni colonna (player) ------ */
+        // 1. larghezza massima per ogni colonna (player)
         int columns = playersInfo.size();
-        int rows    = playersInfo.getFirst().size();          // stesso numero di righe per tutti
+        int rows    = playersInfo.getFirst().size();
         int[] colWidth = new int[columns];
 
         for (int c = 0; c < columns; c++) {
             int max = 0;
             for (int r = 0; r < rows; r++)
                 max = Math.max(max, playersInfo.get(c).get(r).length());
-            colWidth[c] = max;                            // larghezza fissa di questa colonna
+            colWidth[c] = max;
         }
 
-        /* ------ 2. stampa con colonne allineate ------ */
+        // 2. stampa con colonne allineate
         StringBuilder sb = new StringBuilder();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
                 sb.append(String.format("%-" + colWidth[c] + "s", playersInfo.get(c).get(r)));
-                if (c < columns - 1) sb.append("  ");     // spazi fra le colonne
+                if (c < columns - 1) sb.append("  ");
             }
             sb.append('\n');
         }

@@ -54,7 +54,6 @@ public class Smugglers extends AdventureCard {
         return lostGoods;
     }
 
-    // todo: handle unused method
     public void setLostGoods(int lostGoods) {
         this.lostGoods = lostGoods;
     }
@@ -69,12 +68,10 @@ public class Smugglers extends AdventureCard {
         return boxes;
     }
 
-    // todo: no usages
     public void setReward(Map<BoxType, Integer> boxes) {
         this.boxes = boxes;
     }
 
-    // todo: no usages
     public void addReward(BoxType boxType, int quantity) {
         boxes.put(boxType, quantity);
     }

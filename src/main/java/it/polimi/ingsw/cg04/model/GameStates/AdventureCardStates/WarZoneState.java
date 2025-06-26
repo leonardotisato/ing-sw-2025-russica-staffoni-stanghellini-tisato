@@ -14,7 +14,6 @@ import it.polimi.ingsw.cg04.model.utils.Coordinates;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 

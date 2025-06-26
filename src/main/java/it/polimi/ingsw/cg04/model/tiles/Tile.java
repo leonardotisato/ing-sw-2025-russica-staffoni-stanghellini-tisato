@@ -218,10 +218,6 @@ public abstract class Tile implements Serializable {
      */
     public boolean isValidConnection(Direction dir, Tile otherTile) {
 
-//        if (/*this instanceof PropulsorTile*/ this.isDoublePropulsor() != null && this.getConnection(Direction.DOWN) != Connection.PROPULSOR) {
-//            return false;
-//        }
-
         // if otherTile does not exist, the connection is valid
         if (otherTile == null) {
             return true;
@@ -272,8 +268,6 @@ public abstract class Tile implements Serializable {
         if (c1 == Connection.EMPTY) {
             return c2 == Connection.EMPTY;
         }
-
-        // i restanti casi per c1 sono PROPULSOR e GUN, ma dovrebbero ritornare tutti false...
 
         return false;
     }
@@ -384,7 +378,6 @@ public abstract class Tile implements Serializable {
 
 
     // toString methods
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Tile{");

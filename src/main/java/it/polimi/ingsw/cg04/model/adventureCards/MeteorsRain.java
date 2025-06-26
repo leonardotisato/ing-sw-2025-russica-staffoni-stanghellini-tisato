@@ -40,7 +40,6 @@ public class MeteorsRain extends AdventureCard {
         return attacks;
     }
 
-    // todo: no usages...
     public void setAttacks(List<Attack> attacks) {
         this.attacks = attacks;
     }
@@ -53,7 +52,6 @@ public class MeteorsRain extends AdventureCard {
         return directions;
     }
 
-    // todo: no usages...
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
     }

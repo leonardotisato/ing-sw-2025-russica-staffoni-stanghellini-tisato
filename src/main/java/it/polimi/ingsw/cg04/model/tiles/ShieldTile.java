@@ -26,7 +26,6 @@ public class ShieldTile extends Tile {
         return protectedDirections;
     }
 
-    // todo: unused method
     public void setProtectedDirections(Set<Direction> protectedDirections) {
         this.protectedDirections = protectedDirections;
     }

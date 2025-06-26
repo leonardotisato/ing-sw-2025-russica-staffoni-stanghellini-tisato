@@ -85,7 +85,6 @@ public abstract class AdventureCardState extends GameState {
         this.played = played;
     }
 
-    // todo: handle this unused method
     public void setCurrPlayerIdx(Integer currPlayerIdx) {
         this.currPlayerIdx = currPlayerIdx;
     }
@@ -94,7 +93,6 @@ public abstract class AdventureCardState extends GameState {
         this.card = card;
     }
 
-    // todo: handle this unused method
     public void setContext(Game context) {
         this.context = context;
     }
@@ -107,22 +105,18 @@ public abstract class AdventureCardState extends GameState {
         return null;
     }
 
-    // todo: handle this unused method
     public Boolean getAllPlanetsChosen() {
         return false;
     }
 
-    // todo: handle this unused method
     public void setAllPlanetsChosen(Boolean allPlanetsChosen) {
         return;
     }
 
-    // todo: handle this unused method
     public void setPlayerToBeMovedIdx(Integer playerToBeMovedIdx) {
         return;
     }
 
-    // todo: handle this unused method
     public List<Player> getCurrPlayers() {
         return currPlayers;
     }

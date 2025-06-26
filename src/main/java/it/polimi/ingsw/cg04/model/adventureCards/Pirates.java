@@ -40,7 +40,6 @@ public class Pirates extends AdventureCard {
         return firePower;
     }
 
-    // todo: figure out who needs to use this setter
     public void setFirePower(int firePower) {
         this.firePower = firePower;
     }
@@ -54,7 +53,6 @@ public class Pirates extends AdventureCard {
         return reward;
     }
 
-    // todo: figure out who needs to use this setter
     public void setAttacks(List<Attack> attacks) {
         this.attacks = new ArrayList<>(attacks);
     }

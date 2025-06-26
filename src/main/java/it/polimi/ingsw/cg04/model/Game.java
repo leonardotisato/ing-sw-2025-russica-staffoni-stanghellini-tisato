@@ -491,8 +491,6 @@ public class Game implements Serializable {
         }
     }
 
-    // todo: test
-
     /**
      * Distributes end game credits to players based on their position.
      * <p>

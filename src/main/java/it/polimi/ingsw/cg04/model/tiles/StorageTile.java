@@ -127,7 +127,7 @@ public class StorageTile extends Tile {
      */
     @Override
     public void broken(Ship ship, int x, int y) {
-        // rimuove tutti i box un tipo alla volta
+        // remove all boxes
         Map<BoxType, Integer> emptyStorage = new HashMap<>();
         emptyStorage.put(BoxType.BLUE, 0);
         emptyStorage.put(BoxType.RED, 0);

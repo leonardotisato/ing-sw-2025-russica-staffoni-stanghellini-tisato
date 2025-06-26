@@ -97,7 +97,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return level of the ship
      */
     public int getLevel() {
@@ -105,7 +104,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the PlayerColor representing the ship's color
      */
     public PlayerColor getColor() {
@@ -122,7 +120,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return a 2D boolean array representing valid slots where tiles can be placed
      */
     public boolean[][] getValidSlots() {
@@ -136,7 +133,7 @@ public class Ship implements Serializable {
      * @param x the row index of the slot to be checked
      * @param y the column index of the slot to be checked
      * @return true if the slot coordinates are within bounds and the slot is valid,
-     *         otherwise false
+     * otherwise false
      */
     public boolean isSlotValid(int x, int y) {
         if (x < 0 || x >= shipHeight || y < 0 || y >= shipWidth) {
@@ -147,7 +144,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the count of broken tiles as an integer.
      */
     public int getNumBrokenTiles() {
@@ -155,7 +151,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the width of the ship as an integer
      */
     public int getShipWidth() {
@@ -163,7 +158,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the height of the ship as an integer.
      */
     public int getShipHeight() {
@@ -171,7 +165,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return a map where the keys are tile names as strings, and the values are lists of Coordinates objects.
      */
     public Map<String, List<Coordinates>> getTilesMap() {
@@ -241,7 +234,7 @@ public class Ship implements Serializable {
             return false;
         }
 
-        tilesMatrix[x][y] = tile;   // place tile in the ship
+        tilesMatrix[x][y] = tile;   // place tile on the ship
         tile.place(this, x, y);   // update resources and tiles params
         this.addTileToMap(tile.getType(), x, y); // adds tile to tile's map
         updateExposedConnectors();  // update exposedConnectors attribute
@@ -255,7 +248,7 @@ public class Ship implements Serializable {
      * @param tile the tile to be placed; must not be null
      * @param x    the x-coordinate of the position where the tile is to be placed
      * @param y    the y-coordinate of the position where the tile is to be placed
-     * @return true if the placement is legal according to the game rules; false otherwise
+     * @return true if the placement is legal, according to the game rules; false otherwise
      * @throws IllegalArgumentException if the specified coordinates are out of bounds
      */
     public boolean isPlacingLegal(Tile tile, int x, int y) {
@@ -346,7 +339,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return a list of Tile objects representing the buffer
      */
     public List<Tile> getTilesBuffer() {
@@ -372,7 +364,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @param type the type of crew for which to retrieve the count
      * @return the number of crew members of the specified type
      */
@@ -394,7 +385,7 @@ public class Ship implements Serializable {
      * Retrieves a map representing the types of boxes and their corresponding quantities.
      *
      * @return a map where the keys are of type BoxType representing the type of box,
-     *         and the values are integers representing the quantity of each box type.
+     * and the values are integers representing the quantity of each box type.
      */
     public Map<BoxType, Integer> getBoxes() {
         return boxes;
@@ -606,7 +597,6 @@ public class Ship implements Serializable {
     }
 
 
-
     /**
      * fills the HousingTile in position {@code x, y} with crewMember/s of type {@code type} and adds them to {@code this.crewMap}
      * if the type is {@code HUMAN} adds 2, otherwise adds 1
@@ -636,7 +626,6 @@ public class Ship implements Serializable {
 
 
     /**
-     *
      * @return the number of exposed connectors as an integer.
      */
     public int getNumExposedConnectors() {
@@ -644,7 +633,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return a list of Direction objects representing the protected directions.
      */
     public List<Direction> getProtectedDirections() {
@@ -652,7 +640,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the base firepower as a double value.
      */
     public double getBaseFirePower() {
@@ -660,7 +647,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     *
      * @return the base propulsion power as an integer
      */
     public int getBasePropulsionPower() {
@@ -1187,7 +1173,6 @@ public class Ship implements Serializable {
         return crewMap.get(CrewType.HUMAN) > 0;
     }
 
-    // check that the ship has propulsors
 
     @Override
     public String toString() {
@@ -1245,7 +1230,7 @@ public class Ship implements Serializable {
      * block of characters.
      *
      * @return A formatted string representation of the ship's layout grid,
-     *         including all tiles and row/column indices.
+     * including all tiles and row/column indices.
      */
     public String draw() {
         StringBuilder fullShip = new StringBuilder();
@@ -1310,7 +1295,7 @@ public class Ship implements Serializable {
      * block of characters.
      *
      * @return A formatted string representation of the ship's layout grid,
-     *         including all tiles and row/column indices.
+     * including all tiles and row/column indices.
      */
     public String drawWithBuffer() {
         String[] shipLines = draw().split("\n");

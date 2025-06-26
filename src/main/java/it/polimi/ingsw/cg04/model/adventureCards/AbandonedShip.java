@@ -26,7 +26,6 @@ public class AbandonedShip extends AdventureCard {
         return lostMembers;
     }
 
-    // todo: handle unused method
     public void setLostMembers(int lostMembers) {
         this.lostMembers = lostMembers;
     }

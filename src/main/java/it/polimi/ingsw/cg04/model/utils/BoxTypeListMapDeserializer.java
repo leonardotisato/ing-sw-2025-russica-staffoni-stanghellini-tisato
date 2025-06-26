@@ -11,7 +11,7 @@ public class BoxTypeListMapDeserializer implements JsonDeserializer<List<Map<Box
             throws JsonParseException {
         List<Map<BoxType, Integer>> listOfMaps = new ArrayList<>();
 
-        // Controlliamo che sia un array JSON
+        // controllo che sia un array JSON
         if (json.isJsonArray()) {
             JsonArray jsonArray = json.getAsJsonArray();
 
@@ -21,14 +21,15 @@ public class BoxTypeListMapDeserializer implements JsonDeserializer<List<Map<Box
 
                 for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
                     try {
-                        BoxType key = BoxType.valueOf(entry.getKey()); // Converte String → Enum
+                        BoxType key = BoxType.valueOf(entry.getKey());
                         int value = entry.getValue().getAsInt();
                         map.put(key, value);
                     } catch (IllegalArgumentException e) {
                         throw new JsonParseException("Tipo di effetto sconosciuto: " + entry.getKey());
                     }
                 }
-                listOfMaps.add(map); // Aggiungiamo la mappa alla lista
+                // aggiungo la mappa alla lista
+                listOfMaps.add(map);
             }
         }
 
