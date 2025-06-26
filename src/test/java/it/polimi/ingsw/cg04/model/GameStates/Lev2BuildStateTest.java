@@ -649,8 +649,8 @@ class Lev2BuildStateTest {
         assertThrows(InvalidStateException.class, () -> {state.retire(null);});
         state.render("Alice");
         state.initLogs();
-        state.appendLog("Hello World");
-        state.addLog("Hello World");
+        state.appendLog("---");
+        state.addLog("---");
         System.out.println(state.getLogs());
     }
 
@@ -660,6 +660,13 @@ class Lev2BuildStateTest {
             controller.onActionReceived(new DrawFaceDownAction("Alice"));
         } catch (InvalidActionException | InvalidStateException ignored) {
         }
+
+        try {
+            controller.onActionReceived(new StopBuildingAction("Alice"));
+        } catch (InvalidActionException | InvalidStateException ignored) {
+        }
+
+
     }
 
 
