@@ -47,6 +47,11 @@ public class FlightState extends GameState {
         game.getPlayers().remove(player);
         player.setRetired(true);
         this.addLog("Player " + player.getName() + " retired.");
+        if(game.getSortedPlayers().isEmpty()) {
+            game.setGameState(new EndGameState(game));
+            game.setCurrentAdventureCard(null);
+            game.handleEndGame();
+        }
     }
 
     /**
