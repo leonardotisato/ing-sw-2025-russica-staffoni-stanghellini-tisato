@@ -19,6 +19,11 @@
 java -jar <path to the .jar file> server
 ```
 
+If RMI connections don't work add the following parameter
+```bash
+-Djava.rmi.server.hostname=<server ip>
+```
+
 ## Run the client with RMI
 ```bash
 java -jar <path to the .jar file> client rmi <server ip> 9696 <TUI/GUI>
