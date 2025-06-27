@@ -100,22 +100,8 @@ public class FaceUpSceneController extends ViewController {
                 cellViews.add(imageView);
             }
         }
-
-        // System.out.println("Try loading faceup tiles.");
-        // test();
     }
 
-//    private void test() {
-//        System.out.println("Loading faceup tiles.");
-//        for (int i = 0; i < 130; i++) {
-//            String resourcePath = "/images/tiles/1.jpg";
-//
-//            Image img = new Image(
-//                    Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm()
-//            );
-//            cellViews.get(i).setImage(img);
-//        }
-//    }
 
     /**
      * Closes the face-up scene and returns to the previous view.

@@ -21,7 +21,6 @@ public class ShowFaceUpAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) throws InvalidActionException {
-        //todo: is this check correct??
         if (player.getHeldTile() != null) throw new InvalidActionException("Player already holding a tile!");
         return true;
     }

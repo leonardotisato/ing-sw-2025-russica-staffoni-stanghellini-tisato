@@ -73,7 +73,6 @@ public class ServerHandlerRMI extends ServerHandler {
             serverChecker.scheduleAtFixedRate(demon, 1, 4, TimeUnit.SECONDS);
 
         } catch (RemoteException | NotBoundException | MalformedURLException e) {
-            // todo: uncomment when implemented
             notifyViewServerUnreachable();
             killRmiReaper();
             throw new RemoteException("Rmi connection to server failed");
@@ -432,13 +431,11 @@ public class ServerHandlerRMI extends ServerHandler {
         protected VirtualClientImp() throws RemoteException {
         }
 
-        // todo: implement
         @Override
         public void setGameRMI(Game game) throws RemoteException {
             setGame(game);
         }
 
-        // todo: implement (now it's printing, we will modify it once implementing the view)
         @Override
         public void addLogsRMI(List<String> logs) throws RemoteException {
             addLogs(logs);
@@ -486,7 +483,6 @@ public class ServerHandlerRMI extends ServerHandler {
             // Check if client responded to the ping message
             if (!heartBeat.equals(lastHeartBeat)) {
                 new Thread(() -> {
-                    // todo: uncomment when implemented
                     System.out.println("Server connection lost.");
                     notifyViewServerUnreachable();
                     serverChecker.shutdownNow();

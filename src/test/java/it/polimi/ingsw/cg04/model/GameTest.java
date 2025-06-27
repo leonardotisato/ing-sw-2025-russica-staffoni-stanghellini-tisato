@@ -85,7 +85,7 @@ class GameTest {
 
     @Test
     void createAdventureDeck() {
-        // todo: check this method was tested in cardLoader
+
     }
 
     @Test

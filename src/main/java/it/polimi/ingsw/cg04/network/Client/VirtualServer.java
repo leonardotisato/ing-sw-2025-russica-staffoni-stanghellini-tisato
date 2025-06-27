@@ -226,7 +226,6 @@ public interface VirtualServer {
      */
     void loadCrew(Coordinates pinkCoords, Coordinates brownCoords);
 
-    // todo: add methods to leave the game, rejoin after disconnecting, ending game, retire (and similar, check rules)
 
 
 }

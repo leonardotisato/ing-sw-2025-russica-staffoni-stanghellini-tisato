@@ -78,7 +78,7 @@ public class Game implements Serializable {
         this.gameState = new LobbyState(this);
     }
 
-    // todo: only used for testing... trying to delete but it was tedious so i gave up atm...
+
     public Game(int level) {
         this.maxPlayers = 4;
         this.level = level;
@@ -624,7 +624,6 @@ public class Game implements Serializable {
         }
     }
 
-    // todo: questo viene usato nel vecchio pattern, usages solo in tests vecchi...
     public String render(String nickname) {
         return this.gameState.render(nickname);
     }

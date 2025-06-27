@@ -20,7 +20,6 @@ public class ReturnPileAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        //TODO controllare che il player abbia in mano una pila
         return true;
     }
 }

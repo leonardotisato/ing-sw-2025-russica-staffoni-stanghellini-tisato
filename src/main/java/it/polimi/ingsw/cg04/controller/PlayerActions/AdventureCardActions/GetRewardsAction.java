@@ -22,7 +22,6 @@ public class GetRewardsAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        // todo: no parameters check?
         return true;
     }
 }

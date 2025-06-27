@@ -468,9 +468,17 @@ public class PiratesState extends AdventureCardState {
     @Override
     public void disconnect(Player player) {
         playerStates.remove(context.getSortedPlayers().indexOf(player));
+        if (isAll(DONE, playerStates)) {
+            // transition to next adventure card
+            this.appendLog("Pirates are not a problem anymore!");
+            triggerNextState();
+        }
+        if (!playerStates.contains(WAIT_FOR_SHOT) && !playerStates.contains(CORRECT_SHIP) && !playerStates.contains(PROVIDE_BATTERY) && !playerStates.contains(ACTIVATE_CANNONS)) {
+            triggerNextRound();
+        }
     }
 
-    // todo: remove me. for testing purposes only!
+    // Used for testing purpose
     public void FORCE_OPPONENT_FIREPOWER(int val) {
         this.opponentFirePower = val;
     }
