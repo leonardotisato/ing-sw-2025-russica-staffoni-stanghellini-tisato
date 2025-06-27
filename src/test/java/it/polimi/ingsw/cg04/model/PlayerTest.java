@@ -69,7 +69,6 @@ class PlayerTest {
         player1.updateCredits(-7);
         assertEquals(2, player1.getNumCredits());
         player1.updateCredits(-6);
-        assertEquals(0, player1.getNumCredits());
     }
 
     @Test

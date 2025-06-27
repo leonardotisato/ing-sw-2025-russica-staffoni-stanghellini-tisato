@@ -169,7 +169,6 @@ public class Player implements Serializable {
      */
     public void updateCredits(double delta) {
         numCredits += delta;
-        numCredits = Math.max(0, numCredits);
     }
 
     /**
