@@ -75,6 +75,7 @@ public class ServerHandlerRMI extends ServerHandler {
         } catch (RemoteException | NotBoundException | MalformedURLException e) {
             notifyViewServerUnreachable();
             killRmiReaper();
+            System.out.println(e.getMessage());
             throw new RemoteException("Rmi connection to server failed");
         }
     }
