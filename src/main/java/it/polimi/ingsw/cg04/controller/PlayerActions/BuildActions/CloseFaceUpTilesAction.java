@@ -20,7 +20,6 @@ public class CloseFaceUpTilesAction extends PlayerAction {
 
     @Override
     public boolean checkAction(Player player) {
-        //return player.getHeldTile() == null; todo: do we need this check??
         return true;
     }
 }

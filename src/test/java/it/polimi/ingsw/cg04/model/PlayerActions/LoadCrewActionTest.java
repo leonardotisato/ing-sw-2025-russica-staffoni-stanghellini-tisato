@@ -120,7 +120,7 @@ class LoadCrewActionTest {
         pinkAlienCoords = new Coordinates(2, 3);
         brownAlienCoords = new Coordinates(1,2);
         loadCrewAction = new LoadCrewAction("Charlie", pinkAlienCoords, brownAlienCoords);
-        assertThrowsOnAction(loadCrewAction, p3); // todo for some reason pink passes the test...
+        assertThrowsOnAction(loadCrewAction, p3);
 
         // both correct
         pinkAlienCoords = new Coordinates(3, 4);

@@ -261,9 +261,7 @@ public class PrelobbySceneController extends ViewController {
         }
         gui.createGame(selectedColor, selectedLevel, selectedPlayerCount);
         System.out.println("created game: level -> " + selectedLevel + " numPlayers -> " + selectedPlayerCount + " color -> " + selectedColor);
-        // gui.gotoLobbyScene();
 
-        // todo: send a visual feedback
     }
 
     /**
@@ -283,7 +281,6 @@ public class PrelobbySceneController extends ViewController {
 
         gui.joinGame(Integer.parseInt(gameId), selectedColor);
         System.out.println("Joining game " + gameId);
-        // gui.gotoLobbyScene();
     }
 
     /**

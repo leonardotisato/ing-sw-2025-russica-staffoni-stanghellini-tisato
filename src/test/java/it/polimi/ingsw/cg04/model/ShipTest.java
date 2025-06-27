@@ -16,7 +16,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// todo: test edge cases for place/break HousingTile and AlienSupportTile
 
 class ShipTest {
 
@@ -233,7 +232,6 @@ class ShipTest {
         lev1Ship.placeTile(laserTile134, 3, 0);
         assertEquals(2, lev1Ship.getBaseFirePower());
 
-        // todo: housing and alien support are tricky -> might have to extend tests
         // housing -> check is in place + check supportedCrew is updated + check adjacent alien supports params are updated
         // alien support -> check is in place + check adjacentHousingTiles is ok and adjacentHousingTile params are updated
 
@@ -302,7 +300,7 @@ class ShipTest {
         lev1Ship.placeTile(storageTile26, 0, 2);
         lev1Ship.addBox(BoxType.YELLOW, 0, 2);
         lev1Ship.addBox(BoxType.GREEN, 0, 2);
-        assertEquals(1, lev1Ship.getBoxes(BoxType.YELLOW));// todo: non viene aggiunto param alla ship
+        assertEquals(1, lev1Ship.getBoxes(BoxType.YELLOW));
         assertEquals(1, lev1Ship.getBoxes(BoxType.GREEN));
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.RED, 0, 2)); // 26 is not special
         assertThrows(RuntimeException.class, () -> lev1Ship.addBox(BoxType.GREEN, 0, 2));   // is full
@@ -376,8 +374,6 @@ class ShipTest {
         assertNull(lev1Ship.getTile(1, 1));
 
         // housingTile and AlienSupportTile
-        // todo: tricky, might need more accurate testing
-        // todo: cannot test this till we figure out how to add crew with the correct logic
 
         // test all the possible combinations
         // 1. add HousingTile (ht) add AlienSupport (as) -> rm ht rm as

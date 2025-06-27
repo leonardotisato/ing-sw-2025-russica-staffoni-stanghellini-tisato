@@ -124,12 +124,7 @@ public class LoginController extends ViewController {
         String nick = nicknameField.getText();
         if (!nick.isEmpty()) {
             gui.setNickname(nick);
-
-            // used for testing, will be removed
-            // gui.goToPrelobbyScene();
-            // gui.goToEndScene();
         }
-        // gui.goToFaceUpScene();
     }
 }
 

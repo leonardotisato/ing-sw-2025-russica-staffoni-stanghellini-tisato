@@ -47,7 +47,7 @@ public class WarZone extends AdventureCard {
         return checkParameter;
     }
 
-    // todo: no usages
+
     public void setParameterCheck(List<String> parameterCheck) {
         this.checkParameter = parameterCheck;
     }
@@ -61,7 +61,7 @@ public class WarZone extends AdventureCard {
         return penaltyType;
     }
 
-    // todo: no usages
+
     public void setPenaltyType(List<String> penaltyType) {
         this.penaltyType = penaltyType;
     }

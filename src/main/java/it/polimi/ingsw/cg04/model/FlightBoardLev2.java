@@ -82,14 +82,6 @@ public class FlightBoardLev2 extends FlightBoard {
         }
         Collections.shuffle(adventureCardsDeck, rand);
 
-        // todo: remove me please.
-        // used for testing purpose
-        // adventureCardsDeck.removeFirst();
-        // adventureCardsDeck.removeFirst();
-        // adventureCardsDeck.addFirst(16);
-        // adventureCardsDeck.addFirst(36);
-
-
         return adventureCardsDeck;
     }
 
