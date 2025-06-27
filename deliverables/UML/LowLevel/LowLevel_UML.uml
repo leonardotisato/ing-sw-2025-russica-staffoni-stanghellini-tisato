@@ -1,0 +1,3408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Leonardo/IdeaProjects/ing-sw-2025-russica-staffoni-stanghellini-tisato/src/main/java/it/polimi/ingsw/cg04</OriginalElement>
+  <nodes>
+    <node x="7721.5" y="6514.0">it.polimi.ingsw.cg04.model.tiles.StorageTile</node>
+    <node x="10411.5" y="1390.0">it.polimi.ingsw.cg04.model.tiles.Tile</node>
+    <node x="8824.0" y="10747.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SmugglersState</node>
+    <node x="11250.5" y="3195.0">it.polimi.ingsw.cg04.model.FlightBoardLev1</node>
+    <node x="11923.0" y="10807.0">it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState</node>
+    <node x="2176.0" y="18819.0">it.polimi.ingsw.cg04.model.utils.BoxTypeMapDeserializer</node>
+    <node x="5813.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnTileAction</node>
+    <node x="6413.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ShowFaceUpAction</node>
+    <node x="8199.0" y="6563.0">it.polimi.ingsw.cg04.client.view.tui.TuiParser.ParsedArgs</node>
+    <node x="9826.5" y="190.0">it.polimi.ingsw.cg04.model.GameStates.GameState</node>
+    <node x="1295.0" y="18699.0">it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp</node>
+    <node x="9614.0" y="14203.0">it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction</node>
+    <node x="8753.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StopBuildingAction</node>
+    <node x="10529.5" y="13722.5">it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController</node>
+    <node x="4413.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PickPileAction</node>
+    <node x="4966.0" y="10795.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState</node>
+    <node x="11129.5" y="5854.0">it.polimi.ingsw.cg04.model.Ship</node>
+    <node x="12491.5" y="17299.0">it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.ClientCheckerRMI</node>
+    <node x="5880.0" y="12607.0">it.polimi.ingsw.cg04.model.adventureCards.Stardust</node>
+    <node x="10170.5" y="6418.0">it.polimi.ingsw.cg04.model.FlightBoard</node>
+    <node x="10730.5" y="3134.0">it.polimi.ingsw.cg04.model.FlightBoardLev2</node>
+    <node x="5245.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction</node>
+    <node x="10021.0" y="13470.5">it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController</node>
+    <node x="12309.0" y="8958.0">it.polimi.ingsw.cg04.network.Client.ServerHandler</node>
+    <node x="6893.0" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RollDiceAction</node>
+    <node x="1008.5" y="18819.0">it.polimi.ingsw.cg04.model.utils.EnumDeserializer</node>
+    <node x="8161.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.CloseFaceUpTilesAction</node>
+    <node x="3100.0" y="11826.0">it.polimi.ingsw.cg04.model.adventureCards.WarZone</node>
+    <node x="19.0" y="18431.5">it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderRMI</node>
+    <node x="11709.0" y="14227.0">it.polimi.ingsw.cg04.network.Server.VirtualClient</node>
+    <node x="2710.0" y="-13.5">it.polimi.ingsw.cg04.model.exceptions.InvalidStateException</node>
+    <node x="13150.0" y="14166.5">it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController</node>
+    <node x="13387.0" y="13178.5">it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController</node>
+    <node x="3866.0" y="12606.5">it.polimi.ingsw.cg04.model.exceptions.InvalidActionException</node>
+    <node x="12623.0" y="9319.0">it.polimi.ingsw.cg04.client.view.View</node>
+    <node x="5375.0" y="10795.0">it.polimi.ingsw.cg04.controller.PlayerActions.Action</node>
+    <node x="1020.5" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction</node>
+    <node x="9606.0" y="6623.0">it.polimi.ingsw.cg04.model.GameStates.FlightState</node>
+    <node x="12943.0" y="17251.0">it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.VirtualControllerImp</node>
+    <node x="6280.0" y="12510.0">it.polimi.ingsw.cg04.model.adventureCards.Slavers</node>
+    <node x="6085.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetNextAdventureCardAction</node>
+    <node x="12728.5" y="6538.0">it.polimi.ingsw.cg04.client.view.tui.TUI.InputReader</node>
+    <node x="10761.5" y="16890.5">it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI</node>
+    <node x="11214.5" y="16542.0">it.polimi.ingsw.cg04.network.Server.ClientHandler</node>
+    <node x="7746.0" y="3818.0">it.polimi.ingsw.cg04.model.enumerations.BoxType</node>
+    <node x="1820.5" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction</node>
+    <node x="461.5" y="16914.5">it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler</node>
+    <node x="9217.0" y="3806.0">it.polimi.ingsw.cg04.model.tiles.LaserTile</node>
+    <node x="2480.0" y="12510.0">it.polimi.ingsw.cg04.model.adventureCards.Pirates</node>
+    <node x="8964.5" y="4650.0">it.polimi.ingsw.cg04.model.tiles.AlienSupportTile</node>
+    <node x="11206.0" y="10795.0">it.polimi.ingsw.cg04.model.GameStates.LoadCrewState</node>
+    <node x="5488.0" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.DrawFaceDownAction</node>
+    <node x="10596.0" y="8054.0">it.polimi.ingsw.cg04.model.Player</node>
+    <node x="6705.0" y="12534.0">it.polimi.ingsw.cg04.model.adventureCards.AbandonedStation</node>
+    <node x="6689.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileAction</node>
+    <node x="7793.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StartTimerAction</node>
+    <node x="12390.0" y="13190.0">it.polimi.ingsw.cg04.client.view.gui.controllers.ErrorSceneController</node>
+    <node x="1907.5" y="18699.0">it.polimi.ingsw.cg04.model.utils.EnumListDeserializer</node>
+    <node x="2341.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction</node>
+    <node x="11522.0" y="13130.5">it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController</node>
+    <node x="12863.0" y="13203.5">it.polimi.ingsw.cg04.network.Server.RMI.VirtualControllerRMI</node>
+    <node x="8347.0" y="9354.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState</node>
+    <node x="8373.5" y="4722.5">it.polimi.ingsw.cg04.model.tiles.PropulsorTile</node>
+    <node x="9253.5" y="14203.0">it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction</node>
+    <node x="10282.0" y="3207.0">it.polimi.ingsw.cg04.model.enumerations.CrewType</node>
+    <node x="12721.5" y="10002.0">it.polimi.ingsw.cg04.client.view.gui.GUIRoot</node>
+    <node x="7513.0" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnPileAction</node>
+    <node x="12253.0" y="17962.5">it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI</node>
+    <node x="10017.5" y="3207.0">it.polimi.ingsw.cg04.model.enumerations.PlayerColor</node>
+    <node x="7440.0" y="12607.0">it.polimi.ingsw.cg04.model.adventureCards.OpenSpace</node>
+    <node x="8349.0" y="8994.0">it.polimi.ingsw.cg04.model.GameStates.EndGameState</node>
+    <node x="10164.5" y="4759.5">it.polimi.ingsw.cg04.model.tiles.EmptyTile</node>
+    <node x="10781.5" y="4062.0">it.polimi.ingsw.cg04.model.Game</node>
+    <node x="6346.0" y="10795.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.StardustState</node>
+    <node x="9567.0" y="4747.0">it.polimi.ingsw.cg04.client.view.tui.TuiParser</node>
+    <node x="1190.5" y="17950.5">it.polimi.ingsw.cg04.network.Server.SocketClientHandler</node>
+    <node x="11457.5" y="11983.0">it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI</node>
+    <node x="13690.5" y="14239.0">it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.DeamonThreadFactory</node>
+    <node x="983.0" y="17999.0">it.polimi.ingsw.cg04.Main</node>
+    <node x="8613.0" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.EpidemicAction</node>
+    <node x="12054.5" y="12318.5">it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController</node>
+    <node x="12150.0" y="14178.5">it.polimi.ingsw.cg04.client.view.gui.controllers.FaceUpSceneController</node>
+    <node x="7990.5" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetRewardsAction</node>
+    <node x="1011.0" y="18407.0">it.polimi.ingsw.cg04.model.utils.TileLoader</node>
+    <node x="4136.0" y="11910.0">it.polimi.ingsw.cg04.model.adventureCards.MeteorsRain</node>
+    <node x="-127.5" y="12619.0">it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.ConnectionChecker</node>
+    <node x="9791.0" y="10698.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState</node>
+    <node x="5560.5" y="3122.0">it.polimi.ingsw.cg04.model.utils.Coordinates</node>
+    <node x="11941.5" y="8019.0">it.polimi.ingsw.cg04.network.Client.VirtualServer</node>
+    <node x="823.5" y="14082.0">it.polimi.ingsw.cg04.controller.GamesController</node>
+    <node x="2747.0" y="10602.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState</node>
+    <node x="12742.0" y="8090.0">it.polimi.ingsw.cg04.client.view.tui.TUI</node>
+    <node x="2844.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction</node>
+    <node x="6867.0" y="10710.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState</node>
+    <node x="8333.0" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RetireAction</node>
+    <node x="-137.0" y="14227.0">it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader</node>
+    <node x="8661.5" y="4674.0">it.polimi.ingsw.cg04.model.tiles.BatteryTile</node>
+    <node x="1965.0" y="18407.0">it.polimi.ingsw.cg04.model.utils.CardLoader</node>
+    <node x="5015.0" y="11946.0">it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction</node>
+    <node x="3293.0" y="9547.0">it.polimi.ingsw.cg04.model.enumerations.Attack</node>
+    <node x="12986.5" y="9498.0">it.polimi.ingsw.cg04.client.view.gui.GUIMain</node>
+    <node x="3267.0" y="10542.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState</node>
+    <node x="1531.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction</node>
+    <node x="11126.0" y="12354.0">it.polimi.ingsw.cg04.model.GameStates.BuildState</node>
+    <node x="12630.0" y="14202.5">it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController</node>
+    <node x="7313.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceInBufferAction</node>
+    <node x="9540.0" y="12510.0">it.polimi.ingsw.cg04.model.adventureCards.Planets</node>
+    <node x="4693.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.RotateAction</node>
+    <node x="-207.5" y="17299.0">it.polimi.ingsw.cg04.network.Server.SocketClientHandler.ConnectionChecker</node>
+    <node x="5640.0" y="11946.0">it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction</node>
+    <node x="10977.5" y="14190.5">it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.VirtualClientImp</node>
+    <node x="11544.5" y="2051.0">it.polimi.ingsw.cg04.model.Game.GameInfo</node>
+    <node x="4054.5" y="13227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileFromBufferAction</node>
+    <node x="12302.0" y="7658.0">it.polimi.ingsw.cg04.client.model.ClientModel</node>
+    <node x="1489.0" y="18323.0">it.polimi.ingsw.cg04.network.Server.Server</node>
+    <node x="1495.5" y="18819.0">it.polimi.ingsw.cg04.model.utils.BoxTypeListMapDeserializer</node>
+    <node x="3405.5" y="647.0">it.polimi.ingsw.cg04.model.enumerations.Direction</node>
+    <node x="346.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction</node>
+    <node x="8169.0" y="4771.5">it.polimi.ingsw.cg04.model.tiles.StructuralTile</node>
+    <node x="5400.0" y="12558.0">it.polimi.ingsw.cg04.model.adventureCards.AbandonedShip</node>
+    <node x="7947.0" y="11886.0">it.polimi.ingsw.cg04.model.adventureCards.Smugglers</node>
+    <node x="11905.5" y="13166.5">it.polimi.ingsw.cg04.client.view.gui.controllers.ViewOthersSceneController</node>
+    <node x="24.5" y="10807.0">it.polimi.ingsw.cg04.network.Message</node>
+    <node x="7762.0" y="2930.0">it.polimi.ingsw.cg04.model.adventureCards.AdventureCard</node>
+    <node x="3847.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.EndBuildingAction</node>
+    <node x="4760.0" y="12607.0">it.polimi.ingsw.cg04.model.adventureCards.Epidemic</node>
+    <node x="10404.5" y="4554.0">it.polimi.ingsw.cg04.model.tiles.HousingTile</node>
+    <node x="4973.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction</node>
+    <node x="11408.5" y="14239.0">it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.RmiServerChecker</node>
+    <node x="3328.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction</node>
+    <node x="12620.5" y="16507.0">it.polimi.ingsw.cg04.model.utils.TuiDrawer</node>
+    <node x="11757.5" y="647.0">it.polimi.ingsw.cg04.model.enumerations.Connection</node>
+    <node x="7032.5" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareCrewAction</node>
+    <node x="7504.0" y="10783.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState</node>
+    <node x="4566.0" y="10674.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState</node>
+    <node x="8473.0" y="14227.0">it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.StardustAction</node>
+    <node x="11049.0" y="2099.0">it.polimi.ingsw.cg04.model.GameStates.LobbyState</node>
+    <node x="11644.5" y="10783.0">it.polimi.ingsw.cg04.model.utils.Shipyard</node>
+    <node x="8900.0" y="13203.0">it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction</node>
+    <node x="8109.0" y="10783.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState</node>
+    <node x="5734.0" y="10795.0">it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipState</node>
+    <node x="7511.0" y="4686.0">it.polimi.ingsw.cg04.model.tiles.ShieldTile</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.cg04.network.Server.Server" target="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp" relationship="CREATE">
+      <point x="-109.0" y="-140.0" />
+      <point x="1598.0" y="18243.0" />
+      <point x="1947.0" y="18243.0" />
+      <point x="1947.0" y="18643.0" />
+      <point x="1581.6666666666667" y="18643.0" />
+      <point x="114.66666666666666" y="-44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.GameStates.FlightState" relationship="CREATE">
+      <point x="0.0" y="-249.0" />
+      <point x="8487.0" y="9163.0" />
+      <point x="8607.0" y="9163.0" />
+      <point x="8607.0" y="7963.0" />
+      <point x="9987.0" y="7963.0" />
+      <point x="9987.0" y="6603.0" />
+      <point x="9666.333333333334" y="6603.0" />
+      <point x="-120.66666666666663" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileFromBufferAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="76.25" y="-56.0" />
+      <point x="4283.25" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.Action" relationship="REALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="5787.0" y="11923.0" />
+      <point x="5507.0" y="11923.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16123.0" />
+      <point x="3307.0" y="16123.0" />
+      <point x="3307.0" y="14203.0" />
+      <point x="3547.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.GamesController" target="it.polimi.ingsw.cg04.network.Server.Server" relationship="CREATE">
+      <point x="81.75" y="201.0" />
+      <point x="1068.75" y="16803.0" />
+      <point x="1107.0" y="16803.0" />
+      <point x="1107.0" y="17883.0" />
+      <point x="1167.0" y="17883.0" />
+      <point x="1167.0" y="18223.0" />
+      <point x="1598.0" y="18223.0" />
+      <point x="-109.0" y="-140.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.AlienSupportTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="TO_MANY">
+      <point x="95.0" y="-153.0" />
+      <point x="9202.0" y="3723.0" />
+      <point x="10687.0" y="3723.0" />
+      <point x="10687.0" y="3523.0" />
+      <point x="11547.0" y="3523.0" />
+      <point x="11547.0" y="3443.0" />
+      <point x="11887.0" y="3443.0" />
+      <point x="11887.0" y="1363.0" />
+      <point x="10607.0" y="1363.0" />
+      <point x="0.0" y="-753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.HousingTile" target="it.polimi.ingsw.cg04.model.enumerations.CrewType" relationship="TO_MANY">
+      <point x="108.33333333333334" y="-249.0" />
+      <point x="10675.333333333334" y="4523.0" />
+      <point x="10607.0" y="4523.0" />
+      <point x="10607.0" y="3463.0" />
+      <point x="10687.0" y="3463.0" />
+      <point x="10687.0" y="3343.0" />
+      <point x="10387.0" y="3343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-100.0" y="-104.5" />
+      <point x="13487.0" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" target="it.polimi.ingsw.cg04.model.GameStates.BuildState" relationship="CREATE">
+      <point x="-102.33333333333334" y="-80.0" />
+      <point x="9304.666666666666" y="14183.0" />
+      <point x="9307.0" y="14183.0" />
+      <point x="9307.0" y="13083.0" />
+      <point x="11107.0" y="13083.0" />
+      <point x="11107.0" y="12323.0" />
+      <point x="11186.333333333334" y="12323.0" />
+      <point x="-120.66666666666663" y="-309.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ShowFaceUpAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="6470.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction" relationship="GENERALIZATION">
+      <point x="73.5" y="-80.0" />
+      <point x="9120.5" y="12983.0" />
+      <point x="6127.0" y="12983.0" />
+      <point x="6127.0" y="12743.0" />
+      <point x="5787.0" y="12743.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.AlienSupportTile" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="-95.0" y="-153.0" />
+      <point x="9012.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader" target="it.polimi.ingsw.cg04.network.Message" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="47.0" y="12723.0" />
+      <point x="127.0" y="12723.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.StardustState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-90.5" y="-68.0" />
+      <point x="6436.5" y="9623.0" />
+      <point x="6427.0" y="9623.0" />
+      <point x="6427.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="145.66666666666669" y="-56.0" />
+      <point x="3692.6666666666665" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileFromBufferAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16083.0" />
+      <point x="3787.0" y="16083.0" />
+      <point x="3787.0" y="13203.0" />
+      <point x="4130.75" y="13203.0" />
+      <point x="-76.25" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" target="it.polimi.ingsw.cg04.model.Game" relationship="CREATE">
+      <point x="-115.33333333333337" y="-80.0" />
+      <point x="9671.666666666666" y="14143.0" />
+      <point x="9387.0" y="14143.0" />
+      <point x="9387.0" y="13063.0" />
+      <point x="10287.0" y="13063.0" />
+      <point x="10287.0" y="10443.0" />
+      <point x="10227.0" y="10443.0" />
+      <point x="10227.0" y="8943.0" />
+      <point x="10067.0" y="8943.0" />
+      <point x="10067.0" y="5723.0" />
+      <point x="11027.0" y="5723.0" />
+      <point x="0.0" y="741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TUI" target="it.polimi.ingsw.cg04.client.view.tui.TUI.InputReader" relationship="TO_ONE">
+      <point x="-136.66666666666669" y="-333.0" />
+      <point x="12810.333333333334" y="8043.0" />
+      <point x="12797.75" y="8043.0" />
+      <point x="-69.25" y="165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.enumerations.CrewType" relationship="TO_MANY">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="5743.0" />
+      <point x="11427.0" y="5743.0" />
+      <point x="11427.0" y="3483.0" />
+      <point x="10687.0" y="3483.0" />
+      <point x="10687.0" y="3343.0" />
+      <point x="10387.0" y="3343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-120.66666666666663" y="-309.0" />
+      <point x="11186.333333333334" y="12303.0" />
+      <point x="11187.0" y="12303.0" />
+      <point x="11187.0" y="11883.0" />
+      <point x="11867.0" y="11883.0" />
+      <point x="11867.0" y="5743.0" />
+      <point x="12047.0" y="5743.0" />
+      <point x="12047.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RollDiceAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="7007.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-73.5" y="-80.0" />
+      <point x="8973.5" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" target="it.polimi.ingsw.cg04.model.enumerations.PlayerColor" relationship="TO_ONE">
+      <point x="115.33333333333334" y="-80.0" />
+      <point x="9902.333333333334" y="12943.0" />
+      <point x="9467.0" y="12943.0" />
+      <point x="9467.0" y="3683.0" />
+      <point x="10127.0" y="3683.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="-65.5" y="-369.0" />
+      <point x="10661.5" y="8003.0" />
+      <point x="10667.0" y="8003.0" />
+      <point x="10667.0" y="7563.0" />
+      <point x="10627.0" y="7563.0" />
+      <point x="10627.0" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="106.5" y="-68.0" />
+      <point x="6053.5" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.FlightBoard" relationship="TO_ONE">
+      <point x="-65.5" y="-369.0" />
+      <point x="10661.5" y="8003.0" />
+      <point x="10667.0" y="8003.0" />
+      <point x="10667.0" y="7563.0" />
+      <point x="10547.0" y="7563.0" />
+      <point x="10547.0" y="6363.0" />
+      <point x="10258.75" y="6363.0" />
+      <point x="-88.25" y="-285.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Planets" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState" relationship="CREATE">
+      <point x="93.5" y="-153.0" />
+      <point x="9820.5" y="12483.0" />
+      <point x="9767.0" y="12483.0" />
+      <point x="9767.0" y="10663.0" />
+      <point x="10027.0" y="10663.0" />
+      <point x="0.0" y="-165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.AbandonedShip" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipState" relationship="CREATE">
+      <point x="73.5" y="-105.0" />
+      <point x="5620.5" y="11903.0" />
+      <point x="5707.0" y="11903.0" />
+      <point x="5707.0" y="10763.0" />
+      <point x="5840.5" y="10763.0" />
+      <point x="-106.5" y="-68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.EndGameState" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="59.0" y="-69.0" />
+      <point x="8526.0" y="8963.0" />
+      <point x="8527.0" y="8963.0" />
+      <point x="8527.0" y="8443.0" />
+      <point x="10107.0" y="8443.0" />
+      <point x="10107.0" y="7983.0" />
+      <point x="10661.5" y="7983.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" target="it.polimi.ingsw.cg04.client.view.View" relationship="GENERALIZATION">
+      <point x="0.0" y="-861.0" />
+      <point x="12967.0" y="9283.0" />
+      <point x="12869.0" y="9283.0" />
+      <point x="82.0" y="-284.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.model.ClientModel" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="0.0" y="-165.0" />
+      <point x="12467.0" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.WarZone" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="-98.0" y="-237.0" />
+      <point x="3149.0" y="11803.0" />
+      <point x="2747.0" y="11803.0" />
+      <point x="2747.0" y="11783.0" />
+      <point x="2647.0" y="11783.0" />
+      <point x="2647.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SmugglersState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="121.5" y="-116.0" />
+      <point x="9188.5" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16103.0" />
+      <point x="3307.0" y="16103.0" />
+      <point x="3307.0" y="14203.0" />
+      <point x="3547.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.OpenSpace" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState" relationship="CREATE">
+      <point x="73.5" y="-56.0" />
+      <point x="7660.5" y="11843.0" />
+      <point x="8087.0" y="11843.0" />
+      <point x="8087.0" y="10763.0" />
+      <point x="8181.666666666666" y="10763.0" />
+      <point x="-145.33333333333331" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PickPileAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="4470.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.OpenSpace" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-73.5" y="-56.0" />
+      <point x="7513.5" y="12483.0" />
+      <point x="7447.0" y="12483.0" />
+      <point x="7447.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.StorageTile" target="it.polimi.ingsw.cg04.model.enumerations.BoxType" relationship="TO_MANY">
+      <point x="-62.75" y="-189.0" />
+      <point x="7784.25" y="6483.0" />
+      <point x="7787.0" y="6483.0" />
+      <point x="7787.0" y="4943.0" />
+      <point x="7847.0" y="4943.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileFromBufferAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16063.0" />
+      <point x="3787.0" y="16063.0" />
+      <point x="3787.0" y="13203.0" />
+      <point x="4130.75" y="13203.0" />
+      <point x="-76.25" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.AbandonedStation" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-108.0" y="-129.0" />
+      <point x="6759.0" y="12503.0" />
+      <point x="6767.0" y="12503.0" />
+      <point x="6767.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-147.0" y="-56.0" />
+      <point x="420.0" y="14183.0" />
+      <point x="427.0" y="14183.0" />
+      <point x="427.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.WarZone" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState" relationship="CREATE">
+      <point x="0.0" y="-237.0" />
+      <point x="3247.0" y="10503.0" />
+      <point x="3347.0" y="10503.0" />
+      <point x="-160.0" y="-321.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.Tile" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="0.0" y="-753.0" />
+      <point x="10607.0" y="1263.0" />
+      <point x="3507.0" y="1263.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="68.5" y="-80.5" />
+      <point x="12835.5" y="13083.0" />
+      <point x="12827.0" y="13083.0" />
+      <point x="12827.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Stardust" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-73.5" y="-56.0" />
+      <point x="5953.5" y="11883.0" />
+      <point x="5667.0" y="11883.0" />
+      <point x="5667.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.AlienSupportTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-153.0" />
+      <point x="9107.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.GameState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="0.0" y="-513.0" />
+      <point x="10067.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ShowFaceUpAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15663.0" />
+      <point x="6387.0" y="15663.0" />
+      <point x="6387.0" y="14203.0" />
+      <point x="6470.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.Tile" target="it.polimi.ingsw.cg04.model.enumerations.Connection" relationship="TO_MANY">
+      <point x="0.0" y="-753.0" />
+      <point x="10607.0" y="1303.0" />
+      <point x="11867.0" y="1303.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15443.0" />
+      <point x="9227.0" y="15443.0" />
+      <point x="9227.0" y="13183.0" />
+      <point x="8973.5" y="13183.0" />
+      <point x="-73.5" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoardLev2" target="it.polimi.ingsw.cg04.model.FlightBoard" relationship="GENERALIZATION">
+      <point x="-88.25" y="129.0" />
+      <point x="10818.75" y="3423.0" />
+      <point x="10027.0" y="3423.0" />
+      <point x="10027.0" y="5683.0" />
+      <point x="10307.0" y="5683.0" />
+      <point x="10307.0" y="6383.0" />
+      <point x="10435.25" y="6383.0" />
+      <point x="88.25" y="-285.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoardLev1" target="it.polimi.ingsw.cg04.model.FlightBoard" relationship="GENERALIZATION">
+      <point x="-88.25" y="68.0" />
+      <point x="11338.75" y="3443.0" />
+      <point x="10067.0" y="3443.0" />
+      <point x="10067.0" y="5683.0" />
+      <point x="10307.0" y="5683.0" />
+      <point x="10307.0" y="6383.0" />
+      <point x="10435.25" y="6383.0" />
+      <point x="88.25" y="-285.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-121.5" y="-80.0" />
+      <point x="7625.5" y="10443.0" />
+      <point x="7487.0" y="10443.0" />
+      <point x="7487.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_ONE">
+      <point x="0.0" y="-189.0" />
+      <point x="4747.0" y="9683.0" />
+      <point x="3387.0" y="9683.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.Ship" relationship="TO_ONE">
+      <point x="-65.5" y="-369.0" />
+      <point x="10661.5" y="8003.0" />
+      <point x="10667.0" y="8003.0" />
+      <point x="10667.0" y="5783.0" />
+      <point x="11395.75" y="5783.0" />
+      <point x="88.75" y="-849.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.Action" relationship="REALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="5147.0" y="11923.0" />
+      <point x="5507.0" y="11923.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.RotateAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="4750.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.LoadCrewState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="-90.5" y="-68.0" />
+      <point x="11296.5" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.FlightBoardLev2" relationship="CREATE">
+      <point x="0.0" y="741.0" />
+      <point x="11027.0" y="5583.0" />
+      <point x="11307.0" y="5583.0" />
+      <point x="11307.0" y="3423.0" />
+      <point x="10995.25" y="3423.0" />
+      <point x="88.25" y="129.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp" target="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderRMI" relationship="REALIZATION">
+      <point x="-114.66666666666663" y="-44.0" />
+      <point x="1352.3333333333335" y="18663.0" />
+      <point x="187.0" y="18663.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.FlightBoardLev1" relationship="CREATE">
+      <point x="0.0" y="741.0" />
+      <point x="11027.0" y="5583.0" />
+      <point x="11307.0" y="5583.0" />
+      <point x="11307.0" y="3423.0" />
+      <point x="11515.25" y="3423.0" />
+      <point x="88.25" y="68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="TO_ONE">
+      <point x="93.33333333333334" y="-249.0" />
+      <point x="8580.333333333334" y="9323.0" />
+      <point x="8647.0" y="9323.0" />
+      <point x="8647.0" y="6543.0" />
+      <point x="8347.0" y="6543.0" />
+      <point x="8347.0" y="3663.0" />
+      <point x="8987.0" y="3663.0" />
+      <point x="8987.0" y="3623.0" />
+      <point x="8009.5" y="3623.0" />
+      <point x="82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="68.5" y="-116.5" />
+      <point x="13355.5" y="13083.0" />
+      <point x="13347.0" y="13083.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="GENERALIZATION">
+      <point x="-93.33333333333334" y="-249.0" />
+      <point x="8393.666666666666" y="9303.0" />
+      <point x="8327.0" y="9303.0" />
+      <point x="8327.0" y="8943.0" />
+      <point x="8127.0" y="8943.0" />
+      <point x="8127.0" y="6683.0" />
+      <point x="8107.0" y="6683.0" />
+      <point x="8107.0" y="1323.0" />
+      <point x="9947.0" y="1323.0" />
+      <point x="9947.0" y="1243.0" />
+      <point x="9946.75" y="1243.0" />
+      <point x="-120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.RotateAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="4864.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="-118.33333333333337" y="-560.5" />
+      <point x="10588.666666666666" y="12883.0" />
+      <point x="7407.0" y="12883.0" />
+      <point x="7407.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.VirtualControllerRMI" relationship="TO_ONE">
+      <point x="184.125" y="-452.5" />
+      <point x="11191.125" y="16523.0" />
+      <point x="11347.0" y="16523.0" />
+      <point x="11347.0" y="16483.0" />
+      <point x="12945.0" y="16483.0" />
+      <point x="-82.0" y="79.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Slavers" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState" relationship="CREATE">
+      <point x="73.5" y="-153.0" />
+      <point x="6500.5" y="12483.0" />
+      <point x="6847.0" y="12483.0" />
+      <point x="6847.0" y="10683.0" />
+      <point x="6987.0" y="10683.0" />
+      <point x="-120.0" y="-153.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="-150.66666666666669" y="-812.5" />
+      <point x="10096.333333333334" y="13443.0" />
+      <point x="9467.0" y="13443.0" />
+      <point x="9467.0" y="12863.0" />
+      <point x="11027.0" y="12863.0" />
+      <point x="11027.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.LobbyState" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="-59.0" y="44.0" />
+      <point x="11108.0" y="3663.0" />
+      <point x="10904.25" y="3663.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RollDiceAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15643.0" />
+      <point x="7007.0" y="15643.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp" target="it.polimi.ingsw.cg04.controller.GamesController" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="1467.0" y="18643.0" />
+      <point x="387.0" y="18643.0" />
+      <point x="387.0" y="16863.0" />
+      <point x="427.0" y="16863.0" />
+      <point x="427.0" y="15163.0" />
+      <point x="905.25" y="15163.0" />
+      <point x="-81.75" y="201.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.MeteorsRain" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" relationship="CREATE">
+      <point x="100.66666666666666" y="-153.0" />
+      <point x="4387.666666666667" y="11883.0" />
+      <point x="4547.0" y="11883.0" />
+      <point x="4547.0" y="10643.0" />
+      <point x="4626.333333333333" y="10643.0" />
+      <point x="-120.66666666666663" y="-189.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-145.66666666666669" y="-56.0" />
+      <point x="3401.3333333333335" y="13123.0" />
+      <point x="3807.0" y="13123.0" />
+      <point x="3807.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.PlanetsAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="3547.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnTileAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="5984.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.LobbyState" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="GENERALIZATION">
+      <point x="0.0" y="-44.0" />
+      <point x="11167.0" y="1323.0" />
+      <point x="9947.0" y="1323.0" />
+      <point x="9947.0" y="1243.0" />
+      <point x="9946.75" y="1243.0" />
+      <point x="-120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.AbandonedStation" target="it.polimi.ingsw.cg04.model.enumerations.BoxType" relationship="TO_MANY">
+      <point x="0.0" y="-129.0" />
+      <point x="6867.0" y="12503.0" />
+      <point x="6807.0" y="12503.0" />
+      <point x="6807.0" y="9643.0" />
+      <point x="6847.0" y="9643.0" />
+      <point x="6847.0" y="6483.0" />
+      <point x="7787.0" y="6483.0" />
+      <point x="7787.0" y="4943.0" />
+      <point x="7847.0" y="4943.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="160.0" y="-261.0" />
+      <point x="3147.0" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedShipState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-106.5" y="-68.0" />
+      <point x="5840.5" y="9623.0" />
+      <point x="5847.0" y="9623.0" />
+      <point x="5847.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="8327.0" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.FaceUpSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-68.5" y="-104.5" />
+      <point x="12218.5" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.EndBuildingAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16023.0" />
+      <point x="3827.0" y="16023.0" />
+      <point x="3827.0" y="14203.0" />
+      <point x="3907.25" y="14203.0" />
+      <point x="-59.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Client.ServerHandler" relationship="GENERALIZATION">
+      <point x="-61.375" y="-452.5" />
+      <point x="10945.625" y="16863.0" />
+      <point x="10947.0" y="16863.0" />
+      <point x="10947.0" y="10443.0" />
+      <point x="10967.0" y="10443.0" />
+      <point x="10967.0" y="9203.0" />
+      <point x="12388.0" y="9203.0" />
+      <point x="-79.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_ONE">
+      <point x="-124.33333333333337" y="-56.0" />
+      <point x="1082.6666666666665" y="13123.0" />
+      <point x="1087.0" y="13123.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PickPileAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="4584.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="1687.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.ClientHandler" target="it.polimi.ingsw.cg04.network.Server.Server" relationship="TO_ONE">
+      <point x="-76.25" y="141.0" />
+      <point x="11290.75" y="17863.0" />
+      <point x="2547.0" y="17863.0" />
+      <point x="2547.0" y="18163.0" />
+      <point x="1847.0" y="18163.0" />
+      <point x="1847.0" y="18303.0" />
+      <point x="1816.0" y="18303.0" />
+      <point x="109.0" y="-140.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.GameStates.FlightState" relationship="CREATE">
+      <point x="-120.66666666666663" y="-309.0" />
+      <point x="11186.333333333334" y="12303.0" />
+      <point x="11187.0" y="12303.0" />
+      <point x="11187.0" y="7963.0" />
+      <point x="9987.0" y="7963.0" />
+      <point x="9987.0" y="6603.0" />
+      <point x="9666.333333333334" y="6603.0" />
+      <point x="-120.66666666666663" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.EndBuildingAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="59.75" y="-56.0" />
+      <point x="4026.75" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="147.0" y="-56.0" />
+      <point x="714.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetNextAdventureCardAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15783.0" />
+      <point x="5787.0" y="15783.0" />
+      <point x="5787.0" y="14383.0" />
+      <point x="6067.0" y="14383.0" />
+      <point x="6067.0" y="14203.0" />
+      <point x="6156.0" y="14203.0" />
+      <point x="-71.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="118.33333333333334" y="-560.5" />
+      <point x="10825.333333333334" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetRewardsAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15403.0" />
+      <point x="8127.0" y="15403.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="CREATE">
+      <point x="79.0" y="-105.0" />
+      <point x="12546.0" y="8903.0" />
+      <point x="12647.0" y="8903.0" />
+      <point x="12647.0" y="9303.0" />
+      <point x="12607.0" y="9303.0" />
+      <point x="12607.0" y="9943.0" />
+      <point x="12803.333333333334" y="9943.0" />
+      <point x="-163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.Player" relationship="CREATE">
+      <point x="0.0" y="741.0" />
+      <point x="11027.0" y="5683.0" />
+      <point x="11627.0" y="5683.0" />
+      <point x="11627.0" y="7623.0" />
+      <point x="10807.0" y="7623.0" />
+      <point x="10807.0" y="8023.0" />
+      <point x="10792.5" y="8023.0" />
+      <point x="65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.Server" target="it.polimi.ingsw.cg04.controller.GamesController" relationship="TO_ONE">
+      <point x="109.0" y="-140.0" />
+      <point x="1816.0" y="18283.0" />
+      <point x="1807.0" y="18283.0" />
+      <point x="1807.0" y="18203.0" />
+      <point x="427.0" y="18203.0" />
+      <point x="427.0" y="15163.0" />
+      <point x="905.25" y="15163.0" />
+      <point x="-81.75" y="201.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.GamesController" target="it.polimi.ingsw.cg04.network.Server.Server" relationship="TO_ONE">
+      <point x="-81.75" y="201.0" />
+      <point x="905.25" y="16823.0" />
+      <point x="1027.0" y="16823.0" />
+      <point x="1027.0" y="17883.0" />
+      <point x="967.0" y="17883.0" />
+      <point x="967.0" y="18163.0" />
+      <point x="1847.0" y="18163.0" />
+      <point x="1847.0" y="18303.0" />
+      <point x="1816.0" y="18303.0" />
+      <point x="109.0" y="-140.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.GameStates.EndGameState" relationship="CREATE">
+      <point x="0.0" y="-249.0" />
+      <point x="8487.0" y="9163.0" />
+      <point x="8467.0" y="9163.0" />
+      <point x="0.0" y="69.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_ONE">
+      <point x="0.0" y="-261.0" />
+      <point x="2987.0" y="9703.0" />
+      <point x="3387.0" y="9703.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16263.0" />
+      <point x="1467.0" y="16263.0" />
+      <point x="1467.0" y="13203.0" />
+      <point x="2047.0" y="13203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" target="it.polimi.ingsw.cg04.client.view.gui.GUIMain" relationship="TO_ONE">
+      <point x="163.66666666666669" y="-861.0" />
+      <point x="13130.666666666666" y="9903.0" />
+      <point x="13127.0" y="9903.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.GUIMain" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="0.0" y="105.0" />
+      <point x="13127.0" y="9923.0" />
+      <point x="13130.666666666666" y="9923.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15143.0" />
+      <point x="9987.0" y="15143.0" />
+      <point x="9987.0" y="14183.0" />
+      <point x="9671.666666666666" y="14183.0" />
+      <point x="-115.33333333333337" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="82.5" y="-152.5" />
+      <point x="11769.5" y="13023.0" />
+      <point x="12627.0" y="13023.0" />
+      <point x="12627.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="3067.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.StardustState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="90.5" y="-68.0" />
+      <point x="6617.5" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.DrawFaceDownAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15843.0" />
+      <point x="5747.0" y="15843.0" />
+      <point x="5747.0" y="13203.0" />
+      <point x="5547.5" y="13203.0" />
+      <point x="-59.5" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetNextAdventureCardAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-71.0" y="-56.0" />
+      <point x="6156.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.GamesController" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="81.75" y="201.0" />
+      <point x="1068.75" y="15143.0" />
+      <point x="807.0" y="15143.0" />
+      <point x="807.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StartTimerAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15543.0" />
+      <point x="7767.0" y="15543.0" />
+      <point x="7767.0" y="14203.0" />
+      <point x="7850.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.RmiServerChecker" target="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" relationship="INNER_CLASS">
+      <point x="49.25" y="44.0" />
+      <point x="11556.25" y="16423.0" />
+      <point x="11227.0" y="16423.0" />
+      <point x="11227.0" y="16503.0" />
+      <point x="11068.375" y="16503.0" />
+      <point x="61.375" y="-452.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnTileAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15723.0" />
+      <point x="5827.0" y="15723.0" />
+      <point x="5827.0" y="14363.0" />
+      <point x="5787.0" y="14363.0" />
+      <point x="5787.0" y="14203.0" />
+      <point x="5870.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StartTimerAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15463.0" />
+      <point x="7767.0" y="15463.0" />
+      <point x="7767.0" y="14203.0" />
+      <point x="7850.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.ErrorSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-68.5" y="-93.0" />
+      <point x="12458.5" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.client.view.tui.TUI" relationship="CREATE">
+      <point x="79.0" y="-105.0" />
+      <point x="12546.0" y="8923.0" />
+      <point x="12547.0" y="8923.0" />
+      <point x="12547.0" y="8783.0" />
+      <point x="12727.0" y="8783.0" />
+      <point x="12727.0" y="8063.0" />
+      <point x="13083.666666666666" y="8063.0" />
+      <point x="136.66666666666669" y="-333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="CREATE">
+      <point x="-88.75" y="-849.0" />
+      <point x="11218.25" y="5823.0" />
+      <point x="10667.0" y="5823.0" />
+      <point x="10667.0" y="5603.0" />
+      <point x="11347.0" y="5603.0" />
+      <point x="11347.0" y="3643.0" />
+      <point x="10704.75" y="3643.0" />
+      <point x="97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="0.0" y="-560.5" />
+      <point x="10707.0" y="12843.0" />
+      <point x="11067.0" y="12843.0" />
+      <point x="11067.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.ClientCheckerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" relationship="INNER_CLASS">
+      <point x="-47.75" y="44.0" />
+      <point x="12539.25" y="17463.0" />
+      <point x="12547.0" y="17463.0" />
+      <point x="12547.0" y="17923.0" />
+      <point x="12520.5" y="17923.0" />
+      <point x="53.5" y="-80.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Pirates" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_MANY">
+      <point x="-98.0" y="-153.0" />
+      <point x="2529.0" y="12483.0" />
+      <point x="2527.0" y="12483.0" />
+      <point x="2527.0" y="12463.0" />
+      <point x="2567.0" y="12463.0" />
+      <point x="2567.0" y="10483.0" />
+      <point x="3387.0" y="10483.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-120.66666666666663" y="-68.0" />
+      <point x="5026.333333333333" y="10443.0" />
+      <point x="5027.0" y="10443.0" />
+      <point x="5027.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.StorageTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="62.75" y="-189.0" />
+      <point x="7909.75" y="6463.0" />
+      <point x="7967.0" y="6463.0" />
+      <point x="7967.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetRewardsAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15323.0" />
+      <point x="8127.0" y="15323.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_ONE">
+      <point x="0.0" y="-321.0" />
+      <point x="3507.0" y="10443.0" />
+      <point x="3387.0" y="10443.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="TO_ONE">
+      <point x="-122.75" y="-741.0" />
+      <point x="10904.25" y="4003.0" />
+      <point x="10647.0" y="4003.0" />
+      <point x="10647.0" y="3523.0" />
+      <point x="10267.0" y="3523.0" />
+      <point x="10267.0" y="1303.0" />
+      <point x="10187.25" y="1303.0" />
+      <point x="120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.RotateAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15943.0" />
+      <point x="4667.0" y="15943.0" />
+      <point x="4667.0" y="14203.0" />
+      <point x="4750.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.VirtualClientImp" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16383.0" />
+      <point x="11062.25" y="16383.0" />
+      <point x="-84.75" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.VirtualControllerImp" relationship="TO_ONE">
+      <point x="-53.5" y="-80.5" />
+      <point x="12413.5" y="17923.0" />
+      <point x="12407.0" y="17923.0" />
+      <point x="12407.0" y="17483.0" />
+      <point x="12997.666666666666" y="17483.0" />
+      <point x="-109.33333333333334" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.enumerations.BuildPlayerState" relationship="TO_MANY">
+      <point x="0.0" y="-309.0" />
+      <point x="11307.0" y="11963.0" />
+      <point x="11827.0" y="11963.0" />
+      <point x="11827.0" y="11923.0" />
+      <point x="12047.0" y="11923.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController" target="it.polimi.ingsw.cg04.model.enumerations.CrewType" relationship="TO_MANY">
+      <point x="0.0" y="-560.5" />
+      <point x="10707.0" y="12843.0" />
+      <point x="10867.0" y="12843.0" />
+      <point x="10867.0" y="9623.0" />
+      <point x="10887.0" y="9623.0" />
+      <point x="10887.0" y="7943.0" />
+      <point x="11747.0" y="7943.0" />
+      <point x="11747.0" y="3483.0" />
+      <point x="10687.0" y="3483.0" />
+      <point x="10687.0" y="3343.0" />
+      <point x="10387.0" y="3343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16283.0" />
+      <point x="1467.0" y="16283.0" />
+      <point x="1467.0" y="13203.0" />
+      <point x="2047.0" y="13203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_ONE">
+      <point x="0.0" y="-189.0" />
+      <point x="4747.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ShowFaceUpAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15683.0" />
+      <point x="6387.0" y="15683.0" />
+      <point x="6387.0" y="14203.0" />
+      <point x="6470.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.VirtualControllerImp" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" relationship="INNER_CLASS">
+      <point x="0.0" y="92.0" />
+      <point x="13107.0" y="17463.0" />
+      <point x="12547.0" y="17463.0" />
+      <point x="12547.0" y="17923.0" />
+      <point x="12520.5" y="17923.0" />
+      <point x="53.5" y="-80.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileFromBufferAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-76.25" y="-56.0" />
+      <point x="4130.75" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.SocketClientHandler.ConnectionChecker" target="it.polimi.ingsw.cg04.network.Server.SocketClientHandler" relationship="INNER_CLASS">
+      <point x="0.0" y="44.0" />
+      <point x="-93.0" y="17863.0" />
+      <point x="1387.0" y="17863.0" />
+      <point x="0.0" y="-92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.VirtualClientImp" target="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" relationship="INNER_CLASS">
+      <point x="84.75" y="92.5" />
+      <point x="11231.75" y="16423.0" />
+      <point x="11227.0" y="16423.0" />
+      <point x="11227.0" y="16503.0" />
+      <point x="11068.375" y="16503.0" />
+      <point x="61.375" y="-452.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.Ship" relationship="CREATE">
+      <point x="65.5" y="-369.0" />
+      <point x="10792.5" y="7603.0" />
+      <point x="11707.0" y="7603.0" />
+      <point x="11707.0" y="7583.0" />
+      <point x="11547.0" y="7583.0" />
+      <point x="11547.0" y="5803.0" />
+      <point x="11218.25" y="5803.0" />
+      <point x="-88.75" y="-849.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Stardust" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.StardustState" relationship="CREATE">
+      <point x="73.5" y="-56.0" />
+      <point x="6100.5" y="12483.0" />
+      <point x="6327.0" y="12483.0" />
+      <point x="6327.0" y="10763.0" />
+      <point x="6436.5" y="10763.0" />
+      <point x="-90.5" y="-68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.ConnectionChecker" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" relationship="INNER_CLASS">
+      <point x="0.0" y="44.0" />
+      <point x="-13.0" y="14203.0" />
+      <point x="-153.0" y="14203.0" />
+      <point x="-153.0" y="16883.0" />
+      <point x="522.875" y="16883.0" />
+      <point x="-184.125" y="-428.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RollDiceAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15603.0" />
+      <point x="7007.0" y="15603.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.HousingTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-249.0" />
+      <point x="10567.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.FlightState" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="GENERALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="9787.0" y="5723.0" />
+      <point x="9947.0" y="5723.0" />
+      <point x="9947.0" y="1243.0" />
+      <point x="9946.75" y="1243.0" />
+      <point x="-120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="0.0" y="-344.5" />
+      <point x="12227.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="TO_ONE">
+      <point x="163.66666666666669" y="-861.0" />
+      <point x="13130.666666666666" y="9963.0" />
+      <point x="12227.0" y="9963.0" />
+      <point x="0.0" y="-344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Slavers" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-73.5" y="-153.0" />
+      <point x="6353.5" y="12463.0" />
+      <point x="6287.0" y="12463.0" />
+      <point x="6287.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.GamesController" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_MANY">
+      <point x="-81.75" y="201.0" />
+      <point x="905.25" y="15123.0" />
+      <point x="10507.0" y="15123.0" />
+      <point x="10507.0" y="12903.0" />
+      <point x="9507.0" y="12903.0" />
+      <point x="9507.0" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.Server" target="it.polimi.ingsw.cg04.network.Server.SocketClientHandler" relationship="CREATE">
+      <point x="-109.0" y="-140.0" />
+      <point x="1598.0" y="18183.0" />
+      <point x="1607.0" y="18183.0" />
+      <point x="1607.0" y="17923.0" />
+      <point x="1256.0" y="17923.0" />
+      <point x="-131.0" y="-92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.WarZone" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_MANY">
+      <point x="-98.0" y="-237.0" />
+      <point x="3149.0" y="11803.0" />
+      <point x="2747.0" y="11803.0" />
+      <point x="2747.0" y="11783.0" />
+      <point x="2687.0" y="11783.0" />
+      <point x="2687.0" y="10483.0" />
+      <point x="3387.0" y="10483.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Pirates" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="98.0" y="-153.0" />
+      <point x="2725.0" y="12483.0" />
+      <point x="2607.0" y="12483.0" />
+      <point x="2607.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-160.0" y="-321.0" />
+      <point x="3347.0" y="10443.0" />
+      <point x="3267.0" y="10443.0" />
+      <point x="3267.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16763.0" />
+      <point x="1147.0" y="16763.0" />
+      <point x="1147.0" y="15183.0" />
+      <point x="327.0" y="15183.0" />
+      <point x="327.0" y="14203.0" />
+      <point x="567.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.FaceUpSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="68.5" y="-104.5" />
+      <point x="12355.5" y="13063.0" />
+      <point x="12707.0" y="13063.0" />
+      <point x="12707.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="145.33333333333331" y="-80.0" />
+      <point x="8472.333333333334" y="10443.0" />
+      <point x="8287.0" y="10443.0" />
+      <point x="8287.0" y="8963.0" />
+      <point x="8527.0" y="8963.0" />
+      <point x="8527.0" y="8443.0" />
+      <point x="10107.0" y="8443.0" />
+      <point x="10107.0" y="7983.0" />
+      <point x="10661.5" y="7983.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetRewardsAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8127.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15503.0" />
+      <point x="9587.0" y="15503.0" />
+      <point x="9587.0" y="14163.0" />
+      <point x="9304.666666666666" y="14163.0" />
+      <point x="-102.33333333333334" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="151.0" y="-56.0" />
+      <point x="2198.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-104.0" y="-56.0" />
+      <point x="1583.0" y="12683.0" />
+      <point x="1587.0" y="12683.0" />
+      <point x="1587.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.GameStates.LoadCrewState" relationship="CREATE">
+      <point x="-120.66666666666663" y="-309.0" />
+      <point x="11186.333333333334" y="12303.0" />
+      <point x="11187.0" y="12303.0" />
+      <point x="11187.0" y="11883.0" />
+      <point x="11587.0" y="11883.0" />
+      <point x="11587.0" y="10763.0" />
+      <point x="11477.5" y="10763.0" />
+      <point x="90.5" y="-68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Epidemic" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState" relationship="CREATE">
+      <point x="73.5" y="-56.0" />
+      <point x="4980.5" y="11883.0" />
+      <point x="5347.0" y="11883.0" />
+      <point x="5347.0" y="10763.0" />
+      <point x="5147.0" y="10763.0" />
+      <point x="0.0" y="-68.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="0.0" y="-812.5" />
+      <point x="10247.0" y="12923.0" />
+      <point x="7367.0" y="12923.0" />
+      <point x="7367.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.LobbySceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-68.5" y="-116.5" />
+      <point x="13218.5" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ShowFaceUpAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="6584.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="160.0" y="-321.0" />
+      <point x="3667.0" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.utils.Shipyard" relationship="CREATE">
+      <point x="-120.66666666666663" y="-309.0" />
+      <point x="11186.333333333334" y="12303.0" />
+      <point x="11187.0" y="12303.0" />
+      <point x="11187.0" y="11883.0" />
+      <point x="11627.0" y="11883.0" />
+      <point x="11627.0" y="10763.0" />
+      <point x="11685.75" y="10763.0" />
+      <point x="-41.25" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="150.66666666666669" y="-812.5" />
+      <point x="10397.666666666666" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-58.75" y="-56.0" />
+      <point x="6748.25" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.DrawFaceDownAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="59.5" y="-56.0" />
+      <point x="5666.5" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="0.0" y="-309.0" />
+      <point x="11307.0" y="11963.0" />
+      <point x="11827.0" y="11963.0" />
+      <point x="11827.0" y="11923.0" />
+      <point x="11907.0" y="11923.0" />
+      <point x="11907.0" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="70.75" y="-56.0" />
+      <point x="5457.75" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StartTimerAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="7964.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" relationship="CREATE">
+      <point x="114.66666666666666" y="-44.0" />
+      <point x="1581.6666666666667" y="18663.0" />
+      <point x="2587.0" y="18663.0" />
+      <point x="2587.0" y="17883.0" />
+      <point x="12627.5" y="17883.0" />
+      <point x="160.5" y="-80.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.CloseFaceUpTilesAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8287.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="0.0" y="-165.0" />
+      <point x="10027.0" y="5743.0" />
+      <point x="9987.0" y="5743.0" />
+      <point x="9987.0" y="1283.0" />
+      <point x="10327.0" y="1283.0" />
+      <point x="10327.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.tiles.EmptyTile" relationship="CREATE">
+      <point x="-88.75" y="-849.0" />
+      <point x="11218.25" y="5823.0" />
+      <point x="10667.0" y="5823.0" />
+      <point x="10667.0" y="5603.0" />
+      <point x="10247.0" y="5603.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareCrewAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="7147.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16303.0" />
+      <point x="1427.0" y="16303.0" />
+      <point x="1427.0" y="13203.0" />
+      <point x="1207.0" y="13203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.enumerations.PlayerColor" relationship="TO_ONE">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="3683.0" />
+      <point x="10127.0" y="3683.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PickPileAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15983.0" />
+      <point x="4387.0" y="15983.0" />
+      <point x="4387.0" y="14203.0" />
+      <point x="4470.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TuiParser" target="it.polimi.ingsw.cg04.client.view.tui.TuiParser.ParsedArgs" relationship="CREATE">
+      <point x="80.0" y="56.0" />
+      <point x="9807.0" y="5003.0" />
+      <point x="8511.0" y="5003.0" />
+      <point x="104.0" y="-140.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.SocketClientHandler" target="it.polimi.ingsw.cg04.network.Server.SocketClientHandler.ConnectionChecker" relationship="CREATE">
+      <point x="-131.0" y="-92.5" />
+      <point x="1256.0" y="17903.0" />
+      <point x="-213.0" y="17903.0" />
+      <point x="-213.0" y="17403.0" />
+      <point x="47.0" y="17403.0" />
+      <point x="47.0" y="17263.0" />
+      <point x="-93.0" y="17263.0" />
+      <point x="0.0" y="-44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnPileAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15523.0" />
+      <point x="7627.0" y="15523.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.ClientHandler" relationship="GENERALIZATION">
+      <point x="-160.5" y="-80.5" />
+      <point x="12306.5" y="17903.0" />
+      <point x="11447.0" y="17903.0" />
+      <point x="11447.0" y="16863.0" />
+      <point x="11443.25" y="16863.0" />
+      <point x="76.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.LaserTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="9327.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.VirtualControllerImp" relationship="CREATE">
+      <point x="160.5" y="-80.5" />
+      <point x="12627.5" y="17923.0" />
+      <point x="12627.0" y="17923.0" />
+      <point x="12627.0" y="17863.0" />
+      <point x="13216.333333333334" y="17863.0" />
+      <point x="109.33333333333337" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.WarZone" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="98.0" y="-237.0" />
+      <point x="3345.0" y="11803.0" />
+      <point x="3767.0" y="11803.0" />
+      <point x="3767.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.SocketClientHandler" target="it.polimi.ingsw.cg04.network.Message" relationship="CREATE">
+      <point x="-131.0" y="-92.5" />
+      <point x="1256.0" y="17903.0" />
+      <point x="-213.0" y="17903.0" />
+      <point x="-213.0" y="17403.0" />
+      <point x="-233.0" y="17403.0" />
+      <point x="-233.0" y="12563.0" />
+      <point x="127.0" y="12563.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Smugglers" target="it.polimi.ingsw.cg04.model.enumerations.BoxType" relationship="TO_MANY">
+      <point x="0.0" y="-177.0" />
+      <point x="8107.0" y="11863.0" />
+      <point x="8047.0" y="11863.0" />
+      <point x="8047.0" y="6483.0" />
+      <point x="7787.0" y="6483.0" />
+      <point x="7787.0" y="4943.0" />
+      <point x="7847.0" y="4943.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceInBufferAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="7370.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnPileAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15563.0" />
+      <point x="7627.0" y="15563.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.DeamonThreadFactory" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" relationship="INNER_CLASS">
+      <point x="58.25" y="44.0" />
+      <point x="13865.25" y="17323.0" />
+      <point x="13867.0" y="17323.0" />
+      <point x="13867.0" y="17463.0" />
+      <point x="12547.0" y="17463.0" />
+      <point x="12547.0" y="17923.0" />
+      <point x="12520.5" y="17923.0" />
+      <point x="53.5" y="-80.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareCrewAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15623.0" />
+      <point x="7147.0" y="15623.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.PropulsorTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-80.5" />
+      <point x="8487.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.LoginController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-68.5" y="-80.5" />
+      <point x="12698.5" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-148.66666666666669" y="-56.0" />
+      <point x="2918.3333333333335" y="12843.0" />
+      <point x="2447.0" y="12843.0" />
+      <point x="2447.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.HousingTile" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="-108.33333333333337" y="-249.0" />
+      <point x="10458.666666666666" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.ClientHandler" target="it.polimi.ingsw.cg04.network.Server.VirtualClient" relationship="REALIZATION">
+      <point x="0.0" y="-141.0" />
+      <point x="11367.0" y="16463.0" />
+      <point x="11867.0" y="16463.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="TO_MANY">
+      <point x="-122.75" y="-741.0" />
+      <point x="10904.25" y="4003.0" />
+      <point x="10647.0" y="4003.0" />
+      <point x="10647.0" y="3503.0" />
+      <point x="11547.0" y="3503.0" />
+      <point x="11547.0" y="3443.0" />
+      <point x="11887.0" y="3443.0" />
+      <point x="11887.0" y="1363.0" />
+      <point x="10607.0" y="1363.0" />
+      <point x="0.0" y="-753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Pirates" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="-98.0" y="-153.0" />
+      <point x="2529.0" y="12483.0" />
+      <point x="2527.0" y="12483.0" />
+      <point x="2527.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.GameStates.LobbyState" relationship="CREATE">
+      <point x="0.0" y="741.0" />
+      <point x="11027.0" y="5583.0" />
+      <point x="11307.0" y="5583.0" />
+      <point x="11307.0" y="3423.0" />
+      <point x="11226.0" y="3423.0" />
+      <point x="59.0" y="44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-150.66666666666669" y="-812.5" />
+      <point x="10096.333333333334" y="13443.0" />
+      <point x="9467.0" y="13443.0" />
+      <point x="9467.0" y="12863.0" />
+      <point x="4467.0" y="12863.0" />
+      <point x="4467.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="9787.0" y="12983.0" />
+      <point x="6127.0" y="12983.0" />
+      <point x="6127.0" y="12743.0" />
+      <point x="5787.0" y="12743.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.ShieldTile" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="-68.0" y="-117.0" />
+      <point x="7579.0" y="3723.0" />
+      <point x="7587.0" y="3723.0" />
+      <point x="7587.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.ConnectionChecker" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="47.0" y="12723.0" />
+      <point x="-153.0" y="12723.0" />
+      <point x="-153.0" y="12583.0" />
+      <point x="-13.0" y="12583.0" />
+      <point x="0.0" y="-44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnPileAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="7627.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="120.0" y="-153.0" />
+      <point x="7227.0" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.RmiServerChecker" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16383.0" />
+      <point x="11457.75" y="16383.0" />
+      <point x="-49.25" y="44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.enumerations.BoxType" relationship="TO_MANY">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="5703.0" />
+      <point x="7787.0" y="5703.0" />
+      <point x="7787.0" y="4943.0" />
+      <point x="7847.0" y="4943.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.network.Client.VirtualServer" relationship="REALIZATION">
+      <point x="-79.0" y="-105.0" />
+      <point x="12388.0" y="8863.0" />
+      <point x="12187.0" y="8863.0" />
+      <point x="0.0" y="404.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.tiles.HousingTile" relationship="CREATE">
+      <point x="-88.75" y="-849.0" />
+      <point x="11218.25" y="5823.0" />
+      <point x="10667.0" y="5823.0" />
+      <point x="10667.0" y="5603.0" />
+      <point x="10387.0" y="5603.0" />
+      <point x="10387.0" y="4523.0" />
+      <point x="10458.666666666666" y="4523.0" />
+      <point x="-108.33333333333337" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.OpenSpaceState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-145.33333333333331" y="-80.0" />
+      <point x="8181.666666666666" y="9643.0" />
+      <point x="8087.0" y="9643.0" />
+      <point x="8087.0" y="6683.0" />
+      <point x="8067.0" y="6683.0" />
+      <point x="8067.0" y="3723.0" />
+      <point x="7747.0" y="3723.0" />
+      <point x="7747.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-102.33333333333334" y="-80.0" />
+      <point x="9304.666666666666" y="14183.0" />
+      <point x="9307.0" y="14183.0" />
+      <point x="9307.0" y="13023.0" />
+      <point x="3987.0" y="13023.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-151.0" y="-56.0" />
+      <point x="1896.0" y="13123.0" />
+      <point x="1887.0" y="13123.0" />
+      <point x="1887.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15923.0" />
+      <point x="4907.0" y="15923.0" />
+      <point x="4907.0" y="14363.0" />
+      <point x="5227.0" y="14363.0" />
+      <point x="5227.0" y="14203.0" />
+      <point x="5316.25" y="14203.0" />
+      <point x="-70.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="-157.33333333333331" y="-165.0" />
+      <point x="9869.666666666666" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_ONE">
+      <point x="-76.0" y="-56.0" />
+      <point x="5011.0" y="13123.0" />
+      <point x="3847.0" y="13123.0" />
+      <point x="3847.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RetireAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15263.0" />
+      <point x="8447.0" y="15263.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="124.33333333333334" y="-56.0" />
+      <point x="1331.333333333333" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16183.0" />
+      <point x="2307.0" y="16183.0" />
+      <point x="2307.0" y="14203.0" />
+      <point x="2567.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16203.0" />
+      <point x="2307.0" y="16203.0" />
+      <point x="2307.0" y="14203.0" />
+      <point x="2567.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareCrewAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15583.0" />
+      <point x="7147.0" y="15583.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="76.0" y="-56.0" />
+      <point x="5163.0" y="13183.0" />
+      <point x="8907.0" y="13183.0" />
+      <point x="8907.0" y="13063.0" />
+      <point x="3987.0" y="13063.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.ClientCheckerRMI" relationship="CREATE">
+      <point x="160.5" y="-80.5" />
+      <point x="12627.5" y="17923.0" />
+      <point x="12627.0" y="17923.0" />
+      <point x="12627.0" y="17863.0" />
+      <point x="12634.75" y="17863.0" />
+      <point x="47.75" y="44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-115.33333333333337" y="-80.0" />
+      <point x="9671.666666666666" y="14143.0" />
+      <point x="9387.0" y="14143.0" />
+      <point x="9387.0" y="13003.0" />
+      <point x="3987.0" y="13003.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15883.0" />
+      <point x="4907.0" y="15883.0" />
+      <point x="4907.0" y="14363.0" />
+      <point x="5227.0" y="14363.0" />
+      <point x="5227.0" y="14203.0" />
+      <point x="5316.25" y="14203.0" />
+      <point x="-70.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.EpidemicAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15223.0" />
+      <point x="8727.0" y="15223.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.utils.Shipyard" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="TO_MANY">
+      <point x="41.25" y="-80.0" />
+      <point x="11768.25" y="10743.0" />
+      <point x="11827.0" y="10743.0" />
+      <point x="11827.0" y="3463.0" />
+      <point x="11547.0" y="3463.0" />
+      <point x="11547.0" y="3443.0" />
+      <point x="11887.0" y="3443.0" />
+      <point x="11887.0" y="1363.0" />
+      <point x="10607.0" y="1363.0" />
+      <point x="0.0" y="-753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TUI" target="it.polimi.ingsw.cg04.client.view.View" relationship="GENERALIZATION">
+      <point x="0.0" y="333.0" />
+      <point x="12947.0" y="9043.0" />
+      <point x="12867.0" y="9043.0" />
+      <point x="12867.0" y="9263.0" />
+      <point x="12869.0" y="9263.0" />
+      <point x="82.0" y="-284.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI" relationship="TO_ONE">
+      <point x="184.125" y="-452.5" />
+      <point x="11191.125" y="16523.0" />
+      <point x="11347.0" y="16523.0" />
+      <point x="11347.0" y="13063.0" />
+      <point x="11387.0" y="13063.0" />
+      <point x="11387.0" y="12983.0" />
+      <point x="11711.75" y="12983.0" />
+      <point x="84.75" y="80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15703.0" />
+      <point x="6347.0" y="15703.0" />
+      <point x="6347.0" y="14363.0" />
+      <point x="6667.0" y="14363.0" />
+      <point x="6667.0" y="14203.0" />
+      <point x="6748.25" y="14203.0" />
+      <point x="-58.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.BatteryTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-129.0" />
+      <point x="8787.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game.GameInfo" target="it.polimi.ingsw.cg04.model.Game" relationship="INNER_CLASS">
+      <point x="-81.25" y="92.0" />
+      <point x="11625.75" y="3543.0" />
+      <point x="11149.75" y="3543.0" />
+      <point x="122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_ONE">
+      <point x="0.0" y="-261.0" />
+      <point x="2987.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TUI" target="it.polimi.ingsw.cg04.client.view.tui.TUI.InputReader" relationship="CREATE">
+      <point x="136.66666666666669" y="-333.0" />
+      <point x="13083.666666666666" y="8043.0" />
+      <point x="13087.0" y="8043.0" />
+      <point x="13087.0" y="6503.0" />
+      <point x="12867.0" y="6503.0" />
+      <point x="0.0" y="-165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.CloseFaceUpTilesAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15303.0" />
+      <point x="8287.0" y="15303.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="-88.75" y="-849.0" />
+      <point x="11218.25" y="5823.0" />
+      <point x="10667.0" y="5823.0" />
+      <point x="10667.0" y="5603.0" />
+      <point x="10147.0" y="5603.0" />
+      <point x="10147.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.DeamonThreadFactory" relationship="CREATE">
+      <point x="160.5" y="-80.5" />
+      <point x="12627.5" y="17923.0" />
+      <point x="12627.0" y="17923.0" />
+      <point x="12627.0" y="17863.0" />
+      <point x="13747.0" y="17863.0" />
+      <point x="13747.0" y="14363.0" />
+      <point x="13748.75" y="14363.0" />
+      <point x="-58.25" y="44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceInBufferAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="57.0" y="-56.0" />
+      <point x="7484.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.CloseFaceUpTilesAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15363.0" />
+      <point x="8287.0" y="15363.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceInBufferAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15423.0" />
+      <point x="7807.0" y="15423.0" />
+      <point x="7807.0" y="14363.0" />
+      <point x="7287.0" y="14363.0" />
+      <point x="7287.0" y="14203.0" />
+      <point x="7370.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.DeamonThreadFactory" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16403.0" />
+      <point x="13747.0" y="16403.0" />
+      <point x="13747.0" y="14363.0" />
+      <point x="13748.75" y="14363.0" />
+      <point x="-58.25" y="44.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="-150.33333333333331" y="-56.0" />
+      <point x="2416.6666666666665" y="13123.0" />
+      <point x="2407.0" y="13123.0" />
+      <point x="2407.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15863.0" />
+      <point x="4947.0" y="15863.0" />
+      <point x="4947.0" y="14203.0" />
+      <point x="5163.0" y="14203.0" />
+      <point x="76.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16243.0" />
+      <point x="1507.0" y="16243.0" />
+      <point x="1507.0" y="14203.0" />
+      <point x="1687.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16223.0" />
+      <point x="1507.0" y="16223.0" />
+      <point x="1507.0" y="14203.0" />
+      <point x="1687.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16783.0" />
+      <point x="247.0" y="16783.0" />
+      <point x="247.0" y="14203.0" />
+      <point x="47.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.EpidemicAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15343.0" />
+      <point x="8727.0" y="15343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.AbandonedShip" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-73.5" y="-105.0" />
+      <point x="5473.5" y="11903.0" />
+      <point x="4947.0" y="11903.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.ErrorSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="68.5" y="-93.0" />
+      <point x="12595.5" y="13083.0" />
+      <point x="12747.0" y="13083.0" />
+      <point x="12747.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="2567.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI" target="it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI" relationship="TO_ONE">
+      <point x="-53.5" y="-80.5" />
+      <point x="12413.5" y="17923.0" />
+      <point x="12407.0" y="17923.0" />
+      <point x="12407.0" y="16443.0" />
+      <point x="11387.0" y="16443.0" />
+      <point x="11387.0" y="12983.0" />
+      <point x="11711.75" y="12983.0" />
+      <point x="84.75" y="80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.DrawFaceDownAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15823.0" />
+      <point x="5747.0" y="15823.0" />
+      <point x="5747.0" y="13203.0" />
+      <point x="5547.5" y="13203.0" />
+      <point x="-59.5" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TuiParser.ParsedArgs" target="it.polimi.ingsw.cg04.client.view.tui.TuiParser" relationship="INNER_CLASS">
+      <point x="-104.0" y="-140.0" />
+      <point x="8303.0" y="4983.0" />
+      <point x="9647.0" y="4983.0" />
+      <point x="-80.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TUI.InputReader" target="it.polimi.ingsw.cg04.client.view.tui.TuiParser" relationship="CREATE">
+      <point x="0.0" y="-165.0" />
+      <point x="12867.0" y="5663.0" />
+      <point x="9807.0" y="5663.0" />
+      <point x="80.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16323.0" />
+      <point x="1427.0" y="16323.0" />
+      <point x="1427.0" y="13203.0" />
+      <point x="1207.0" y="13203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.utils.Shipyard" relationship="TO_ONE">
+      <point x="0.0" y="-309.0" />
+      <point x="11307.0" y="11963.0" />
+      <point x="11827.0" y="11963.0" />
+      <point x="11827.0" y="10763.0" />
+      <point x="11768.25" y="10763.0" />
+      <point x="41.25" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RetireAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8447.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15743.0" />
+      <point x="6347.0" y="15743.0" />
+      <point x="6347.0" y="14363.0" />
+      <point x="6667.0" y="14363.0" />
+      <point x="6667.0" y="14203.0" />
+      <point x="6748.25" y="14203.0" />
+      <point x="-58.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15163.0" />
+      <point x="9587.0" y="15163.0" />
+      <point x="9587.0" y="14163.0" />
+      <point x="9304.666666666666" y="14163.0" />
+      <point x="-102.33333333333334" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-160.0" y="-261.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="0.0" y="-189.0" />
+      <point x="4747.0" y="10443.0" />
+      <point x="4787.0" y="10443.0" />
+      <point x="4787.0" y="8963.0" />
+      <point x="8527.0" y="8963.0" />
+      <point x="8527.0" y="8443.0" />
+      <point x="10107.0" y="8443.0" />
+      <point x="10107.0" y="7983.0" />
+      <point x="10661.5" y="7983.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="121.5" y="-80.0" />
+      <point x="7868.5" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.utils.Shipyard" target="it.polimi.ingsw.cg04.model.Ship" relationship="CREATE">
+      <point x="-41.25" y="-80.0" />
+      <point x="11685.75" y="10743.0" />
+      <point x="11687.0" y="10743.0" />
+      <point x="11687.0" y="7603.0" />
+      <point x="11707.0" y="7603.0" />
+      <point x="11707.0" y="7583.0" />
+      <point x="11547.0" y="7583.0" />
+      <point x="11547.0" y="5803.0" />
+      <point x="11218.25" y="5803.0" />
+      <point x="-88.75" y="-849.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.ConnectionChecker" target="it.polimi.ingsw.cg04.network.Message" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-13.0" y="12563.0" />
+      <point x="127.0" y="12563.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16163.0" />
+      <point x="2827.0" y="16163.0" />
+      <point x="2827.0" y="14203.0" />
+      <point x="3067.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="567.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="120.66666666666666" y="-68.0" />
+      <point x="5267.666666666667" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.InitAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-80.0" />
+      <point x="9407.0" y="12983.0" />
+      <point x="6127.0" y="12983.0" />
+      <point x="6127.0" y="12743.0" />
+      <point x="5787.0" y="12743.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.EndGameState" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="GENERALIZATION">
+      <point x="-59.0" y="-69.0" />
+      <point x="8408.0" y="8443.0" />
+      <point x="8167.0" y="8443.0" />
+      <point x="8167.0" y="4863.0" />
+      <point x="8147.0" y="4863.0" />
+      <point x="8147.0" y="1323.0" />
+      <point x="9947.0" y="1323.0" />
+      <point x="9947.0" y="1243.0" />
+      <point x="9946.75" y="1243.0" />
+      <point x="-120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.AbandonedStation" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AbandonedStationState" relationship="CREATE">
+      <point x="108.0" y="-129.0" />
+      <point x="6975.0" y="12503.0" />
+      <point x="7487.0" y="12503.0" />
+      <point x="7487.0" y="10763.0" />
+      <point x="7625.5" y="10763.0" />
+      <point x="-121.5" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.HousingTile" target="it.polimi.ingsw.cg04.model.enumerations.PlayerColor" relationship="TO_ONE">
+      <point x="108.33333333333334" y="-249.0" />
+      <point x="10675.333333333334" y="4523.0" />
+      <point x="10607.0" y="4523.0" />
+      <point x="10607.0" y="3663.0" />
+      <point x="10127.0" y="3663.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewOthersSceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-70.75" y="-116.5" />
+      <point x="11976.25" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.network.Message" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16783.0" />
+      <point x="287.0" y="16783.0" />
+      <point x="287.0" y="12563.0" />
+      <point x="127.0" y="12563.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.StardustAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15243.0" />
+      <point x="8587.0" y="15243.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI.VirtualClientImp" target="it.polimi.ingsw.cg04.network.Client.RMI.VirtualClientRMI" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="11147.0" y="13083.0" />
+      <point x="11542.25" y="13083.0" />
+      <point x="-84.75" y="80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PlanetsState" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="157.33333333333331" y="-165.0" />
+      <point x="10184.333333333334" y="10443.0" />
+      <point x="10187.0" y="10443.0" />
+      <point x="10187.0" y="8963.0" />
+      <point x="8527.0" y="8963.0" />
+      <point x="8527.0" y="8443.0" />
+      <point x="10107.0" y="8443.0" />
+      <point x="10107.0" y="7983.0" />
+      <point x="10661.5" y="7983.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" relationship="INNER_CLASS">
+      <point x="-92.0" y="56.0" />
+      <point x="-45.0" y="16843.0" />
+      <point x="-153.0" y="16843.0" />
+      <point x="-153.0" y="16883.0" />
+      <point x="522.875" y="16883.0" />
+      <point x="-184.125" y="-428.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.CreateGameAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="14183.0" />
+      <point x="9671.666666666666" y="14183.0" />
+      <point x="-115.33333333333337" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.CompareFirePowerAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="150.33333333333331" y="-56.0" />
+      <point x="2717.3333333333335" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.network.Client.ServerHandler" relationship="GENERALIZATION">
+      <point x="184.125" y="-428.5" />
+      <point x="891.125" y="16363.0" />
+      <point x="10907.0" y="16363.0" />
+      <point x="10907.0" y="9623.0" />
+      <point x="10927.0" y="9623.0" />
+      <point x="10927.0" y="9583.0" />
+      <point x="10967.0" y="9583.0" />
+      <point x="10967.0" y="9203.0" />
+      <point x="12388.0" y="9203.0" />
+      <point x="-79.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.Main" target="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="1067.0" y="17843.0" />
+      <point x="1187.0" y="17843.0" />
+      <point x="1187.0" y="16823.0" />
+      <point x="10822.875" y="16823.0" />
+      <point x="-184.125" y="-452.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TUI.InputReader" target="it.polimi.ingsw.cg04.client.view.tui.TUI" relationship="INNER_CLASS">
+      <point x="69.25" y="165.0" />
+      <point x="12936.25" y="8043.0" />
+      <point x="12947.0" y="8043.0" />
+      <point x="0.0" y="-333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.EndBuildingAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16043.0" />
+      <point x="3827.0" y="16043.0" />
+      <point x="3827.0" y="14203.0" />
+      <point x="3907.25" y="14203.0" />
+      <point x="-59.75" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StopBuildingAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15203.0" />
+      <point x="8867.0" y="15203.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StopBuildingAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15383.0" />
+      <point x="8867.0" y="15383.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.ClientHandlerRMI.VirtualControllerImp" target="it.polimi.ingsw.cg04.network.Server.RMI.VirtualControllerRMI" relationship="REALIZATION">
+      <point x="0.0" y="-92.0" />
+      <point x="13107.0" y="17223.0" />
+      <point x="13109.0" y="17223.0" />
+      <point x="82.0" y="79.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.client.model.ClientModel" relationship="CREATE">
+      <point x="79.0" y="-105.0" />
+      <point x="12546.0" y="8923.0" />
+      <point x="12547.0" y="8923.0" />
+      <point x="12547.0" y="8783.0" />
+      <point x="12467.0" y="8783.0" />
+      <point x="0.0" y="165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.BuildState" target="it.polimi.ingsw.cg04.model.GameStates.GameState" relationship="GENERALIZATION">
+      <point x="120.66666666666666" y="-309.0" />
+      <point x="11427.666666666666" y="11903.0" />
+      <point x="12187.0" y="11903.0" />
+      <point x="12187.0" y="9243.0" />
+      <point x="12687.0" y="9243.0" />
+      <point x="12687.0" y="1323.0" />
+      <point x="9947.0" y="1323.0" />
+      <point x="9947.0" y="1243.0" />
+      <point x="9946.75" y="1243.0" />
+      <point x="-120.25" y="513.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="76.0" y="-56.0" />
+      <point x="5163.0" y="13183.0" />
+      <point x="8907.0" y="13183.0" />
+      <point x="8907.0" y="13043.0" />
+      <point x="6687.0" y="13043.0" />
+      <point x="6687.0" y="12523.0" />
+      <point x="6727.0" y="12523.0" />
+      <point x="6727.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.MeteorsRain" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="-100.66666666666666" y="-153.0" />
+      <point x="4186.333333333333" y="11883.0" />
+      <point x="4167.0" y="11883.0" />
+      <point x="4167.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetNextAdventureCardAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15803.0" />
+      <point x="5787.0" y="15803.0" />
+      <point x="5787.0" y="14383.0" />
+      <point x="6067.0" y="14383.0" />
+      <point x="6067.0" y="14203.0" />
+      <point x="6156.0" y="14203.0" />
+      <point x="-71.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Epidemic" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-73.5" y="-56.0" />
+      <point x="4833.5" y="11863.0" />
+      <point x="4507.0" y="11863.0" />
+      <point x="4507.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.enumerations.PlayerColor" relationship="TO_ONE">
+      <point x="-65.5" y="-369.0" />
+      <point x="10661.5" y="8003.0" />
+      <point x="10667.0" y="8003.0" />
+      <point x="10667.0" y="7563.0" />
+      <point x="10587.0" y="7563.0" />
+      <point x="10587.0" y="5643.0" />
+      <point x="10107.0" y="5643.0" />
+      <point x="10107.0" y="3683.0" />
+      <point x="10127.0" y="3683.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.FlightBoard" relationship="TO_ONE">
+      <point x="-122.75" y="-741.0" />
+      <point x="10904.25" y="3703.0" />
+      <point x="10347.0" y="3703.0" />
+      <point x="10347.0" y="5623.0" />
+      <point x="10107.0" y="5623.0" />
+      <point x="10107.0" y="5743.0" />
+      <point x="10258.75" y="5743.0" />
+      <point x="-88.25" y="-285.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoard" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="-88.25" y="-285.0" />
+      <point x="10258.75" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.SocketClientHandler" target="it.polimi.ingsw.cg04.network.Server.ClientHandler" relationship="GENERALIZATION">
+      <point x="131.0" y="-92.5" />
+      <point x="1518.0" y="17903.0" />
+      <point x="11447.0" y="17903.0" />
+      <point x="11447.0" y="16863.0" />
+      <point x="11443.25" y="16863.0" />
+      <point x="76.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnTileAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="5870.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.FlightState" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="120.66666666666666" y="-80.0" />
+      <point x="9907.666666666666" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.Main" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="1067.0" y="17843.0" />
+      <point x="987.0" y="17843.0" />
+      <point x="987.0" y="16883.0" />
+      <point x="768.375" y="16883.0" />
+      <point x="61.375" y="-428.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.Game" relationship="TO_ONE">
+      <point x="93.33333333333334" y="-249.0" />
+      <point x="8580.333333333334" y="9323.0" />
+      <point x="8647.0" y="9323.0" />
+      <point x="8647.0" y="9303.0" />
+      <point x="8687.0" y="9303.0" />
+      <point x="8687.0" y="5763.0" />
+      <point x="10147.0" y="5763.0" />
+      <point x="10147.0" y="5063.0" />
+      <point x="10747.0" y="5063.0" />
+      <point x="10747.0" y="4023.0" />
+      <point x="10904.25" y="4023.0" />
+      <point x="-122.75" y="-741.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PickPileAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="16003.0" />
+      <point x="4387.0" y="16003.0" />
+      <point x="4387.0" y="14203.0" />
+      <point x="4470.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.DrawFaceDownAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-59.5" y="-56.0" />
+      <point x="5547.5" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.RMI.HandlersProviderImp" target="it.polimi.ingsw.cg04.network.Server.Server" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="1467.0" y="18263.0" />
+      <point x="1816.0" y="18263.0" />
+      <point x="109.0" y="-140.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.JoinGameAction" target="it.polimi.ingsw.cg04.model.enumerations.PlayerColor" relationship="TO_ONE">
+      <point x="102.33333333333334" y="-80.0" />
+      <point x="9509.333333333334" y="12963.0" />
+      <point x="8767.0" y="12963.0" />
+      <point x="8767.0" y="5743.0" />
+      <point x="8627.0" y="5743.0" />
+      <point x="8627.0" y="3683.0" />
+      <point x="10127.0" y="3683.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.WarZoneState" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_ONE">
+      <point x="0.0" y="-321.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.ClientHandler" target="it.polimi.ingsw.cg04.controller.GamesController" relationship="TO_ONE">
+      <point x="-76.25" y="141.0" />
+      <point x="11290.75" y="17823.0" />
+      <point x="1147.0" y="17823.0" />
+      <point x="1147.0" y="16863.0" />
+      <point x="427.0" y="16863.0" />
+      <point x="427.0" y="15163.0" />
+      <point x="905.25" y="15163.0" />
+      <point x="-81.75" y="201.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.AlienSupportTile" target="it.polimi.ingsw.cg04.model.enumerations.CrewType" relationship="TO_ONE">
+      <point x="95.0" y="-153.0" />
+      <point x="9202.0" y="3723.0" />
+      <point x="10687.0" y="3723.0" />
+      <point x="10687.0" y="3343.0" />
+      <point x="10387.0" y="3343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Smugglers" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-106.66666666666663" y="-177.0" />
+      <point x="8000.333333333334" y="11863.0" />
+      <point x="8007.0" y="11863.0" />
+      <point x="8007.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoard" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="-88.25" y="-285.0" />
+      <point x="10258.75" y="6343.0" />
+      <point x="10147.0" y="6343.0" />
+      <point x="10147.0" y="8023.0" />
+      <point x="10661.5" y="8023.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ReturnTileAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15763.0" />
+      <point x="5827.0" y="15763.0" />
+      <point x="5827.0" y="14363.0" />
+      <point x="5787.0" y="14363.0" />
+      <point x="5787.0" y="14203.0" />
+      <point x="5870.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="0.0" y="-68.0" />
+      <point x="5147.0" y="9623.0" />
+      <point x="5627.0" y="9623.0" />
+      <point x="5627.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="-122.75" y="-741.0" />
+      <point x="10904.25" y="3703.0" />
+      <point x="10347.0" y="3703.0" />
+      <point x="10347.0" y="5623.0" />
+      <point x="10107.0" y="5623.0" />
+      <point x="10107.0" y="7943.0" />
+      <point x="10147.0" y="7943.0" />
+      <point x="10147.0" y="8023.0" />
+      <point x="10661.5" y="8023.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.EndBuildingAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-59.75" y="-56.0" />
+      <point x="3907.25" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoardLev1" target="it.polimi.ingsw.cg04.model.Player" relationship="CREATE">
+      <point x="88.25" y="68.0" />
+      <point x="11515.25" y="3563.0" />
+      <point x="11707.0" y="3563.0" />
+      <point x="11707.0" y="7623.0" />
+      <point x="10807.0" y="7623.0" />
+      <point x="10807.0" y="8023.0" />
+      <point x="10792.5" y="8023.0" />
+      <point x="65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.EpidemicState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="0.0" y="-68.0" />
+      <point x="5147.0" y="3763.0" />
+      <point x="4907.0" y="3763.0" />
+      <point x="4907.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.SocketClientHandler.ConnectionChecker" target="it.polimi.ingsw.cg04.network.Message" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-93.0" y="16863.0" />
+      <point x="-193.0" y="16863.0" />
+      <point x="-193.0" y="12563.0" />
+      <point x="127.0" y="12563.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.EmptyTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-43.5" />
+      <point x="10247.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.FlightBoardLev2" target="it.polimi.ingsw.cg04.model.Player" relationship="CREATE">
+      <point x="88.25" y="129.0" />
+      <point x="10995.25" y="3623.0" />
+      <point x="11667.0" y="3623.0" />
+      <point x="11667.0" y="7623.0" />
+      <point x="10807.0" y="7623.0" />
+      <point x="10807.0" y="8023.0" />
+      <point x="10792.5" y="8023.0" />
+      <point x="65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.MeteorsRain" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-153.0" />
+      <point x="4287.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" target="it.polimi.ingsw.cg04.model.Player" relationship="TO_MANY">
+      <point x="93.33333333333334" y="-249.0" />
+      <point x="8580.333333333334" y="9323.0" />
+      <point x="8647.0" y="9323.0" />
+      <point x="8647.0" y="9303.0" />
+      <point x="8727.0" y="9303.0" />
+      <point x="8727.0" y="8963.0" />
+      <point x="8527.0" y="8963.0" />
+      <point x="8527.0" y="8443.0" />
+      <point x="10107.0" y="8443.0" />
+      <point x="10107.0" y="7983.0" />
+      <point x="10661.5" y="7983.0" />
+      <point x="-65.5" y="-369.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.LoadCrewAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="1207.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="148.66666666666669" y="-56.0" />
+      <point x="3215.6666666666665" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.GetNextAdventureCardAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="71.0" y="-56.0" />
+      <point x="6298.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RemoveCrewAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16343.0" />
+      <point x="1147.0" y="16343.0" />
+      <point x="1147.0" y="15183.0" />
+      <point x="327.0" y="15183.0" />
+      <point x="327.0" y="14203.0" />
+      <point x="567.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.StructuralTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Server.Server" target="it.polimi.ingsw.cg04.network.Server.ClientHandler" relationship="TO_MANY">
+      <point x="109.0" y="-140.0" />
+      <point x="1816.0" y="18283.0" />
+      <point x="1807.0" y="18283.0" />
+      <point x="1807.0" y="17843.0" />
+      <point x="11290.75" y="17843.0" />
+      <point x="-76.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.Game.GameInfo" relationship="CREATE">
+      <point x="0.0" y="741.0" />
+      <point x="11027.0" y="5583.0" />
+      <point x="11307.0" y="5583.0" />
+      <point x="11307.0" y="3423.0" />
+      <point x="11788.25" y="3423.0" />
+      <point x="81.25" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.View" target="it.polimi.ingsw.cg04.network.Client.ServerHandler" relationship="TO_ONE">
+      <point x="-82.0" y="-284.0" />
+      <point x="12705.0" y="9283.0" />
+      <point x="12707.0" y="9283.0" />
+      <point x="12707.0" y="9203.0" />
+      <point x="12546.0" y="9203.0" />
+      <point x="79.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.client.view.View" relationship="TO_ONE">
+      <point x="79.0" y="105.0" />
+      <point x="12546.0" y="9263.0" />
+      <point x="12705.0" y="9263.0" />
+      <point x="-82.0" y="-284.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15903.0" />
+      <point x="4947.0" y="15903.0" />
+      <point x="4947.0" y="14203.0" />
+      <point x="5163.0" y="14203.0" />
+      <point x="76.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.enumerations.Direction" relationship="TO_MANY">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="5743.0" />
+      <point x="11467.0" y="5743.0" />
+      <point x="11467.0" y="3583.0" />
+      <point x="11927.0" y="3583.0" />
+      <point x="11927.0" y="1343.0" />
+      <point x="3507.0" y="1343.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.Main" target="it.polimi.ingsw.cg04.controller.GamesController" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="1067.0" y="16823.0" />
+      <point x="1068.75" y="16823.0" />
+      <point x="81.75" y="201.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.FlightState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-120.66666666666663" y="-80.0" />
+      <point x="9666.333333333334" y="5683.0" />
+      <point x="9907.0" y="5683.0" />
+      <point x="9907.0" y="1303.0" />
+      <point x="9807.0" y="1303.0" />
+      <point x="9807.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Smugglers" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SmugglersState" relationship="CREATE">
+      <point x="106.66666666666666" y="-177.0" />
+      <point x="8213.666666666666" y="11863.0" />
+      <point x="8807.0" y="11863.0" />
+      <point x="8807.0" y="10723.0" />
+      <point x="8945.5" y="10723.0" />
+      <point x="-121.5" y="-116.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="TO_MANY">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="5743.0" />
+      <point x="11547.0" y="5743.0" />
+      <point x="11547.0" y="3443.0" />
+      <point x="11887.0" y="3443.0" />
+      <point x="11887.0" y="1363.0" />
+      <point x="10607.0" y="1363.0" />
+      <point x="0.0" y="-753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.StardustAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8587.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.LoadCrewState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="90.5" y="-68.0" />
+      <point x="11477.5" y="10743.0" />
+      <point x="11647.0" y="10743.0" />
+      <point x="11647.0" y="8403.0" />
+      <point x="11787.0" y="8403.0" />
+      <point x="11787.0" y="4783.0" />
+      <point x="12007.0" y="4783.0" />
+      <point x="12007.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChooseBatteryAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-70.75" y="-56.0" />
+      <point x="5316.25" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SlaversState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-120.0" y="-153.0" />
+      <point x="6987.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Ship" target="it.polimi.ingsw.cg04.model.enumerations.Connection" relationship="TO_MANY">
+      <point x="88.75" y="-849.0" />
+      <point x="11395.75" y="5823.0" />
+      <point x="11387.0" y="5823.0" />
+      <point x="11387.0" y="5743.0" />
+      <point x="11507.0" y="5743.0" />
+      <point x="11507.0" y="4763.0" />
+      <point x="11967.0" y="4763.0" />
+      <point x="11967.0" y="783.0" />
+      <point x="11867.0" y="783.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Game" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="TO_MANY">
+      <point x="-122.75" y="-741.0" />
+      <point x="10904.25" y="4003.0" />
+      <point x="10647.0" y="4003.0" />
+      <point x="10647.0" y="3643.0" />
+      <point x="8987.0" y="3643.0" />
+      <point x="8987.0" y="3623.0" />
+      <point x="8009.5" y="3623.0" />
+      <point x="82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.MeteorsRain" target="it.polimi.ingsw.cg04.model.enumerations.Attack" relationship="TO_MANY">
+      <point x="-100.66666666666666" y="-153.0" />
+      <point x="4186.333333333333" y="11883.0" />
+      <point x="4167.0" y="11883.0" />
+      <point x="4167.0" y="11863.0" />
+      <point x="4127.0" y="11863.0" />
+      <point x="4127.0" y="10483.0" />
+      <point x="3387.0" y="10483.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewOthersSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="70.75" y="-116.5" />
+      <point x="12117.75" y="13043.0" />
+      <point x="12667.0" y="13043.0" />
+      <point x="12667.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.RotateAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15963.0" />
+      <point x="4667.0" y="15963.0" />
+      <point x="4667.0" y="14203.0" />
+      <point x="4750.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.AdventureCardSceneController" target="it.polimi.ingsw.cg04.model.enumerations.BoxType" relationship="TO_MANY">
+      <point x="-150.66666666666669" y="-812.5" />
+      <point x="10096.333333333334" y="13443.0" />
+      <point x="9467.0" y="13443.0" />
+      <point x="9467.0" y="12863.0" />
+      <point x="6247.0" y="12863.0" />
+      <point x="6247.0" y="6483.0" />
+      <point x="7787.0" y="6483.0" />
+      <point x="7787.0" y="4943.0" />
+      <point x="7847.0" y="4943.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Pirates" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.PiratesState" relationship="CREATE">
+      <point x="0.0" y="-153.0" />
+      <point x="2627.0" y="12463.0" />
+      <point x="2727.0" y="12463.0" />
+      <point x="2727.0" y="10563.0" />
+      <point x="2827.0" y="10563.0" />
+      <point x="-160.0" y="-261.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="5087.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.PrelobbySceneController" target="it.polimi.ingsw.cg04.client.view.gui.controllers.ViewController" relationship="GENERALIZATION">
+      <point x="-82.5" y="-152.5" />
+      <point x="11604.5" y="13103.0" />
+      <point x="12227.0" y="13103.0" />
+      <point x="0.0" y="344.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.EndSceneController" target="it.polimi.ingsw.cg04.client.view.gui.GUIRoot" relationship="TO_ONE">
+      <point x="100.0" y="-104.5" />
+      <point x="13687.0" y="11943.0" />
+      <point x="13347.0" y="11943.0" />
+      <point x="13347.0" y="9943.0" />
+      <point x="13130.666666666666" y="9943.0" />
+      <point x="163.66666666666669" y="-861.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" target="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.AdventureCardState" relationship="GENERALIZATION">
+      <point x="120.66666666666666" y="-189.0" />
+      <point x="4867.666666666667" y="10463.0" />
+      <point x="6807.0" y="10463.0" />
+      <point x="6807.0" y="9623.0" />
+      <point x="8327.0" y="9623.0" />
+      <point x="8327.0" y="9323.0" />
+      <point x="8393.666666666666" y="9323.0" />
+      <point x="-93.33333333333334" y="-249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.HandleBoxesAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="0.0" y="-56.0" />
+      <point x="2047.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.StardustAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15283.0" />
+      <point x="8587.0" y="15283.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.EpidemicAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8727.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.LobbyActions.SetNicknameAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="15183.0" />
+      <point x="9227.0" y="15183.0" />
+      <point x="9227.0" y="13183.0" />
+      <point x="8973.5" y="13183.0" />
+      <point x="-73.5" y="-80.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.View" target="it.polimi.ingsw.cg04.client.model.ClientModel" relationship="TO_ONE">
+      <point x="-82.0" y="-284.0" />
+      <point x="12705.0" y="9283.0" />
+      <point x="12707.0" y="9283.0" />
+      <point x="12707.0" y="9203.0" />
+      <point x="12727.0" y="9203.0" />
+      <point x="12727.0" y="8883.0" />
+      <point x="12607.0" y="8883.0" />
+      <point x="12607.0" y="8443.0" />
+      <point x="12647.0" y="8443.0" />
+      <point x="12647.0" y="7623.0" />
+      <point x="12467.0" y="7623.0" />
+      <point x="0.0" y="-165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.tiles.ShieldTile" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="GENERALIZATION">
+      <point x="68.0" y="-117.0" />
+      <point x="7715.0" y="3763.0" />
+      <point x="8247.0" y="3763.0" />
+      <point x="8247.0" y="3363.0" />
+      <point x="10509.25" y="3363.0" />
+      <point x="-97.75" y="753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StartTimerAction" target="it.polimi.ingsw.cg04.model.exceptions.InvalidActionException" relationship="CREATE">
+      <point x="-57.0" y="-56.0" />
+      <point x="7850.0" y="13143.0" />
+      <point x="3987.0" y="13143.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.RMI.ServerHandlerRMI" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.ChoosePropulsorAction" relationship="CREATE">
+      <point x="-184.125" y="-452.5" />
+      <point x="10822.875" y="16863.0" />
+      <point x="9987.0" y="16863.0" />
+      <point x="9987.0" y="16143.0" />
+      <point x="2827.0" y="16143.0" />
+      <point x="2827.0" y="14203.0" />
+      <point x="3067.0" y="14203.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.tui.TuiParser" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="CREATE">
+      <point x="80.0" y="56.0" />
+      <point x="9807.0" y="4883.0" />
+      <point x="9547.0" y="4883.0" />
+      <point x="9547.0" y="3743.0" />
+      <point x="8187.0" y="3743.0" />
+      <point x="8187.0" y="3643.0" />
+      <point x="5750.25" y="3643.0" />
+      <point x="63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.ChooseTileAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="58.75" y="-56.0" />
+      <point x="6865.75" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.AdventureCardActions.RetireAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.MeteorsRainState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-120.66666666666663" y="-189.0" />
+      <point x="4626.333333333333" y="9703.0" />
+      <point x="4627.0" y="9703.0" />
+      <point x="4627.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.Player" target="it.polimi.ingsw.cg04.model.tiles.Tile" relationship="TO_ONE">
+      <point x="-65.5" y="-369.0" />
+      <point x="10661.5" y="8003.0" />
+      <point x="10667.0" y="8003.0" />
+      <point x="10667.0" y="7563.0" />
+      <point x="11587.0" y="7563.0" />
+      <point x="11587.0" y="3463.0" />
+      <point x="11547.0" y="3463.0" />
+      <point x="11547.0" y="3443.0" />
+      <point x="11887.0" y="3443.0" />
+      <point x="11887.0" y="1363.0" />
+      <point x="10607.0" y="1363.0" />
+      <point x="0.0" y="-753.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.adventureCards.Planets" target="it.polimi.ingsw.cg04.model.adventureCards.AdventureCard" relationship="GENERALIZATION">
+      <point x="-93.5" y="-153.0" />
+      <point x="9633.5" y="12483.0" />
+      <point x="9547.0" y="12483.0" />
+      <point x="9547.0" y="5743.0" />
+      <point x="9507.0" y="5743.0" />
+      <point x="9507.0" y="3783.0" />
+      <point x="4947.0" y="3783.0" />
+      <point x="4947.0" y="3623.0" />
+      <point x="7844.5" y="3623.0" />
+      <point x="-82.5" y="333.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.client.view.gui.controllers.BuildSceneController" target="it.polimi.ingsw.cg04.model.utils.Coordinates" relationship="TO_MANY">
+      <point x="0.0" y="-560.5" />
+      <point x="10707.0" y="12843.0" />
+      <point x="6207.0" y="12843.0" />
+      <point x="6207.0" y="4783.0" />
+      <point x="1087.0" y="4783.0" />
+      <point x="1087.0" y="3643.0" />
+      <point x="5623.75" y="3643.0" />
+      <point x="-63.25" y="141.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.model.GameStates.AdventureCardStates.SmugglersState" target="it.polimi.ingsw.cg04.model.exceptions.InvalidStateException" relationship="CREATE">
+      <point x="-121.5" y="-116.0" />
+      <point x="8945.5" y="10443.0" />
+      <point x="8947.0" y="10443.0" />
+      <point x="8947.0" y="163.0" />
+      <point x="2827.0" y="163.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" target="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.PlaceInBufferAction" relationship="CREATE">
+      <point x="61.375" y="-428.5" />
+      <point x="768.375" y="16843.0" />
+      <point x="8447.0" y="16843.0" />
+      <point x="8447.0" y="15483.0" />
+      <point x="7807.0" y="15483.0" />
+      <point x="7807.0" y="14363.0" />
+      <point x="7287.0" y="14363.0" />
+      <point x="7287.0" y="14203.0" />
+      <point x="7370.0" y="14203.0" />
+      <point x="-57.0" y="-56.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.ServerHandler" target="it.polimi.ingsw.cg04.client.model.ClientModel" relationship="TO_ONE">
+      <point x="79.0" y="105.0" />
+      <point x="12546.0" y="9223.0" />
+      <point x="12287.0" y="9223.0" />
+      <point x="12287.0" y="8883.0" />
+      <point x="12607.0" y="8883.0" />
+      <point x="12607.0" y="8443.0" />
+      <point x="12647.0" y="8443.0" />
+      <point x="12647.0" y="7623.0" />
+      <point x="12467.0" y="7623.0" />
+      <point x="0.0" y="-165.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.BuildActions.StopBuildingAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="8867.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.controller.PlayerActions.FixShipAction" target="it.polimi.ingsw.cg04.controller.PlayerActions.PlayerAction" relationship="GENERALIZATION">
+      <point x="104.0" y="-56.0" />
+      <point x="1791.0" y="13163.0" />
+      <point x="5147.0" y="13163.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler.SocketServerReader" target="it.polimi.ingsw.cg04.network.Client.Socket.SocketServerHandler" relationship="TO_ONE">
+      <point x="92.0" y="56.0" />
+      <point x="139.0" y="16843.0" />
+      <point x="645.625" y="16843.0" />
+      <point x="-61.375" y="-428.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.04714640198511166" showDependencies="true" x="9400.76315789474" y="10518.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
