@@ -1,18 +1,19 @@
 # Galaxy Trucker
 
-# Funzionalità implementate
-| FUNZIONALITA'       |  |
+# Implemented Features
+| FEATURE             |  |
 |---------------------|--|
-| Regole Semplificate | ✅ |
-| Regole Complete     | ✅ |
+| Simplified Rules    | ✅ |
+| Complete Rules      | ✅ |
 | TUI                 | ✅ |
 | GUI                 | ✅ |
 | RMI                 | ✅ |
 | Socket              | ✅ |
-| Volo di Prova       | ✅ |
+| Test Flight         | ✅ |
 | Multigame           | ✅ |
-| Resilienza          | ❌ |
-| Persistenza         | ❌ |
+| Resilience          | ❌ |
+| Persistence         | ❌ |
+
 
 ## Run the server
 ```bash
@@ -23,6 +24,14 @@ If RMI connections don't work add the following parameter
 ```bash
 -Djava.rmi.server.hostname=<server ip>
 ```
+
+On Windows if RMI connections doesn't still work: 
+
+- Open Control Panel → System and Security → Windows Defender Firewall → Allow an app or feature through Windows Defender Firewall.
+
+- Click Change settings.
+
+- Ensure Java(TM) Platform SE binary is checked for both Private and Public networks.
 
 ## Run the client with RMI
 ```bash
