@@ -354,6 +354,7 @@ public class AdventureCardSceneController extends ViewController {
         showButton(quitButton);
         showButton(viewShipsButton);
         objectsInfo.setVisible(true);
+        objectsInfo.setManaged(true);
     }
 
     /**
