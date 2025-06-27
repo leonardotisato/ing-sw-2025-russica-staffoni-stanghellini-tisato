@@ -686,6 +686,7 @@ public class AdventureCardSceneController extends ViewController {
             boxesMaps.clear();
         });
 
+        showButton(choiceButton);
         choiceButton.setText("Pass turn");
         choiceButton.toFront();
         choiceButton.setOnAction(event -> {
