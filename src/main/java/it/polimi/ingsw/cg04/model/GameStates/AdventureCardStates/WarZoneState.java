@@ -307,7 +307,8 @@ public class WarZoneState extends AdventureCardState {
                     this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " ha meno potenza dei propulsori di tutti.");
                     played.set(worstPlayerIdx, WORST);
                     if (card.getPenaltyType().get(penaltyIdx).equals("LOSEBOX")) {
-                        player.getShip().removeBestBoxes(card.getLostGoods());
+                        Player p = sortedPlayers.get(worstPlayerIdx);
+                        p.getShip().removeBestBoxes(card.getLostGoods());
                         played.set(worstPlayerIdx, DONE);
                         this.appendLog("Player " + sortedPlayers.get(worstPlayerIdx).getName() + " perde " + card.getLostGoods() + " risorse.");
                         triggerNextPenalty();
