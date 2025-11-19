@@ -33,11 +33,6 @@ Grade: 30/30
 
 ---
 
-## Requirements
-
-- Java JDK 23
-
-
 ## Run the server
 ```bash
 java -jar <path to the .jar file> server
