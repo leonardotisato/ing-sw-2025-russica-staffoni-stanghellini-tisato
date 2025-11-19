@@ -74,14 +74,14 @@ java -jar <path to the .jar file> client tcp <server ip> 4200 <TUI/GUI>
 ### Lobby
 ![Lobby Page](img/gui-lobby-page.png)
 
+### Build Phase
+![Build Page](img/gui-build-page.png)
+
 ### Map
 ![Map Page](img/gui-map-page.png)
 
 ### Others POV
 ![Others POV Page](img/gui-others-pov-page.png)
-
-### Build Phase
-![Build Page](img/gui-build-page.png)
 
 ### Adventure Card Phase
 ![Adcard Page](img/gui-adcard-page.png)
